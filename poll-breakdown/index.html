@@ -314,27 +314,56 @@
     max-width:70ch;
   }
 
-  .dnav{ position:sticky; top:0; z-index:50; display:flex; align-items:center; gap:22px; padding:0 20px; height:52px; background:#15130f; border-bottom:1px solid rgba(255,255,255,0.08); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; }
-  .dnav-brand{ color:#f0d29a; font-weight:700; font-size:13px; text-decoration:none; letter-spacing:.02em; margin-right:8px; white-space:nowrap; }
-  .dnav-tabs{ display:flex; gap:4px; overflow-x:auto; }
-  .dnav-tab{ color:#a8a39a; text-decoration:none; font-size:12.5px; font-weight:650; letter-spacing:.04em; text-transform:uppercase; padding:8px 14px; border-radius:7px; white-space:nowrap; transition:background .12s,color .12s; }
-  .dnav-tab:hover{ background:rgba(255,255,255,0.06); color:#f2efe9; }
-  .dnav-tab.active{ background:rgba(217,171,76,0.16); color:#f0c674; }
-  .dnav-tab.soon{ opacity:.55; }
-  .dnav-tab.soon::after{ content:" · soon"; font-size:9px; text-transform:none; letter-spacing:0; opacity:.75; }
+  /* ====== shared app shell (identical on every dashboards/* page) ====== */
+  .shell{ display:grid; grid-template-columns:190px 1fr; grid-template-rows:52px 1fr; grid-template-areas:"topbar topbar" "sidebar content"; min-height:100vh; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; }
+  @media (max-width:720px){ .shell{ grid-template-columns:1fr; grid-template-areas:"topbar" "sidebar" "content"; } }
+  .topbar{ grid-area:topbar; position:sticky; top:0; z-index:60; display:flex; align-items:center; padding:0 20px; background:#15130f; border-bottom:1px solid rgba(255,255,255,.08); }
+  .topbar .brand{ color:#f0d29a; font-weight:700; font-size:14px; letter-spacing:.02em; text-decoration:none; }
+  .sidebar{ grid-area:sidebar; position:sticky; top:52px; align-self:start; height:calc(100vh - 52px); overflow-y:auto; background:#15130f; border-right:1px solid rgba(255,255,255,.08); padding:18px 12px; }
+  @media (max-width:720px){ .sidebar{ position:static; height:auto; border-right:0; border-bottom:1px solid rgba(255,255,255,.08); } }
+  .sidebar nav{ display:flex; flex-direction:column; gap:3px; }
+  @media (max-width:720px){ .sidebar nav{ flex-direction:row; overflow-x:auto; } }
+  .slink{ color:#a8a39a; text-decoration:none; font-size:13px; font-weight:650; letter-spacing:.02em; padding:9px 12px; border-radius:8px; white-space:nowrap; transition:background .12s,color .12s; }
+  .slink:hover{ background:rgba(255,255,255,.06); color:#f2efe9; }
+  .slink.active{ background:rgba(217,171,76,.16); color:#f0c674; }
+  .slink.soon{ opacity:.55; }
+  .slink.soon::after{ content:" · soon"; font-size:9px; letter-spacing:0; opacity:.8; }
+  .content{ grid-area:content; min-width:0; }
+
+  .widgets{ position:fixed; right:16px; bottom:16px; z-index:55; display:flex; flex-direction:column; gap:10px; width:230px; }
+  @media (max-width:720px){ .widgets{ position:static; width:auto; margin:32px 20px 0; } }
+  .status-tile{ background:#1b1a16; border:1px solid rgba(255,255,255,.10); border-radius:12px; padding:12px 14px; box-shadow:0 8px 24px -12px rgba(0,0,0,.5); color:#e9e6df; }
+  .st-top{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px; gap:8px; }
+  .st-label{ font-size:11.5px; font-weight:650; color:#a8a39a; }
+  .st-pct{ font-size:12.5px; font-weight:700; font-variant-numeric:tabular-nums; color:#e9e6df; }
+  .st-bar-track{ height:5px; border-radius:3px; background:rgba(255,255,255,.08); overflow:hidden; margin-bottom:6px; }
+  .st-bar-fill{ height:100%; border-radius:3px; }
+  .st-sub{ font-size:10.5px; color:#7a766c; }
+  .status-tile.countdown{ display:flex; flex-direction:column; justify-content:center; }
+  .st-value{ font-size:22px; font-weight:800; font-variant-numeric:tabular-nums; letter-spacing:-0.01em; color:#f0d29a; }
+  .countdown .st-top{ margin-bottom:2px; }
+  .logs-btn{ font-size:10px; font-weight:650; letter-spacing:.03em; text-transform:uppercase; color:#a8a39a; text-decoration:none; border:1px solid rgba(255,255,255,.14); border-radius:99px; padding:3px 9px; transition:border-color .12s,color .12s; }
+  .logs-btn:hover{ border-color:#d9ab4c; color:#f0c674; }
+  /* ====== /shared app shell ====== */
+
+  .wrap{ padding-bottom:220px; }
 </style>
 </head>
 <body>
 
-<nav class="dnav">
-  <a class="dnav-brand" href="/dashboards/">Dashboards</a>
-  <div class="dnav-tabs">
-    <a href="/dashboards/chat/" class="dnav-tab soon">ЧАТ</a>
-    <a href="/dashboards/smm-heatmap/" class="dnav-tab">СММ</a>
-    <a href="/dashboards/powerbi/" class="dnav-tab soon">ПАВЕР БИ</a>
-    <a href="/dashboards/poll-breakdown/" class="dnav-tab active">ПОЛЛ</a>
-  </div>
-</nav>
+<div class="shell">
+  <header class="topbar">
+    <a class="brand" href="/dashboards/">Dashboards</a>
+  </header>
+  <aside class="sidebar">
+    <nav>
+      <a href="/dashboards/smm-heatmap/" class="slink">СММ</a>
+      <a href="/dashboards/poll-breakdown/" class="slink active">ПОЛЛ</a>
+      <a href="/dashboards/chat/" class="slink soon">ЧАТ</a>
+      <a href="/dashboards/powerbi/" class="slink soon">ПАВЕР БИ</a>
+    </nav>
+  </aside>
+  <main class="content">
 
 <div class="wrap">
   <header class="page">
@@ -536,5 +565,40 @@
 })();
 </script>
 
+  </main>
+
+  <div class="widgets">
+    <div class="status-tile">
+      <div class="st-top"><span class="st-label">Лимит Claude</span><span class="st-pct">68%</span></div>
+      <div class="st-bar-track"><div class="st-bar-fill" style="width:68%;background:#d9ab4c;"></div></div>
+      <div class="st-sub">использовано за 5 часов · сброс через 1ч 40м</div>
+    </div>
+    <div class="status-tile">
+      <div class="st-top"><span class="st-label">Лимит ChatGPT</span><span class="st-pct">45%</span></div>
+      <div class="st-bar-track"><div class="st-bar-fill" style="width:45%;background:#2dd4bf;"></div></div>
+      <div class="st-sub">использовано за неделю · сброс в понедельник</div>
+    </div>
+    <div class="status-tile countdown">
+      <div class="st-top"><span class="st-label">Обратный отсчёт</span><a class="logs-btn" href="/dashboards/logs/">Логи</a></div>
+      <span class="st-value" id="shell-countdown">10:00</span>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var COUNTDOWN_SECONDS = 10 * 60;
+  var deadline = Date.now() + COUNTDOWN_SECONDS * 1000;
+  var el = document.getElementById('shell-countdown');
+  function tick(){
+    var remaining = Math.round((deadline - Date.now()) / 1000);
+    if(remaining <= 0){ deadline = Date.now() + COUNTDOWN_SECONDS * 1000; remaining = COUNTDOWN_SECONDS; }
+    var m = Math.floor(remaining / 60), s = remaining % 60;
+    el.textContent = String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+  }
+  tick();
+  setInterval(tick, 1000);
+})();
+</script>
 </body>
 </html>
