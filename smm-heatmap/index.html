@@ -132,9 +132,27 @@
 
   footer.note { font-size: 12px; color: var(--ink-muted); border-top: 1px solid var(--line); padding-top: 16px; line-height: 1.6; }
   footer.note code { background: var(--surface-2); padding: 1px 6px; border-radius: 4px; font-size: 11.5px; }
+
+  .dnav{ position:sticky; top:0; z-index:50; display:flex; align-items:center; gap:22px; padding:0 20px; height:52px; background:#15130f; border-bottom:1px solid rgba(255,255,255,0.08); font-family:system-ui,-apple-system,"Segoe UI",sans-serif; }
+  .dnav-brand{ color:#f0d29a; font-weight:700; font-size:13px; text-decoration:none; letter-spacing:.02em; margin-right:8px; white-space:nowrap; }
+  .dnav-tabs{ display:flex; gap:4px; overflow-x:auto; }
+  .dnav-tab{ color:#a8a39a; text-decoration:none; font-size:12.5px; font-weight:650; letter-spacing:.04em; text-transform:uppercase; padding:8px 14px; border-radius:7px; white-space:nowrap; transition:background .12s,color .12s; }
+  .dnav-tab:hover{ background:rgba(255,255,255,0.06); color:#f2efe9; }
+  .dnav-tab.active{ background:rgba(217,171,76,0.16); color:#f0c674; }
+  .dnav-tab.soon{ opacity:.55; }
+  .dnav-tab.soon::after{ content:" · soon"; font-size:9px; text-transform:none; letter-spacing:0; opacity:.75; }
 </style>
 </head>
 <body>
+<nav class="dnav">
+  <a class="dnav-brand" href="/dashboards/">Dashboards</a>
+  <div class="dnav-tabs">
+    <a href="/dashboards/chat/" class="dnav-tab soon">ЧАТ</a>
+    <a href="/dashboards/smm-heatmap/" class="dnav-tab active">СММ</a>
+    <a href="/dashboards/powerbi/" class="dnav-tab soon">ПАВЕР БИ</a>
+    <a href="/dashboards/poll-breakdown/" class="dnav-tab">ПОЛЛ</a>
+  </div>
+</nav>
 <div class="viz-root">
 <div class="wrap">
 
