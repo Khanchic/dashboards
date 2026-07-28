@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Формати контенту — теплова карта · SMM Insights USA2</title>
+<style>
+  :root{color-scheme:light}
+  body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#f7f5f1;color:#1c1a16}
+  .viz-root {
+    --bg: #f7f5f1; --surface: #ffffff; --surface-2: #f1ede4;
+    --ink: #1c1a16; --ink-secondary: #5b574c; --ink-muted: #8b8578;
+    --accent: #a8791f; --accent-ink: #7a5713;
+    --line: rgba(28,26,22,0.10); --line-strong: rgba(28,26,22,0.16);
+    --empty-cell: #eeeae1; --empty-hatch: rgba(28,26,22,0.06);
+    --shadow: 0 1px 2px rgba(28,26,22,0.04), 0 8px 24px -12px rgba(28,26,22,0.18);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) .viz-root {
+      --bg: #1a1917; --surface: #232120; --surface-2: #2a2725;
+      --ink: #f3f0ea; --ink-secondary: #b3ada0; --ink-muted: #837c6e;
+      --accent: #d9ab4c; --accent-ink: #f0c674;
+      --line: rgba(243,240,234,0.09); --line-strong: rgba(243,240,234,0.16);
+      --empty-cell: #2a2725; --empty-hatch: rgba(243,240,234,0.05);
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 12px 32px -16px rgba(0,0,0,0.6);
+    }
+  }
+  :root[data-theme="dark"] .viz-root {
+    --bg: #1a1917; --surface: #232120; --surface-2: #2a2725;
+    --ink: #f3f0ea; --ink-secondary: #b3ada0; --ink-muted: #837c6e;
+    --accent: #d9ab4c; --accent-ink: #f0c674;
+    --line: rgba(243,240,234,0.09); --line-strong: rgba(243,240,234,0.16);
+    --empty-cell: #2a2725; --empty-hatch: rgba(243,240,234,0.05);
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 12px 32px -16px rgba(0,0,0,0.6);
+  }
+  :root[data-theme="light"] .viz-root {
+    --bg: #f7f5f1; --surface: #ffffff; --surface-2: #f1ede4;
+    --ink: #1c1a16; --ink-secondary: #5b574c; --ink-muted: #8b8578;
+    --accent: #a8791f; --accent-ink: #7a5713;
+    --line: rgba(28,26,22,0.10); --line-strong: rgba(28,26,22,0.16);
+    --empty-cell: #eeeae1; --empty-hatch: rgba(28,26,22,0.06);
+    --shadow: 0 1px 2px rgba(28,26,22,0.04), 0 8px 24px -12px rgba(28,26,22,0.18);
+  }
+
+  * { box-sizing: border-box; }
+  .viz-root { background: var(--bg); color: var(--ink); font-family: system-ui, -apple-system, "Segoe UI", sans-serif; padding: 40px 20px 64px; min-height: 100%; }
+  .viz-root .wrap { max-width: 1180px; margin: 0 auto; display: flex; flex-direction: column; gap: 36px; }
+
+  .eyebrow { font-size: 11.5px; font-weight: 700; letter-spacing: 0.11em; text-transform: uppercase; color: var(--accent-ink); margin: 0 0 10px; }
+  h1 { font-size: clamp(24px, 3.2vw, 34px); line-height: 1.15; font-weight: 800; letter-spacing: -0.015em; margin: 0 0 8px; text-wrap: balance; }
+  .subtitle { font-size: 15px; color: var(--ink-secondary); margin: 0; max-width: 66ch; line-height: 1.55; }
+  .subtitle b { color: var(--ink); font-weight: 600; }
+  .subtitle code { background: var(--surface-2); padding: 1px 6px; border-radius: 4px; font-size: 13px; }
+
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+  .stat { background: var(--surface); padding: 18px 20px; display: flex; flex-direction: column; gap: 6px; }
+  .stat .label { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-muted); }
+  .stat .value { font-size: 26px; font-weight: 800; font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+  .stat .value small { font-size: 14px; font-weight: 600; color: var(--ink-secondary); }
+  .stat .sub { font-size: 12.5px; color: var(--ink-secondary); }
+  @media (max-width: 720px) { .stats { grid-template-columns: repeat(2, 1fr); } }
+
+  .main { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(260px, 0.85fr); gap: 20px; align-items: start; }
+  @media (max-width: 980px) { .main { grid-template-columns: 1fr; } }
+
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 22px 22px 20px; box-shadow: var(--shadow); }
+  .card h2 { font-size: 13px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink-secondary); margin: 0 0 4px; }
+  .card .card-sub { font-size: 12.5px; color: var(--ink-muted); margin: 0 0 16px; }
+
+  .heat-scroll { overflow-x: auto; margin: 0 -4px; padding: 0 4px; }
+  table.heat { border-collapse: separate; border-spacing: 0; width: 100%; min-width: 620px; font-size: 12.5px; }
+  table.heat th, table.heat td { padding: 0; }
+  table.heat thead th { font-size: 10.5px; font-weight: 700; letter-spacing: 0.03em; text-transform: uppercase; color: var(--ink-muted); text-align: center; padding: 0 4px 8px; white-space: nowrap; }
+  table.heat thead th.rowhead-col { text-align: left; }
+  table.heat tbody th { text-align: left; font-weight: 600; font-size: 13px; color: var(--ink); padding: 6px 12px 6px 4px; white-space: nowrap; position: sticky; left: 0; background: var(--surface); }
+  table.heat tbody th .n { display: block; font-weight: 500; font-size: 11px; color: var(--ink-muted); margin-top: 1px; }
+  td.cell { text-align: center; vertical-align: middle; font-variant-numeric: tabular-nums; font-weight: 700; font-size: 12.5px; color: #2a1c0f; height: 34px; border-radius: 6px; }
+  td.cell.empty { color: var(--ink-muted); font-weight: 400; background: var(--empty-cell); background-image: repeating-linear-gradient(135deg, var(--empty-hatch) 0 5px, transparent 5px 10px); }
+  td.cell-pad { padding: 2px; }
+  :root[data-theme="dark"] td.cell { color: #1a1310; }
+  :root[data-theme="light"] td.cell { color: #2a1c0f; }
+  @media (prefers-color-scheme: dark) { :root:where(:not([data-theme="light"])) td.cell { color: #1a1310; } }
+  td.cell.hot-text { color: #fbeee0 !important; }
+
+  .legend { display: flex; align-items: center; gap: 10px; margin-top: 14px; font-size: 11.5px; color: var(--ink-muted); }
+  .legend .ramp { flex: 1; max-width: 220px; height: 8px; border-radius: 4px; background: linear-gradient(90deg, #fbf1e4, #f4d9ad, #e8b473, #d68a45, #c0522f); }
+  .legend .swatch-empty { width: 14px; height: 14px; border-radius: 3px; background: var(--empty-cell); background-image: repeating-linear-gradient(135deg, var(--empty-hatch) 0 4px, transparent 4px 8px); display: inline-block; vertical-align: -3px; margin-right: 6px; }
+
+  .board-row { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--line); }
+  .board-row:last-child { border-bottom: none; }
+  .board-name { font-size: 13px; font-weight: 600; }
+  .board-name .count { font-weight: 400; color: var(--ink-muted); font-size: 11.5px; }
+  .board-bar-wrap { grid-column: 1 / -1; height: 6px; border-radius: 3px; background: var(--surface-2); overflow: hidden; }
+  .board-bar { height: 100%; border-radius: 3px; background: var(--accent); }
+  .board-val { font-size: 13px; font-weight: 700; font-variant-numeric: tabular-nums; text-align: right; }
+  .board-row.top .board-name { color: var(--accent-ink); }
+  .board-row.top .board-bar { background: var(--accent); }
+
+  table.glossary { width: 100%; border-collapse: collapse; font-size: 12px; }
+  table.glossary th { text-align: left; font-size: 10px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink-muted); padding: 0 8px 7px 0; border-bottom: 1px solid var(--line-strong); }
+  table.glossary td { padding: 8px 8px 8px 0; border-bottom: 1px solid var(--line); vertical-align: top; color: var(--ink-secondary); line-height: 1.4; }
+  table.glossary tr:last-child td { border-bottom: none; }
+  table.glossary td.metric { font-weight: 700; color: var(--ink); white-space: nowrap; }
+  table.glossary td.formula { font-family: ui-monospace, "SF Mono", Consolas, monospace; font-size: 11px; color: var(--ink-muted); white-space: nowrap; }
+
+  .insights { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  @media (max-width: 720px) { .insights { grid-template-columns: 1fr; } }
+  .insight { padding: 16px 18px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface-2); }
+  .insight .tag { font-size: 10.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent-ink); display: block; margin-bottom: 6px; }
+  .insight p { margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--ink-secondary); }
+  .insight p b { color: var(--ink); font-weight: 600; }
+
+  .project-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  @media (max-width: 980px) { .project-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .project-grid { grid-template-columns: 1fr; } }
+  .project-card { border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px 12px; background: var(--surface-2); }
+  .project-card .ph { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+  .project-card .pname { font-size: 14px; font-weight: 700; }
+  .project-card .per { font-size: 16px; font-weight: 800; color: var(--accent-ink); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .project-card .pmeta { font-size: 11px; color: var(--ink-muted); margin: 1px 0 10px; }
+  .ptype-row { display: grid; grid-template-columns: 46px 1fr auto; gap: 8px; align-items: center; padding: 3px 0; }
+  .ptype-pill { font-size: 11px; font-weight: 700; text-align: center; border-radius: 5px; padding: 3px 0; font-variant-numeric: tabular-nums; }
+  .ptype-name { font-size: 12px; color: var(--ink); line-height: 1.3; }
+  .ptype-name .cnt { color: var(--ink-muted); font-weight: 400; font-size: 10px; }
+  .ptype-er { font-size: 11px; color: var(--ink-muted); font-variant-numeric: tabular-nums; text-align: right; }
+  .project-card .prank { display: block; font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 2px; }
+
+  ol.recs { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+  ol.recs li { display: grid; grid-template-columns: 26px 1fr; gap: 12px; align-items: baseline; font-size: 13.5px; line-height: 1.55; color: var(--ink-secondary); }
+  ol.recs li .num { font-weight: 800; color: var(--accent); font-size: 14px; font-variant-numeric: tabular-nums; }
+  ol.recs li b { color: var(--ink); font-weight: 600; }
+
+  footer.note { font-size: 12px; color: var(--ink-muted); border-top: 1px solid var(--line); padding-top: 16px; line-height: 1.6; }
+  footer.note code { background: var(--surface-2); padding: 1px 6px; border-radius: 4px; font-size: 11.5px; }
+</style>
+</head>
+<body>
+<div class="viz-root">
+<div class="wrap">
+
+  <header>
+    <p class="eyebrow">SMM Insights · USA2 · Facebook</p>
+    <h1>Які формати контенту реально працюють</h1>
+    <p class="subtitle">Теплова карта середніх Interactions/пост по 12 інфоприводах і 8 брендах.
+      Дані — тиждень <b>20.07.2026–26.07.2026</b>, 157 FB-постів, знято через <code>smm-posts-log</code>
+      і живе на листі <b>ІНФОПРИВОДИ</b> в SMM Insights USA2.</p>
+  </header>
+
+  <section class="stats">
+    <div class="stat"><span class="label">Постів за тиждень</span><span class="value">157</span><span class="sub">по 8 проєктах</span></div>
+    <div class="stat"><span class="label">Сумарний Reach</span><span class="value">250 692</span><span class="sub">≈ 1 597 на пост у середньому</span></div>
+    <div class="stat"><span class="label">Сумарні Interactions</span><span class="value">36 018</span><span class="sub">ER ≈ 14,4% від Reach (тиждень тому — 12,9%)</span></div>
+    <div class="stat"><span class="label">Найгарячіший формат</span><span class="value">1 212<small>/пост</small></span><span class="sub">«Вгадай слово»</span></div>
+  </section>
+
+  <section class="main">
+    <div class="card">
+      <h2>Тип × Проєкт — Interactions / пост</h2>
+      <p class="card-sub">Колір = температура формату для конкретного бренду. Заштриховано — комбінація ще не пробувалась цього тижня (не 0, а немає даних).</p>
+      <div class="heat-scroll">
+        <table class="heat">
+          <thead><tr><th class="rowhead-col">Інфопривід</th><th>DEXYPLAY</th><th>FWL</th><th>FireSeven</th><th>NLC</th><th>SCS</th><th>StormRush</th><th>TAO Fortune</th><th>Vegas Way</th></tr></thead>
+          <tbody id="heat-body"></tbody>
+        </table>
+      </div>
+      <div class="legend"><span><span class="swatch-empty"></span>немає даних</span><span class="ramp"></span><span>холодно → гаряче</span></div>
+    </div>
+
+    <div class="card">
+      <h2>Рейтинг форматів</h2>
+      <p class="card-sub">За середніми Interactions/пост, усі 8 проєктів разом</p>
+      <div id="board"></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Формати по кожному бренду</h2>
+    <p class="card-sub">Кожна картка — власна міні-теплова карта бренду (та сама шкала кольору, що й у зведеній), і його загальний ER за тиждень: Interactions ÷ Reach. Відсортовано за ER — від найбільш залученої аудиторії до найменш.</p>
+    <div class="project-grid" id="project-grid"></div>
+  </section>
+
+  <section class="card">
+    <h2>Що означають метрики</h2>
+    <p class="card-sub">Для тих, хто відкриває звіт без контексту</p>
+    <table class="glossary">
+      <thead><tr><th>Метрика</th><th>Що означає</th><th>Формула / джерело</th></tr></thead>
+      <tbody>
+        <tr><td class="metric">Reach</td><td>Скільки унікальних людей побачили пост</td><td class="formula">Meta Business Suite → Content</td></tr>
+        <tr><td class="metric">Interactions</td><td>Взаємодії з постом: лайки + коментарі + шери + реакції</td><td class="formula">Meta Business Suite → Content</td></tr>
+        <tr><td class="metric">Interactions/пост</td><td>Середня «температура» формату — саме це показує колір на карті</td><td class="formula">Σ Interactions ÷ n</td></tr>
+        <tr><td class="metric">n</td><td>Скільки постів у вибірці. Малий n (1–2) — менш надійне середнє, може тримати один викид</td><td class="formula">кількість постів</td></tr>
+        <tr><td class="metric">ER%</td><td>Engagement Rate — яка частка тих, хто побачив пост, з ним взаємодіяла</td><td class="formula">Interactions ÷ Reach × 100%</td></tr>
+        <tr><td class="metric">Колір клітинки</td><td>Температура формату: темніше й тепліше = вище Interactions/пост</td><td class="formula">лог. шкала мін→макс за тиждень</td></tr>
+        <tr><td class="metric">— / штрихування</td><td>Цей формат бренд не публікував цього тижня — відсутність спроби, не нульовий результат</td><td class="formula">немає даних</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="card">
+    <h2>Що видно на карті</h2>
+    <div class="insights">
+      <div class="insight">
+        <span class="tag">Лідер тримається на одному пості</span>
+        <p><b>«Вгадай слово»</b> очолює тиждень (1211,7/пост), але це лише 3 пости: FireSeven 2 140, FWL 1 182, DEXYPLAY 313 — розкид 6,8×. Без FireSeven-поста середнє впало б до ~750, майже врівень із «Сокет» (підстав правильний предмет). На відміну від минулого тижня, коли лідер («Пазл») тримався рівномірно на 5 брендах без залежності від одного посту.</p>
+      </div>
+      <div class="insight">
+        <span class="tag">Системна холодність, висока залученість</span>
+        <p><b>DEXYPLAY</b> третій тиждень поспіль — найхолодніший бренд за Reach (8 162 проти 24 300–54 700 в інших) при порівнянній кількості постів (20). Але ER тут найвищий серед усіх 8 — 18,2% проти 12,7–15,5% в інших: менша аудиторія, але найбільш залучена — проблема в дистрибуції, не в контенті.</p>
+      </div>
+      <div class="insight">
+        <span class="tag">Універсальний формат — і найхолодніший</span>
+        <p>Єдиний формат, протестований на всіх 8 брендах цього тижня — <b>«Битва слотів»</b> (8/8). Але це другий найхолодніший ігровий формат тижня (192,6/пост). Минулого тижня універсальний формат («Тінь») був, навпаки, другим найгарячішим — цього тижня масовість і температура розійшлись.</p>
+      </div>
+      <div class="insight">
+        <span class="tag">Класифікацію уніфіковано</span>
+        <p>Заповнено 59% клітинок (57 з 96) проти 68% тижнем раніше — менше експериментів з форматами. Анаграми/розшифровка букв тепер завжди <b>«Вгадай слово»</b>, вибір 1 з 3 предметів — <b>«Сокет»</b> (підстав правильний предмет) — обидві назви застосовано ретроактивно по всіх тижнях, щоб рейтинг не розповзався на дублікати рядків.</p>
+      </div></div>
+  </section>
+
+  <section class="card">
+    <h2>Висновки та рекомендації</h2>
+    <ol class="recs"><li><span class="num">1</span><span><b>«Вгадай слово»</b> тримається на одному сильному пості FireSeven (2 140) — перш ніж масштабувати формат на всі 8 брендів, перевірити стабільність ще на 1-2 постах.</span></li><li><span class="num">2</span><span><b>«Сокет»</b> (підстав правильний предмет) — рівномірно теплий на 6 з 8 брендів (508–1060/пост) без залежності від викиду. Додати у Vegas Way і DEXYPLAY, де формату не було цього тижня.</span></li><li><span class="num">3</span><span><b>DEXYPLAY</b>: третій тиждень поспіль відстає за Reach при найвищому ER (18,2%) — перевірити охоплення сторінки й бустинг, проблема не в контенті чи форматах.</span></li><li><span class="num">4</span><span><b>«Промо/анонс»</b> — вже 101 з 157 постів (64%, зростає третій тиждень: 55%→64%), стабільно найхолодніший (72,3/пост) — частку далі не збільшувати.</span></li><li><span class="num">5</span><span><b>Класифікація</b>: «Сокет» і «Вгадай слово» — офіційні назви, тримати щотижня буква в букву, інакше рейтинг знову розповзеться на дублі-рядки.</span></li></ol>
+  </section>
+
+  <footer class="note">
+    Джерело: Google Sheet <b>SMM Insights USA2</b>, лист <code>ІНФОПРИВОДИ</code> (формули з <code>ПОСТИ ЛОГ</code>) +
+    <code>ВИСНОВКИ</code>, тиждень 20.07.2026–26.07.2026, тільки FB-пости. Порожні клітинки карти — відсутність спроби,
+    не нульовий результат. Попередній тиждень (13.07.2026–19.07.2026) — Reach був вищим (292 575), ER нижчим (12,9%).
+    Наступний тиждень (27.07.2026–02.08.2026) ще не знятий на момент звіту.
+  </footer>
+
+</div>
+</div>
+
+<script>
+(function () {
+  var rows = [{"name":"Вгадай слово","n":3,"avg":1211.6666666666667,"cells":{"DEXYPLAY":{"v":313,"n":1},"FWL":{"v":1182,"n":1},"FireSeven":{"v":2140,"n":1}}},{"name":"Сокет","n":6,"avg":710,"cells":{"FWL":{"v":1060,"n":1},"FireSeven":{"v":836,"n":1},"NLC":{"v":627,"n":1},"SCS":{"v":508,"n":1},"StormRush":{"v":571,"n":1},"TAO Fortune":{"v":658,"n":1}}},{"name":"Пазл","n":5,"avg":607.2,"cells":{"DEXYPLAY":{"v":157,"n":1},"FireSeven":{"v":876,"n":1},"SCS":{"v":683,"n":1},"Vegas Way":{"v":660,"n":2}}},{"name":"Лабіринт","n":6,"avg":546.6666666666666,"cells":{"FWL":{"v":706,"n":1},"NLC":{"v":608,"n":1},"SCS":{"v":403,"n":1},"StormRush":{"v":380,"n":1},"TAO Fortune":{"v":455,"n":1},"Vegas Way":{"v":728,"n":1}}},{"name":"Знайди без пари","n":3,"avg":536.6666666666666,"cells":{"DEXYPLAY":{"v":89,"n":1},"FWL":{"v":822,"n":1},"StormRush":{"v":699,"n":1}}},{"name":"Тінь","n":3,"avg":536,"cells":{"DEXYPLAY":{"v":257,"n":1},"FireSeven":{"v":726,"n":1},"TAO Fortune":{"v":625,"n":1}}},{"name":"Ребус","n":13,"avg":499.38461538461536,"cells":{"DEXYPLAY":{"v":122,"n":2},"FWL":{"v":593.5,"n":2},"FireSeven":{"v":912.5,"n":2},"NLC":{"v":419.5,"n":2},"StormRush":{"v":390,"n":2},"TAO Fortune":{"v":424,"n":1},"Vegas Way":{"v":596.5,"n":2}}},{"name":"Знайди відмінності","n":4,"avg":418.5,"cells":{"FWL":{"v":490,"n":1},"FireSeven":{"v":577,"n":1},"NLC":{"v":316,"n":1},"SCS":{"v":291,"n":1}}},{"name":"Квіз","n":1,"avg":394,"cells":{"SCS":{"v":394,"n":1}}},{"name":"Порахуй кількість","n":4,"avg":297.5,"cells":{"DEXYPLAY":{"v":139,"n":1},"NLC":{"v":399,"n":1},"StormRush":{"v":365,"n":1},"TAO Fortune":{"v":287,"n":1}}},{"name":"Битва слотів","n":8,"avg":192.625,"cells":{"DEXYPLAY":{"v":72,"n":1},"FWL":{"v":271,"n":1},"FireSeven":{"v":99,"n":1},"NLC":{"v":225,"n":1},"SCS":{"v":181,"n":1},"StormRush":{"v":198,"n":1},"TAO Fortune":{"v":151,"n":1},"Vegas Way":{"v":344,"n":1}}},{"name":"Промо/анонс","n":101,"avg":72.25742574257426,"cells":{"DEXYPLAY":{"v":17.583333333333332,"n":12},"FWL":{"v":82.7,"n":10},"FireSeven":{"v":129.5,"n":10},"NLC":{"v":73.14285714285714,"n":14},"SCS":{"v":70,"n":13},"StormRush":{"v":65.07142857142857,"n":14},"TAO Fortune":{"v":94,"n":15},"Vegas Way":{"v":54.61538461538461,"n":13}}}];
+  var projects = ["DEXYPLAY","FWL","FireSeven","NLC","SCS","StormRush","TAO Fortune","Vegas Way"];
+  var projectCards = [{"name":"DEXYPLAY","posts":20,"er":18.157314383729478,"avg":74.1,"types":[{"name":"Вгадай слово","v":313,"n":1,"er":29.556185080264402},{"name":"Тінь","v":257,"n":1,"er":21.65122156697557},{"name":"Пазл","v":157,"n":1,"er":22.886297376093296},{"name":"Порахуй кількість","v":139,"n":1,"er":47.27891156462585},{"name":"Ребус","v":122,"n":2,"er":23.39405560882071},{"name":"Знайди без пари","v":89,"n":1,"er":23.05699481865285},{"name":"Битва слотів","v":72,"n":1,"er":31.03448275862069},{"name":"Промо/анонс","v":17.583333333333332,"n":12,"er":6.442748091603054}]},{"name":"Vegas Way","posts":19,"er":15.544697792254796,"avg":226.05263157894737,"types":[{"name":"Лабіринт","v":728,"n":1,"er":23.008849557522122},{"name":"Пазл","v":660,"n":2,"er":21.435531016563818},{"name":"Ребус","v":596.5,"n":2,"er":25.861695209191417},{"name":"Битва слотів","v":344,"n":1,"er":38.95809739524349},{"name":"Промо/анонс","v":54.61538461538461,"n":13,"er":5.541679675304402}]},{"name":"FireSeven","posts":18,"er":15.30839823041205,"avg":465.22222222222223,"types":[{"name":"Вгадай слово","v":2140,"n":1,"er":15.472489335550573},{"name":"Ребус","v":912.5,"n":2,"er":20.030732082098563},{"name":"Пазл","v":876,"n":1,"er":18.11414392059553},{"name":"Сокет","v":836,"n":1,"er":60.75581395348837},{"name":"Тінь","v":726,"n":1,"er":14.587100663050029},{"name":"Знайди відмінності","v":577,"n":1,"er":20.35273368606702},{"name":"Промо/анонс","v":129.5,"n":10,"er":7.674074074074073},{"name":"Битва слотів","v":99,"n":1,"er":11.498257839721255}]},{"name":"StormRush","posts":21,"er":14.776125052041936,"avg":185.9047619047619,"types":[{"name":"Знайди без пари","v":699,"n":1,"er":21.05421686746988},{"name":"Сокет","v":571,"n":1,"er":37.19869706840391},{"name":"Ребус","v":390,"n":2,"er":27.008310249307478},{"name":"Лабіринт","v":380,"n":1,"er":24.691358024691358},{"name":"Порахуй кількість","v":365,"n":1,"er":23.10126582278481},{"name":"Битва слотів","v":198,"n":1,"er":20.349434737923946},{"name":"Промо/анонс","v":65.07142857142857,"n":14,"er":6.245715069244481}]},{"name":"FWL","posts":18,"er":14.205408690367669,"avg":363.6111111111111,"types":[{"name":"Вгадай слово","v":1182,"n":1,"er":26.65764546684709},{"name":"Сокет","v":1060,"n":1,"er":18.58670874978082},{"name":"Знайди без пари","v":822,"n":1,"er":15.930232558139535},{"name":"Лабіринт","v":706,"n":1,"er":15.19913885898816},{"name":"Ребус","v":593.5,"n":2,"er":15.879598662207359},{"name":"Знайди відмінності","v":490,"n":1,"er":24.426719840478565},{"name":"Битва слотів","v":271,"n":1,"er":18.510928961748636},{"name":"Промо/анонс","v":82.7,"n":10,"er":5.445446763679463}]},{"name":"SCS","posts":19,"er":13.86317824673989,"avg":177.3684210526316,"types":[{"name":"Пазл","v":683,"n":1,"er":20.231042654028435},{"name":"Сокет","v":508,"n":1,"er":34.254888739042485},{"name":"Лабіринт","v":403,"n":1,"er":27.303523035230352},{"name":"Квіз","v":394,"n":1,"er":16.16741895773492},{"name":"Знайди відмінності","v":291,"n":1,"er":19.30988719309887},{"name":"Битва слотів","v":181,"n":1,"er":39.86784140969163},{"name":"Промо/анонс","v":70,"n":13,"er":6.703005303476724}]},{"name":"TAO Fortune","posts":21,"er":12.705554323373782,"avg":190.95238095238096,"types":[{"name":"Сокет","v":658,"n":1,"er":24.137931034482758},{"name":"Тінь","v":625,"n":1,"er":19.42200124300808},{"name":"Лабіринт","v":455,"n":1,"er":15.66265060240964},{"name":"Ребус","v":424,"n":1,"er":19.33424532603739},{"name":"Порахуй кількість","v":287,"n":1,"er":23.089300080450524},{"name":"Битва слотів","v":151,"n":1,"er":18.80448318804483},{"name":"Промо/анонс","v":94,"n":15,"er":7.632761327342608}]},{"name":"NLC","posts":21,"er":12.684949580623881,"avg":192.28571428571428,"types":[{"name":"Сокет","v":627,"n":1,"er":28.3710407239819},{"name":"Лабіринт","v":608,"n":1,"er":14.19565724959141},{"name":"Ребус","v":419.5,"n":2,"er":15.93542260208927},{"name":"Порахуй кількість","v":399,"n":1,"er":45.96774193548387},{"name":"Знайди відмінності","v":316,"n":1,"er":17.732884399551065},{"name":"Битва слотів","v":225,"n":1,"er":37.12871287128713},{"name":"Промо/анонс","v":73.14285714285714,"n":14,"er":6.0883524585290445}]}];
+
+  var allVals = [];
+  rows.forEach(function (r) { Object.keys(r.cells).forEach(function (p) { allVals.push(r.cells[p].v); }); });
+  var minV = Math.min.apply(null, allVals), maxV = Math.max.apply(null, allVals);
+  var logMin = Math.log(minV + 1), logMax = Math.log(maxV + 1);
+
+  var LIGHT_LOW = [251,241,228], LIGHT_HIGH = [192,82,47];
+  var DARK_LOW  = [61,44,28],   DARK_HIGH  = [232,83,47];
+
+  function t(v) {
+    var raw = (Math.log(v + 1) - logMin) / (logMax - logMin);
+    return Math.max(0, Math.min(1, raw));
+  }
+  function lerpRgb(lo, hi, tt) {
+    var r = Math.round(lo[0] + (hi[0]-lo[0])*tt);
+    var g = Math.round(lo[1] + (hi[1]-lo[1])*tt);
+    var b = Math.round(lo[2] + (hi[2]-lo[2])*tt);
+    return 'rgb(' + r + ',' + g + ',' + b + ')';
+  }
+  function isDarkNow() {
+    var attr = document.documentElement.getAttribute('data-theme');
+    if (attr === 'dark') return true;
+    if (attr === 'light') return false;
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  }
+
+  function renderHeat() {
+    var dark = isDarkNow();
+    var tbody = document.getElementById('heat-body');
+    tbody.innerHTML = '';
+    rows.forEach(function (row) {
+      var tr = document.createElement('tr');
+      var th = document.createElement('th');
+      th.innerHTML = row.name + '<span class="n">' + row.n + ' ' + (row.n === 1 ? 'пост' : 'постів') + ' · avg ' + row.avg.toFixed(1).replace('.', ',') + '</span>';
+      tr.appendChild(th);
+      projects.forEach(function (p) {
+        var td = document.createElement('td');
+        td.className = 'cell-pad';
+        var inner = document.createElement('div');
+        var cell = row.cells[p];
+        if (!cell) {
+          inner.className = 'cell empty';
+          inner.textContent = '—';
+        } else {
+          var tt = t(cell.v);
+          var hot = dark ? tt >= 0.55 : tt >= 0.7;
+          inner.className = 'cell' + (hot ? ' hot-text' : '');
+          inner.style.background = lerpRgb(dark ? DARK_LOW : LIGHT_LOW, dark ? DARK_HIGH : LIGHT_HIGH, tt);
+          inner.textContent = Math.round(cell.v).toLocaleString('uk-UA');
+        }
+        td.appendChild(inner);
+        tr.appendChild(td);
+      });
+      tbody.appendChild(tr);
+    });
+  }
+
+  function renderBoard() {
+    var board = document.getElementById('board');
+    var max = rows[0] ? rows[0].avg : 1;
+    board.innerHTML = rows.map(function (row, i) {
+      return '<div class="board-row' + (i === 0 ? ' top' : '') + '">' +
+        '<span class="board-name">' + row.name + ' <span class="count">' + row.n + '</span></span>' +
+        '<span class="board-val">' + row.avg.toFixed(1).replace('.', ',') + '</span>' +
+        '<span class="board-bar-wrap"><span class="board-bar" style="width:' + (row.avg / max * 100).toFixed(1) + '%"></span></span>' +
+        '</div>';
+    }).join('');
+  }
+
+  function renderProjectCards() {
+    var dark = isDarkNow();
+    var grid = document.getElementById('project-grid');
+    grid.innerHTML = projectCards.map(function (proj, i) {
+      var rowsHtml = proj.types.map(function (ty) {
+        var tt = t(ty.v);
+        var hot = dark ? tt >= 0.55 : tt >= 0.7;
+        var bg = lerpRgb(dark ? DARK_LOW : LIGHT_LOW, dark ? DARK_HIGH : LIGHT_HIGH, tt);
+        var color = hot ? '#fbeee0' : (dark ? '#1a1310' : '#2a1c0f');
+        return '<div class="ptype-row">' +
+          '<span class="ptype-pill" style="background:' + bg + ';color:' + color + '">' + Math.round(ty.v).toLocaleString('uk-UA') + '</span>' +
+          '<span class="ptype-name">' + ty.name + (ty.n > 1 ? ' <span class="cnt">×' + ty.n + '</span>' : '') + '</span>' +
+          '<span class="ptype-er">' + ty.er.toFixed(1).replace('.', ',') + '%</span>' +
+          '</div>';
+      }).join('');
+      return '<div class="project-card">' +
+        '<span class="prank">#' + (i + 1) + ' за ER</span>' +
+        '<div class="ph"><span class="pname">' + proj.name + '</span><span class="per">' + proj.er.toFixed(1).replace('.', ',') + '%</span></div>' +
+        '<div class="pmeta">' + proj.posts + ' постів · ' + proj.avg.toFixed(1).replace('.', ',') + ' Interactions/пост в серед.</div>' +
+        rowsHtml +
+        '</div>';
+    }).join('');
+  }
+
+  renderHeat(); renderBoard(); renderProjectCards();
+  var mq = window.matchMedia('(prefers-color-scheme: dark)');
+  mq.addEventListener('change', function () { renderHeat(); renderProjectCards(); });
+  new MutationObserver(function () { renderHeat(); renderProjectCards(); }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+})();
+</script>
+</body>
+</html>
