@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ПАВЕР БИ — Dashboards</title>
+<style>
+  :root{
+    --bg:#f4f5f3; --surface:#ffffff; --border:#d7dad6;
+    --text:#1c1f1d; --text-dim:#666b66; --text-faint:#9a9f9a;
+    --accent-text:#5f4413; --accent-soft:rgba(184,132,46,0.14);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#0d0f0e; --surface:#161917; --border:#2b302d; --text:#e9ebe8; --text-dim:#a4a9a3; --text-faint:#6f746f; --accent-text:#f0d29a; --accent-soft:rgba(212,162,78,0.16); }
+  }
+  :root[data-theme="dark"]{ --bg:#0d0f0e; --surface:#161917; --border:#2b302d; --text:#e9ebe8; --text-dim:#a4a9a3; --text-faint:#6f746f; --accent-text:#f0d29a; --accent-soft:rgba(212,162,78,0.16); }
+  :root[data-theme="light"]{ --bg:#f4f5f3; --surface:#ffffff; --border:#d7dad6; --text:#1c1f1d; --text-dim:#666b66; --text-faint:#9a9f9a; --accent-text:#5f4413; --accent-soft:rgba(184,132,46,0.14); }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{ background:var(--bg); color:var(--text); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; -webkit-font-smoothing:antialiased; line-height:1.45; }
+
+  .dnav{ position:sticky; top:0; z-index:50; display:flex; align-items:center; gap:22px; padding:0 20px; height:52px; background:#15130f; border-bottom:1px solid rgba(255,255,255,0.08); }
+  .dnav-brand{ color:#f0d29a; font-weight:700; font-size:13px; text-decoration:none; letter-spacing:.02em; margin-right:8px; white-space:nowrap; }
+  .dnav-tabs{ display:flex; gap:4px; overflow-x:auto; }
+  .dnav-tab{ color:#a8a39a; text-decoration:none; font-size:12.5px; font-weight:650; letter-spacing:.04em; text-transform:uppercase; padding:8px 14px; border-radius:7px; white-space:nowrap; transition:background .12s,color .12s; }
+  .dnav-tab:hover{ background:rgba(255,255,255,0.06); color:#f2efe9; }
+  .dnav-tab.active{ background:rgba(217,171,76,0.16); color:#f0c674; }
+  .dnav-tab.soon{ opacity:.55; }
+  .dnav-tab.soon::after{ content:" · soon"; font-size:9px; text-transform:none; letter-spacing:0; opacity:.75; }
+
+  .wrap{ max-width:920px; margin:0 auto; padding:80px 20px 64px; }
+  .eyebrow{ text-transform:uppercase; letter-spacing:.09em; font-size:11.5px; font-weight:600; color:var(--text-faint); margin-bottom:8px; }
+  h1{ margin:0 0 10px; font-size:28px; font-weight:650; letter-spacing:-0.01em; }
+  .sub{ color:var(--text-dim); font-size:14.5px; max-width:55ch; }
+  .badge{ display:inline-block; margin-top:20px; font-size:11px; font-weight:650; letter-spacing:.03em; text-transform:uppercase; color:var(--accent-text); background:var(--accent-soft); padding:4px 10px; border-radius:99px; }
+</style>
+</head>
+<body>
+<nav class="dnav">
+  <a class="dnav-brand" href="/dashboards/">Dashboards</a>
+  <div class="dnav-tabs">
+    <a href="/dashboards/chat/" class="dnav-tab soon">ЧАТ</a>
+    <a href="/dashboards/smm-heatmap/" class="dnav-tab">СММ</a>
+    <a href="/dashboards/powerbi/" class="dnav-tab soon active">ПАВЕР БИ</a>
+    <a href="/dashboards/poll-breakdown/" class="dnav-tab">ПОЛЛ</a>
+  </div>
+</nav>
+<div class="wrap">
+  <div class="eyebrow">USA Offer Monitoring · Power BI</div>
+  <h1>Скоро тут</h1>
+  <div class="sub">Тижневий звіт powerbi-weekly (Offers + Deposit Number) поки не опублікований сюди — тільки локальний HTML-звіт у скіллі.</div>
+  <span class="badge">Coming soon</span>
+</div>
+</body>
+</html>
