@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="ru">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -9,6 +9,7 @@
     --bg:#f4f5f3; --surface:#ffffff; --surface-2:#eceeec; --border:#d7dad6;
     --text:#1c1f1d; --text-dim:#666b66; --text-faint:#9a9f9a;
     --accent:#b8842e; --accent-text:#5f4413; --accent-soft:rgba(184,132,46,0.14);
+    --accent-2:#0f9e8e;
     --shadow: 0 1px 2px rgba(20,22,20,0.06), 0 8px 24px -12px rgba(20,22,20,0.18);
   }
   @media (prefers-color-scheme: dark){
@@ -16,6 +17,7 @@
       --bg:#0d0f0e; --surface:#161917; --surface-2:#1e2220; --border:#2b302d;
       --text:#e9ebe8; --text-dim:#a4a9a3; --text-faint:#6f746f;
       --accent:#d4a24e; --accent-text:#f0d29a; --accent-soft:rgba(212,162,78,0.16);
+      --accent-2:#2dd4bf;
       --shadow: 0 1px 2px rgba(0,0,0,0.4), 0 12px 32px -16px rgba(0,0,0,0.6);
     }
   }
@@ -23,12 +25,14 @@
     --bg:#0d0f0e; --surface:#161917; --surface-2:#1e2220; --border:#2b302d;
     --text:#e9ebe8; --text-dim:#a4a9a3; --text-faint:#6f746f;
     --accent:#d4a24e; --accent-text:#f0d29a; --accent-soft:rgba(212,162,78,0.16);
+    --accent-2:#2dd4bf;
     --shadow: 0 1px 2px rgba(0,0,0,0.4), 0 12px 32px -16px rgba(0,0,0,0.6);
   }
   :root[data-theme="light"]{
     --bg:#f4f5f3; --surface:#ffffff; --surface-2:#eceeec; --border:#d7dad6;
     --text:#1c1f1d; --text-dim:#666b66; --text-faint:#9a9f9a;
     --accent:#b8842e; --accent-text:#5f4413; --accent-soft:rgba(184,132,46,0.14);
+    --accent-2:#0f9e8e;
     --shadow: 0 1px 2px rgba(20,22,20,0.06), 0 8px 24px -12px rgba(20,22,20,0.18);
   }
   *{box-sizing:border-box;}
@@ -39,13 +43,47 @@
     -webkit-font-smoothing:antialiased;
     line-height:1.45;
   }
-  .wrap{ max-width:920px; margin:0 auto; padding:56px 20px 64px; }
+  .wrap{ max-width:980px; margin:0 auto; padding:14px 20px 64px; }
   .eyebrow{
     text-transform:uppercase; letter-spacing:.09em; font-size:11.5px;
     font-weight:600; color:var(--text-faint); margin-bottom:8px;
   }
-  h1{ margin:0 0 8px; font-size:30px; font-weight:650; letter-spacing:-0.01em; text-wrap:balance; }
-  .sub{ color:var(--text-dim); font-size:14.5px; max-width:60ch; margin-bottom:36px; }
+  h1{ margin:0 0 8px; font-size:26px; font-weight:650; letter-spacing:-0.01em; text-wrap:balance; }
+  h2.section-title{ margin:0 0 4px; font-size:19px; font-weight:650; letter-spacing:-0.005em; }
+  .sub{ color:var(--text-dim); font-size:14px; max-width:60ch; margin-bottom:18px; }
+  section{ margin-bottom:40px; }
+  section:last-of-type{ margin-bottom:0; }
+
+  /* status plaques */
+  .status-row{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+  @media (max-width:680px){ .status-row{ grid-template-columns:1fr; } }
+  .status-tile{ background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:14px 16px; }
+  .st-top{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:9px; gap:8px; }
+  .st-label{ font-size:12px; font-weight:650; color:var(--text-dim); }
+  .st-pct{ font-size:13px; font-weight:700; font-variant-numeric:tabular-nums; }
+  .st-bar-track{ height:6px; border-radius:3px; background:var(--surface-2); overflow:hidden; margin-bottom:7px; }
+  .st-bar-fill{ height:100%; border-radius:3px; }
+  .st-sub{ font-size:11px; color:var(--text-faint); }
+  .status-tile.countdown{ display:flex; flex-direction:column; justify-content:center; }
+  .st-value{ font-size:28px; font-weight:800; font-variant-numeric:tabular-nums; letter-spacing:-0.01em; color:var(--accent-text); }
+  .countdown .st-top{ margin-bottom:0; }
+  .logs-btn{ font-size:11px; font-weight:650; letter-spacing:.03em; text-transform:uppercase; color:var(--text-dim); text-decoration:none; border:1px solid var(--border); border-radius:99px; padding:4px 10px; transition:border-color .12s,color .12s; }
+  .logs-btn:hover{ border-color:var(--accent); color:var(--accent-text); }
+  .countdown-row{ display:flex; align-items:baseline; justify-content:space-between; gap:10px; margin-top:2px; }
+
+  /* growth goals */
+  .goals-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
+  @media (max-width:680px){ .goals-grid{ grid-template-columns:1fr; } }
+  .goal-card{ background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:16px 18px; }
+  .gh{ display:flex; align-items:center; gap:9px; font-size:13.5px; font-weight:650; margin-bottom:13px; }
+  .gicon{ width:22px; height:22px; border-radius:7px; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:800; color:#fff; flex:none; }
+  .gh .gpct{ margin-left:auto; font-size:12.5px; color:var(--text-dim); font-weight:650; font-variant-numeric:tabular-nums; }
+  .goal-bar-track{ height:8px; border-radius:4px; background:var(--surface-2); overflow:hidden; margin-bottom:9px; }
+  .goal-bar-fill{ height:100%; border-radius:4px; }
+  .goal-nums{ font-size:12px; color:var(--text-faint); font-family:ui-monospace,SFMono-Regular,Consolas,monospace; font-variant-numeric:tabular-nums; }
+  .goal-card.placeholder{ border-style:dashed; display:flex; align-items:center; justify-content:center; min-height:98px; color:var(--text-faint); font-size:13px; font-style:italic; }
+
+  /* dashboard cards */
   .grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:14px; }
   a.card{
     display:block; background:var(--surface); border:1px solid var(--border);
@@ -58,14 +96,14 @@
     text-transform:uppercase; color:var(--accent-text); background:var(--accent-soft);
     padding:3px 8px; border-radius:99px; margin-bottom:10px;
   }
-  .card h2{ margin:0 0 6px; font-size:16.5px; font-weight:650; letter-spacing:-0.005em; }
+  .card h3{ margin:0 0 6px; font-size:16.5px; font-weight:650; letter-spacing:-0.005em; }
   .card p{ margin:0 0 10px; font-size:13px; color:var(--text-dim); }
   .card .meta{ font-size:11.5px; color:var(--text-faint); font-variant-numeric:tabular-nums; }
   .empty{
     border:1px dashed var(--border); border-radius:12px; padding:28px;
     text-align:center; color:var(--text-faint); font-size:13.5px;
   }
-  footer{ margin-top:40px; font-size:12px; color:var(--text-faint); }
+  footer{ margin-top:8px; font-size:12px; color:var(--text-faint); }
 
   .dnav{ position:sticky; top:0; z-index:50; display:flex; align-items:center; gap:22px; padding:0 20px; height:52px; background:#15130f; border-bottom:1px solid rgba(255,255,255,0.08); }
   .dnav-brand{ color:#f0d29a; font-weight:700; font-size:13px; text-decoration:none; letter-spacing:.02em; margin-right:8px; white-space:nowrap; }
@@ -88,12 +126,52 @@
     </div>
   </nav>
   <div class="wrap">
-    <div class="eyebrow">Live dashboards</div>
-    <h1>Dashboards</h1>
-    <div class="sub">Data views published straight from Claude Code skills. Each card is a self-contained page — open it, the numbers are current as of the last publish.</div>
 
-    <div class="grid" id="grid"></div>
-    <footer>Updated automatically whenever a dashboard is republished.</footer>
+    <section class="status-row" id="status-row">
+      <div class="status-tile">
+        <div class="st-top"><span class="st-label">Лимит Claude</span><span class="st-pct" id="claude-pct">68%</span></div>
+        <div class="st-bar-track"><div class="st-bar-fill" id="claude-bar" style="width:68%;background:var(--accent);"></div></div>
+        <div class="st-sub">использовано за 5 часов · сброс через 1ч 40м</div>
+      </div>
+      <div class="status-tile">
+        <div class="st-top"><span class="st-label">Лимит ChatGPT</span><span class="st-pct" id="gpt-pct">45%</span></div>
+        <div class="st-bar-track"><div class="st-bar-fill" id="gpt-bar" style="width:45%;background:var(--accent-2);"></div></div>
+        <div class="st-sub">использовано за неделю · сброс в понедельник</div>
+      </div>
+      <div class="status-tile countdown">
+        <div class="st-top"><span class="st-label">Обратный отсчёт</span><a class="logs-btn" href="/dashboards/logs/">Логи</a></div>
+        <div class="countdown-row"><span class="st-value" id="countdown-val">10:00</span></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="eyebrow">Growth goals</div>
+      <h2 class="section-title">Цели роста</h2>
+      <div class="sub">Пока статические цифры — подключим живые данные позже.</div>
+      <div class="goals-grid">
+        <div class="goal-card">
+          <div class="gh"><span class="gicon" style="background:#3b6ae0;">F</span>Подписчики в Facebook<span class="gpct">50%</span></div>
+          <div class="goal-bar-track"><div class="goal-bar-fill" style="width:50%;background:var(--accent);"></div></div>
+          <div class="goal-nums">500 000 / 1 000 000</div>
+        </div>
+        <div class="goal-card">
+          <div class="gh"><span class="gicon" style="background:#5865f2;">D</span>Подписчики в Discord<span class="gpct">42%</span></div>
+          <div class="goal-bar-track"><div class="goal-bar-fill" style="width:42%;background:var(--accent-2);"></div></div>
+          <div class="goal-nums">42 000 / 100 000</div>
+        </div>
+        <div class="goal-card placeholder">Метрика добавится позже</div>
+        <div class="goal-card placeholder">Метрика добавится позже</div>
+      </div>
+    </section>
+
+    <section>
+      <div class="eyebrow">Live dashboards</div>
+      <h2 class="section-title">Дашборды</h2>
+      <div class="sub">Data views published straight from Claude Code skills. Each card is a self-contained page — open it, the numbers are current as of the last publish.</div>
+      <div class="grid" id="grid"></div>
+      <footer>Updated automatically whenever a dashboard is republished.</footer>
+    </section>
+
   </div>
 
 <script type="application/json" id="registry">
@@ -111,12 +189,26 @@
     grid.innerHTML = items.map(i => `
       <a class="card" href="${i.path}">
         <span class="tag">${i.tag}</span>
-        <h2>${i.title}</h2>
+        <h3>${i.title}</h3>
         <p>${i.desc}</p>
         <div class="meta">Published ${i.date}</div>
       </a>
     `).join('');
   }
+
+  (function(){
+    var COUNTDOWN_SECONDS = 10 * 60;
+    var deadline = Date.now() + COUNTDOWN_SECONDS * 1000;
+    var el = document.getElementById('countdown-val');
+    function tick(){
+      var remaining = Math.round((deadline - Date.now()) / 1000);
+      if(remaining <= 0){ deadline = Date.now() + COUNTDOWN_SECONDS * 1000; remaining = COUNTDOWN_SECONDS; }
+      var m = Math.floor(remaining / 60), s = remaining % 60;
+      el.textContent = String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+    }
+    tick();
+    setInterval(tick, 1000);
+  })();
 </script>
 </body>
 </html>
