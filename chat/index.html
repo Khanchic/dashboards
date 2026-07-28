@@ -34,8 +34,15 @@
   .slink.soon::after{ content:" · soon"; font-size:9px; letter-spacing:0; opacity:.8; }
   .content{ grid-area:content; min-width:0; }
 
-  .widgets{ position:fixed; right:16px; bottom:16px; z-index:55; display:flex; flex-direction:column; gap:10px; width:230px; }
-  @media (max-width:720px){ .widgets{ position:static; width:auto; margin:32px 20px 0; } }
+  .widgets{ position:fixed; right:16px; bottom:16px; z-index:55; display:flex; flex-direction:column; align-items:flex-end; gap:10px; }
+  @media (max-width:720px){ .widgets{ position:static; align-items:stretch; margin:32px 20px 0; } }
+  .widgets-toggle{ width:42px; height:42px; border-radius:50%; border:1px solid rgba(255,255,255,.14); background:#1b1a16; color:#e9e6df; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 8px 24px -12px rgba(0,0,0,.5); padding:0; }
+  .widgets-toggle:hover{ border-color:#d9ab4c; }
+  .widgets-panel{ display:flex; flex-direction:column; gap:10px; width:230px; }
+  @media (max-width:720px){ .widgets-panel{ width:auto; } }
+  .widgets-panel.hidden{ display:none; }
+  .back{ display:inline-block; font-size:12.5px; color:var(--text-dim); text-decoration:none; margin-bottom:16px; }
+  .back:hover{ color:var(--text); }
   .status-tile{ background:#1b1a16; border:1px solid rgba(255,255,255,.10); border-radius:12px; padding:12px 14px; box-shadow:0 8px 24px -12px rgba(0,0,0,.5); color:#e9e6df; }
   .st-top{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px; gap:8px; }
   .st-label{ font-size:11.5px; font-weight:650; color:#a8a39a; }
@@ -71,30 +78,41 @@
   </aside>
   <main class="content">
     <div class="wrap">
+      <a class="back" href="/dashboards/">← Назад на главную</a>
       <div class="eyebrow">Chat / community</div>
       <h1>Скоро тут</h1>
       <div class="sub">Дашборд для цього розділу ще не визначений — чекає, який саме звіт сюди піде.</div>
       <span class="badge">Coming soon</span>
     </div>
     <div class="widgets">
-      <div class="status-tile">
-        <div class="st-top"><span class="st-label">Лимит Claude</span><span class="st-pct">68%</span></div>
-        <div class="st-bar-track"><div class="st-bar-fill" style="width:68%;background:#d9ab4c;"></div></div>
-        <div class="st-sub">использовано за 5 часов · сброс через 1ч 40м</div>
-      </div>
-      <div class="status-tile">
-        <div class="st-top"><span class="st-label">Лимит ChatGPT</span><span class="st-pct">45%</span></div>
-        <div class="st-bar-track"><div class="st-bar-fill" style="width:45%;background:#2dd4bf;"></div></div>
-        <div class="st-sub">использовано за неделю · сброс в понедельник</div>
-      </div>
-      <div class="status-tile countdown">
-        <div class="st-top"><span class="st-label">Обратный отсчёт</span><a class="logs-btn" href="/dashboards/logs/">Логи</a></div>
-        <span class="st-value" id="shell-countdown">10:00</span>
+      <button class="widgets-toggle" id="widgetsToggle" aria-label="Скрыть/показать виджеты">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V10M12 20V4M20 20V14"/></svg>
+      </button>
+      <div class="widgets-panel hidden" id="widgetsPanel">
+        <div class="status-tile">
+          <div class="st-top"><span class="st-label">Лимит Claude</span><span class="st-pct">68%</span></div>
+          <div class="st-bar-track"><div class="st-bar-fill" style="width:68%;background:#d9ab4c;"></div></div>
+          <div class="st-sub">использовано за 5 часов · сброс через 1ч 40м</div>
+        </div>
+        <div class="status-tile">
+          <div class="st-top"><span class="st-label">Лимит ChatGPT</span><span class="st-pct">45%</span></div>
+          <div class="st-bar-track"><div class="st-bar-fill" style="width:45%;background:#2dd4bf;"></div></div>
+          <div class="st-sub">использовано за неделю · сброс в понедельник</div>
+        </div>
+        <div class="status-tile countdown">
+          <div class="st-top"><span class="st-label">Обратный отсчёт</span><a class="logs-btn" href="/dashboards/logs/">Логи</a></div>
+          <span class="st-value" id="shell-countdown">10:00</span>
+        </div>
       </div>
     </div>
   </main>
 </div>
 <script>
+(function(){
+  var toggle = document.getElementById('widgetsToggle');
+  var panel = document.getElementById('widgetsPanel');
+  toggle.addEventListener('click', function(){ panel.classList.toggle('hidden'); });
+})();
 (function(){
   var COUNTDOWN_SECONDS = 10 * 60;
   var deadline = Date.now() + COUNTDOWN_SECONDS * 1000;
