@@ -53,13 +53,23 @@
   .logs-btn{ font-size:10px; font-weight:650; letter-spacing:.03em; text-transform:uppercase; color:#a8a39a; text-decoration:none; border:1px solid rgba(255,255,255,.14); border-radius:99px; padding:3px 9px; transition:border-color .12s,color .12s; }
   .logs-btn:hover{ border-color:#d9ab4c; color:#f0c674; }
 
-  .wrap{ max-width:640px; padding:60px 20px 220px; }
-  .back{ display:inline-block; font-size:12.5px; color:var(--text-dim); text-decoration:none; margin-bottom:20px; }
+  .wrap{ max-width:680px; padding:28px 20px 220px; }
+  .back{ display:inline-block; font-size:12.5px; color:var(--text-dim); text-decoration:none; margin-bottom:16px; }
   .back:hover{ color:var(--text); }
   .eyebrow{ text-transform:uppercase; letter-spacing:.09em; font-size:11.5px; font-weight:600; color:var(--text-faint); margin-bottom:8px; }
-  h1{ margin:0 0 10px; font-size:28px; font-weight:650; letter-spacing:-0.01em; }
-  .sub{ color:var(--text-dim); font-size:14.5px; max-width:55ch; }
-  .badge{ display:inline-block; margin-top:20px; font-size:11px; font-weight:650; letter-spacing:.03em; text-transform:uppercase; color:var(--accent-text); background:var(--accent-soft); padding:4px 10px; border-radius:99px; }
+  h1{ margin:0 0 6px; font-size:26px; font-weight:650; letter-spacing:-0.01em; }
+  .sub{ color:var(--text-dim); font-size:14px; max-width:60ch; margin-bottom:18px; }
+
+  .log-actions{ display:flex; justify-content:flex-end; margin-bottom:10px; }
+  .clear-btn{ font-size:11.5px; font-weight:650; color:var(--text-faint); background:none; border:1px solid var(--border); border-radius:8px; padding:5px 10px; cursor:pointer; font-family:inherit; }
+  .clear-btn:hover{ color:var(--text); border-color:var(--text-dim); }
+  .log-list{ display:flex; flex-direction:column; gap:1px; background:var(--border); border:1px solid var(--border); border-radius:12px; overflow:hidden; }
+  .log-row{ display:flex; align-items:center; justify-content:space-between; gap:12px; background:var(--surface); padding:11px 14px; font-size:13px; }
+  .log-what{ display:flex; flex-direction:column; gap:2px; }
+  .log-action{ font-weight:650; }
+  .log-meta{ color:var(--text-faint); font-size:11.5px; }
+  .log-time{ color:var(--text-faint); font-size:11.5px; white-space:nowrap; font-variant-numeric:tabular-nums; }
+  .empty-hint{ color:var(--text-faint); font-size:13.5px; font-style:italic; }
 </style>
 </head>
 <body>
@@ -77,9 +87,12 @@
     <div class="wrap">
       <a class="back" href="/dashboards/">← Назад на главную</a>
       <div class="eyebrow">Логи</div>
-      <h1>Скоро тут</h1>
-      <div class="sub">Страница ещё не наполнена — контент появится позже.</div>
-      <span class="badge">Coming soon</span>
+      <h1>Логи</h1>
+      <div class="sub">История действий на странице Facebook-планирования. Хранится только в этом браузере.</div>
+      <div class="log-actions">
+        <button class="clear-btn" id="clearLogBtn" type="button">Очистить лог</button>
+      </div>
+      <div class="log-list" id="logList"></div>
     </div>
     <div class="widgets">
       <button class="widgets-toggle" id="widgetsToggle" aria-label="Скрыть/показать виджеты">
@@ -122,6 +135,62 @@
   }
   tick();
   setInterval(tick, 1000);
+})();
+
+(function(){
+  var LOG_KEY = 'dash_activity_log_v1';
+  var ACTION_LABELS = { generate: 'Сгенерирован текст', send_promo: 'Отправлено на промокоды' };
+  var DAY_LABELS = { offers: 'День офферов', bonus: 'День бонусов' };
+  var list = document.getElementById('logList');
+  var clearBtn = document.getElementById('clearLogBtn');
+
+  function load(){
+    try{
+      var raw = localStorage.getItem(LOG_KEY);
+      if(raw) return JSON.parse(raw);
+    }catch(e){}
+    return [];
+  }
+  function formatTime(iso){
+    var d = new Date(iso);
+    return d.toLocaleString('ru-RU', { day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit' });
+  }
+  function render(){
+    var entries = load();
+    list.innerHTML = '';
+    if(!entries.length){
+      var hint = document.createElement('div');
+      hint.className = 'empty-hint';
+      hint.textContent = 'Пока пусто.';
+      list.appendChild(hint);
+      return;
+    }
+    entries.slice().reverse().forEach(function(e){
+      var row = document.createElement('div');
+      row.className = 'log-row';
+      var what = document.createElement('div');
+      what.className = 'log-what';
+      var action = document.createElement('span');
+      action.className = 'log-action';
+      action.textContent = ACTION_LABELS[e.action] || e.action;
+      var meta = document.createElement('span');
+      meta.className = 'log-meta';
+      meta.textContent = e.project + (e.day ? ' · ' + (DAY_LABELS[e.day] || e.day) : '');
+      what.appendChild(action);
+      what.appendChild(meta);
+      var time = document.createElement('span');
+      time.className = 'log-time';
+      time.textContent = formatTime(e.ts);
+      row.appendChild(what);
+      row.appendChild(time);
+      list.appendChild(row);
+    });
+  }
+  clearBtn.addEventListener('click', function(){
+    try{ localStorage.removeItem(LOG_KEY); }catch(e){}
+    render();
+  });
+  render();
 })();
 </script>
 </body>
