@@ -99,6 +99,20 @@
   .goal-bar-fill{ height:100%; border-radius:4px; }
   .goal-nums{ font-size:12px; color:var(--text-faint); font-family:ui-monospace,SFMono-Regular,Consolas,monospace; font-variant-numeric:tabular-nums; }
   .goal-card.placeholder{ border-style:dashed; display:flex; align-items:center; justify-content:center; min-height:98px; color:var(--text-faint); font-size:13px; font-style:italic; }
+  .goal-sub-row{ margin-bottom:9px; }
+  .goal-sub-row:last-child{ margin-bottom:0; }
+  .goal-sub-label{ font-size:12px; color:var(--text-dim); font-weight:600; margin-bottom:5px; }
+
+  /* team table */
+  .team-table-wrap{ overflow-x:auto; border:1px solid var(--border); border-radius:12px; }
+  table.team-table{ width:100%; border-collapse:collapse; background:var(--surface); }
+  .team-table th, .team-table td{ border:1px solid var(--border); padding:9px 12px; font-size:13.5px; text-align:left; vertical-align:top; }
+  .team-table thead th{ background:var(--surface-2); font-weight:650; font-size:12.5px; color:var(--text-dim); }
+  .team-table td[contenteditable="true"], .team-table th[contenteditable="true"]{ outline:none; min-width:130px; }
+  .team-table td[contenteditable="true"]:focus, .team-table th[contenteditable="true"]:focus{ background:var(--accent-soft); }
+  .team-actions{ display:flex; gap:8px; margin-top:12px; }
+  .team-btn{ font-size:12.5px; font-weight:650; color:var(--accent-text); background:var(--accent-soft); border:1px solid var(--border); border-radius:8px; padding:7px 12px; cursor:pointer; font-family:inherit; }
+  .team-btn:hover{ filter:brightness(0.95); }
 </style>
 </head>
 <body>
@@ -109,10 +123,8 @@
 
     <aside class="sidebar">
       <nav>
-        <a href="/dashboards/smm-heatmap/" class="slink">СММ</a>
-        <a href="/dashboards/poll-breakdown/" class="slink">ПОЛЛ</a>
-        <a href="/dashboards/chat/" class="slink soon">ЧАТ</a>
-        <a href="/dashboards/powerbi/" class="slink soon">ПАВЕР БИ</a>
+        <a href="/dashboards/reports/" class="slink">ОТЧЁТЫ</a>
+        <a href="/dashboards/planning/" class="slink">ПЛАНИРОВАНИЕ</a>
       </nav>
     </aside>
 
@@ -134,8 +146,36 @@
               <div class="goal-bar-track"><div class="goal-bar-fill" style="width:42%;background:var(--accent-2);"></div></div>
               <div class="goal-nums">42 000 / 100 000</div>
             </div>
+            <div class="goal-card">
+              <div class="gh"><span class="gicon" style="background:#ff4500;">R</span>Reddit</div>
+              <div class="goal-sub-row">
+                <div class="goal-sub-label">Подписчики</div>
+                <div class="goal-bar-track"><div class="goal-bar-fill" style="width:0%;background:#ff4500;"></div></div>
+                <div class="goal-nums">0 · цель уточняется</div>
+              </div>
+              <div class="goal-sub-row">
+                <div class="goal-sub-label">Сабканалы</div>
+                <div class="goal-bar-track"><div class="goal-bar-fill" style="width:0%;background:#ff4500;"></div></div>
+                <div class="goal-nums">0 · цель уточняется</div>
+              </div>
+            </div>
             <div class="goal-card placeholder">Метрика добавится позже</div>
-            <div class="goal-card placeholder">Метрика добавится позже</div>
+          </div>
+        </section>
+
+        <section>
+          <div class="eyebrow">Team</div>
+          <h2 class="section-title">Команда</h2>
+          <div class="sub">Кто за что отвечает. Строки и столбцы можно добавлять прямо тут — хранится в этом браузере.</div>
+          <div class="team-table-wrap">
+            <table class="team-table" id="teamTable">
+              <thead><tr></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <div class="team-actions">
+            <button class="team-btn" id="addRowBtn" type="button">+ Строка</button>
+            <button class="team-btn" id="addColBtn" type="button">+ Столбец</button>
           </div>
         </section>
 
@@ -184,6 +224,62 @@
     }
     tick();
     setInterval(tick, 1000);
+  })();
+
+  (function(){
+    var STORAGE_KEY = 'dash_team_table_v1';
+    var DEFAULT_STATE = { headers:['Имя','Зоны ответственности','Задачи'], rows:[['Александр','','']] };
+    var table = document.getElementById('teamTable');
+    var theadRow = table.querySelector('thead tr');
+    var tbody = table.querySelector('tbody');
+
+    function loadState(){
+      try{
+        var raw = localStorage.getItem(STORAGE_KEY);
+        if(raw) return JSON.parse(raw);
+      }catch(e){}
+      return DEFAULT_STATE;
+    }
+    function saveState(){
+      var headers = Array.prototype.map.call(theadRow.children, function(th){ return th.textContent; });
+      var rows = Array.prototype.map.call(tbody.children, function(tr){
+        return Array.prototype.map.call(tr.children, function(td){ return td.textContent; });
+      });
+      try{ localStorage.setItem(STORAGE_KEY, JSON.stringify({headers:headers, rows:rows})); }catch(e){}
+    }
+    function makeCell(tag, text){
+      var el = document.createElement(tag);
+      el.contentEditable = 'true';
+      el.textContent = text || '';
+      el.addEventListener('input', saveState);
+      return el;
+    }
+    function render(state){
+      theadRow.innerHTML = '';
+      state.headers.forEach(function(h){ theadRow.appendChild(makeCell('th', h)); });
+      tbody.innerHTML = '';
+      state.rows.forEach(function(row){
+        var tr = document.createElement('tr');
+        state.headers.forEach(function(_, i){ tr.appendChild(makeCell('td', row[i] || '')); });
+        tbody.appendChild(tr);
+      });
+    }
+    render(loadState());
+
+    document.getElementById('addRowBtn').addEventListener('click', function(){
+      var tr = document.createElement('tr');
+      var colCount = theadRow.children.length;
+      for(var i=0;i<colCount;i++){ tr.appendChild(makeCell('td','')); }
+      tbody.appendChild(tr);
+      saveState();
+    });
+    document.getElementById('addColBtn').addEventListener('click', function(){
+      var name = prompt('Название столбца:', 'Новый столбец');
+      if(name === null) return;
+      theadRow.appendChild(makeCell('th', name || 'Столбец'));
+      Array.prototype.forEach.call(tbody.children, function(tr){ tr.appendChild(makeCell('td','')); });
+      saveState();
+    });
   })();
 </script>
 </body>
