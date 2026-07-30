@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Facebook — Планирование — Dashboards</title>
+<style>
+  :root{
+    --bg:#f4f5f3; --surface:#ffffff; --surface-2:#eceeec; --border:#d7dad6;
+    --text:#1c1f1d; --text-dim:#666b66; --text-faint:#9a9f9a;
+    --accent:#b8842e; --accent-text:#5f4413; --accent-soft:rgba(184,132,46,0.14);
+    --shadow: 0 1px 2px rgba(20,22,20,0.06), 0 8px 24px -12px rgba(20,22,20,0.18);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#0d0f0e; --surface:#161917; --surface-2:#1e2220; --border:#2b302d; --text:#e9ebe8; --text-dim:#a4a9a3; --text-faint:#6f746f; --accent:#d4a24e; --accent-text:#f0d29a; --accent-soft:rgba(212,162,78,0.16); --shadow: 0 1px 2px rgba(0,0,0,0.4), 0 12px 32px -16px rgba(0,0,0,0.6); }
+  }
+  :root[data-theme="dark"]{ --bg:#0d0f0e; --surface:#161917; --surface-2:#1e2220; --border:#2b302d; --text:#e9ebe8; --text-dim:#a4a9a3; --text-faint:#6f746f; --accent:#d4a24e; --accent-text:#f0d29a; --accent-soft:rgba(212,162,78,0.16); --shadow: 0 1px 2px rgba(0,0,0,0.4), 0 12px 32px -16px rgba(0,0,0,0.6); }
+  :root[data-theme="light"]{ --bg:#f4f5f3; --surface:#ffffff; --surface-2:#eceeec; --border:#d7dad6; --text:#1c1f1d; --text-dim:#666b66; --text-faint:#9a9f9a; --accent:#b8842e; --accent-text:#5f4413; --accent-soft:rgba(184,132,46,0.14); --shadow: 0 1px 2px rgba(20,22,20,0.06), 0 8px 24px -12px rgba(20,22,20,0.18); }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{ background:var(--bg); color:var(--text); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; -webkit-font-smoothing:antialiased; line-height:1.45; }
+
+  .shell{ display:grid; grid-template-columns:190px 1fr; grid-template-rows:52px 1fr; grid-template-areas:"topbar topbar" "sidebar content"; min-height:100vh; }
+  @media (max-width:720px){ .shell{ grid-template-columns:1fr; grid-template-areas:"topbar" "sidebar" "content"; } }
+  .topbar{ grid-area:topbar; position:sticky; top:0; z-index:60; display:flex; align-items:center; padding:0 20px; background:#15130f; border-bottom:1px solid rgba(255,255,255,.08); }
+  .topbar .brand{ color:#f0d29a; font-weight:700; font-size:14px; letter-spacing:.02em; text-decoration:none; }
+  .sidebar{ grid-area:sidebar; position:sticky; top:52px; align-self:start; height:calc(100vh - 52px); overflow-y:auto; background:#15130f; border-right:1px solid rgba(255,255,255,.08); padding:18px 12px; }
+  @media (max-width:720px){ .sidebar{ position:static; height:auto; border-right:0; border-bottom:1px solid rgba(255,255,255,.08); } }
+  .sidebar nav{ display:flex; flex-direction:column; gap:3px; }
+  @media (max-width:720px){ .sidebar nav{ flex-direction:row; overflow-x:auto; } }
+  .slink{ color:#a8a39a; text-decoration:none; font-size:13px; font-weight:650; letter-spacing:.02em; padding:9px 12px; border-radius:8px; white-space:nowrap; transition:background .12s,color .12s; }
+  .slink:hover{ background:rgba(255,255,255,.06); color:#f2efe9; }
+  .slink.active{ background:rgba(217,171,76,.16); color:#f0c674; }
+  .slink.soon{ opacity:.55; }
+  .slink.soon::after{ content:" · soon"; font-size:9px; letter-spacing:0; opacity:.8; }
+  .content{ grid-area:content; min-width:0; }
+
+  .widgets{ position:fixed; right:16px; bottom:16px; z-index:55; display:flex; flex-direction:column; align-items:flex-end; gap:10px; }
+  @media (max-width:720px){ .widgets{ position:static; align-items:stretch; margin:32px 20px 0; } }
+  .widgets-toggle{ width:42px; height:42px; border-radius:50%; border:1px solid rgba(255,255,255,.14); background:#1b1a16; color:#e9e6df; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 8px 24px -12px rgba(0,0,0,.5); padding:0; }
+  .widgets-toggle:hover{ border-color:#d9ab4c; }
+  .widgets-panel{ display:flex; flex-direction:column; gap:10px; width:230px; }
+  @media (max-width:720px){ .widgets-panel{ width:auto; } }
+  .widgets-panel.hidden{ display:none; }
+  .back{ display:inline-block; font-size:12.5px; color:var(--text-dim); text-decoration:none; margin-bottom:16px; }
+  .back:hover{ color:var(--text); }
+  .status-tile{ background:#1b1a16; border:1px solid rgba(255,255,255,.10); border-radius:12px; padding:12px 14px; box-shadow:0 8px 24px -12px rgba(0,0,0,.5); color:#e9e6df; }
+  .st-top{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px; gap:8px; }
+  .st-label{ font-size:11.5px; font-weight:650; color:#a8a39a; }
+  .st-pct{ font-size:12.5px; font-weight:700; font-variant-numeric:tabular-nums; color:#e9e6df; }
+  .st-bar-track{ height:5px; border-radius:3px; background:rgba(255,255,255,.08); overflow:hidden; margin-bottom:6px; }
+  .st-bar-fill{ height:100%; border-radius:3px; }
+  .st-sub{ font-size:10.5px; color:#7a766c; }
+  .status-tile.countdown{ display:flex; flex-direction:column; justify-content:center; }
+  .st-value{ font-size:22px; font-weight:800; font-variant-numeric:tabular-nums; letter-spacing:-0.01em; color:#f0d29a; }
+  .countdown .st-top{ margin-bottom:2px; }
+  .logs-btn{ font-size:10px; font-weight:650; letter-spacing:.03em; text-transform:uppercase; color:#a8a39a; text-decoration:none; border:1px solid rgba(255,255,255,.14); border-radius:99px; padding:3px 9px; transition:border-color .12s,color .12s; }
+  .logs-btn:hover{ border-color:#d9ab4c; color:#f0c674; }
+
+  .wrap{ max-width:640px; padding:28px 20px 220px; }
+  .eyebrow{ text-transform:uppercase; letter-spacing:.09em; font-size:11.5px; font-weight:600; color:var(--text-faint); margin-bottom:8px; }
+  h1{ margin:0 0 6px; font-size:26px; font-weight:650; letter-spacing:-0.01em; }
+  .sub{ color:var(--text-dim); font-size:14px; max-width:55ch; margin-bottom:20px; }
+  h2.step-title{ font-size:12.5px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--text-faint); margin:28px 0 12px; }
+  h2.step-title:first-of-type{ margin-top:0; }
+
+  /* project dropdown */
+  .dropdown{ position:relative; }
+  .dropdown-trigger{ width:100%; display:flex; align-items:center; justify-content:space-between; gap:10px; font-size:14px; font-weight:650; font-family:inherit; padding:12px 14px; border-radius:10px; border:1px solid var(--border); background:var(--surface); color:var(--text); cursor:pointer; }
+  .dropdown-trigger:hover{ border-color:var(--accent); }
+  .dropdown-trigger .caret{ color:var(--text-faint); font-size:11px; }
+  .dropdown-panel{ position:absolute; top:calc(100% + 6px); left:0; right:0; z-index:20; background:var(--surface); border:1px solid var(--border); border-radius:12px; box-shadow:var(--shadow); padding:10px; }
+  .dropdown-panel.hidden{ display:none; }
+  .select-all{ font-size:12px; font-weight:650; color:var(--accent-text); background:none; border:none; padding:2px 4px 10px; cursor:pointer; text-decoration:underline; text-underline-offset:2px; font-family:inherit; }
+  .project-list{ display:flex; flex-direction:column; gap:2px; border:1px solid var(--border); border-radius:10px; overflow:hidden; max-height:260px; overflow-y:auto; }
+  .project-row{ display:flex; align-items:center; gap:11px; padding:10px 12px; font-size:13.5px; font-weight:600; border-bottom:1px solid var(--border); cursor:pointer; }
+  .project-row:last-child{ border-bottom:none; }
+  .project-row:hover{ background:var(--surface-2); }
+  .project-row input{ width:16px; height:16px; accent-color:var(--accent); cursor:pointer; }
+
+  /* day buttons */
+  .day-buttons{ display:flex; gap:10px; }
+  .day-btn{ flex:1; font-size:13.5px; font-weight:700; font-family:inherit; padding:13px 14px; border-radius:10px; border:1px solid var(--border); background:var(--surface); color:var(--text-faint); cursor:not-allowed; transition:background .12s,color .12s,border-color .12s; }
+  .day-btn.enabled{ color:var(--accent-text); background:var(--accent-soft); border-color:var(--accent); cursor:pointer; }
+  .day-btn.enabled:hover{ filter:brightness(0.97); }
+  .day-btn.selected{ color:#fff; background:var(--accent); border-color:var(--accent); }
+
+  /* generate list */
+  .gen-list{ display:flex; flex-direction:column; gap:10px; }
+  .gen-card{ background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:12px 14px; display:flex; flex-direction:column; gap:10px; }
+  .gen-head{ display:flex; align-items:center; justify-content:space-between; gap:10px; }
+  .gen-head .gr-name{ font-size:13.5px; font-weight:650; }
+  .gen-btn{ font-size:12px; font-weight:650; color:var(--accent-text); background:var(--accent-soft); border:1px solid var(--border); border-radius:8px; padding:7px 11px; cursor:pointer; font-family:inherit; white-space:nowrap; }
+  .gen-btn:hover{ filter:brightness(0.95); }
+  .gen-btn.sent{ color:#fff; background:#0f9e8e; border-color:#0f9e8e; cursor:default; }
+  .gen-body{ display:flex; flex-direction:column; gap:8px; }
+  .gen-body.hidden{ display:none; }
+  .gen-text{ width:100%; min-height:92px; resize:vertical; font:inherit; font-size:13px; line-height:1.5; padding:10px 12px; border-radius:8px; border:1px solid var(--border); background:var(--surface-2); color:var(--text); }
+  .gen-text[readonly]{ color:var(--text-dim); }
+  .gen-actions{ display:flex; gap:8px; }
+  .empty-hint{ color:var(--text-faint); font-size:13px; font-style:italic; }
+</style>
+</head>
+<body>
+<div class="shell">
+  <header class="topbar">
+    <a class="brand" href="/dashboards/">Dashboards</a>
+  </header>
+  <aside class="sidebar">
+    <nav>
+      <a href="/dashboards/reports/" class="slink">ОТЧЁТЫ</a>
+      <a href="/dashboards/planning/" class="slink active">ПЛАНИРОВАНИЕ</a>
+    </nav>
+  </aside>
+  <main class="content">
+    <div class="wrap">
+      <a class="back" href="/dashboards/">← Назад на главную</a>
+      <div class="eyebrow">Планирование · Facebook</div>
+      <h1>Facebook</h1>
+      <div class="sub">Выбери проекты, потом тип дня — появится список с кнопками генерации текста. <a href="/dashboards/promo-codes/">Промокоды →</a></div>
+
+      <h2 class="step-title">1. Проекты</h2>
+      <div class="dropdown" id="projectDropdown">
+        <button class="dropdown-trigger" id="projectDropdownBtn" type="button">
+          <span id="projectDropdownLabel">Проекты не выбраны</span>
+          <span class="caret">▾</span>
+        </button>
+        <div class="dropdown-panel hidden" id="projectDropdownPanel">
+          <button class="select-all" id="selectAllBtn" type="button">Выбрать все</button>
+          <div class="project-list" id="projectList"></div>
+        </div>
+      </div>
+
+      <h2 class="step-title">2. Тип дня</h2>
+      <div class="day-buttons">
+        <button class="day-btn" id="offersDayBtn" type="button" disabled>День офферов</button>
+        <button class="day-btn" id="bonusDayBtn" type="button" disabled>День бонусов</button>
+      </div>
+
+      <h2 class="step-title" id="genTitle" style="display:none;">3. Генерация текста</h2>
+      <div class="gen-list" id="genList"></div>
+    </div>
+    <div class="widgets">
+      <button class="widgets-toggle" id="widgetsToggle" aria-label="Скрыть/показать виджеты">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V10M12 20V4M20 20V14"/></svg>
+      </button>
+      <div class="widgets-panel hidden" id="widgetsPanel">
+        <div class="status-tile">
+          <div class="st-top"><span class="st-label">Лимит Claude</span><span class="st-pct">68%</span></div>
+          <div class="st-bar-track"><div class="st-bar-fill" style="width:68%;background:#d9ab4c;"></div></div>
+          <div class="st-sub">использовано за 5 часов · сброс через 1ч 40м</div>
+        </div>
+        <div class="status-tile">
+          <div class="st-top"><span class="st-label">Лимит ChatGPT</span><span class="st-pct">45%</span></div>
+          <div class="st-bar-track"><div class="st-bar-fill" style="width:45%;background:#2dd4bf;"></div></div>
+          <div class="st-sub">использовано за неделю · сброс в понедельник</div>
+        </div>
+        <div class="status-tile countdown">
+          <div class="st-top"><span class="st-label">Обратный отсчёт</span><a class="logs-btn" href="/dashboards/logs/">Логи</a></div>
+          <span class="st-value" id="shell-countdown">10:00</span>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+<script>
+(function(){
+  var toggle = document.getElementById('widgetsToggle');
+  var panel = document.getElementById('widgetsPanel');
+  toggle.addEventListener('click', function(){ panel.classList.toggle('hidden'); });
+})();
+(function(){
+  var COUNTDOWN_SECONDS = 10 * 60;
+  var deadline = Date.now() + COUNTDOWN_SECONDS * 1000;
+  var el = document.getElementById('shell-countdown');
+  function tick(){
+    var remaining = Math.round((deadline - Date.now()) / 1000);
+    if(remaining <= 0){ deadline = Date.now() + COUNTDOWN_SECONDS * 1000; remaining = COUNTDOWN_SECONDS; }
+    var m = Math.floor(remaining / 60), s = remaining % 60;
+    el.textContent = String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+  }
+  tick();
+  setInterval(tick, 1000);
+})();
+
+(function(){
+  var LOG_KEY = 'dash_activity_log_v1';
+  var PROMO_QUEUE_KEY = 'dash_promo_queue_v1';
+  var DAY_LABELS = { offers: 'День офферов', bonus: 'День бонусов' };
+
+  function logActivity(action, project, day){
+    var entry = { ts: new Date().toISOString(), action: action, project: project, day: day || null };
+    var list = [];
+    try{
+      var raw = localStorage.getItem(LOG_KEY);
+      if(raw) list = JSON.parse(raw);
+    }catch(e){}
+    list.push(entry);
+    try{ localStorage.setItem(LOG_KEY, JSON.stringify(list)); }catch(e){}
+  }
+
+  function queuePromo(project, day, text){
+    var list = [];
+    try{
+      var raw = localStorage.getItem(PROMO_QUEUE_KEY);
+      if(raw) list = JSON.parse(raw);
+    }catch(e){}
+    list.push({ ts: new Date().toISOString(), project: project, day: day, text: text });
+    try{ localStorage.setItem(PROMO_QUEUE_KEY, JSON.stringify(list)); }catch(e){}
+  }
+
+  function draftText(project, day){
+    return '[ЧЕРНОВИК] Facebook · ' + project + ' · ' + DAY_LABELS[day] + '\n\nЗдесь появится сгенерированный текст, когда подключим реальную генерацию.';
+  }
+
+  var PROJECTS = ['NoLimitCoins','FortuneWheelz','StormRush','TAOFORTUNE','Vegas Way','Scarlet Sands','Fire Seven','CoinsMania','DexyPlay'];
+  var listEl = document.getElementById('projectList');
+  var selectAllBtn = document.getElementById('selectAllBtn');
+  var dropdownBtn = document.getElementById('projectDropdownBtn');
+  var dropdownPanel = document.getElementById('projectDropdownPanel');
+  var dropdownLabel = document.getElementById('projectDropdownLabel');
+  var offersBtn = document.getElementById('offersDayBtn');
+  var bonusBtn = document.getElementById('bonusDayBtn');
+  var genTitle = document.getElementById('genTitle');
+  var genList = document.getElementById('genList');
+  var selectedDay = null;
+
+  PROJECTS.forEach(function(p, i){
+    var row = document.createElement('label');
+    row.className = 'project-row';
+    var cb = document.createElement('input');
+    cb.type = 'checkbox';
+    cb.value = p;
+    cb.id = 'proj-' + i;
+    cb.addEventListener('change', onSelectionChange);
+    var span = document.createElement('span');
+    span.textContent = p;
+    row.appendChild(cb);
+    row.appendChild(span);
+    listEl.appendChild(row);
+  });
+
+  dropdownBtn.addEventListener('click', function(e){
+    e.stopPropagation();
+    dropdownPanel.classList.toggle('hidden');
+  });
+  document.addEventListener('click', function(e){
+    if(!dropdownPanel.classList.contains('hidden') && !document.getElementById('projectDropdown').contains(e.target)){
+      dropdownPanel.classList.add('hidden');
+    }
+  });
+
+  function getChecked(){
+    return Array.prototype.slice.call(listEl.querySelectorAll('input:checked')).map(function(cb){ return cb.value; });
+  }
+
+  function updateDropdownLabel(){
+    var checked = getChecked();
+    if(!checked.length) dropdownLabel.textContent = 'Проекты не выбраны';
+    else if(checked.length === PROJECTS.length) dropdownLabel.textContent = 'Все проекты';
+    else dropdownLabel.textContent = 'Выбрано: ' + checked.length;
+  }
+
+  function onSelectionChange(){
+    updateDropdownLabel();
+    var any = getChecked().length > 0;
+    offersBtn.disabled = !any;
+    bonusBtn.disabled = !any;
+    offersBtn.classList.toggle('enabled', any);
+    bonusBtn.classList.toggle('enabled', any);
+    if(!any){
+      selectedDay = null;
+      offersBtn.classList.remove('selected');
+      bonusBtn.classList.remove('selected');
+      genTitle.style.display = 'none';
+      genList.innerHTML = '';
+    } else if(selectedDay){
+      renderGenList();
+    }
+  }
+
+  selectAllBtn.addEventListener('click', function(){
+    var boxes = listEl.querySelectorAll('input');
+    var allChecked = Array.prototype.every.call(boxes, function(cb){ return cb.checked; });
+    Array.prototype.forEach.call(boxes, function(cb){ cb.checked = !allChecked; });
+    onSelectionChange();
+  });
+
+  function chooseDay(day, btn, otherBtn){
+    if(btn.disabled) return;
+    selectedDay = day;
+    btn.classList.add('selected');
+    otherBtn.classList.remove('selected');
+    renderGenList();
+  }
+  offersBtn.addEventListener('click', function(){ chooseDay('offers', offersBtn, bonusBtn); });
+  bonusBtn.addEventListener('click', function(){ chooseDay('bonus', bonusBtn, offersBtn); });
+
+  function renderGenList(){
+    var projects = getChecked();
+    genTitle.style.display = '';
+    genList.innerHTML = '';
+    if(!projects.length){
+      var hint = document.createElement('div');
+      hint.className = 'empty-hint';
+      hint.textContent = 'Ничего не выбрано';
+      genList.appendChild(hint);
+      return;
+    }
+    projects.forEach(function(p){
+      var card = document.createElement('div');
+      card.className = 'gen-card';
+
+      var head = document.createElement('div');
+      head.className = 'gen-head';
+      var name = document.createElement('span');
+      name.className = 'gr-name';
+      name.textContent = p;
+      var genBtn = document.createElement('button');
+      genBtn.type = 'button';
+      genBtn.className = 'gen-btn';
+      genBtn.textContent = 'Сгенерировать текст';
+      head.appendChild(name);
+      head.appendChild(genBtn);
+
+      var body = document.createElement('div');
+      body.className = 'gen-body hidden';
+      var textarea = document.createElement('textarea');
+      textarea.className = 'gen-text';
+      textarea.readOnly = true;
+      var actions = document.createElement('div');
+      actions.className = 'gen-actions';
+      var editBtn = document.createElement('button');
+      editBtn.type = 'button';
+      editBtn.className = 'gen-btn';
+      editBtn.textContent = 'Редактировать';
+      var sendBtn = document.createElement('button');
+      sendBtn.type = 'button';
+      sendBtn.className = 'gen-btn';
+      sendBtn.textContent = 'Отправить на промокоды';
+      actions.appendChild(editBtn);
+      actions.appendChild(sendBtn);
+      body.appendChild(textarea);
+      body.appendChild(actions);
+
+      genBtn.addEventListener('click', function(){
+        textarea.value = draftText(p, selectedDay);
+        body.classList.remove('hidden');
+        genBtn.disabled = true;
+        logActivity('generate', p, selectedDay);
+      });
+      editBtn.addEventListener('click', function(){
+        textarea.readOnly = !textarea.readOnly;
+        editBtn.textContent = textarea.readOnly ? 'Редактировать' : 'Готово';
+        if(!textarea.readOnly) textarea.focus();
+      });
+      sendBtn.addEventListener('click', function(){
+        queuePromo(p, selectedDay, textarea.value);
+        logActivity('send_promo', p, selectedDay);
+        sendBtn.textContent = 'Отправлено ✓';
+        sendBtn.classList.add('sent');
+        sendBtn.disabled = true;
+      });
+
+      card.appendChild(head);
+      card.appendChild(body);
+      genList.appendChild(card);
+    });
+  }
+})();
+</script>
+</body>
+</html>
