@@ -113,6 +113,12 @@
   .team-actions{ display:flex; gap:8px; margin-top:12px; }
   .team-btn{ font-size:12.5px; font-weight:650; color:var(--accent-text); background:var(--accent-soft); border:1px solid var(--border); border-radius:8px; padding:7px 12px; cursor:pointer; font-family:inherit; }
   .team-btn:hover{ filter:brightness(0.95); }
+  .team-select{ font-size:13.5px; font-family:inherit; color:var(--text); background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:7px 10px; }
+  select.team-select{ min-width:160px; }
+  .task-list{ list-style:none; margin:14px 0 0; padding:0; display:flex; flex-direction:column; gap:6px; }
+  .task-list li{ background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:9px 12px; font-size:13.5px; outline:none; }
+  .task-list li:focus{ background:var(--accent-soft); }
+  .task-list:empty::before{ content:"Пока нет задач"; color:var(--text-faint); font-size:13px; font-style:italic; }
 </style>
 </head>
 <body>
@@ -166,16 +172,26 @@
         <section>
           <div class="eyebrow">Team</div>
           <h2 class="section-title">Команда</h2>
-          <div class="sub">Кто за что отвечает. Строки и столбцы можно добавлять прямо тут — хранится в этом браузере.</div>
+          <div class="sub">Кто за какую зону отвечает — хранится в этом браузере.</div>
           <div class="team-table-wrap">
-            <table class="team-table" id="teamTable">
-              <thead><tr></tr></thead>
-              <tbody></tbody>
+            <table class="team-table" id="teamAssignTable">
+              <thead><tr><th>Имя</th><th>Зона ответственности</th></tr></thead>
+              <tbody id="teamAssignBody"></tbody>
             </table>
           </div>
           <div class="team-actions">
-            <button class="team-btn" id="addRowBtn" type="button">+ Строка</button>
-            <button class="team-btn" id="addColBtn" type="button">+ Столбец</button>
+            <button class="team-btn" id="addAssignRowBtn" type="button">+ Строка</button>
+          </div>
+        </section>
+
+        <section>
+          <div class="eyebrow">Team</div>
+          <h2 class="section-title">Задачи</h2>
+          <div class="sub">Выбери имя — увидишь и сможешь отредактировать его задачи.</div>
+          <select class="team-select" id="taskPersonSelect"></select>
+          <ul class="task-list" id="taskList"></ul>
+          <div class="team-actions">
+            <button class="team-btn" id="addTaskBtn" type="button">+ Задача</button>
           </div>
         </section>
 
@@ -227,58 +243,103 @@
   })();
 
   (function(){
-    var STORAGE_KEY = 'dash_team_table_v1';
-    var DEFAULT_STATE = { headers:['Имя','Зоны ответственности','Задачи'], rows:[['Александр','','']] };
-    var table = document.getElementById('teamTable');
-    var theadRow = table.querySelector('thead tr');
-    var tbody = table.querySelector('tbody');
+    var NAMES = ['Александр','Никита','Иван'];
+    var ZONES = ['Зона 1','Зона 2','Зона 3','Зона 4','Зона 5','Зона 6','Зона 7','Зона 8'];
+    var ASSIGN_KEY = 'dash_team_assign_v1';
+    var tbody = document.getElementById('teamAssignBody');
 
-    function loadState(){
+    function loadAssignRows(){
       try{
-        var raw = localStorage.getItem(STORAGE_KEY);
+        var raw = localStorage.getItem(ASSIGN_KEY);
         if(raw) return JSON.parse(raw);
       }catch(e){}
-      return DEFAULT_STATE;
+      return [{name:0, zone:0}];
     }
-    function saveState(){
-      var headers = Array.prototype.map.call(theadRow.children, function(th){ return th.textContent; });
+    function saveAssignRows(){
       var rows = Array.prototype.map.call(tbody.children, function(tr){
-        return Array.prototype.map.call(tr.children, function(td){ return td.textContent; });
+        return {
+          name: Number(tr.querySelector('.name-select').value),
+          zone: Number(tr.querySelector('.zone-select').value)
+        };
       });
-      try{ localStorage.setItem(STORAGE_KEY, JSON.stringify({headers:headers, rows:rows})); }catch(e){}
+      try{ localStorage.setItem(ASSIGN_KEY, JSON.stringify(rows)); }catch(e){}
     }
-    function makeCell(tag, text){
-      var el = document.createElement(tag);
-      el.contentEditable = 'true';
-      el.textContent = text || '';
-      el.addEventListener('input', saveState);
-      return el;
-    }
-    function render(state){
-      theadRow.innerHTML = '';
-      state.headers.forEach(function(h){ theadRow.appendChild(makeCell('th', h)); });
-      tbody.innerHTML = '';
-      state.rows.forEach(function(row){
-        var tr = document.createElement('tr');
-        state.headers.forEach(function(_, i){ tr.appendChild(makeCell('td', row[i] || '')); });
-        tbody.appendChild(tr);
+    function makeSelect(cls, options, selectedIdx){
+      var sel = document.createElement('select');
+      sel.className = 'team-select ' + cls;
+      options.forEach(function(opt, i){
+        var o = document.createElement('option');
+        o.value = i;
+        o.textContent = opt;
+        if(i === selectedIdx) o.selected = true;
+        sel.appendChild(o);
       });
+      sel.addEventListener('change', saveAssignRows);
+      return sel;
     }
-    render(loadState());
-
-    document.getElementById('addRowBtn').addEventListener('click', function(){
+    function addAssignRow(name, zone){
       var tr = document.createElement('tr');
-      var colCount = theadRow.children.length;
-      for(var i=0;i<colCount;i++){ tr.appendChild(makeCell('td','')); }
+      var td1 = document.createElement('td'); td1.appendChild(makeSelect('name-select', NAMES, name || 0)); tr.appendChild(td1);
+      var td2 = document.createElement('td'); td2.appendChild(makeSelect('zone-select', ZONES, zone || 0)); tr.appendChild(td2);
       tbody.appendChild(tr);
-      saveState();
+    }
+    loadAssignRows().forEach(function(r){ addAssignRow(r.name, r.zone); });
+
+    document.getElementById('addAssignRowBtn').addEventListener('click', function(){
+      addAssignRow(0, 0);
+      saveAssignRows();
     });
-    document.getElementById('addColBtn').addEventListener('click', function(){
-      var name = prompt('Название столбца:', 'Новый столбец');
-      if(name === null) return;
-      theadRow.appendChild(makeCell('th', name || 'Столбец'));
-      Array.prototype.forEach.call(tbody.children, function(tr){ tr.appendChild(makeCell('td','')); });
-      saveState();
+  })();
+
+  (function(){
+    var NAMES = ['Александр','Никита','Иван'];
+    var TASKS_KEY = 'dash_team_tasks_v1';
+    var select = document.getElementById('taskPersonSelect');
+    var list = document.getElementById('taskList');
+
+    NAMES.forEach(function(n, i){
+      var o = document.createElement('option');
+      o.value = i;
+      o.textContent = n;
+      select.appendChild(o);
+    });
+
+    function loadTasks(){
+      try{
+        var raw = localStorage.getItem(TASKS_KEY);
+        if(raw) return JSON.parse(raw);
+      }catch(e){}
+      return {};
+    }
+    function saveTasks(state){
+      try{ localStorage.setItem(TASKS_KEY, JSON.stringify(state)); }catch(e){}
+    }
+    function makeTaskItem(text){
+      var li = document.createElement('li');
+      li.contentEditable = 'true';
+      li.textContent = text || '';
+      li.addEventListener('input', persistFromDOM);
+      return li;
+    }
+    function persistFromDOM(){
+      var state = loadTasks();
+      state[select.value] = Array.prototype.map.call(list.children, function(li){ return li.textContent; });
+      saveTasks(state);
+    }
+    function renderTasks(){
+      var state = loadTasks();
+      var tasks = state[select.value] || [];
+      list.innerHTML = '';
+      tasks.forEach(function(t){ list.appendChild(makeTaskItem(t)); });
+    }
+    select.addEventListener('change', renderTasks);
+    renderTasks();
+
+    document.getElementById('addTaskBtn').addEventListener('click', function(){
+      var li = makeTaskItem('');
+      list.appendChild(li);
+      persistFromDOM();
+      li.focus();
     });
   })();
 </script>
