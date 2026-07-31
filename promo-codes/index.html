@@ -142,6 +142,7 @@
 (function(){
   var PROMO_QUEUE_KEY = 'dash_promo_queue_v1';
   var DAY_LABELS = { offers: 'День офферов', bonus: 'День бонусов' };
+  var CHANNEL_LABELS = { facebook: 'Facebook', broadcast: 'Broadcast' };
   var list = document.getElementById('queueList');
 
   function load(){
@@ -164,7 +165,7 @@
     if(!items.length){
       var hint = document.createElement('div');
       hint.className = 'empty-hint';
-      hint.textContent = 'Очередь пуста — отправь текст со страницы Facebook.';
+      hint.textContent = 'Очередь пуста — отправь текст со страницы Facebook или Broadcast.';
       list.appendChild(hint);
       return;
     }
@@ -179,7 +180,8 @@
       title.textContent = item.project + ' ';
       var day = document.createElement('span');
       day.className = 'q-day';
-      day.textContent = '· ' + (DAY_LABELS[item.day] || item.day);
+      var channelLabel = item.channel ? (CHANNEL_LABELS[item.channel] || item.channel) + ' · ' : '';
+      day.textContent = '· ' + channelLabel + (DAY_LABELS[item.day] || item.day);
       title.appendChild(day);
       var time = document.createElement('span');
       time.className = 'q-time';
