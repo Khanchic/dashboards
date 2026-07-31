@@ -112,6 +112,7 @@
       <a href="/dashboards/reports/" class="slink">ОТЧЁТЫ</a>
       <a href="/dashboards/planning/" class="slink active">ПЛАНИРОВАНИЕ</a>
       <a href="/dashboards/promo-codes/" class="slink">ПРОМОКОДЫ</a>
+      <a href="/dashboards/visual/" class="slink">ВИЗУАЛ</a>
     </nav>
   </aside>
   <main class="content">
@@ -190,8 +191,8 @@
   var PROMO_QUEUE_KEY = 'dash_promo_queue_v1';
   var DAY_LABELS = { offers: 'День офферов', bonus: 'День бонусов' };
 
-  function logActivity(action, project, day){
-    var entry = { ts: new Date().toISOString(), action: action, project: project, day: day || null };
+  function logActivity(action, project, day, channel){
+    var entry = { ts: new Date().toISOString(), action: action, project: project, day: day || null, channel: channel || null };
     var list = [];
     try{
       var raw = localStorage.getItem(LOG_KEY);
@@ -201,13 +202,13 @@
     try{ localStorage.setItem(LOG_KEY, JSON.stringify(list)); }catch(e){}
   }
 
-  function queuePromo(project, day, text){
+  function queuePromo(project, day, text, channel){
     var list = [];
     try{
       var raw = localStorage.getItem(PROMO_QUEUE_KEY);
       if(raw) list = JSON.parse(raw);
     }catch(e){}
-    list.push({ ts: new Date().toISOString(), project: project, day: day, text: text });
+    list.push({ ts: new Date().toISOString(), project: project, day: day, text: text, channel: channel || null });
     try{ localStorage.setItem(PROMO_QUEUE_KEY, JSON.stringify(list)); }catch(e){}
   }
 
@@ -349,7 +350,7 @@
         textarea.value = draftText(p, selectedDay);
         body.classList.remove('hidden');
         genBtn.disabled = true;
-        logActivity('generate', p, selectedDay);
+        logActivity('generate', p, selectedDay, 'facebook');
       });
       editBtn.addEventListener('click', function(){
         textarea.readOnly = !textarea.readOnly;
@@ -357,8 +358,8 @@
         if(!textarea.readOnly) textarea.focus();
       });
       sendBtn.addEventListener('click', function(){
-        queuePromo(p, selectedDay, textarea.value);
-        logActivity('send_promo', p, selectedDay);
+        queuePromo(p, selectedDay, textarea.value, 'facebook');
+        logActivity('send_promo', p, selectedDay, 'facebook');
         sendBtn.textContent = 'Отправлено ✓';
         sendBtn.classList.add('sent');
         sendBtn.disabled = true;
