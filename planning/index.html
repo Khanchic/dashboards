@@ -63,7 +63,9 @@
   .sub{ color:var(--text-dim); font-size:14.5px; max-width:55ch; }
 
   .hub-buttons{ display:flex; gap:16px; flex-wrap:wrap; justify-content:center; margin-top:40px; }
-  .hub-btn{ display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; width:170px; height:120px; background:var(--surface); border:1px solid var(--border); border-radius:14px; color:var(--text); box-shadow:var(--shadow); opacity:.55; }
+  .hub-btn{ display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; width:170px; height:120px; background:var(--surface); border:1px solid var(--border); border-radius:14px; color:var(--text); text-decoration:none; box-shadow:var(--shadow); opacity:.55; }
+  a.hub-btn{ opacity:1; transition:border-color .12s, transform .12s; }
+  a.hub-btn:hover{ border-color:var(--accent-text); transform:translateY(-2px); }
   .hb-icon{ width:36px; height:36px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:15px; color:#fff; }
   .hb-label{ font-size:13.5px; font-weight:650; }
   .hb-badge{ font-size:9.5px; font-weight:650; letter-spacing:.03em; text-transform:uppercase; color:var(--text-faint); }
@@ -76,6 +78,7 @@
   </header>
   <aside class="sidebar">
     <nav>
+      <a href="/dashboards/" class="slink">ГЛАВНАЯ</a>
       <a href="/dashboards/reports/" class="slink">ОТЧЁТЫ</a>
       <a href="/dashboards/planning/" class="slink active">ПЛАНИРОВАНИЕ</a>
     </nav>
@@ -85,13 +88,12 @@
       <a class="back" href="/dashboards/">← Назад на главную</a>
       <div class="eyebrow">Content planning</div>
       <h1>Планирование предложений</h1>
-      <div class="sub">Разделы появятся по мере готовности — пока заглушки.</div>
+      <div class="sub">Фейсбуком уже занимаемся, остальное появится по мере готовности.</div>
       <div class="hub-buttons">
-        <div class="hub-btn">
+        <a class="hub-btn" href="/dashboards/planning/facebook/">
           <span class="hb-icon" style="background:#3b6ae0;">F</span>
           <span class="hb-label">Facebook</span>
-          <span class="hb-badge">Скоро</span>
-        </div>
+        </a>
         <div class="hub-btn">
           <span class="hb-icon" style="background:#0f9e8e;">B</span>
           <span class="hb-label">Бродкаст</span>
