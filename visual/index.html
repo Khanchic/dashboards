@@ -1,0 +1,571 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Визуал — Dashboards</title>
+<style>
+  :root{
+    --bg:#f4f5f3; --surface:#ffffff; --surface-2:#eceeec; --border:#d7dad6;
+    --text:#1c1f1d; --text-dim:#666b66; --text-faint:#9a9f9a;
+    --accent:#b8842e; --accent-text:#5f4413; --accent-soft:rgba(184,132,46,0.14);
+    --danger:#c0432f; --danger-soft:rgba(192,67,47,0.12);
+    --shadow: 0 1px 2px rgba(20,22,20,0.06), 0 8px 24px -12px rgba(20,22,20,0.18);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#0d0f0e; --surface:#161917; --surface-2:#1e2220; --border:#2b302d; --text:#e9ebe8; --text-dim:#a4a9a3; --text-faint:#6f746f; --accent:#d4a24e; --accent-text:#f0d29a; --accent-soft:rgba(212,162,78,0.16); --danger:#e06854; --danger-soft:rgba(224,104,84,0.14); --shadow: 0 1px 2px rgba(0,0,0,0.4), 0 12px 32px -16px rgba(0,0,0,0.6); }
+  }
+  :root[data-theme="dark"]{ --bg:#0d0f0e; --surface:#161917; --surface-2:#1e2220; --border:#2b302d; --text:#e9ebe8; --text-dim:#a4a9a3; --text-faint:#6f746f; --accent:#d4a24e; --accent-text:#f0d29a; --accent-soft:rgba(212,162,78,0.16); --danger:#e06854; --danger-soft:rgba(224,104,84,0.14); --shadow: 0 1px 2px rgba(0,0,0,0.4), 0 12px 32px -16px rgba(0,0,0,0.6); }
+  :root[data-theme="light"]{ --bg:#f4f5f3; --surface:#ffffff; --surface-2:#eceeec; --border:#d7dad6; --text:#1c1f1d; --text-dim:#666b66; --text-faint:#9a9f9a; --accent:#b8842e; --accent-text:#5f4413; --accent-soft:rgba(184,132,46,0.14); --danger:#c0432f; --danger-soft:rgba(192,67,47,0.12); --shadow: 0 1px 2px rgba(20,22,20,0.06), 0 8px 24px -12px rgba(20,22,20,0.18); }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{ background:var(--bg); color:var(--text); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; -webkit-font-smoothing:antialiased; line-height:1.45; }
+
+  .shell{ display:grid; grid-template-columns:190px 1fr; grid-template-rows:52px 1fr; grid-template-areas:"topbar topbar" "sidebar content"; min-height:100vh; }
+  @media (max-width:720px){ .shell{ grid-template-columns:1fr; grid-template-areas:"topbar" "sidebar" "content"; } }
+  .topbar{ grid-area:topbar; position:sticky; top:0; z-index:60; display:flex; align-items:center; padding:0 20px; background:#15130f; border-bottom:1px solid rgba(255,255,255,.08); }
+  .topbar .brand{ color:#f0d29a; font-weight:700; font-size:14px; letter-spacing:.02em; text-decoration:none; }
+  .sidebar{ grid-area:sidebar; position:sticky; top:52px; align-self:start; height:calc(100vh - 52px); overflow-y:auto; background:#15130f; border-right:1px solid rgba(255,255,255,.08); padding:18px 12px; }
+  @media (max-width:720px){ .sidebar{ position:static; height:auto; border-right:0; border-bottom:1px solid rgba(255,255,255,.08); } }
+  .sidebar nav{ display:flex; flex-direction:column; gap:3px; }
+  @media (max-width:720px){ .sidebar nav{ flex-direction:row; overflow-x:auto; } }
+  .slink{ color:#a8a39a; text-decoration:none; font-size:13px; font-weight:650; letter-spacing:.02em; padding:9px 12px; border-radius:8px; white-space:nowrap; transition:background .12s,color .12s; }
+  .slink:hover{ background:rgba(255,255,255,.06); color:#f2efe9; }
+  .slink.active{ background:rgba(217,171,76,.16); color:#f0c674; }
+  .slink.soon{ opacity:.55; }
+  .slink.soon::after{ content:" · soon"; font-size:9px; letter-spacing:0; opacity:.8; }
+  .content{ grid-area:content; min-width:0; }
+
+  .widgets{ position:fixed; right:16px; bottom:16px; z-index:55; display:flex; flex-direction:column; align-items:flex-end; gap:10px; }
+  @media (max-width:720px){ .widgets{ position:static; align-items:stretch; margin:32px 20px 0; } }
+  .widgets-toggle{ width:42px; height:42px; border-radius:50%; border:1px solid rgba(255,255,255,.14); background:#1b1a16; color:#e9e6df; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 8px 24px -12px rgba(0,0,0,.5); padding:0; }
+  .widgets-toggle:hover{ border-color:#d9ab4c; }
+  .widgets-panel{ display:flex; flex-direction:column; gap:10px; width:230px; }
+  @media (max-width:720px){ .widgets-panel{ width:auto; } }
+  .widgets-panel.hidden{ display:none; }
+  .back{ display:inline-block; font-size:12.5px; color:var(--text-dim); text-decoration:none; margin-bottom:16px; }
+  .back:hover{ color:var(--text); }
+  .status-tile{ background:#1b1a16; border:1px solid rgba(255,255,255,.10); border-radius:12px; padding:12px 14px; box-shadow:0 8px 24px -12px rgba(0,0,0,.5); color:#e9e6df; }
+  .st-top{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px; gap:8px; }
+  .st-label{ font-size:11.5px; font-weight:650; color:#a8a39a; }
+  .st-pct{ font-size:12.5px; font-weight:700; font-variant-numeric:tabular-nums; color:#e9e6df; }
+  .st-bar-track{ height:5px; border-radius:3px; background:rgba(255,255,255,.08); overflow:hidden; margin-bottom:6px; }
+  .st-bar-fill{ height:100%; border-radius:3px; }
+  .st-sub{ font-size:10.5px; color:#7a766c; }
+  .status-tile.countdown{ display:flex; flex-direction:column; justify-content:center; }
+  .st-value{ font-size:22px; font-weight:800; font-variant-numeric:tabular-nums; letter-spacing:-0.01em; color:#f0d29a; }
+  .countdown .st-top{ margin-bottom:2px; }
+  .logs-btn{ font-size:10px; font-weight:650; letter-spacing:.03em; text-transform:uppercase; color:#a8a39a; text-decoration:none; border:1px solid rgba(255,255,255,.14); border-radius:99px; padding:3px 9px; transition:border-color .12s,color .12s; }
+  .logs-btn:hover{ border-color:#d9ab4c; color:#f0c674; }
+
+  .wrap{ max-width:920px; padding:28px 20px 220px; }
+  .eyebrow{ text-transform:uppercase; letter-spacing:.09em; font-size:11.5px; font-weight:600; color:var(--text-faint); margin-bottom:8px; }
+  h1{ margin:0 0 6px; font-size:26px; font-weight:650; letter-spacing:-0.01em; }
+  .sub{ color:var(--text-dim); font-size:14px; max-width:70ch; margin-bottom:20px; }
+
+  .tabs{ display:flex; gap:4px; border-bottom:1px solid var(--border); margin-bottom:18px; }
+  .tab{ font-size:13px; font-weight:650; padding:9px 14px; color:var(--text-dim); border-bottom:2px solid transparent; }
+  .tab.active{ color:var(--text); border-color:var(--accent); }
+
+  .toolbar{ display:flex; justify-content:flex-end; margin-bottom:14px; }
+  .primary-btn{ font-size:13px; font-weight:650; color:#fff; background:var(--accent); border:none; border-radius:9px; padding:9px 15px; cursor:pointer; font-family:inherit; }
+  .primary-btn:hover{ filter:brightness(1.05); }
+
+  .visual-table-wrap{ overflow-x:auto; border:1px solid var(--border); border-radius:12px; }
+  table.visual-table{ width:100%; border-collapse:collapse; background:var(--surface); font-size:13px; min-width:760px; }
+  .visual-table th{ text-align:left; font-size:11px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:var(--text-faint); background:var(--surface-2); padding:10px 14px; white-space:nowrap; }
+  .visual-table td{ padding:11px 14px; border-top:1px solid var(--border); vertical-align:middle; }
+  .net-cell{ display:flex; align-items:center; gap:9px; font-weight:650; white-space:nowrap; }
+  .net-icon{ width:24px; height:24px; border-radius:7px; display:flex; align-items:center; justify-content:center; font-size:9.5px; font-weight:800; color:#fff; flex:none; }
+  .redirect-cell{ color:var(--text-dim); max-width:220px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-family:ui-monospace,SFMono-Regular,Consolas,monospace; font-size:12px; }
+  .labels-cell{ display:flex; gap:5px; flex-wrap:wrap; max-width:180px; }
+  .label-chip{ font-size:10.5px; font-weight:650; background:var(--accent-soft); color:var(--accent-text); padding:2px 8px; border-radius:99px; white-space:nowrap; }
+  .dim{ color:var(--text-faint); }
+  .reward-cell{ font-variant-numeric:tabular-nums; white-space:nowrap; font-weight:600; }
+  .order-cell{ font-variant-numeric:tabular-nums; color:var(--text-dim); }
+  .status-toggle{ position:relative; width:36px; height:20px; border-radius:99px; background:var(--border); border:none; cursor:pointer; flex:none; }
+  .status-toggle::after{ content:""; position:absolute; top:2px; left:2px; width:16px; height:16px; border-radius:50%; background:#fff; transition:transform .15s; }
+  .status-toggle.on{ background:var(--accent); }
+  .status-toggle.on::after{ transform:translateX(16px); }
+  .status-label{ font-size:11px; color:var(--text-faint); margin-left:8px; white-space:nowrap; }
+  .row-actions{ display:flex; gap:6px; }
+  .icon-btn{ width:28px; height:28px; border-radius:7px; border:1px solid var(--border); background:var(--surface); color:var(--text-dim); cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .icon-btn:hover{ border-color:var(--accent); color:var(--text); }
+  .icon-btn.danger:hover{ border-color:var(--danger); color:var(--danger); }
+  .empty-row td{ text-align:center; color:var(--text-faint); font-style:italic; padding:24px; }
+
+  /* modal */
+  .modal-overlay{ position:fixed; inset:0; background:rgba(10,10,8,.5); z-index:80; display:flex; align-items:flex-start; justify-content:center; padding:40px 16px; overflow-y:auto; }
+  .modal-overlay.hidden{ display:none; }
+  .modal-card{ background:var(--surface); border:1px solid var(--border); border-radius:14px; box-shadow:var(--shadow); width:100%; max-width:480px; padding:22px; }
+  .modal-title{ font-size:16px; font-weight:700; margin:0 0 16px; }
+  .field{ margin-bottom:14px; }
+  .field label{ display:block; font-size:12px; font-weight:650; color:var(--text-dim); margin-bottom:5px; }
+  .field input[type="text"], .field input[type="url"], .field input[type="number"], .field select{ width:100%; font:inherit; font-size:13.5px; padding:9px 11px; border-radius:8px; border:1px solid var(--border); background:var(--surface-2); color:var(--text); }
+  .field-error{ font-size:11.5px; color:var(--danger); margin-top:4px; display:none; }
+  .field.invalid input, .field.invalid select{ border-color:var(--danger); }
+  .field.invalid .field-error{ display:block; }
+  .field-row{ display:flex; gap:10px; }
+  .field-row .field{ flex:1; }
+  .toggle-row{ display:flex; align-items:center; margin-bottom:16px; }
+  .tag-input-box{ display:flex; flex-wrap:wrap; gap:6px; padding:7px 9px; border-radius:8px; border:1px solid var(--border); background:var(--surface-2); }
+  .tag-input-box input{ flex:1; min-width:80px; border:none; background:none; font:inherit; font-size:13px; color:var(--text); outline:none; }
+  .tag-chip{ display:flex; align-items:center; gap:5px; font-size:11.5px; font-weight:650; background:var(--accent-soft); color:var(--accent-text); padding:3px 4px 3px 9px; border-radius:99px; }
+  .tag-chip button{ border:none; background:none; color:inherit; cursor:pointer; font-size:12px; line-height:1; padding:2px; }
+  .tag-hint{ font-size:11px; color:var(--text-faint); margin-top:4px; }
+  .modal-actions{ display:flex; justify-content:flex-end; gap:8px; margin-top:18px; }
+  .btn-secondary{ font-size:13px; font-weight:650; color:var(--text-dim); background:none; border:1px solid var(--border); border-radius:9px; padding:9px 15px; cursor:pointer; font-family:inherit; }
+  .btn-secondary:hover{ color:var(--text); border-color:var(--text-dim); }
+</style>
+</head>
+<body>
+<div class="shell">
+  <header class="topbar">
+    <a class="brand" href="/dashboards/">Dashboards</a>
+  </header>
+  <aside class="sidebar">
+    <nav>
+      <a href="/dashboards/" class="slink">ГЛАВНАЯ</a>
+      <a href="/dashboards/reports/" class="slink">ОТЧЁТЫ</a>
+      <a href="/dashboards/planning/" class="slink">ПЛАНИРОВАНИЕ</a>
+      <a href="/dashboards/promo-codes/" class="slink">ПРОМОКОДЫ</a>
+      <a href="/dashboards/visual/" class="slink active">ВИЗУАЛ</a>
+    </nav>
+  </aside>
+  <main class="content">
+    <div class="wrap">
+      <a class="back" href="/dashboards/">← Назад на главную</a>
+      <div class="eyebrow">Reward Center → Social Center</div>
+      <h1>Визуал</h1>
+      <div class="sub">Прототип карточек соцсетей. Список соцсетей и типы наград — демо-заглушки (в реальном проекте подтягиваются из модуля скинизации и таблицы наград). Данные хранятся только в этом браузере.</div>
+
+      <div class="tabs">
+        <span class="tab active">Соцсети</span>
+      </div>
+
+      <div class="toolbar">
+        <button class="primary-btn" id="addBtn" type="button">+ Добавить соцсеть</button>
+      </div>
+
+      <div class="visual-table-wrap">
+        <table class="visual-table">
+          <thead>
+            <tr>
+              <th>Соцсеть</th>
+              <th>Редирект</th>
+              <th>Лейблы</th>
+              <th>Награда</th>
+              <th>Порядок</th>
+              <th>Статус</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="cardsBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="widgets">
+      <button class="widgets-toggle" id="widgetsToggle" aria-label="Скрыть/показать виджеты">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V10M12 20V4M20 20V14"/></svg>
+      </button>
+      <div class="widgets-panel hidden" id="widgetsPanel">
+        <div class="status-tile">
+          <div class="st-top"><span class="st-label">Лимит Claude</span><span class="st-pct">68%</span></div>
+          <div class="st-bar-track"><div class="st-bar-fill" style="width:68%;background:#d9ab4c;"></div></div>
+          <div class="st-sub">использовано за 5 часов · сброс через 1ч 40м</div>
+        </div>
+        <div class="status-tile">
+          <div class="st-top"><span class="st-label">Лимит ChatGPT</span><span class="st-pct">45%</span></div>
+          <div class="st-bar-track"><div class="st-bar-fill" style="width:45%;background:#2dd4bf;"></div></div>
+          <div class="st-sub">использовано за неделю · сброс в понедельник</div>
+        </div>
+        <div class="status-tile countdown">
+          <div class="st-top"><span class="st-label">Обратный отсчёт</span><a class="logs-btn" href="/dashboards/logs/">Логи</a></div>
+          <span class="st-value" id="shell-countdown">10:00</span>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div class="modal-overlay hidden" id="modalOverlay">
+  <div class="modal-card">
+    <h2 class="modal-title" id="modalTitle">Добавить соцсеть</h2>
+    <form id="cardForm">
+      <div class="field" id="fieldRedirect">
+        <label for="redirectUrl">Redirect URL</label>
+        <input type="url" id="redirectUrl" placeholder="https://instagram.com/yourbrand" />
+        <div class="field-error">Укажи корректный URL (начинается с http:// или https://)</div>
+      </div>
+
+      <div class="field" id="fieldNetwork">
+        <label for="networkSelect">Название скинизации</label>
+        <select id="networkSelect"></select>
+        <div class="field-error">Эта соцсеть уже используется другой карточкой</div>
+      </div>
+
+      <div class="field-row">
+        <div class="field" id="fieldReward">
+          <label for="rewardAmount">Размер награды</label>
+          <input type="number" id="rewardAmount" min="0" step="1" placeholder="50" />
+          <div class="field-error">Целое число, 0 или больше</div>
+        </div>
+        <div class="field">
+          <label for="rewardType">Список авардов</label>
+          <select id="rewardType"></select>
+        </div>
+      </div>
+
+      <div class="field" id="fieldOrder">
+        <label for="orderInput">Порядок отображения</label>
+        <input type="number" id="orderInput" step="1" placeholder="1" />
+        <div class="field-error">Введи число</div>
+      </div>
+
+      <div class="field">
+        <label>Лейблы карточки (до 4)</label>
+        <div class="tag-input-box" id="tagBox">
+          <input type="text" id="tagInput" placeholder="Введи и нажми Enter" />
+        </div>
+        <div class="tag-hint" id="tagHint">0 / 4</div>
+      </div>
+
+      <div class="toggle-row">
+        <button type="button" class="status-toggle" id="activeToggle"></button>
+        <span class="status-label" id="activeToggleLabel">Показывать на странице</span>
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="btn-secondary" id="cancelBtn">Отмена</button>
+        <button type="submit" class="primary-btn">Сохранить</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+(function(){
+  var toggle = document.getElementById('widgetsToggle');
+  var panel = document.getElementById('widgetsPanel');
+  toggle.addEventListener('click', function(){ panel.classList.toggle('hidden'); });
+})();
+(function(){
+  var COUNTDOWN_SECONDS = 10 * 60;
+  var deadline = Date.now() + COUNTDOWN_SECONDS * 1000;
+  var el = document.getElementById('shell-countdown');
+  function tick(){
+    var remaining = Math.round((deadline - Date.now()) / 1000);
+    if(remaining <= 0){ deadline = Date.now() + COUNTDOWN_SECONDS * 1000; remaining = COUNTDOWN_SECONDS; }
+    var m = Math.floor(remaining / 60), s = remaining % 60;
+    el.textContent = String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+  }
+  tick();
+  setInterval(tick, 1000);
+})();
+
+(function(){
+  var STORAGE_KEY = 'dash_social_cards_v1';
+
+  var NETWORKS = [
+    { id:'instagram', label:'Instagram', color:'#E1306C', letter:'IG' },
+    { id:'tiktok', label:'TikTok', color:'#000000', letter:'TT' },
+    { id:'youtube', label:'YouTube', color:'#FF0000', letter:'YT' },
+    { id:'discord', label:'Discord', color:'#5865F2', letter:'DC' },
+    { id:'telegram', label:'Telegram', color:'#26A5E4', letter:'TG' },
+    { id:'twitter', label:'X (Twitter)', color:'#1DA1F2', letter:'X' },
+    { id:'reddit', label:'Reddit', color:'#FF4500', letter:'RD' },
+    { id:'facebook', label:'Facebook', color:'#1877F2', letter:'FB' },
+    { id:'whatsapp', label:'WhatsApp', color:'#25D366', letter:'WA' }
+  ];
+  var REWARD_TYPES = [
+    { id:'vip_points', label:'VIP points' },
+    { id:'sc', label:'SC' },
+    { id:'free_spins', label:'Free Spins' },
+    { id:'gold_coins', label:'Gold Coins' }
+  ];
+  var MAX_LABELS = 4;
+
+  var DEFAULT_CARDS = [
+    { id:'seed1', networkId:'instagram', redirectUrl:'https://instagram.com/scarletsands', rewardAmount:50, rewardType:'vip_points', order:1, labels:['New','Popular'], active:true },
+    { id:'seed2', networkId:'tiktok', redirectUrl:'https://tiktok.com/@scarletsands', rewardAmount:20, rewardType:'sc', order:2, labels:[], active:false },
+    { id:'seed3', networkId:'discord', redirectUrl:'https://discord.gg/scarletsands', rewardAmount:100, rewardType:'vip_points', order:3, labels:['Hot'], active:true }
+  ];
+
+  function byId(id){ for(var i=0;i<NETWORKS.length;i++){ if(NETWORKS[i].id===id) return NETWORKS[i]; } return null; }
+  function rewardById(id){ for(var i=0;i<REWARD_TYPES.length;i++){ if(REWARD_TYPES[i].id===id) return REWARD_TYPES[i]; } return null; }
+
+  function load(){
+    try{
+      var raw = localStorage.getItem(STORAGE_KEY);
+      if(raw) return JSON.parse(raw);
+    }catch(e){}
+    return DEFAULT_CARDS.slice();
+  }
+  function save(cards){
+    try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(cards)); }catch(e){}
+  }
+  function makeId(){
+    return 'card' + Math.random().toString(36).slice(2, 10);
+  }
+
+  var tbody = document.getElementById('cardsBody');
+  var overlay = document.getElementById('modalOverlay');
+  var modalTitle = document.getElementById('modalTitle');
+  var form = document.getElementById('cardForm');
+  var redirectInput = document.getElementById('redirectUrl');
+  var networkSelect = document.getElementById('networkSelect');
+  var rewardAmountInput = document.getElementById('rewardAmount');
+  var rewardTypeSelect = document.getElementById('rewardType');
+  var orderInput = document.getElementById('orderInput');
+  var tagBox = document.getElementById('tagBox');
+  var tagInput = document.getElementById('tagInput');
+  var tagHint = document.getElementById('tagHint');
+  var activeToggle = document.getElementById('activeToggle');
+  var activeToggleLabel = document.getElementById('activeToggleLabel');
+
+  var currentLabels = [];
+  var editingId = null;
+
+  NETWORKS.forEach(function(n){
+    var o = document.createElement('option');
+    o.value = n.id;
+    o.textContent = n.label;
+    networkSelect.appendChild(o);
+  });
+  REWARD_TYPES.forEach(function(r){
+    var o = document.createElement('option');
+    o.value = r.id;
+    o.textContent = r.label;
+    rewardTypeSelect.appendChild(o);
+  });
+
+  function renderTags(){
+    Array.prototype.slice.call(tagBox.querySelectorAll('.tag-chip')).forEach(function(el){ el.remove(); });
+    currentLabels.forEach(function(label, idx){
+      var chip = document.createElement('span');
+      chip.className = 'tag-chip';
+      var span = document.createElement('span');
+      span.textContent = label;
+      var removeBtn = document.createElement('button');
+      removeBtn.type = 'button';
+      removeBtn.textContent = '×';
+      removeBtn.addEventListener('click', function(){
+        currentLabels.splice(idx, 1);
+        renderTags();
+      });
+      chip.appendChild(span);
+      chip.appendChild(removeBtn);
+      tagBox.insertBefore(chip, tagInput);
+    });
+    tagHint.textContent = currentLabels.length + ' / ' + MAX_LABELS;
+    tagInput.disabled = currentLabels.length >= MAX_LABELS;
+    tagInput.placeholder = currentLabels.length >= MAX_LABELS ? 'Достигнут лимит' : 'Введи и нажми Enter';
+  }
+  tagInput.addEventListener('keydown', function(e){
+    if(e.key === 'Enter'){
+      e.preventDefault();
+      var val = tagInput.value.trim();
+      if(val && currentLabels.length < MAX_LABELS){
+        currentLabels.push(val);
+        tagInput.value = '';
+        renderTags();
+      }
+    }
+  });
+
+  function setToggle(el, on){
+    el.classList.toggle('on', on);
+  }
+  activeToggle.addEventListener('click', function(){
+    setToggle(activeToggle, !activeToggle.classList.contains('on'));
+  });
+
+  function clearErrors(){
+    Array.prototype.slice.call(form.querySelectorAll('.field')).forEach(function(f){ f.classList.remove('invalid'); });
+  }
+
+  function openModal(card){
+    clearErrors();
+    editingId = card ? card.id : null;
+    modalTitle.textContent = card ? 'Редактировать соцсеть' : 'Добавить соцсеть';
+    redirectInput.value = card ? card.redirectUrl : '';
+    networkSelect.value = card ? card.networkId : NETWORKS[0].id;
+    rewardAmountInput.value = card ? card.rewardAmount : '';
+    rewardTypeSelect.value = card ? card.rewardType : REWARD_TYPES[0].id;
+    orderInput.value = card ? card.order : '';
+    currentLabels = card ? card.labels.slice() : [];
+    renderTags();
+    setToggle(activeToggle, card ? card.active : true);
+    overlay.classList.remove('hidden');
+  }
+  function closeModal(){
+    overlay.classList.add('hidden');
+  }
+  document.getElementById('addBtn').addEventListener('click', function(){ openModal(null); });
+  document.getElementById('cancelBtn').addEventListener('click', closeModal);
+  overlay.addEventListener('click', function(e){ if(e.target === overlay) closeModal(); });
+
+  function isValidUrl(v){
+    try{ var u = new URL(v); return u.protocol === 'http:' || u.protocol === 'https:'; }catch(e){ return false; }
+  }
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    clearErrors();
+    var cards = load();
+    var valid = true;
+
+    if(!isValidUrl(redirectInput.value.trim())){
+      document.getElementById('fieldRedirect').classList.add('invalid');
+      valid = false;
+    }
+    var dupe = cards.some(function(c){ return c.networkId === networkSelect.value && c.id !== editingId; });
+    if(dupe){
+      document.getElementById('fieldNetwork').classList.add('invalid');
+      valid = false;
+    }
+    var rewardVal = parseInt(rewardAmountInput.value, 10);
+    if(isNaN(rewardVal) || rewardVal < 0){
+      document.getElementById('fieldReward').classList.add('invalid');
+      valid = false;
+    }
+    var orderVal = parseInt(orderInput.value, 10);
+    if(isNaN(orderVal)){
+      document.getElementById('fieldOrder').classList.add('invalid');
+      valid = false;
+    }
+    if(!valid) return;
+
+    var cardData = {
+      id: editingId || makeId(),
+      networkId: networkSelect.value,
+      redirectUrl: redirectInput.value.trim(),
+      rewardAmount: rewardVal,
+      rewardType: rewardTypeSelect.value,
+      order: orderVal,
+      labels: currentLabels.slice(),
+      active: activeToggle.classList.contains('on')
+    };
+
+    if(editingId){
+      cards = cards.map(function(c){ return c.id === editingId ? cardData : c; });
+    } else {
+      cards.push(cardData);
+    }
+    save(cards);
+    closeModal();
+    render();
+  });
+
+  function render(){
+    var cards = load().slice().sort(function(a,b){ return a.order - b.order; });
+    tbody.innerHTML = '';
+    if(!cards.length){
+      var tr = document.createElement('tr');
+      tr.className = 'empty-row';
+      var td = document.createElement('td');
+      td.colSpan = 7;
+      td.textContent = 'Пока нет карточек — добавь первую.';
+      tr.appendChild(td);
+      tbody.appendChild(tr);
+      return;
+    }
+    cards.forEach(function(card){
+      var net = byId(card.networkId) || { label: card.networkId, color:'#888', letter:'?' };
+      var reward = rewardById(card.rewardType) || { label: card.rewardType };
+      var tr = document.createElement('tr');
+
+      var netTd = document.createElement('td');
+      var netCell = document.createElement('div');
+      netCell.className = 'net-cell';
+      var icon = document.createElement('span');
+      icon.className = 'net-icon';
+      icon.style.background = net.color;
+      icon.textContent = net.letter;
+      var label = document.createElement('span');
+      label.textContent = net.label;
+      netCell.appendChild(icon);
+      netCell.appendChild(label);
+      netTd.appendChild(netCell);
+
+      var redirectTd = document.createElement('td');
+      redirectTd.className = 'redirect-cell';
+      redirectTd.textContent = card.redirectUrl;
+      redirectTd.title = card.redirectUrl;
+
+      var labelsTd = document.createElement('td');
+      if(card.labels.length){
+        var labelsCell = document.createElement('div');
+        labelsCell.className = 'labels-cell';
+        card.labels.forEach(function(l){
+          var chip = document.createElement('span');
+          chip.className = 'label-chip';
+          chip.textContent = l;
+          labelsCell.appendChild(chip);
+        });
+        labelsTd.appendChild(labelsCell);
+      } else {
+        labelsTd.innerHTML = '<span class="dim">—</span>';
+      }
+
+      var rewardTd = document.createElement('td');
+      rewardTd.className = 'reward-cell';
+      rewardTd.textContent = card.rewardAmount + ' ' + reward.label;
+
+      var orderTd = document.createElement('td');
+      orderTd.className = 'order-cell';
+      orderTd.textContent = card.order;
+
+      var statusTd = document.createElement('td');
+      var statusBtn = document.createElement('button');
+      statusBtn.type = 'button';
+      statusBtn.className = 'status-toggle' + (card.active ? ' on' : '');
+      statusBtn.title = card.active ? 'Активна' : 'Coming soon';
+      statusBtn.addEventListener('click', function(){
+        var all = load().map(function(c){ return c.id === card.id ? Object.assign({}, c, { active: !c.active }) : c; });
+        save(all);
+        render();
+      });
+      statusTd.appendChild(statusBtn);
+
+      var actionsTd = document.createElement('td');
+      var actions = document.createElement('div');
+      actions.className = 'row-actions';
+      var editBtn = document.createElement('button');
+      editBtn.type = 'button';
+      editBtn.className = 'icon-btn';
+      editBtn.title = 'Редактировать';
+      editBtn.textContent = '✎';
+      editBtn.addEventListener('click', function(){ openModal(card); });
+      var delBtn = document.createElement('button');
+      delBtn.type = 'button';
+      delBtn.className = 'icon-btn danger';
+      delBtn.title = 'Удалить';
+      delBtn.textContent = '🗑';
+      delBtn.addEventListener('click', function(){
+        if(!confirm('Удалить карточку "' + net.label + '"?')) return;
+        var all = load().filter(function(c){ return c.id !== card.id; });
+        save(all);
+        render();
+      });
+      actions.appendChild(editBtn);
+      actions.appendChild(delBtn);
+      actionsTd.appendChild(actions);
+
+      tr.appendChild(netTd);
+      tr.appendChild(redirectTd);
+      tr.appendChild(labelsTd);
+      tr.appendChild(rewardTd);
+      tr.appendChild(orderTd);
+      tr.appendChild(statusTd);
+      tr.appendChild(actionsTd);
+      tbody.appendChild(tr);
+    });
+  }
+
+  render();
+})();
+</script>
+</body>
+</html>
