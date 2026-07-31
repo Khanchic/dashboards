@@ -113,6 +113,7 @@
   .team-actions{ display:flex; gap:8px; margin-top:12px; }
   .team-btn{ font-size:12.5px; font-weight:650; color:var(--accent-text); background:var(--accent-soft); border:1px solid var(--border); border-radius:8px; padding:7px 12px; cursor:pointer; font-family:inherit; }
   .team-btn:hover{ filter:brightness(0.95); }
+  .team-btn.send-btn{ color:#fff; background:var(--accent-2); border-color:var(--accent-2); }
   .team-select{ font-size:13.5px; font-family:inherit; color:var(--text); background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:7px 10px; }
   select.team-select{ min-width:160px; }
   .task-list{ list-style:none; margin:14px 0 0; padding:0; display:flex; flex-direction:column; gap:6px; }
@@ -129,6 +130,7 @@
 
     <aside class="sidebar">
       <nav>
+        <a href="/dashboards/" class="slink active">ГЛАВНАЯ</a>
         <a href="/dashboards/reports/" class="slink">ОТЧЁТЫ</a>
         <a href="/dashboards/planning/" class="slink">ПЛАНИРОВАНИЕ</a>
       </nav>
@@ -192,6 +194,7 @@
           <ul class="task-list" id="taskList"></ul>
           <div class="team-actions">
             <button class="team-btn" id="addTaskBtn" type="button">+ Задача</button>
+            <button class="team-btn send-btn" id="sendTasksBtn" type="button">Отправить</button>
           </div>
         </section>
 
@@ -340,6 +343,13 @@
       list.appendChild(li);
       persistFromDOM();
       li.focus();
+    });
+
+    document.getElementById('sendTasksBtn').addEventListener('click', function(){
+      var state = loadTasks();
+      state[select.value] = [];
+      saveTasks(state);
+      list.innerHTML = '';
     });
   })();
 </script>
