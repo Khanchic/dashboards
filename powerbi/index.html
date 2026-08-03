@@ -9,12 +9,31 @@
     --bg:#f4f5f3; --surface:#ffffff; --border:#d7dad6;
     --text:#1c1f1d; --text-dim:#666b66; --text-faint:#9a9f9a;
     --accent-text:#5f4413; --accent-soft:rgba(184,132,46,0.14);
+    --bar:#a8791f; --bar-soft:rgba(168,121,31,0.18);
+    --good:#046a38; --bad:#a3241f;
+    --warn-bg:rgba(163,36,31,0.07); --warn-edge:rgba(163,36,31,0.22);
+    --band:#fafbfa; --shadow:0 8px 24px -18px rgba(0,0,0,.35);
   }
   @media (prefers-color-scheme: dark){
-    :root{ --bg:#0d0f0e; --surface:#161917; --border:#2b302d; --text:#e9ebe8; --text-dim:#a4a9a3; --text-faint:#6f746f; --accent-text:#f0d29a; --accent-soft:rgba(212,162,78,0.16); }
+    :root{ --bg:#0d0f0e; --surface:#161917; --border:#2b302d; --text:#e9ebe8; --text-dim:#a4a9a3; --text-faint:#6f746f;
+           --accent-text:#f0d29a; --accent-soft:rgba(212,162,78,0.16);
+           --bar:#d9ab4c; --bar-soft:rgba(217,171,76,0.20);
+           --good:#5fd68a; --bad:#f0857c;
+           --warn-bg:rgba(240,133,124,0.09); --warn-edge:rgba(240,133,124,0.26);
+           --band:#1b1f1d; --shadow:0 8px 24px -18px rgba(0,0,0,.6); }
   }
-  :root[data-theme="dark"]{ --bg:#0d0f0e; --surface:#161917; --border:#2b302d; --text:#e9ebe8; --text-dim:#a4a9a3; --text-faint:#6f746f; --accent-text:#f0d29a; --accent-soft:rgba(212,162,78,0.16); }
-  :root[data-theme="light"]{ --bg:#f4f5f3; --surface:#ffffff; --border:#d7dad6; --text:#1c1f1d; --text-dim:#666b66; --text-faint:#9a9f9a; --accent-text:#5f4413; --accent-soft:rgba(184,132,46,0.14); }
+  :root[data-theme="dark"]{ --bg:#0d0f0e; --surface:#161917; --border:#2b302d; --text:#e9ebe8; --text-dim:#a4a9a3; --text-faint:#6f746f;
+           --accent-text:#f0d29a; --accent-soft:rgba(212,162,78,0.16);
+           --bar:#d9ab4c; --bar-soft:rgba(217,171,76,0.20);
+           --good:#5fd68a; --bad:#f0857c;
+           --warn-bg:rgba(240,133,124,0.09); --warn-edge:rgba(240,133,124,0.26);
+           --band:#1b1f1d; --shadow:0 8px 24px -18px rgba(0,0,0,.6); }
+  :root[data-theme="light"]{ --bg:#f4f5f3; --surface:#ffffff; --border:#d7dad6; --text:#1c1f1d; --text-dim:#666b66; --text-faint:#9a9f9a;
+           --accent-text:#5f4413; --accent-soft:rgba(184,132,46,0.14);
+           --bar:#a8791f; --bar-soft:rgba(168,121,31,0.18);
+           --good:#046a38; --bad:#a3241f;
+           --warn-bg:rgba(163,36,31,0.07); --warn-edge:rgba(163,36,31,0.22);
+           --band:#fafbfa; --shadow:0 8px 24px -18px rgba(0,0,0,.35); }
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
   body{ background:var(--bg); color:var(--text); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; -webkit-font-smoothing:antialiased; line-height:1.45; }
@@ -30,8 +49,6 @@
   .slink{ color:#a8a39a; text-decoration:none; font-size:13px; font-weight:650; letter-spacing:.02em; padding:9px 12px; border-radius:8px; white-space:nowrap; transition:background .12s,color .12s; }
   .slink:hover{ background:rgba(255,255,255,.06); color:#f2efe9; }
   .slink.active{ background:rgba(217,171,76,.16); color:#f0c674; }
-  .slink.soon{ opacity:.55; }
-  .slink.soon::after{ content:" · soon"; font-size:9px; letter-spacing:0; opacity:.8; }
   .content{ grid-area:content; min-width:0; }
 
   .widgets{ position:fixed; right:16px; bottom:16px; z-index:55; display:flex; flex-direction:column; align-items:flex-end; gap:10px; }
@@ -56,11 +73,54 @@
   .logs-btn{ font-size:10px; font-weight:650; letter-spacing:.03em; text-transform:uppercase; color:#a8a39a; text-decoration:none; border:1px solid rgba(255,255,255,.14); border-radius:99px; padding:3px 9px; transition:border-color .12s,color .12s; }
   .logs-btn:hover{ border-color:#d9ab4c; color:#f0c674; }
 
-  .wrap{ max-width:640px; padding:60px 20px 220px; }
+  .wrap{ max-width:1080px; padding:60px 20px 220px; }
   .eyebrow{ text-transform:uppercase; letter-spacing:.09em; font-size:11.5px; font-weight:600; color:var(--text-faint); margin-bottom:8px; }
   h1{ margin:0 0 10px; font-size:28px; font-weight:650; letter-spacing:-0.01em; }
-  .sub{ color:var(--text-dim); font-size:14.5px; max-width:55ch; }
-  .badge{ display:inline-block; margin-top:20px; font-size:11px; font-weight:650; letter-spacing:.03em; text-transform:uppercase; color:var(--accent-text); background:var(--accent-soft); padding:4px 10px; border-radius:99px; }
+  .sub{ color:var(--text-dim); font-size:14.5px; max-width:62ch; }
+
+  .weekpick{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin:26px 0 6px; }
+  .weekpick .pl{ font-size:11px; font-weight:650; letter-spacing:.06em; text-transform:uppercase; color:var(--text-faint); margin-right:4px; }
+  .wbtn{ font-size:12.5px; font-weight:650; font-variant-numeric:tabular-nums; color:var(--text-dim); background:var(--surface); border:1px solid var(--border); border-radius:99px; padding:6px 13px; cursor:pointer; transition:border-color .12s,color .12s,background .12s; }
+  .wbtn:hover{ border-color:var(--accent-text); color:var(--text); }
+  .wbtn[aria-pressed="true"]{ background:var(--accent-soft); border-color:var(--accent-text); color:var(--accent-text); }
+  .range{ font-size:12.5px; color:var(--text-faint); font-variant-numeric:tabular-nums; }
+
+  section{ margin-top:38px; }
+  h2{ font-size:15px; font-weight:650; margin:0 0 4px; letter-spacing:-0.005em; }
+  .hint{ font-size:12.5px; color:var(--text-faint); margin-bottom:14px; max-width:66ch; }
+
+  .kpis{ display:grid; grid-template-columns:repeat(auto-fit,minmax(178px,1fr)); gap:12px; margin-top:22px; }
+  .kpi{ background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:15px 16px; box-shadow:var(--shadow); }
+  .kpi .k-label{ font-size:11px; font-weight:650; letter-spacing:.05em; text-transform:uppercase; color:var(--text-faint); }
+  .kpi .k-value{ font-size:26px; font-weight:750; font-variant-numeric:tabular-nums; letter-spacing:-0.02em; margin:6px 0 2px; }
+  .kpi .k-delta{ font-size:12.5px; font-weight:650; font-variant-numeric:tabular-nums; }
+  .up{ color:var(--good); } .down{ color:var(--bad); } .flat{ color:var(--text-faint); }
+
+  .panel{ background:var(--surface); border:1px solid var(--border); border-radius:14px; box-shadow:var(--shadow); overflow:hidden; }
+  .scroller{ overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  table{ border-collapse:collapse; width:100%; min-width:560px; font-size:13px; }
+  th,td{ text-align:right; padding:9px 12px; border-bottom:1px solid var(--border); white-space:nowrap; }
+  th{ font-size:10.5px; font-weight:650; letter-spacing:.05em; text-transform:uppercase; color:var(--text-faint); background:var(--band); position:sticky; top:0; }
+  th:first-child,td:first-child{ text-align:left; }
+  td{ font-variant-numeric:tabular-nums; }
+  td.name{ font-variant-numeric:normal; font-weight:600; white-space:normal; min-width:230px; }
+  tbody tr:last-child td{ border-bottom:0; }
+  tbody tr:hover td{ background:var(--band); }
+  tr.warn td{ background:var(--warn-bg); }
+  tr.warn:hover td{ background:var(--warn-bg); }
+  .tag{ display:inline-block; font-size:9.5px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; padding:2px 7px; border-radius:99px; border:1px solid var(--warn-edge); color:var(--bad); margin-left:8px; vertical-align:1px; }
+
+  .trend{ display:flex; align-items:flex-end; gap:14px; padding:20px 18px 14px; }
+  .tcol{ display:flex; flex-direction:column; align-items:center; gap:8px; flex:1; min-width:52px; }
+  .tbar{ width:100%; max-width:74px; background:var(--bar-soft); border-radius:4px 4px 0 0; position:relative; display:flex; align-items:flex-end; }
+  .tfill{ width:100%; background:var(--bar); border-radius:4px 4px 0 0; }
+  .tcol.sel .tfill{ outline:2px solid var(--accent-text); outline-offset:2px; }
+  .tval{ font-size:12px; font-weight:700; font-variant-numeric:tabular-nums; }
+  .tlab{ font-size:11px; color:var(--text-faint); font-variant-numeric:tabular-nums; }
+
+  .notes{ margin-top:38px; font-size:12.5px; color:var(--text-dim); border-top:1px solid var(--border); padding-top:16px; }
+  .notes li{ margin-bottom:7px; }
+  td.empty{ padding:18px 12px; font-size:13px; color:var(--text-faint); text-align:left; white-space:normal; font-variant-numeric:normal; }
 </style>
 </head>
 <body>
@@ -71,7 +131,7 @@
   <aside class="sidebar">
     <nav>
       <a href="/dashboards/" class="slink">ГЛАВНАЯ</a>
-      <a href="/dashboards/reports/" class="slink">ОТЧЁТЫ</a>
+      <a href="/dashboards/reports/" class="slink active">ОТЧЁТЫ</a>
       <a href="/dashboards/planning/" class="slink">ПЛАНИРОВАНИЕ</a>
       <a href="/dashboards/promo-codes/" class="slink">ПРОМОКОДЫ</a>
       <a href="/dashboards/visual/" class="slink">ВИЗУАЛ</a>
@@ -79,11 +139,199 @@
   </aside>
   <main class="content">
     <div class="wrap">
-      <a class="back" href="/dashboards/">← Назад на главную</a>
+      <a class="back" href="/dashboards/reports/">← Назад к отчётам</a>
       <div class="eyebrow">USA Offer Monitoring · Power BI</div>
-      <h1>Скоро тут</h1>
-      <div class="sub">Тижневий звіт powerbi-weekly (Offers + Deposit Number) поки не опублікований сюди — тільки локальний HTML-звіт у скіллі.</div>
-      <span class="badge">Coming soon</span>
+      <h1>Тижневий звіт</h1>
+      <div class="sub">SMM-оффери по проєктах і виплати по днях. Дані зібрані скілом
+        <code>powerbi-weekly</code> напряму з рендеру звіту — експорт на тенанті вимкнений.
+        Кожен тиждень проходить reconciliation gate перед записом.</div>
+
+<div class="weekpick" id="weekpick"><span class="pl">Тижні</span></div>
+<div class="range" id="range"></div>
+<div class="kpis" id="kpis"></div>
+
+<section>
+  <h2>Динаміка dep_sum по тижнях</h2>
+  <div class="hint">Усі збережені тижні. Виділений — вибраний вище.</div>
+  <div class="panel"><div class="trend" id="trend"></div></div>
+</section>
+
+<section>
+  <h2>Проєкти</h2>
+  <div class="hint">Відсортовано за dep_sum. Δ — до попереднього збереженого тижня;
+    «—» означає, що порівнювати ні з чим.</div>
+  <div class="panel"><div class="scroller"><table id="tProjects"></table></div></div>
+</section>
+
+<section>
+  <h2>Оффери — найбільші зміни</h2>
+  <div class="hint">Проєкти зведені разом за нормалізованим ключем оффера, тому один оффер
+    не дублюється через різні написання. ⚠ у назві — ціна в назві не збігається з ціною в дужках.</div>
+  <div class="panel"><div class="scroller"><table id="tMovers"></table></div></div>
+</section>
+
+<section>
+  <h2>Топ офферів тижня</h2>
+  <div class="panel"><div class="scroller"><table id="tTop"></table></div></div>
+</section>
+
+<section>
+  <h2>З'явились / зникли</h2>
+  <div class="hint">Проти попереднього тижня.</div>
+  <div class="panel"><div class="scroller"><table id="tChurn"></table></div></div>
+</section>
+
+<section>
+  <h2>Виплати — клітинки, підсвічені Power BI</h2>
+  <div class="hint">Порядок — за обсягом виплати (dep_sum × payout after), не за відсотком:
+    343% від $140 — це менше грошей, ніж 111% від $540. Великі виплати тут нормальні,
+    це список для перегляду, а не список проблем.</div>
+  <div class="panel"><div class="scroller"><table id="tCells"></table></div></div>
+</section>
+
+<section>
+  <h2>Гравці за підсвіченими проєктами</h2>
+  <div class="hint">Тільки гравці з payout &gt; 0 по проєктах, де був хоч один підсвічений день.
+    Позначка «повтор» — логін уже зустрічався в попередніх збережених тижнях; саме це,
+    а не сам відсоток, відрізняє патерн від щасливого спіна.</div>
+  <div class="panel"><div class="scroller"><table id="tPlayers"></table></div></div>
+</section>
+
+<ul class="notes" id="notes"></ul>
+
+<script>
+const DATA = {"weeks": [{"week": "2026-W29", "start": "2026-07-13", "end": "2026-07-19", "prev": null, "kpi": {"oc": 2656.0, "dep": 59998.0, "ticket": 22.58960843373494, "offers": 46, "rows": 201, "d_oc": null, "d_dep": null, "d_ticket": null, "d_offers": null}, "projects": [{"project": "fortunewheelz", "oc": 429.0, "dep": 11779.0, "ticket": 27.456876456876458, "d_oc": null, "d_dep": null}, {"project": "firesevens", "oc": 490.0, "dep": 10367.0, "ticket": 21.15714285714286, "d_oc": null, "d_dep": null}, {"project": "nolimitcoins", "oc": 392.0, "dep": 9688.0, "ticket": 24.714285714285715, "d_oc": null, "d_dep": null}, {"project": "stormrush", "oc": 407.0, "dep": 8958.0, "ticket": 22.00982800982801, "d_oc": null, "d_dep": null}, {"project": "scarletsands", "oc": 326.0, "dep": 7619.0, "ticket": 23.37116564417178, "d_oc": null, "d_dep": null}, {"project": "vegasway", "oc": 398.0, "dep": 7097.0, "ticket": 17.831658291457288, "d_oc": null, "d_dep": null}, {"project": "taofortune", "oc": 157.0, "dep": 3240.0, "ticket": 20.636942675159236, "d_oc": null, "d_dep": null}, {"project": "dexyplay", "oc": 57.0, "dep": 1250.0, "ticket": 21.92982456140351, "d_oc": null, "d_dep": null}], "top": [{"offer": "Channel_19,99_20%", "raw": "SMM_Channel_19,99_20% (19.99 $)", "oc": 319.0, "dep": 6377.0, "prev_dep": 0.0, "delta": 6377.0, "ticket": 19.990595611285265}, {"offer": "Discord_39,99_20%", "raw": "SMM_Discord_39,99_20% (39.99 $)", "oc": 136.0, "dep": 5440.0, "prev_dep": 0.0, "delta": 5440.0, "ticket": 40.0}, {"offer": "Channel_39,99_20%", "raw": "SMM_Channel_39,99_20% (39.99 $)", "oc": 127.0, "dep": 5080.0, "prev_dep": 0.0, "delta": 5080.0, "ticket": 40.0}, {"offer": "Discord_19,99_20%", "raw": "SMM_Discord_19,99_20% (19.99 $)", "oc": 243.0, "dep": 4860.0, "prev_dep": 0.0, "delta": 4860.0, "ticket": 20.0}, {"offer": "DailyPromoCode_19,99_10%", "raw": "SMM_DailyPromoCode_19,99_10% (19.99 $)", "oc": 203.0, "dep": 4059.0, "prev_dep": 0.0, "delta": 4059.0, "ticket": 19.995073891625616}, {"offer": "CheapAutomation_9,99_40%", "raw": "SMM_CheapAutomation_9,99_40% (9.99 $)", "oc": 332.0, "dep": 3315.0, "prev_dep": 0.0, "delta": 3315.0, "ticket": 9.984939759036145}, {"offer": "Channel_59,99_20%", "raw": "SMM_Channel_59,99_20% (59.99 $)", "oc": 48.0, "dep": 2880.0, "prev_dep": 0.0, "delta": 2880.0, "ticket": 60.0}, {"offer": "Discord_19,99_40%", "raw": "SMM_Discord_19,99_40% (19.99 $)", "oc": 128.0, "dep": 2560.0, "prev_dep": 0.0, "delta": 2560.0, "ticket": 20.0}, {"offer": "Automation_19,99_10%", "raw": "SMM_Automation_19,99_10% (19.99 $)", "oc": 122.0, "dep": 2440.0, "prev_dep": 0.0, "delta": 2440.0, "ticket": 20.0}, {"offer": "Channel_19,99_40%", "raw": "SMM_Channel_19,99_40% (19.99 $)", "oc": 116.0, "dep": 2320.0, "prev_dep": 0.0, "delta": 2320.0, "ticket": 20.0}, {"offer": "DailyPromoCode_39,99_10%", "raw": "SMM_DailyPromoCode_39,99_10% (39.99 $)", "oc": 56.0, "dep": 2240.0, "prev_dep": 0.0, "delta": 2240.0, "ticket": 40.0}, {"offer": "Discord_59,99_20%", "raw": "SMM_Discord_59,99_20% (59.99 $)", "oc": 32.0, "dep": 1920.0, "prev_dep": 0.0, "delta": 1920.0, "ticket": 60.0}], "movers": [{"offer": "Channel_19,99_20%", "raw": "SMM_Channel_19,99_20% (19.99 $)", "oc": 319.0, "dep": 6377.0, "prev_dep": 0.0, "delta": 6377.0, "ticket": 19.990595611285265}, {"offer": "Discord_39,99_20%", "raw": "SMM_Discord_39,99_20% (39.99 $)", "oc": 136.0, "dep": 5440.0, "prev_dep": 0.0, "delta": 5440.0, "ticket": 40.0}, {"offer": "Channel_39,99_20%", "raw": "SMM_Channel_39,99_20% (39.99 $)", "oc": 127.0, "dep": 5080.0, "prev_dep": 0.0, "delta": 5080.0, "ticket": 40.0}, {"offer": "Discord_19,99_20%", "raw": "SMM_Discord_19,99_20% (19.99 $)", "oc": 243.0, "dep": 4860.0, "prev_dep": 0.0, "delta": 4860.0, "ticket": 20.0}, {"offer": "DailyPromoCode_19,99_10%", "raw": "SMM_DailyPromoCode_19,99_10% (19.99 $)", "oc": 203.0, "dep": 4059.0, "prev_dep": 0.0, "delta": 4059.0, "ticket": 19.995073891625616}, {"offer": "CheapAutomation_9,99_40%", "raw": "SMM_CheapAutomation_9,99_40% (9.99 $)", "oc": 332.0, "dep": 3315.0, "prev_dep": 0.0, "delta": 3315.0, "ticket": 9.984939759036145}, {"offer": "Channel_59,99_20%", "raw": "SMM_Channel_59,99_20% (59.99 $)", "oc": 48.0, "dep": 2880.0, "prev_dep": 0.0, "delta": 2880.0, "ticket": 60.0}, {"offer": "Discord_19,99_40%", "raw": "SMM_Discord_19,99_40% (19.99 $)", "oc": 128.0, "dep": 2560.0, "prev_dep": 0.0, "delta": 2560.0, "ticket": 20.0}, {"offer": "Automation_19,99_10%", "raw": "SMM_Automation_19,99_10% (19.99 $)", "oc": 122.0, "dep": 2440.0, "prev_dep": 0.0, "delta": 2440.0, "ticket": 20.0}, {"offer": "Channel_19,99_40%", "raw": "SMM_Channel_19,99_40% (19.99 $)", "oc": 116.0, "dep": 2320.0, "prev_dep": 0.0, "delta": 2320.0, "ticket": 20.0}, {"offer": "DailyPromoCode_39,99_10%", "raw": "SMM_DailyPromoCode_39,99_10% (39.99 $)", "oc": 56.0, "dep": 2240.0, "prev_dep": 0.0, "delta": 2240.0, "ticket": 40.0}, {"offer": "Discord_59,99_20%", "raw": "SMM_Discord_59,99_20% (59.99 $)", "oc": 32.0, "dep": 1920.0, "prev_dep": 0.0, "delta": 1920.0, "ticket": 60.0}], "appeared": [], "gone": [], "cells": [], "players": [], "has_dep": false, "dep_count": 0.0, "dep_sum_tab": 0.0}, {"week": "2026-W30", "start": "2026-07-20", "end": "2026-07-26", "prev": "2026-W29", "kpi": {"oc": 2728.0, "dep": 64213.0, "ticket": 23.53848973607038, "offers": 48, "rows": 218, "d_oc": 0.027108433734939652, "d_dep": 0.07025234174472472, "d_ticket": 0.04200521249046507, "d_offers": 2}, "projects": [{"project": "fortunewheelz", "oc": 475.0, "dep": 12639.0, "ticket": 26.608421052631577, "d_oc": 0.10722610722610715, "d_dep": 0.0730112912810934}, {"project": "firesevens", "oc": 510.0, "dep": 11789.0, "ticket": 23.115686274509805, "d_oc": 0.04081632653061229, "d_dep": 0.13716600752387387}, {"project": "nolimitcoins", "oc": 438.0, "dep": 11199.0, "ticket": 25.568493150684933, "d_oc": 0.11734693877551017, "d_dep": 0.15596614368290673}, {"project": "stormrush", "oc": 366.0, "dep": 9549.0, "ticket": 26.09016393442623, "d_oc": -0.10073710073710074, "d_dep": 0.06597454789015411}, {"project": "scarletsands", "oc": 378.0, "dep": 8709.0, "ticket": 23.03968253968254, "d_oc": 0.1595092024539877, "d_dep": 0.14306339414621339}, {"project": "vegasway", "oc": 382.0, "dep": 6728.0, "ticket": 17.612565445026178, "d_oc": -0.04020100502512558, "d_dep": -0.051993800197266404}, {"project": "taofortune", "oc": 138.0, "dep": 2660.0, "ticket": 19.27536231884058, "d_oc": -0.12101910828025475, "d_dep": -0.17901234567901236}, {"project": "dexyplay", "oc": 41.0, "dep": 940.0, "ticket": 22.926829268292682, "d_oc": -0.2807017543859649, "d_dep": -0.248}], "top": [{"offer": "Channel_19,99_20%", "raw": "SMM_Channel_19,99_20% (19.99 $)", "oc": 367.0, "dep": 7337.0, "prev_dep": 6377.0, "delta": 960.0, "ticket": 19.99182561307902}, {"offer": "Channel_39,99_20%", "raw": "SMM_Channel_39,99_20% (39.99 $)", "oc": 130.0, "dep": 5200.0, "prev_dep": 5080.0, "delta": 120.0, "ticket": 40.0}, {"offer": "Discord_39,99_20%", "raw": "SMM_Discord_39,99_20% (39.99 $)", "oc": 124.0, "dep": 4960.0, "prev_dep": 5440.0, "delta": -480.0, "ticket": 40.0}, {"offer": "Discord_19,99_20%", "raw": "SMM_Discord_19,99_20% (19.99 $)", "oc": 223.0, "dep": 4460.0, "prev_dep": 4860.0, "delta": -400.0, "ticket": 20.0}, {"offer": "DailyPromoCode_19,99_10%", "raw": "SMM_DailyPromoCode_19,99_10% (19.99 $)", "oc": 175.0, "dep": 3500.0, "prev_dep": 4059.0, "delta": -559.0, "ticket": 20.0}, {"offer": "Channel_59,99_20%", "raw": "SMM_Channel_59,99_20% (59.99 $)", "oc": 58.0, "dep": 3480.0, "prev_dep": 2880.0, "delta": 600.0, "ticket": 60.0}, {"offer": "CheapAutomation_9,99_40%", "raw": "SMM_CheapAutomation_9,99_40% (9.99 $)", "oc": 307.0, "dep": 3067.0, "prev_dep": 3315.0, "delta": -248.0, "ticket": 9.990228013029316}, {"offer": "Automation_19,99_10%", "raw": "SMM_Automation_19,99_10% (19.99 $)", "oc": 148.0, "dep": 2960.0, "prev_dep": 2440.0, "delta": 520.0, "ticket": 20.0}, {"offer": "Broadcast_19,99_20%", "raw": "SMM_Broadcast_19,99_20% (19.99 $)", "oc": 132.0, "dep": 2640.0, "prev_dep": 1300.0, "delta": 1340.0, "ticket": 20.0}, {"offer": "DailyPromoCode_59.99_20% ⚠ (59.99)", "raw": "SMM_DailyPromoCode_59.99_20% (59.99 $)", "oc": 37.0, "dep": 2220.0, "prev_dep": 1860.0, "delta": 360.0, "ticket": 60.0}, {"offer": "DailyPromoCode_39,99_10%", "raw": "SMM_DailyPromoCode_39,99_10% (39.99 $)", "oc": 55.0, "dep": 2200.0, "prev_dep": 2240.0, "delta": -40.0, "ticket": 40.0}, {"offer": "Discord_19,99_40%", "raw": "SMM_Discord_19,99_40% (19.99 $)", "oc": 103.0, "dep": 2060.0, "prev_dep": 2560.0, "delta": -500.0, "ticket": 20.0}], "movers": [{"offer": "Broadcast_19,99_20%", "raw": "SMM_Broadcast_19,99_20% (19.99 $)", "oc": 132.0, "dep": 2640.0, "prev_dep": 1300.0, "delta": 1340.0, "ticket": 20.0}, {"offer": "Broadcast_39,99_20%", "raw": "SMM_Broadcast_39,99_20% (39.99 $)", "oc": 46.0, "dep": 1840.0, "prev_dep": 560.0, "delta": 1280.0, "ticket": 40.0}, {"offer": "Channel_19,99_20%", "raw": "SMM_Channel_19,99_20% (19.99 $)", "oc": 367.0, "dep": 7337.0, "prev_dep": 6377.0, "delta": 960.0, "ticket": 19.99182561307902}, {"offer": "Channel_59,99_20%", "raw": "SMM_Channel_59,99_20% (59.99 $)", "oc": 58.0, "dep": 3480.0, "prev_dep": 2880.0, "delta": 600.0, "ticket": 60.0}, {"offer": "DailyPromoCode_19,99_10%", "raw": "SMM_DailyPromoCode_19,99_10% (19.99 $)", "oc": 175.0, "dep": 3500.0, "prev_dep": 4059.0, "delta": -559.0, "ticket": 20.0}, {"offer": "Automation_19,99_10%", "raw": "SMM_Automation_19,99_10% (19.99 $)", "oc": 148.0, "dep": 2960.0, "prev_dep": 2440.0, "delta": 520.0, "ticket": 20.0}, {"offer": "Discord_19,99_40%", "raw": "SMM_Discord_19,99_40% (19.99 $)", "oc": 103.0, "dep": 2060.0, "prev_dep": 2560.0, "delta": -500.0, "ticket": 20.0}, {"offer": "Discord_39,99_20%", "raw": "SMM_Discord_39,99_20% (39.99 $)", "oc": 124.0, "dep": 4960.0, "prev_dep": 5440.0, "delta": -480.0, "ticket": 40.0}, {"offer": "Broadcast_59,99_20%", "raw": "SMM_Broadcast_59,99_20% (59.99 $)", "oc": 12.0, "dep": 720.0, "prev_dep": 240.0, "delta": 480.0, "ticket": 60.0}, {"offer": "Discord_19,99_20%", "raw": "SMM_Discord_19,99_20% (19.99 $)", "oc": 223.0, "dep": 4460.0, "prev_dep": 4860.0, "delta": -400.0, "ticket": 20.0}, {"offer": "Channel_19,99_40%", "raw": "SMM_Channel_19,99_40% (19.99 $)", "oc": 96.0, "dep": 1920.0, "prev_dep": 2320.0, "delta": -400.0, "ticket": 20.0}, {"offer": "DailyPromoCode_9,99_20%", "raw": "SMM_DailyPromoCode_9,99_20% (9.99 $)", "oc": 68.0, "dep": 680.0, "prev_dep": 1069.0, "delta": -389.0, "ticket": 10.0}], "appeared": [{"offer": "CheapAutomation_9,99_100% ⚠ (19.99)", "raw": "SMM_CheapAutomation_9,99_100% (19.99 $)", "oc": 1.0, "dep": 20.0, "prev_dep": 0.0, "delta": 20.0, "ticket": 20.0}, {"offer": "DailyPromoCode_9,99_20% ⚠ (19.99)", "raw": "SMM_DailyPromoCode_9,99_20% (19.99 $)", "oc": 1.0, "dep": 20.0, "prev_dep": 0.0, "delta": 20.0, "ticket": 20.0}, {"offer": "Broadcast_49,99_30%", "raw": "SMM_Broadcast_49,99_30% (49.99 $)", "oc": 1.0, "dep": 50.0, "prev_dep": 0.0, "delta": 50.0, "ticket": 50.0}, {"offer": "CheapAutomation_9,99_40% ⚠ (19.99)", "raw": "SMM_CheapAutomation_9,99_40% (19.99 $)", "oc": 9.0, "dep": 180.0, "prev_dep": 0.0, "delta": 180.0, "ticket": 20.0}], "gone": [{"offer": "Channel_49,99_30% ⚠ (59.99)", "raw": "SMM_Channel_49,99_30% (59.99 $)", "oc": 0.0, "dep": 0.0, "prev_dep": 120.0, "delta": -120.0, "ticket": null}, {"offer": "Channel_49,99_10%", "raw": "SMM_Channel_49,99_10% (49.9 $)", "oc": 0.0, "dep": 0.0, "prev_dep": 50.0, "delta": -50.0, "ticket": null}], "cells": [{"project": "nolimitcoins", "date": "2026-07-26", "pa": 5.0017, "dep_sum": 300.0, "dep_count": 10.0, "payout": 1500.5099999999998}, {"project": "fortunewheelz", "date": "2026-07-24", "pa": 1.1115, "dep_sum": 540.0, "dep_count": 20.0, "payout": 600.2099999999999}, {"project": "nolimitcoins", "date": "2026-07-25", "pa": 1.5005, "dep_sum": 360.0, "dep_count": 13.0, "payout": 540.18}, {"project": "stormrush", "date": "2026-07-22", "pa": 3.4372, "dep_sum": 140.0, "dep_count": 6.0, "payout": 481.20799999999997}, {"project": "vegasway", "date": "2026-07-20", "pa": 2.335, "dep_sum": 180.0, "dep_count": 13.0, "payout": 420.3}, {"project": "scarletsands", "date": "2026-07-23", "pa": 1.6008, "dep_sum": 250.0, "dep_count": 13.0, "payout": 400.2}, {"project": "vegasway", "date": "2026-07-21", "pa": 1.0006, "dep_sum": 250.0, "dep_count": 14.0, "payout": 250.14999999999998}, {"project": "fortunewheelz", "date": "2026-07-22", "pa": 0.69, "dep_sum": 290.0, "dep_count": 13.0, "payout": 200.1}, {"project": "stormrush", "date": "2026-07-20", "pa": 0.667, "dep_sum": 150.0, "dep_count": 7.0, "payout": 100.05000000000001}], "players": [{"project": "nolimitcoins", "login": "9657350", "pa": 14.2536, "dep_sum": 80.0, "dep_count": 2.0, "payout": 1140.288, "repeat": false}, {"project": "fortunewheelz", "login": "8013024", "pa": 10.005, "dep_sum": 60.0, "dep_count": 3.0, "payout": 600.3000000000001, "repeat": false}, {"project": "nolimitcoins", "login": "7993796", "pa": 2.1434, "dep_sum": 280.0, "dep_count": 7.0, "payout": 600.152, "repeat": false}, {"project": "stormrush", "login": "8273181", "pa": 2.406, "dep_sum": 200.0, "dep_count": 8.0, "payout": 481.20000000000005, "repeat": false}, {"project": "scarletsands", "login": "3730074", "pa": 1.74, "dep_sum": 230.0, "dep_count": 12.0, "payout": 400.2, "repeat": false}, {"project": "nolimitcoins", "login": "8923240", "pa": 0.9379, "dep_sum": 320.0, "dep_count": 12.0, "payout": 300.128, "repeat": false}, {"project": "vegasway", "login": "2916433", "pa": 6.2563, "dep_sum": 40.0, "dep_count": 4.0, "payout": 250.252, "repeat": false}, {"project": "vegasway", "login": "7556249", "pa": 11.0055, "dep_sum": 20.0, "dep_count": 1.0, "payout": 220.10999999999999, "repeat": false}, {"project": "vegasway", "login": "3295192", "pa": 10.01, "dep_sum": 20.0, "dep_count": 2.0, "payout": 200.2, "repeat": false}, {"project": "fortunewheelz", "login": "3983744", "pa": 3.335, "dep_sum": 60.0, "dep_count": 3.0, "payout": 200.1, "repeat": false}, {"project": "fortunewheelz", "login": "2271059", "pa": 0.9095, "dep_sum": 220.0, "dep_count": 11.0, "payout": 200.09, "repeat": false}, {"project": "scarletsands", "login": "3318939", "pa": 10.01, "dep_sum": 10.0, "dep_count": 1.0, "payout": 100.1, "repeat": false}, {"project": "stormrush", "login": "1446333", "pa": 10.01, "dep_sum": 10.0, "dep_count": 1.0, "payout": 100.1, "repeat": false}, {"project": "scarletsands", "login": "8803598", "pa": 1.0004, "dep_sum": 100.0, "dep_count": 4.0, "payout": 100.03999999999999, "repeat": false}, {"project": "fortunewheelz", "login": "6661809", "pa": 1.6672, "dep_sum": 60.0, "dep_count": 2.0, "payout": 100.032, "repeat": false}, {"project": "scarletsands", "login": "5247298", "pa": 1.2576, "dep_sum": 20.0, "dep_count": 1.0, "payout": 25.152, "repeat": false}], "has_dep": true, "dep_count": 568.0, "dep_sum_tab": 12240.0}, {"week": "2026-W31", "start": "2026-07-27", "end": "2026-08-02", "prev": "2026-W30", "kpi": {"oc": 3193.0, "dep": 77773.0, "ticket": 24.357344190416537, "offers": 52, "rows": 234, "d_oc": 0.17045454545454541, "d_dep": 0.21117219254668051, "d_ticket": 0.034787892661241715, "d_offers": 4}, "projects": [{"project": "firesevens", "oc": 637.0, "dep": 14647.0, "ticket": 22.993720565149136, "d_oc": 0.24901960784313726, "d_dep": 0.242429383323437}, {"project": "nolimitcoins", "oc": 513.0, "dep": 14078.0, "ticket": 27.44249512670565, "d_oc": 0.17123287671232879, "d_dep": 0.25707652468970443}, {"project": "stormrush", "oc": 476.0, "dep": 13308.0, "ticket": 27.95798319327731, "d_oc": 0.3005464480874316, "d_dep": 0.3936537857367264}, {"project": "fortunewheelz", "oc": 474.0, "dep": 12228.0, "ticket": 25.79746835443038, "d_oc": -0.002105263157894721, "d_dep": -0.03251839544267743}, {"project": "scarletsands", "oc": 448.0, "dep": 11099.0, "ticket": 24.774553571428573, "d_oc": 0.18518518518518512, "d_dep": 0.2744287518658859}, {"project": "vegasway", "oc": 427.0, "dep": 7598.0, "ticket": 17.793911007025763, "d_oc": 0.11780104712041894, "d_dep": 0.1293103448275863}, {"project": "taofortune", "oc": 168.0, "dep": 3525.0, "ticket": 20.982142857142858, "d_oc": 0.21739130434782616, "d_dep": 0.32518796992481214}, {"project": "dexyplay", "oc": 50.0, "dep": 1290.0, "ticket": 25.8, "d_oc": 0.2195121951219512, "d_dep": 0.37234042553191493}], "top": [{"offer": "Channel_19,99_20%", "raw": "SMM_Channel_19,99_20% (19.99 $)", "oc": 375.0, "dep": 7496.0, "prev_dep": 7337.0, "delta": 159.0, "ticket": 19.989333333333335}, {"offer": "Channel_39,99_20%", "raw": "SMM_Channel_39,99_20% (39.99 $)", "oc": 179.0, "dep": 7160.0, "prev_dep": 5200.0, "delta": 1960.0, "ticket": 40.0}, {"offer": "Discord_39,99_20%", "raw": "SMM_Discord_39,99_20% (39.99 $)", "oc": 174.0, "dep": 6960.0, "prev_dep": 4960.0, "delta": 2000.0, "ticket": 40.0}, {"offer": "Discord_19,99_20%", "raw": "SMM_Discord_19,99_20% (19.99 $)", "oc": 283.0, "dep": 5657.0, "prev_dep": 4460.0, "delta": 1197.0, "ticket": 19.98939929328622}, {"offer": "DailyPromoCode_19,99_10%", "raw": "SMM_DailyPromoCode_19,99_10% (19.99 $)", "oc": 179.0, "dep": 3580.0, "prev_dep": 3500.0, "delta": 80.0, "ticket": 20.0}, {"offer": "Broadcast_19,99_20%", "raw": "SMM_Broadcast_19,99_20% (19.99 $)", "oc": 165.0, "dep": 3300.0, "prev_dep": 2640.0, "delta": 660.0, "ticket": 20.0}, {"offer": "Channel_59,99_20%", "raw": "SMM_Channel_59,99_20% (59.99 $)", "oc": 54.0, "dep": 3240.0, "prev_dep": 3480.0, "delta": -240.0, "ticket": 60.0}, {"offer": "DailyPromoCode_59.99_20% ⚠ (59.99)", "raw": "SMM_DailyPromoCode_59.99_20% (59.99 $)", "oc": 53.0, "dep": 3180.0, "prev_dep": 2220.0, "delta": 960.0, "ticket": 60.0}, {"offer": "CheapAutomation_9,99_40%", "raw": "SMM_CheapAutomation_9,99_40% (9.99 $)", "oc": 314.0, "dep": 3137.0, "prev_dep": 3067.0, "delta": 70.0, "ticket": 9.990445859872612}, {"offer": "DailyPromoCode_39,99_10%", "raw": "SMM_DailyPromoCode_39,99_10% (39.99 $)", "oc": 67.0, "dep": 2680.0, "prev_dep": 2200.0, "delta": 480.0, "ticket": 40.0}, {"offer": "Discord_59,99_20%", "raw": "SMM_Discord_59,99_20% (59.99 $)", "oc": 41.0, "dep": 2460.0, "prev_dep": 1800.0, "delta": 660.0, "ticket": 60.0}, {"offer": "Automation_19,99_10%", "raw": "SMM_Automation_19,99_10% (19.99 $)", "oc": 123.0, "dep": 2460.0, "prev_dep": 2960.0, "delta": -500.0, "ticket": 20.0}], "movers": [{"offer": "Discord_39,99_20%", "raw": "SMM_Discord_39,99_20% (39.99 $)", "oc": 174.0, "dep": 6960.0, "prev_dep": 4960.0, "delta": 2000.0, "ticket": 40.0}, {"offer": "Channel_39,99_20%", "raw": "SMM_Channel_39,99_20% (39.99 $)", "oc": 179.0, "dep": 7160.0, "prev_dep": 5200.0, "delta": 1960.0, "ticket": 40.0}, {"offer": "Discord_19,99_20%", "raw": "SMM_Discord_19,99_20% (19.99 $)", "oc": 283.0, "dep": 5657.0, "prev_dep": 4460.0, "delta": 1197.0, "ticket": 19.98939929328622}, {"offer": "DailyPromoCode_59.99_20% ⚠ (59.99)", "raw": "SMM_DailyPromoCode_59.99_20% (59.99 $)", "oc": 53.0, "dep": 3180.0, "prev_dep": 2220.0, "delta": 960.0, "ticket": 60.0}, {"offer": "Channel_29,99_40%", "raw": "SMM_Channel_29,99_40% (29.99 $)", "oc": 34.0, "dep": 1020.0, "prev_dep": 330.0, "delta": 690.0, "ticket": 30.0}, {"offer": "Broadcast_19,99_20%", "raw": "SMM_Broadcast_19,99_20% (19.99 $)", "oc": 165.0, "dep": 3300.0, "prev_dep": 2640.0, "delta": 660.0, "ticket": 20.0}, {"offer": "Discord_59,99_20%", "raw": "SMM_Discord_59,99_20% (59.99 $)", "oc": 41.0, "dep": 2460.0, "prev_dep": 1800.0, "delta": 660.0, "ticket": 60.0}, {"offer": "DailyPromoCode_49.99_10% ⚠ (49.99)", "raw": "SMM_DailyPromoCode_49.99_10% (49.99 $)", "oc": 16.0, "dep": 800.0, "prev_dep": 150.0, "delta": 650.0, "ticket": 50.0}, {"offer": "Broadcast_39,99_20%", "raw": "SMM_Broadcast_39,99_20% (39.99 $)", "oc": 60.0, "dep": 2400.0, "prev_dep": 1840.0, "delta": 560.0, "ticket": 40.0}, {"offer": "DailyPromoCode_19,99_20%", "raw": "SMM_DailyPromoCode_19,99_20% (19.99 $)", "oc": 56.0, "dep": 1120.0, "prev_dep": 580.0, "delta": 540.0, "ticket": 20.0}, {"offer": "Automation_19,99_10%", "raw": "SMM_Automation_19,99_10% (19.99 $)", "oc": 123.0, "dep": 2460.0, "prev_dep": 2960.0, "delta": -500.0, "ticket": 20.0}, {"offer": "DailyPromoCode_39,99_10%", "raw": "SMM_DailyPromoCode_39,99_10% (39.99 $)", "oc": 67.0, "dep": 2680.0, "prev_dep": 2200.0, "delta": 480.0, "ticket": 40.0}], "appeared": [{"offer": "Channel_49,99_30% ⚠ (59.99)", "raw": "SMM_Channel_49,99_30% (59.99 $)", "oc": 1.0, "dep": 60.0, "prev_dep": 0.0, "delta": 60.0, "ticket": 60.0}, {"offer": "Automation_49,99_30%", "raw": "SMM_Automation_49,99_30% (49.99 $)", "oc": 1.0, "dep": 50.0, "prev_dep": 0.0, "delta": 50.0, "ticket": 50.0}, {"offer": "CheapAutomation_9,99_10% ⚠ (19.99)", "raw": "SMM_CheapAutomation_9,99_10% (19.99 $)", "oc": 1.0, "dep": 20.0, "prev_dep": 0.0, "delta": 20.0, "ticket": 20.0}, {"offer": "FBmain_Offer_10.03 ⚠ (4.99)", "raw": "SMM_FBmain_Offer_10.03 (4.99 $)", "oc": 1.0, "dep": 5.0, "prev_dep": 0.0, "delta": 5.0, "ticket": 5.0}], "gone": [], "cells": [{"project": "firesevens", "date": "2026-08-01", "pa": 5.2413, "dep_sum": 210.0, "dep_count": 13.0, "payout": 1100.673}, {"project": "nolimitcoins", "date": "2026-07-30", "pa": 1.6008000000000002, "dep_sum": 250.0, "dep_count": 13.0, "payout": 400.20000000000005}, {"project": "vegasway", "date": "2026-07-29", "pa": 1.1116, "dep_sum": 360.0, "dep_count": 17.0, "payout": 400.176}, {"project": "scarletsands", "date": "2026-07-27", "pa": 1.1543999999999999, "dep_sum": 260.0, "dep_count": 13.0, "payout": 300.14399999999995}, {"project": "firesevens", "date": "2026-07-31", "pa": 0.6114, "dep_sum": 450.0, "dep_count": 22.0, "payout": 275.13000000000005}, {"project": "vegasway", "date": "2026-08-02", "pa": 0.8659, "dep_sum": 260.0, "dep_count": 16.0, "payout": 225.13400000000001}], "players": [{"project": "firesevens", "login": "2769992", "pa": 50.025, "dep_sum": 20.0, "dep_count": 1.0, "payout": 1000.5, "repeat": false}, {"project": "scarletsands", "login": "3318939", "pa": 3.3356, "dep_sum": 90.0, "dep_count": 6.0, "payout": 300.204, "repeat": true}, {"project": "nolimitcoins", "login": "7993796", "pa": 1.5004, "dep_sum": 200.0, "dep_count": 5.0, "payout": 300.08, "repeat": true}, {"project": "firesevens", "login": "2054967", "pa": 3.4383999999999997, "dep_sum": 80.0, "dep_count": 2.0, "payout": 275.072, "repeat": false}, {"project": "vegasway", "login": "3649455", "pa": 20.02, "dep_sum": 10.0, "dep_count": 1.0, "payout": 200.2, "repeat": false}, {"project": "firesevens", "login": "1269395", "pa": 2.5013, "dep_sum": 80.0, "dep_count": 4.0, "payout": 200.104, "repeat": false}, {"project": "scarletsands", "login": "7958441", "pa": 1.2503, "dep_sum": 160.0, "dep_count": 4.0, "payout": 200.048, "repeat": false}, {"project": "scarletsands", "login": "3767305", "pa": 0.8334999999999999, "dep_sum": 240.0, "dep_count": 6.0, "payout": 200.03999999999996, "repeat": false}, {"project": "vegasway", "login": "7785221", "pa": 2.0844, "dep_sum": 60.0, "dep_count": 3.0, "payout": 125.06400000000001, "repeat": false}, {"project": "vegasway", "login": "5480095", "pa": 3.3367, "dep_sum": 30.0, "dep_count": 3.0, "payout": 100.101, "repeat": false}, {"project": "firesevens", "login": "2687126", "pa": 5.005, "dep_sum": 20.0, "dep_count": 2.0, "payout": 100.1, "repeat": false}, {"project": "vegasway", "login": "3567251", "pa": 5.005, "dep_sum": 20.0, "dep_count": 2.0, "payout": 100.1, "repeat": false}, {"project": "vegasway", "login": "7671528", "pa": 2.002, "dep_sum": 50.0, "dep_count": 5.0, "payout": 100.1, "repeat": false}, {"project": "vegasway", "login": "7069493", "pa": 1.4296, "dep_sum": 70.0, "dep_count": 5.0, "payout": 100.072, "repeat": false}, {"project": "scarletsands", "login": "6282517", "pa": 0.8338, "dep_sum": 120.0, "dep_count": 6.0, "payout": 100.056, "repeat": false}, {"project": "vegasway", "login": "9619800", "pa": 5.0025, "dep_sum": 20.0, "dep_count": 1.0, "payout": 100.05000000000001, "repeat": false}, {"project": "firesevens", "login": "2095332", "pa": 1.6675, "dep_sum": 60.0, "dep_count": 3.0, "payout": 100.05, "repeat": false}, {"project": "nolimitcoins", "login": "3701881", "pa": 1.6675, "dep_sum": 60.0, "dep_count": 3.0, "payout": 100.05, "repeat": false}, {"project": "vegasway", "login": "5890353", "pa": 1.2506, "dep_sum": 80.0, "dep_count": 4.0, "payout": 100.048, "repeat": false}, {"project": "vegasway", "login": "3656622", "pa": 0.7145999999999999, "dep_sum": 140.0, "dep_count": 7.0, "payout": 100.04399999999998, "repeat": false}, {"project": "scarletsands", "login": "5247298", "pa": 2.5013, "dep_sum": 20.0, "dep_count": 1.0, "payout": 50.026, "repeat": true}], "has_dep": true, "dep_count": 679.0, "dep_sum_tab": 14550.0}], "trend": [{"week": "2026-W29", "dep": 59998.0, "oc": 2656.0}, {"week": "2026-W30", "dep": 64213.0, "oc": 2728.0}, {"week": "2026-W31", "dep": 77773.0, "oc": 3193.0}]};
+
+const money = v => '$' + Math.round(v).toLocaleString('uk-UA').replace(/\u00a0/g, ' ');
+const int   = v => Math.round(v).toLocaleString('uk-UA').replace(/\u00a0/g, ' ');
+const esc   = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+// A signed number is the secondary encoding for the colour — never colour alone.
+function delta(v, opts){
+  opts = opts || {};
+  if (v === null || v === undefined) return '<span class="flat">—</span>';
+  const pct = opts.abs ? int(v) : (v * 100).toFixed(0) + '%';
+  const sign = v > 0 ? '+' : (v < 0 ? '−' : '');
+  const body = sign + (opts.abs ? pct.replace('-', '') : pct.replace('-', ''));
+  const cls = v > 0 ? 'up' : (v < 0 ? 'down' : 'flat');
+  return '<span class="' + cls + '">' + body + '</span>';
+}
+
+// The empty state has to live INSIDE the table: replacing the wrapper's innerHTML
+// would delete the <table> node, and every later week switch would then hit null.
+function table(el, cols, rows, render, emptyText){
+  const head = '<thead><tr>' + cols.map(c => '<th>' + esc(c) + '</th>').join('') + '</tr></thead>';
+  const body = rows.length
+    ? rows.map(render).join('')
+    : '<tr><td class="empty" colspan="' + cols.length + '">' + esc(emptyText) + '</td></tr>';
+  el.innerHTML = head + '<tbody>' + body + '</tbody>';
+}
+
+function renderTrend(sel){
+  const max = Math.max.apply(null, DATA.trend.map(t => t.dep)) || 1;
+  document.getElementById('trend').innerHTML = DATA.trend.map(t => {
+    const h = Math.max(6, Math.round(t.dep / max * 118));
+    return '<div class="tcol' + (t.week === sel ? ' sel' : '') + '">'
+      + '<span class="tval">' + money(t.dep) + '</span>'
+      + '<div class="tbar" style="height:118px"><div class="tfill" style="height:' + h + 'px"></div></div>'
+      + '<span class="tlab">' + esc(t.week.replace('2026-', '')) + '</span></div>';
+  }).join('');
+}
+
+function render(weekId){
+  const w = DATA.weeks.find(x => x.week === weekId);
+  document.querySelectorAll('.wbtn').forEach(b =>
+    b.setAttribute('aria-pressed', String(b.dataset.week === weekId)));
+  document.getElementById('range').textContent =
+    w.start.split('-').reverse().join('.') + ' — ' + w.end.split('-').reverse().join('.')
+    + (w.prev ? '  ·  Δ проти ' + w.prev : '  ·  перший збережений тиждень');
+
+  const k = w.kpi;
+  document.getElementById('kpis').innerHTML = [
+    ['Offers count', int(k.oc),  delta(k.d_oc)],
+    ['Dep sum',      money(k.dep), delta(k.d_dep)],
+    ['Середній ticket', '$' + (k.ticket ? k.ticket.toFixed(2) : '—'), delta(k.d_ticket)],
+    ['Різних офферів', int(k.offers), delta(k.d_offers, {abs:true})],
+  ].map(([l, v, d]) => '<div class="kpi"><div class="k-label">' + esc(l) + '</div>'
+      + '<div class="k-value">' + v + '</div><div class="k-delta">' + d + '</div></div>').join('');
+
+  renderTrend(weekId);
+
+  table(document.getElementById('tProjects'),
+    ['Проєкт', 'Offers', 'Δ offers', 'Dep sum', 'Δ dep sum', 'Ticket'],
+    w.projects,
+    r => '<tr><td class="name">' + esc(r.project) + '</td><td>' + int(r.oc) + '</td><td>'
+      + delta(r.d_oc) + '</td><td>' + money(r.dep) + '</td><td>' + delta(r.d_dep) + '</td><td>'
+      + (r.ticket ? '$' + r.ticket.toFixed(2) : '—') + '</td></tr>',
+    'Немає даних за цей тиждень.');
+
+  table(document.getElementById('tMovers'),
+    ['Оффер', 'Offers', 'Dep sum', 'Було', 'Δ, $'],
+    w.movers,
+    r => '<tr><td class="name">' + esc(r.offer) + '</td><td>' + int(r.oc) + '</td><td>'
+      + money(r.dep) + '</td><td>' + (r.prev_dep ? money(r.prev_dep) : '—') + '</td><td>'
+      + delta(r.delta, {abs:true}) + '</td></tr>',
+    'Немає з чим порівнювати.');
+
+  table(document.getElementById('tTop'),
+    ['Оффер', 'Offers', 'Dep sum', 'Ticket'],
+    w.top,
+    r => '<tr><td class="name">' + esc(r.offer) + '</td><td>' + int(r.oc) + '</td><td>'
+      + money(r.dep) + '</td><td>' + (r.ticket ? '$' + r.ticket.toFixed(2) : '—') + '</td></tr>',
+    'Немає офферів.');
+
+  const churn = w.appeared.map(r => ({...r, kind:"з'явився"}))
+                 .concat(w.gone.map(r => ({...r, kind:'зник'})));
+  table(document.getElementById('tChurn'),
+    ['Оффер', 'Статус', 'Offers', 'Dep sum'],
+    churn,
+    r => '<tr><td class="name">' + esc(r.offer) + '</td><td>' + esc(r.kind) + '</td><td>'
+      + int(r.oc) + '</td><td>' + money(r.kind === 'зник' ? r.prev_dep : r.dep) + '</td></tr>',
+    'Склад офферів не змінився.');
+
+  table(document.getElementById('tCells'),
+    ['Проєкт', 'День', 'Payout after', 'База', 'Депозитів', 'Виплата'],
+    w.cells,
+    r => '<tr class="warn"><td class="name">' + esc(r.project) + '</td><td>'
+      + esc(r.date.split('-').reverse().join('.')) + '</td><td>' + (r.pa * 100).toFixed(2) + '%</td><td>'
+      + money(r.dep_sum) + '</td><td>' + int(r.dep_count) + '</td><td>' + money(r.payout) + '</td></tr>',
+    w.has_dep ? 'Підсвічених клітинок немає.' : 'Таб Deposit Number за цей тиждень не знімався.');
+
+  table(document.getElementById('tPlayers'),
+    ['Проєкт', 'Логін', 'Payout after', 'База', 'Депозитів', 'Виплата'],
+    w.players,
+    r => '<tr' + (r.repeat ? ' class="warn"' : '') + '><td class="name">' + esc(r.project) + '</td><td>'
+      + esc(r.login) + (r.repeat ? '<span class="tag">повтор</span>' : '') + '</td><td>'
+      + (r.pa * 100).toFixed(2) + '%</td><td>' + money(r.dep_sum) + '</td><td>'
+      + int(r.dep_count) + '</td><td>' + money(r.payout) + '</td></tr>',
+    w.has_dep ? 'Гравців з виплатами немає.' : 'Таб Deposit Number за цей тиждень не знімався.');
+
+  const notes = [];
+  notes.push('Offers-таб: Project = усі крім <code>spintime</code>, Offer Type = <code>SMM</code>, Period = Week.');
+  if (w.has_dep) notes.push('Deposit Number-таб знятий із <code>Action = react14d</code> — це підмножина, '
+    + 'а не вся популяція: за цей тиждень там ' + int(w.dep_count) + ' депозитів на ' + money(w.dep_sum_tab)
+    + '. Варто підтвердити з власником звіту, що фільтр має бути саме такий.');
+  else notes.push('За цей тиждень знімався лише Offers-таб.');
+  notes.push('unique users / unique players не додаються між тижнями — той самий гравець в двох тижнях '
+    + 'це один місячний unique і два тижневих. Для місяця потрібен окремий 28-денний прохід.');
+  notes.push('Порогу підсвітки payout не зашито в код: читається власний прапор Power BI. '
+    + 'Емпірично він вище 51,37% і не вище 61,14%.');
+  document.getElementById('notes').innerHTML = notes.map(n => '<li>' + n + '</li>').join('');
+}
+
+const LATEST = DATA.weeks[DATA.weeks.length - 1].week;
+const pick = document.getElementById('weekpick');
+DATA.weeks.slice().reverse().forEach(w => {
+  const b = document.createElement('button');
+  b.className = 'wbtn'; b.type = 'button';
+  b.dataset.week = w.week;
+  b.textContent = w.week.replace('2026-', '');
+  b.setAttribute('aria-pressed', 'false');
+  b.addEventListener('click', () => render(w.week));
+  pick.appendChild(b);
+});
+render(LATEST);
+</script>
     </div>
     <div class="widgets">
       <button class="widgets-toggle" id="widgetsToggle" aria-label="Скрыть/показать виджеты">
