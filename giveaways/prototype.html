@@ -163,6 +163,23 @@ a{color:inherit;text-decoration:none}
 .jbtn.inn{background:rgba(47,208,122,.14);color:var(--green);box-shadow:none;border:1px solid rgba(47,208,122,.35)}
 .gw .note{font-size:11px;color:var(--mut2);text-align:center;margin-top:-6px}
 
+/* ============ LOCKED STATE ============ */
+.lk .hero>.amount,.lk .hero>.k,.lk .art>div,.lk .art>.k{filter:saturate(.25) brightness(.55)}
+.lk .sq{filter:saturate(.25) brightness(.55)}
+.lockmask{position:absolute;inset:0;display:grid;place-items:center;gap:8px;grid-auto-flow:row;background:rgba(6,6,10,.5);backdrop-filter:blur(1.5px);z-index:3;align-content:center}
+.lockmask .pad{width:48px;height:48px;border-radius:50%;background:rgba(4,4,8,.66);border:1px solid var(--line2);display:grid;place-items:center;font-size:21px}
+.lockmask .cap{font-size:9px;font-weight:900;letter-spacing:.16em;color:var(--mut);text-transform:uppercase}
+.row .sqw{position:relative;flex:0 0 58px;width:58px;height:58px}
+.row .sqw .sq{width:100%;height:100%;flex:none}
+.row .sqw .lockmask{border-radius:12px;gap:0}
+.row .sqw .lockmask .pad{width:30px;height:30px;font-size:14px}
+.row .sqw .lockmask .cap{display:none}
+.heroCard.lk{border-color:var(--line2);background:linear-gradient(160deg,#1b1b25,#16161f 60%)}
+.mt b.lkt{color:var(--mut);font-size:13.5px;font-weight:800}
+.jbtn.buylock{background:linear-gradient(135deg,var(--red),var(--red2));box-shadow:0 6px 18px rgba(255,31,90,.25)}
+.lockline{display:flex;align-items:center;gap:8px;font-size:11.5px;color:var(--mut2);margin-top:-6px}
+.lockline b{color:var(--mut)}
+
 /* variant A */
 .varA{display:grid;grid-template-columns:1.15fr 1fr;gap:18px;align-items:start}
 .heroCard{border-radius:var(--r);overflow:hidden;border:1px solid rgba(255,192,67,.3);background:linear-gradient(160deg,#241a08,#16161f 60%);display:flex;flex-direction:column}
@@ -410,7 +427,7 @@ td.win{font-weight:900;color:var(--gold);font-variant-numeric:tabular-nums}
 
 <script>
 /* ============================ STATE ============================ */
-const PRICE = 9.99;                       // placeholder — поменяем
+const PRICE = 19.99;                      // placeholder — поменяем
 const PASS_NAME = "Scarlet Pass";
 
 const S = {
@@ -508,7 +525,7 @@ function renderPass(){
   if(S.pass==='none'){
     html = `<div class="pass none">
       <div class="left">
-        <span class="badge">No active pass</span>
+        <span class="badge">🔒 No active pass · all draws closed</span>
         <div class="ttl">Get the ${PASS_NAME}</div>
         <div class="sub">30 days of entries into every draw. One purchase, no auto-renew.</div>
         <div class="incl">
@@ -518,12 +535,12 @@ function renderPass(){
       <div class="counters">
         <div class="cnt"><b>$${PRICE}</b><span>per 30 days</span></div>
       </div>
-      <button class="passcta" onclick="openBuy()">Get Pass</button>
+      <button class="passcta" onclick="openBuy()">Buy for $${PRICE}</button>
     </div>`;
   } else if(S.pass==='expired'){
     html = `<div class="pass expired">
       <div class="left">
-        <span class="badge">Expired</span>
+        <span class="badge">🔒 Expired · all draws closed</span>
         <div class="ttl">Your ${PASS_NAME} ended on ${p.expires}</div>
         <div class="sub">You are not entered into any upcoming draw. Buy a new pass to get back in.</div>
       </div>
@@ -531,7 +548,7 @@ function renderPass(){
         <div class="cnt"><b>0</b><span>draws left</span></div>
         <div class="cnt"><b>14</b><span>draws missed</span></div>
       </div>
-      <button class="passcta" onclick="openBuy()">Buy new pass</button>
+      <button class="passcta" onclick="openBuy()">Buy for $${PRICE}</button>
     </div>`;
   } else {
     const cls = S.pass==='expiring'?'expiring':'active';
@@ -557,59 +574,83 @@ function renderPass(){
 }
 
 /* ============================ GIVEAWAY CARDS ============================ */
+/* locked = no usable pass: every draw is closed, the only action is Buy */
+function locked(){ return !passUsable() }
+
+/* padlock layer drawn over the prize art */
+function lockMask(withCaption){
+  return `<i class="lockmask"><i class="pad">🔒</i>${withCaption?`<i class="cap">Locked</i>`:''}</i>`;
+}
+
 function joinBtn(k){
   const d = DRAWS[k];
   if(S.joined[k]) return `<div class="jbtn inn">✓ You're in · Entry #${nf(S.entryNo[k])}</div>`;
-  if(!passUsable()) return `<button class="jbtn locked" onclick="needPass()">🔒 Pass required</button>`;
+  if(locked())    return `<button class="jbtn buylock" onclick="openBuy()">🔒 Buy for $${PRICE}</button>`;
   return `<button class="jbtn" onclick="join('${k}')">Join · 1 entry</button>`;
 }
 
-function cardB(k){
+/* the two meta tiles under the title — timer swaps to a closed state when locked */
+function metaTiles(k){
   const d = DRAWS[k];
-  return `<div class="gw ${k}">
+  if(locked()) return `
+    <div class="mt"><span>Draw status</span><b class="lkt">Closed</b></div>
+    <div class="mt"><span>Entrants</span><b>${nf(d.entrants)}</b></div>`;
+  return `
+    <div class="mt"><span>Closes in</span><b class="t" data-timer="${k}">—</b></div>
+    <div class="mt"><span>Entrants</span><b data-ent="${k}">${nf(d.entrants + (S.joined[k]?1:0))}</b></div>`;
+}
+
+function cardB(k){
+  const d = DRAWS[k], lk = locked();
+  return `<div class="gw ${k}${lk?' lk':''}">
     <div class="hero"><i class="k">${d.kicker}</i>
-      <div class="amount">${nf(d.prize)}<small>${d.unit}</small></div></div>
+      <div class="amount">${nf(d.prize)}<small>${d.unit}</small></div>${lk?lockMask(true):''}</div>
     <div class="body">
       <h4>${d.label}</h4>
       <p class="desc">${d.desc}</p>
-      <div class="meta">
-        <div class="mt"><span>Closes in</span><b class="t" data-timer="${k}">—</b></div>
-        <div class="mt"><span>Entrants</span><b data-ent="${k}">${nf(d.entrants + (S.joined[k]?1:0))}</b></div>
-      </div>
+      <div class="meta">${metaTiles(k)}</div>
       ${joinBtn(k)}
+      ${lk?`<div class="lockline">🔒 <span>Opens with an active <b>${PASS_NAME}</b></span></div>`:''}
     </div>
   </div>`;
 }
 
 function rowCard(k){
-  const d = DRAWS[k];
-  return `<div class="row ${k}">
-    <div class="sq">${nf(d.prize)}<br><small style="font-size:10px;opacity:.8">${d.unit}</small></div>
+  const d = DRAWS[k], lk = locked();
+  return `<div class="row ${k}${lk?' lk':''}">
+    <div class="sqw">
+      <div class="sq">${nf(d.prize)}<br><small style="font-size:10px;opacity:.8">${d.unit}</small></div>
+      ${lk?lockMask(false):''}
+    </div>
     <div class="txt"><h4>${d.label}</h4><p>${d.desc}</p></div>
     <div class="rmeta">
-      <div><span>Closes in</span><b class="t" data-timer="${k}" style="color:var(--gold)">—</b></div>
-      <div><span>Entrants</span><b data-ent="${k}">${nf(d.entrants + (S.joined[k]?1:0))}</b></div>
+      ${lk
+        ? `<div><span>Draw status</span><b style="color:var(--mut)">Closed</b></div>
+           <div><span>Entrants</span><b>${nf(d.entrants)}</b></div>`
+        : `<div><span>Closes in</span><b class="t" data-timer="${k}" style="color:var(--gold)">—</b></div>
+           <div><span>Entrants</span><b data-ent="${k}">${nf(d.entrants + (S.joined[k]?1:0))}</b></div>`}
     </div>
     ${joinBtn(k)}
   </div>`;
 }
 
 function heroCard(){
-  const d = DRAWS.monthly;
-  return `<div class="heroCard">
+  const d = DRAWS.monthly, lk = locked();
+  return `<div class="heroCard${lk?' lk':''}">
     <div class="art">
       <i class="k">${d.kicker}</i><i class="ring"></i>
       <div><div class="amount">${nf(d.prize)}<small>${d.unit}</small></div></div>
+      ${lk?lockMask(true):''}
     </div>
     <div class="b">
       <h3>${d.label}</h3>
       <p class="desc" style="font-size:13.5px">${d.desc}</p>
       <div class="meta">
-        <div class="mt"><span>Closes in</span><b class="t" data-timer="monthly">—</b></div>
-        <div class="mt"><span>Entrants</span><b data-ent="monthly">${nf(d.entrants + (S.joined.monthly?1:0))}</b></div>
+        ${metaTiles('monthly')}
         <div class="mt"><span>Your odds</span><b>${S.joined.monthly?'1 in '+nf(d.entrants+1):'—'}</b></div>
       </div>
       ${joinBtn('monthly')}
+      ${lk?`<div class="lockline">🔒 <span>All three draws open the moment the pass is active</span></div>`:''}
     </div>
   </div>`;
 }
@@ -617,7 +658,7 @@ function heroCard(){
 function renderGw(){
   $('#gwBody').innerHTML = S.layout==='A'
     ? `<div class="varA">${heroCard()}<div class="rows">${rowCard('weekly')}${rowCard('daily')}</div></div>`
-    : `<div class="grid3">${cardB('monthly')}${cardB('weekly')}${cardB('daily')}</div>`;
+    : `<div class="grid3">${cardB('daily')}${cardB('weekly')}${cardB('monthly')}</div>`;
   tick();
 }
 
@@ -661,23 +702,6 @@ function renderRes(){
 /* ============================ MODALS ============================ */
 function modal(html){ $('#mdl').innerHTML=html; $('#ovl').classList.add('on') }
 function closeM(){ $('#ovl').classList.remove('on') }
-
-function needPass(){
-  modal(`
-    <div class="ic" style="background:rgba(255,31,90,.14)">🔒</div>
-    <h3>You need an active ${PASS_NAME}</h3>
-    <p>Entries into the daily, weekly and monthly draws are open to pass holders. One pass covers all three for 30 days.</p>
-    <div class="lines">
-      <div class="li"><span>Daily draws</span><b>30</b></div>
-      <div class="li"><span>Weekly draws</span><b>4</b></div>
-      <div class="li"><span>Monthly grand draw</span><b>1</b></div>
-      <div class="li total"><span>30 days of access</span><b>$${PRICE}</b></div>
-    </div>
-    <div class="acts">
-      <button class="sec" onclick="closeM()">Not now</button>
-      <button class="pri" onclick="openBuy()">Get Pass</button>
-    </div>`);
-}
 
 function openBuy(){
   modal(`
@@ -781,8 +805,15 @@ $('#segView').onclick = e=>{ const b=e.target.closest('button'); if(b) go(b.data
 $('#resetBtn').onclick = ()=>{ S.joined={daily:false,weekly:false,monthly:false}; renderGw(); };
 $('#ovl').onclick = e=>{ if(e.target.id==='ovl') closeM(); };
 
-/* deep link: ?view=gw opens the giveaways screen straight away */
-if(new URLSearchParams(location.search).get('view')==='gw'){ go('gw') }
+/* deep links: ?view=gw · ?pass=none|active|expiring|expired · ?lay=A|B */
+(function(){
+  const q = new URLSearchParams(location.search);
+  const p = q.get('pass');
+  if(p && PASSDATA[p]){ S.pass=p; setSeg('#segPass','p',p); }
+  const l = q.get('lay');
+  if(l==='A'||l==='B'){ S.layout=l; document.querySelectorAll('[data-lay]').forEach(x=>x.classList.toggle('on',x.dataset.lay===l)); }
+  if(q.get('view')==='gw'){ go('gw') }
+})();
 
 /* boot */
 renderGames(); renderPass(); renderGw(); renderRes(); tick();
