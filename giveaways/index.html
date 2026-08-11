@@ -150,21 +150,26 @@
             <span class="proto-dot"></span>
             <span class="proto-name">scarlet-sands · giveaways</span>
             <span class="proto-actions">
-              <button class="btn" id="protoLobby" type="button">Лобби</button>
-              <button class="btn" id="protoGw" type="button">Giveaways</button>
-              <a class="btn solid" href="prototype.html" target="_blank" rel="noopener">На весь экран ↗</a>
+              <button class="btn" data-src="prototype.html" type="button">Лобби</button>
+              <button class="btn" data-src="prototype.html?view=gw&amp;pass=none" type="button">🔒 Закрыто</button>
+              <button class="btn" data-src="prototype.html?view=gw&amp;pass=active" type="button">Открыто</button>
+              <a class="btn solid" href="prototype.html?view=gw&amp;pass=none" target="_blank" rel="noopener">На весь экран ↗</a>
             </span>
           </div>
-          <iframe id="protoFrame" src="prototype.html" title="Scarlet Sands Giveaways prototype" loading="lazy"></iframe>
+          <iframe id="protoFrame" src="prototype.html?view=gw&amp;pass=none" title="Scarlet Sands Giveaways prototype" loading="lazy"></iframe>
         </div>
-        <div class="proto-note">Панель <strong>Prototype controls</strong> справа внизу внутри фрейма переключает состояния пропуска и экраны.</div>
+        <div class="proto-note">Открывается на состоянии «пропуск не куплен» — так страницу видит новый игрок. Панель <strong>Prototype controls</strong> справа внизу внутри фрейма переключает все четыре состояния пропуска и экраны.</div>
       </section>
 
       <!-- MECHANICS -->
       <section>
         <div class="eyebrow">Mechanics</div>
         <h2 class="section-title">Механика</h2>
-        <p class="body"><strong>Scarlet Pass</strong> — платный месячный пропуск, покупается отдельной позицией в кассе. Один пропуск открывает все три розыгрыша. Действует 30 дней скользящим окном от даты покупки: куплен 11 августа — заканчивается 11 сентября. Автопродления нет, игрок покупает заново руками. Цена в прототипе — <strong>9,99 $</strong>, плейсхолдер.</p>
+        <p class="body"><strong>Scarlet Pass</strong> — платный месячный пропуск, покупается отдельной позицией в кассе. Один пропуск открывает все три розыгрыша. Действует 30 дней скользящим окном от даты покупки: куплен 11 августа — заканчивается 11 сентября. Автопродления нет, игрок покупает заново руками. Цена в прототипе — <strong>19,99 $</strong>, плейсхолдер.</p>
+
+        <h3 class="sub-title">До покупки все гивы закрыты</h3>
+        <p>Пока пропуска нет (и когда он истёк), каждая карточка залочена: приз затемнён, поверх него замок, статус тиража — <strong>Closed</strong>, вместо таймера ничего не тикает. Единственное действие на всей странице — <strong>🔒 Buy for 19,99 $</strong>, кнопка есть и на самой карточке, и в баре пропуска сверху. Промежуточной модалки «Pass required» больше нет — жмёшь замок и сразу попадаешь в кассу.</p>
+        <p>После оплаты все три тиража открываются в один момент: замки уходят, включаются таймеры, кнопка становится <strong>Join · 1 entry</strong>. Ждать ничего не нужно.</p>
 
         <h3 class="sub-title">Три розыгрыша, по одному входу на игрока в тираж</h3>
         <div class="tbl-wrap">
@@ -193,15 +198,15 @@
         <div class="cards">
           <div class="card">
             <h4><span class="tick">✓</span>Иерархия — два варианта в прототипе</h4>
-            <p>A: месячный герой + недельный и дневной компактными строками. B: три равные карточки. Переключатель прямо на странице — выбирать на живом.</p>
+            <p>A: месячный герой + недельный и дневной компактными строками. B: три равные карточки в порядке возрастания — дневной, недельный, месячный. Переключатель прямо на странице — выбирать на живом.</p>
           </div>
           <div class="card">
             <h4><span class="tick">✓</span>Главный элемент экрана — остаток пропуска, не таймер</h4>
             <p>«23 дня» переведены в тиражи: 23 дневных / 4 недельных / 1 месячный. Это же и аргумент продлить.</p>
           </div>
           <div class="card">
-            <h4><span class="tick">✓</span>Без пропуска кнопка не Join</h4>
-            <p>Она 🔒 Pass required и ведёт в модалку с составом пропуска и ценой. Флоу: Join → Pass required → касса → успех → пропуск активен.</p>
+            <h4><span class="tick">✓</span>Без пропуска гивы залочены, а не просто неактивны</h4>
+            <p>Замок поверх приза, статус Closed, кнопка 🔒 Buy for 19,99 $ прямо на карточке. Флоу без лишнего шага: замок → касса → оплата → все три тиража открыты.</p>
           </div>
           <div class="card">
             <h4><span class="tick">✓</span>Четыре состояния пропуска разведены визуально</h4>
@@ -246,7 +251,7 @@
           <li><strong>Giveaways</strong> в левом меню лобби — переход на страницу гивевеев</li>
           <li><strong>Переключатель раскладок A / B</strong> прямо на странице</li>
           <li><strong>Join</strong> во всех трёх тиражах — с номером входа и шансами</li>
-          <li><strong>Join без пропуска</strong> → модалка → касса → оплата → активный пропуск</li>
+          <li><strong>Залоченное состояние</strong> (No pass / Expired) → 🔒 Buy for 19,99 $ → касса → оплата → все гивы открылись</li>
           <li><strong>Вкладка Results</strong> с фильтрами по типу тиража и «Only mine»</li>
           <li><strong>Панель Prototype controls</strong> справа внизу — состояния пропуска и экраны</li>
         </ul>
@@ -274,8 +279,9 @@
 })();
 (function(){
   var frame = document.getElementById('protoFrame');
-  document.getElementById('protoLobby').addEventListener('click', function(){ frame.src = 'prototype.html'; });
-  document.getElementById('protoGw').addEventListener('click', function(){ frame.src = 'prototype.html?view=gw'; });
+  document.querySelectorAll('.proto-actions [data-src]').forEach(function(b){
+    b.addEventListener('click', function(){ frame.src = b.dataset.src; });
+  });
 })();
 (function(){
   var COUNTDOWN_SECONDS = 10 * 60;
