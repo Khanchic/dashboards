@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Scarlet Sands — Giveaways prototype</title>
+<style>
+:root{
+  --bg:#0a0a0f; --bg2:#101017; --panel:#16161f; --card:#1b1b25; --card2:#20202b;
+  --line:rgba(255,255,255,.08); --line2:rgba(255,255,255,.14);
+  --tx:#fff; --mut:#8a8a9c; --mut2:#5f5f70;
+  --red:#ff1f5a; --red2:#c8003c; --gold:#ffc043; --green:#2fd07a; --amber:#ffab2e; --blue:#4b7bff;
+  --r:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  background:var(--bg); color:var(--tx);
+  font:15px/1.45 "Inter",-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased; overflow:hidden;
+}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+a{color:inherit;text-decoration:none}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-thumb{background:#2a2a36;border-radius:8px}
+::-webkit-scrollbar-track{background:transparent}
+
+/* ============ SHELL ============ */
+.shell{display:flex;height:100vh}
+.side{
+  width:300px;flex:0 0 300px;background:var(--bg2);border-right:1px solid var(--line);
+  display:flex;flex-direction:column;overflow-y:auto;padding:0 16px 24px
+}
+.side-h{display:flex;align-items:center;gap:12px;padding:20px 4px 16px;position:sticky;top:0;background:var(--bg2);z-index:5}
+.side-h b{font-size:12px;letter-spacing:.16em;color:var(--mut)}
+.side-h .rule{flex:1;height:1px;background:var(--line)}
+.side-h .x{color:var(--mut);font-size:20px;line-height:1}
+
+.mini{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:8px;position:relative;display:flex;align-items:center;gap:12px;min-height:62px}
+.mini .dot{position:absolute;top:8px;right:10px;width:7px;height:7px;border-radius:50%;background:var(--gold)}
+.mini .t{font-size:13px;font-weight:800;letter-spacing:.02em}
+.mini .s{font-size:11px;color:var(--gold);font-weight:700;letter-spacing:.03em}
+.mini .art{margin-left:auto;font-size:26px;line-height:1}
+.mini.crown{background:linear-gradient(90deg,#1e1a12,#1b1b25)}
+.bar{height:5px;border-radius:4px;background:#2b2b38;overflow:hidden;margin:5px 0 4px}
+.bar i{display:block;height:100%;width:46%;background:linear-gradient(90deg,#ffd76a,#ffab2e)}
+
+.group{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:6px;margin:10px 0}
+.nav{display:flex;align-items:center;gap:12px;padding:10px 10px;border-radius:9px;color:#d4d4de;font-size:14px;font-weight:600;position:relative}
+.nav:hover{background:rgba(255,255,255,.05)}
+.nav .ic{width:26px;height:26px;border-radius:7px;background:#2a2a36;display:grid;place-items:center;font-size:13px;flex:0 0 26px}
+.nav .pill{margin-left:auto;font-size:11px;color:var(--mut)}
+.nav .d{width:7px;height:7px;border-radius:50%;background:var(--gold);margin-left:auto}
+.nav .d.red{background:var(--red)}
+.nav.on{background:linear-gradient(90deg,rgba(255,31,90,.22),rgba(255,31,90,.04));color:#fff}
+.nav.on .ic{background:linear-gradient(135deg,var(--red),var(--red2))}
+.nav .new{margin-left:auto;flex:0 0 auto;font-size:9px;font-weight:900;letter-spacing:.08em;background:linear-gradient(135deg,var(--red),var(--red2));padding:3px 6px;border-radius:5px}
+.nav .lbl{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nav.hl{box-shadow:0 0 0 1px rgba(255,31,90,.35) inset}
+
+.main{flex:1;display:flex;flex-direction:column;min-width:0}
+.top{height:70px;flex:0 0 70px;display:flex;align-items:center;gap:18px;padding:0 26px;border-bottom:1px solid var(--line);background:var(--bg2)}
+.logo{display:flex;align-items:center;gap:8px;font-size:22px;font-weight:900;letter-spacing:-.02em;color:var(--red);white-space:nowrap;cursor:pointer}
+.logo .m{font-size:20px}
+.search{flex:1;max-width:470px;height:44px;background:var(--card);border:1px solid var(--line);border-radius:24px;display:flex;align-items:center;gap:10px;padding:0 18px;color:var(--mut2);font-size:14px}
+.tools{margin-left:auto;display:flex;align-items:center;gap:14px}
+.icb{width:40px;height:40px;border-radius:50%;background:var(--card);display:grid;place-items:center;position:relative;font-size:16px}
+.icb .b{position:absolute;top:-2px;right:-2px;min-width:16px;height:16px;border-radius:9px;background:var(--red);font-size:10px;font-weight:800;display:grid;place-items:center;padding:0 4px}
+.bal{display:flex;align-items:center;gap:9px;background:var(--card);border:1px solid var(--line);height:40px;border-radius:22px;padding:0 14px 0 6px;font-weight:800}
+.bal .sc{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#ff4d7d,#c8003c);display:grid;place-items:center;font-size:10px;font-weight:900}
+.buy{height:42px;padding:0 30px;border-radius:22px;background:linear-gradient(135deg,var(--red),var(--red2));font-weight:800;letter-spacing:.01em;box-shadow:0 6px 18px rgba(255,31,90,.3)}
+
+.scroll{flex:1;overflow-y:auto;padding:26px 26px 120px}
+
+/* ============ LOBBY ============ */
+.banners{display:grid;grid-template-columns:1fr 1fr .18fr;gap:16px}
+.bn{height:290px;border-radius:16px;position:relative;overflow:hidden;padding:34px;display:flex;flex-direction:column;justify-content:center}
+.bn.b1{background:radial-gradient(120% 120% at 80% 50%,#ff2d4d 0%,#8b0b2a 45%,#3d0416 100%)}
+.bn.b2{background:radial-gradient(120% 120% at 75% 45%,#8b5cf6 0%,#4c1d95 45%,#2a1055 100%)}
+.bn.b3{background:radial-gradient(120% 120% at 50% 50%,#ffb020,#a35c00)}
+.bn .k{font-size:12px;letter-spacing:.12em;font-weight:800;opacity:.85;margin-bottom:10px}
+.bn .h{font-size:34px;line-height:1.05;font-weight:900;letter-spacing:-.02em;max-width:270px;text-transform:uppercase}
+.bn .cta{margin-top:20px;align-self:flex-start;background:linear-gradient(135deg,var(--red),var(--red2));padding:12px 26px;border-radius:22px;font-weight:800;box-shadow:0 8px 22px rgba(0,0,0,.35)}
+.bn .art{position:absolute;right:-10px;bottom:-10px;font-size:150px;opacity:.35;line-height:1}
+.dots{display:flex;gap:6px;justify-content:center;margin:16px 0 22px}
+.dots i{width:7px;height:7px;border-radius:4px;background:#33333f}
+.dots i.on{width:24px;background:var(--red)}
+
+.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px}
+.chip{flex:0 0 auto;width:92px;padding:12px 6px;border-radius:12px;text-align:center;color:var(--mut);font-size:11px;font-weight:700}
+.chip .e{font-size:20px;display:block;margin-bottom:6px}
+.chip.on{background:var(--card);color:#fff;box-shadow:0 0 0 1px var(--line) inset}
+
+.sect{display:flex;align-items:center;margin:26px 0 14px}
+.sect h3{font-size:19px;font-weight:900;letter-spacing:-.01em}
+.sect .more{margin-left:auto;color:var(--mut);font-size:13px;font-weight:700}
+.games{display:grid;grid-template-columns:repeat(8,1fr);gap:14px}
+.g{aspect-ratio:1/1.12;border-radius:12px;position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:12px;font-size:12px;font-weight:900;text-shadow:0 2px 8px rgba(0,0,0,.8);line-height:1.15;text-transform:uppercase}
+.g .tag{position:absolute;top:8px;left:8px;font-size:8px;font-weight:900;letter-spacing:.08em;padding:3px 6px;border-radius:5px;background:var(--red)}
+
+/* ============ GIVEAWAYS ============ */
+.gwhead{display:flex;align-items:flex-end;gap:16px;margin-bottom:18px}
+.gwhead h1{font-size:32px;font-weight:900;letter-spacing:-.025em}
+.gwhead p{color:var(--mut);font-size:14px;margin-top:6px;max-width:560px}
+
+.tabs{display:flex;gap:4px;background:var(--card);padding:5px;border-radius:12px;margin-left:auto;align-self:center}
+.tab{padding:9px 22px;border-radius:9px;font-size:13px;font-weight:800;color:var(--mut)}
+.tab.on{background:linear-gradient(135deg,var(--red),var(--red2));color:#fff}
+
+/* pass bar */
+.pass{border-radius:var(--r);padding:20px 24px;margin-bottom:22px;border:1px solid var(--line);display:flex;align-items:center;gap:26px;flex-wrap:wrap;position:relative;overflow:hidden}
+.pass:before{content:"";position:absolute;inset:0;opacity:.5;pointer-events:none}
+.pass.none{background:linear-gradient(100deg,#1a1a24,#16161f)}
+.pass.active{background:linear-gradient(100deg,rgba(47,208,122,.13),#16161f);border-color:rgba(47,208,122,.3)}
+.pass.expiring{background:linear-gradient(100deg,rgba(255,171,46,.14),#16161f);border-color:rgba(255,171,46,.35)}
+.pass.expired{background:linear-gradient(100deg,rgba(255,31,90,.14),#16161f);border-color:rgba(255,31,90,.35)}
+.pass .badge{font-size:10px;font-weight:900;letter-spacing:.12em;padding:5px 10px;border-radius:6px;text-transform:uppercase}
+.pass.active .badge{background:rgba(47,208,122,.18);color:var(--green)}
+.pass.expiring .badge{background:rgba(255,171,46,.18);color:var(--amber)}
+.pass.expired .badge{background:rgba(255,31,90,.18);color:var(--red)}
+.pass.none .badge{background:#2a2a36;color:var(--mut)}
+.pass .ttl{font-size:20px;font-weight:900;margin:8px 0 4px;letter-spacing:-.01em}
+.pass .sub{font-size:13px;color:var(--mut)}
+.pass .left{min-width:260px}
+.counters{display:flex;gap:10px;margin-left:auto;flex-wrap:wrap}
+.cnt{background:rgba(0,0,0,.35);border:1px solid var(--line);border-radius:12px;padding:12px 18px;min-width:112px;text-align:center}
+.cnt b{display:block;font-size:24px;font-weight:900;letter-spacing:-.02em;line-height:1.1}
+.cnt span{font-size:10px;color:var(--mut);text-transform:uppercase;letter-spacing:.08em;font-weight:800}
+.cnt.d b{color:var(--gold)}
+.passcta{padding:13px 28px;border-radius:24px;font-weight:800;background:linear-gradient(135deg,var(--red),var(--red2));box-shadow:0 8px 20px rgba(255,31,90,.28);white-space:nowrap}
+.passcta.ghost{background:transparent;border:1px solid var(--line2);box-shadow:none;color:var(--mut)}
+.incl{display:flex;gap:16px;margin-top:10px;flex-wrap:wrap}
+.incl span{font-size:12px;color:var(--mut);display:flex;align-items:center;gap:6px}
+.incl b{color:#fff}
+
+/* switch */
+.lswitch{display:flex;align-items:center;gap:10px;margin-bottom:16px;font-size:12px;color:var(--mut2)}
+.lswitch .sw{display:flex;background:var(--card);border-radius:9px;padding:4px;gap:3px}
+.lswitch .sw button{padding:6px 14px;border-radius:6px;font-size:12px;font-weight:800;color:var(--mut)}
+.lswitch .sw button.on{background:#2f2f3d;color:#fff}
+
+/* giveaway cards */
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.gw{background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;position:relative}
+.gw .top{height:auto;flex:none;display:block;padding:0;border:0;background:none}
+.gw .hero{height:132px;position:relative;display:grid;place-items:center;overflow:hidden}
+.gw.daily .hero{background:radial-gradient(90% 130% at 50% 0%,#2a6cff 0%,#12245c 60%,#0e1430 100%)}
+.gw.weekly .hero{background:radial-gradient(90% 130% at 50% 0%,#a855f7 0%,#4c1d95 60%,#241046 100%)}
+.gw.monthly .hero{background:radial-gradient(90% 130% at 50% 0%,#ffca4a 0%,#c2740a 55%,#5a3202 100%)}
+.gw .hero .amount{font-size:38px;font-weight:900;letter-spacing:-.03em;text-shadow:0 4px 18px rgba(0,0,0,.5)}
+.gw .hero .amount small{font-size:15px;opacity:.8;font-weight:800;margin-left:4px}
+.gw .hero .k{position:absolute;top:12px;left:14px;font-size:9px;font-weight:900;letter-spacing:.14em;background:rgba(0,0,0,.4);padding:5px 9px;border-radius:6px;backdrop-filter:blur(4px)}
+.gw .body{padding:18px;display:flex;flex-direction:column;gap:14px;flex:1}
+.gw h4{font-size:17px;font-weight:900;letter-spacing:-.01em}
+.gw .desc{font-size:12.5px;color:var(--mut);line-height:1.45}
+.meta{display:flex;gap:8px}
+.mt{flex:1;background:var(--card2);border-radius:10px;padding:10px 12px}
+.mt span{font-size:9.5px;color:var(--mut2);text-transform:uppercase;letter-spacing:.09em;font-weight:800;display:block}
+.mt b{font-size:15px;font-weight:900;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.mt b.t{color:var(--gold)}
+.jbtn{height:46px;border-radius:12px;font-weight:900;font-size:14px;background:linear-gradient(135deg,var(--red),var(--red2));display:grid;place-items:center;box-shadow:0 6px 18px rgba(255,31,90,.25)}
+.jbtn.locked{background:#2a2a36;color:var(--mut);box-shadow:none}
+.jbtn.inn{background:rgba(47,208,122,.14);color:var(--green);box-shadow:none;border:1px solid rgba(47,208,122,.35)}
+.gw .note{font-size:11px;color:var(--mut2);text-align:center;margin-top:-6px}
+
+/* variant A */
+.varA{display:grid;grid-template-columns:1.15fr 1fr;gap:18px;align-items:start}
+.heroCard{border-radius:var(--r);overflow:hidden;border:1px solid rgba(255,192,67,.3);background:linear-gradient(160deg,#241a08,#16161f 60%);display:flex;flex-direction:column}
+.heroCard .art{height:210px;background:radial-gradient(80% 130% at 30% 0%,#ffca4a 0%,#c2740a 50%,#3c2100 100%);position:relative;display:flex;align-items:center;padding:0 34px}
+.heroCard .art .amount{font-size:64px;font-weight:900;letter-spacing:-.04em;line-height:1;text-shadow:0 6px 26px rgba(0,0,0,.5)}
+.heroCard .art .amount small{font-size:22px;margin-left:6px;opacity:.85}
+.heroCard .art .k{position:absolute;top:18px;left:34px;font-size:10px;font-weight:900;letter-spacing:.16em;background:rgba(0,0,0,.35);padding:6px 11px;border-radius:6px}
+.heroCard .art .ring{position:absolute;right:-40px;top:-40px;width:280px;height:280px;border-radius:50%;border:2px dashed rgba(255,255,255,.18)}
+.heroCard .b{padding:22px 24px;display:flex;flex-direction:column;gap:16px}
+.heroCard h3{font-size:24px;font-weight:900;letter-spacing:-.02em}
+.rows{display:flex;flex-direction:column;gap:14px}
+.row{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;display:flex;align-items:center;gap:18px}
+.row .sq{width:58px;height:58px;border-radius:12px;display:grid;place-items:center;font-size:15px;font-weight:900;flex:0 0 58px;text-align:center;line-height:1.1}
+.row.weekly .sq{background:radial-gradient(90% 120% at 50% 0%,#a855f7,#4c1d95)}
+.row.daily .sq{background:radial-gradient(90% 120% at 50% 0%,#2a6cff,#12245c)}
+.row .txt{min-width:0;flex:1.2}
+.row .txt h4{font-size:16px;font-weight:900}
+.row .txt p{font-size:12px;color:var(--mut);margin-top:4px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.row .rmeta{display:flex;gap:26px;margin-right:6px;flex:0 0 auto}
+.row .rmeta div span{font-size:9.5px;color:var(--mut2);letter-spacing:.09em;text-transform:uppercase;font-weight:800;display:block}
+.row .rmeta div b{font-size:14px;font-weight:900;font-variant-numeric:tabular-nums}
+.row .jbtn{width:132px;height:42px;flex:0 0 132px}
+
+/* results */
+.rsum{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px}
+.rs{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+.rs span{font-size:10px;color:var(--mut2);letter-spacing:.09em;text-transform:uppercase;font-weight:800}
+.rs b{display:block;font-size:26px;font-weight:900;letter-spacing:-.02em;margin-top:4px}
+.fil{display:flex;gap:8px;margin-bottom:14px}
+.fil button{padding:8px 16px;border-radius:9px;background:var(--card);font-size:12px;font-weight:800;color:var(--mut);border:1px solid var(--line)}
+.fil button.on{background:#2f2f3d;color:#fff}
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+th{text-align:left;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut2);font-weight:800;padding:14px 18px;background:rgba(0,0,0,.25)}
+td{padding:14px 18px;border-top:1px solid var(--line);font-size:13.5px}
+td.win{font-weight:900;color:var(--gold);font-variant-numeric:tabular-nums}
+.tp{font-size:10px;font-weight:900;letter-spacing:.08em;padding:4px 8px;border-radius:5px;text-transform:uppercase}
+.tp.daily{background:rgba(42,108,255,.18);color:#79a4ff}
+.tp.weekly{background:rgba(168,85,247,.18);color:#c99bff}
+.tp.monthly{background:rgba(255,192,67,.18);color:var(--gold)}
+.you{font-size:10px;font-weight:900;color:var(--green);background:rgba(47,208,122,.14);padding:4px 8px;border-radius:5px}
+.nyou{font-size:10px;font-weight:800;color:var(--mut2)}
+
+/* modal */
+.ovl{position:fixed;inset:0;background:rgba(4,4,8,.78);backdrop-filter:blur(6px);display:none;place-items:center;z-index:200;padding:24px}
+.ovl.on{display:grid}
+.mdl{width:100%;max-width:470px;background:var(--panel);border:1px solid var(--line2);border-radius:18px;padding:30px;box-shadow:0 30px 90px rgba(0,0,0,.6);animation:pop .18s ease}
+@keyframes pop{from{transform:translateY(12px) scale(.98);opacity:0}}
+.mdl .ic{width:58px;height:58px;border-radius:16px;display:grid;place-items:center;font-size:26px;margin-bottom:18px}
+.mdl h3{font-size:22px;font-weight:900;letter-spacing:-.02em;margin-bottom:8px}
+.mdl p{color:var(--mut);font-size:14px;line-height:1.5}
+.mdl .acts{display:flex;gap:10px;margin-top:24px}
+.mdl .acts button{flex:1;height:48px;border-radius:12px;font-weight:800}
+.pri{background:linear-gradient(135deg,var(--red),var(--red2));box-shadow:0 8px 20px rgba(255,31,90,.28)}
+.sec{border:1px solid var(--line2);color:var(--mut)}
+.lines{margin:20px 0 4px;border-top:1px solid var(--line)}
+.li{display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid var(--line);font-size:13.5px}
+.li span{color:var(--mut)}
+.li b{font-weight:800}
+.li.total b{font-size:19px;color:var(--gold)}
+
+/* demo panel */
+.demo{position:fixed;right:18px;bottom:18px;z-index:300;background:rgba(16,16,23,.96);border:1px solid var(--line2);border-radius:14px;backdrop-filter:blur(10px);box-shadow:0 20px 50px rgba(0,0,0,.5);font-size:12px;width:250px}
+.demo h5{padding:12px 14px;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:8px;cursor:pointer}
+.demo h5 .cv{margin-left:auto;transition:transform .15s}
+.demo:not(.min) h5{border-bottom:1px solid var(--line)}
+.demo:not(.min) h5 .cv{transform:rotate(90deg)}
+.demo.min h5{border-bottom:0}
+.demo.min{width:auto}
+.demo .bd{padding:12px 14px;display:flex;flex-direction:column;gap:12px}
+.demo.min .bd{display:none}
+.demo label{font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut2);font-weight:800;display:block;margin-bottom:6px}
+.seg{display:flex;flex-wrap:wrap;gap:4px}
+.seg button{padding:6px 9px;border-radius:7px;background:#22222d;font-size:11px;font-weight:700;color:var(--mut)}
+.seg button.on{background:var(--red);color:#fff}
+.demo .rst{width:100%;padding:9px;border-radius:8px;border:1px solid var(--line2);color:var(--mut);font-weight:700}
+
+.hint{display:flex;gap:10px;align-items:flex-start;background:rgba(75,123,255,.08);border:1px solid rgba(75,123,255,.25);border-radius:12px;padding:14px 16px;font-size:12.5px;color:#a9bcff;margin-bottom:20px;line-height:1.5}
+.hint b{color:#fff}
+@media(max-width:1400px){.games{grid-template-columns:repeat(6,1fr)}}
+@media(max-width:1150px){.varA{grid-template-columns:1fr}.grid3{grid-template-columns:1fr}.side{display:none}}
+</style>
+</head>
+<body>
+
+<div class="shell">
+  <!-- SIDEBAR -->
+  <aside class="side">
+    <div class="side-h"><b>MENU</b><i class="rule"></i><span class="x">✕</span></div>
+
+    <div class="mini"><div><div class="t">DESERT DICE</div><div class="s">READY TO ROLL</div></div><div class="art">🎲</div><i class="dot"></i></div>
+    <div class="mini crown">
+      <div class="art" style="margin:0;font-size:30px">👑</div>
+      <div style="flex:1">
+        <div style="display:flex"><div class="t">Crown</div><div class="s" style="margin-left:auto">GOLD</div></div>
+        <div class="bar"><i></i></div>
+        <div style="display:flex;font-size:10px;color:var(--mut)"><span>TO THE NEXT LEVEL</span><b style="margin-left:auto;color:#fff">1835 XP</b></div>
+      </div>
+    </div>
+    <div class="mini"><div><div class="t">SCARLET WHEEL</div><div class="s">READY TO SPIN</div></div><div class="art">🎡</div><i class="dot"></i></div>
+
+    <div class="group">
+      <div class="nav"><i class="ic">🔥</i><span class="lbl">The Daily Blaze</span></div>
+      <div class="nav"><i class="ic">💰</i><span class="lbl">Jackpot Hub</span><i class="d"></i></div>
+      <div class="nav"><i class="ic">💬</i><span class="lbl">Scarlet Lounge</span><i class="d red"></i></div>
+    </div>
+
+    <div class="group">
+      <div class="nav"><i class="ic">🎁</i><span class="lbl">Promotions</span><span class="pill">+7</span></div>
+      <div class="nav"><i class="ic">🏆</i><span class="lbl">Tournaments</span><i class="d"></i></div>
+      <div class="nav hl" id="navGw"><i class="ic">🎉</i><span class="lbl">Giveaways</span><span class="new">NEW</span></div>
+      <div class="nav"><i class="ic">🎫</i><span class="lbl">Promo Code</span><i class="d"></i></div>
+      <div class="nav"><i class="ic">⭐</i><span class="lbl">Royal Club</span><i class="d"></i></div>
+      <div class="nav"><i class="ic">👥</i><span class="lbl">Invite &amp; Earn</span></div>
+    </div>
+
+    <div class="group"><div class="nav"><i class="ic">🎰</i><span class="lbl">All games</span><i class="d"></i></div></div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main">
+    <header class="top">
+      <div class="logo"><span class="m">🏜️</span> Scarlet Sands</div>
+      <div class="search">🔍 Search</div>
+      <div class="tools">
+        <div class="icb">✉<i class="b">1</i></div>
+        <div class="bal"><i class="sc">SC</i> <span id="balTop">168.22</span> <span style="color:var(--mut)">▾</span></div>
+        <div class="icb" style="background:linear-gradient(135deg,#2a6cff,#12245c)">👥<i class="b" style="background:var(--gold)"></i></div>
+        <button class="buy">Buy</button>
+        <div class="icb">💬</div>
+      </div>
+    </header>
+
+    <div class="scroll" id="scroll">
+
+      <!-- ========== LOBBY ========== -->
+      <section id="viewLobby">
+        <div class="banners">
+          <div class="bn b1"><div class="k">FRESH RELEASE</div><div class="h">Play hard<br>win bigger</div><button class="cta">Play Now</button><div class="art">🔥</div></div>
+          <div class="bn b2"><div class="k">BETSOFT TOURNAMENT</div><div class="h">Legendary thrills</div><button class="cta">Join the Action</button><div class="art">🏆</div></div>
+          <div class="bn b3" style="padding:22px"><div class="k">7 DAYS</div><div class="h" style="font-size:22px">Cash</div></div>
+        </div>
+        <div class="dots"><i></i><i></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i></div>
+
+        <div class="chips">
+          <div class="chip"><span class="e">🔍</span>Search</div>
+          <div class="chip on"><span class="e">🏠</span>Lobby</div>
+          <div class="chip"><span class="e">🎮</span>All Games</div>
+          <div class="chip"><span class="e">⭐</span>Providers</div>
+          <div class="chip"><span class="e">🆕</span>New</div>
+          <div class="chip"><span class="e">❤️</span>Favorites</div>
+          <div class="chip"><span class="e">🏆</span>Top Games</div>
+          <div class="chip"><span class="e">🥇</span>Monthly TOP</div>
+          <div class="chip"><span class="e">🎥</span>Live Room</div>
+          <div class="chip"><span class="e">🔥</span>Hot</div>
+          <div class="chip"><span class="e">💣</span>Bonus Combo</div>
+          <div class="chip"><span class="e">7️⃣</span>Jackpot</div>
+        </div>
+
+        <div class="sect"><h3>🔥 Top Games</h3><div class="more">More ›</div></div>
+        <div class="games" id="gamesGrid"></div>
+
+        <div class="hint" style="margin-top:26px">
+          <span>💡</span>
+          <div><b>Это прототип.</b> Лобби воспроизведено по скринам только настолько, чтобы был виден контекст. Живой сценарий — пункт <b>Giveaways</b> в левом меню.</div>
+        </div>
+      </section>
+
+      <!-- ========== GIVEAWAYS ========== -->
+      <section id="viewGw" style="display:none">
+        <div class="gwhead">
+          <div>
+            <h1>Giveaways</h1>
+            <p>One pass. Every draw. Enter the daily, weekly and monthly prize draws while your Scarlet Pass is active.</p>
+          </div>
+          <div class="tabs">
+            <button class="tab on" data-tab="gw">Giveaways</button>
+            <button class="tab" data-tab="res">Results</button>
+          </div>
+        </div>
+
+        <!-- PASS BAR -->
+        <div id="passBar"></div>
+
+        <!-- TAB: giveaways -->
+        <div id="tabGw">
+          <div class="lswitch">
+            <span>Layout</span>
+            <div class="sw">
+              <button data-lay="A" class="on">A · hero + rows</button>
+              <button data-lay="B">B · three cards</button>
+            </div>
+            <span style="margin-left:8px">— два варианта иерархии, переключи и сравни</span>
+          </div>
+          <div id="gwBody"></div>
+        </div>
+
+        <!-- TAB: results -->
+        <div id="tabRes" style="display:none">
+          <div class="rsum" id="resSum"></div>
+          <div class="fil" id="resFil">
+            <button class="on" data-f="all">All draws</button>
+            <button data-f="daily">Daily</button>
+            <button data-f="weekly">Weekly</button>
+            <button data-f="monthly">Monthly</button>
+            <button data-f="mine">Only mine</button>
+          </div>
+          <table>
+            <thead><tr><th>Draw</th><th>Type</th><th>Prize</th><th>Winner</th><th>Entrants</th><th style="text-align:right">You</th></tr></thead>
+            <tbody id="resBody"></tbody>
+          </table>
+          <p style="color:var(--mut2);font-size:12px;margin-top:14px">Winner IDs are masked — this is what a player sees. Full logins stay in the admin panel.</p>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="ovl" id="ovl"><div class="mdl" id="mdl"></div></div>
+
+<!-- DEMO PANEL -->
+<div class="demo min" id="demo">
+  <h5 onclick="document.getElementById('demo').classList.toggle('min')">⚙ Prototype controls <span class="cv">›</span></h5>
+  <div class="bd">
+    <div>
+      <label>Pass state</label>
+      <div class="seg" id="segPass">
+        <button data-p="none">No pass</button>
+        <button data-p="active" class="on">Active 23d</button>
+        <button data-p="expiring">Expires 2d</button>
+        <button data-p="expired">Expired</button>
+      </div>
+    </div>
+    <div>
+      <label>Screen</label>
+      <div class="seg" id="segView">
+        <button data-v="lobby" class="on">Lobby</button>
+        <button data-v="gw">Giveaways</button>
+      </div>
+    </div>
+    <button class="rst" id="resetBtn">Reset entries</button>
+  </div>
+</div>
+
+<script>
+/* ============================ STATE ============================ */
+const PRICE = 9.99;                       // placeholder — поменяем
+const PASS_NAME = "Scarlet Pass";
+
+const S = {
+  view:'lobby', tab:'gw', layout:'A',
+  pass:'active',                          // none | active | expiring | expired
+  joined:{daily:false, weekly:false, monthly:false},
+  entryNo:{daily:0, weekly:0, monthly:0},
+  filter:'all'
+};
+
+const DRAWS = {
+  daily:{
+    key:'daily', label:'Daily Draw', prize:250, unit:'SC',
+    desc:'Every night at 00:00. One entry per player — press Join before the clock runs out.',
+    entrants:1247, kicker:'EVERY 24 HOURS'
+  },
+  weekly:{
+    key:'weekly', label:'Weekly Draw', prize:2500, unit:'SC',
+    desc:'Drawn every Sunday. Bigger pot, same single entry — your pass covers all four weeks.',
+    entrants:3892, kicker:'EVERY SUNDAY'
+  },
+  monthly:{
+    key:'monthly', label:'Monthly Grand Draw', prize:25000, unit:'SC',
+    desc:'The big one. Drawn on the 1st of every month across all Scarlet Sands players.',
+    entrants:8431, kicker:'ONCE A MONTH'
+  }
+};
+
+const PASSDATA = {
+  none:    {days:0,  bought:'—',      expires:'—'},
+  active:  {days:23, bought:'11 Aug', expires:'11 Sep'},
+  expiring:{days:2,  bought:'13 Jul', expires:'13 Aug'},
+  expired: {days:0,  bought:'02 Jul', expires:'02 Aug'}
+};
+
+const GAMES = [
+  ['Rich Piggies 2','#f0a500,#7a4d00','BONUS COMBO'],
+  ['3 Pots of Olympus','#5b7cfa,#1a2a6c','NEW'],
+  ['Tidal Gold','#12b0c9,#0a2a5e',''],
+  ['Mardi Gras Queen','#e0559b,#5c1147',''],
+  ['Blazing Apple','#ff4d3d,#7a1000',''],
+  ['Gravity Blackjack','#2f8f5b,#0d3320',''],
+  ['San Chong Brozha','#ff6ba8,#5c1147',''],
+  ['Eye of the Flame','#ffb020,#5a2a00',''],
+  ['Rapid Strike','#ff2d4d,#5a0018','HOT'],
+  ['Lucky Coins','#ffd76a,#8a5a00',''],
+  ['Neon Nights','#8b5cf6,#2a1055',''],
+  ['Desert Dice','#e8b06a,#5c3a12',''],
+  ['Royal Flush','#e01e5a,#4a0018',''],
+  ['Ocean Riches','#00b3c9,#00304a',''],
+  ['Golden Pharaoh','#ffc043,#6b4200',''],
+  ['Wild Sands','#ff8a3d,#5c2400','']
+];
+
+/* ============================ HELPERS ============================ */
+const $ = s=>document.querySelector(s);
+const nf = n=>n.toLocaleString('en-US');
+const pad = n=>String(n).padStart(2,'0');
+
+function nextDaily(){const d=new Date();d.setHours(24,0,0,0);return d}
+function nextWeekly(){const d=new Date();const add=(7-d.getDay())%7||7;d.setDate(d.getDate()+add);d.setHours(0,0,0,0);return d}
+function nextMonthly(){const d=new Date();return new Date(d.getFullYear(),d.getMonth()+1,1,0,0,0)}
+
+function fmtLeft(target){
+  let ms = target - new Date();
+  if(ms<0) ms=0;
+  const s=Math.floor(ms/1000), d=Math.floor(s/86400), h=Math.floor(s%86400/3600), m=Math.floor(s%3600/60), sec=s%60;
+  if(d>0) return d+'d '+pad(h)+'h '+pad(m)+'m';
+  return pad(h)+':'+pad(m)+':'+pad(sec);
+}
+const TARGETS = {daily:nextDaily, weekly:nextWeekly, monthly:nextMonthly};
+
+function passUsable(){ return S.pass==='active' || S.pass==='expiring' }
+
+/* draws remaining on the pass */
+function drawsLeft(){
+  const d = PASSDATA[S.pass].days;
+  return {daily:d, weekly:Math.max(0,Math.ceil(d/7)), monthly:d>0?1:0};
+}
+
+/* ============================ LOBBY ============================ */
+function renderGames(){
+  $('#gamesGrid').innerHTML = GAMES.map(g=>{
+    const [name,grad,tag]=g;
+    return `<div class="g" style="background:linear-gradient(160deg,${grad})">
+      ${tag?`<i class="tag">${tag}</i>`:''}<span>${name}</span></div>`;
+  }).join('');
+}
+
+/* ============================ PASS BAR ============================ */
+function renderPass(){
+  const p = PASSDATA[S.pass], dl = drawsLeft();
+  let html='';
+
+  if(S.pass==='none'){
+    html = `<div class="pass none">
+      <div class="left">
+        <span class="badge">No active pass</span>
+        <div class="ttl">Get the ${PASS_NAME}</div>
+        <div class="sub">30 days of entries into every draw. One purchase, no auto-renew.</div>
+        <div class="incl">
+          <span>🎲 <b>30</b> daily draws</span><span>📅 <b>4</b> weekly</span><span>👑 <b>1</b> monthly</span>
+        </div>
+      </div>
+      <div class="counters">
+        <div class="cnt"><b>$${PRICE}</b><span>per 30 days</span></div>
+      </div>
+      <button class="passcta" onclick="openBuy()">Get Pass</button>
+    </div>`;
+  } else if(S.pass==='expired'){
+    html = `<div class="pass expired">
+      <div class="left">
+        <span class="badge">Expired</span>
+        <div class="ttl">Your ${PASS_NAME} ended on ${p.expires}</div>
+        <div class="sub">You are not entered into any upcoming draw. Buy a new pass to get back in.</div>
+      </div>
+      <div class="counters">
+        <div class="cnt"><b>0</b><span>draws left</span></div>
+        <div class="cnt"><b>14</b><span>draws missed</span></div>
+      </div>
+      <button class="passcta" onclick="openBuy()">Buy new pass</button>
+    </div>`;
+  } else {
+    const cls = S.pass==='expiring'?'expiring':'active';
+    const badge = S.pass==='expiring'?'Expires soon':'Active';
+    const sub = S.pass==='expiring'
+      ? `Bought ${p.bought} · ends ${p.expires}. No auto-renew — buy again to keep your streak.`
+      : `Bought ${p.bought} · ends ${p.expires}. Covers every draw until then.`;
+    html = `<div class="pass ${cls}">
+      <div class="left">
+        <span class="badge">${badge}</span>
+        <div class="ttl">${PASS_NAME} — ${p.days} ${p.days===1?'day':'days'} left</div>
+        <div class="sub">${sub}</div>
+      </div>
+      <div class="counters">
+        <div class="cnt d"><b>${dl.daily}</b><span>daily draws</span></div>
+        <div class="cnt d"><b>${dl.weekly}</b><span>weekly</span></div>
+        <div class="cnt d"><b>${dl.monthly}</b><span>monthly</span></div>
+      </div>
+      <button class="passcta ${S.pass==='expiring'?'':'ghost'}" onclick="openBuy()">${S.pass==='expiring'?'Buy next pass':'Extend'}</button>
+    </div>`;
+  }
+  $('#passBar').innerHTML = html;
+}
+
+/* ============================ GIVEAWAY CARDS ============================ */
+function joinBtn(k){
+  const d = DRAWS[k];
+  if(S.joined[k]) return `<div class="jbtn inn">✓ You're in · Entry #${nf(S.entryNo[k])}</div>`;
+  if(!passUsable()) return `<button class="jbtn locked" onclick="needPass()">🔒 Pass required</button>`;
+  return `<button class="jbtn" onclick="join('${k}')">Join · 1 entry</button>`;
+}
+
+function cardB(k){
+  const d = DRAWS[k];
+  return `<div class="gw ${k}">
+    <div class="hero"><i class="k">${d.kicker}</i>
+      <div class="amount">${nf(d.prize)}<small>${d.unit}</small></div></div>
+    <div class="body">
+      <h4>${d.label}</h4>
+      <p class="desc">${d.desc}</p>
+      <div class="meta">
+        <div class="mt"><span>Closes in</span><b class="t" data-timer="${k}">—</b></div>
+        <div class="mt"><span>Entrants</span><b data-ent="${k}">${nf(d.entrants + (S.joined[k]?1:0))}</b></div>
+      </div>
+      ${joinBtn(k)}
+    </div>
+  </div>`;
+}
+
+function rowCard(k){
+  const d = DRAWS[k];
+  return `<div class="row ${k}">
+    <div class="sq">${nf(d.prize)}<br><small style="font-size:10px;opacity:.8">${d.unit}</small></div>
+    <div class="txt"><h4>${d.label}</h4><p>${d.desc}</p></div>
+    <div class="rmeta">
+      <div><span>Closes in</span><b class="t" data-timer="${k}" style="color:var(--gold)">—</b></div>
+      <div><span>Entrants</span><b data-ent="${k}">${nf(d.entrants + (S.joined[k]?1:0))}</b></div>
+    </div>
+    ${joinBtn(k)}
+  </div>`;
+}
+
+function heroCard(){
+  const d = DRAWS.monthly;
+  return `<div class="heroCard">
+    <div class="art">
+      <i class="k">${d.kicker}</i><i class="ring"></i>
+      <div><div class="amount">${nf(d.prize)}<small>${d.unit}</small></div></div>
+    </div>
+    <div class="b">
+      <h3>${d.label}</h3>
+      <p class="desc" style="font-size:13.5px">${d.desc}</p>
+      <div class="meta">
+        <div class="mt"><span>Closes in</span><b class="t" data-timer="monthly">—</b></div>
+        <div class="mt"><span>Entrants</span><b data-ent="monthly">${nf(d.entrants + (S.joined.monthly?1:0))}</b></div>
+        <div class="mt"><span>Your odds</span><b>${S.joined.monthly?'1 in '+nf(d.entrants+1):'—'}</b></div>
+      </div>
+      ${joinBtn('monthly')}
+    </div>
+  </div>`;
+}
+
+function renderGw(){
+  $('#gwBody').innerHTML = S.layout==='A'
+    ? `<div class="varA">${heroCard()}<div class="rows">${rowCard('weekly')}${rowCard('daily')}</div></div>`
+    : `<div class="grid3">${cardB('monthly')}${cardB('weekly')}${cardB('daily')}</div>`;
+  tick();
+}
+
+/* ============================ RESULTS ============================ */
+const RESULTS = [
+  ['09 Aug','daily','250 SC','227****9',1198,true],
+  ['08 Aug','daily','250 SC','404****6',1163,true],
+  ['03 Aug','weekly','2,500 SC','628****9',3714,true],
+  ['07 Aug','daily','250 SC','318****3',1204,false],
+  ['06 Aug','daily','250 SC','204****4',1141,true],
+  ['05 Aug','daily','250 SC','801****4',1097,true],
+  ['01 Aug','monthly','25,000 SC','329****2',8104,true],
+  ['04 Aug','daily','250 SC','144****3',1150,false],
+  ['27 Jul','weekly','2,500 SC','331****9',3602,false],
+  ['02 Aug','daily','250 SC','227****9',1088,true]
+];
+
+function renderRes(){
+  const dl = drawsLeft();
+  const mine = RESULTS.filter(r=>r[5]).length;
+  $('#resSum').innerHTML = `
+    <div class="rs"><span>Draws entered</span><b>${mine}</b></div>
+    <div class="rs"><span>Draws won</span><b style="color:var(--mut2)">0</b></div>
+    <div class="rs"><span>Draws left on pass</span><b style="color:var(--gold)">${dl.daily+dl.weekly+dl.monthly}</b></div>
+    <div class="rs"><span>Total prize pool</span><b>27,750 SC</b></div>`;
+
+  let rows = RESULTS.slice();
+  if(S.filter==='mine') rows = rows.filter(r=>r[5]);
+  else if(S.filter!=='all') rows = rows.filter(r=>r[1]===S.filter);
+
+  $('#resBody').innerHTML = rows.map(r=>`<tr>
+    <td>${r[0]}</td>
+    <td><i class="tp ${r[1]}">${r[1]}</i></td>
+    <td class="win">${r[2]}</td>
+    <td style="font-variant-numeric:tabular-nums">${r[3]}</td>
+    <td style="color:var(--mut)">${nf(r[4])}</td>
+    <td style="text-align:right">${r[5]?'<i class="you">✓ entered</i>':'<i class="nyou">not entered</i>'}</td>
+  </tr>`).join('') || `<tr><td colspan="6" style="color:var(--mut);text-align:center;padding:30px">No draws match this filter.</td></tr>`;
+}
+
+/* ============================ MODALS ============================ */
+function modal(html){ $('#mdl').innerHTML=html; $('#ovl').classList.add('on') }
+function closeM(){ $('#ovl').classList.remove('on') }
+
+function needPass(){
+  modal(`
+    <div class="ic" style="background:rgba(255,31,90,.14)">🔒</div>
+    <h3>You need an active ${PASS_NAME}</h3>
+    <p>Entries into the daily, weekly and monthly draws are open to pass holders. One pass covers all three for 30 days.</p>
+    <div class="lines">
+      <div class="li"><span>Daily draws</span><b>30</b></div>
+      <div class="li"><span>Weekly draws</span><b>4</b></div>
+      <div class="li"><span>Monthly grand draw</span><b>1</b></div>
+      <div class="li total"><span>30 days of access</span><b>$${PRICE}</b></div>
+    </div>
+    <div class="acts">
+      <button class="sec" onclick="closeM()">Not now</button>
+      <button class="pri" onclick="openBuy()">Get Pass</button>
+    </div>`);
+}
+
+function openBuy(){
+  modal(`
+    <div class="ic" style="background:linear-gradient(135deg,var(--red),var(--red2))">🎟️</div>
+    <h3>${PASS_NAME} · 30 days</h3>
+    <p>Bought today, valid until <b style="color:#fff">11 Sep</b>. Manual purchase — nothing renews automatically.</p>
+    <div class="lines">
+      <div class="li"><span>Entries into daily draws</span><b>30</b></div>
+      <div class="li"><span>Entries into weekly draws</span><b>4</b></div>
+      <div class="li"><span>Entry into monthly grand draw</span><b>1</b></div>
+      <div class="li"><span>Payment method</span><b>•••• 4242</b></div>
+      <div class="li total"><span>Total</span><b>$${PRICE}</b></div>
+    </div>
+    <p style="font-size:11.5px;margin-top:14px;color:var(--mut2)">
+      Placeholder for the free entry route and rules link — <a style="color:var(--blue)">Free entry</a> · <a style="color:var(--blue)">Official rules</a>
+    </p>
+    <div class="acts">
+      <button class="sec" onclick="closeM()">Cancel</button>
+      <button class="pri" onclick="buyPass()">Pay $${PRICE}</button>
+    </div>`);
+}
+
+function buyPass(){
+  S.pass='active';
+  setSeg('#segPass','p','active');
+  renderPass(); renderGw(); renderRes();
+  modal(`
+    <div class="ic" style="background:rgba(47,208,122,.14)">✓</div>
+    <h3>Pass is active</h3>
+    <p>You can enter every draw until <b style="color:#fff">11 Sep</b>. Three draws are open right now.</p>
+    <div class="acts"><button class="pri" onclick="closeM()">Enter the draws</button></div>`);
+}
+
+function join(k){
+  const d = DRAWS[k];
+  S.joined[k]=true;
+  S.entryNo[k]=d.entrants+1;
+  renderGw();
+  const allIn = S.joined.daily && S.joined.weekly && S.joined.monthly;
+  modal(`
+    <div class="ic" style="background:rgba(47,208,122,.14)">🎉</div>
+    <h3>You're in the ${d.label}</h3>
+    <p>Entry <b style="color:#fff">#${nf(S.entryNo[k])}</b> of ${nf(d.entrants+1)}. Closes in <b style="color:var(--gold)">${fmtLeft(TARGETS[k]())}</b>.</p>
+    ${allIn?`<p style="margin-top:12px;color:var(--green)">You are now entered into all three open draws. Nothing more to do until the next one opens.</p>`:''}
+    <div class="acts"><button class="pri" onclick="closeM()">Got it</button></div>`);
+}
+
+/* ============================ TIMERS ============================ */
+function tick(){
+  document.querySelectorAll('[data-timer]').forEach(el=>{
+    el.textContent = fmtLeft(TARGETS[el.dataset.timer]());
+  });
+}
+setInterval(tick,1000);
+
+/* ============================ ROUTING / UI ============================ */
+function setSeg(sel,attr,val){
+  document.querySelectorAll(sel+' button').forEach(b=>b.classList.toggle('on', b.dataset[attr]===val));
+}
+function go(v){
+  S.view=v;
+  $('#viewLobby').style.display = v==='lobby'?'':'none';
+  $('#viewGw').style.display    = v==='gw'?'':'none';
+  $('#navGw').classList.toggle('on', v==='gw');
+  $('#scroll').scrollTop=0;
+  setSeg('#segView','v',v);
+  if(v==='gw'){ renderPass(); renderGw(); renderRes(); }
+}
+
+$('#navGw').onclick = ()=>go('gw');
+document.querySelector('.logo').onclick = ()=>go('lobby');
+
+document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{
+  S.tab=t.dataset.tab;
+  document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('on',x===t));
+  $('#tabGw').style.display  = S.tab==='gw'?'':'none';
+  $('#tabRes').style.display = S.tab==='res'?'':'none';
+});
+
+document.querySelectorAll('[data-lay]').forEach(b=>b.onclick=()=>{
+  S.layout=b.dataset.lay;
+  document.querySelectorAll('[data-lay]').forEach(x=>x.classList.toggle('on',x===b));
+  renderGw();
+});
+
+$('#resFil').onclick = e=>{
+  const b=e.target.closest('button'); if(!b) return;
+  S.filter=b.dataset.f;
+  document.querySelectorAll('#resFil button').forEach(x=>x.classList.toggle('on',x===b));
+  renderRes();
+};
+
+$('#segPass').onclick = e=>{
+  const b=e.target.closest('button'); if(!b) return;
+  S.pass=b.dataset.p;
+  if(!passUsable()) S.joined={daily:false,weekly:false,monthly:false};
+  setSeg('#segPass','p',S.pass);
+  renderPass(); renderGw(); renderRes();
+};
+$('#segView').onclick = e=>{ const b=e.target.closest('button'); if(b) go(b.dataset.v); };
+$('#resetBtn').onclick = ()=>{ S.joined={daily:false,weekly:false,monthly:false}; renderGw(); };
+$('#ovl').onclick = e=>{ if(e.target.id==='ovl') closeM(); };
+
+/* deep link: ?view=gw opens the giveaways screen straight away */
+if(new URLSearchParams(location.search).get('view')==='gw'){ go('gw') }
+
+/* boot */
+renderGames(); renderPass(); renderGw(); renderRes(); tick();
+</script>
+</body>
+</html>
