@@ -1,0 +1,611 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Хайролы — Dashboards</title>
+<style>
+  :root{
+    --bg:#f4f5f3; --surface:#ffffff; --border:#d7dad6;
+    --text:#1c1f1d; --text-dim:#666b66; --text-faint:#9a9f9a;
+    --accent-text:#5f4413; --accent-soft:rgba(184,132,46,0.14);
+    --shadow: 0 1px 2px rgba(20,22,20,0.06), 0 8px 24px -12px rgba(20,22,20,0.18);
+    --c-hr:#9a6f1e; --c-smm:#1f6f66; --c-both:#a34a35; --c-track:rgba(20,22,20,.07); --c-grid:#e3e6e2;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){ --bg:#0d0f0e; --surface:#161917; --border:#2b302d; --text:#e9ebe8; --text-dim:#a4a9a3; --text-faint:#6f746f; --accent-text:#f0d29a; --accent-soft:rgba(212,162,78,0.16); --shadow: 0 1px 2px rgba(0,0,0,0.4), 0 12px 32px -16px rgba(0,0,0,0.6); --c-hr:#d9ab4c; --c-smm:#46ac9c; --c-both:#dc7a61; --c-track:rgba(255,255,255,.09); --c-grid:#262b28; }
+  }
+  :root[data-theme="dark"]{ --bg:#0d0f0e; --surface:#161917; --border:#2b302d; --text:#e9ebe8; --text-dim:#a4a9a3; --text-faint:#6f746f; --accent-text:#f0d29a; --accent-soft:rgba(212,162,78,0.16); --shadow: 0 1px 2px rgba(0,0,0,0.4), 0 12px 32px -16px rgba(0,0,0,0.6); --c-hr:#d9ab4c; --c-smm:#46ac9c; --c-both:#dc7a61; --c-track:rgba(255,255,255,.09); --c-grid:#262b28; }
+  :root[data-theme="light"]{ --bg:#f4f5f3; --surface:#ffffff; --border:#d7dad6; --text:#1c1f1d; --text-dim:#666b66; --text-faint:#9a9f9a; --accent-text:#5f4413; --accent-soft:rgba(184,132,46,0.14); --shadow: 0 1px 2px rgba(20,22,20,0.06), 0 8px 24px -12px rgba(20,22,20,0.18); --c-hr:#9a6f1e; --c-smm:#1f6f66; --c-both:#a34a35; --c-track:rgba(20,22,20,.07); --c-grid:#e3e6e2; }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{ background:var(--bg); color:var(--text); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; -webkit-font-smoothing:antialiased; line-height:1.45; }
+
+  .shell{ display:grid; grid-template-columns:190px 1fr; grid-template-rows:52px 1fr; grid-template-areas:"topbar topbar" "sidebar content"; min-height:100vh; }
+  @media (max-width:720px){ .shell{ grid-template-columns:1fr; grid-template-areas:"topbar" "sidebar" "content"; } }
+  .topbar{ grid-area:topbar; position:sticky; top:0; z-index:60; display:flex; align-items:center; padding:0 20px; background:#15130f; border-bottom:1px solid rgba(255,255,255,.08); }
+  .topbar .brand{ color:#f0d29a; font-weight:700; font-size:14px; letter-spacing:.02em; text-decoration:none; }
+  .sidebar{ grid-area:sidebar; position:sticky; top:52px; align-self:start; height:calc(100vh - 52px); overflow-y:auto; background:#15130f; border-right:1px solid rgba(255,255,255,.08); padding:18px 12px; }
+  @media (max-width:720px){ .sidebar{ position:static; height:auto; border-right:0; border-bottom:1px solid rgba(255,255,255,.08); } }
+  .sidebar nav{ display:flex; flex-direction:column; gap:3px; }
+  @media (max-width:720px){ .sidebar nav{ flex-direction:row; overflow-x:auto; } }
+  .slink{ color:#a8a39a; text-decoration:none; font-size:13px; font-weight:650; letter-spacing:.02em; padding:9px 12px; border-radius:8px; white-space:nowrap; transition:background .12s,color .12s; }
+  .slink:hover{ background:rgba(255,255,255,.06); color:#f2efe9; }
+  .slink.active{ background:rgba(217,171,76,.16); color:#f0c674; }
+  .content{ grid-area:content; min-width:0; }
+
+  .widgets{ position:fixed; right:16px; bottom:16px; z-index:55; display:flex; flex-direction:column; align-items:flex-end; gap:10px; }
+  @media (max-width:720px){ .widgets{ position:static; align-items:stretch; margin:32px 20px 0; } }
+  .widgets-toggle{ width:42px; height:42px; border-radius:50%; border:1px solid rgba(255,255,255,.14); background:#1b1a16; color:#e9e6df; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 8px 24px -12px rgba(0,0,0,.5); padding:0; }
+  .widgets-toggle:hover{ border-color:#d9ab4c; }
+  .widgets-panel{ display:flex; flex-direction:column; gap:10px; width:230px; }
+  @media (max-width:720px){ .widgets-panel{ width:auto; } }
+  .widgets-panel.hidden{ display:none; }
+  .back{ display:inline-block; font-size:12.5px; color:var(--text-dim); text-decoration:none; margin-bottom:16px; }
+  .back:hover{ color:var(--text); }
+  .status-tile{ background:#1b1a16; border:1px solid rgba(255,255,255,.10); border-radius:12px; padding:12px 14px; box-shadow:0 8px 24px -12px rgba(0,0,0,.5); color:#e9e6df; }
+  .st-top{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px; gap:8px; }
+  .st-label{ font-size:11.5px; font-weight:650; color:#a8a39a; }
+  .st-pct{ font-size:12.5px; font-weight:700; font-variant-numeric:tabular-nums; color:#e9e6df; }
+  .st-bar-track{ height:5px; border-radius:3px; background:rgba(255,255,255,.08); overflow:hidden; margin-bottom:6px; }
+  .st-bar-fill{ height:100%; border-radius:3px; }
+  .st-sub{ font-size:10.5px; color:#7a766c; }
+  .status-tile.countdown{ display:flex; flex-direction:column; justify-content:center; }
+  .st-value{ font-size:22px; font-weight:800; font-variant-numeric:tabular-nums; letter-spacing:-0.01em; color:#f0d29a; }
+  .countdown .st-top{ margin-bottom:2px; }
+  .logs-btn{ font-size:10px; font-weight:650; letter-spacing:.03em; text-transform:uppercase; color:#a8a39a; text-decoration:none; border:1px solid rgba(255,255,255,.14); border-radius:99px; padding:3px 9px; transition:border-color .12s,color .12s; }
+  .logs-btn:hover{ border-color:#d9ab4c; color:#f0c674; }
+
+  /* ── page content ─────────────────────────────────────────────────── */
+  .wrap{ max-width:1000px; padding:44px 20px 220px; }
+  .eyebrow{ text-transform:uppercase; letter-spacing:.09em; font-size:11.5px; font-weight:600; color:var(--text-faint); margin-bottom:8px; }
+  h1{ margin:0 0 10px; font-size:28px; font-weight:650; letter-spacing:-0.01em; }
+  .sub{ color:var(--text-dim); font-size:14.5px; max-width:64ch; }
+  h2{ margin:52px 0 6px; font-size:19px; font-weight:650; letter-spacing:-0.01em; }
+  h2:first-of-type{ margin-top:40px; }
+  .h2sub{ color:var(--text-dim); font-size:13.5px; max-width:70ch; margin-bottom:18px; }
+  .stamp{ margin-top:14px; font-size:12px; color:var(--text-faint); font-variant-numeric:tabular-nums; }
+  .stamp b{ color:var(--text-dim); font-weight:650; }
+
+  .card{ background:var(--surface); border:1px solid var(--border); border-radius:14px; box-shadow:var(--shadow); padding:20px; }
+  .grid2{ display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:16px; }
+  .kpis{ display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; margin:0; }
+  .kpi{ background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:13px 15px; box-shadow:var(--shadow); }
+  .kpi dt{ font-size:11px; text-transform:uppercase; letter-spacing:.06em; color:var(--text-faint); font-weight:650; }
+  .kpi dd{ margin:5px 0 0; font-size:21px; font-weight:700; font-variant-numeric:tabular-nums; letter-spacing:-0.01em; }
+  .kpi .note{ margin-top:3px; font-size:11.5px; color:var(--text-dim); }
+
+  .brandhead{ display:flex; align-items:baseline; justify-content:space-between; gap:12px; margin-bottom:14px; }
+  .brandhead .nm{ font-size:15px; font-weight:700; }
+  .brandhead .pc{ font-size:26px; font-weight:800; font-variant-numeric:tabular-nums; color:var(--c-both); letter-spacing:-0.01em; }
+  .venn{ display:flex; flex-direction:column; gap:9px; margin:4px 0 14px; }
+  .vrow{ display:grid; grid-template-columns:96px 1fr auto; align-items:center; gap:10px; font-size:12.5px; }
+  .vrow .lbl{ color:var(--text-dim); }
+  .vtrack{ height:14px; border-radius:4px; background:var(--c-track); overflow:hidden; }
+  .vfill{ height:100%; border-radius:4px; }
+  .vnum{ font-variant-numeric:tabular-nums; font-weight:650; font-size:12.5px; min-width:52px; text-align:right; }
+  .facts{ display:flex; flex-direction:column; gap:8px; border-top:1px solid var(--border); padding-top:13px; }
+  .fact{ display:flex; justify-content:space-between; gap:12px; font-size:13px; }
+  .fact .k{ color:var(--text-dim); }
+  .fact .v{ font-variant-numeric:tabular-nums; font-weight:650; white-space:nowrap; }
+
+  .table-wrap{ overflow-x:auto; border:1px solid var(--border); border-radius:12px; background:var(--surface); box-shadow:var(--shadow); }
+  table{ border-collapse:collapse; width:100%; font-size:13px; }
+  th,td{ padding:9px 13px; text-align:left; border-bottom:1px solid var(--border); white-space:nowrap; }
+  th{ font-size:11px; text-transform:uppercase; letter-spacing:.05em; color:var(--text-faint); font-weight:650; }
+  td.num,th.num{ text-align:right; font-variant-numeric:tabular-nums; }
+  tbody tr:last-child td{ border-bottom:0; }
+  tfoot td{ font-weight:700; border-top:1px solid var(--border); border-bottom:0; }
+  .pill{ display:inline-block; padding:1px 7px; border-radius:99px; font-size:11.5px; font-weight:650; font-variant-numeric:tabular-nums; }
+  .pill.good{ background:rgba(31,111,102,.14); color:var(--c-smm); }
+  .pill.bad{ background:rgba(163,74,53,.14); color:var(--c-both); }
+  .note{ font-size:12px; color:var(--text-faint); margin-top:9px; max-width:76ch; }
+
+  .chart{ width:100%; overflow-x:auto; }
+  svg{ display:block; max-width:100%; height:auto; }
+  text{ font-family:inherit; }
+  .tick{ font-size:10.5px; fill:var(--text-faint); }
+  .vlab{ font-size:10.5px; font-weight:650; fill:var(--text-dim); font-variant-numeric:tabular-nums; }
+  .blab{ font-size:11.5px; fill:var(--text-dim); }
+  .axis{ stroke:var(--c-grid); stroke-width:1; }
+  .legend{ display:flex; gap:16px; flex-wrap:wrap; margin-top:12px; font-size:12px; color:var(--text-dim); align-items:center; }
+  .sw{ display:inline-block; width:10px; height:10px; border-radius:2px; margin-right:6px; vertical-align:-1px; }
+
+  .reads{ display:flex; flex-direction:column; gap:14px; }
+  .read{ background:var(--surface); border:1px solid var(--border); border-left:3px solid var(--accent-text); border-radius:0 12px 12px 0; box-shadow:var(--shadow); padding:15px 18px; }
+  .read h4{ margin:0 0 5px; font-size:14px; font-weight:650; }
+  .read p{ margin:0; font-size:13px; color:var(--text-dim); max-width:78ch; }
+  .read b{ color:var(--text); font-variant-numeric:tabular-nums; }
+
+  footer.notes{ margin-top:56px; padding-top:22px; border-top:1px solid var(--border); font-size:12px; color:var(--text-faint); }
+  footer.notes h3{ font-size:12px; margin:0 0 10px; color:var(--text-dim); font-weight:650; }
+  footer.notes ul{ margin:0; padding-left:17px; }
+  footer.notes li{ margin-bottom:7px; max-width:82ch; }
+  footer.notes code{ font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:.9em; background:var(--accent-soft); padding:1px 5px; border-radius:3px; }
+  a:focus-visible,button:focus-visible{ outline:2px solid var(--accent-text); outline-offset:2px; }
+  @media (prefers-reduced-motion: reduce){ *{ transition:none !important; } }
+</style>
+</head>
+<body>
+<div class="shell">
+  <header class="topbar">
+    <a class="brand" href="/dashboards/">Dashboards</a>
+  </header>
+  <aside class="sidebar">
+    <nav>
+      <a href="/dashboards/" class="slink">ГЛАВНАЯ</a>
+      <a href="/dashboards/reports/" class="slink active">ОТЧЁТЫ</a>
+      <a href="/dashboards/planning/" class="slink">ПЛАНИРОВАНИЕ</a>
+      <a href="/dashboards/promo-codes/" class="slink">ПРОМОКОДЫ</a>
+      <a href="/dashboards/visual/" class="slink">ВИЗУАЛ</a>
+      <a href="/dashboards/giveaways/" class="slink">ГИВЕВЕИ</a>
+    </nav>
+  </aside>
+  <main class="content">
+    <div class="wrap">
+      <a class="back" href="/dashboards/reports/">← Назад к отчётам</a>
+      <div class="eyebrow">Offer Type = Highroller</div>
+      <h1>Хайролы</h1>
+      <div class="sub">
+        Кто такой хайрол на Scarlet Sands, чем он отличается от NLC, и какая его часть
+        параллельно покупает SMM-оферы. Одно окно, один слайсер, два бренда.
+      </div>
+      <div class="stamp" id="stamp"></div>
+
+      <h2>Хайролы × SMM</h2>
+      <div class="h2sub">
+        Пересечение по <code>player_login</code> — это одни и те же люди в двух выгрузках,
+        а не похожее поведение. Полоса «оба» меряется от большей из двух когорт.
+      </div>
+      <div class="grid2" id="ov-cards"></div>
+
+      <h2>Что эти люди дают SMM-каналу</h2>
+      <div class="h2sub">
+        Их мало, но деньги в SMM в основном их. Справа — сколько SMM-депозита приносит
+        один такой игрок против того, кто берёт только SMM.
+      </div>
+      <div class="grid2">
+        <div class="card">
+          <div class="eyebrow">Доля SMM-денег от «двойных» игроков</div>
+          <div class="chart" id="ov-money"></div>
+        </div>
+        <div class="card">
+          <div class="eyebrow">SMM-депозит на игрока</div>
+          <div class="chart" id="ov-per"></div>
+          <div class="legend">
+            <span><i class="sw" style="background:var(--c-both)"></i>берёт и хайрол, и SMM</span>
+            <span><i class="sw" style="background:var(--c-smm)"></i>только SMM</span>
+          </div>
+        </div>
+      </div>
+      <div class="reads" style="margin-top:18px" id="ov-reads"></div>
+
+      <h2>Scarlet Sands — портрет когорты</h2>
+      <div class="h2sub">898 игроков за 60 дней: 3,8% платной базы бренда и 19,3% всего депозита.</div>
+      <dl class="kpis" id="kpis"></dl>
+
+      <h2>Ступенька пакетов</h2>
+      <div class="h2sub">Пять ценовых ступеней плюс пять AC-вариантов. Payout падает с ценой — это главный вывод таблицы.</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr>
+            <th>Пакет</th><th class="num">Цена</th><th class="num">Покупок</th><th class="num">Игроков</th>
+            <th class="num">Депозит</th><th class="num">Доля</th><th class="num">Payout</th><th class="num">Осталось</th>
+          </tr></thead>
+          <tbody id="pkg-body"></tbody>
+          <tfoot id="pkg-foot"></tfoot>
+        </table>
+      </div>
+      <div class="note">Игроки по строкам не складываются: один берёт несколько пакетов и считается в каждом. 898 — из контрольной строки.</div>
+
+      <h2>Распределение</h2>
+      <div class="h2sub">Одна и та же когорта в двух разрезах. Полоса — доля игроков, число справа — доля денег.</div>
+      <div class="grid2">
+        <div class="card"><div class="eyebrow">По сумме за период</div><div class="chart" id="spend"></div></div>
+        <div class="card"><div class="eyebrow">По количеству депозитов</div><div class="chart" id="depc"></div></div>
+      </div>
+      <div class="legend">
+        <span><i class="sw" style="background:var(--text-faint)"></i>доля игроков</span>
+        <span><i class="sw" style="background:var(--c-hr)"></i>доля депозита</span>
+      </div>
+
+      <h2>Концентрация</h2>
+      <div class="h2sub">Сколько денег даёт верхушка. Пунктир — равномерное распределение, серая кривая — NLC за то же окно.</div>
+      <div class="card"><div class="chart" id="conc"></div></div>
+
+      <h2>Кто возвращается</h2>
+      <div class="h2sub">Игрок активен в месяце, если сделал в нём хотя бы один хайрол-депозит.</div>
+      <div class="grid2">
+        <div class="card">
+          <div class="chart" id="pres"></div>
+          <div class="legend">
+            <span><i class="sw" style="background:var(--c-hr)"></i>игроков</span>
+            <span><i class="sw" style="background:var(--c-smm)"></i>доля депозита когорты</span>
+          </div>
+        </div>
+        <div class="card" id="ret-cards"></div>
+      </div>
+
+      <h2>Двадцатка крупнейших</h2>
+      <div class="h2sub">
+        Без логинов: страница публичная. <code>Ч Л С</code> — месяцы, в которых игрок был активен.
+        Высокий payout здесь — обычная дисперсия казино, читать его надо вместе с базой депозита.
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th class="num">#</th><th class="num">Депов</th><th class="num">Сумма</th><th class="num">Сред. чек</th><th class="num">Payout</th><th>Месяцы</th></tr></thead>
+          <tbody id="top-body"></tbody>
+        </table>
+      </div>
+
+      <h2>Scarlet против NLC</h2>
+      <div class="h2sub">То же окно, тот же слайсер, тот же метод сбора — пары сопоставимы строка в строку.</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Показатель</th><th class="num">Scarlet</th><th class="num">NLC</th><th class="num">Разница</th><th>Что это значит</th></tr></thead>
+          <tbody id="vs-body"></tbody>
+        </table>
+      </div>
+
+      <footer class="notes">
+        <h3>Как это собрано</h3>
+        <ul>
+          <li>Источник — Power BI «USA Offer Monitoring», вкладка Deposit Number, разрез по <code>player_login</code>, период 26.06–24.08.2026, данные обновлены 25.08.26.</li>
+          <li>Обе когорты сверены с собственной свёрнутой контрольной строкой до того, как что-то считалось: число игроков и <code>Dep Count</code> — точно, <code>Dep Sum</code> — в пределах округления на строку.</li>
+          <li><code>Payout after</code> — это не скидка. Игрок платит полную цену пакета; payout — то, что продукт выплатил обратно на этот объём депозита.</li>
+          <li>Пересечение считается по <code>player_login</code>, то есть по идентификатору игрока в самом отчёте. Логины в эту страницу не попадают: репозиторий публичный.</li>
+          <li>Июнь в окне — пять дней, август — 24. Месячные столбцы не равные периоды и сами по себе не читаются как тренд.</li>
+        </ul>
+      </footer>
+    </div>
+
+    <div class="widgets">
+      <button class="widgets-toggle" id="widgetsToggle" aria-label="Скрыть/показать виджеты">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V10M12 20V4M20 20V14"/></svg>
+      </button>
+      <div class="widgets-panel hidden" id="widgetsPanel">
+        <div class="status-tile countdown">
+          <div class="st-top"><span class="st-label">Обратный отсчёт</span><a class="logs-btn" href="/dashboards/logs/">Логи</a></div>
+          <span class="st-value" id="shell-countdown">10:00</span>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+<script>
+var D = {"scs": {"meta": {"brand": "Scarlet Sands", "project": "scarletsands", "range": "26.06 – 24.08.2026", "days": 60, "offer_type": "Highroller", "pulled": "2026-08-26", "control": {"dep_sum": 1168424, "dep_count": 7579, "uu": 898, "payout": 0.4255}, "detail": {"players": 898, "dep_sum": 1168482, "dep_count": 7579}}, "headline": {"players": 898, "dep_sum": 1168482, "dep_count": 7579, "avg_check": 154.17363768307163, "per_player": 1301.204899777283, "deps_per_player": 8.439866369710467, "median_spend": 400.0, "median_deps": 3.0, "payout": 0.4255, "net_after_payout": 671293}, "brand": {"dep_sum": 6064951, "dep_count": 162097, "payout": 0.4871, "uu": 23636, "share_sum": 0.1926614081465786, "share_count": 0.0467559547678242, "share_players": 0.03799289219834151}, "months": [{"key": "aug", "label": "01–24.08", "dep_sum": 422072, "dep_count": 2780, "payout": 0.3958, "uu": 451, "avg_check": 151.82446043165467}, {"key": "jul", "label": "Липень", "dep_sum": 639659, "dep_count": 4123, "payout": 0.4459, "uu": 635, "avg_check": 155.14406985204948}, {"key": "jun", "label": "26–30.06", "dep_sum": 106693, "dep_count": 676, "payout": 0.421, "uu": 186, "avg_check": 157.82988165680473}], "packages": [{"label": "125 за $100", "price": 100, "offers": 4848, "uu": 759, "dep_sum": 484752, "payout": 0.5068, "net": 239080, "share_sum": 0.4148561980415616}, {"label": "230 за $200", "price": 200, "offers": 957, "uu": 316, "dep_sum": 191390, "payout": 0.3943, "net": 115925, "share_sum": 0.1637937084182726}, {"label": "350 за $300", "price": 300, "offers": 489, "uu": 201, "dep_sum": 146695, "payout": 0.4442, "net": 81533, "share_sum": 0.12554322616865302}, {"label": "480 за $400", "price": 400, "offers": 237, "uu": 108, "dep_sum": 94798, "payout": 0.2975, "net": 66596, "share_sum": 0.08112919154937774}, {"label": "600 за $500", "price": 500, "offers": 263, "uu": 100, "dep_sum": 131497, "payout": 0.2419, "net": 99688, "share_sum": 0.11253660732471703}, {"label": "AC $100", "price": 100, "offers": 569, "uu": 322, "dep_sum": 56894, "payout": 0.4791, "net": 29636, "share_sum": 0.04869052326009301}, {"label": "AC $200", "price": 200, "offers": 101, "uu": 54, "dep_sum": 20199, "payout": 0.294, "net": 14260, "share_sum": 0.017286530729613295}, {"label": "AC $300", "price": 300, "offers": 64, "uu": 29, "dep_sum": 19199, "payout": 0.3958, "net": 11600, "share_sum": 0.016430719514720808}, {"label": "AC $400", "price": 400, "offers": 25, "uu": 17, "dep_sum": 10000, "payout": 0.4491, "net": 5509, "share_sum": 0.008558112148924844}, {"label": "AC $500", "price": 500, "offers": 26, "uu": 18, "dep_sum": 13000, "payout": 0.4327, "net": 7375, "share_sum": 0.011125545793602297}], "spend_buckets": [{"label": "$0–200", "players": 208, "dep_sum": 20800, "dep_count": 208, "share_players": 0.23162583518930957, "share_sum": 0.017800873269763675, "avg_check": 100.0, "avg_per_player": 100.0}, {"label": "$200–500", "players": 246, "dep_sum": 67000, "dep_count": 620, "share_players": 0.2739420935412027, "share_sum": 0.05733935139779646, "avg_check": 108.06451612903226, "avg_per_player": 272.3577235772358}, {"label": "$500–1 000", "players": 170, "dep_sum": 112600, "dep_count": 880, "share_players": 0.18930957683741648, "share_sum": 0.09636434279689375, "avg_check": 127.95454545454545, "avg_per_player": 662.3529411764706}, {"label": "$1 000–2 500", "players": 157, "dep_sum": 253100, "dep_count": 1890, "share_players": 0.17483296213808464, "share_sum": 0.2166058184892878, "avg_check": 133.91534391534393, "avg_per_player": 1612.1019108280254}, {"label": "$2 500–5 000", "players": 67, "dep_sum": 226700, "dep_count": 1510, "share_players": 0.07461024498886415, "share_sum": 0.19401240241612622, "avg_check": 150.13245033112582, "avg_per_player": 3383.582089552239}, {"label": "$5 000–10 000", "players": 33, "dep_sum": 214296, "dep_count": 1279, "share_players": 0.036748329621380846, "share_sum": 0.18339692010659983, "avg_check": 167.54964816262705, "avg_per_player": 6493.818181818182}, {"label": "$10 000–25 000", "players": 16, "dep_sum": 246987, "dep_count": 1087, "share_players": 0.017817371937639197, "share_sum": 0.21137424453265005, "avg_check": 227.21895124195032, "avg_per_player": 15436.6875}, {"label": "$25 000+", "players": 1, "dep_sum": 26999, "dep_count": 105, "share_players": 0.0011135857461024498, "share_sum": 0.023106046990882187, "avg_check": 257.1333333333333, "avg_per_player": 26999.0}], "dep_buckets": [{"label": "1 деп", "players": 232, "dep_sum": 29400, "dep_count": 232, "share_players": 0.2583518930957684, "share_sum": 0.025160849717839044, "avg_check": 126.72413793103448, "avg_per_player": 126.72413793103448}, {"label": "2 депи", "players": 139, "dep_sum": 35200, "dep_count": 278, "share_players": 0.15478841870824053, "share_sum": 0.030124554764215453, "avg_check": 126.61870503597122, "avg_per_player": 253.23741007194243}, {"label": "3–4", "players": 147, "dep_sum": 65900, "dep_count": 497, "share_players": 0.16369710467706014, "share_sum": 0.056397959061414725, "avg_check": 132.59557344064388, "avg_per_player": 448.29931972789115}, {"label": "5–9", "players": 155, "dep_sum": 136300, "dep_count": 1013, "share_players": 0.17260579064587972, "share_sum": 0.11664706858984562, "avg_check": 134.55083909180652, "avg_per_player": 879.3548387096774}, {"label": "10–24", "players": 155, "dep_sum": 354500, "dep_count": 2407, "share_players": 0.17260579064587972, "share_sum": 0.3033850756793857, "avg_check": 147.2787702534275, "avg_per_player": 2287.0967741935483}, {"label": "25–49", "players": 52, "dep_sum": 281400, "dep_count": 1817, "share_players": 0.05790645879732739, "share_sum": 0.24082527587074512, "avg_check": 154.87066593285635, "avg_per_player": 5411.538461538462}, {"label": "50–99", "players": 14, "dep_sum": 179786, "dep_count": 896, "share_players": 0.015590200445434299, "share_sum": 0.1538628750806602, "avg_check": 200.65401785714286, "avg_per_player": 12841.857142857143}, {"label": "100+", "players": 4, "dep_sum": 85996, "dep_count": 439, "share_players": 0.004454342984409799, "share_sum": 0.07359634123589409, "avg_check": 195.89066059225513, "avg_per_player": 21499.0}], "concentration": [{"k": 5, "share_players": 0.005567928730512249, "dep_sum": 118295, "share_sum": 0.10123818766570644}, {"k": 10, "share_players": 0.011135857461024499, "dep_sum": 195091, "share_sum": 0.16696106572458969}, {"k": 25, "share_players": 0.02783964365256125, "dep_sum": 341284, "share_sum": 0.2920746746633667}, {"k": 50, "share_players": 0.0556792873051225, "dep_sum": 488282, "share_sum": 0.4178772116301321}, {"k": 100, "share_players": 0.111358574610245, "dep_sum": 670382, "share_sum": 0.5737204338620535}, {"k": 200, "share_players": 0.22271714922049, "dep_sum": 875482, "share_sum": 0.749247314036502}, {"k": 449, "share_players": 0.5, "dep_sum": 1082682, "share_sum": 0.9265713977622249}], "presence": [{"code": "010", "label": "Тільки липень", "players": 338, "dep_sum": 187400, "share_players": 0.37639198218262804, "share_sum": 0.16037902167085158}, {"code": "001", "label": "Тільки серпень", "players": 209, "dep_sum": 102900, "share_players": 0.23273942093541203, "share_sum": 0.08806297401243665}, {"code": "011", "label": "Липень + серпень", "players": 165, "dep_sum": 417596, "share_players": 0.18374164810690424, "share_sum": 0.35738334009424194}, {"code": "111", "label": "Усі три місяці", "players": 70, "dep_sum": 324187, "share_players": 0.0779510022271715, "share_sum": 0.2774428703223499}, {"code": "110", "label": "Червень + липень", "players": 62, "dep_sum": 101999, "share_players": 0.06904231625835189, "share_sum": 0.08729188810781852}, {"code": "100", "label": "Тільки червень", "players": 47, "dep_sum": 17000, "share_players": 0.052338530066815145, "share_sum": 0.014548790653172236}, {"code": "101", "label": "Червень + серпень", "players": 7, "dep_sum": 17400, "share_players": 0.0077951002227171495, "share_sum": 0.014891115139129229}], "retention": {"active_jul": 635, "active_aug": 451, "retained": 235, "rate": 0.3700787401574803, "new_aug": 209, "new_aug_sum": 102900}, "top20": [{"dep_count": 105, "dep_sum": 26999, "avg_check": 257.1333333333333, "payout": 0.5523, "months": "ЛС"}, {"dep_count": 71, "dep_sum": 24899, "avg_check": 350.6901408450704, "payout": 0.5271, "months": "ЧЛС"}, {"dep_count": 104, "dep_sum": 23399, "avg_check": 224.9903846153846, "payout": 0.0855, "months": "ЛС"}, {"dep_count": 130, "dep_sum": 23299, "avg_check": 179.22307692307692, "payout": 0.1527, "months": "ЛС"}, {"dep_count": 99, "dep_sum": 19699, "avg_check": 198.97979797979798, "payout": 0.3579, "months": "ЧЛС"}, {"dep_count": 46, "dep_sum": 16600, "avg_check": 360.8695652173913, "payout": 0.5726, "months": "ЛС"}, {"dep_count": 54, "dep_sum": 16099, "avg_check": 298.1296296296296, "payout": 0.3851, "months": "ЛС"}, {"dep_count": 51, "dep_sum": 15999, "avg_check": 313.70588235294116, "payout": 0.1438, "months": "ЧЛС"}, {"dep_count": 59, "dep_sum": 14899, "avg_check": 252.52542372881356, "payout": 0.6, "months": "ЧЛС"}, {"dep_count": 72, "dep_sum": 13199, "avg_check": 183.31944444444446, "payout": 0.512, "months": "ЧЛ"}, {"dep_count": 74, "dep_sum": 12899, "avg_check": 174.3108108108108, "payout": 0.155, "months": "ЧЛС"}, {"dep_count": 100, "dep_sum": 12299, "avg_check": 122.99, "payout": 0.6627, "months": "ЧЛС"}, {"dep_count": 66, "dep_sum": 11199, "avg_check": 169.6818181818182, "payout": 0.0, "months": "ЧЛС"}, {"dep_count": 31, "dep_sum": 11000, "avg_check": 354.83870967741933, "payout": 1.2127, "months": "Л"}, {"dep_count": 51, "dep_sum": 10799, "avg_check": 211.7450980392157, "payout": 0.0, "months": "ЧЛС"}, {"dep_count": 50, "dep_sum": 10699, "avg_check": 213.98, "payout": 0.6254, "months": "ЧЛС"}, {"dep_count": 29, "dep_sum": 10000, "avg_check": 344.82758620689657, "payout": 0.2, "months": "ЛС"}, {"dep_count": 44, "dep_sum": 9000, "avg_check": 204.54545454545453, "payout": 0.2439, "months": "ЧЛС"}, {"dep_count": 64, "dep_sum": 8799, "avg_check": 137.484375, "payout": 0.6221, "months": "ЧЛС"}, {"dep_count": 20, "dep_sum": 8700, "avg_check": 435.0, "payout": 0.3448, "months": "ЛС"}], "vs": {"scs": {"players": 898, "dep_sum": 1168424, "dep_count": 7579, "payout": 0.4255, "net": 671293, "per_player": 1301.204899777283, "median_spend": 400.0, "avg_check": 154.17363768307163, "deps_per_player": 8.439866369710467, "share_sum": 0.1926614081465786, "share_players": 0.03799289219834151, "brand_sum": 6064951, "brand_uu": 23636, "brand_payout": 0.4871, "top10": 0.16696106572458969, "top50": 0.4178772116301321, "ret_rate": 0.3700787401574803, "one_dep": {"label": "1 деп", "players": 232, "dep_sum": 29400, "dep_count": 232, "share_players": 0.2583518930957684, "share_sum": 0.025160849717839044, "avg_check": 126.72413793103448, "avg_per_player": 126.72413793103448}, "hundred_share": 0.4148561980415616, "hundred_payout": 0.5068, "high_sum": 415189, "high_net": 272301, "high_payout": 0.34415169958741676}, "nlc": {"players": 570, "dep_sum": 868540, "dep_count": 5961, "payout": 0.5233, "net": 414050, "per_player": 1523.8157894736842, "median_spend": 500.0, "avg_check": 145.70961248112732, "deps_per_player": 10.457894736842105, "share_sum": 0.1456125130448996, "share_players": 0.022466595719522288, "brand_sum": 5964975, "brand_uu": 25371, "brand_payout": 0.5353, "top10": 0.202506404167746, "top50": 0.5104625392165328, "ret_rate": 0.4767726161369193, "one_dep": {"label": "1 деп", "players": 121, "dep_sum": 13800, "dep_count": 121, "share_players": 0.21228070175438596, "share_sum": 0.015888092565408858, "avg_check": 114.0495867768595, "avg_per_player": 114.0495867768595}, "hundred_share": 0.48534438591946577, "hundred_payout": 0.6213, "high_sum": 256293, "high_net": 162766, "high_payout": 0.36492217891241663}, "nlc_conc": [{"k": 5, "share_players": 0.008771929824561403, "dep_sum": 108695, "share_sum": 0.12514175517370404}, {"k": 10, "share_players": 0.017543859649122806, "dep_sum": 175892, "share_sum": 0.202506404167746}, {"k": 25, "share_players": 0.043859649122807015, "dep_sum": 310082, "share_sum": 0.3570008347005152}, {"k": 50, "share_players": 0.08771929824561403, "dep_sum": 443375, "share_sum": 0.5104625392165328}, {"k": 100, "share_players": 0.17543859649122806, "dep_sum": 597475, "share_sum": 0.6878795728635985}, {"k": 200, "share_players": 0.3508771929824561, "dep_sum": 748675, "share_sum": 0.8619578044498172}, {"k": 285, "share_players": 0.5, "dep_sum": 808475, "share_sum": 0.930806205566589}]}}, "overlap": {"window": "26.06 – 24.08.2026", "pulled": "2026-08-26", "brands": {"scs": {"name": "Scarlet Sands", "hr": {"players": 898, "dep_sum": 1168424, "payout": 0.4255}, "smm": {"players": 958, "dep_sum": 79832, "payout": 0.5898}, "overlap": {"players": 109, "share_of_hr": 0.12138084632516703, "share_of_smm": 0.11377870563674322, "hr_dep_sum": 131698, "hr_share_of_hr_money": 0.11271422018034549, "smm_dep_sum": 34377, "smm_share_of_smm_money": 0.43061679527006713, "hr_per_player": 1208.2385321100917, "smm_per_player": 315.38532110091745}, "hr_only": {"players": 789, "dep_sum": 1036784, "per_player": 1314.0481622306718}, "smm_only": {"players": 849, "dep_sum": 45486, "per_player": 53.57597173144876}, "lift": 0.9194781187160125}, "nlc": {"name": "NoLimitCoins", "hr": {"players": 570, "dep_sum": 868540, "payout": 0.5233}, "smm": {"players": 912, "dep_sum": 96654, "payout": 0.413}, "overlap": {"players": 111, "share_of_hr": 0.19473684210526315, "share_of_smm": 0.12171052631578948, "hr_dep_sum": 144294, "hr_share_of_hr_money": 0.1661339719529325, "smm_dep_sum": 38676, "smm_share_of_smm_money": 0.400148985039419, "hr_per_player": 1299.945945945946, "smm_per_player": 348.43243243243245}, "hr_only": {"players": 459, "dep_sum": 724281, "per_player": 1577.954248366013}, "smm_only": {"players": 801, "dep_sum": 58014, "per_player": 72.42696629213484}, "lift": 0.8238172604130017}}}};
+
+/* ── formatting ─────────────────────────────────────────────────────── */
+var NB = '\u00a0';
+function int(n){ return Math.round(n).toLocaleString('ru-RU').replace(/\s/g, NB); }
+function usd(n){ return '$' + int(n); }
+function pct(n, d){ if(d===undefined) d=1; return (n*100).toFixed(d).replace('.', ',') + '%'; }
+function el(t, a, kids){
+  var e = document.createElement(t); a = a || {};
+  for (var k in a){ if(k==='class') e.className=a[k]; else if(k==='html') e.innerHTML=a[k]; else e.setAttribute(k,a[k]); }
+  [].concat(kids||[]).forEach(function(c){ if(c!==null&&c!==undefined) e.append(c); });
+  return e;
+}
+var NS='http://www.w3.org/2000/svg';
+function svg(w,h){ var s=document.createElementNS(NS,'svg'); s.setAttribute('viewBox','0 0 '+w+' '+h); s.setAttribute('width',w); s.setAttribute('height',h); s.setAttribute('role','img'); return s; }
+function nd(p,tag,attrs,fill){ var n=document.createElementNS(NS,tag); for(var k in attrs) n.setAttribute(k,attrs[k]); if(fill) n.setAttribute('style','fill:'+fill); p.append(n); return n; }
+function tx(p,x,y,s,cls,anchor){ var t=nd(p,'text',{x:x,y:y,class:cls||'tick'}); if(anchor) t.setAttribute('text-anchor',anchor); t.textContent=s; return t; }
+function tip(n,s){ var t=document.createElementNS(NS,'title'); t.textContent=s; n.append(t); }
+
+document.getElementById('stamp').innerHTML =
+  'период <b>' + D.overlap.window + '</b> &nbsp;·&nbsp; источник <b>Power BI · USA Offer Monitoring</b> &nbsp;·&nbsp; снято <b>26.08.2026</b>';
+
+/* ── overlap cards ──────────────────────────────────────────────────── */
+(function(){
+  var host = document.getElementById('ov-cards');
+  ['scs','nlc'].forEach(function(key){
+    var b = D.overlap.brands[key], o = b.overlap;
+    var max = Math.max(b.hr.players, b.smm.players);
+    var rows = [
+      ['Хайролы', b.hr.players, 'var(--c-hr)'],
+      ['SMM-оферы', b.smm.players, 'var(--c-smm)'],
+      ['Оба', o.players, 'var(--c-both)'],
+    ];
+    var venn = el('div', {class:'venn'});
+    rows.forEach(function(r){
+      var track = el('div', {class:'vtrack'});
+      var fill = el('div', {class:'vfill'});
+      fill.style.width = Math.max(r[1]/max*100, 1.2) + '%';
+      fill.style.background = r[2];
+      track.append(fill);
+      venn.append(el('div', {class:'vrow'}, [
+        el('div', {class:'lbl'}, r[0]), track, el('div', {class:'vnum'}, int(r[1])),
+      ]));
+    });
+    var facts = el('div', {class:'facts'}, [
+      el('div', {class:'fact'}, [el('span',{class:'k'},'Доля хайролов, берущих SMM'), el('span',{class:'v'}, pct(o.share_of_hr))]),
+      el('div', {class:'fact'}, [el('span',{class:'k'},'Доля SMM-покупателей, которые хайролы'), el('span',{class:'v'}, pct(o.share_of_smm))]),
+      el('div', {class:'fact'}, [el('span',{class:'k'},'Их доля всех SMM-денег бренда'), el('span',{class:'v'}, pct(o.smm_share_of_smm_money))]),
+      el('div', {class:'fact'}, [el('span',{class:'k'},'Их доля хайрол-денег бренда'), el('span',{class:'v'}, pct(o.hr_share_of_hr_money))]),
+    ]);
+    host.append(el('div', {class:'card'}, [
+      el('div', {class:'brandhead'}, [
+        el('span', {class:'nm'}, b.name),
+        el('span', {class:'pc'}, pct(o.share_of_hr, 1)),
+      ]),
+      el('div', {style:'font-size:12.5px;color:var(--text-dim);margin:-8px 0 12px'},
+        int(o.players) + ' из ' + int(b.hr.players) + ' хайролов берут и SMM'),
+      venn, facts,
+    ]));
+  });
+})();
+
+/* ── SMM money share ────────────────────────────────────────────────── */
+(function(){
+  var W=380, rowH=64, padT=14, padL=8, padR=8;
+  var keys=['scs','nlc'];
+  var H=padT+keys.length*rowH+6;
+  var s=svg(W,H);
+  keys.forEach(function(key,i){
+    var b=D.overlap.brands[key], o=b.overlap;
+    var y=padT+i*rowH, bw=W-padL-padR;
+    tx(s,padL,y+11,b.name,'blab');
+    nd(s,'rect',{x:padL,y:y+18,width:bw,height:18,rx:3},'var(--c-track)');
+    var g=nd(s,'g',{});
+    nd(g,'rect',{x:padL,y:y+18,width:Math.max(bw*o.smm_share_of_smm_money,2),height:18,rx:3},'var(--c-both)');
+    tip(g, usd(o.smm_dep_sum)+' из '+usd(b.smm.dep_sum));
+    tx(s,padL+bw*o.smm_share_of_smm_money+8,y+31,pct(o.smm_share_of_smm_money),'vlab');
+    tx(s,padL,y+52,usd(o.smm_dep_sum)+' из '+usd(b.smm.dep_sum)+' · '+int(o.players)+' игроков','tick');
+  });
+  document.getElementById('ov-money').append(s);
+})();
+
+/* ── SMM per player ─────────────────────────────────────────────────── */
+(function(){
+  var W=380, rowH=64, padT=14, padL=8, padR=54;
+  var keys=['scs','nlc'];
+  var H=padT+keys.length*rowH+6;
+  var s=svg(W,H);
+  var max=0;
+  keys.forEach(function(k){ var b=D.overlap.brands[k]; max=Math.max(max,b.overlap.smm_per_player,b.smm_only.per_player); });
+  keys.forEach(function(key,i){
+    var b=D.overlap.brands[key], o=b.overlap;
+    var y=padT+i*rowH, bw=W-padL-padR;
+    tx(s,padL,y+11,b.name,'blab');
+    var g1=nd(s,'g',{});
+    nd(g1,'rect',{x:padL,y:y+17,width:Math.max(bw*o.smm_per_player/max,2),height:13,rx:3},'var(--c-both)');
+    tip(g1,'и хайрол, и SMM — '+usd(o.smm_per_player));
+    tx(s,padL+bw*o.smm_per_player/max+8,y+28,usd(o.smm_per_player),'vlab');
+    var g2=nd(s,'g',{});
+    nd(g2,'rect',{x:padL,y:y+34,width:Math.max(bw*b.smm_only.per_player/max,2),height:13,rx:3},'var(--c-smm)');
+    tip(g2,'только SMM — '+usd(b.smm_only.per_player));
+    tx(s,padL+bw*b.smm_only.per_player/max+8,y+45,usd(b.smm_only.per_player),'tick');
+    tx(s,W-padR+46,y+37,'×'+(o.smm_per_player/b.smm_only.per_player).toFixed(1).replace('.',','),'vlab','end');
+  });
+  document.getElementById('ov-per').append(s);
+})();
+
+/* ── overlap reads ──────────────────────────────────────────────────── */
+(function(){
+  var S=D.overlap.brands.scs, N=D.overlap.brands.nlc;
+  var reads=[
+    ['Людей одинаково, процент разный только из-за размера когорты',
+     'На Scarlet <b>'+int(S.overlap.players)+'</b> из '+int(S.hr.players)+' хайролов берут и SMM — это '+pct(S.overlap.share_of_hr)+'. '+
+     'На NLC <b>'+int(N.overlap.players)+'</b> из '+int(N.hr.players)+' — '+pct(N.overlap.share_of_hr)+'. '+
+     'Абсолютное число почти совпадает; доля выше на NLC потому, что там хайрол-когорта в полтора раза меньше.'],
+    ['SMM-канал наполовину держится на хайролах',
+     'Эти ~110 человек дают <b>'+pct(S.overlap.smm_share_of_smm_money)+'</b> всех SMM-денег Scarlet и <b>'+pct(N.overlap.smm_share_of_smm_money)+'</b> на NLC, '+
+     'составляя при этом лишь '+pct(S.overlap.share_of_smm)+' и '+pct(N.overlap.share_of_smm)+' покупателей SMM соответственно.'],
+    ['Хайрол покупает SMM в 5–6 раз больше обычного SMM-игрока',
+     'Scarlet: <b>'+usd(S.overlap.smm_per_player)+'</b> против '+usd(S.smm_only.per_player)+' у тех, кто берёт только SMM. '+
+     'NLC: <b>'+usd(N.overlap.smm_per_player)+'</b> против '+usd(N.smm_only.per_player)+'.'],
+    ['А обратного лифта нет — скорее наоборот',
+     'Хайрол, который ещё и берёт SMM, тратит на хайрол-пакеты <i>меньше</i> чистого хайрола: Scarlet '+
+     usd(S.overlap.hr_per_player)+' против '+usd(S.hr_only.per_player)+' (×'+S.lift.toFixed(2).replace('.',',')+'), '+
+     'NLC '+usd(N.overlap.hr_per_player)+' против '+usd(N.hr_only.per_player)+' (×'+N.lift.toFixed(2).replace('.',',')+'). '+
+     'В этом окне это выглядит как каннибализация, а не апсейл. На NLC эффект заметнее.'],
+  ];
+  var host=document.getElementById('ov-reads');
+  reads.forEach(function(r){ host.append(el('div',{class:'read'},[el('h4',{},r[0]), el('p',{html:r[1]})])); });
+})();
+
+/* ── Scarlet KPIs ───────────────────────────────────────────────────── */
+(function(){
+  var h=D.scs.headline, c=D.scs.meta.control;
+  var items=[
+    ['Игроков', int(h.players), 'за 60 дней хотя бы один пакет'],
+    ['Депозит', usd(c.dep_sum), int(h.dep_count)+' покупок'],
+    ['Средний чек', usd(h.avg_check), '$100 — самый частый пакет'],
+    ['На игрока', usd(h.per_player), 'медиана '+usd(h.median_spend)],
+    ['Депов на игрока', h.deps_per_player.toFixed(1).replace('.',','), 'медиана '+int(h.median_deps)],
+    ['Payout', pct(c.payout), 'осталось '+usd(h.net_after_payout)],
+  ];
+  var host=document.getElementById('kpis');
+  items.forEach(function(it){
+    host.append(el('div',{class:'kpi'},[el('dt',{},it[0]), el('dd',{},it[1]), el('div',{class:'note'},it[2])]));
+  });
+})();
+
+/* ── package table ──────────────────────────────────────────────────── */
+(function(){
+  var data=D.scs.packages.slice().sort(function(a,b){ return a.price-b.price || b.dep_sum-a.dep_sum; });
+  var tb=document.getElementById('pkg-body');
+  data.forEach(function(d){
+    tb.append(el('tr',{},[
+      el('td',{},d.label), el('td',{class:'num'},'$'+d.price),
+      el('td',{class:'num'},int(d.offers)), el('td',{class:'num'},int(d.uu)),
+      el('td',{class:'num'},usd(d.dep_sum)), el('td',{class:'num'},pct(d.share_sum)),
+      el('td',{class:'num'}, el('span',{class:'pill '+(d.payout>=0.5?'bad':'good')}, pct(d.payout))),
+      el('td',{class:'num'},usd(d.net)),
+    ]));
+  });
+  var sum=function(k){ return D.scs.packages.reduce(function(a,b){ return a+b[k]; },0); };
+  document.getElementById('pkg-foot').append(el('tr',{},[
+    el('td',{},'Всего'), el('td',{},''),
+    el('td',{class:'num'},int(sum('offers'))),
+    el('td',{class:'num'},int(D.scs.headline.players)+'*'),
+    el('td',{class:'num'},usd(D.scs.meta.control.dep_sum)),
+    el('td',{class:'num'},'100%'),
+    el('td',{class:'num'},pct(D.scs.meta.control.payout)),
+    el('td',{class:'num'},usd(D.scs.headline.net_after_payout)),
+  ]));
+})();
+
+/* ── paired distribution bars ───────────────────────────────────────── */
+function dist(mount, rows){
+  var W=430, rowH=38, padT=12, padL=112, padR=66;
+  var H=padT+rows.length*rowH+6, bw=W-padL-padR;
+  var max=0; rows.forEach(function(r){ max=Math.max(max,r.share_players,r.share_sum); });
+  var s=svg(W,H);
+  rows.forEach(function(r,i){
+    var y=padT+i*rowH;
+    var wa=bw*r.share_players/max, wb=bw*r.share_sum/max;
+    var ga=nd(s,'g',{}); nd(ga,'rect',{x:padL,y:y+2,width:Math.max(wa,1),height:11,rx:2},'var(--text-faint)');
+    tip(ga,int(r.players)+' игроков — '+pct(r.share_players)+' когорты');
+    var gb=nd(s,'g',{}); nd(gb,'rect',{x:padL,y:y+16,width:Math.max(wb,1),height:11,rx:2},'var(--c-hr)');
+    tip(gb,usd(r.dep_sum)+' — '+pct(r.share_sum)+' депозита');
+    tx(s,padL-9,y+17,r.label,'blab','end');
+    tx(s,padL+Math.max(wa,wb)+8,y+11,int(r.players)+' игр.','tick');
+    tx(s,padL+Math.max(wa,wb)+8,y+25,pct(r.share_sum,0),'vlab');
+  });
+  document.getElementById(mount).append(s);
+}
+dist('spend', D.scs.spend_buckets);
+dist('depc', D.scs.dep_buckets);
+
+/* ── concentration ──────────────────────────────────────────────────── */
+(function(){
+  var W=880,H=270,padL=48,padR=18,padT=16,padB=38;
+  var s=svg(W,H);
+  var x=function(v){ return padL+(W-padL-padR)*v; };
+  var y=function(v){ return H-padB-(H-padT-padB)*v; };
+  for(var i=0;i<=4;i++){
+    var gy=y(i/4);
+    nd(s,'line',{x1:padL,y1:gy,x2:W-padR,y2:gy,class:'axis'});
+    tx(s,padL-9,gy+4,(i*25)+'%','tick','end');
+  }
+  nd(s,'line',{x1:padL,y1:y(0),x2:x(1),y2:y(1),class:'axis','stroke-dasharray':'3 4'});
+
+  var np=[{share_players:0,share_sum:0}].concat(D.scs.vs.nlc_conc);
+  var ndp=np.map(function(p,i){ return (i?'L':'M')+x(p.share_players)+' '+y(p.share_sum); }).join(' ');
+  var nl=nd(s,'path',{d:ndp,'stroke-width':1.5,fill:'none','stroke-dasharray':'5 3'});
+  nl.setAttribute('style','stroke:var(--text-faint);fill:none');
+  var last=D.scs.vs.nlc_conc[3];
+  tx(s,x(last.share_players)+7,y(last.share_sum)+16,'NLC','tick');
+
+  var pts=[{share_players:0,share_sum:0}].concat(D.scs.concentration);
+  var d=pts.map(function(p,i){ return (i?'L':'M')+x(p.share_players)+' '+y(p.share_sum); }).join(' ');
+  var area=nd(s,'path',{d:d+' L '+x(pts[pts.length-1].share_players)+' '+y(0)+' L '+x(0)+' '+y(0)+' Z','fill-opacity':.13},'var(--c-hr)');
+  var line=nd(s,'path',{d:d,'stroke-width':2,fill:'none'});
+  line.setAttribute('style','stroke:var(--c-hr);fill:none');
+
+  D.scs.concentration.forEach(function(p){
+    var g=nd(s,'g',{});
+    nd(g,'circle',{cx:x(p.share_players),cy:y(p.share_sum),r:3.5},'var(--c-hr)');
+    tip(g,'топ-'+p.k+' игроков ('+pct(p.share_players)+') → '+pct(p.share_sum)+' депозита, '+usd(p.dep_sum));
+    if([10,50,100].indexOf(p.k)>=0) tx(s,x(p.share_players)+7,y(p.share_sum)-8,'топ-'+p.k+' → '+pct(p.share_sum,0),'vlab');
+  });
+  tx(s,padL,H-11,'0 игроков','tick');
+  tx(s,W-padR,H-11,'все '+int(D.scs.headline.players),'tick','end');
+  document.getElementById('conc').append(s);
+})();
+
+/* ── presence + retention ───────────────────────────────────────────── */
+(function(){
+  var rows=D.scs.presence;
+  var W=430,rowH=36,padT=12,padL=150,padR=66;
+  var H=padT+rows.length*rowH+6, bw=W-padL-padR;
+  var max=0; rows.forEach(function(r){ max=Math.max(max,r.share_players,r.share_sum); });
+  var s=svg(W,H);
+  rows.forEach(function(r,i){
+    var y=padT+i*rowH;
+    var wa=bw*r.share_players/max, wb=bw*r.share_sum/max;
+    var ga=nd(s,'g',{}); nd(ga,'rect',{x:padL,y:y+2,width:Math.max(wa,1),height:10,rx:2},'var(--c-hr)');
+    tip(ga,int(r.players)+' игроков');
+    var gb=nd(s,'g',{}); nd(gb,'rect',{x:padL,y:y+15,width:Math.max(wb,1),height:10,rx:2},'var(--c-smm)');
+    tip(gb,usd(r.dep_sum));
+    tx(s,padL-9,y+16,r.label,'blab','end');
+    tx(s,padL+Math.max(wa,wb)+8,y+10,int(r.players)+' игр.','tick');
+    tx(s,padL+Math.max(wa,wb)+8,y+24,pct(r.share_sum,0),'vlab');
+  });
+  document.getElementById('pres').append(s);
+
+  var R=D.scs.retention;
+  var core=rows.filter(function(r){ return r.code==='111'; })[0];
+  var facts=[
+    ['Удержание июль → август', pct(R.rate,0), R.retained+' из '+R.active_jul+' июльских хайролов купили пакет и в августе'],
+    ['Новых в августе', int(R.new_aug), 'ни одного хайрол-депозита раньше в окне, вместе '+usd(R.new_aug_sum)],
+    ['Ядро', int(core.players), 'активны все три месяца — '+pct(core.share_sum,0)+' депозита когорты'],
+  ];
+  var host=document.getElementById('ret-cards');
+  facts.forEach(function(f){
+    host.append(el('div',{style:'padding-bottom:16px'},[
+      el('div',{class:'eyebrow'},f[0]),
+      el('div',{style:'font-size:22px;font-weight:700;font-variant-numeric:tabular-nums'},f[1]),
+      el('div',{style:'font-size:12.5px;color:var(--text-dim);margin-top:2px'},f[2]),
+    ]));
+  });
+})();
+
+/* ── top 20, ranks only ─────────────────────────────────────────────── */
+(function(){
+  var tb=document.getElementById('top-body');
+  D.scs.top20.forEach(function(r,i){
+    tb.append(el('tr',{},[
+      el('td',{class:'num',style:'color:var(--text-faint)'},String(i+1)),
+      el('td',{class:'num'},int(r.dep_count)),
+      el('td',{class:'num'},usd(r.dep_sum)),
+      el('td',{class:'num'},usd(r.avg_check)),
+      el('td',{class:'num'}, el('span',{class:'pill '+(r.payout>=0.6?'bad':'good')}, pct(r.payout,0))),
+      el('td',{},r.months.split('').join(' ')),
+    ]));
+  });
+})();
+
+/* ── vs table ───────────────────────────────────────────────────────── */
+(function(){
+  var A=D.scs.vs.scs, B=D.scs.vs.nlc;
+  var M=[
+    {k:'Депозит когорты', a:A.dep_sum, b:B.dep_sum, kind:'money', note:'Scarlet поднимает с хайролов на треть больше'},
+    {k:'Игроков', a:A.players, b:B.players, kind:'int', note:'и делает это более широкой базой'},
+    {k:'Осталось после выплат', a:A.net, b:B.net, kind:'money', note:'разрыв в деньгах больше, чем в обороте'},
+    {k:'Payout', a:A.payout, b:B.payout, kind:'rate', inv:true, note:'ниже — лучше; Scarlet отдаёт назад на 10 п.п. меньше'},
+    {k:'Доля депозита бренда', a:A.share_sum, b:B.share_sum, kind:'rate', note:'хайрол-канал для Scarlet весит больше'},
+    {k:'Депозит на игрока', a:A.per_player, b:B.per_player, kind:'money', inv:true, note:'зато каждый игрок мельче'},
+    {k:'Депов на игрока', a:A.deps_per_player, b:B.deps_per_player, kind:'num', inv:true, note:'и покупает реже'},
+    {k:'Удержание июль → август', a:A.ret_rate, b:B.ret_rate, kind:'rate', note:'слабое место Scarlet'},
+    {k:'Топ-50 держат', a:A.top50, b:B.top50, kind:'rate', inv:true, note:'ниже — ровнее распределение'},
+    {k:'Payout на пакете $100', a:A.hundred_payout, b:B.hundred_payout, kind:'rate', inv:true, note:'та же ступень обходится Scarlet дешевле'},
+  ];
+  function fmt(v,kind){
+    return kind==='money'?usd(v):kind==='rate'?pct(v):kind==='num'?v.toFixed(1).replace('.',','):int(v);
+  }
+  var tb=document.getElementById('vs-body');
+  M.forEach(function(m){
+    // A rate moves in points; a level moves in percent. Mixing them lies.
+    var d = m.kind==='rate'
+      ? ((m.a-m.b>=0?'+':'−') + pct(Math.abs(m.a-m.b),1).replace('%',' п.п.'))
+      : ((m.a-m.b>=0?'+':'−') + pct(Math.abs(m.a/m.b-1),0));
+    var good = m.inv ? m.a<m.b : m.a>m.b;
+    tb.append(el('tr',{},[
+      el('td',{},m.k),
+      el('td',{class:'num'},fmt(m.a,m.kind)),
+      el('td',{class:'num'},fmt(m.b,m.kind)),
+      el('td',{class:'num'}, el('span',{class:'pill '+(good?'good':'bad')}, d)),
+      el('td',{style:'color:var(--text-dim);white-space:normal;min-width:230px'},m.note),
+    ]));
+  });
+})();
+
+/* ── shell widgets ──────────────────────────────────────────────────── */
+(function(){
+  var toggle=document.getElementById('widgetsToggle'), panel=document.getElementById('widgetsPanel');
+  toggle.addEventListener('click', function(){ panel.classList.toggle('hidden'); });
+})();
+(function(){
+  var SECS=600, deadline=Date.now()+SECS*1000, e=document.getElementById('shell-countdown');
+  function tick(){
+    var r=Math.round((deadline-Date.now())/1000);
+    if(r<=0){ deadline=Date.now()+SECS*1000; r=SECS; }
+    e.textContent=String(Math.floor(r/60)).padStart(2,'0')+':'+String(r%60).padStart(2,'0');
+  }
+  tick(); setInterval(tick,1000);
+})();
+</script>
+</body>
+</html>
