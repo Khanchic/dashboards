@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>VIPBONUS — Dashboards</title>
+<style>
+  :root{
+    --bg:#f4f5f3; --surface:#ffffff; --border:#d7dad6;
+    --text:#1c1f1d; --text-dim:#666b66; --text-faint:#9a9f9a;
+    --accent-text:#5f4413; --accent-soft:rgba(184,132,46,0.14);
+    --shadow: 0 1px 2px rgba(20,22,20,0.06), 0 8px 24px -12px rgba(20,22,20,0.18);
+    --c-act:#1f6f66; --c-ftd:#a8791f; --c-dead:#a34a35; --c-track:rgba(28,31,29,0.08); --c-grid:#d7dad6;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){ --bg:#0d0f0e; --surface:#161917; --border:#2b302d; --text:#e9ebe8; --text-dim:#a4a9a3; --text-faint:#6f746f; --accent-text:#f0d29a; --accent-soft:rgba(212,162,78,0.16); --shadow: 0 1px 2px rgba(0,0,0,0.4), 0 12px 32px -16px rgba(0,0,0,0.6); --c-act:#4fbdaf; --c-ftd:#e0b455; --c-dead:#d98a72; --c-track:rgba(233,235,232,0.10); --c-grid:#2b302d; }
+  }
+  :root[data-theme="dark"]{ --bg:#0d0f0e; --surface:#161917; --border:#2b302d; --text:#e9ebe8; --text-dim:#a4a9a3; --text-faint:#6f746f; --accent-text:#f0d29a; --accent-soft:rgba(212,162,78,0.16); --shadow: 0 1px 2px rgba(0,0,0,0.4), 0 12px 32px -16px rgba(0,0,0,0.6); --c-act:#4fbdaf; --c-ftd:#e0b455; --c-dead:#d98a72; --c-track:rgba(233,235,232,0.10); --c-grid:#2b302d; }
+  :root[data-theme="light"]{ --bg:#f4f5f3; --surface:#ffffff; --border:#d7dad6; --text:#1c1f1d; --text-dim:#666b66; --text-faint:#9a9f9a; --accent-text:#5f4413; --accent-soft:rgba(184,132,46,0.14); --shadow: 0 1px 2px rgba(20,22,20,0.06), 0 8px 24px -12px rgba(20,22,20,0.18); --c-act:#1f6f66; --c-ftd:#a8791f; --c-dead:#a34a35; --c-track:rgba(28,31,29,0.08); --c-grid:#d7dad6; }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{ background:var(--bg); color:var(--text); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; -webkit-font-smoothing:antialiased; line-height:1.45; }
+
+  .shell{ display:grid; grid-template-columns:190px 1fr; grid-template-rows:52px 1fr; grid-template-areas:"topbar topbar" "sidebar content"; min-height:100vh; }
+  @media (max-width:720px){ .shell{ grid-template-columns:1fr; grid-template-areas:"topbar" "sidebar" "content"; } }
+  .topbar{ grid-area:topbar; position:sticky; top:0; z-index:60; display:flex; align-items:center; padding:0 20px; background:#15130f; border-bottom:1px solid rgba(255,255,255,.08); }
+  .topbar .brand{ color:#f0d29a; font-weight:700; font-size:14px; letter-spacing:.02em; text-decoration:none; }
+  .sidebar{ grid-area:sidebar; position:sticky; top:52px; align-self:start; height:calc(100vh - 52px); overflow-y:auto; background:#15130f; border-right:1px solid rgba(255,255,255,.08); padding:18px 12px; }
+  @media (max-width:720px){ .sidebar{ position:static; height:auto; border-right:0; border-bottom:1px solid rgba(255,255,255,.08); } }
+  .sidebar nav{ display:flex; flex-direction:column; gap:3px; }
+  @media (max-width:720px){ .sidebar nav{ flex-direction:row; overflow-x:auto; } }
+  .slink{ color:#a8a39a; text-decoration:none; font-size:13px; font-weight:650; letter-spacing:.02em; padding:9px 12px; border-radius:8px; white-space:nowrap; transition:background .12s,color .12s; }
+  .slink:hover{ background:rgba(255,255,255,.06); color:#f2efe9; }
+  .slink.active{ background:rgba(217,171,76,.16); color:#f0c674; }
+  .content{ grid-area:content; min-width:0; }
+
+  .widgets{ position:fixed; right:16px; bottom:16px; z-index:55; display:flex; flex-direction:column; align-items:flex-end; gap:10px; }
+  @media (max-width:720px){ .widgets{ position:static; align-items:stretch; margin:32px 20px 0; } }
+  .widgets-toggle{ width:42px; height:42px; border-radius:50%; border:1px solid rgba(255,255,255,.14); background:#1b1a16; color:#e9e6df; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 8px 24px -12px rgba(0,0,0,.5); padding:0; }
+  .widgets-toggle:hover{ border-color:#d9ab4c; }
+  .widgets-panel{ display:flex; flex-direction:column; gap:10px; width:230px; }
+  @media (max-width:720px){ .widgets-panel{ width:auto; } }
+  .widgets-panel.hidden{ display:none; }
+  .status-tile{ background:#1b1a16; border:1px solid rgba(255,255,255,.10); border-radius:12px; padding:12px 14px; box-shadow:0 8px 24px -12px rgba(0,0,0,.5); color:#e9e6df; }
+  .st-top{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px; gap:8px; }
+  .st-label{ font-size:11.5px; font-weight:650; color:#a8a39a; }
+  .st-pct{ font-size:12.5px; font-weight:700; font-variant-numeric:tabular-nums; color:#e9e6df; }
+  .st-bar-track{ height:5px; border-radius:3px; background:rgba(255,255,255,.08); overflow:hidden; margin-bottom:6px; }
+  .st-bar-fill{ height:100%; border-radius:3px; }
+  .st-sub{ font-size:10.5px; color:#7a766c; }
+  .status-tile.countdown{ display:flex; flex-direction:column; justify-content:center; }
+  .st-value{ font-size:22px; font-weight:800; font-variant-numeric:tabular-nums; letter-spacing:-0.01em; color:#f0d29a; }
+  .countdown .st-top{ margin-bottom:2px; }
+  .logs-btn{ font-size:10px; font-weight:650; letter-spacing:.03em; text-transform:uppercase; color:#a8a39a; text-decoration:none; border:1px solid rgba(255,255,255,.14); border-radius:99px; padding:3px 9px; transition:border-color .12s,color .12s; }
+  .logs-btn:hover{ border-color:#d9ab4c; color:#f0c674; }
+
+  .wrap{ max-width:900px; padding:60px 20px 220px; }
+  .back{ display:inline-block; font-size:12.5px; color:var(--text-dim); text-decoration:none; margin-bottom:16px; }
+  .back:hover{ color:var(--text); }
+  .eyebrow{ text-transform:uppercase; letter-spacing:.09em; font-size:11.5px; font-weight:600; color:var(--text-faint); margin-bottom:8px; }
+  h1{ margin:0 0 10px; font-size:28px; font-weight:650; letter-spacing:-0.01em; }
+  h1 code{ font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:26px; }
+  .sub{ color:var(--text-dim); font-size:14.5px; max-width:66ch; }
+  h2{ margin:52px 0 6px; font-size:19px; font-weight:650; letter-spacing:-0.01em; }
+  h2:first-of-type{ margin-top:40px; }
+  .h2sub{ color:var(--text-dim); font-size:13.5px; max-width:72ch; margin-bottom:18px; }
+  .stamp{ margin-top:14px; font-size:12px; color:var(--text-faint); font-variant-numeric:tabular-nums; }
+  .stamp b{ color:var(--text-dim); font-weight:650; }
+
+  .card{ background:var(--surface); border:1px solid var(--border); border-radius:14px; box-shadow:var(--shadow); padding:20px; }
+  .kpis{ display:grid; grid-template-columns:repeat(auto-fit,minmax(148px,1fr)); gap:12px; margin:0; }
+  .kpi{ background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:13px 15px; box-shadow:var(--shadow); }
+  .kpi dt{ font-size:11px; text-transform:uppercase; letter-spacing:.06em; color:var(--text-faint); font-weight:650; }
+  .kpi dd{ margin:5px 0 0; font-size:21px; font-weight:700; font-variant-numeric:tabular-nums; letter-spacing:-0.01em; }
+  .kpi .note{ margin-top:3px; font-size:11.5px; color:var(--text-dim); }
+
+  .facts{ display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:0 26px; }
+  .fact{ display:flex; justify-content:space-between; gap:12px; font-size:13px; padding:9px 0; border-bottom:1px solid var(--border); }
+  .fact .k{ color:var(--text-dim); }
+  .fact .v{ font-variant-numeric:tabular-nums; font-weight:650; white-space:nowrap; }
+  .fact .v code{ font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:12.5px; }
+
+  .table-wrap{ overflow-x:auto; border:1px solid var(--border); border-radius:12px; background:var(--surface); box-shadow:var(--shadow); }
+  table{ border-collapse:collapse; width:100%; font-size:13px; }
+  th,td{ padding:9px 13px; text-align:left; border-bottom:1px solid var(--border); white-space:nowrap; }
+  th{ font-size:11px; text-transform:uppercase; letter-spacing:.05em; color:var(--text-faint); font-weight:650; }
+  td.num,th.num{ text-align:right; font-variant-numeric:tabular-nums; }
+  td.dim{ color:var(--text-faint); }
+  tbody tr:last-child td{ border-bottom:0; }
+  tbody tr.tot td{ font-weight:700; border-top:1px solid var(--border); }
+  .mgroup td{ font-size:10.5px; text-transform:uppercase; letter-spacing:.06em; color:var(--text-faint); font-weight:650; background:var(--accent-soft); }
+  .pill{ display:inline-block; padding:1px 7px; border-radius:99px; font-size:11.5px; font-weight:650; font-variant-numeric:tabular-nums; }
+  .pill.good{ background:rgba(31,111,102,.16); color:var(--c-act); }
+  .pill.warn{ background:rgba(168,121,31,.16); color:var(--c-ftd); }
+  .pill.bad{ background:rgba(163,74,53,.16); color:var(--c-dead); }
+  .note{ font-size:12px; color:var(--text-faint); margin-top:9px; max-width:80ch; }
+
+  .funnel{ display:flex; flex-direction:column; gap:11px; }
+  .frow{ display:grid; grid-template-columns:190px 1fr auto; align-items:center; gap:12px; font-size:12.5px; }
+  @media (max-width:640px){ .frow{ grid-template-columns:130px 1fr auto; } }
+  .frow .lbl{ color:var(--text-dim); }
+  .ftrack{ height:16px; border-radius:4px; background:var(--c-track); overflow:hidden; }
+  .ffill{ height:100%; border-radius:4px; }
+  .fnum{ font-variant-numeric:tabular-nums; font-weight:650; font-size:12.5px; min-width:86px; text-align:right; }
+
+  .chart{ width:100%; overflow-x:auto; }
+  svg{ display:block; max-width:100%; height:auto; }
+  text{ font-family:inherit; }
+  .tick{ font-size:10.5px; fill:var(--text-faint); }
+  .vlab{ font-size:10.5px; font-weight:650; fill:var(--text-dim); font-variant-numeric:tabular-nums; }
+  .blab{ font-size:11.5px; fill:var(--text-dim); }
+  .axis{ stroke:var(--c-grid); stroke-width:1; }
+  .legend{ display:flex; gap:16px; flex-wrap:wrap; margin-top:12px; font-size:12px; color:var(--text-dim); align-items:center; }
+  .sw{ display:inline-block; width:10px; height:10px; border-radius:2px; margin-right:6px; vertical-align:-1px; }
+
+  .reads{ display:flex; flex-direction:column; gap:14px; }
+  .read{ background:var(--surface); border:1px solid var(--border); border-left:3px solid var(--accent-text); border-radius:0 12px 12px 0; box-shadow:var(--shadow); padding:15px 18px; }
+  .read.alert{ border-left-color:var(--c-dead); }
+  .read h4{ margin:0 0 5px; font-size:14px; font-weight:650; }
+  .read p{ margin:0; font-size:13px; color:var(--text-dim); max-width:82ch; }
+  .read b{ color:var(--text); font-variant-numeric:tabular-nums; }
+  .read code{ font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:12px; }
+
+  ol.todo{ margin:0; padding-left:22px; font-size:13.5px; color:var(--text-dim); }
+  ol.todo li{ margin-bottom:9px; max-width:80ch; }
+  ol.todo b{ color:var(--text); }
+
+  footer.notes{ margin-top:56px; padding-top:22px; border-top:1px solid var(--border); font-size:12px; color:var(--text-faint); }
+  footer.notes h3{ font-size:12px; margin:0 0 10px; color:var(--text-dim); font-weight:650; }
+  footer.notes ul{ margin:0; padding-left:18px; }
+  footer.notes li{ margin-bottom:6px; max-width:84ch; }
+  footer.notes code{ font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; }
+</style>
+</head>
+<body>
+<div class="shell">
+  <header class="topbar">
+    <a class="brand" href="/dashboards/">Dashboards</a>
+  </header>
+  <aside class="sidebar">
+    <nav>
+      <a href="/dashboards/" class="slink">ГЛАВНАЯ</a>
+      <a href="/dashboards/reports/" class="slink active">ОТЧЁТЫ</a>
+      <a href="/dashboards/planning/" class="slink">ПЛАНИРОВАНИЕ</a>
+      <a href="/dashboards/promo-codes/" class="slink">ПРОМОКОДЫ</a>
+      <a href="/dashboards/visual/" class="slink">ВИЗУАЛ</a>
+      <a href="/dashboards/giveaways/" class="slink">ГИВЕВЕИ</a>
+      <a href="/dashboards/poll-breakdown/" class="slink">ОПРОС</a>
+    </nav>
+  </aside>
+  <main class="content">
+    <div class="wrap">
+      <a class="back" href="/dashboards/reports/">← Назад в отчёты</a>
+      <div class="eyebrow">Power BI · PromoCode · разовый срез</div>
+      <h1><code>VIPBONUS</code></h1>
+      <div class="sub">
+        Полный lifetime промокода: все 18 метрик вкладки PromoCode, по дням и итогом.
+        Код <b>не наш</b> — единственный tag <code>fb_traff</code>, то есть платный трафик, а не SMM-каналы
+        <code>DS</code> / <code>FB_A–FB_D</code>. Проект один: <b>NoLimitCoins</b>.
+      </div>
+      <div class="stamp">
+        Источник: <b>USA Offer Monitoring → PromoCode</b> · срез снят <b>27.08.2026</b> ·
+        данные модели обновлены <b>27.08.26</b>, последняя дата в модели <b>26.08</b> ·
+        Date-слайсер <b>01.01 – 26.08</b> (за последние 7 лет от последней даты) ·
+        Project = все, tag = все, code = VIPBONUS
+      </div>
+
+      <h2>Главное</h2>
+      <div class="h2sub">Коду 2 дня. Всё, что он пока дал.</div>
+      <dl class="kpis">
+        <div class="kpi"><dt>Активаций</dt><dd>419</dd><div class="note">за 2 дня</div></div>
+        <div class="kpi"><dt>Уникальных</dt><dd>419</dd><div class="note">1 активация на игрока</div></div>
+        <div class="kpi"><dt>FTD</dt><dd>19</dd><div class="note">первых депозитов</div></div>
+        <div class="kpi"><dt>FTD rate</dt><dd>4,53%</dd><div class="note">от уникальных</div></div>
+        <div class="kpi"><dt>Недепозитчики</dt><dd>100%</dd><div class="note">419 из 419</div></div>
+        <div class="kpi"><dt>Награда</dt><dd>—</dd><div class="note">не трекается</div></div>
+      </dl>
+
+      <h2>Паспорт кода</h2>
+      <div class="h2sub">Под фильтром <code>code = VIPBONUS</code> в каждом из этих слайсеров доступно ровно одно значение — значит это и есть свойство кода, а не совпадение.</div>
+      <div class="card">
+        <div class="facts">
+          <div class="fact"><span class="k">Проект</span><span class="v">nolimitcoins</span></div>
+          <div class="fact"><span class="k">tag (канал)</span><span class="v"><code>fb_traff</code></span></div>
+          <div class="fact"><span class="k">is_single_activation</span><span class="v">Істина</span></div>
+          <div class="fact"><span class="k">award_type</span><span class="v">(Пусто)</span></div>
+          <div class="fact"><span class="k">dep_count_before</span><span class="v">0 у всех</span></div>
+          <div class="fact"><span class="k">Живёт с</span><span class="v">25.08.2026</span></div>
+        </div>
+        <div class="note">
+          Проект определён перебором Project-слайсера по одному бренду: 9 из 10 брендов дают пустую матрицу,
+          nolimitcoins — все 419 активаций. Остальные бренды к коду не подключены.
+        </div>
+      </div>
+
+      <h2>Воронка</h2>
+      <div class="h2sub">Одна активация = один игрок, поэтому воронка честная без поправок на повторные вводы.</div>
+      <div class="card">
+        <div class="funnel">
+          <div class="frow">
+            <span class="lbl">Активаций / уников</span>
+            <span class="ftrack"><span class="ffill" style="width:100%;background:var(--c-act);"></span></span>
+            <span class="fnum">419 · 100%</span>
+          </div>
+          <div class="frow">
+            <span class="lbl">Без депозита до кода</span>
+            <span class="ftrack"><span class="ffill" style="width:100%;background:var(--c-act);opacity:.55;"></span></span>
+            <span class="fnum">419 · 100%</span>
+          </div>
+          <div class="frow">
+            <span class="lbl">FTD после активации</span>
+            <span class="ftrack"><span class="ffill" style="width:4.53%;background:var(--c-ftd);"></span></span>
+            <span class="fnum">19 · 4,53%</span>
+          </div>
+          <div class="frow">
+            <span class="lbl">Вернулись позже дня 0</span>
+            <span class="ftrack"><span class="ffill" style="width:0%;background:var(--c-dead);"></span></span>
+            <span class="fnum">0 · 0%</span>
+          </div>
+        </div>
+        <div class="note">
+          Все 19 FTD случились в день активации (<code>Reactivated 0d</code> = 19 = FTD).
+          <code>Reactivated 1d / 7d / 14d</code> пустые — но 7d и 14d физически ещё не могли набраться, коду 2 дня.
+        </div>
+      </div>
+
+      <h2>По дням</h2>
+      <div class="h2sub">Объём вырос вдвое, конверсия просела — обычное разбавление при масштабировании.</div>
+      <div class="card">
+        <div class="chart">
+          <svg viewBox="0 0 640 220" role="img" aria-label="Активации и FTD rate по дням">
+            <line class="axis" x1="52" y1="176" x2="612" y2="176" />
+            <!-- 25.08 -->
+            <rect x="110" y="94" width="86" height="82" rx="3" fill="var(--c-act)" />
+            <text class="vlab" x="153" y="86" text-anchor="middle">141</text>
+            <rect x="204" y="172" width="86" height="4" rx="2" fill="var(--c-ftd)" />
+            <text class="vlab" x="247" y="164" text-anchor="middle">7</text>
+            <text class="blab" x="200" y="196" text-anchor="middle">25.08 Tue</text>
+            <text class="tick" x="200" y="212" text-anchor="middle">FTD rate 4,96%</text>
+            <!-- 26.08 -->
+            <rect x="368" y="14" width="86" height="162" rx="3" fill="var(--c-act)" />
+            <text class="vlab" x="411" y="8" text-anchor="middle">278</text>
+            <rect x="462" y="169" width="86" height="7" rx="2" fill="var(--c-ftd)" />
+            <text class="vlab" x="505" y="161" text-anchor="middle">12</text>
+            <text class="blab" x="458" y="196" text-anchor="middle">26.08 Wed</text>
+            <text class="tick" x="458" y="212" text-anchor="middle">FTD rate 4,32%</text>
+          </svg>
+        </div>
+        <div class="legend">
+          <span><span class="sw" style="background:var(--c-act);"></span>Активации</span>
+          <span><span class="sw" style="background:var(--c-ftd);"></span>FTD</span>
+        </div>
+      </div>
+
+      <h2>Все метрики</h2>
+      <div class="h2sub">Пустая ячейка = метрика не заполнена в модели (не ноль по смыслу, а отсутствие значения).</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Метрика</th>
+              <th class="num">25.08 Tue</th>
+              <th class="num">26.08 Wed</th>
+              <th class="num">Всього</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="mgroup"><td colspan="4">Объём</td></tr>
+            <tr><td>Total Activations</td><td class="num">141</td><td class="num">278</td><td class="num"><b>419</b></td></tr>
+            <tr><td>Unique Users</td><td class="num">141</td><td class="num">278</td><td class="num"><b>419</b></td></tr>
+            <tr><td>Total Entries</td><td class="num dim">—</td><td class="num dim">—</td><td class="num dim">—</td></tr>
+            <tr><td>Total Coins</td><td class="num dim">—</td><td class="num dim">—</td><td class="num dim">—</td></tr>
+
+            <tr class="mgroup"><td colspan="4">Free spins</td></tr>
+            <tr><td>FS Amount</td><td class="num dim">—</td><td class="num dim">—</td><td class="num dim">—</td></tr>
+            <tr><td>FS Count</td><td class="num dim">—</td><td class="num dim">—</td><td class="num dim">—</td></tr>
+
+            <tr class="mgroup"><td colspan="4">Реактивация</td></tr>
+            <tr><td>Reactivated 0d</td><td class="num">7</td><td class="num">12</td><td class="num"><b>19</b></td></tr>
+            <tr><td>Reactivated 1d</td><td class="num dim">—</td><td class="num dim">—</td><td class="num dim">—</td></tr>
+            <tr><td>Reactivated 7d</td><td class="num dim">—</td><td class="num dim">—</td><td class="num dim">—</td></tr>
+            <tr><td>Reactivated 14d</td><td class="num dim">—</td><td class="num dim">—</td><td class="num dim">—</td></tr>
+            <tr><td>Reactivated 0d Rate</td><td class="num">4,96%</td><td class="num">4,32%</td><td class="num"><b>4,53%</b></td></tr>
+            <tr><td>Reactivated 1d Rate</td><td class="num dim">—</td><td class="num dim">—</td><td class="num dim">—</td></tr>
+            <tr><td>Reactivated 7d Rate</td><td class="num dim">—</td><td class="num dim">—</td><td class="num dim">—</td></tr>
+            <tr><td>Reactivated 14d Rate</td><td class="num dim">—</td><td class="num dim">—</td><td class="num dim">—</td></tr>
+
+            <tr class="mgroup"><td colspan="4">Конверсия в деньги</td></tr>
+            <tr><td>FTD after Activation</td><td class="num">7</td><td class="num">12</td><td class="num"><b>19</b></td></tr>
+            <tr><td>FTD after Activation Rate</td><td class="num"><span class="pill good">4,96%</span></td><td class="num"><span class="pill good">4,32%</span></td><td class="num"><span class="pill good">4,53%</span></td></tr>
+
+            <tr class="mgroup"><td colspan="4">Качество аудитории</td></tr>
+            <tr><td>Non-Depositor Activations</td><td class="num">141</td><td class="num">278</td><td class="num"><b>419</b></td></tr>
+            <tr><td>Non-Depositor Activations (% from total)</td><td class="num"><span class="pill bad">100,00%</span></td><td class="num"><span class="pill bad">100,00%</span></td><td class="num"><span class="pill bad">100,00%</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note">
+        Снято двумя способами и сходится: пропуском по каждой метрике поштучно (Metric — single-select)
+        и одним чтением при снятой галке Metric, когда матрица выводит все 18 метрик строками.
+      </div>
+
+      <h2>Как это на фоне наших каналов</h2>
+      <div class="h2sub">FTD rate от уникальных пользователей. Наши теги — W31 (27.07–02.08), VIPBONUS — его собственные 2 дня.</div>
+      <div class="card">
+        <div class="funnel">
+          <div class="frow">
+            <span class="lbl">VIPBONUS · fb_traff</span>
+            <span class="ftrack"><span class="ffill" style="width:100%;background:var(--c-ftd);"></span></span>
+            <span class="fnum">4,53%</span>
+          </div>
+          <div class="frow">
+            <span class="lbl">FB_D</span>
+            <span class="ftrack"><span class="ffill" style="width:33.7%;background:var(--c-act);"></span></span>
+            <span class="fnum">1,53%</span>
+          </div>
+          <div class="frow">
+            <span class="lbl">DS (Discord)</span>
+            <span class="ftrack"><span class="ffill" style="width:17.4%;background:var(--c-act);"></span></span>
+            <span class="fnum">0,79%</span>
+          </div>
+          <div class="frow">
+            <span class="lbl">FB_B</span>
+            <span class="ftrack"><span class="ffill" style="width:16.0%;background:var(--c-act);"></span></span>
+            <span class="fnum">0,72%</span>
+          </div>
+          <div class="frow">
+            <span class="lbl">FB_C</span>
+            <span class="ftrack"><span class="ffill" style="width:10.9%;background:var(--c-act);"></span></span>
+            <span class="fnum">0,49%</span>
+          </div>
+          <div class="frow">
+            <span class="lbl">FB_A</span>
+            <span class="ftrack"><span class="ffill" style="width:10.5%;background:var(--c-act);"></span></span>
+            <span class="fnum">0,48%</span>
+          </div>
+        </div>
+        <div class="note">
+          Сравнение нечестное в пользу VIPBONUS, и на это нельзя опираться при защите бюджета:
+          у него одноразовый код на 100% свежую платную аудиторию, у наших тегов — multi-activation коды
+          и в основном органика с уже прогретой базы, где недепозитчиков далеко не 100%.
+          Правильный бенчмарк для VIPBONUS — другие коды с тегом <code>fb_traff</code>, а не наши каналы.
+        </div>
+      </div>
+
+      <h2>Что читается</h2>
+      <div class="reads">
+        <div class="read">
+          <h4>Это чистый acquisition-код на регистрацию</h4>
+          <p><b>100%</b> Non-Depositor Activations — ни одного активатора с депозитом в истории до кода.
+          Это не ретеншн-инструмент и не реактивация базы, это первое касание для свежего платного трафика на NLC.</p>
+        </div>
+        <div class="read">
+          <h4>Конверсия в FTD 4,53% — 19 игроков</h4>
+          <p>По дням: <b>7</b> из 141 (4,96%) и <b>12</b> из 278 (4,32%). Объём вырос вдвое,
+          конверсия просела на 0,64 пп — нормальное разбавление при масштабировании,
+          но за третьим-четвёртым днём стоит следить: ниже ~3% объём начнёт съедать качество.</p>
+        </div>
+        <div class="read">
+          <h4>Хвоста нет: платят только в день активации</h4>
+          <p><code>Reactivated 0d</code> = <b>19</b> = FTD ровно, а 1d/7d/14d пустые. Игрок либо платит сразу,
+          либо не платит вообще. По 7d и 14d судить рано (коду 2 дня), но <b>1d</b> по когорте 25.08
+          уже должен был показать хоть что-то — и не показал.</p>
+        </div>
+        <div class="read alert">
+          <h4>Награда кода в модели не видна</h4>
+          <p><code>award_type</code> пустой, <code>Total Coins</code> / <code>Total Entries</code> /
+          <code>FS Amount</code> / <code>FS Count</code> — все пустые. То есть по отчёту <b>не видно, что код выдаёт</b>.
+          Либо призы в админке заведены типом, который эта вкладка не считает, либо reward вообще не привязан
+          к <code>coinsEntries</code> / <code>freeSpin</code>. Без этого 4,53% FTD висят в воздухе:
+          может, там щедрый прогрев, который не отбивается.</p>
+        </div>
+        <div class="read alert">
+          <h4>ROI по этому коду с Power BI не посчитать</h4>
+          <p>Сумм депозитов в разрезе промокода на вкладке PromoCode нет вообще, а вкладка Offers считает только
+          price-коды — VIPBONUS без цены и туда не попадает. Доступна только воронка активация → FTD,
+          деньги нужно брать из другого источника.</p>
+        </div>
+      </div>
+
+      <h2>Что с этим делать</h2>
+      <div class="card">
+        <ol class="todo">
+          <li><b>Спросить у платников, чей код и что он выдаёт.</b> Метрика награды пустая — без неё
+          конверсия не переводится ни в CPA, ни в ROI.</li>
+          <li><b>Следить за FTD rate на 3–4 день.</b> Тренд 4,96% → 4,32% при удвоении объёма.
+          Порог, ниже которого масштабирование теряет смысл — около 3%.</li>
+          <li><b>Перечитать Reactivated 7d / 14d через неделю.</b> Сейчас там нет времени, а не нет результата.</li>
+          <li><b>Не тащить в <code>promocode_weekly.csv</code>.</b> Там схема tag × week под наши каналы,
+          а это разовый срез по чужому коду — иначе <code>fb_traff</code> размоет тренды SMM.</li>
+        </ol>
+      </div>
+
+      <footer class="notes">
+        <h3>Как снималось</h3>
+        <ul>
+          <li>Вкладка <b>PromoCode</b> отчёта USA Offer Monitoring. <code>CustomPromoCode</code> не трогалась — это отчёт другой команды.</li>
+          <li>Date выставлен через <b>Відносно</b> (Останн. 7 · Роки · Остання дата), не через календарь — на этой вкладке календарь не коммитится. Результат: <code>01.01 – 26.08</code>, весь lifetime кода внутри.</li>
+          <li>Project, tag, partner_id, stream_name, player_login очищены до <b>Усі</b> перед снятием — сохранённое состояние отчёта было отфильтровано на <code>firesevens</code> и часть тегов.</li>
+          <li>Проект определён перебором Project по одному бренду: единственная непустая матрица — nolimitcoins.</li>
+          <li>Иерархия строк матрицы: <code>tag → code</code>. Разреза по проекту внутри матрицы нет, поэтому и понадобился перебор слайсера.</li>
+          <li>Разовый срез, в <code>data/</code> скила не записан.</li>
+        </ul>
+      </footer>
+    </div>
+    <div class="widgets">
+      <button class="widgets-toggle" id="widgetsToggle" aria-label="Скрыть/показать виджеты">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V10M12 20V4M20 20V14"/></svg>
+      </button>
+      <div class="widgets-panel hidden" id="widgetsPanel">
+        <div class="status-tile countdown">
+          <div class="st-top"><span class="st-label">Обратный отсчёт</span><a class="logs-btn" href="/dashboards/logs/">Логи</a></div>
+          <span class="st-value" id="shell-countdown">10:00</span>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+<script>
+(function(){
+  var toggle = document.getElementById('widgetsToggle');
+  var panel = document.getElementById('widgetsPanel');
+  toggle.addEventListener('click', function(){ panel.classList.toggle('hidden'); });
+})();
+(function(){
+  var COUNTDOWN_SECONDS = 10 * 60;
+  var deadline = Date.now() + COUNTDOWN_SECONDS * 1000;
+  var el = document.getElementById('shell-countdown');
+  function tick(){
+    var remaining = Math.round((deadline - Date.now()) / 1000);
+    if(remaining <= 0){ deadline = Date.now() + COUNTDOWN_SECONDS * 1000; remaining = COUNTDOWN_SECONDS; }
+    var m = Math.floor(remaining / 60), s = remaining % 60;
+    el.textContent = String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+  }
+  tick();
+  setInterval(tick, 1000);
+})();
+</script>
+</body>
+</html>
