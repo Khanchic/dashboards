@@ -1,0 +1,1144 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Scarlet Sands Chat Triage</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+
+<style>
+/* Dark-first: ночная смена. :root — тёмная палитра, light переопределяется ниже. */
+:root {
+  --ground: #141010;
+  --panel: #1c1615;
+  --panel-2: #241d1b;
+  --line: #362b28;
+  --line-soft: #2a2220;
+  --ink: #e6d9c9;
+  --ink-dim: #a8968b;
+  --ink-faint: #7a6a62;
+  --scarlet: #e04256;
+  --scarlet-dim: #8f2634;
+  --ember: #eda43c;
+  --ember-dim: #7d5620;
+  --teal: #4fa287;
+  --red: #d8474a;
+  --shadow: 0 1px 0 rgba(255,255,255,.03), 0 8px 24px -12px rgba(0,0,0,.7);
+  --f-ui: "Archivo", "Segoe UI", system-ui, sans-serif;
+  --f-copy: "Instrument Sans", "Segoe UI", system-ui, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", monospace;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --ground: #f6f1ea;
+    --panel: #fffdfa;
+    --panel-2: #f1e9df;
+    --line: #ddcfc0;
+    --line-soft: #e8ded2;
+    --ink: #2a201c;
+    --ink-dim: #6b5a51;
+    --ink-faint: #938177;
+    --scarlet: #bc2337;
+    --scarlet-dim: #eebfc4;
+    --ember: #a86713;
+    --ember-dim: #f0dcbd;
+    --teal: #2c7460;
+    --red: #b8262b;
+    --shadow: 0 1px 2px rgba(80,55,45,.06), 0 10px 24px -16px rgba(80,55,45,.3);
+  }
+}
+:root[data-theme="light"] {
+  --ground: #f6f1ea;
+  --panel: #fffdfa;
+  --panel-2: #f1e9df;
+  --line: #ddcfc0;
+  --line-soft: #e8ded2;
+  --ink: #2a201c;
+  --ink-dim: #6b5a51;
+  --ink-faint: #938177;
+  --scarlet: #bc2337;
+  --scarlet-dim: #eebfc4;
+  --ember: #a86713;
+  --ember-dim: #f0dcbd;
+  --teal: #2c7460;
+  --red: #b8262b;
+  --shadow: 0 1px 2px rgba(80,55,45,.06), 0 10px 24px -16px rgba(80,55,45,.3);
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--f-copy);
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+:focus-visible { outline: 2px solid var(--ember); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+
+.shell { display: flex; flex-direction: column; height: 100vh; min-height: 640px; }
+
+/* ── топбар ───────────────────────────────────────────────── */
+.top {
+  display: flex; align-items: center; gap: 18px;
+  padding: 12px 20px; border-bottom: 1px solid var(--line);
+  background: var(--panel); flex-wrap: wrap;
+}
+.brand { display: flex; align-items: baseline; gap: 10px; flex: 0 0 auto; }
+.brand b {
+  font-family: var(--f-ui); font-weight: 700; font-size: 17px;
+  letter-spacing: -.01em; color: var(--ink);
+}
+.brand span {
+  font-family: var(--f-ui); font-size: 10px; font-weight: 600;
+  letter-spacing: .14em; text-transform: uppercase; color: var(--scarlet);
+}
+.search { flex: 1 1 320px; position: relative; min-width: 260px; }
+.search input {
+  width: 100%; padding: 9px 14px 9px 34px;
+  background: var(--panel-2); color: var(--ink);
+  border: 1px solid var(--line); border-radius: 3px;
+  font-family: var(--f-mono); font-size: 13px;
+}
+.search input::placeholder { color: var(--ink-faint); font-family: var(--f-copy); }
+.search svg { position: absolute; left: 11px; top: 11px; width: 14px; height: 14px; stroke: var(--ink-faint); fill: none; stroke-width: 2; }
+.top-right { display: flex; gap: 8px; align-items: center; }
+.tbtn {
+  font-family: var(--f-ui); font-size: 11px; font-weight: 600; letter-spacing: .06em;
+  text-transform: uppercase; color: var(--ink-dim);
+  background: transparent; border: 1px solid var(--line);
+  padding: 7px 11px; border-radius: 3px; cursor: pointer;
+}
+.tbtn:hover { color: var(--ink); border-color: var(--ink-faint); }
+.tbtn[aria-pressed="true"] { color: var(--ground); background: var(--ember); border-color: var(--ember); }
+
+/* ── тело ─────────────────────────────────────────────────── */
+.body { display: grid; grid-template-columns: 292px minmax(0,1fr); flex: 1; min-height: 0; }
+
+/* рельс */
+.rail { border-right: 1px solid var(--line); overflow-y: auto; background: var(--panel); }
+.rail-group { padding: 14px 0 6px; }
+.rail-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 16px 7px; font-family: var(--f-ui); font-size: 10px; font-weight: 700;
+  letter-spacing: .13em; text-transform: uppercase; color: var(--ink-faint);
+}
+.rail-head em { font-style: normal; color: var(--ink-faint); font-weight: 500; letter-spacing: .04em; }
+.rail-item {
+  display: grid; grid-template-columns: 3px 1fr auto; align-items: center; gap: 10px;
+  width: 100%; text-align: left; background: none; border: 0;
+  padding: 7px 16px 7px 13px; cursor: pointer;
+  font-family: var(--f-ui); font-size: 13.5px; color: var(--ink-dim);
+  border-top: 1px solid transparent; border-bottom: 1px solid transparent;
+}
+.rail-item i { display: block; height: 15px; border-radius: 2px; background: transparent; }
+.rail-item:hover { color: var(--ink); background: var(--panel-2); }
+.rail-item[aria-current="true"] { color: var(--ink); background: var(--panel-2); font-weight: 600; }
+.rail-item[aria-current="true"] i { background: var(--scarlet); }
+.rail-item .vol {
+  font-family: var(--f-mono); font-size: 10.5px; color: var(--ink-faint);
+  font-variant-numeric: tabular-nums;
+}
+.rail-item.stop { color: var(--red); }
+.rail-item.stop:hover, .rail-item.stop[aria-current="true"] { color: var(--red); }
+.rail-item.stop[aria-current="true"] i { background: var(--red); }
+
+/* main */
+.main { overflow-y: auto; padding: 0 0 60px; }
+.wrap { max-width: 940px; padding: 20px 30px; }
+
+.crumbs { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; margin-bottom: 14px; min-height: 22px; }
+.crumbs button {
+  font-family: var(--f-mono); font-size: 11px; color: var(--ink-dim);
+  background: var(--panel-2); border: 1px solid var(--line-soft);
+  padding: 3px 8px; border-radius: 2px; cursor: pointer;
+}
+.crumbs button:hover { color: var(--ink); }
+.crumbs s { color: var(--ink-faint); text-decoration: none; font-size: 11px; }
+
+.node-head { border-bottom: 1px solid var(--line); padding-bottom: 16px; margin-bottom: 20px; }
+.tagrow { display: flex; gap: 8px; align-items: center; margin-bottom: 9px; flex-wrap: wrap; }
+.tag {
+  font-family: var(--f-ui); font-size: 10px; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; padding: 3px 7px; border-radius: 2px; border: 1px solid;
+}
+.tag.own { color: var(--teal); border-color: color-mix(in srgb, var(--teal) 45%, transparent); }
+.tag.esc { color: var(--ember); border-color: var(--ember-dim); background: color-mix(in srgb, var(--ember) 10%, transparent); }
+.tag.stop { color: var(--red); border-color: color-mix(in srgb, var(--red) 50%, transparent); background: color-mix(in srgb, var(--red) 10%, transparent); }
+.tag.vol { color: var(--ink-faint); border-color: var(--line); font-family: var(--f-mono); letter-spacing: .02em; }
+h1 {
+  font-family: var(--f-ui); font-size: 26px; font-weight: 700; letter-spacing: -.015em;
+  margin: 0 0 8px; text-wrap: balance; line-height: 1.15;
+}
+.node-why { color: var(--ink-dim); font-size: 14px; max-width: 66ch; margin: 0; }
+
+.sec { margin-bottom: 26px; }
+.sec > h2 {
+  font-family: var(--f-ui); font-size: 10.5px; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--ink-faint); margin: 0 0 10px;
+  display: flex; align-items: center; gap: 9px;
+}
+.sec > h2::after { content: ""; flex: 1; height: 1px; background: var(--line-soft); }
+
+/* триггеры — сырой лог */
+.trigs { display: flex; flex-wrap: wrap; gap: 6px; }
+.trig {
+  font-family: var(--f-mono); font-size: 12px; color: var(--ink-dim);
+  background: var(--panel); border: 1px solid var(--line-soft);
+  border-left: 2px solid var(--scarlet-dim);
+  padding: 4px 9px; border-radius: 0 2px 2px 0;
+}
+
+/* ответы */
+.replies { display: flex; flex-direction: column; gap: 10px; }
+.reply {
+  display: grid; grid-template-columns: 1fr auto; gap: 14px; align-items: start;
+  background: var(--panel); border: 1px solid var(--line);
+  border-radius: 3px; padding: 13px 14px; box-shadow: var(--shadow);
+}
+.reply p { margin: 0; font-size: 15px; line-height: 1.5; }
+.reply .note {
+  margin-top: 7px; font-family: var(--f-ui); font-size: 11.5px; color: var(--ink-faint);
+  display: flex; gap: 6px;
+}
+.reply .note b { color: var(--ember); font-weight: 600; flex: 0 0 auto; }
+.copy {
+  font-family: var(--f-ui); font-size: 10px; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--ink-dim);
+  background: var(--panel-2); border: 1px solid var(--line);
+  padding: 6px 10px; border-radius: 2px; cursor: pointer; white-space: nowrap;
+}
+.copy:hover { color: var(--ink); border-color: var(--ink-faint); }
+.copy.done { color: var(--teal); border-color: color-mix(in srgb, var(--teal) 50%, transparent); }
+
+/* хук */
+.hook {
+  border-left: 2px solid var(--ember); background: color-mix(in srgb, var(--ember) 7%, transparent);
+  padding: 12px 14px; border-radius: 0 3px 3px 0;
+  display: grid; grid-template-columns: 1fr auto; gap: 14px; align-items: center;
+}
+.hook p { margin: 0; font-size: 15px; }
+.hook .lbl {
+  font-family: var(--f-ui); font-size: 10px; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--ember); display: block; margin-bottom: 5px;
+}
+
+/* ветки */
+.branches { display: grid; gap: 8px; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+.branch {
+  text-align: left; background: var(--panel); border: 1px solid var(--line);
+  border-radius: 3px; padding: 11px 13px; cursor: pointer; color: var(--ink);
+  display: grid; gap: 4px;
+}
+.branch:hover { border-color: var(--scarlet); }
+.branch b { font-family: var(--f-mono); font-size: 12px; font-weight: 500; color: var(--ink); }
+.branch s { text-decoration: none; font-family: var(--f-ui); font-size: 11px; color: var(--ink-faint); }
+.branch:hover s { color: var(--ink-dim); }
+
+/* запреты */
+.never { display: flex; flex-direction: column; gap: 6px; }
+.never li {
+  list-style: none; font-size: 13.5px; color: var(--ink-dim);
+  display: grid; grid-template-columns: 14px 1fr; gap: 9px;
+}
+.never li::before { content: "×"; color: var(--red); font-family: var(--f-mono); font-weight: 500; }
+ul.never { margin: 0; padding: 0; }
+
+/* эскалация */
+.esc-box {
+  border: 1px solid var(--ember-dim); background: color-mix(in srgb, var(--ember) 8%, transparent);
+  border-radius: 3px; padding: 13px 14px;
+}
+.esc-box .lbl {
+  font-family: var(--f-ui); font-size: 10px; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--ember); display: block; margin-bottom: 6px;
+}
+.esc-box p { margin: 0; font-size: 14px; color: var(--ink); }
+
+/* поиск-результаты */
+.results { display: flex; flex-direction: column; gap: 8px; }
+.result {
+  text-align: left; background: var(--panel); border: 1px solid var(--line);
+  border-left: 2px solid var(--ember); border-radius: 0 3px 3px 0;
+  padding: 11px 13px; cursor: pointer; display: grid; gap: 5px;
+}
+.result:hover { border-color: var(--scarlet); border-left-color: var(--scarlet); }
+.result b { font-family: var(--f-ui); font-size: 14.5px; color: var(--ink); font-weight: 600; }
+.result s { text-decoration: none; font-family: var(--f-mono); font-size: 11.5px; color: var(--ink-faint); }
+.result mark { background: color-mix(in srgb, var(--ember) 28%, transparent); color: var(--ink); border-radius: 1px; }
+.empty { color: var(--ink-faint); font-size: 14px; }
+
+/* доска правил */
+.rules { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
+.rule {
+  background: var(--panel); border: 1px solid var(--line); border-radius: 3px; padding: 12px 13px;
+}
+.rule .k {
+  font-family: var(--f-ui); font-size: 10px; font-weight: 700; letter-spacing: .11em;
+  text-transform: uppercase; color: var(--scarlet); display: block; margin-bottom: 6px;
+}
+.rule p { margin: 0; font-size: 13.5px; color: var(--ink-dim); }
+.rule p + p { margin-top: 6px; }
+.rule code { font-family: var(--f-mono); font-size: 12.5px; color: var(--ink); }
+
+table.levers { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+table.levers th, table.levers td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--line-soft); vertical-align: top; }
+table.levers th {
+  font-family: var(--f-ui); font-size: 10px; font-weight: 700; letter-spacing: .11em;
+  text-transform: uppercase; color: var(--ink-faint);
+}
+table.levers td:first-child { font-family: var(--f-mono); font-size: 12.5px; color: var(--ember); white-space: nowrap; }
+.tblwrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 3px; background: var(--panel); }
+
+.gap { display: grid; grid-template-columns: 1fr; gap: 8px; }
+.gap li {
+  list-style: none; background: var(--panel); border: 1px dashed var(--line);
+  border-left: 2px solid var(--scarlet); padding: 10px 12px; border-radius: 0 3px 3px 0; font-size: 13.5px;
+}
+.gap li b { font-family: var(--f-ui); color: var(--ink); }
+ul.gap { margin: 0; padding: 0; }
+
+@media (max-width: 860px) {
+  .body { grid-template-columns: 1fr; }
+  .rail { border-right: 0; border-bottom: 1px solid var(--line); max-height: 210px; }
+  .shell { height: auto; min-height: 100vh; }
+  .wrap { padding: 18px; }
+}
+</style>
+
+<div class="shell">
+  <header class="top">
+    <div class="brand"><b>Chat Triage</b><span>Scarlet Sands · night</span></div>
+    <div class="search">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M16 16l5 5"/></svg>
+      <input id="q" type="search" placeholder="Вставь сообщение юзера или ключевое слово — найдёт ветку" autocomplete="off" spellcheck="false">
+    </div>
+    <div class="top-right">
+      <button class="tbtn" id="btn-rules">Правила смены</button>
+      <button class="tbtn" id="btn-theme" aria-pressed="false">Свет</button>
+    </div>
+  </header>
+
+  <div class="body">
+    <nav class="rail" id="rail" aria-label="Интенты"></nav>
+    <main class="main"><div class="wrap" id="stage"></div></main>
+  </div>
+</div>
+
+<script>
+/* ─────────────────────────────────────────────────────────────
+   ДАННЫЕ. Доли трафика — из разбора 105 643 живых сообщений
+   чата Scarlet Sands за 05.03–26.08.2026 (127 152 строки всего,
+   минус QA-мусор и клавиатурная каша).
+   ───────────────────────────────────────────────────────────── */
+
+const GROUPS = [
+  { id: 'promo',  title: 'Промокоды', note: '≈ 60% работы' },
+  { id: 'money',  title: 'Деньги и аккаунт', note: 'эскалация' },
+  { id: 'mood',   title: 'Настроение и конфликт', note: '' },
+  { id: 'comm',   title: 'Комьюнити', note: 'вовлечение' },
+  { id: 'stop',   title: 'Красные флаги', note: 'протокол' },
+];
+
+const N = {
+
+/* ══════════ ПРОМОКОДЫ ══════════ */
+
+'beg': {
+  g: 'promo', t: 'Просят код: «any codes?»', vol: '6 097',
+  role: 'own',
+  why: 'Самый частый запрос в чате. Это не разовый вопрос, а фон: «codes?», «code please», «any codes» идут пачками каждый час. Отвечать нужно так, чтобы человек остался в чате и после «нет», иначе он уходит и возвращается через 10 минут с тем же вопросом.',
+  trigs: ['any codes?', 'code please', 'codes', 'Anyone got a code for me?', "I'm new any codes?", 'admin you have any codes?', 'In need of a code plz', 'Please please please code'],
+  replies: [
+    { t: "Hey! I hear you 👋 Codes drop here through the night, not on a fixed clock — so hanging out in chat is genuinely the best way to catch one. What are you playing right now?", n: 'База, когда кода на руках нет. Никогда не отвечай просто «no».' },
+    { t: "No code from me this second, but the room is warm tonight — players drop theirs here all the time. Stick around and tell me how your session is going, I want to hear it 🔥", n: 'Перекидывает надежду на комьюнити и сразу тянет разговор.' },
+    { t: "Got you 👀 Dropping one in a moment — first, who's actually still awake in here? Say hey so I know who I'm playing with tonight.", n: 'Только если реально собираешься дропнуть код. Обещал — дай.' },
+  ],
+  hook: "Quick one while you wait — what's the last game that actually paid you something? I'm collecting tonight's list 🎰",
+  never: ['Обещать код «через 5 минут», если не собираешься дропать — в этом чате помнят и цитируют', 'Писать сухое «no» или «not now» без вопроса вдогонку', 'Говорить, что коды выдаются по расписанию — их и так ждут по часам'],
+  br: [
+    { l: 'Продолжает долбить: «please please code»', to: 'beg-push' },
+    { l: 'Пишет, что он новый на сайте', to: 'newbie' },
+    { l: 'Код взял, но «limit reached / invalid»', to: 'code-dead' },
+    { l: 'Чат вялый, никто не отвечает', to: 'dead' },
+    { l: 'Требует именно админский код', to: 'admin-code' },
+  ],
+},
+
+'beg-push': {
+  g: 'promo', t: 'Давит после отказа', vol: '~1 200',
+  role: 'own',
+  why: 'После «нет» часть юзеров переходит в спам-режим или в обиду: «Like really nobody is going to share a code come on», «There\'s 91 people n nobody wants to help?». Задача — не читать морали, а перевести энергию в активность.',
+  trigs: ['Like really nobody is going to share a code come on', "There's 91 people n nobody wants to help ?", 'DROP SOME PROMO', 'drop promo pls', 'Okay drop one today please', 'Why dont you drop 1'],
+  replies: [
+    { t: "I get the frustration, for real. I can't conjure one on demand — but I'm watching this room all night and I do notice who's actually here. Keep me company and you'll be first in line 👀", n: 'Даёт статус вместо кода. Работает лучше отказа.' },
+    { t: "Easy 😄 Begging doesn't move the needle, but being the person who makes this chat fun absolutely does. Tell me your biggest win on Scarlet Sands and let's get the room talking.", n: 'Мягко останавливает спам и сразу даёт задачу.' },
+  ],
+  hook: "Serious question for the room: what's the one game you'd tell a new player to open first? Best answer gets my attention tonight ⚡",
+  never: ['Отвечать раздражением или сарказмом — скриншотится', 'Мутить/предупреждать за одно «please» — это не спам, это норма чата', 'Сдаваться и выдавать код только потому, что задавили'],
+  br: [
+    { l: 'Перешёл на оскорбления', to: 'toxic' },
+    { l: 'Начал флудить одним и тем же', to: 'spam' },
+    { l: 'Успокоился и заговорил', to: 'dead' },
+  ],
+},
+
+'code-dead': {
+  g: 'promo', t: '«Limit reached» / «invalid» / «unavailable»', vol: '751',
+  role: 'own',
+  why: 'Главный источник злости в чате. У кодов игроков есть лимит активаций, и его выжирают за секунды: «All limit reached within 2 seconds», «Limit reached like BAM!». Юзер думает, что его обманули, а не что он опоздал. Объясни механику — и злость уходит.',
+  trigs: ['says limit reached', 'This one said unavailable', 'That code is invalid', 'None of those codes work', 'All limit reached', 'no codes for me to use and that promo code is used up', 'any new code that isnt limit reached'],
+  replies: [
+    { t: "That message means someone beat you to the last activation — the code was real, it just got claimed out. Nothing wrong with your account 🙌 Were you fast on it, or did you find it a few minutes late?", n: 'Ключевое: снять с юзера ощущение, что проблема в нём.' },
+    { t: "«Limit reached» = the code ran out of activations. «Invalid» = it's expired or mistyped. Which one did you get? Paste it here and I'll tell you which of the two it was.", n: 'Разделяет два разных случая. Дальше веди по ветке.' },
+    { t: "Yeah those go fast — a good code can die in seconds in here 😅 Pro move: keep the promo field open in another tab so you only paste and hit enter. Want me to give you a heads-up next time one lands?", n: 'Даёт практический лайфхак + причину остаться.' },
+  ],
+  hook: "How fast did it die for you — seconds, or was it already gone when you opened it? I'm trying to figure out how quick this room really is ⏱️",
+  never: ['Говорить «code works fine, it\'s on your side» — это спор, который ты не выиграешь', 'Утверждать, что код точно был рабочий, если не проверял'],
+  br: [
+    { l: '«Invalid» с первой секунды, код свежий', to: 'esc-bug' },
+    { l: 'Не понимает, куда вообще вводить код', to: 'how-code' },
+    { l: 'Жалуется, что у него коды не работают уже дни', to: 'esc-bug' },
+    { l: 'Требует компенсацию за сгоревший код', to: 'admin-code' },
+  ],
+},
+
+'how-code': {
+  g: 'promo', t: 'Как работают промокоды', vol: '702',
+  role: 'own',
+  why: 'Ветка «объясни механику». Спрашивают, куда вводить, сколько можно в день, как часто дропают. Это самый лёгкий способ выглядеть полезным — и самый недоиспользованный.',
+  trigs: ['How do I use codes', 'Where do we add the code ? Sorry I\'m new to the site', 'Is there a limit on how many promo codes we can use per day?', 'Promo Codes? How often are they given out', 'How do you get a promo code', 'Wait.... we get codes here?'],
+  replies: [
+    { t: "Open the promotions area and drop the code into the promo code field, then confirm — the reward lands on your balance right away 💫 Did it go through for you?", n: 'Точный путь по интерфейсу подтвердить у саппорта, потом дописать сюда.' },
+    { t: "Two kinds float around here: codes players generate and share, and codes that come from us. Player codes have activation limits, so they burn out fast. Ours are the ones worth waiting up for 😉", n: 'Разница между player code и admin code — юзеры сами её обсуждают.' },
+    { t: "There's a cap on how many you can run in a day, so if you hit «limit reached» on every single one, that's usually your own limit talking, not a dead code. Want me to walk you through it?", n: 'Точное число лимита уточнить у саппорта.' },
+  ],
+  hook: "Are you new to the chat, or just never tried a code before? Either way welcome — tell me what you've been playing 🖤",
+  never: ['Называть точные цифры лимитов и сроки, пока их не подтвердил саппорт', 'Обещать «коды каждый час»'],
+  br: [
+    { l: 'Спрашивает про Ember Points и свою генерацию', to: 'ember' },
+    { l: 'Код всё равно не проходит', to: 'code-dead' },
+    { l: 'Хочет обменяться кодами с другим игроком', to: 'trade' },
+  ],
+},
+
+'ember': {
+  g: 'promo', t: 'Ember Points: юзер сам генерит коды', vol: '1 438',
+  role: 'own',
+  why: 'Ключевая механика, вокруг которой живёт чат: игроки фармят Ember Points, превращают их в промокоды и раздают друг другу — свой код использовать нельзя. За период игроки скинули в чат более 13 500 уникальных кодов с префиксом PC. Оператор обязан знать это назубок.',
+  trigs: ['i have 500 ember ots left to create the big one', 'google how to create ember points to codes', 'Codes used with ember points are only for peers not for yourself', 'Im farming Ember now so I can get you all some codes', "I'm not able to do anything with my ember points. I don't understand", 'Why am I not getting ember points per spin anymore', 'When I share promocodes, do I get anything from people using my codes?'],
+  replies: [
+    { t: "Embers are your own code factory 🔥 You collect them as you play, then turn them into a promo code — but it only works for other players, not for yourself. That's the whole trade economy in this room.", n: 'Главное правило механики: свой код себе не активируешь.' },
+    { t: "You're close — once you've got enough embers you can mint a code and drop it here. Honestly the people who share get remembered in this chat. How many embers are you sitting on?", n: 'Превращает механику в социальный статус.' },
+    { t: "If your embers aren't moving, it's usually about how you're playing rather than a broken account — but I'd rather have support confirm it than guess at your balance. Want me to point you to them?", n: 'Не гадай про начисление embers. Не знаешь — эскалируй.' },
+  ],
+  hook: "Are you farming embers to share, or hunting other people's codes? I want to know which side of this economy you're on 😄",
+  never: ['Придумывать курс «сколько embers = какой код»', 'Обещать вернуть/начислить embers — это саппорт'],
+  br: [
+    { l: 'Embers не начисляются / пропали', to: 'esc-acct' },
+    { l: 'Хочет обменять коды', to: 'trade' },
+    { l: 'Сгенерил код и делится', to: 'sharer' },
+  ],
+},
+
+'trade': {
+  g: 'promo', t: 'Обмен кодами между игроками', vol: '2 297',
+  role: 'own',
+  why: 'Огромный пласт: «Anyone up for a trade?», «even trade please», «I\'ll share more codes when others share more as well». Обмен кодами — это самоподдерживающийся движок чата. Оператор должен его разгонять, а не игнорировать.',
+  trigs: ['Any one want to trade codes', 'Anyone up for a trade?', 'I have a code but looking to trade', 'Anyone got free spins to trade for mine', 'Hey anyone got a 20FP theyd like to do a even trade please?', 'FP to share? 10-20 FP I\'ll share as well'],
+  replies: [
+    { t: "Trading is what keeps this room alive — post what you've got and what you're after, and I'll make sure it doesn't scroll past 👀 What's on your side?", n: 'Оператор как маркетмейкер: сводит обмен, а не просто наблюдает.' },
+    { t: "Love this. Let's do it properly: everyone looking to trade, drop your code and what you want back in the next few minutes. I'm watching the room 🔁", n: 'Ивент из ничего. Отлично работает в тихие часы.' },
+  ],
+  hook: "Who else has something to trade right now? Post it — let's see how many we can match tonight 🔁",
+  never: ['Сводить обмен кодов на деньги, CashApp, Chime — это уже другая ветка', 'Гарантировать, что чужой код рабочий'],
+  br: [
+    { l: 'Обмен уехал в деньги / CashApp / Chime', to: 'cashapp' },
+    { l: 'Жалуется, что его кинули на обмене', to: 'fake-codes' },
+    { l: 'Просит коды других брендов', to: 'competitor' },
+  ],
+},
+
+'admin-code': {
+  g: 'promo', t: 'Зовут админа: «ADMIN ADMIN ADMIN»', vol: '713',
+  role: 'own',
+  why: 'Чат знает, что админ дропает коды, и зовёт его прямым текстом — включая жалобы «hey admin how come your codes are always unavailable», «I can only use Admin codes». Ты и есть тот админ. Как ты отвечаешь на вызов — определяет тон всей смены.',
+  trigs: ['ADMIN ADMIN ADMIN', 'ADMIN is there a Friday promo code?', 'Do we have a chat promo coming up admin?', 'May I get an Admin code please', 'How come admin codes never work for me?', 'Admin... how are you? Any code updates for us?', 'My favorite Admin on?'],
+  replies: [
+    { t: "I'm right here 👋 Watching the room all night. No code this exact minute, but I'm around — and I notice who keeps this chat good company.", n: 'Присутствие важнее кода. Молчащий админ = «нас игнорят».' },
+    { t: "Here 🖤 Before anything drops — how's the night treating everyone? Wins, near-misses, disasters, I want to hear all of it.", n: 'Открывает смену. Собирает разговор вокруг себя.' },
+    { t: "Yep, that's me. And since you asked nicely: stick around for a bit, I'm reading everything in here 👀", n: 'Короткий ответ на прямой зов, когда нет времени на длинный.' },
+  ],
+  hook: "Since I've got the room's attention: what should we do more of in this chat — trades, giveaways, or just good company at 3am? 🌒",
+  never: ['Игнорировать прямой зов «ADMIN» — в чате это читают как неуважение', 'Обещать код «на пятницу» и другие расписания без подтверждения'],
+  br: [
+    { l: 'Спрашивает, почему админские коды тоже дохнут', to: 'code-dead' },
+    { l: 'Требует личный код себе', to: 'beg-push' },
+    { l: 'Спрашивает, есть ли вообще живой человек', to: 'greet' },
+  ],
+},
+
+'sharer': {
+  g: 'promo', t: 'Игрок сам раздаёт коды', vol: '349',
+  role: 'own',
+  why: 'Самые ценные люди в чате: «Here\'s another PCB0Z7C0IP Happy to share», «I\'ll post a code if someone has one to drop too». Их надо публично подсвечивать — на этом держится вся культура обмена. Один незамеченный шарер = минус источник контента.',
+  trigs: ["Here's another PC…  Happy to share", 'PCHX7D5G3H hello, here is a good 1 to enjoy. 2sc and 20 spins', 'There\'s a code for y\'all', "I'll share more codes when others share more as well", 'Please use PCK1HKSA4S', 'I will share shortly'],
+  replies: [
+    { t: "This is the energy 🙌 Thanks for dropping that — grab it fast, everyone. Who got in on it?", n: 'Публичное спасибо + гонка за кодом = движ в чате.' },
+    { t: "Respect for sharing instead of hoarding 🖤 You're one of the good ones in here. How many embers did that cost you?", n: 'Личное признание. Такие люди возвращаются каждую ночь.' },
+  ],
+  hook: "Shoutout to the sharers tonight. Who else has one in their pocket? Let's keep the chain going 🔗",
+  never: ['Проходить мимо шарера молча', 'Просить его раздать больше — это давление на игрока'],
+  br: [
+    { l: 'Код оказался мёртвый, на него ругаются', to: 'fake-codes' },
+    { l: 'Пошла волна обмена', to: 'trade' },
+  ],
+},
+
+'daily-blessing': {
+  g: 'promo', t: '«DAILY BLESSING» / «claim 25»', vol: '1 176',
+  role: 'esc',
+  why: 'Два ритуальных ключевика, которые юзеры вставляют в чат сотнями. Часть пишет их, не понимая зачем: «Why is everybody writing claim 25», «Is this where I type in DAILY BLESSING». Похоже, механика живёт на FB-странице, а не в чате — но точную инструкцию надо получить у саппорта, до этого не подтверждай и не опровергай.',
+  trigs: ['DAILY BLESSING', 'Daily blessings', 'You have to message the FB page the daily blessing', "What's the daily blessing thing all about?", 'claim 25', 'claim25', 'Why is everybody writing claim 25', 'How come my code from Daily Blessing isn\'t working????'],
+  replies: [
+    { t: "That one's a keyword from our Facebook page, not from this chat — typing it here won't trigger anything 🙂 Want me to explain how the chat side works instead?", n: 'ПРОВЕРИТЬ У САППОРТА перед использованием. Пока — самая вероятная версия.' },
+    { t: "You're not the only one confused 😄 Half the room copies it without knowing why. Let me get you the exact steps rather than guess — meanwhile, what are you playing tonight?", n: 'Безопасный ответ, пока механика не подтверждена. Используй этот.' },
+  ],
+  hook: "Out of curiosity — where did you first see that keyword? Facebook, chat, or someone just told you? 🤔",
+  never: ['Объяснять механику, пока саппорт не подтвердил — половина чата уже путается', 'Говорить «просто напиши это здесь»'],
+  br: [
+    { l: 'Требует награду за ключевик', to: 'esc-acct' },
+    { l: 'Спрашивает про промокоды в общем', to: 'how-code' },
+  ],
+},
+
+/* ══════════ ДЕНЬГИ И АККАУНТ ══════════ */
+
+'esc-cashout': {
+  g: 'money', t: 'Кэшаут, redemption, «где мои деньги»', vol: '1 029',
+  role: 'esc',
+  why: 'Не твоя зона. Спрашивают сроки, статус, «withdraw complete but nothing in my bank». Любая твоя цифра станет обещанием, за которое потом спросят. Задача — снять тревогу и передать в саппорт, не потеряв человека из чата.',
+  trigs: ['it says my withdraw was complete but i didn\'t get anything in my bank acc', 'Hey guys how long until my payout hits my card balance?', 'How long does it take for a deposit to hit your bank? First time I\'ve redeemed', 'Can you not withdraw on here?', 'Any no deposit?'],
+  replies: [
+    { t: "Redemptions aren't something I can see or move from chat — support has your actual account in front of them, so they'll give you a straight answer instead of my guess. Reach out to them and they'll track it 🙏", n: 'Формулировка «не вижу твой аккаунт» снимает подозрение в отписке.' },
+    { t: "I don't want to give you a wrong number on money — that's the one thing I won't guess about. Support handles payouts directly. Ping them, and come back and tell me how it went, I'd actually like to know 🖤", n: 'Эскалация + причина вернуться в чат.' },
+  ],
+  esc: 'Отдать в саппорт. Ничего не обещать по срокам, суммам и статусам. Если человек нервничает — остаться с ним в разговоре после передачи.',
+  hook: "While you wait on them — first cashout attempt, or have you gotten one through before? 👀",
+  never: ['Называть сроки выплат («2–3 дня», «до 24 часов»)', 'Комментировать конкретную сумму или статус заявки', 'Говорить «support will fix it» как гарантию'],
+  br: [
+    { l: 'Просят документы / верификацию', to: 'esc-kyc' },
+    { l: 'Начал кричать «scam»', to: 'scam' },
+    { l: 'Хочет депозитнуть, а платёжка не проходит', to: 'esc-acct' },
+  ],
+},
+
+'esc-kyc': {
+  g: 'money', t: 'Верификация, документы, ID', vol: '161',
+  role: 'esc',
+  why: 'Юзеры застревают на utility bill и просроченных ID: «They keep asking me for a utility bill and I keep resubmitting». Ты не видишь их документы и не можешь ускорить проверку — но можешь не дать человеку взбеситься.',
+  trigs: ['They keep asking me for a utility bill and I keep resubmitting', "I would've withdrawn if my id wasn't expired", 'Has anyone actually redeemed on here?', 'verification', 'documents'],
+  replies: [
+    { t: "Verification runs through support, not chat — I genuinely can't see your documents from here. They can tell you exactly which one didn't pass and why, which is what you actually need 🙏", n: 'Объясни, почему именно саппорт, иначе читается как отписка.' },
+    { t: "That loop is frustrating, I believe you. The fix is always one specific detail on the document, and support can name it in a minute. Worth one more message to them.", n: 'Валидирует эмоцию, потом эскалирует.' },
+  ],
+  esc: 'Только саппорт. Никогда не запрашивай документы, ID, адрес, последние цифры карты и email в чате.',
+  hook: "Once you're through it — what's the first game you're spending it on? 🎰",
+  never: ['ПРОСИТЬ документы, ID, адрес, данные карты в чате — ни при каких условиях', 'Оценивать, пройдёт документ или нет', 'Обсуждать чужую верификацию публично'],
+  br: [
+    { l: 'Разговор ушёл в кэшаут', to: 'esc-cashout' },
+    { l: 'Пишет, что аккаунт заблокирован', to: 'esc-acct' },
+  ],
+},
+
+'esc-bug': {
+  g: 'money', t: 'Игра не грузит, ошибки, логин', vol: '248',
+  role: 'esc',
+  why: 'Технические жалобы: «Amazing diamonds won\'t load for me?», «GIVING ME THIS ERROR», код 404. Ты не техподдержка, но собранная тобой инфа ускоряет фикс — а для юзера это выглядит как «меня услышали».',
+  trigs: ["Amazing diamonds won't load for me?", 'GIVING ME THIS ERROR', 'Just bought a package with free spins and the game they send me to isn\'t loading', 'error 404', 'can\'t log in'],
+  replies: [
+    { t: "Ugh, that's a bad one — especially right after a purchase. Which game and what does the error say exactly? I'll pass it up with your details so it actually gets looked at 🛠️", n: 'Собери: игра, текст ошибки, устройство/браузер. Передай выше.' },
+    { t: "Thanks for flagging it — stuff like this we only find out about from chat. Support can check your account side; I'll make sure the game issue lands with the right people.", n: 'Делит зоны: аккаунт → саппорт, баг игры → внутрь.' },
+  ],
+  esc: 'Аккаунт и деньги — в саппорт. Баг игры — собрать игру + текст ошибки + устройство и передать команде.',
+  hook: "While that's being sorted — anything else running fine for you tonight, or is it all acting up? 👀",
+  never: ['Обещать компенсацию за сгоревший спин или пакет', 'Диагностировать «это ваш интернет»'],
+  br: [
+    { l: 'Требует вернуть деньги за пакет', to: 'esc-cashout' },
+    { l: 'Перешёл в «сайт скам»', to: 'scam' },
+  ],
+},
+
+'esc-acct': {
+  g: 'money', t: 'Аккаунт, баланс, VIP, начисления', vol: '~250',
+  role: 'esc',
+  why: 'Сюда падают все «мне не начислили»: VIP-уровни, GC vs SC, tier-награды, пропавшие embers. Реальная путаница — «They stopped letting you level up with gc», «I didnt get my deck tier 2 this morning». Общую механику объясняешь, персональный баланс — никогда.',
+  trigs: ['Does using gold coins level up your vip?', 'Do vip points only update weekly or something?', 'How do you get your level up reward?', 'I didnt get my deck tier 2 this morning', 'Why am I not getting ember points per spin anymore'],
+  replies: [
+    { t: "I can talk mechanics all night, but anything about your specific balance or a missing reward has to go through support — they see the account, I don't 🙏 What exactly didn't land?", n: 'Разделяет «как это работает» и «где мои конкретные N».' },
+    { t: "Fair question, and I'd rather get you the confirmed answer than my best guess — VIP details have changed before and I'm not going to misinform you. Support will have it straight.", n: 'Честная неуверенность работает лучше уверенной ошибки.' },
+  ],
+  esc: 'Персональные начисления, баланс, VIP-награды, embers — саппорт. Общую механику можно объяснять, если она подтверждена.',
+  hook: "Are you climbing the tiers on purpose, or did it just happen while playing? 🪜",
+  never: ['Подтверждать или отрицать конкретные правила VIP, пока саппорт не подтвердил', 'Обещать начисление'],
+  br: [
+    { l: 'Разговор про embers и генерацию кодов', to: 'ember' },
+    { l: 'Ушло в кэшаут', to: 'esc-cashout' },
+  ],
+},
+
+/* ══════════ НАСТРОЕНИЕ И КОНФЛИКТ ══════════ */
+
+'badluck': {
+  g: 'mood', t: 'Проигрался, «nothing but losing»', vol: '1 275',
+  role: 'own',
+  why: 'Каждое сотое сообщение в чате — про то, что человек проиграл. Это не запрос на помощь, а запрос на сочувствие. Один тёплый ответ здесь удерживает игрока лучше кода. Но следи за красными флагами: если пошли rent, bills, food, kids — уходишь в другой протокол.',
+  trigs: ['Nothing good for me yet', "It's horrible man just nothing but losing", 'Thanks for the code earlier. No luck for me', 'still no luck?', 'I am. I lost like $600 this week', 'Unfortunately the way its been. All losing'],
+  replies: [
+    { t: "That's a rough run and I'm not going to pretend otherwise 🖤 Cold streaks in here are brutal. What have you been playing — same game all night, or jumping around?", n: 'Никакого «удача повернётся». Признай и переведи в разговор.' },
+    { t: "Been there. The move a lot of people in this chat swear by is switching it up and dropping the bet size for a bit. What are you on right now?", n: 'Практический совет от лица комьюнити, не от казино.' },
+  ],
+  hook: "What's the game you keep coming back to even when it's cold? Everyone in here has one 🎰",
+  never: ['«Your luck will turn» и любые обещания выигрыша', 'Советовать поднять ставку или довнести депозит', 'Предлагать код как «отбить проигрыш»'],
+  br: [
+    { l: 'Упомянул rent, bills, food, kids, «last dollar»', to: 'rg' },
+    { l: 'Перешёл к «сайт rigged»', to: 'scam' },
+    { l: 'Успокоился, разговорился', to: 'smalltalk' },
+  ],
+},
+
+'scam': {
+  g: 'mood', t: '«Rigged» / «this site is a scam»', vol: '293',
+  role: 'own',
+  why: 'Публичное обвинение в чате читают все молчащие. Не отвечать нельзя — молчание выглядит как признание. Спорить тоже нельзя: спор раздувает ветку. Задача — сбить температуру и увести в конкретику.',
+  trigs: ['They are all rigged', 'This site is a scam', 'Screw this freaking cheating ass casino I swear its fake af', 'The bonuses seam rigged', 'You are a fraud and a lying cheater', 'What a scam lol'],
+  replies: [
+    { t: "I'm not going to argue with you about it — you had a bad run and that feeling is real. If something concrete went wrong on your account, support can actually pull the records and check it. Want that?", n: 'Не спорь. Переводи из эмоции в проверяемый факт.' },
+    { t: "Heard you. Tell me what specifically happened — a spin, a code, a payout? Vague «it's rigged» I can't do anything with, but a specific thing I can push up the chain 👀", n: 'Просьба конкретизировать почти всегда снижает градус.' },
+  ],
+  hook: "Genuinely though — what would make tonight better for you? I'm asking the whole room, not just being polite 🖤",
+  never: ['Спорить, доказывать честность RNG, ссылаться на лицензии в чате', 'Отвечать сарказмом или молчать', 'Обещать компенсацию, чтобы человек затих'],
+  br: [
+    { l: 'Перешёл на прямые оскорбления', to: 'toxic' },
+    { l: 'Назвал конкретную проблему с деньгами', to: 'esc-cashout' },
+    { l: 'Жалуется, что коды фейковые', to: 'fake-codes' },
+  ],
+},
+
+'fake-codes': {
+  g: 'mood', t: '«Кидают фейковыми кодами»', vol: '~120',
+  role: 'own',
+  why: 'Внутренний конфликт чата: «Why buddy dropping fake codes», «The one who sent all fake codes», «ole drunk ahhh sending fake codes». Обычно это не обман, а выжранный лимит активаций — но чат уже обвиняет своего же. Разряди, иначе разругаются между собой.',
+  trigs: ['Why buddy dropping fake codes', 'The one who sent all fake codes', 'That was a fraud post', 'sending fake codes', 'Both invalid'],
+  replies: [
+    { t: "Nine times out of ten it wasn't fake — it just got claimed out before you got there. Let's not turn on each other over a code that died in two seconds 🙏", n: 'Защищает шарера. Иначе люди перестают делиться.' },
+    { t: "If a code was real and someone got in first, that's a race, not a scam. Post the code here and I'll tell you which of the two it was 👀", n: 'Берёт на себя роль арбитра.' },
+  ],
+  hook: "Who actually managed to claim one tonight? Curious how many of them are landing 🔗",
+  never: ['Публично обвинять игрока в фейке', 'Оставлять разборку без модерации'],
+  br: [
+    { l: 'Разборка перешла в оскорбления', to: 'toxic' },
+    { l: 'Просят объяснить лимиты', to: 'code-dead' },
+  ],
+},
+
+'toxic': {
+  g: 'mood', t: 'Оскорбления и токсик', vol: '656',
+  role: 'own',
+  why: 'Мат в этом чате — фон, а не нарушение: «this app sucks», «damn». Реальная проблема начинается там, где переходят на людей. Различай два случая, иначе или зря карают, или упускают травлю.',
+  trigs: ['This app sucks. Slow as hell', 'Ugh that sucks,', 'I hate when I win a small bit then lose it all', 'why the hate react?', 'personal insults at other players'],
+  replies: [
+    { t: "Let's keep it on the games, not on each other 🙏 Plenty to be mad at in a cold streak without aiming it at the room.", n: 'Первое предупреждение. Спокойно, без угроз.' },
+    { t: "I'll ask once: drop it. Take shots at the slots all you want, not at players 🖤", n: 'Второй заход. Дальше — модерация.' },
+  ],
+  hook: "Reset button: what's everyone playing right now? Let's get this room back to something fun 🎰",
+  never: ['Отвечать грубостью — скриншотится и уходит в соцсети', 'Карать за общий мат в адрес игры/удачи', 'Спорить с оскорблением публично'],
+  br: [
+    { l: 'Не остановился после двух просьб', to: 'spam' },
+    { l: 'Травит конкретного игрока', to: 'spam' },
+    { l: 'Успокоился', to: 'smalltalk' },
+  ],
+},
+
+/* ══════════ КОМЬЮНИТИ ══════════ */
+
+'greet': {
+  g: 'comm', t: 'Приветствия и «есть кто живой»', vol: '1 523',
+  role: 'own',
+  why: 'Каждое приветствие — открытая дверь. Юзеры буквально проверяют, есть ли живой человек: «Anybody home?», «are you Admin?», «Hi 🙃 first time finding out this chat exists». Ответ на «hi» стоит секунду и делает из зашедшего постоянного.',
+  trigs: ['Good morning hoping everybody has a blessed day', 'Hello how is everyone', 'Anybody home?', 'Hi 🙃 first time finding out this chat exists 🖤', 'sup guys', 'are you Admin?'],
+  replies: [
+    { t: "Hey hey 👋 Real human here, awake with you. How's the night going — winning or fighting?", n: 'Живой человек в чате — редкость. Подчёркивай это.' },
+    { t: "Welcome in 🖤 Glad you found the chat. It gets good in here late. What are you playing?", n: 'Для тех, кто впервые нашёл чат.' },
+    { t: "Morning! Hope it's a good one. What's first on the reels today? ☀️", n: 'Утренняя смена / раннее время.' },
+  ],
+  hook: "Roll call — who's actually in here right now? Say hey, I want to know who I'm spending the night with 🌒",
+  never: ['Пропускать приветствия молча', 'Отвечать шаблоном на каждое «hi» подряд — чередуй варианты'],
+  br: [
+    { l: 'Новичок на сайте', to: 'newbie' },
+    { l: 'Сразу попросил код', to: 'beg' },
+    { l: 'Разговорился не по делу', to: 'smalltalk' },
+  ],
+},
+
+'newbie': {
+  g: 'comm', t: 'Новичок на сайте', vol: '348',
+  role: 'own',
+  why: 'Самый ценный человек в чате и самый частый повод для «покажи, что тут вообще есть»: «Codes for new player here? And any game suggestions would be appreciated», «Where do we add the code ? Sorry I\'m new». За 3 минуты можно сделать постоянного игрока.',
+  trigs: ['Codes for new player here? And any game suggestions would be appreciated 🖤', 'New on here do I need a code?', "I'm new to this, I never come to chat", 'Where do we add the code ? Sorry I\'m new to the site', 'new here what games be winning'],
+  replies: [
+    { t: "Welcome aboard 🖤 Two things worth knowing: this chat is where codes actually get shared, and embers let you mint codes for other players. Everything else you'll pick up as you go. What have you tried so far?", n: 'Онбординг в двух пунктах, без лекции.' },
+    { t: "Glad you're here! Ask anything, this room is friendlier than it looks 😄 What kind of games do you like — big bonus hunts or steady spins?", n: 'Вопрос про предпочтения = начало долгого разговора.' },
+  ],
+  hook: "Room, we've got a new one 👋 What's the one game you'd tell them to open first?",
+  never: ['Заваливать правилами и механиками сразу', 'Обещать новичку код за регистрацию'],
+  br: [
+    { l: 'Спрашивает про игры', to: 'games' },
+    { l: 'Спрашивает про коды', to: 'how-code' },
+    { l: 'Спрашивает, реально ли тут выплачивают', to: 'esc-cashout' },
+  ],
+},
+
+'games': {
+  g: 'comm', t: 'Что играть, «what game is hot»', vol: '334',
+  role: 'own',
+  why: 'Идеальный интент для вовлечения: вопрос открытый, отвечать может весь чат. «What game is hot rn?», «What are yall winning on?». Никогда не отвечай сам одним словом — превращай в опрос комнаты.',
+  trigs: ['What game is hot rn ?', 'which game you recommend', "What's yall top fave game", 'What games are people winning on that you don\'t have to bet big?', 'What are yall winning on? I need to try a new game lol', 'Hey! Hey! What games r hittin hot on this platform?'],
+  replies: [
+    { t: "Best answer to that isn't mine, it's the room's 👀 Who's had something actually pay tonight? Name the game.", n: 'Дефолт для этой ветки: превращать в опрос.' },
+    { t: "Depends what you're after — chasing a bonus round or grinding steady spins? Tell me which and I'll point you at what people have been talking about in here.", n: 'Уточняющий вопрос вместо готового ответа.' },
+  ],
+  hook: "Building tonight's list: drop the game that treated you best in the last hour 🎰",
+  never: ['Гарантировать, что игра «платит» — это обещание выигрыша', 'Называть RTP и вероятности'],
+  br: [
+    { l: 'Похвастался выигрышем', to: 'bigwin' },
+    { l: 'Жалуется, что везде проигрывает', to: 'badluck' },
+  ],
+},
+
+'bigwin': {
+  g: 'comm', t: 'Хвастается выигрышем', vol: '794',
+  role: 'own',
+  why: 'Бесплатный контент, который сам разгоняет чат. «I just won the Asian fortune major», «I won $300 from it». Каждый незамеченный винрейт — потерянный движ. Подсвечивай громко и вовлекай остальных.',
+  trigs: ['I just won the Asian fortune major about 2 hours ago.', "I've won over $2500 from this site", 'i hit 15000 on crown coins last yr', 'Nevermind I won the full $5', 'Congrats winners🥳'],
+  replies: [
+    { t: "LET'S GO 🔥 That's the kind of news this chat is here for. Which game, and how big was the bet?", n: 'Громко + вопрос, чтобы история продолжилась.' },
+    { t: "Congrats!! 🎉 Room, someone's eating tonight. Anyone else got a win to put next to this one?", n: 'Превращает один выигрыш в волну.' },
+  ],
+  hook: "Who else hit something tonight, big or tiny? Post it — I want a running scoreboard in here 🏆",
+  never: ['Пропускать выигрыш молча', 'Обсуждать чужие суммы как «мало»'],
+  br: [
+    { l: 'Спрашивает, как вывести', to: 'esc-cashout' },
+    { l: 'Другие начали просить у него код/денег', to: 'cashapp' },
+  ],
+},
+
+'smalltalk': {
+  g: 'comm', t: 'Болтовня не про казино', vol: '1 638',
+  role: 'own',
+  why: 'Коты, погода, дни рождения, работа в ночную. Это не оффтоп — это то, из-за чего люди остаются в чате часами и возвращаются. Поддерживать обязательно.',
+  trigs: ['I have a cat named Lilly who is the best ever.', 'Im in Arizona, and the weather is actually pretty nice right now lol', 'If anybodys feeling generous my birthday is today', 'Anyone here gambling in Spartanburg SC??', 'Anyone up for a trade anyone here'],
+  replies: [
+    { t: "Okay this is exactly why I like the night shift in here 😄 Tell me more.", n: 'Разрешай оффтоп. Он держит чат живым.' },
+    { t: "Happy birthday!! 🎉 Room, we've got a birthday tonight — say something nice.", n: 'Дни рождения отмечать всегда, это дешёвая лояльность.' },
+  ],
+  hook: "Night shift question: coffee, energy drink, or pure spite keeping you up right now? ☕",
+  never: ['Обрывать оффтоп «давайте по теме»', 'Дарить подарки за день рождения без апрува'],
+  br: [
+    { l: 'Просит подарок на день рождения', to: 'cashapp' },
+    { l: 'Чат затих', to: 'dead' },
+  ],
+},
+
+'thanks': {
+  g: 'comm', t: 'Благодарят', vol: '3 117',
+  role: 'own',
+  why: 'Третий по объёму интент во всём чате. «Thank you» × 388 подряд — это не мусор, это открытая дверь: человек в хорошем настроении и готов говорить. Одно «you\'re welcome» её закрывает. Всегда добавляй вопрос.',
+  trigs: ['Thank you 😊', 'Thank you !!!', 'TY USER 2FEB15S', 'Thanks so much for the gift!', 'thank u tho'],
+  replies: [
+    { t: "Anytime 🖤 Did it land you anything good?", n: 'Никогда не заканчивай на «you\'re welcome».' },
+    { t: "That's what I'm here for 😄 Go get something out of it and come tell me how it went.", n: 'Даёт причину вернуться в чат с отчётом.' },
+  ],
+  hook: "Report back when you've spun it — I want to know if it was worth it 👀",
+  never: ['Отвечать сухим «np» / «you\'re welcome» без вопроса'],
+  br: [
+    { l: 'Отчитался о выигрыше', to: 'bigwin' },
+    { l: 'Ничего не выиграл', to: 'badluck' },
+  ],
+},
+
+'dead': {
+  g: 'comm', t: 'Чат затих — раскачать', vol: '298',
+  role: 'own',
+  why: 'Прямая часть работы, а не пауза. «Dead chat room. Yikes», «it sure is quiet in here», «It\'s interesting how quiet it gets right after a dollar is sent». Здесь ты можешь по своей инициативе предложить код — это твой самый сильный инструмент.',
+  trigs: ['Dead chat room. Yikes', 'Good afternoon Party people it sure is quiet in here', 'guys went quiet after them tokkens', 'Anyone here?', 'boring'],
+  replies: [
+    { t: "It's quiet in here 👀 Alright — who wants a code? Say something and let's wake this room up.", n: 'Твой главный ход в мёртвый час. Сказал — дай.' },
+    { t: "Slow night. Let's fix it: best win you've EVER had on here, go. I'll start reading 🏆", n: 'Опрос вместо кода — когда промо-лимит на смену выбран.' },
+    { t: "Anyone still awake? 🌒 Drop a 🔥 if you're spinning right now, I want to see how many of us there are.", n: 'Реакция вместо текста — самый низкий порог входа.' },
+  ],
+  hook: "Tonight's question for the room: one game, one bet left — where are you putting it? 🎰",
+  never: ['Сидеть в тишине всю смену', 'Спрашивать «хотите код?» и потом не дать'],
+  br: [
+    { l: 'Чат ожил, полетели просьбы кодов', to: 'beg' },
+    { l: 'Пошёл обмен кодами', to: 'trade' },
+    { l: 'Никто не отвечает вообще', to: 'sharer' },
+  ],
+},
+
+/* ══════════ КРАСНЫЕ ФЛАГИ ══════════ */
+
+'rg': {
+  g: 'stop', t: 'Ответственная игра: rent, food, kids', vol: '236',
+  role: 'stop',
+  why: 'Самый важный узел во всём чек-листе. В чате прямым текстом: «I lost my rent money now what do I do huh», «Cause I need money for my kids», «I could use a donation rn not for gambling just for food». Здесь ты не промоутер. Никаких кодов, никакого «отыграешься», никаких шуток.',
+  trigs: ['I lost my rent money now what do I do huh', 'Cause I need money for my kids.', 'everyone is broke and desperate', "I feel like a real piece of dumpster dookie after I spend the equivalent of someone's rent", 'I could use a donation rn not for gambling just for food', 'last dollar', 'addict'],
+  replies: [
+    { t: "I'm going to stop being the chat guy for a second: that's a hard spot, and playing more isn't the way out of it 🖤 There are real limits and self-exclusion tools on the account, and support can walk you through them right now if you want.", n: 'Тон меняется полностью. Ноль промо в сообщении.' },
+    { t: "Thanks for saying it out loud, that's not easy. I'd rather you took a break tonight than chased it. Support can set up limits on your account — say the word and I'll point you to them.", n: 'Прямое предложение паузы. Не бойся его озвучить.' },
+  ],
+  esc: 'Никаких кодов, промо и «удачи». Предложить лимиты / self-exclusion и передать в саппорт. Зафиксировать случай в отчёте смены — даже если человек потом отшутился.',
+  never: ['Давать код, FP, SC — вообще ничего', 'Говорить «удача повернётся», «отыграешься», «попробуй ещё»', 'Шутить, отвечать эмодзи-смайлом, менять тему', 'Игнорировать, потому что «он просто ноет»'],
+  br: [
+    { l: 'Отшутился и вернулся к игре', to: 'badluck' },
+    { l: 'Просит денег напрямую', to: 'cashapp' },
+  ],
+},
+
+'cashapp': {
+  g: 'stop', t: 'Просят деньги: CashApp, Chime, PayPal, boost', vol: '2 567',
+  role: 'stop',
+  why: 'Второй по объёму пласт после кодов — и полностью вне правил. Юзеры кидают в чат свои теги: «Cash app $ShayCC93 feeling genuine», «My PayPal is @hawwkk88 anything helps», плюс схема «chime boost for boost». Это и попрошайничество, и питательная среда для скама на своих же игроках.',
+  trigs: ['Cash app $ShayCC93 feeling genuine', 'My PayPal is @hawwkk88 anything helps', 'I have 2 Chime Boosts if anyone can boost for boost', 'Please send me a boost', '@… PayPal if anyone wanna bless my day', 'Boost me I\'ll boost you back'],
+  replies: [
+    { t: "Let's keep money transfers out of the chat 🙏 Sharing payment tags here gets people scammed, and I'd rather nobody in this room got burned. Codes and trades, all good — cash tags, no.", n: 'Объясняй причину через защиту юзера, а не через «правила».' },
+    { t: "I'm going to ask you to take that down — no payment tags in here. If you want in on something, the code trading in this room is fair game 🔁", n: 'Просьба удалить + альтернатива, чтобы не выгнать человека.' },
+  ],
+  esc: 'Просить убрать тег. При повторе — модерация. Зафиксировать в отчёте смены: ник + время. Если человек давит на жалость и упоминает еду/аренду — уйти в ветку ответственной игры.',
+  never: ['Отправлять деньги самому — ни при каких условиях', 'Оставлять платёжный тег висеть в чате', 'Обсуждать чей-то chime boost как норму'],
+  br: [
+    { l: 'Упомянул food, rent, bills, kids', to: 'rg' },
+    { l: 'Не убирает и повторяет', to: 'spam' },
+    { l: 'Переводит на обмен кодами', to: 'trade' },
+  ],
+},
+
+'offplatform': {
+  g: 'stop', t: 'Discord, Telegram, referral-схемы', vol: '697',
+  role: 'stop',
+  why: 'Юзеры вербуют друг друга наружу и продают рефералки прямо в чате: «still payin 90$ for doing my revolut referral. add me discord», «Making a server for discord would be frfr the move», «Anyone interested can add me on discord». Оплаченные рефералки и уход в личку — прямой риск для игроков.',
+  trigs: ['still payin 90$ for doing my revolut referral. add me discord @…', 'Add me on discord', 'healshot_63603 is my discord if anyone games', 'Making a server for discord would be frfr the move!', 'Insta cash and 5 $5 boost after setting up account.', 'text me'],
+  replies: [
+    { t: "Paid referral offers aren't allowed in here — that's exactly how people end up out of pocket 🙏 Keep it in the chat where everyone can see what's going on.", n: 'Про оплаченные рефералки и «sign up and get paid» — жёстко.' },
+    { t: "Friendly chat about other games is fine, but I'm not letting recruitment or DM deals run in here 🖤 Anything worth sharing, share it with the room.", n: 'Отделяет болтовню от вербовки.' },
+  ],
+  esc: 'Схемы с оплатой за регистрацию — просить убрать, фиксировать ник и время в отчёте. Просто «у кого есть дискорд» — не нарушение, но следи, куда уходит.',
+  never: ['Давать свои личные контакты — никогда', 'Уходить в личку с игроком', 'Продвигать сторонние серверы/каналы'],
+  br: [
+    { l: 'Повторяет после просьбы', to: 'spam' },
+    { l: 'Просто спрашивает про наш Discord', to: 'competitor' },
+  ],
+},
+
+'competitor': {
+  g: 'stop', t: 'Коды других брендов и sister sites', vol: '435',
+  role: 'stop',
+  why: 'В чате свободно обсуждают Chumba, Crown Coins, Funrize, LuckyLand, Stake — и наши же бренды: Fortune Wheelz, Vegas Way, NoLimitCoins. Есть и прямая опасность: «I can tell yall how to glitch 3$ and 10 free plays everyday». Про глитчи — реагировать сразу.',
+  trigs: ['Any fortunewheel codes. Or no limit', 'do any of you have fortunewheelz or vegasway or nolimitcoins? I can tell yall how to glitch 3$ and 10 free plays everyday lol', 'Any funrize codes', 'Like funrize/fortune wheelz/idk yea like sister sites haha', 'Is this site a sister site if Funrize?'],
+  replies: [
+    { t: "Can't help with codes for other sites from here 🙂 What I can do is make sure you don't miss what happens in this room. What are you playing on Scarlet Sands tonight?", n: 'Не подтверждай и не отрицай связь между брендами.' },
+    { t: "Going to shut that down — no exploit talk in here, and it never ends well for the person trying it 🙏 Let's keep it to what actually works.", n: 'Для «glitch / exploit». Реагируй немедленно.' },
+  ],
+  esc: 'Разговоры про глитчи и эксплойты — гасить сразу, фиксировать ник, время и что именно человек предлагал. Передать наверх.',
+  never: ['Комментировать, связаны ли бренды между собой', 'Раздавать коды других проектов', 'Оставлять предложение глитча без реакции'],
+  br: [
+    { l: 'Продолжает продавать глитч', to: 'spam' },
+    { l: 'Просто болтает про другие сайты', to: 'smalltalk' },
+  ],
+},
+
+'spam': {
+  g: 'stop', t: 'Спам и упорное нарушение', vol: '~500',
+  role: 'stop',
+  why: 'Финальная ветка для всех, кто не остановился после двух просьб: флуд одним и тем же, платёжные теги, вербовка, травля. Порядок действий должен быть один и тот же, чтобы смены не решали на глаз.',
+  trigs: ['повтор одного сообщения подряд', 'платёжный тег после просьбы убрать', 'вербовка после предупреждения', 'травля конкретного игрока'],
+  replies: [
+    { t: "Last ask: stop posting that here 🙏 Next step isn't up to me.", n: 'Финальное предупреждение. Коротко, без спора.' },
+  ],
+  esc: 'Порядок: (1) спокойная просьба, (2) прямое предупреждение, (3) модерация по правилам платформы. Каждый случай — в отчёт смены: ник, время, что нарушал, что сделал ты. Точные права на мут/бан подтвердить у саппорта.',
+  never: ['Спорить публично и объяснять правила три раза', 'Наказывать без двух предупреждений (кроме глитчей и RG-случаев)', 'Обсуждать наказание с чатом'],
+  br: [
+    { l: 'Остановился', to: 'smalltalk' },
+  ],
+},
+
+};
+
+/* ═══════════ РЕНДЕР ═══════════ */
+
+const stage = document.getElementById('stage');
+const rail = document.getElementById('rail');
+const qEl = document.getElementById('q');
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+let trail = [];
+
+/* рельс */
+rail.innerHTML = GROUPS.map(g => {
+  const items = Object.entries(N).filter(([, n]) => n.g === g.id);
+  return `<div class="rail-group">
+    <div class="rail-head"><span>${esc(g.title)}</span>${g.note ? `<em>${esc(g.note)}</em>` : ''}</div>
+    ${items.map(([id, n]) => `<button class="rail-item${n.role === 'stop' ? ' stop' : ''}" data-go="${id}">
+      <i></i><span>${esc(n.t)}</span><span class="vol">${esc(n.vol)}</span>
+    </button>`).join('')}
+  </div>`;
+}).join('');
+
+function roleTag(role) {
+  if (role === 'stop') return '<span class="tag stop">Протокол · не импровизировать</span>';
+  if (role === 'esc') return '<span class="tag esc">Эскалация в саппорт</span>';
+  return '<span class="tag own">Отвечаешь сам</span>';
+}
+
+function render(id, push = true) {
+  const n = N[id];
+  if (!n) return;
+  if (push) {
+    const at = trail.indexOf(id);
+    trail = at >= 0 ? trail.slice(0, at + 1) : [...trail, id];
+  }
+  try { localStorage.setItem('sscl:last', id); } catch (e) { /* приватный режим — не критично */ }
+
+  rail.querySelectorAll('.rail-item').forEach(b =>
+    b.setAttribute('aria-current', b.dataset.go === id ? 'true' : 'false'));
+
+  const crumbs = trail.length > 1
+    ? trail.map((t, i) => `${i ? '<s>›</s>' : ''}<button data-go="${t}" data-crumb="1">${esc(N[t].t)}</button>`).join('')
+    : '';
+
+  stage.innerHTML = `
+    <div class="crumbs">${crumbs}</div>
+    <div class="node-head">
+      <div class="tagrow">${roleTag(n.role)}<span class="tag vol">${esc(n.vol)} сообщений в базе</span></div>
+      <h1>${esc(n.t)}</h1>
+      <p class="node-why">${esc(n.why)}</p>
+    </div>
+
+    <section class="sec">
+      <h2>Как это звучит в чате</h2>
+      <div class="trigs">${n.trigs.map(t => `<span class="trig">${esc(t)}</span>`).join('')}</div>
+    </section>
+
+    <section class="sec">
+      <h2>Что отвечать</h2>
+      <div class="replies">${n.replies.map(r => `
+        <div class="reply">
+          <div>
+            <p>${esc(r.t)}</p>
+            ${r.n ? `<div class="note"><b>↳</b><span>${esc(r.n)}</span></div>` : ''}
+          </div>
+          <button class="copy" data-copy="${esc(r.t)}">Копировать</button>
+        </div>`).join('')}
+      </div>
+    </section>
+
+    ${n.hook ? `<section class="sec">
+      <h2>Хук: чем затянуть в разговор</h2>
+      <div class="hook">
+        <div><span class="lbl">Кидай вдогонку к ответу</span><p>${esc(n.hook)}</p></div>
+        <button class="copy" data-copy="${esc(n.hook)}">Копировать</button>
+      </div>
+    </section>` : ''}
+
+    ${n.esc ? `<section class="sec">
+      <h2>Порядок действий</h2>
+      <div class="esc-box"><span class="lbl">${n.role === 'stop' ? 'Протокол' : 'Эскалация'}</span><p>${esc(n.esc)}</p></div>
+    </section>` : ''}
+
+    ${n.never ? `<section class="sec">
+      <h2>Чего не делать</h2>
+      <ul class="never">${n.never.map(x => `<li><span>${esc(x)}</span></li>`).join('')}</ul>
+    </section>` : ''}
+
+    ${n.br && n.br.length ? `<section class="sec">
+      <h2>Юзер ответил → куда дальше</h2>
+      <div class="branches">${n.br.map(b => `
+        <button class="branch" data-go="${b.to}">
+          <b>«${esc(b.l)}»</b><s>→ ${esc(N[b.to] ? N[b.to].t : b.to)}</s>
+        </button>`).join('')}
+      </div>
+    </section>` : ''}
+  `;
+  document.querySelector('.main').scrollTop = 0;
+}
+
+/* правила смены */
+function renderRules() {
+  trail = [];
+  rail.querySelectorAll('.rail-item').forEach(b => b.setAttribute('aria-current', 'false'));
+  stage.innerHTML = `
+    <div class="crumbs"></div>
+    <div class="node-head">
+      <div class="tagrow"><span class="tag own">Читать перед каждой сменой</span></div>
+      <h1>Правила смены</h1>
+      <p class="node-why">Пять вещей, которые действуют всегда, в любой ветке. Всё остальное — в дереве слева.</p>
+    </div>
+
+    <section class="sec">
+      <h2>Всегда</h2>
+      <div class="rules">
+        <div class="rule"><span class="k">Язык</span><p>Только английский. Юзеры — США. Никаких переводов, даже если написали не по-английски.</p></div>
+        <div class="rule"><span class="k">Каждый ответ — с вопросом</span><p>Ответ без вопроса закрывает разговор. «Ок», «np», «you're welcome» — запрещены как самостоятельные сообщения.</p></div>
+        <div class="rule"><span class="k">Не обещай того, чего не видишь</span><p>Сроки выплат, статусы, суммы, начисления, лимиты в цифрах — только саппорт. Твоя зона: чат, коды, механики, настроение.</p></div>
+        <div class="rule"><span class="k">Сказал «дам код» — дай</span><p>Чат помнит и цитирует. Одно невыполненное обещание тратится дольше, чем десять выданных кодов.</p></div>
+        <div class="rule"><span class="k">Не повторяйся</span><p>В каждой ветке 2–3 варианта ответа. Одна и та же фраза три раза за час читается как бот.</p></div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <h2>Промо-рычаги в твоих руках</h2>
+      <div class="tblwrap"><table class="levers">
+        <thead><tr><th>Что даёшь</th><th>Когда</th><th>Как подавать</th></tr></thead>
+        <tbody>
+          <tr><td>Offer code</td><td>Разгон активности, ответ на волну запросов</td><td>Как событие для всей комнаты, не в личку одному просящему</td></tr>
+          <tr><td>FP code</td><td>За активность: человек поддержал разговор, помог новичку, поделился кодом</td><td>Назвать причину вслух — «за то, что держишь чат живым»</td></tr>
+          <tr><td>SC code</td><td>Сильный момент: раскачка мёртвого часа, крупный выигрыш в комнате</td><td>С объявлением и вопросом в комнату</td></tr>
+          <tr><td>Свой заход</td><td>Чат затих — можно спросить «who wants a code?» первым</td><td>Спросил → обязан дать</td></tr>
+        </tbody>
+      </table></div>
+      <p style="color:var(--ink-faint);font-size:12.5px;margin:9px 0 0">Количество кодов на смену и частоту нужно зафиксировать с саппортом — в чек-листе стоит заглушка.</p>
+    </section>
+
+    <section class="sec">
+      <h2>Мгновенная эскалация, без обсуждения</h2>
+      <ul class="never">
+        <li><span>Кэшауты, выплаты, «где мои деньги» → саппорт</span></li>
+        <li><span>KYC, документы, ID → саппорт. Документы в чате не запрашивать никогда</span></li>
+        <li><span>Платёжки, депозиты, чарджи → саппорт</span></li>
+        <li><span>Баги: собрать игру + текст ошибки + устройство, передать команде</span></li>
+        <li><span>Ответственная игра (rent, food, kids, «last dollar», addict) → протокол RG, ноль промо</span></li>
+        <li><span>Предложение глитча или эксплойта → погасить сразу, зафиксировать ник и время</span></li>
+      </ul>
+    </section>
+
+    <section class="sec">
+      <h2>Что нужно подтвердить у саппорта</h2>
+      <ul class="gap">
+        <li><b>Точный путь ввода промокода</b> в интерфейсе — сейчас в ответах формулировка общая.</li>
+        <li><b>Лимит кодов на игрока в день</b> и срок жизни кода — юзеры спрашивают прямо, ответа нет.</li>
+        <li><b>«DAILY BLESSING» и «claim 25»</b> — 1 176 сообщений с этими ключевиками. Что это, где работает, что отвечать.</li>
+        <li><b>Ember Points → код:</b> сколько embers на какой код, почему начисление могло остановиться.</li>
+        <li><b>Норма промо на смену:</b> сколько offer / FP / SC кодов оператор может выдать за ночь и с каким интервалом.</li>
+        <li><b>Права на модерацию:</b> может ли оператор мутить и банить сам, или только эскалировать.</li>
+        <li><b>VIP и GC vs SC:</b> считается ли игра на gold coins в прокачку уровня — в чате об этом спорят.</li>
+      </ul>
+    </section>
+  `;
+  document.querySelector('.main').scrollTop = 0;
+}
+
+/* поиск */
+const INDEX = Object.entries(N).map(([id, n]) => ({
+  id, t: n.t,
+  hay: (n.t + ' ' + n.why + ' ' + n.trigs.join(' ') + ' ' + n.br.map(b => b.l).join(' ')).toLowerCase(),
+}));
+
+function search(raw) {
+  const q = raw.trim().toLowerCase();
+  if (q.length < 2) { render(trail[trail.length - 1] || 'beg', false); return; }
+  const words = q.split(/[^a-zа-яїієґ0-9$@]+/i).filter(w => w.length > 2);
+  const scored = INDEX.map(e => {
+    let s = 0;
+    if (e.hay.includes(q)) s += 40;
+    words.forEach(w => { if (e.hay.includes(w)) s += 8; if (e.t.toLowerCase().includes(w)) s += 6; });
+    const n = N[e.id];
+    const hit = n.trigs.find(t => words.some(w => t.toLowerCase().includes(w)) || t.toLowerCase().includes(q));
+    return { ...e, s, hit };
+  }).filter(e => e.s > 0).sort((a, b) => b.s - a.s).slice(0, 8);
+
+  const mark = t => {
+    let out = esc(t);
+    [q, ...words].filter(Boolean).forEach(w => {
+      out = out.replace(new RegExp('(' + w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi'), '<mark>$1</mark>');
+    });
+    return out;
+  };
+
+  stage.innerHTML = `
+    <div class="crumbs"></div>
+    <div class="node-head">
+      <div class="tagrow"><span class="tag vol">Поиск</span></div>
+      <h1>${scored.length ? 'Похоже на эти ветки' : 'Ничего не нашлось'}</h1>
+      <p class="node-why">${scored.length
+        ? 'Выбери ветку — откроется полный сценарий с ответами.'
+        : 'Попробуй одно-два слова из сообщения юзера: code, limit, withdraw, ember, trade, scam, chime, discord, rent.'}</p>
+    </div>
+    <div class="results">${scored.map(e => `
+      <button class="result" data-go="${e.id}">
+        <b>${esc(e.t)}</b>
+        ${e.hit ? `<s>${mark(e.hit)}</s>` : ''}
+      </button>`).join('')}
+    </div>`;
+  document.querySelector('.main').scrollTop = 0;
+}
+
+/* события */
+document.addEventListener('click', e => {
+  const go = e.target.closest('[data-go]');
+  if (go) {
+    if (go.dataset.crumb) trail = trail.slice(0, trail.indexOf(go.dataset.go) + 1);
+    if (go.classList.contains('rail-item')) trail = [];
+    qEl.value = '';
+    render(go.dataset.go, true);
+    return;
+  }
+  const cp = e.target.closest('[data-copy]');
+  if (cp) {
+    const text = cp.dataset.copy;
+    const ok = () => { cp.textContent = 'Скопировано'; cp.classList.add('done'); setTimeout(() => { cp.textContent = 'Копировать'; cp.classList.remove('done'); }, 1400); };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(ok, () => fallback(text, ok));
+    } else fallback(text, ok);
+  }
+});
+
+function fallback(text, ok) {
+  const ta = document.createElement('textarea');
+  ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+  document.body.appendChild(ta); ta.select();
+  try { document.execCommand('copy'); ok(); } catch (err) { /* ничего не поделать */ }
+  ta.remove();
+}
+
+let tmr;
+qEl.addEventListener('input', () => { clearTimeout(tmr); tmr = setTimeout(() => search(qEl.value), 130); });
+document.getElementById('btn-rules').addEventListener('click', () => { qEl.value = ''; renderRules(); });
+
+const themeBtn = document.getElementById('btn-theme');
+themeBtn.addEventListener('click', () => {
+  const light = document.documentElement.getAttribute('data-theme') !== 'light';
+  document.documentElement.setAttribute('data-theme', light ? 'light' : 'dark');
+  themeBtn.setAttribute('aria-pressed', String(light));
+  themeBtn.textContent = light ? 'Тьма' : 'Свет';
+  try { localStorage.setItem('sscl:theme', light ? 'light' : 'dark'); } catch (e) { /* ок */ }
+});
+
+/* старт */
+(function boot() {
+  let t = null, last = null;
+  try { t = localStorage.getItem('sscl:theme'); last = localStorage.getItem('sscl:last'); } catch (e) { /* ок */ }
+  if (t) {
+    document.documentElement.setAttribute('data-theme', t);
+    themeBtn.setAttribute('aria-pressed', String(t === 'light'));
+    themeBtn.textContent = t === 'light' ? 'Тьма' : 'Свет';
+  }
+  render(last && N[last] ? last : 'beg', true);
+})();
+</script>
+
+</body>
+</html>
