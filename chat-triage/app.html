@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 
 <style>
-/* Dark-first: ночная смена. :root — тёмная палитра, light переопределяется ниже. */
+/* Dark-first: нічна зміна. :root — темна палітра, light перевизначається нижче. */
 :root {
   --ground: #141010;
   --panel: #1c1615;
@@ -116,10 +116,10 @@ body {
 .tbtn:hover { color: var(--ink); border-color: var(--ink-faint); }
 .tbtn[aria-pressed="true"] { color: var(--ground); background: var(--ember); border-color: var(--ember); }
 
-/* ── тело ─────────────────────────────────────────────────── */
+/* ── тіло ─────────────────────────────────────────────────── */
 .body { display: grid; grid-template-columns: 292px minmax(0,1fr); flex: 1; min-height: 0; }
 
-/* рельс */
+/* рейка */
 .rail { border-right: 1px solid var(--line); overflow-y: auto; background: var(--panel); }
 .rail-group { padding: 14px 0 6px; }
 .rail-head {
@@ -184,7 +184,7 @@ h1 {
 }
 .sec > h2::after { content: ""; flex: 1; height: 1px; background: var(--line-soft); }
 
-/* триггеры — сырой лог */
+/* тригери — сирий лог */
 .trigs { display: flex; flex-wrap: wrap; gap: 6px; }
 .trig {
   font-family: var(--f-mono); font-size: 12px; color: var(--ink-dim);
@@ -193,7 +193,7 @@ h1 {
   padding: 4px 9px; border-radius: 0 2px 2px 0;
 }
 
-/* ответы */
+/* відповіді */
 .replies { display: flex; flex-direction: column; gap: 10px; }
 .reply {
   display: grid; grid-template-columns: 1fr auto; gap: 14px; align-items: start;
@@ -227,7 +227,7 @@ h1 {
   text-transform: uppercase; color: var(--ember); display: block; margin-bottom: 5px;
 }
 
-/* ветки */
+/* гілки */
 .branches { display: grid; gap: 8px; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
 .branch {
   text-align: left; background: var(--panel); border: 1px solid var(--line);
@@ -239,7 +239,7 @@ h1 {
 .branch s { text-decoration: none; font-family: var(--f-ui); font-size: 11px; color: var(--ink-faint); }
 .branch:hover s { color: var(--ink-dim); }
 
-/* запреты */
+/* заборони */
 .never { display: flex; flex-direction: column; gap: 6px; }
 .never li {
   list-style: none; font-size: 13.5px; color: var(--ink-dim);
@@ -248,7 +248,7 @@ h1 {
 .never li::before { content: "×"; color: var(--red); font-family: var(--f-mono); font-weight: 500; }
 ul.never { margin: 0; padding: 0; }
 
-/* эскалация */
+/* ескалація */
 .esc-box {
   border: 1px solid var(--ember-dim); background: color-mix(in srgb, var(--ember) 8%, transparent);
   border-radius: 3px; padding: 13px 14px;
@@ -259,7 +259,7 @@ ul.never { margin: 0; padding: 0; }
 }
 .esc-box p { margin: 0; font-size: 14px; color: var(--ink); }
 
-/* поиск-результаты */
+/* пошук-результати */
 .results { display: flex; flex-direction: column; gap: 8px; }
 .result {
   text-align: left; background: var(--panel); border: 1px solid var(--line);
@@ -272,7 +272,7 @@ ul.never { margin: 0; padding: 0; }
 .result mark { background: color-mix(in srgb, var(--ember) 28%, transparent); color: var(--ink); border-radius: 1px; }
 .empty { color: var(--ink-faint); font-size: 14px; }
 
-/* доска правил */
+/* дошка правил */
 .rules { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
 .rule {
   background: var(--panel); border: 1px solid var(--line); border-radius: 3px; padding: 12px 13px;
@@ -315,564 +315,564 @@ ul.gap { margin: 0; padding: 0; }
     <div class="brand"><b>Chat Triage</b><span>Scarlet Sands · night</span></div>
     <div class="search">
       <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M16 16l5 5"/></svg>
-      <input id="q" type="search" placeholder="Вставь сообщение юзера или ключевое слово — найдёт ветку" autocomplete="off" spellcheck="false">
+      <input id="q" type="search" placeholder="Встав повідомлення юзера або ключове слово — знайде гілку" autocomplete="off" spellcheck="false">
     </div>
     <div class="top-right">
-      <button class="tbtn" id="btn-rules">Правила смены</button>
-      <button class="tbtn" id="btn-theme" aria-pressed="false">Свет</button>
+      <button class="tbtn" id="btn-rules">Правила зміни</button>
+      <button class="tbtn" id="btn-theme" aria-pressed="false">Світло</button>
     </div>
   </header>
 
   <div class="body">
-    <nav class="rail" id="rail" aria-label="Интенты"></nav>
+    <nav class="rail" id="rail" aria-label="Інтенти"></nav>
     <main class="main"><div class="wrap" id="stage"></div></main>
   </div>
 </div>
 
 <script>
 /* ─────────────────────────────────────────────────────────────
-   ДАННЫЕ. Доли трафика — из разбора 105 643 живых сообщений
-   чата Scarlet Sands за 05.03–26.08.2026 (127 152 строки всего,
-   минус QA-мусор и клавиатурная каша).
+   ДАНІ. Частки трафіку — з розбору 105 643 живих повідомлень
+   чату Scarlet Sands за 05.03–26.08.2026 (127 152 рядки всього,
+   мінус QA-сміття та клавіатурна каша).
    ───────────────────────────────────────────────────────────── */
 
 const GROUPS = [
-  { id: 'promo',  title: 'Промокоды', note: '≈ 60% работы' },
-  { id: 'money',  title: 'Деньги и аккаунт', note: 'эскалация' },
-  { id: 'mood',   title: 'Настроение и конфликт', note: '' },
-  { id: 'comm',   title: 'Комьюнити', note: 'вовлечение' },
-  { id: 'stop',   title: 'Красные флаги', note: 'протокол' },
+  { id: 'promo',  title: 'Промокоди', note: '≈ 60% роботи' },
+  { id: 'money',  title: 'Гроші та акаунт', note: 'ескалація' },
+  { id: 'mood',   title: 'Настрій і конфлікт', note: '' },
+  { id: 'comm',   title: 'Комʼюніті', note: 'залучення' },
+  { id: 'stop',   title: 'Червоні прапорці', note: 'протокол' },
 ];
 
 const N = {
 
-/* ══════════ ПРОМОКОДЫ ══════════ */
+/* ══════════ ПРОМОКОДИ ══════════ */
 
 'beg': {
-  g: 'promo', t: 'Просят код: «any codes?»', vol: '6 097',
+  g: 'promo', t: 'Просять код: «any codes?»', vol: '6 097',
   role: 'own',
-  why: 'Самый частый запрос в чате. Это не разовый вопрос, а фон: «codes?», «code please», «any codes» идут пачками каждый час. Отвечать нужно так, чтобы человек остался в чате и после «нет», иначе он уходит и возвращается через 10 минут с тем же вопросом.',
+  why: 'Найчастіший запит у чаті. Це не разове питання, а фон: «codes?», «code please», «any codes» ідуть пачками щогодини. Відповідати треба так, щоб людина лишилася в чаті й після «ні», інакше вона піде й повернеться через 10 хвилин з тим самим питанням.',
   trigs: ['any codes?', 'code please', 'codes', 'Anyone got a code for me?', "I'm new any codes?", 'admin you have any codes?', 'In need of a code plz', 'Please please please code'],
   replies: [
-    { t: "Hey! I hear you 👋 Codes drop here through the night, not on a fixed clock — so hanging out in chat is genuinely the best way to catch one. What are you playing right now?", n: 'База, когда кода на руках нет. Никогда не отвечай просто «no».' },
-    { t: "No code from me this second, but the room is warm tonight — players drop theirs here all the time. Stick around and tell me how your session is going, I want to hear it 🔥", n: 'Перекидывает надежду на комьюнити и сразу тянет разговор.' },
-    { t: "Got you 👀 Dropping one in a moment — first, who's actually still awake in here? Say hey so I know who I'm playing with tonight.", n: 'Только если реально собираешься дропнуть код. Обещал — дай.' },
+    { t: "Hey! I hear you 👋 Codes drop here through the night, not on a fixed clock — so hanging out in chat is genuinely the best way to catch one. What are you playing right now?", n: 'База, коли коду на руках немає. Ніколи не відповідай просто «no».' },
+    { t: "No code from me this second, but the room is warm tonight — players drop theirs here all the time. Stick around and tell me how your session is going, I want to hear it 🔥", n: 'Перекидає надію на комʼюніті й одразу тягне розмову.' },
+    { t: "Got you 👀 Dropping one in a moment — first, who's actually still awake in here? Say hey so I know who I'm playing with tonight.", n: 'Тільки якщо реально збираєшся дропнути код. Пообіцяв — дай.' },
   ],
   hook: "Quick one while you wait — what's the last game that actually paid you something? I'm collecting tonight's list 🎰",
-  never: ['Обещать код «через 5 минут», если не собираешься дропать — в этом чате помнят и цитируют', 'Писать сухое «no» или «not now» без вопроса вдогонку', 'Говорить, что коды выдаются по расписанию — их и так ждут по часам'],
+  never: ['Обіцяти код «через 5 хвилин», якщо не збираєшся дропати — у цьому чаті памʼятають і цитують', 'Писати сухе «no» або «not now» без питання услід', 'Казати, що коди видаються за розкладом — їх і так чекають по годинах'],
   br: [
-    { l: 'Продолжает долбить: «please please code»', to: 'beg-push' },
-    { l: 'Пишет, что он новый на сайте', to: 'newbie' },
-    { l: 'Код взял, но «limit reached / invalid»', to: 'code-dead' },
-    { l: 'Чат вялый, никто не отвечает', to: 'dead' },
-    { l: 'Требует именно админский код', to: 'admin-code' },
+    { l: 'Продовжує довбати: «please please code»', to: 'beg-push' },
+    { l: 'Пише, що він новий на сайті', to: 'newbie' },
+    { l: 'Код узяв, але «limit reached / invalid»', to: 'code-dead' },
+    { l: 'Чат млявий, ніхто не відповідає', to: 'dead' },
+    { l: 'Вимагає саме адмінський код', to: 'admin-code' },
   ],
 },
 
 'beg-push': {
-  g: 'promo', t: 'Давит после отказа', vol: '~1 200',
+  g: 'promo', t: 'Тисне після відмови', vol: '~1 200',
   role: 'own',
-  why: 'После «нет» часть юзеров переходит в спам-режим или в обиду: «Like really nobody is going to share a code come on», «There\'s 91 people n nobody wants to help?». Задача — не читать морали, а перевести энергию в активность.',
+  why: 'Після «ні» частина юзерів переходить у спам-режим або в образу: «Like really nobody is going to share a code come on», «There\'s 91 people n nobody wants to help?». Завдання — не читати моралі, а перевести енергію в активність.',
   trigs: ['Like really nobody is going to share a code come on', "There's 91 people n nobody wants to help ?", 'DROP SOME PROMO', 'drop promo pls', 'Okay drop one today please', 'Why dont you drop 1'],
   replies: [
-    { t: "I get the frustration, for real. I can't conjure one on demand — but I'm watching this room all night and I do notice who's actually here. Keep me company and you'll be first in line 👀", n: 'Даёт статус вместо кода. Работает лучше отказа.' },
-    { t: "Easy 😄 Begging doesn't move the needle, but being the person who makes this chat fun absolutely does. Tell me your biggest win on Scarlet Sands and let's get the room talking.", n: 'Мягко останавливает спам и сразу даёт задачу.' },
+    { t: "I get the frustration, for real. I can't conjure one on demand — but I'm watching this room all night and I do notice who's actually here. Keep me company and you'll be first in line 👀", n: 'Дає статус замість коду. Працює краще за відмову.' },
+    { t: "Easy 😄 Begging doesn't move the needle, but being the person who makes this chat fun absolutely does. Tell me your biggest win on Scarlet Sands and let's get the room talking.", n: 'Мʼяко зупиняє спам і одразу дає завдання.' },
   ],
   hook: "Serious question for the room: what's the one game you'd tell a new player to open first? Best answer gets my attention tonight ⚡",
-  never: ['Отвечать раздражением или сарказмом — скриншотится', 'Мутить/предупреждать за одно «please» — это не спам, это норма чата', 'Сдаваться и выдавать код только потому, что задавили'],
+  never: ['Відповідати роздратуванням або сарказмом — скриншотять', 'Мутити чи попереджати за одне «please» — це не спам, це норма чату', 'Здаватися й видавати код лише тому, що задавили'],
   br: [
-    { l: 'Перешёл на оскорбления', to: 'toxic' },
-    { l: 'Начал флудить одним и тем же', to: 'spam' },
-    { l: 'Успокоился и заговорил', to: 'dead' },
+    { l: 'Перейшов на образи', to: 'toxic' },
+    { l: 'Почав флудити одним і тим самим', to: 'spam' },
+    { l: 'Заспокоївся й заговорив', to: 'dead' },
   ],
 },
 
 'code-dead': {
   g: 'promo', t: '«Limit reached» / «invalid» / «unavailable»', vol: '751',
   role: 'own',
-  why: 'Главный источник злости в чате. У кодов игроков есть лимит активаций, и его выжирают за секунды: «All limit reached within 2 seconds», «Limit reached like BAM!». Юзер думает, что его обманули, а не что он опоздал. Объясни механику — и злость уходит.',
+  why: 'Головне джерело злості в чаті. У кодів гравців є ліміт активацій, і його виїдають за секунди: «All limit reached within 2 seconds», «Limit reached like BAM!». Юзер думає, що його обманули, а не що він запізнився. Поясни механіку — і злість зникає.',
   trigs: ['says limit reached', 'This one said unavailable', 'That code is invalid', 'None of those codes work', 'All limit reached', 'no codes for me to use and that promo code is used up', 'any new code that isnt limit reached'],
   replies: [
-    { t: "That message means someone beat you to the last activation — the code was real, it just got claimed out. Nothing wrong with your account 🙌 Were you fast on it, or did you find it a few minutes late?", n: 'Ключевое: снять с юзера ощущение, что проблема в нём.' },
-    { t: "«Limit reached» = the code ran out of activations. «Invalid» = it's expired or mistyped. Which one did you get? Paste it here and I'll tell you which of the two it was.", n: 'Разделяет два разных случая. Дальше веди по ветке.' },
-    { t: "Yeah those go fast — a good code can die in seconds in here 😅 Pro move: keep the promo field open in another tab so you only paste and hit enter. Want me to give you a heads-up next time one lands?", n: 'Даёт практический лайфхак + причину остаться.' },
+    { t: "That message means someone beat you to the last activation — the code was real, it just got claimed out. Nothing wrong with your account 🙌 Were you fast on it, or did you find it a few minutes late?", n: 'Ключове: зняти з юзера відчуття, що проблема в ньому.' },
+    { t: "«Limit reached» = the code ran out of activations. «Invalid» = it's expired or mistyped. Which one did you get? Paste it here and I'll tell you which of the two it was.", n: 'Розділяє два різні випадки. Далі веди по гілці.' },
+    { t: "Yeah those go fast — a good code can die in seconds in here 😅 Pro move: keep the promo field open in another tab so you only paste and hit enter. Want me to give you a heads-up next time one lands?", n: 'Дає практичний лайфхак + причину лишитися.' },
   ],
   hook: "How fast did it die for you — seconds, or was it already gone when you opened it? I'm trying to figure out how quick this room really is ⏱️",
-  never: ['Говорить «code works fine, it\'s on your side» — это спор, который ты не выиграешь', 'Утверждать, что код точно был рабочий, если не проверял'],
+  never: ['Казати «code works fine, it\'s on your side» — це суперечка, яку ти не виграєш', 'Стверджувати, що код точно був робочий, якщо не перевіряв'],
   br: [
-    { l: '«Invalid» с первой секунды, код свежий', to: 'esc-bug' },
-    { l: 'Не понимает, куда вообще вводить код', to: 'how-code' },
-    { l: 'Жалуется, что у него коды не работают уже дни', to: 'esc-bug' },
-    { l: 'Требует компенсацию за сгоревший код', to: 'admin-code' },
+    { l: '«Invalid» з першої секунди, код свіжий', to: 'esc-bug' },
+    { l: 'Не розуміє, куди взагалі вводити код', to: 'how-code' },
+    { l: 'Скаржиться, що в нього коди не працюють уже кілька днів', to: 'esc-bug' },
+    { l: 'Вимагає компенсацію за згорілий код', to: 'admin-code' },
   ],
 },
 
 'how-code': {
-  g: 'promo', t: 'Как работают промокоды', vol: '702',
+  g: 'promo', t: 'Як працюють промокоди', vol: '702',
   role: 'own',
-  why: 'Ветка «объясни механику». Спрашивают, куда вводить, сколько можно в день, как часто дропают. Это самый лёгкий способ выглядеть полезным — и самый недоиспользованный.',
+  why: 'Гілка «поясни механіку». Питають, куди вводити, скільки можна на день, як часто дропають. Це найлегший спосіб виглядати корисним — і найбільш недовикористаний.',
   trigs: ['How do I use codes', 'Where do we add the code ? Sorry I\'m new to the site', 'Is there a limit on how many promo codes we can use per day?', 'Promo Codes? How often are they given out', 'How do you get a promo code', 'Wait.... we get codes here?'],
   replies: [
-    { t: "Open the promotions area and drop the code into the promo code field, then confirm — the reward lands on your balance right away 💫 Did it go through for you?", n: 'Точный путь по интерфейсу подтвердить у саппорта, потом дописать сюда.' },
-    { t: "Two kinds float around here: codes players generate and share, and codes that come from us. Player codes have activation limits, so they burn out fast. Ours are the ones worth waiting up for 😉", n: 'Разница между player code и admin code — юзеры сами её обсуждают.' },
-    { t: "There's a cap on how many you can run in a day, so if you hit «limit reached» on every single one, that's usually your own limit talking, not a dead code. Want me to walk you through it?", n: 'Точное число лимита уточнить у саппорта.' },
+    { t: "Open the promotions area and drop the code into the promo code field, then confirm — the reward lands on your balance right away 💫 Did it go through for you?", n: 'Точний шлях в інтерфейсі підтвердити в support, потім дописати сюди.' },
+    { t: "Two kinds float around here: codes players generate and share, and codes that come from us. Player codes have activation limits, so they burn out fast. Ours are the ones worth waiting up for 😉", n: 'Різниця між player code і admin code — юзери самі її обговорюють.' },
+    { t: "There's a cap on how many you can run in a day, so if you hit «limit reached» on every single one, that's usually your own limit talking, not a dead code. Want me to walk you through it?", n: 'Точне число ліміту уточнити в support.' },
   ],
   hook: "Are you new to the chat, or just never tried a code before? Either way welcome — tell me what you've been playing 🖤",
-  never: ['Называть точные цифры лимитов и сроки, пока их не подтвердил саппорт', 'Обещать «коды каждый час»'],
+  never: ['Називати точні цифри лімітів і строки, поки їх не підтвердив support', 'Обіцяти «коди щогодини»'],
   br: [
-    { l: 'Спрашивает про Ember Points и свою генерацию', to: 'ember' },
-    { l: 'Код всё равно не проходит', to: 'code-dead' },
-    { l: 'Хочет обменяться кодами с другим игроком', to: 'trade' },
+    { l: 'Питає про Ember Points і власну генерацію', to: 'ember' },
+    { l: 'Код усе одно не проходить', to: 'code-dead' },
+    { l: 'Хоче обмінятися кодами з іншим гравцем', to: 'trade' },
   ],
 },
 
 'ember': {
-  g: 'promo', t: 'Ember Points: юзер сам генерит коды', vol: '1 438',
+  g: 'promo', t: 'Ember Points: юзер сам генерує коди', vol: '1 438',
   role: 'own',
-  why: 'Ключевая механика, вокруг которой живёт чат: игроки фармят Ember Points, превращают их в промокоды и раздают друг другу — свой код использовать нельзя. За период игроки скинули в чат более 13 500 уникальных кодов с префиксом PC. Оператор обязан знать это назубок.',
+  why: 'Ключова механіка, навколо якої живе чат: гравці фармлять Ember Points, перетворюють їх на промокоди й роздають одне одному — свій код використати не можна. За період гравці скинули в чат понад 13 500 унікальних кодів із префіксом PC. Оператор мусить знати це напамʼять.',
   trigs: ['i have 500 ember ots left to create the big one', 'google how to create ember points to codes', 'Codes used with ember points are only for peers not for yourself', 'Im farming Ember now so I can get you all some codes', "I'm not able to do anything with my ember points. I don't understand", 'Why am I not getting ember points per spin anymore', 'When I share promocodes, do I get anything from people using my codes?'],
   replies: [
-    { t: "Embers are your own code factory 🔥 You collect them as you play, then turn them into a promo code — but it only works for other players, not for yourself. That's the whole trade economy in this room.", n: 'Главное правило механики: свой код себе не активируешь.' },
-    { t: "You're close — once you've got enough embers you can mint a code and drop it here. Honestly the people who share get remembered in this chat. How many embers are you sitting on?", n: 'Превращает механику в социальный статус.' },
-    { t: "If your embers aren't moving, it's usually about how you're playing rather than a broken account — but I'd rather have support confirm it than guess at your balance. Want me to point you to them?", n: 'Не гадай про начисление embers. Не знаешь — эскалируй.' },
+    { t: "Embers are your own code factory 🔥 You collect them as you play, then turn them into a promo code — but it only works for other players, not for yourself. That's the whole trade economy in this room.", n: 'Головне правило механіки: свій код собі не активуєш.' },
+    { t: "You're close — once you've got enough embers you can mint a code and drop it here. Honestly the people who share get remembered in this chat. How many embers are you sitting on?", n: 'Перетворює механіку на соціальний статус.' },
+    { t: "If your embers aren't moving, it's usually about how you're playing rather than a broken account — but I'd rather have support confirm it than guess at your balance. Want me to point you to them?", n: 'Не гадай про нарахування embers. Не знаєш — ескалюй.' },
   ],
   hook: "Are you farming embers to share, or hunting other people's codes? I want to know which side of this economy you're on 😄",
-  never: ['Придумывать курс «сколько embers = какой код»', 'Обещать вернуть/начислить embers — это саппорт'],
+  never: ['Вигадувати курс «скільки embers = який код»', 'Обіцяти повернути чи нарахувати embers — це support'],
   br: [
-    { l: 'Embers не начисляются / пропали', to: 'esc-acct' },
-    { l: 'Хочет обменять коды', to: 'trade' },
-    { l: 'Сгенерил код и делится', to: 'sharer' },
+    { l: 'Embers не нараховуються / зникли', to: 'esc-acct' },
+    { l: 'Хоче обміняти коди', to: 'trade' },
+    { l: 'Згенерував код і ділиться', to: 'sharer' },
   ],
 },
 
 'trade': {
-  g: 'promo', t: 'Обмен кодами между игроками', vol: '2 297',
+  g: 'promo', t: 'Обмін кодами між гравцями', vol: '2 297',
   role: 'own',
-  why: 'Огромный пласт: «Anyone up for a trade?», «even trade please», «I\'ll share more codes when others share more as well». Обмен кодами — это самоподдерживающийся движок чата. Оператор должен его разгонять, а не игнорировать.',
+  why: 'Величезний пласт: «Anyone up for a trade?», «even trade please», «I\'ll share more codes when others share more as well». Обмін кодами — це самопідтримуваний двигун чату. Оператор має його розганяти, а не ігнорувати.',
   trigs: ['Any one want to trade codes', 'Anyone up for a trade?', 'I have a code but looking to trade', 'Anyone got free spins to trade for mine', 'Hey anyone got a 20FP theyd like to do a even trade please?', 'FP to share? 10-20 FP I\'ll share as well'],
   replies: [
-    { t: "Trading is what keeps this room alive — post what you've got and what you're after, and I'll make sure it doesn't scroll past 👀 What's on your side?", n: 'Оператор как маркетмейкер: сводит обмен, а не просто наблюдает.' },
-    { t: "Love this. Let's do it properly: everyone looking to trade, drop your code and what you want back in the next few minutes. I'm watching the room 🔁", n: 'Ивент из ничего. Отлично работает в тихие часы.' },
+    { t: "Trading is what keeps this room alive — post what you've got and what you're after, and I'll make sure it doesn't scroll past 👀 What's on your side?", n: 'Оператор як маркетмейкер: зводить обмін, а не просто спостерігає.' },
+    { t: "Love this. Let's do it properly: everyone looking to trade, drop your code and what you want back in the next few minutes. I'm watching the room 🔁", n: 'Івент із нічого. Чудово працює в тихі години.' },
   ],
   hook: "Who else has something to trade right now? Post it — let's see how many we can match tonight 🔁",
-  never: ['Сводить обмен кодов на деньги, CashApp, Chime — это уже другая ветка', 'Гарантировать, что чужой код рабочий'],
+  never: ['Зводити обмін кодів на гроші, CashApp, Chime — це вже інша гілка', 'Гарантувати, що чужий код робочий'],
   br: [
-    { l: 'Обмен уехал в деньги / CashApp / Chime', to: 'cashapp' },
-    { l: 'Жалуется, что его кинули на обмене', to: 'fake-codes' },
-    { l: 'Просит коды других брендов', to: 'competitor' },
+    { l: 'Обмін поїхав у гроші / CashApp / Chime', to: 'cashapp' },
+    { l: 'Скаржиться, що його кинули на обміні', to: 'fake-codes' },
+    { l: 'Просить коди інших брендів', to: 'competitor' },
   ],
 },
 
 'admin-code': {
-  g: 'promo', t: 'Зовут админа: «ADMIN ADMIN ADMIN»', vol: '713',
+  g: 'promo', t: 'Кличуть адміна: «ADMIN ADMIN ADMIN»', vol: '713',
   role: 'own',
-  why: 'Чат знает, что админ дропает коды, и зовёт его прямым текстом — включая жалобы «hey admin how come your codes are always unavailable», «I can only use Admin codes». Ты и есть тот админ. Как ты отвечаешь на вызов — определяет тон всей смены.',
+  why: 'Чат знає, що адмін дропає коди, і кличе його прямим текстом — разом зі скаргами «hey admin how come your codes are always unavailable», «I can only use Admin codes». Ти і є той адмін. Як ти відповідаєш на виклик — визначає тон усієї зміни.',
   trigs: ['ADMIN ADMIN ADMIN', 'ADMIN is there a Friday promo code?', 'Do we have a chat promo coming up admin?', 'May I get an Admin code please', 'How come admin codes never work for me?', 'Admin... how are you? Any code updates for us?', 'My favorite Admin on?'],
   replies: [
-    { t: "I'm right here 👋 Watching the room all night. No code this exact minute, but I'm around — and I notice who keeps this chat good company.", n: 'Присутствие важнее кода. Молчащий админ = «нас игнорят».' },
-    { t: "Here 🖤 Before anything drops — how's the night treating everyone? Wins, near-misses, disasters, I want to hear all of it.", n: 'Открывает смену. Собирает разговор вокруг себя.' },
-    { t: "Yep, that's me. And since you asked nicely: stick around for a bit, I'm reading everything in here 👀", n: 'Короткий ответ на прямой зов, когда нет времени на длинный.' },
+    { t: "I'm right here 👋 Watching the room all night. No code this exact minute, but I'm around — and I notice who keeps this chat good company.", n: 'Присутність важливіша за код. Мовчазний адмін = «нас ігнорять».' },
+    { t: "Here 🖤 Before anything drops — how's the night treating everyone? Wins, near-misses, disasters, I want to hear all of it.", n: 'Відкриває зміну. Збирає розмову навколо себе.' },
+    { t: "Yep, that's me. And since you asked nicely: stick around for a bit, I'm reading everything in here 👀", n: 'Коротка відповідь на прямий клич, коли немає часу на довгу.' },
   ],
   hook: "Since I've got the room's attention: what should we do more of in this chat — trades, giveaways, or just good company at 3am? 🌒",
-  never: ['Игнорировать прямой зов «ADMIN» — в чате это читают как неуважение', 'Обещать код «на пятницу» и другие расписания без подтверждения'],
+  never: ['Ігнорувати прямий клич «ADMIN» — у чаті це читають як неповагу', 'Обіцяти код «на пʼятницю» та інші розклади без підтвердження'],
   br: [
-    { l: 'Спрашивает, почему админские коды тоже дохнут', to: 'code-dead' },
-    { l: 'Требует личный код себе', to: 'beg-push' },
-    { l: 'Спрашивает, есть ли вообще живой человек', to: 'greet' },
+    { l: 'Питає, чому адмінські коди теж дохнуть', to: 'code-dead' },
+    { l: 'Вимагає особистий код собі', to: 'beg-push' },
+    { l: 'Питає, чи є взагалі жива людина', to: 'greet' },
   ],
 },
 
 'sharer': {
-  g: 'promo', t: 'Игрок сам раздаёт коды', vol: '349',
+  g: 'promo', t: 'Гравець сам роздає коди', vol: '349',
   role: 'own',
-  why: 'Самые ценные люди в чате: «Here\'s another PCB0Z7C0IP Happy to share», «I\'ll post a code if someone has one to drop too». Их надо публично подсвечивать — на этом держится вся культура обмена. Один незамеченный шарер = минус источник контента.',
+  why: 'Найцінніші люди в чаті: «Here\'s another PCB0Z7C0IP Happy to share», «I\'ll post a code if someone has one to drop too». Їх треба публічно підсвічувати — на цьому тримається вся культура обміну. Один непомічений шарер = мінус джерело контенту.',
   trigs: ["Here's another PC…  Happy to share", 'PCHX7D5G3H hello, here is a good 1 to enjoy. 2sc and 20 spins', 'There\'s a code for y\'all', "I'll share more codes when others share more as well", 'Please use PCK1HKSA4S', 'I will share shortly'],
   replies: [
-    { t: "This is the energy 🙌 Thanks for dropping that — grab it fast, everyone. Who got in on it?", n: 'Публичное спасибо + гонка за кодом = движ в чате.' },
-    { t: "Respect for sharing instead of hoarding 🖤 You're one of the good ones in here. How many embers did that cost you?", n: 'Личное признание. Такие люди возвращаются каждую ночь.' },
+    { t: "This is the energy 🙌 Thanks for dropping that — grab it fast, everyone. Who got in on it?", n: 'Публічне спасибі + гонка за кодом = рух у чаті.' },
+    { t: "Respect for sharing instead of hoarding 🖤 You're one of the good ones in here. How many embers did that cost you?", n: 'Особисте визнання. Такі люди повертаються щоночі.' },
   ],
   hook: "Shoutout to the sharers tonight. Who else has one in their pocket? Let's keep the chain going 🔗",
-  never: ['Проходить мимо шарера молча', 'Просить его раздать больше — это давление на игрока'],
+  never: ['Проходити повз шарера мовчки', 'Просити його роздати більше — це тиск на гравця'],
   br: [
-    { l: 'Код оказался мёртвый, на него ругаются', to: 'fake-codes' },
-    { l: 'Пошла волна обмена', to: 'trade' },
+    { l: 'Код виявився мертвий, на нього лаються', to: 'fake-codes' },
+    { l: 'Пішла хвиля обміну', to: 'trade' },
   ],
 },
 
 'daily-blessing': {
   g: 'promo', t: '«DAILY BLESSING» / «claim 25»', vol: '1 176',
   role: 'esc',
-  why: 'Два ритуальных ключевика, которые юзеры вставляют в чат сотнями. Часть пишет их, не понимая зачем: «Why is everybody writing claim 25», «Is this where I type in DAILY BLESSING». Похоже, механика живёт на FB-странице, а не в чате — но точную инструкцию надо получить у саппорта, до этого не подтверждай и не опровергай.',
+  why: 'Два ритуальні ключовики, які юзери вставляють у чат сотнями. Частина пише їх, не розуміючи навіщо: «Why is everybody writing claim 25», «Is this where I type in DAILY BLESSING». Схоже, механіка живе на FB-сторінці, а не в чаті — але точну інструкцію треба отримати в support, до того не підтверджуй і не спростовуй.',
   trigs: ['DAILY BLESSING', 'Daily blessings', 'You have to message the FB page the daily blessing', "What's the daily blessing thing all about?", 'claim 25', 'claim25', 'Why is everybody writing claim 25', 'How come my code from Daily Blessing isn\'t working????'],
   replies: [
-    { t: "That one's a keyword from our Facebook page, not from this chat — typing it here won't trigger anything 🙂 Want me to explain how the chat side works instead?", n: 'ПРОВЕРИТЬ У САППОРТА перед использованием. Пока — самая вероятная версия.' },
-    { t: "You're not the only one confused 😄 Half the room copies it without knowing why. Let me get you the exact steps rather than guess — meanwhile, what are you playing tonight?", n: 'Безопасный ответ, пока механика не подтверждена. Используй этот.' },
+    { t: "That one's a keyword from our Facebook page, not from this chat — typing it here won't trigger anything 🙂 Want me to explain how the chat side works instead?", n: 'ПЕРЕВІРИТИ В SUPPORT перед використанням. Поки що — найімовірніша версія.' },
+    { t: "You're not the only one confused 😄 Half the room copies it without knowing why. Let me get you the exact steps rather than guess — meanwhile, what are you playing tonight?", n: 'Безпечна відповідь, поки механіку не підтверджено. Використовуй цю.' },
   ],
   hook: "Out of curiosity — where did you first see that keyword? Facebook, chat, or someone just told you? 🤔",
-  never: ['Объяснять механику, пока саппорт не подтвердил — половина чата уже путается', 'Говорить «просто напиши это здесь»'],
+  never: ['Пояснювати механіку, поки support не підтвердив — половина чату вже плутається', 'Казати «просто напиши це тут»'],
   br: [
-    { l: 'Требует награду за ключевик', to: 'esc-acct' },
-    { l: 'Спрашивает про промокоды в общем', to: 'how-code' },
+    { l: 'Вимагає нагороду за ключовик', to: 'esc-acct' },
+    { l: 'Питає про промокоди загалом', to: 'how-code' },
   ],
 },
 
-/* ══════════ ДЕНЬГИ И АККАУНТ ══════════ */
+/* ══════════ ГРОШІ ТА АКАУНТ ══════════ */
 
 'esc-cashout': {
-  g: 'money', t: 'Кэшаут, redemption, «где мои деньги»', vol: '1 029',
+  g: 'money', t: 'Кешаут, redemption, «де мої гроші»', vol: '1 029',
   role: 'esc',
-  why: 'Не твоя зона. Спрашивают сроки, статус, «withdraw complete but nothing in my bank». Любая твоя цифра станет обещанием, за которое потом спросят. Задача — снять тревогу и передать в саппорт, не потеряв человека из чата.',
+  why: 'Не твоя зона. Питають строки, статус, «withdraw complete but nothing in my bank». Будь-яка твоя цифра стане обіцянкою, за яку потім спитають. Завдання — зняти тривогу й передати в support, не втративши людину з чату.',
   trigs: ['it says my withdraw was complete but i didn\'t get anything in my bank acc', 'Hey guys how long until my payout hits my card balance?', 'How long does it take for a deposit to hit your bank? First time I\'ve redeemed', 'Can you not withdraw on here?', 'Any no deposit?'],
   replies: [
-    { t: "Redemptions aren't something I can see or move from chat — support has your actual account in front of them, so they'll give you a straight answer instead of my guess. Reach out to them and they'll track it 🙏", n: 'Формулировка «не вижу твой аккаунт» снимает подозрение в отписке.' },
-    { t: "I don't want to give you a wrong number on money — that's the one thing I won't guess about. Support handles payouts directly. Ping them, and come back and tell me how it went, I'd actually like to know 🖤", n: 'Эскалация + причина вернуться в чат.' },
+    { t: "Redemptions aren't something I can see or move from chat — support has your actual account in front of them, so they'll give you a straight answer instead of my guess. Reach out to them and they'll track it 🙏", n: 'Формулювання «не бачу твій акаунт» знімає підозру у відписці.' },
+    { t: "I don't want to give you a wrong number on money — that's the one thing I won't guess about. Support handles payouts directly. Ping them, and come back and tell me how it went, I'd actually like to know 🖤", n: 'Ескалація + причина повернутися в чат.' },
   ],
-  esc: 'Отдать в саппорт. Ничего не обещать по срокам, суммам и статусам. Если человек нервничает — остаться с ним в разговоре после передачи.',
+  esc: 'Віддати в support. Нічого не обіцяти щодо строків, сум і статусів. Якщо людина нервує — лишитися з нею в розмові після передачі.',
   hook: "While you wait on them — first cashout attempt, or have you gotten one through before? 👀",
-  never: ['Называть сроки выплат («2–3 дня», «до 24 часов»)', 'Комментировать конкретную сумму или статус заявки', 'Говорить «support will fix it» как гарантию'],
+  never: ['Називати строки виплат («2–3 дні», «до 24 годин»)', 'Коментувати конкретну суму або статус заявки', 'Казати «support will fix it» як гарантію'],
   br: [
-    { l: 'Просят документы / верификацию', to: 'esc-kyc' },
-    { l: 'Начал кричать «scam»', to: 'scam' },
-    { l: 'Хочет депозитнуть, а платёжка не проходит', to: 'esc-acct' },
+    { l: 'Просять документи / верифікацію', to: 'esc-kyc' },
+    { l: 'Почав кричати «scam»', to: 'scam' },
+    { l: 'Хоче задепозитити, а платіжка не проходить', to: 'esc-acct' },
   ],
 },
 
 'esc-kyc': {
-  g: 'money', t: 'Верификация, документы, ID', vol: '161',
+  g: 'money', t: 'Верифікація, документи, ID', vol: '161',
   role: 'esc',
-  why: 'Юзеры застревают на utility bill и просроченных ID: «They keep asking me for a utility bill and I keep resubmitting». Ты не видишь их документы и не можешь ускорить проверку — но можешь не дать человеку взбеситься.',
+  why: 'Юзери застрягають на utility bill і прострочених ID: «They keep asking me for a utility bill and I keep resubmitting». Ти не бачиш їхні документи й не можеш прискорити перевірку — але можеш не дати людині сказитися.',
   trigs: ['They keep asking me for a utility bill and I keep resubmitting', "I would've withdrawn if my id wasn't expired", 'Has anyone actually redeemed on here?', 'verification', 'documents'],
   replies: [
-    { t: "Verification runs through support, not chat — I genuinely can't see your documents from here. They can tell you exactly which one didn't pass and why, which is what you actually need 🙏", n: 'Объясни, почему именно саппорт, иначе читается как отписка.' },
-    { t: "That loop is frustrating, I believe you. The fix is always one specific detail on the document, and support can name it in a minute. Worth one more message to them.", n: 'Валидирует эмоцию, потом эскалирует.' },
+    { t: "Verification runs through support, not chat — I genuinely can't see your documents from here. They can tell you exactly which one didn't pass and why, which is what you actually need 🙏", n: 'Поясни, чому саме support, інакше читається як відписка.' },
+    { t: "That loop is frustrating, I believe you. The fix is always one specific detail on the document, and support can name it in a minute. Worth one more message to them.", n: 'Валідує емоцію, потім ескалює.' },
   ],
-  esc: 'Только саппорт. Никогда не запрашивай документы, ID, адрес, последние цифры карты и email в чате.',
+  esc: 'Тільки support. Ніколи не запитуй документи, ID, адресу, останні цифри картки та email у чаті.',
   hook: "Once you're through it — what's the first game you're spending it on? 🎰",
-  never: ['ПРОСИТЬ документы, ID, адрес, данные карты в чате — ни при каких условиях', 'Оценивать, пройдёт документ или нет', 'Обсуждать чужую верификацию публично'],
+  never: ['ПРОСИТИ документи, ID, адресу, дані картки в чаті — за жодних умов', 'Оцінювати, чи пройде документ', 'Обговорювати чужу верифікацію публічно'],
   br: [
-    { l: 'Разговор ушёл в кэшаут', to: 'esc-cashout' },
-    { l: 'Пишет, что аккаунт заблокирован', to: 'esc-acct' },
+    { l: 'Розмова пішла в кешаут', to: 'esc-cashout' },
+    { l: 'Пише, що акаунт заблоковано', to: 'esc-acct' },
   ],
 },
 
 'esc-bug': {
-  g: 'money', t: 'Игра не грузит, ошибки, логин', vol: '248',
+  g: 'money', t: 'Гра не вантажиться, помилки, логін', vol: '248',
   role: 'esc',
-  why: 'Технические жалобы: «Amazing diamonds won\'t load for me?», «GIVING ME THIS ERROR», код 404. Ты не техподдержка, но собранная тобой инфа ускоряет фикс — а для юзера это выглядит как «меня услышали».',
+  why: 'Технічні скарги: «Amazing diamonds won\'t load for me?», «GIVING ME THIS ERROR», код 404. Ти не техпідтримка, але зібрана тобою інфа пришвидшує фікс — а для юзера це виглядає як «мене почули».',
   trigs: ["Amazing diamonds won't load for me?", 'GIVING ME THIS ERROR', 'Just bought a package with free spins and the game they send me to isn\'t loading', 'error 404', 'can\'t log in'],
   replies: [
-    { t: "Ugh, that's a bad one — especially right after a purchase. Which game and what does the error say exactly? I'll pass it up with your details so it actually gets looked at 🛠️", n: 'Собери: игра, текст ошибки, устройство/браузер. Передай выше.' },
-    { t: "Thanks for flagging it — stuff like this we only find out about from chat. Support can check your account side; I'll make sure the game issue lands with the right people.", n: 'Делит зоны: аккаунт → саппорт, баг игры → внутрь.' },
+    { t: "Ugh, that's a bad one — especially right after a purchase. Which game and what does the error say exactly? I'll pass it up with your details so it actually gets looked at 🛠️", n: 'Збери: гра, текст помилки, пристрій/браузер. Передай вище.' },
+    { t: "Thanks for flagging it — stuff like this we only find out about from chat. Support can check your account side; I'll make sure the game issue lands with the right people.", n: 'Ділить зони: акаунт → support, баг гри → всередину.' },
   ],
-  esc: 'Аккаунт и деньги — в саппорт. Баг игры — собрать игру + текст ошибки + устройство и передать команде.',
+  esc: 'Акаунт і гроші — у support. Баг гри — зібрати гру + текст помилки + пристрій і передати команді.',
   hook: "While that's being sorted — anything else running fine for you tonight, or is it all acting up? 👀",
-  never: ['Обещать компенсацию за сгоревший спин или пакет', 'Диагностировать «это ваш интернет»'],
+  never: ['Обіцяти компенсацію за згорілий спін або пакет', 'Діагностувати «це ваш інтернет»'],
   br: [
-    { l: 'Требует вернуть деньги за пакет', to: 'esc-cashout' },
-    { l: 'Перешёл в «сайт скам»', to: 'scam' },
+    { l: 'Вимагає повернути гроші за пакет', to: 'esc-cashout' },
+    { l: 'Перейшов у «сайт скам»', to: 'scam' },
   ],
 },
 
 'esc-acct': {
-  g: 'money', t: 'Аккаунт, баланс, VIP, начисления', vol: '~250',
+  g: 'money', t: 'Акаунт, баланс, VIP, нарахування', vol: '~250',
   role: 'esc',
-  why: 'Сюда падают все «мне не начислили»: VIP-уровни, GC vs SC, tier-награды, пропавшие embers. Реальная путаница — «They stopped letting you level up with gc», «I didnt get my deck tier 2 this morning». Общую механику объясняешь, персональный баланс — никогда.',
+  why: 'Сюди падають усі «мені не нарахували»: VIP-рівні, GC vs SC, tier-нагороди, зниклі embers. Реальна плутанина — «They stopped letting you level up with gc», «I didnt get my deck tier 2 this morning». Загальну механіку пояснюєш, персональний баланс — ніколи.',
   trigs: ['Does using gold coins level up your vip?', 'Do vip points only update weekly or something?', 'How do you get your level up reward?', 'I didnt get my deck tier 2 this morning', 'Why am I not getting ember points per spin anymore'],
   replies: [
-    { t: "I can talk mechanics all night, but anything about your specific balance or a missing reward has to go through support — they see the account, I don't 🙏 What exactly didn't land?", n: 'Разделяет «как это работает» и «где мои конкретные N».' },
-    { t: "Fair question, and I'd rather get you the confirmed answer than my best guess — VIP details have changed before and I'm not going to misinform you. Support will have it straight.", n: 'Честная неуверенность работает лучше уверенной ошибки.' },
+    { t: "I can talk mechanics all night, but anything about your specific balance or a missing reward has to go through support — they see the account, I don't 🙏 What exactly didn't land?", n: 'Розділяє «як це працює» і «де мої конкретні N».' },
+    { t: "Fair question, and I'd rather get you the confirmed answer than my best guess — VIP details have changed before and I'm not going to misinform you. Support will have it straight.", n: 'Чесна невпевненість працює краще за впевнену помилку.' },
   ],
-  esc: 'Персональные начисления, баланс, VIP-награды, embers — саппорт. Общую механику можно объяснять, если она подтверждена.',
+  esc: 'Персональні нарахування, баланс, VIP-нагороди, embers — support. Загальну механіку можна пояснювати, якщо вона підтверджена.',
   hook: "Are you climbing the tiers on purpose, or did it just happen while playing? 🪜",
-  never: ['Подтверждать или отрицать конкретные правила VIP, пока саппорт не подтвердил', 'Обещать начисление'],
+  never: ['Підтверджувати або спростовувати конкретні правила VIP, поки support не підтвердив', 'Обіцяти нарахування'],
   br: [
-    { l: 'Разговор про embers и генерацию кодов', to: 'ember' },
-    { l: 'Ушло в кэшаут', to: 'esc-cashout' },
+    { l: 'Розмова про embers і генерацію кодів', to: 'ember' },
+    { l: 'Пішло в кешаут', to: 'esc-cashout' },
   ],
 },
 
-/* ══════════ НАСТРОЕНИЕ И КОНФЛИКТ ══════════ */
+/* ══════════ НАСТРІЙ І КОНФЛІКТ ══════════ */
 
 'badluck': {
-  g: 'mood', t: 'Проигрался, «nothing but losing»', vol: '1 275',
+  g: 'mood', t: 'Програвся, «nothing but losing»', vol: '1 275',
   role: 'own',
-  why: 'Каждое сотое сообщение в чате — про то, что человек проиграл. Это не запрос на помощь, а запрос на сочувствие. Один тёплый ответ здесь удерживает игрока лучше кода. Но следи за красными флагами: если пошли rent, bills, food, kids — уходишь в другой протокол.',
+  why: 'Кожне соте повідомлення в чаті — про те, що людина програла. Це не запит на допомогу, а запит на співчуття. Одна тепла відповідь тут утримує гравця краще за код. Але стеж за червоними прапорцями: якщо пішли rent, bills, food, kids — переходиш в інший протокол.',
   trigs: ['Nothing good for me yet', "It's horrible man just nothing but losing", 'Thanks for the code earlier. No luck for me', 'still no luck?', 'I am. I lost like $600 this week', 'Unfortunately the way its been. All losing'],
   replies: [
-    { t: "That's a rough run and I'm not going to pretend otherwise 🖤 Cold streaks in here are brutal. What have you been playing — same game all night, or jumping around?", n: 'Никакого «удача повернётся». Признай и переведи в разговор.' },
-    { t: "Been there. The move a lot of people in this chat swear by is switching it up and dropping the bet size for a bit. What are you on right now?", n: 'Практический совет от лица комьюнити, не от казино.' },
+    { t: "That's a rough run and I'm not going to pretend otherwise 🖤 Cold streaks in here are brutal. What have you been playing — same game all night, or jumping around?", n: 'Жодного «удача повернеться». Визнай і переведи в розмову.' },
+    { t: "Been there. The move a lot of people in this chat swear by is switching it up and dropping the bet size for a bit. What are you on right now?", n: 'Практична порада від імені комʼюніті, не від казино.' },
   ],
   hook: "What's the game you keep coming back to even when it's cold? Everyone in here has one 🎰",
-  never: ['«Your luck will turn» и любые обещания выигрыша', 'Советовать поднять ставку или довнести депозит', 'Предлагать код как «отбить проигрыш»'],
+  never: ['«Your luck will turn» і будь-які обіцянки виграшу', 'Радити підняти ставку або довнести депозит', 'Пропонувати код як «відбити програш»'],
   br: [
-    { l: 'Упомянул rent, bills, food, kids, «last dollar»', to: 'rg' },
-    { l: 'Перешёл к «сайт rigged»', to: 'scam' },
-    { l: 'Успокоился, разговорился', to: 'smalltalk' },
+    { l: 'Згадав rent, bills, food, kids, «last dollar»', to: 'rg' },
+    { l: 'Перейшов до «сайт rigged»', to: 'scam' },
+    { l: 'Заспокоївся, розговорився', to: 'smalltalk' },
   ],
 },
 
 'scam': {
   g: 'mood', t: '«Rigged» / «this site is a scam»', vol: '293',
   role: 'own',
-  why: 'Публичное обвинение в чате читают все молчащие. Не отвечать нельзя — молчание выглядит как признание. Спорить тоже нельзя: спор раздувает ветку. Задача — сбить температуру и увести в конкретику.',
+  why: 'Публічне звинувачення в чаті читають усі, хто мовчить. Не відповідати не можна — мовчання виглядає як визнання. Сперечатися теж не можна: суперечка роздуває гілку. Завдання — збити температуру й перевести в конкретику.',
   trigs: ['They are all rigged', 'This site is a scam', 'Screw this freaking cheating ass casino I swear its fake af', 'The bonuses seam rigged', 'You are a fraud and a lying cheater', 'What a scam lol'],
   replies: [
-    { t: "I'm not going to argue with you about it — you had a bad run and that feeling is real. If something concrete went wrong on your account, support can actually pull the records and check it. Want that?", n: 'Не спорь. Переводи из эмоции в проверяемый факт.' },
-    { t: "Heard you. Tell me what specifically happened — a spin, a code, a payout? Vague «it's rigged» I can't do anything with, but a specific thing I can push up the chain 👀", n: 'Просьба конкретизировать почти всегда снижает градус.' },
+    { t: "I'm not going to argue with you about it — you had a bad run and that feeling is real. If something concrete went wrong on your account, support can actually pull the records and check it. Want that?", n: 'Не сперечайся. Переводь з емоції у факт, який можна перевірити.' },
+    { t: "Heard you. Tell me what specifically happened — a spin, a code, a payout? Vague «it's rigged» I can't do anything with, but a specific thing I can push up the chain 👀", n: 'Прохання конкретизувати майже завжди знижує градус.' },
   ],
   hook: "Genuinely though — what would make tonight better for you? I'm asking the whole room, not just being polite 🖤",
-  never: ['Спорить, доказывать честность RNG, ссылаться на лицензии в чате', 'Отвечать сарказмом или молчать', 'Обещать компенсацию, чтобы человек затих'],
+  never: ['Сперечатися, доводити чесність RNG, посилатися на ліцензії в чаті', 'Відповідати сарказмом або мовчати', 'Обіцяти компенсацію, щоб людина затихла'],
   br: [
-    { l: 'Перешёл на прямые оскорбления', to: 'toxic' },
-    { l: 'Назвал конкретную проблему с деньгами', to: 'esc-cashout' },
-    { l: 'Жалуется, что коды фейковые', to: 'fake-codes' },
+    { l: 'Перейшов на прямі образи', to: 'toxic' },
+    { l: 'Назвав конкретну проблему з грошима', to: 'esc-cashout' },
+    { l: 'Скаржиться, що коди фейкові', to: 'fake-codes' },
   ],
 },
 
 'fake-codes': {
-  g: 'mood', t: '«Кидают фейковыми кодами»', vol: '~120',
+  g: 'mood', t: '«Кидають фейковими кодами»', vol: '~120',
   role: 'own',
-  why: 'Внутренний конфликт чата: «Why buddy dropping fake codes», «The one who sent all fake codes», «ole drunk ahhh sending fake codes». Обычно это не обман, а выжранный лимит активаций — но чат уже обвиняет своего же. Разряди, иначе разругаются между собой.',
+  why: 'Внутрішній конфлікт чату: «Why buddy dropping fake codes», «The one who sent all fake codes», «ole drunk ahhh sending fake codes». Зазвичай це не обман, а виїдений ліміт активацій — але чат уже звинувачує свого ж. Розряди, інакше пересваряться між собою.',
   trigs: ['Why buddy dropping fake codes', 'The one who sent all fake codes', 'That was a fraud post', 'sending fake codes', 'Both invalid'],
   replies: [
-    { t: "Nine times out of ten it wasn't fake — it just got claimed out before you got there. Let's not turn on each other over a code that died in two seconds 🙏", n: 'Защищает шарера. Иначе люди перестают делиться.' },
-    { t: "If a code was real and someone got in first, that's a race, not a scam. Post the code here and I'll tell you which of the two it was 👀", n: 'Берёт на себя роль арбитра.' },
+    { t: "Nine times out of ten it wasn't fake — it just got claimed out before you got there. Let's not turn on each other over a code that died in two seconds 🙏", n: 'Захищає шарера. Інакше люди перестають ділитися.' },
+    { t: "If a code was real and someone got in first, that's a race, not a scam. Post the code here and I'll tell you which of the two it was 👀", n: 'Бере на себе роль арбітра.' },
   ],
   hook: "Who actually managed to claim one tonight? Curious how many of them are landing 🔗",
-  never: ['Публично обвинять игрока в фейке', 'Оставлять разборку без модерации'],
+  never: ['Публічно звинувачувати гравця у фейку', 'Лишати розбірку без модерації'],
   br: [
-    { l: 'Разборка перешла в оскорбления', to: 'toxic' },
-    { l: 'Просят объяснить лимиты', to: 'code-dead' },
+    { l: 'Розбірка перейшла в образи', to: 'toxic' },
+    { l: 'Просять пояснити ліміти', to: 'code-dead' },
   ],
 },
 
 'toxic': {
-  g: 'mood', t: 'Оскорбления и токсик', vol: '656',
+  g: 'mood', t: 'Образи й токсик', vol: '656',
   role: 'own',
-  why: 'Мат в этом чате — фон, а не нарушение: «this app sucks», «damn». Реальная проблема начинается там, где переходят на людей. Различай два случая, иначе или зря карают, или упускают травлю.',
+  why: 'Мат у цьому чаті — фон, а не порушення: «this app sucks», «damn». Справжня проблема починається там, де переходять на людей. Розрізняй два випадки, інакше або марно караєш, або пропускаєш цькування.',
   trigs: ['This app sucks. Slow as hell', 'Ugh that sucks,', 'I hate when I win a small bit then lose it all', 'why the hate react?', 'personal insults at other players'],
   replies: [
-    { t: "Let's keep it on the games, not on each other 🙏 Plenty to be mad at in a cold streak without aiming it at the room.", n: 'Первое предупреждение. Спокойно, без угроз.' },
-    { t: "I'll ask once: drop it. Take shots at the slots all you want, not at players 🖤", n: 'Второй заход. Дальше — модерация.' },
+    { t: "Let's keep it on the games, not on each other 🙏 Plenty to be mad at in a cold streak without aiming it at the room.", n: 'Перше попередження. Спокійно, без погроз.' },
+    { t: "I'll ask once: drop it. Take shots at the slots all you want, not at players 🖤", n: 'Другий захід. Далі — модерація.' },
   ],
   hook: "Reset button: what's everyone playing right now? Let's get this room back to something fun 🎰",
-  never: ['Отвечать грубостью — скриншотится и уходит в соцсети', 'Карать за общий мат в адрес игры/удачи', 'Спорить с оскорблением публично'],
+  never: ['Відповідати грубістю — скриншотять і виносять у соцмережі', 'Карати за загальний мат на адресу гри/удачі', 'Сперечатися з образою публічно'],
   br: [
-    { l: 'Не остановился после двух просьб', to: 'spam' },
-    { l: 'Травит конкретного игрока', to: 'spam' },
-    { l: 'Успокоился', to: 'smalltalk' },
+    { l: 'Не зупинився після двох прохань', to: 'spam' },
+    { l: 'Цькує конкретного гравця', to: 'spam' },
+    { l: 'Заспокоївся', to: 'smalltalk' },
   ],
 },
 
-/* ══════════ КОМЬЮНИТИ ══════════ */
+/* ══════════ КОМʼЮНІТІ ══════════ */
 
 'greet': {
-  g: 'comm', t: 'Приветствия и «есть кто живой»', vol: '1 523',
+  g: 'comm', t: 'Привітання і «чи є хто живий»', vol: '1 523',
   role: 'own',
-  why: 'Каждое приветствие — открытая дверь. Юзеры буквально проверяют, есть ли живой человек: «Anybody home?», «are you Admin?», «Hi 🙃 first time finding out this chat exists». Ответ на «hi» стоит секунду и делает из зашедшего постоянного.',
+  why: 'Кожне привітання — відчинені двері. Юзери буквально перевіряють, чи є жива людина: «Anybody home?», «are you Admin?», «Hi 🙃 first time finding out this chat exists». Відповідь на «hi» коштує секунду й робить із випадкового гостя постійного.',
   trigs: ['Good morning hoping everybody has a blessed day', 'Hello how is everyone', 'Anybody home?', 'Hi 🙃 first time finding out this chat exists 🖤', 'sup guys', 'are you Admin?'],
   replies: [
-    { t: "Hey hey 👋 Real human here, awake with you. How's the night going — winning or fighting?", n: 'Живой человек в чате — редкость. Подчёркивай это.' },
-    { t: "Welcome in 🖤 Glad you found the chat. It gets good in here late. What are you playing?", n: 'Для тех, кто впервые нашёл чат.' },
-    { t: "Morning! Hope it's a good one. What's first on the reels today? ☀️", n: 'Утренняя смена / раннее время.' },
+    { t: "Hey hey 👋 Real human here, awake with you. How's the night going — winning or fighting?", n: 'Жива людина в чаті — рідкість. Підкреслюй це.' },
+    { t: "Welcome in 🖤 Glad you found the chat. It gets good in here late. What are you playing?", n: 'Для тих, хто вперше знайшов чат.' },
+    { t: "Morning! Hope it's a good one. What's first on the reels today? ☀️", n: 'Ранкова зміна / ранній час.' },
   ],
   hook: "Roll call — who's actually in here right now? Say hey, I want to know who I'm spending the night with 🌒",
-  never: ['Пропускать приветствия молча', 'Отвечать шаблоном на каждое «hi» подряд — чередуй варианты'],
+  never: ['Пропускати привітання мовчки', 'Відповідати шаблоном на кожне «hi» поспіль — чергуй варіанти'],
   br: [
-    { l: 'Новичок на сайте', to: 'newbie' },
-    { l: 'Сразу попросил код', to: 'beg' },
-    { l: 'Разговорился не по делу', to: 'smalltalk' },
+    { l: 'Новачок на сайті', to: 'newbie' },
+    { l: 'Одразу попросив код', to: 'beg' },
+    { l: 'Розговорився не по справі', to: 'smalltalk' },
   ],
 },
 
 'newbie': {
-  g: 'comm', t: 'Новичок на сайте', vol: '348',
+  g: 'comm', t: 'Новачок на сайті', vol: '348',
   role: 'own',
-  why: 'Самый ценный человек в чате и самый частый повод для «покажи, что тут вообще есть»: «Codes for new player here? And any game suggestions would be appreciated», «Where do we add the code ? Sorry I\'m new». За 3 минуты можно сделать постоянного игрока.',
+  why: 'Найцінніша людина в чаті й найчастіший привід «покажи, що тут узагалі є»: «Codes for new player here? And any game suggestions would be appreciated», «Where do we add the code ? Sorry I\'m new». За 3 хвилини можна зробити постійного гравця.',
   trigs: ['Codes for new player here? And any game suggestions would be appreciated 🖤', 'New on here do I need a code?', "I'm new to this, I never come to chat", 'Where do we add the code ? Sorry I\'m new to the site', 'new here what games be winning'],
   replies: [
-    { t: "Welcome aboard 🖤 Two things worth knowing: this chat is where codes actually get shared, and embers let you mint codes for other players. Everything else you'll pick up as you go. What have you tried so far?", n: 'Онбординг в двух пунктах, без лекции.' },
-    { t: "Glad you're here! Ask anything, this room is friendlier than it looks 😄 What kind of games do you like — big bonus hunts or steady spins?", n: 'Вопрос про предпочтения = начало долгого разговора.' },
+    { t: "Welcome aboard 🖤 Two things worth knowing: this chat is where codes actually get shared, and embers let you mint codes for other players. Everything else you'll pick up as you go. What have you tried so far?", n: 'Онбординг у двох пунктах, без лекції.' },
+    { t: "Glad you're here! Ask anything, this room is friendlier than it looks 😄 What kind of games do you like — big bonus hunts or steady spins?", n: 'Питання про вподобання = початок довгої розмови.' },
   ],
   hook: "Room, we've got a new one 👋 What's the one game you'd tell them to open first?",
-  never: ['Заваливать правилами и механиками сразу', 'Обещать новичку код за регистрацию'],
+  never: ['Завалювати правилами й механіками одразу', 'Обіцяти новачку код за реєстрацію'],
   br: [
-    { l: 'Спрашивает про игры', to: 'games' },
-    { l: 'Спрашивает про коды', to: 'how-code' },
-    { l: 'Спрашивает, реально ли тут выплачивают', to: 'esc-cashout' },
+    { l: 'Питає про ігри', to: 'games' },
+    { l: 'Питає про коди', to: 'how-code' },
+    { l: 'Питає, чи реально тут виплачують', to: 'esc-cashout' },
   ],
 },
 
 'games': {
-  g: 'comm', t: 'Что играть, «what game is hot»', vol: '334',
+  g: 'comm', t: 'Що грати, «what game is hot»', vol: '334',
   role: 'own',
-  why: 'Идеальный интент для вовлечения: вопрос открытый, отвечать может весь чат. «What game is hot rn?», «What are yall winning on?». Никогда не отвечай сам одним словом — превращай в опрос комнаты.',
+  why: 'Ідеальний інтент для залучення: питання відкрите, відповідати може весь чат. «What game is hot rn?», «What are yall winning on?». Ніколи не відповідай сам одним словом — перетворюй на опитування кімнати.',
   trigs: ['What game is hot rn ?', 'which game you recommend', "What's yall top fave game", 'What games are people winning on that you don\'t have to bet big?', 'What are yall winning on? I need to try a new game lol', 'Hey! Hey! What games r hittin hot on this platform?'],
   replies: [
-    { t: "Best answer to that isn't mine, it's the room's 👀 Who's had something actually pay tonight? Name the game.", n: 'Дефолт для этой ветки: превращать в опрос.' },
-    { t: "Depends what you're after — chasing a bonus round or grinding steady spins? Tell me which and I'll point you at what people have been talking about in here.", n: 'Уточняющий вопрос вместо готового ответа.' },
+    { t: "Best answer to that isn't mine, it's the room's 👀 Who's had something actually pay tonight? Name the game.", n: 'Дефолт для цієї гілки: перетворювати на опитування.' },
+    { t: "Depends what you're after — chasing a bonus round or grinding steady spins? Tell me which and I'll point you at what people have been talking about in here.", n: 'Уточнювальне питання замість готової відповіді.' },
   ],
   hook: "Building tonight's list: drop the game that treated you best in the last hour 🎰",
-  never: ['Гарантировать, что игра «платит» — это обещание выигрыша', 'Называть RTP и вероятности'],
+  never: ['Гарантувати, що гра «платить» — це обіцянка виграшу', 'Називати RTP і ймовірності'],
   br: [
-    { l: 'Похвастался выигрышем', to: 'bigwin' },
-    { l: 'Жалуется, что везде проигрывает', to: 'badluck' },
+    { l: 'Похвалився виграшем', to: 'bigwin' },
+    { l: 'Скаржиться, що всюди програє', to: 'badluck' },
   ],
 },
 
 'bigwin': {
-  g: 'comm', t: 'Хвастается выигрышем', vol: '794',
+  g: 'comm', t: 'Хвалиться виграшем', vol: '794',
   role: 'own',
-  why: 'Бесплатный контент, который сам разгоняет чат. «I just won the Asian fortune major», «I won $300 from it». Каждый незамеченный винрейт — потерянный движ. Подсвечивай громко и вовлекай остальных.',
+  why: 'Безкоштовний контент, який сам розганяє чат. «I just won the Asian fortune major», «I won $300 from it». Кожен непомічений виграш — втрачений рух. Підсвічуй голосно й залучай решту.',
   trigs: ['I just won the Asian fortune major about 2 hours ago.', "I've won over $2500 from this site", 'i hit 15000 on crown coins last yr', 'Nevermind I won the full $5', 'Congrats winners🥳'],
   replies: [
-    { t: "LET'S GO 🔥 That's the kind of news this chat is here for. Which game, and how big was the bet?", n: 'Громко + вопрос, чтобы история продолжилась.' },
-    { t: "Congrats!! 🎉 Room, someone's eating tonight. Anyone else got a win to put next to this one?", n: 'Превращает один выигрыш в волну.' },
+    { t: "LET'S GO 🔥 That's the kind of news this chat is here for. Which game, and how big was the bet?", n: 'Голосно + питання, щоб історія тривала.' },
+    { t: "Congrats!! 🎉 Room, someone's eating tonight. Anyone else got a win to put next to this one?", n: 'Перетворює один виграш на хвилю.' },
   ],
   hook: "Who else hit something tonight, big or tiny? Post it — I want a running scoreboard in here 🏆",
-  never: ['Пропускать выигрыш молча', 'Обсуждать чужие суммы как «мало»'],
+  never: ['Пропускати виграш мовчки', 'Обговорювати чужі суми як «мало»'],
   br: [
-    { l: 'Спрашивает, как вывести', to: 'esc-cashout' },
-    { l: 'Другие начали просить у него код/денег', to: 'cashapp' },
+    { l: 'Питає, як вивести', to: 'esc-cashout' },
+    { l: 'Інші почали просити в нього код/гроші', to: 'cashapp' },
   ],
 },
 
 'smalltalk': {
-  g: 'comm', t: 'Болтовня не про казино', vol: '1 638',
+  g: 'comm', t: 'Балачки не про казино', vol: '1 638',
   role: 'own',
-  why: 'Коты, погода, дни рождения, работа в ночную. Это не оффтоп — это то, из-за чего люди остаются в чате часами и возвращаются. Поддерживать обязательно.',
+  why: 'Коти, погода, дні народження, робота в нічну. Це не офтоп — це те, через що люди лишаються в чаті годинами й повертаються. Підтримувати обовʼязково.',
   trigs: ['I have a cat named Lilly who is the best ever.', 'Im in Arizona, and the weather is actually pretty nice right now lol', 'If anybodys feeling generous my birthday is today', 'Anyone here gambling in Spartanburg SC??', 'Anyone up for a trade anyone here'],
   replies: [
-    { t: "Okay this is exactly why I like the night shift in here 😄 Tell me more.", n: 'Разрешай оффтоп. Он держит чат живым.' },
-    { t: "Happy birthday!! 🎉 Room, we've got a birthday tonight — say something nice.", n: 'Дни рождения отмечать всегда, это дешёвая лояльность.' },
+    { t: "Okay this is exactly why I like the night shift in here 😄 Tell me more.", n: 'Дозволяй офтоп. Він тримає чат живим.' },
+    { t: "Happy birthday!! 🎉 Room, we've got a birthday tonight — say something nice.", n: 'Дні народження відзначати завжди, це дешева лояльність.' },
   ],
   hook: "Night shift question: coffee, energy drink, or pure spite keeping you up right now? ☕",
-  never: ['Обрывать оффтоп «давайте по теме»', 'Дарить подарки за день рождения без апрува'],
+  never: ['Обривати офтоп «давайте по темі»', 'Дарувати подарунки на день народження без апруву'],
   br: [
-    { l: 'Просит подарок на день рождения', to: 'cashapp' },
+    { l: 'Просить подарунок на день народження', to: 'cashapp' },
     { l: 'Чат затих', to: 'dead' },
   ],
 },
 
 'thanks': {
-  g: 'comm', t: 'Благодарят', vol: '3 117',
+  g: 'comm', t: 'Дякують', vol: '3 117',
   role: 'own',
-  why: 'Третий по объёму интент во всём чате. «Thank you» × 388 подряд — это не мусор, это открытая дверь: человек в хорошем настроении и готов говорить. Одно «you\'re welcome» её закрывает. Всегда добавляй вопрос.',
+  why: 'Третій за обсягом інтент у всьому чаті. «Thank you» × 388 поспіль — це не сміття, це відчинені двері: людина в доброму гуморі й готова говорити. Одне «you\'re welcome» їх зачиняє. Завжди додавай питання.',
   trigs: ['Thank you 😊', 'Thank you !!!', 'TY USER 2FEB15S', 'Thanks so much for the gift!', 'thank u tho'],
   replies: [
-    { t: "Anytime 🖤 Did it land you anything good?", n: 'Никогда не заканчивай на «you\'re welcome».' },
-    { t: "That's what I'm here for 😄 Go get something out of it and come tell me how it went.", n: 'Даёт причину вернуться в чат с отчётом.' },
+    { t: "Anytime 🖤 Did it land you anything good?", n: 'Ніколи не завершуй на «you\'re welcome».' },
+    { t: "That's what I'm here for 😄 Go get something out of it and come tell me how it went.", n: 'Дає причину повернутися в чат зі звітом.' },
   ],
   hook: "Report back when you've spun it — I want to know if it was worth it 👀",
-  never: ['Отвечать сухим «np» / «you\'re welcome» без вопроса'],
+  never: ['Відповідати сухим «np» / «you\'re welcome» без питання'],
   br: [
-    { l: 'Отчитался о выигрыше', to: 'bigwin' },
-    { l: 'Ничего не выиграл', to: 'badluck' },
+    { l: 'Відзвітував про виграш', to: 'bigwin' },
+    { l: 'Нічого не виграв', to: 'badluck' },
   ],
 },
 
 'dead': {
-  g: 'comm', t: 'Чат затих — раскачать', vol: '298',
+  g: 'comm', t: 'Чат затих — розгойдати', vol: '298',
   role: 'own',
-  why: 'Прямая часть работы, а не пауза. «Dead chat room. Yikes», «it sure is quiet in here», «It\'s interesting how quiet it gets right after a dollar is sent». Здесь ты можешь по своей инициативе предложить код — это твой самый сильный инструмент.',
+  why: 'Пряма частина роботи, а не пауза. «Dead chat room. Yikes», «it sure is quiet in here», «It\'s interesting how quiet it gets right after a dollar is sent». Тут ти можеш із власної ініціативи запропонувати код — це твій найсильніший інструмент.',
   trigs: ['Dead chat room. Yikes', 'Good afternoon Party people it sure is quiet in here', 'guys went quiet after them tokkens', 'Anyone here?', 'boring'],
   replies: [
-    { t: "It's quiet in here 👀 Alright — who wants a code? Say something and let's wake this room up.", n: 'Твой главный ход в мёртвый час. Сказал — дай.' },
-    { t: "Slow night. Let's fix it: best win you've EVER had on here, go. I'll start reading 🏆", n: 'Опрос вместо кода — когда промо-лимит на смену выбран.' },
-    { t: "Anyone still awake? 🌒 Drop a 🔥 if you're spinning right now, I want to see how many of us there are.", n: 'Реакция вместо текста — самый низкий порог входа.' },
+    { t: "It's quiet in here 👀 Alright — who wants a code? Say something and let's wake this room up.", n: 'Твій головний хід у мертву годину. Сказав — дай.' },
+    { t: "Slow night. Let's fix it: best win you've EVER had on here, go. I'll start reading 🏆", n: 'Опитування замість коду — коли промо-ліміт на зміну вичерпано.' },
+    { t: "Anyone still awake? 🌒 Drop a 🔥 if you're spinning right now, I want to see how many of us there are.", n: 'Реакція замість тексту — найнижчий поріг входу.' },
   ],
   hook: "Tonight's question for the room: one game, one bet left — where are you putting it? 🎰",
-  never: ['Сидеть в тишине всю смену', 'Спрашивать «хотите код?» и потом не дать'],
+  never: ['Сидіти в тиші всю зміну', 'Питати «хочете код?» і потім не дати'],
   br: [
-    { l: 'Чат ожил, полетели просьбы кодов', to: 'beg' },
-    { l: 'Пошёл обмен кодами', to: 'trade' },
-    { l: 'Никто не отвечает вообще', to: 'sharer' },
+    { l: 'Чат ожив, полетіли прохання кодів', to: 'beg' },
+    { l: 'Пішов обмін кодами', to: 'trade' },
+    { l: 'Ніхто не відповідає взагалі', to: 'sharer' },
   ],
 },
 
-/* ══════════ КРАСНЫЕ ФЛАГИ ══════════ */
+/* ══════════ ЧЕРВОНІ ПРАПОРЦІ ══════════ */
 
 'rg': {
-  g: 'stop', t: 'Ответственная игра: rent, food, kids', vol: '236',
+  g: 'stop', t: 'Відповідальна гра: rent, food, kids', vol: '236',
   role: 'stop',
-  why: 'Самый важный узел во всём чек-листе. В чате прямым текстом: «I lost my rent money now what do I do huh», «Cause I need money for my kids», «I could use a donation rn not for gambling just for food». Здесь ты не промоутер. Никаких кодов, никакого «отыграешься», никаких шуток.',
+  why: 'Найважливіший вузол у всьому чек-листі. У чаті прямим текстом: «I lost my rent money now what do I do huh», «Cause I need money for my kids», «I could use a donation rn not for gambling just for food». Тут ти не промоутер. Жодних кодів, жодного «відіграєшся», жодних жартів.',
   trigs: ['I lost my rent money now what do I do huh', 'Cause I need money for my kids.', 'everyone is broke and desperate', "I feel like a real piece of dumpster dookie after I spend the equivalent of someone's rent", 'I could use a donation rn not for gambling just for food', 'last dollar', 'addict'],
   replies: [
-    { t: "I'm going to stop being the chat guy for a second: that's a hard spot, and playing more isn't the way out of it 🖤 There are real limits and self-exclusion tools on the account, and support can walk you through them right now if you want.", n: 'Тон меняется полностью. Ноль промо в сообщении.' },
-    { t: "Thanks for saying it out loud, that's not easy. I'd rather you took a break tonight than chased it. Support can set up limits on your account — say the word and I'll point you to them.", n: 'Прямое предложение паузы. Не бойся его озвучить.' },
+    { t: "I'm going to stop being the chat guy for a second: that's a hard spot, and playing more isn't the way out of it 🖤 There are real limits and self-exclusion tools on the account, and support can walk you through them right now if you want.", n: 'Тон змінюється повністю. Нуль промо в повідомленні.' },
+    { t: "Thanks for saying it out loud, that's not easy. I'd rather you took a break tonight than chased it. Support can set up limits on your account — say the word and I'll point you to them.", n: 'Пряма пропозиція паузи. Не бійся її озвучити.' },
   ],
-  esc: 'Никаких кодов, промо и «удачи». Предложить лимиты / self-exclusion и передать в саппорт. Зафиксировать случай в отчёте смены — даже если человек потом отшутился.',
-  never: ['Давать код, FP, SC — вообще ничего', 'Говорить «удача повернётся», «отыграешься», «попробуй ещё»', 'Шутить, отвечать эмодзи-смайлом, менять тему', 'Игнорировать, потому что «он просто ноет»'],
+  esc: 'Жодних кодів, промо і «удачі». Запропонувати ліміти / self-exclusion і передати в support. Зафіксувати випадок у звіті зміни — навіть якщо людина потім віджартувалася.',
+  never: ['Давати код, FP, SC — взагалі нічого', 'Казати «удача повернеться», «відіграєшся», «спробуй ще»', 'Жартувати, відповідати смайликом, змінювати тему', 'Ігнорувати, бо «він просто ниє»'],
   br: [
-    { l: 'Отшутился и вернулся к игре', to: 'badluck' },
-    { l: 'Просит денег напрямую', to: 'cashapp' },
+    { l: 'Віджартувався й повернувся до гри', to: 'badluck' },
+    { l: 'Просить гроші напряму', to: 'cashapp' },
   ],
 },
 
 'cashapp': {
-  g: 'stop', t: 'Просят деньги: CashApp, Chime, PayPal, boost', vol: '2 567',
+  g: 'stop', t: 'Просять гроші: CashApp, Chime, PayPal, boost', vol: '2 567',
   role: 'stop',
-  why: 'Второй по объёму пласт после кодов — и полностью вне правил. Юзеры кидают в чат свои теги: «Cash app $ShayCC93 feeling genuine», «My PayPal is @hawwkk88 anything helps», плюс схема «chime boost for boost». Это и попрошайничество, и питательная среда для скама на своих же игроках.',
+  why: 'Другий за обсягом пласт після кодів — і повністю поза правилами. Юзери кидають у чат свої теги: «Cash app $ShayCC93 feeling genuine», «My PayPal is @hawwkk88 anything helps», плюс схема «chime boost for boost». Це і жебрацтво, і живильне середовище для скаму на своїх же гравцях.',
   trigs: ['Cash app $ShayCC93 feeling genuine', 'My PayPal is @hawwkk88 anything helps', 'I have 2 Chime Boosts if anyone can boost for boost', 'Please send me a boost', '@… PayPal if anyone wanna bless my day', 'Boost me I\'ll boost you back'],
   replies: [
-    { t: "Let's keep money transfers out of the chat 🙏 Sharing payment tags here gets people scammed, and I'd rather nobody in this room got burned. Codes and trades, all good — cash tags, no.", n: 'Объясняй причину через защиту юзера, а не через «правила».' },
-    { t: "I'm going to ask you to take that down — no payment tags in here. If you want in on something, the code trading in this room is fair game 🔁", n: 'Просьба удалить + альтернатива, чтобы не выгнать человека.' },
+    { t: "Let's keep money transfers out of the chat 🙏 Sharing payment tags here gets people scammed, and I'd rather nobody in this room got burned. Codes and trades, all good — cash tags, no.", n: 'Пояснюй причину через захист юзера, а не через «правила».' },
+    { t: "I'm going to ask you to take that down — no payment tags in here. If you want in on something, the code trading in this room is fair game 🔁", n: 'Прохання видалити + альтернатива, щоб не вигнати людину.' },
   ],
-  esc: 'Просить убрать тег. При повторе — модерация. Зафиксировать в отчёте смены: ник + время. Если человек давит на жалость и упоминает еду/аренду — уйти в ветку ответственной игры.',
-  never: ['Отправлять деньги самому — ни при каких условиях', 'Оставлять платёжный тег висеть в чате', 'Обсуждать чей-то chime boost как норму'],
+  esc: 'Просити прибрати тег. При повторі — модерація. Зафіксувати у звіті зміни: нік + час. Якщо людина тисне на жалість і згадує їжу/оренду — перейти в гілку відповідальної гри.',
+  never: ['Надсилати гроші самому — за жодних умов', 'Лишати платіжний тег висіти в чаті', 'Обговорювати чийсь chime boost як норму'],
   br: [
-    { l: 'Упомянул food, rent, bills, kids', to: 'rg' },
-    { l: 'Не убирает и повторяет', to: 'spam' },
-    { l: 'Переводит на обмен кодами', to: 'trade' },
+    { l: 'Згадав food, rent, bills, kids', to: 'rg' },
+    { l: 'Не прибирає й повторює', to: 'spam' },
+    { l: 'Переводить на обмін кодами', to: 'trade' },
   ],
 },
 
 'offplatform': {
-  g: 'stop', t: 'Discord, Telegram, referral-схемы', vol: '697',
+  g: 'stop', t: 'Discord, Telegram, referral-схеми', vol: '697',
   role: 'stop',
-  why: 'Юзеры вербуют друг друга наружу и продают рефералки прямо в чате: «still payin 90$ for doing my revolut referral. add me discord», «Making a server for discord would be frfr the move», «Anyone interested can add me on discord». Оплаченные рефералки и уход в личку — прямой риск для игроков.',
+  why: 'Юзери вербують одне одного назовні й продають рефералки прямо в чаті: «still payin 90$ for doing my revolut referral. add me discord», «Making a server for discord would be frfr the move», «Anyone interested can add me on discord». Оплачені рефералки й вихід у приватні повідомлення — прямий ризик для гравців.',
   trigs: ['still payin 90$ for doing my revolut referral. add me discord @…', 'Add me on discord', 'healshot_63603 is my discord if anyone games', 'Making a server for discord would be frfr the move!', 'Insta cash and 5 $5 boost after setting up account.', 'text me'],
   replies: [
-    { t: "Paid referral offers aren't allowed in here — that's exactly how people end up out of pocket 🙏 Keep it in the chat where everyone can see what's going on.", n: 'Про оплаченные рефералки и «sign up and get paid» — жёстко.' },
-    { t: "Friendly chat about other games is fine, but I'm not letting recruitment or DM deals run in here 🖤 Anything worth sharing, share it with the room.", n: 'Отделяет болтовню от вербовки.' },
+    { t: "Paid referral offers aren't allowed in here — that's exactly how people end up out of pocket 🙏 Keep it in the chat where everyone can see what's going on.", n: 'Про оплачені рефералки і «sign up and get paid» — жорстко.' },
+    { t: "Friendly chat about other games is fine, but I'm not letting recruitment or DM deals run in here 🖤 Anything worth sharing, share it with the room.", n: 'Відділяє балачки від вербування.' },
   ],
-  esc: 'Схемы с оплатой за регистрацию — просить убрать, фиксировать ник и время в отчёте. Просто «у кого есть дискорд» — не нарушение, но следи, куда уходит.',
-  never: ['Давать свои личные контакты — никогда', 'Уходить в личку с игроком', 'Продвигать сторонние серверы/каналы'],
+  esc: 'Схеми з оплатою за реєстрацію — просити прибрати, фіксувати нік і час у звіті. Просто «у кого є діскорд» — не порушення, але стеж, куди це йде.',
+  never: ['Давати свої особисті контакти — ніколи', 'Переходити в приватні повідомлення з гравцем', 'Просувати сторонні сервери/канали'],
   br: [
-    { l: 'Повторяет после просьбы', to: 'spam' },
-    { l: 'Просто спрашивает про наш Discord', to: 'competitor' },
+    { l: 'Повторює після прохання', to: 'spam' },
+    { l: 'Просто питає про наш Discord', to: 'competitor' },
   ],
 },
 
 'competitor': {
-  g: 'stop', t: 'Коды других брендов и sister sites', vol: '435',
+  g: 'stop', t: 'Коди інших брендів і sister sites', vol: '435',
   role: 'stop',
-  why: 'В чате свободно обсуждают Chumba, Crown Coins, Funrize, LuckyLand, Stake — и наши же бренды: Fortune Wheelz, Vegas Way, NoLimitCoins. Есть и прямая опасность: «I can tell yall how to glitch 3$ and 10 free plays everyday». Про глитчи — реагировать сразу.',
+  why: 'У чаті вільно обговорюють Chumba, Crown Coins, Funrize, LuckyLand, Stake — і наші ж бренди: Fortune Wheelz, Vegas Way, NoLimitCoins. Є й пряма небезпека: «I can tell yall how to glitch 3$ and 10 free plays everyday». Про глітчі — реагувати одразу.',
   trigs: ['Any fortunewheel codes. Or no limit', 'do any of you have fortunewheelz or vegasway or nolimitcoins? I can tell yall how to glitch 3$ and 10 free plays everyday lol', 'Any funrize codes', 'Like funrize/fortune wheelz/idk yea like sister sites haha', 'Is this site a sister site if Funrize?'],
   replies: [
-    { t: "Can't help with codes for other sites from here 🙂 What I can do is make sure you don't miss what happens in this room. What are you playing on Scarlet Sands tonight?", n: 'Не подтверждай и не отрицай связь между брендами.' },
-    { t: "Going to shut that down — no exploit talk in here, and it never ends well for the person trying it 🙏 Let's keep it to what actually works.", n: 'Для «glitch / exploit». Реагируй немедленно.' },
+    { t: "Can't help with codes for other sites from here 🙂 What I can do is make sure you don't miss what happens in this room. What are you playing on Scarlet Sands tonight?", n: 'Не підтверджуй і не спростовуй звʼязок між брендами.' },
+    { t: "Going to shut that down — no exploit talk in here, and it never ends well for the person trying it 🙏 Let's keep it to what actually works.", n: 'Для «glitch / exploit». Реагуй негайно.' },
   ],
-  esc: 'Разговоры про глитчи и эксплойты — гасить сразу, фиксировать ник, время и что именно человек предлагал. Передать наверх.',
-  never: ['Комментировать, связаны ли бренды между собой', 'Раздавать коды других проектов', 'Оставлять предложение глитча без реакции'],
+  esc: 'Розмови про глітчі та експлойти — гасити одразу, фіксувати нік, час і що саме людина пропонувала. Передати нагору.',
+  never: ['Коментувати, чи повʼязані бренди між собою', 'Роздавати коди інших проєктів', 'Лишати пропозицію глітча без реакції'],
   br: [
-    { l: 'Продолжает продавать глитч', to: 'spam' },
-    { l: 'Просто болтает про другие сайты', to: 'smalltalk' },
+    { l: 'Продовжує продавати глітч', to: 'spam' },
+    { l: 'Просто балакає про інші сайти', to: 'smalltalk' },
   ],
 },
 
 'spam': {
-  g: 'stop', t: 'Спам и упорное нарушение', vol: '~500',
+  g: 'stop', t: 'Спам і вперте порушення', vol: '~500',
   role: 'stop',
-  why: 'Финальная ветка для всех, кто не остановился после двух просьб: флуд одним и тем же, платёжные теги, вербовка, травля. Порядок действий должен быть один и тот же, чтобы смены не решали на глаз.',
-  trigs: ['повтор одного сообщения подряд', 'платёжный тег после просьбы убрать', 'вербовка после предупреждения', 'травля конкретного игрока'],
+  why: 'Фінальна гілка для всіх, хто не зупинився після двох прохань: флуд одним і тим самим, платіжні теги, вербування, цькування. Порядок дій має бути один і той самий, щоб зміни не вирішували на око.',
+  trigs: ['повтор одного повідомлення поспіль', 'платіжний тег після прохання прибрати', 'вербування після попередження', 'цькування конкретного гравця'],
   replies: [
-    { t: "Last ask: stop posting that here 🙏 Next step isn't up to me.", n: 'Финальное предупреждение. Коротко, без спора.' },
+    { t: "Last ask: stop posting that here 🙏 Next step isn't up to me.", n: 'Фінальне попередження. Коротко, без суперечки.' },
   ],
-  esc: 'Порядок: (1) спокойная просьба, (2) прямое предупреждение, (3) модерация по правилам платформы. Каждый случай — в отчёт смены: ник, время, что нарушал, что сделал ты. Точные права на мут/бан подтвердить у саппорта.',
-  never: ['Спорить публично и объяснять правила три раза', 'Наказывать без двух предупреждений (кроме глитчей и RG-случаев)', 'Обсуждать наказание с чатом'],
+  esc: 'Порядок: (1) спокійне прохання, (2) пряме попередження, (3) модерація за правилами платформи. Кожен випадок — у звіт зміни: нік, час, що порушував, що зробив ти. Точні права на мут/бан підтвердити в support.',
+  never: ['Сперечатися публічно й пояснювати правила тричі', 'Карати без двох попереджень (крім глітчів і RG-випадків)', 'Обговорювати покарання з чатом'],
   br: [
-    { l: 'Остановился', to: 'smalltalk' },
+    { l: 'Зупинився', to: 'smalltalk' },
   ],
 },
 
@@ -887,7 +887,7 @@ const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;',
 
 let trail = [];
 
-/* рельс */
+/* рейка */
 rail.innerHTML = GROUPS.map(g => {
   const items = Object.entries(N).filter(([, n]) => n.g === g.id);
   return `<div class="rail-group">
@@ -899,9 +899,9 @@ rail.innerHTML = GROUPS.map(g => {
 }).join('');
 
 function roleTag(role) {
-  if (role === 'stop') return '<span class="tag stop">Протокол · не импровизировать</span>';
-  if (role === 'esc') return '<span class="tag esc">Эскалация в саппорт</span>';
-  return '<span class="tag own">Отвечаешь сам</span>';
+  if (role === 'stop') return '<span class="tag stop">Протокол · не імпровізувати</span>';
+  if (role === 'esc') return '<span class="tag esc">Ескалація в support</span>';
+  return '<span class="tag own">Відповідаєш сам</span>';
 }
 
 function render(id, push = true) {
@@ -911,7 +911,7 @@ function render(id, push = true) {
     const at = trail.indexOf(id);
     trail = at >= 0 ? trail.slice(0, at + 1) : [...trail, id];
   }
-  try { localStorage.setItem('sscl:last', id); } catch (e) { /* приватный режим — не критично */ }
+  try { localStorage.setItem('sscl:last', id); } catch (e) { /* приватний режим — не критично */ }
 
   rail.querySelectorAll('.rail-item').forEach(b =>
     b.setAttribute('aria-current', b.dataset.go === id ? 'true' : 'false'));
@@ -923,49 +923,49 @@ function render(id, push = true) {
   stage.innerHTML = `
     <div class="crumbs">${crumbs}</div>
     <div class="node-head">
-      <div class="tagrow">${roleTag(n.role)}<span class="tag vol">${esc(n.vol)} сообщений в базе</span></div>
+      <div class="tagrow">${roleTag(n.role)}<span class="tag vol">${esc(n.vol)} повідомлень у базі</span></div>
       <h1>${esc(n.t)}</h1>
       <p class="node-why">${esc(n.why)}</p>
     </div>
 
     <section class="sec">
-      <h2>Как это звучит в чате</h2>
+      <h2>Як це звучить у чаті</h2>
       <div class="trigs">${n.trigs.map(t => `<span class="trig">${esc(t)}</span>`).join('')}</div>
     </section>
 
     <section class="sec">
-      <h2>Что отвечать</h2>
+      <h2>Що відповідати</h2>
       <div class="replies">${n.replies.map(r => `
         <div class="reply">
           <div>
             <p>${esc(r.t)}</p>
             ${r.n ? `<div class="note"><b>↳</b><span>${esc(r.n)}</span></div>` : ''}
           </div>
-          <button class="copy" data-copy="${esc(r.t)}">Копировать</button>
+          <button class="copy" data-copy="${esc(r.t)}">Копіювати</button>
         </div>`).join('')}
       </div>
     </section>
 
     ${n.hook ? `<section class="sec">
-      <h2>Хук: чем затянуть в разговор</h2>
+      <h2>Хук: чим затягнути в розмову</h2>
       <div class="hook">
-        <div><span class="lbl">Кидай вдогонку к ответу</span><p>${esc(n.hook)}</p></div>
-        <button class="copy" data-copy="${esc(n.hook)}">Копировать</button>
+        <div><span class="lbl">Кидай услід за відповіддю</span><p>${esc(n.hook)}</p></div>
+        <button class="copy" data-copy="${esc(n.hook)}">Копіювати</button>
       </div>
     </section>` : ''}
 
     ${n.esc ? `<section class="sec">
-      <h2>Порядок действий</h2>
-      <div class="esc-box"><span class="lbl">${n.role === 'stop' ? 'Протокол' : 'Эскалация'}</span><p>${esc(n.esc)}</p></div>
+      <h2>Порядок дій</h2>
+      <div class="esc-box"><span class="lbl">${n.role === 'stop' ? 'Протокол' : 'Ескалація'}</span><p>${esc(n.esc)}</p></div>
     </section>` : ''}
 
     ${n.never ? `<section class="sec">
-      <h2>Чего не делать</h2>
+      <h2>Чого не робити</h2>
       <ul class="never">${n.never.map(x => `<li><span>${esc(x)}</span></li>`).join('')}</ul>
     </section>` : ''}
 
     ${n.br && n.br.length ? `<section class="sec">
-      <h2>Юзер ответил → куда дальше</h2>
+      <h2>Юзер відповів → куди далі</h2>
       <div class="branches">${n.br.map(b => `
         <button class="branch" data-go="${b.to}">
           <b>«${esc(b.l)}»</b><s>→ ${esc(N[b.to] ? N[b.to].t : b.to)}</s>
@@ -976,72 +976,72 @@ function render(id, push = true) {
   document.querySelector('.main').scrollTop = 0;
 }
 
-/* правила смены */
+/* правила зміни */
 function renderRules() {
   trail = [];
   rail.querySelectorAll('.rail-item').forEach(b => b.setAttribute('aria-current', 'false'));
   stage.innerHTML = `
     <div class="crumbs"></div>
     <div class="node-head">
-      <div class="tagrow"><span class="tag own">Читать перед каждой сменой</span></div>
-      <h1>Правила смены</h1>
-      <p class="node-why">Пять вещей, которые действуют всегда, в любой ветке. Всё остальное — в дереве слева.</p>
+      <div class="tagrow"><span class="tag own">Читати перед кожною зміною</span></div>
+      <h1>Правила зміни</h1>
+      <p class="node-why">Пʼять речей, які діють завжди, у будь-якій гілці. Усе інше — у дереві ліворуч.</p>
     </div>
 
     <section class="sec">
-      <h2>Всегда</h2>
+      <h2>Завжди</h2>
       <div class="rules">
-        <div class="rule"><span class="k">Язык</span><p>Только английский. Юзеры — США. Никаких переводов, даже если написали не по-английски.</p></div>
-        <div class="rule"><span class="k">Каждый ответ — с вопросом</span><p>Ответ без вопроса закрывает разговор. «Ок», «np», «you're welcome» — запрещены как самостоятельные сообщения.</p></div>
-        <div class="rule"><span class="k">Не обещай того, чего не видишь</span><p>Сроки выплат, статусы, суммы, начисления, лимиты в цифрах — только саппорт. Твоя зона: чат, коды, механики, настроение.</p></div>
-        <div class="rule"><span class="k">Сказал «дам код» — дай</span><p>Чат помнит и цитирует. Одно невыполненное обещание тратится дольше, чем десять выданных кодов.</p></div>
-        <div class="rule"><span class="k">Не повторяйся</span><p>В каждой ветке 2–3 варианта ответа. Одна и та же фраза три раза за час читается как бот.</p></div>
+        <div class="rule"><span class="k">Мова</span><p>Тільки англійська. Юзери — США. Жодних перекладів, навіть якщо написали не англійською.</p></div>
+        <div class="rule"><span class="k">Кожна відповідь — із питанням</span><p>Відповідь без питання закриває розмову. «Ок», «np», «you're welcome» — заборонені як самостійні повідомлення.</p></div>
+        <div class="rule"><span class="k">Не обіцяй того, чого не бачиш</span><p>Строки виплат, статуси, суми, нарахування, ліміти в цифрах — тільки support. Твоя зона: чат, коди, механіки, настрій.</p></div>
+        <div class="rule"><span class="k">Сказав «дам код» — дай</span><p>Чат памʼятає й цитує. Одна невиконана обіцянка витрачається довше, ніж десять виданих кодів.</p></div>
+        <div class="rule"><span class="k">Не повторюйся</span><p>У кожній гілці 2–3 варіанти відповіді. Одна й та сама фраза тричі за годину читається як бот.</p></div>
       </div>
     </section>
 
     <section class="sec">
-      <h2>Промо-рычаги в твоих руках</h2>
+      <h2>Промо-важелі у твоїх руках</h2>
       <div class="tblwrap"><table class="levers">
-        <thead><tr><th>Что даёшь</th><th>Когда</th><th>Как подавать</th></tr></thead>
+        <thead><tr><th>Що даєш</th><th>Коли</th><th>Як подавати</th></tr></thead>
         <tbody>
-          <tr><td>Offer code</td><td>Разгон активности, ответ на волну запросов</td><td>Как событие для всей комнаты, не в личку одному просящему</td></tr>
-          <tr><td>FP code</td><td>За активность: человек поддержал разговор, помог новичку, поделился кодом</td><td>Назвать причину вслух — «за то, что держишь чат живым»</td></tr>
-          <tr><td>SC code</td><td>Сильный момент: раскачка мёртвого часа, крупный выигрыш в комнате</td><td>С объявлением и вопросом в комнату</td></tr>
-          <tr><td>Свой заход</td><td>Чат затих — можно спросить «who wants a code?» первым</td><td>Спросил → обязан дать</td></tr>
+          <tr><td>Offer code</td><td>Розгін активності, відповідь на хвилю запитів</td><td>Як подію для всієї кімнати, не в приват одному прохачу</td></tr>
+          <tr><td>FP code</td><td>За активність: людина підтримала розмову, допомогла новачку, поділилася кодом</td><td>Назвати причину вголос — «за те, що тримаєш чат живим»</td></tr>
+          <tr><td>SC code</td><td>Сильний момент: розгойдування мертвої години, великий виграш у кімнаті</td><td>З оголошенням і питанням у кімнату</td></tr>
+          <tr><td>Свій захід</td><td>Чат затих — можна спитати «who wants a code?» першим</td><td>Спитав → мусиш дати</td></tr>
         </tbody>
       </table></div>
-      <p style="color:var(--ink-faint);font-size:12.5px;margin:9px 0 0">Количество кодов на смену и частоту нужно зафиксировать с саппортом — в чек-листе стоит заглушка.</p>
+      <p style="color:var(--ink-faint);font-size:12.5px;margin:9px 0 0">Кількість кодів на зміну й частоту треба зафіксувати з support — у чек-листі стоїть заглушка.</p>
     </section>
 
     <section class="sec">
-      <h2>Мгновенная эскалация, без обсуждения</h2>
+      <h2>Миттєва ескалація, без обговорення</h2>
       <ul class="never">
-        <li><span>Кэшауты, выплаты, «где мои деньги» → саппорт</span></li>
-        <li><span>KYC, документы, ID → саппорт. Документы в чате не запрашивать никогда</span></li>
-        <li><span>Платёжки, депозиты, чарджи → саппорт</span></li>
-        <li><span>Баги: собрать игру + текст ошибки + устройство, передать команде</span></li>
-        <li><span>Ответственная игра (rent, food, kids, «last dollar», addict) → протокол RG, ноль промо</span></li>
-        <li><span>Предложение глитча или эксплойта → погасить сразу, зафиксировать ник и время</span></li>
+        <li><span>Кешаути, виплати, «де мої гроші» → support</span></li>
+        <li><span>KYC, документи, ID → support. Документи в чаті не запитувати ніколи</span></li>
+        <li><span>Платіжки, депозити, чарджі → support</span></li>
+        <li><span>Баги: зібрати гру + текст помилки + пристрій, передати команді</span></li>
+        <li><span>Відповідальна гра (rent, food, kids, «last dollar», addict) → протокол RG, нуль промо</span></li>
+        <li><span>Пропозиція глітча або експлойта → погасити одразу, зафіксувати нік і час</span></li>
       </ul>
     </section>
 
     <section class="sec">
-      <h2>Что нужно подтвердить у саппорта</h2>
+      <h2>Що треба підтвердити в support</h2>
       <ul class="gap">
-        <li><b>Точный путь ввода промокода</b> в интерфейсе — сейчас в ответах формулировка общая.</li>
-        <li><b>Лимит кодов на игрока в день</b> и срок жизни кода — юзеры спрашивают прямо, ответа нет.</li>
-        <li><b>«DAILY BLESSING» и «claim 25»</b> — 1 176 сообщений с этими ключевиками. Что это, где работает, что отвечать.</li>
-        <li><b>Ember Points → код:</b> сколько embers на какой код, почему начисление могло остановиться.</li>
-        <li><b>Норма промо на смену:</b> сколько offer / FP / SC кодов оператор может выдать за ночь и с каким интервалом.</li>
-        <li><b>Права на модерацию:</b> может ли оператор мутить и банить сам, или только эскалировать.</li>
-        <li><b>VIP и GC vs SC:</b> считается ли игра на gold coins в прокачку уровня — в чате об этом спорят.</li>
+        <li><b>Точний шлях введення промокоду</b> в інтерфейсі — зараз у відповідях формулювання загальне.</li>
+        <li><b>Ліміт кодів на гравця на день</b> і строк життя коду — юзери питають прямо, відповіді немає.</li>
+        <li><b>«DAILY BLESSING» і «claim 25»</b> — 1 176 повідомлень із цими ключовиками. Що це, де працює, що відповідати.</li>
+        <li><b>Ember Points → код:</b> скільки embers на який код, чому нарахування могло зупинитися.</li>
+        <li><b>Норма промо на зміну:</b> скільки offer / FP / SC кодів оператор може видати за ніч і з яким інтервалом.</li>
+        <li><b>Права на модерацію:</b> чи може оператор мутити й банити сам, чи тільки ескалювати.</li>
+        <li><b>VIP і GC vs SC:</b> чи зараховується гра на gold coins у прокачування рівня — у чаті про це сперечаються.</li>
       </ul>
     </section>
   `;
   document.querySelector('.main').scrollTop = 0;
 }
 
-/* поиск */
+/* пошук */
 const INDEX = Object.entries(N).map(([id, n]) => ({
   id, t: n.t,
   hay: (n.t + ' ' + n.why + ' ' + n.trigs.join(' ') + ' ' + n.br.map(b => b.l).join(' ')).toLowerCase(),
@@ -1071,11 +1071,11 @@ function search(raw) {
   stage.innerHTML = `
     <div class="crumbs"></div>
     <div class="node-head">
-      <div class="tagrow"><span class="tag vol">Поиск</span></div>
-      <h1>${scored.length ? 'Похоже на эти ветки' : 'Ничего не нашлось'}</h1>
+      <div class="tagrow"><span class="tag vol">Пошук</span></div>
+      <h1>${scored.length ? 'Схоже на ці гілки' : 'Нічого не знайшлося'}</h1>
       <p class="node-why">${scored.length
-        ? 'Выбери ветку — откроется полный сценарий с ответами.'
-        : 'Попробуй одно-два слова из сообщения юзера: code, limit, withdraw, ember, trade, scam, chime, discord, rent.'}</p>
+        ? 'Обери гілку — відкриється повний сценарій з відповідями.'
+        : 'Спробуй одне-два слова з повідомлення юзера: code, limit, withdraw, ember, trade, scam, chime, discord, rent.'}</p>
     </div>
     <div class="results">${scored.map(e => `
       <button class="result" data-go="${e.id}">
@@ -1086,7 +1086,7 @@ function search(raw) {
   document.querySelector('.main').scrollTop = 0;
 }
 
-/* события */
+/* події */
 document.addEventListener('click', e => {
   const go = e.target.closest('[data-go]');
   if (go) {
@@ -1099,7 +1099,7 @@ document.addEventListener('click', e => {
   const cp = e.target.closest('[data-copy]');
   if (cp) {
     const text = cp.dataset.copy;
-    const ok = () => { cp.textContent = 'Скопировано'; cp.classList.add('done'); setTimeout(() => { cp.textContent = 'Копировать'; cp.classList.remove('done'); }, 1400); };
+    const ok = () => { cp.textContent = 'Скопійовано'; cp.classList.add('done'); setTimeout(() => { cp.textContent = 'Копіювати'; cp.classList.remove('done'); }, 1400); };
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(text).then(ok, () => fallback(text, ok));
     } else fallback(text, ok);
@@ -1110,7 +1110,7 @@ function fallback(text, ok) {
   const ta = document.createElement('textarea');
   ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
   document.body.appendChild(ta); ta.select();
-  try { document.execCommand('copy'); ok(); } catch (err) { /* ничего не поделать */ }
+  try { document.execCommand('copy'); ok(); } catch (err) { /* нічого не вдієш */ }
   ta.remove();
 }
 
@@ -1123,7 +1123,7 @@ themeBtn.addEventListener('click', () => {
   const light = document.documentElement.getAttribute('data-theme') !== 'light';
   document.documentElement.setAttribute('data-theme', light ? 'light' : 'dark');
   themeBtn.setAttribute('aria-pressed', String(light));
-  themeBtn.textContent = light ? 'Тьма' : 'Свет';
+  themeBtn.textContent = light ? 'Темрява' : 'Світло';
   try { localStorage.setItem('sscl:theme', light ? 'light' : 'dark'); } catch (e) { /* ок */ }
 });
 
@@ -1134,7 +1134,7 @@ themeBtn.addEventListener('click', () => {
   if (t) {
     document.documentElement.setAttribute('data-theme', t);
     themeBtn.setAttribute('aria-pressed', String(t === 'light'));
-    themeBtn.textContent = t === 'light' ? 'Тьма' : 'Свет';
+    themeBtn.textContent = t === 'light' ? 'Темрява' : 'Світло';
   }
   render(last && N[last] ? last : 'beg', true);
 })();
