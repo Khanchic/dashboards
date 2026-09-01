@@ -1,5 +1,5 @@
 // US Holidays Dataset (2026-09-02 to 2027-01-01)
-// Generated automatically - Total items: 189
+// Curated & Enriched
 window.HOLIDAYS_DATA = [
   {
     "id": "janmashtami-2026-09-04",
@@ -16,7 +16,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🕊️",
     "summary": "Janmashtami is observed in the United States.",
-    "summary_ru": "Памятный день / событие «Janmashtami» в календаре США.",
+    "summary_ru": "Памятная дата «Janmashtami», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -27,7 +27,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/hindu-janmashtami"
+    "url": "https://www.timeanddate.com/holidays/us/hindu-janmashtami",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "world-sexual-health-day-2026-09-04",
@@ -37,14 +41,14 @@ window.HOLIDAYS_DATA = [
     "year": 2026,
     "day": 4,
     "name": "World Sexual Health Day",
-    "name_ru": "Всемирный день Sexual Health День",
+    "name_ru": "Всемирный день сексуального здоровья",
     "category": "National Observance",
     "types": [
       "Worldwide Observance"
     ],
     "icon": "📌",
     "summary": "World Sexual Health Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «World Sexual Health Day» в календаре США.",
+    "summary_ru": "Памятная дата ВОЗ, посвященная здоровью и просвещению.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -55,7 +59,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/world/world-sexual-health-day"
+    "url": "https://www.timeanddate.com/holidays/world/world-sexual-health-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "international-day-of-charity-2026-09-05",
@@ -72,7 +80,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🇺🇳",
     "summary": "International Day of Charity is observed in the United States.",
-    "summary_ru": "День ООН, посвященный искоренению бедности и поддержке нуждающихся.",
+    "summary_ru": "День ООН в честь матери Терезы, посвященный помощи нуждающимся.",
     "business_impact": "Памятная дата ООН.",
     "marketing_tips": "Благотворительные сборы и социальные проекты.",
     "states": "Nationwide Observance",
@@ -83,7 +91,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/charity-day"
+    "url": "https://www.timeanddate.com/holidays/un/charity-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "international-day-of-clean-air-for-blue-skies-2026-09-07",
@@ -100,7 +112,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🇺🇳",
     "summary": "International Day of Clean Air for Blue Skies is observed in the United States.",
-    "summary_ru": "День ООН по защите окружающей среды и снижению загрязнения воздуха.",
+    "summary_ru": "День ООН по защите экологии и снижению вредных выбросов в атмосферу.",
     "business_impact": "Памятная дата ООН.",
     "marketing_tips": "Экологические инициативы и устойчивое развитие (ESG).",
     "states": "Nationwide Observance",
@@ -111,7 +123,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/international-day-of-clean-air-for-blue-skies"
+    "url": "https://www.timeanddate.com/holidays/un/international-day-of-clean-air-for-blue-skies",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "still-s-disease-awareness-day-2026-09-07",
@@ -121,14 +137,14 @@ window.HOLIDAYS_DATA = [
     "year": 2026,
     "day": 7,
     "name": "Still's Disease Awareness Day",
-    "name_ru": "Still's Disease Awareness День",
+    "name_ru": "День осведомленности о болезни Стилла",
     "category": "National Observance",
     "types": [
       "Worldwide Observance"
     ],
     "icon": "📌",
     "summary": "Still's Disease Awareness Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «Still's Disease Awareness Day» в календаре США.",
+    "summary_ru": "Международный день поддержки пациентов с редкими аутоиммунными заболеваниями.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -139,7 +155,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/world/stills-disease-day"
+    "url": "https://www.timeanddate.com/holidays/world/stills-disease-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "labor-day-2026-09-07",
@@ -156,21 +176,25 @@ window.HOLIDAYS_DATA = [
       "Federal Holiday"
     ],
     "icon": "🔨",
-    "summary": "National federal holiday paying tribute to the contributions and achievements of American workers. Unofficial end of summer and traditional major long weekend.",
-    "summary_ru": "Федеральный праздник в честь вклада трудящихся. Официальный закрывающий уикенд лета в США.",
-    "business_impact": "Банки, почта, биржи (NYSE/NASDAQ) и госучреждения закрыты.",
-    "marketing_tips": "Финальные летние распродажи, Back to School, товары для барбекю и туризма.",
+    "summary": "Federal holiday honoring the American labor movement and workers' contributions. Unofficial end of summer featuring 3-day weekend road trips, BBQs, and family gatherings.",
+    "summary_ru": "Главный федеральный праздник в честь вклада американских трудящихся. Традиционное завершение летнего сезона с 3-дневными выходными, семейными барбекю и поездками на природу.",
+    "business_impact": "Банки, биржи NYSE/NASDAQ, федеральные и муниципальные службы, почта USPS и школы закрыты.",
+    "marketing_tips": "Масштабные распродажи 'End of Summer', скидки на грили, товары для туризма, электронику и одежду Back-to-School.",
     "states": "All 50 US States",
     "is_federal": true,
     "is_commercial": false,
     "tags": [
       "federal",
       "long-weekend",
-      "bank-holiday",
+      "bank-closed",
       "retail-sale",
-      "major"
+      "featured"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/labor-day"
+    "url": "https://www.timeanddate.com/holidays/us/labor-day",
+    "is_featured": true,
+    "is_major": true,
+    "long_weekend": true,
+    "bank_closed": true
   },
   {
     "id": "international-literacy-day-2026-09-08",
@@ -187,7 +211,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🇺🇳",
     "summary": "International Literacy Day is observed in the United States.",
-    "summary_ru": "День ЮНЕСКО, подчеркивающий важность образования и чтения.",
+    "summary_ru": "День ЮНЕСКО, подчеркивающий важность образования и доступности чтения во всем мире.",
     "business_impact": "Памятная дата ООН.",
     "marketing_tips": "Книги, образовательные курсы, EdTech.",
     "states": "Nationwide Observance",
@@ -198,7 +222,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/international-literacy-day"
+    "url": "https://www.timeanddate.com/holidays/un/international-literacy-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "international-day-to-protect-education-from-attack-2026-09-09",
@@ -208,14 +236,14 @@ window.HOLIDAYS_DATA = [
     "year": 2026,
     "day": 9,
     "name": "International Day to Protect Education from Attack",
-    "name_ru": "Международный день День to Protect Education from Attack",
+    "name_ru": "Международный день защиты образования от нападений",
     "category": "UN & International",
     "types": [
       "United Nations Observance"
     ],
     "icon": "🇺🇳",
     "summary": "International Day to Protect Education from Attack is observed in the United States.",
-    "summary_ru": "Памятный день / событие «International Day to Protect Education from Attack» в календаре США.",
+    "summary_ru": "Памятный день ООН по обеспечению безопасности школ и университетов в зонах конфликтов.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -226,7 +254,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/international-day-to-protect-education-from-attack"
+    "url": "https://www.timeanddate.com/holidays/un/international-day-to-protect-education-from-attack",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "california-admission-day-2026-09-09",
@@ -236,14 +268,14 @@ window.HOLIDAYS_DATA = [
     "year": 2026,
     "day": 9,
     "name": "California Admission Day",
-    "name_ru": "День основания штата Калифорния",
+    "name_ru": "День вступления Калифорнии в состав США",
     "category": "State Holiday",
     "types": [
       "State Holiday"
     ],
     "icon": "🗽",
     "summary": "California Admission Day is observed in the United States.",
-    "summary_ru": "Праздник в честь вступления Калифорнии в состав США (1850 г.).",
+    "summary_ru": "Официальный праздник штата Калифорния в честь присоединения к США в 1850 году.",
     "business_impact": "Официальный праздник штата Калифорния.",
     "marketing_tips": "Локальные калифорнийские акции и туризм.",
     "states": "California",
@@ -254,7 +286,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/california-admission-day"
+    "url": "https://www.timeanddate.com/holidays/us/california-admission-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "world-suicide-prevention-day-2026-09-10",
@@ -264,14 +300,14 @@ window.HOLIDAYS_DATA = [
     "year": 2026,
     "day": 10,
     "name": "World Suicide Prevention Day",
-    "name_ru": "Всемирный день Suicide Prevention День",
+    "name_ru": "Всемирный день предотвращения самоубийств",
     "category": "National Observance",
     "types": [
       "Worldwide Observance"
     ],
     "icon": "📌",
     "summary": "World Suicide Prevention Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «World Suicide Prevention Day» в календаре США.",
+    "summary_ru": "Международный день психологической поддержки и профилактики ментального здоровья.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -282,7 +318,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/world-suicide-prevention-day"
+    "url": "https://www.timeanddate.com/holidays/un/world-suicide-prevention-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "first-responders-day-2026-09-11",
@@ -299,7 +339,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🗽",
     "summary": "First Responders Day is observed in the United States.",
-    "summary_ru": "Праздник штата Северная Каролина в честь пожарных, медиков и полиции.",
+    "summary_ru": "Официальный праздник штата Северная Каролина в честь пожарных, медиков и полиции.",
     "business_impact": "Официальный праздник в Северной Каролине.",
     "marketing_tips": "Скидки и благодарности сотрудникам экстренных служб.",
     "states": "North Carolina",
@@ -310,7 +350,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/first-responders-day"
+    "url": "https://www.timeanddate.com/holidays/us/first-responders-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "patriot-day-2026-09-11",
@@ -320,27 +364,30 @@ window.HOLIDAYS_DATA = [
     "year": 2026,
     "day": 11,
     "name": "Patriot Day",
-    "name_ru": "День памяти 9/11 (Patriot Day)",
+    "name_ru": "День патриота (Память 9/11)",
     "category": "State Observance",
     "types": [
       "State Observance",
       "Observance"
     ],
     "icon": "🇺🇸",
-    "summary": "National Day of Service and Remembrance honoring the 2,977 victims of the September 11, 2001 terrorist attacks.",
-    "summary_ru": "Национальный день служения и памяти жертв терактов 11 сентября 2001 года.",
-    "business_impact": "Рабочий день; биржи и банки открыты; флаги приспущены.",
-    "marketing_tips": "Сдержанный мемориальный тон; избегать агрессивного промоушена.",
+    "summary": "National Day of Service and Remembrance honoring the 2,977 victims of the September 11, 2001 attacks.",
+    "summary_ru": "Национальный день служения и памяти жертв террористических атак 11 сентября 2001 года. По всей стране проходят минуты молчания и благотворительные акции.",
+    "business_impact": "Обычный рабочий день; банки и биржи открыты. Государственные флаги США приспущены на всех зданиях.",
+    "marketing_tips": "Строго мемориальный и благотворительный контекст. Любая прямая коммерческая реклама в этот день воспринимается негативно.",
     "states": "Alaska",
     "is_federal": false,
     "is_commercial": false,
     "tags": [
       "observance",
       "memorial",
-      "service",
-      "patriotism"
+      "featured"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/patriot-day"
+    "url": "https://www.timeanddate.com/holidays/us/patriot-day",
+    "is_featured": true,
+    "is_major": true,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "rosh-hashana-2026-09-12",
@@ -350,17 +397,17 @@ window.HOLIDAYS_DATA = [
     "year": 2026,
     "day": 12,
     "name": "Rosh Hashana",
-    "name_ru": "Рош ха-Шана (Еврейский Новый год)",
+    "name_ru": "Рош ха-Шана (Еврейский Новый 5787 год)",
     "category": "Religious",
     "types": [
       "Jewish holiday",
       "State Holiday"
     ],
     "icon": "🍎",
-    "summary": "The Jewish New Year (Year 5787), marking the creation of the world and beginning the Ten Days of Repentance.",
-    "summary_ru": "Еврейский Новый год (5787 год), начало Десяти дней покаяния и праздничных семейных трапез с яблоками и медом.",
-    "business_impact": "State holiday in Texas; Jewish-owned businesses and community centers close or operate with limited hours.",
-    "marketing_tips": "Apples & honey promos, kosher food hampers, greeting cards, Jewish community messaging.",
+    "summary": "The Jewish New Year (Year 5787), ushering in the High Holy Days with festive meals of apples dipped in honey and blowing the shofar.",
+    "summary_ru": "Еврейский Новый год, знаменующий начало Десяти дней покаяния. Традиция вкушать яблоки с медом для 'сладкого года' и трубить в шофар.",
+    "business_impact": "Праздничный день в ряде штатов (Техас и др.); еврейские предприятия и учебные заведения закрыты.",
+    "marketing_tips": "Подарочные наборы, кошерные продукты, открытки с пожеланиями Shana Tova, яблоки и мед.",
     "states": "Texas",
     "is_federal": false,
     "is_commercial": false,
@@ -368,9 +415,14 @@ window.HOLIDAYS_DATA = [
       "religious",
       "jewish",
       "cultural",
-      "family"
+      "gifting",
+      "featured"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/rosh-hashana"
+    "url": "https://www.timeanddate.com/holidays/us/rosh-hashana",
+    "is_featured": true,
+    "is_major": true,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "international-day-for-south-south-cooperation-2026-09-12",
@@ -380,14 +432,14 @@ window.HOLIDAYS_DATA = [
     "year": 2026,
     "day": 12,
     "name": "International Day for South-South Cooperation",
-    "name_ru": "Международный день South-South Cooperation",
+    "name_ru": "День сотрудничества Юг-Юг",
     "category": "UN & International",
     "types": [
       "United Nations Observance"
     ],
     "icon": "🇺🇳",
     "summary": "International Day for South-South Cooperation is observed in the United States.",
-    "summary_ru": "Памятный день / событие «International Day for South-South Cooperation» в календаре США.",
+    "summary_ru": "День ООН по развитию партнерства развивающихся стран.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -398,7 +450,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/international-south-south-cooperation-day"
+    "url": "https://www.timeanddate.com/holidays/un/international-south-south-cooperation-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "carl-garner-federal-lands-cleanup-day-2026-09-12",
@@ -408,14 +464,14 @@ window.HOLIDAYS_DATA = [
     "year": 2026,
     "day": 12,
     "name": "Carl Garner Federal Lands Cleanup Day",
-    "name_ru": "Carl Garner Federal Lands Cleanup День",
+    "name_ru": "День очистки федеральных земель Карла Гарнера",
     "category": "National Observance",
     "types": [
       "Observance"
     ],
     "icon": "📌",
     "summary": "Carl Garner Federal Lands Cleanup Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «Carl Garner Federal Lands Cleanup Day» в календаре США.",
+    "summary_ru": "Национальный день волонтерской уборки парков и заповедников США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -426,7 +482,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/carl-garner-cleanup-day"
+    "url": "https://www.timeanddate.com/holidays/us/carl-garner-cleanup-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "native-american-day-2026-09-12",
@@ -443,7 +503,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "📌",
     "summary": "Native American Day is observed in the United States.",
-    "summary_ru": "Официальный праздник штатов Вашингтон, Делавэр, Калифорния и Невада.",
+    "summary_ru": "Официальный праздник штатов Вашингтон, Делавэр, Калифорния и Невада в честь индейских народов.",
     "business_impact": "Выходной в ряде государственных органов штатов.",
     "marketing_tips": "Культурный диалог и краеведение.",
     "states": "Delaware",
@@ -454,7 +514,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/native-americans-day"
+    "url": "https://www.timeanddate.com/holidays/us/native-americans-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "international-programmers-day-2026-09-13",
@@ -464,14 +528,14 @@ window.HOLIDAYS_DATA = [
     "year": 2026,
     "day": 13,
     "name": "International Programmers' Day",
-    "name_ru": "Международный день Programmers' День",
+    "name_ru": "Международный день программиста",
     "category": "National Observance",
     "types": [
       "Worldwide Observance"
     ],
     "icon": "📌",
     "summary": "International Programmers' Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «International Programmers' Day» в календаре США.",
+    "summary_ru": "Профессиональный праздник разработчиков ПО (256-й день года).",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -482,7 +546,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/world/international-programmers-day"
+    "url": "https://www.timeanddate.com/holidays/world/international-programmers-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "national-grandparents-day-2026-09-13",
@@ -492,14 +560,14 @@ window.HOLIDAYS_DATA = [
     "year": 2026,
     "day": 13,
     "name": "National Grandparents Day",
-    "name_ru": "National Grandparents День",
+    "name_ru": "Национальный день бабушек и дедушек",
     "category": "National Observance",
     "types": [
       "Observance"
     ],
     "icon": "📌",
     "summary": "National Grandparents Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «National Grandparents Day» в календаре США.",
+    "summary_ru": "Семейный праздник в США в честь старшего поколения в первое воскресенье после Labor Day.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -510,7 +578,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/national-grandparents-day"
+    "url": "https://www.timeanddate.com/holidays/us/national-grandparents-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "constitution-commemoration-day-2026-09-13",
@@ -527,7 +599,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🗽",
     "summary": "Constitution Commemoration Day is observed in the United States.",
-    "summary_ru": "Праздник штата Аризона в честь подписания Конституции США.",
+    "summary_ru": "Официальный праздник штата Аризона в честь ратификации Конституции США.",
     "business_impact": "Праздник штата Аризона.",
     "marketing_tips": "Образовательный контент.",
     "states": "Arizona",
@@ -538,7 +610,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/constitution-citizenship-day"
+    "url": "https://www.timeanddate.com/holidays/us/constitution-citizenship-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "ganesh-chaturthi-2026-09-14",
@@ -548,14 +624,14 @@ window.HOLIDAYS_DATA = [
     "year": 2026,
     "day": 14,
     "name": "Ganesh Chaturthi",
-    "name_ru": "Ganesh Chaturthi",
+    "name_ru": "Ганеша Чатуртхи",
     "category": "Religious",
     "types": [
       "Hindu Holiday"
     ],
     "icon": "🕊️",
     "summary": "Ganesh Chaturthi is observed in the United States.",
-    "summary_ru": "Памятный день / событие «Ganesh Chaturthi» в календаре США.",
+    "summary_ru": "Индуистский фестиваль в честь бога мудрости и устранителя препятствий Ганеши.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -566,7 +642,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/hindu-ganesh-chaturthi"
+    "url": "https://www.timeanddate.com/holidays/us/hindu-ganesh-chaturthi",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "international-day-of-democracy-2026-09-15",
@@ -576,14 +656,14 @@ window.HOLIDAYS_DATA = [
     "year": 2026,
     "day": 15,
     "name": "International Day of Democracy",
-    "name_ru": "Международный день Democracy",
+    "name_ru": "Международный день демократии",
     "category": "UN & International",
     "types": [
       "United Nations Observance"
     ],
     "icon": "🇺🇳",
     "summary": "International Day of Democracy is observed in the United States.",
-    "summary_ru": "Памятный день / событие «International Day of Democracy» в календаре США.",
+    "summary_ru": "День ООН, посвященный развитию демократических институтов и гражданских свобод.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -594,7 +674,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/international-democracy-day"
+    "url": "https://www.timeanddate.com/holidays/un/international-democracy-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "first-day-of-national-hispanic-heritage-month-2026-09-15",
@@ -604,14 +688,14 @@ window.HOLIDAYS_DATA = [
     "year": 2026,
     "day": 15,
     "name": "First Day of National Hispanic Heritage Month",
-    "name_ru": "First День of National Hispanic Heritage Month",
+    "name_ru": "Старт Месяца латиноамериканского наследия",
     "category": "National Observance",
     "types": [
       "Annual Monthly Observance"
     ],
     "icon": "📌",
     "summary": "First Day of National Hispanic Heritage Month is observed in the United States.",
-    "summary_ru": "Памятный день / событие «First Day of National Hispanic Heritage Month» в календаре США.",
+    "summary_ru": "Начало общенационального месяца чествования культуры латиноамериканцев в США (15 сен – 15 окт).",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -622,7 +706,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/first-day-of-national-hispanic-heritage-month"
+    "url": "https://www.timeanddate.com/holidays/us/first-day-of-national-hispanic-heritage-month",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "international-day-for-the-preservation-of-the-ozone-layer-2026-09-16",
@@ -632,14 +720,14 @@ window.HOLIDAYS_DATA = [
     "year": 2026,
     "day": 16,
     "name": "International Day for the Preservation of the Ozone Layer",
-    "name_ru": "Международный день the Preservation of the Ozone Layer",
+    "name_ru": "Международный день охраны озонового слоя",
     "category": "UN & International",
     "types": [
       "United Nations Observance"
     ],
     "icon": "🇺🇳",
     "summary": "International Day for the Preservation of the Ozone Layer is observed in the United States.",
-    "summary_ru": "Памятный день / событие «International Day for the Preservation of the Ozone Layer» в календаре США.",
+    "summary_ru": "Экологический день ООН в честь Монреальского протокола.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -650,7 +738,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/international-ozone-layer-preservation-day"
+    "url": "https://www.timeanddate.com/holidays/un/international-ozone-layer-preservation-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "world-patient-safety-day-2026-09-17",
@@ -667,7 +759,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🇺🇳",
     "summary": "World Patient Safety Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «World Patient Safety Day» в календаре США.",
+    "summary_ru": "Памятная дата «Всемирный день Patient Safety День», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -678,7 +770,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/world-patient-safety-day"
+    "url": "https://www.timeanddate.com/holidays/un/world-patient-safety-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "constitution-day-and-citizenship-day-2026-09-17",
@@ -688,25 +784,29 @@ window.HOLIDAYS_DATA = [
     "year": 2026,
     "day": 17,
     "name": "Constitution Day and Citizenship Day",
-    "name_ru": "Constitution День and Citizenship День",
+    "name_ru": "День Конституции и гражданства США",
     "category": "National Observance",
     "types": [
       "Observance"
     ],
-    "icon": "📌",
-    "summary": "Constitution Day and Citizenship Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «Constitution Day and Citizenship Day» в календаре США.",
-    "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
-    "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
+    "icon": "📜",
+    "summary": "Commemorates the signing of the U.S. Constitution on September 17, 1787, recognizing all who have become citizens.",
+    "summary_ru": "Памятный день подписания Конституции США в 1787 году в Филадельфии и признания всех граждан Америки.",
+    "business_impact": "Рабочий день; во всех государственных школах и вузах проводятся образовательные уроки по Конституции.",
+    "marketing_tips": "Образовательные инициативы, скидки для студентов, патриотический контент.",
     "states": "Nationwide Observance",
     "is_federal": false,
     "is_commercial": false,
     "tags": [
-      "national-observance",
-      "usa",
-      "2026"
+      "observance",
+      "civic",
+      "constitution"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/constitution-citizenship-day"
+    "url": "https://www.timeanddate.com/holidays/us/constitution-citizenship-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "international-equal-pay-day-2026-09-18",
@@ -716,14 +816,14 @@ window.HOLIDAYS_DATA = [
     "year": 2026,
     "day": 18,
     "name": "International Equal Pay Day",
-    "name_ru": "Международный день Equal Pay День",
+    "name_ru": "Международный день равной оплаты труда",
     "category": "UN & International",
     "types": [
       "United Nations Observance"
     ],
     "icon": "🇺🇳",
     "summary": "International Equal Pay Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «International Equal Pay Day» в календаре США.",
+    "summary_ru": "День ООН по борьбе с гендерным разрывом в заработной плате.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -734,7 +834,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/international-equal-pay-day"
+    "url": "https://www.timeanddate.com/holidays/un/international-equal-pay-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "air-force-birthday-2026-09-18",
@@ -751,7 +855,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "📌",
     "summary": "Air Force Birthday is observed in the United States.",
-    "summary_ru": "Памятный день / событие «Air Force Birthday» в календаре США.",
+    "summary_ru": "Памятная дата «Air Force День рождения», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -762,7 +866,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/air-force-birthday"
+    "url": "https://www.timeanddate.com/holidays/us/air-force-birthday",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "national-pow-mia-recognition-day-2026-09-18",
@@ -779,7 +887,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "📌",
     "summary": "National POW/MIA Recognition Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «National POW/MIA Recognition Day» в календаре США.",
+    "summary_ru": "Памятная дата «National POW/MIA Recognition День», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -790,7 +898,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/pow-mia-recognition-day"
+    "url": "https://www.timeanddate.com/holidays/us/pow-mia-recognition-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "yom-kippur-2026-09-21",
@@ -807,10 +919,10 @@ window.HOLIDAYS_DATA = [
       "State Holiday"
     ],
     "icon": "🕊️",
-    "summary": "Day of Atonement, the holiest day in Judaism, observed with a strict 25-hour fast and intensive prayer.",
-    "summary_ru": "День искупления — священнейший день еврейского календаря, соблюдаемый с 25-часовым постом и молитвой.",
-    "business_impact": "Trading volume on Wall Street drops noticeably; school districts in NY/NJ/CA frequently observe recesses.",
-    "marketing_tips": "Refrain from promotional email blasts and ad pushes targeting relevant demographics during fast hours.",
+    "summary": "Day of Atonement, the holiest day of the Jewish year, observed with 25-hour fasting and intensive synagogue prayers.",
+    "summary_ru": "День искупления — самый священный и строгий день в иудаизме. Суточный пост, молитвы и духовное очищение.",
+    "business_impact": "Заметное снижение объемов торгов на Уолл-стрит; школы в Нью-Йорке и ряде округов закрыты.",
+    "marketing_tips": "Полное исключение рекламных рассылок и таргетированной рекламы во время поста.",
     "states": "Texas",
     "is_federal": false,
     "is_commercial": false,
@@ -818,9 +930,13 @@ window.HOLIDAYS_DATA = [
       "religious",
       "jewish",
       "fasting",
-      "solemn"
+      "featured"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/yom-kippur"
+    "url": "https://www.timeanddate.com/holidays/us/yom-kippur",
+    "is_featured": true,
+    "is_major": true,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "international-day-of-peace-2026-09-21",
@@ -848,7 +964,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/international-peace-day"
+    "url": "https://www.timeanddate.com/holidays/un/international-peace-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "emancipation-day-2026-09-22",
@@ -858,14 +978,14 @@ window.HOLIDAYS_DATA = [
     "year": 2026,
     "day": 22,
     "name": "Emancipation Day",
-    "name_ru": "Emancipation День",
+    "name_ru": "День эмансипации (Огайо)",
     "category": "National Observance",
     "types": [
       "Local Observance"
     ],
     "icon": "📌",
     "summary": "Emancipation Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «Emancipation Day» в календаре США.",
+    "summary_ru": "Памятная дата штата Огайо в честь отмены рабства.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Ohio",
@@ -876,7 +996,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/emancipation-day-oh"
+    "url": "https://www.timeanddate.com/holidays/us/emancipation-day-oh",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "september-equinox-2026-09-22",
@@ -886,25 +1010,29 @@ window.HOLIDAYS_DATA = [
     "year": 2026,
     "day": 22,
     "name": "September Equinox",
-    "name_ru": "September Equinox",
+    "name_ru": "Осеннее равноденствие (Начало осени)",
     "category": "Astronomical / Season",
     "types": [
       "Season"
     ],
-    "icon": "🪐",
-    "summary": "September Equinox is observed in the United States.",
-    "summary_ru": "Памятный день / событие «September Equinox» в календаре США.",
-    "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
-    "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
+    "icon": "🍂",
+    "summary": "Astronomical beginning of autumn in the Northern Hemisphere.",
+    "summary_ru": "Астрономическое начало осени в Северном полушарии: день и ночь равны по продолжительности.",
+    "business_impact": "Обычный рабочий день.",
+    "marketing_tips": "Запуск осенних коллекций одежды, тыквенное латте (Pumpkin Spice), осенний декор для дома.",
     "states": "Nationwide Observance",
     "is_federal": false,
     "is_commercial": false,
     "tags": [
-      "astronomical-/-season",
-      "usa",
-      "2026"
+      "season",
+      "astronomical",
+      "autumn"
     ],
-    "url": "https://www.timeanddate.com/calendar/september-equinox.html"
+    "url": "https://www.timeanddate.com/calendar/september-equinox.html",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "international-day-of-sign-languages-2026-09-23",
@@ -914,14 +1042,14 @@ window.HOLIDAYS_DATA = [
     "year": 2026,
     "day": 23,
     "name": "International Day of Sign Languages",
-    "name_ru": "Международный день Sign Languages",
+    "name_ru": "Международный день жестовых языков",
     "category": "UN & International",
     "types": [
       "United Nations Observance"
     ],
     "icon": "🇺🇳",
     "summary": "International Day of Sign Languages is observed in the United States.",
-    "summary_ru": "Памятный день / событие «International Day of Sign Languages» в календаре США.",
+    "summary_ru": "День ООН по поддержке языковой самобытности людей с нарушениями слуха.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -932,7 +1060,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/international-day-of-sign-languages"
+    "url": "https://www.timeanddate.com/holidays/un/international-day-of-sign-languages",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "international-celebrate-bisexuality-day-2026-09-23",
@@ -942,14 +1074,14 @@ window.HOLIDAYS_DATA = [
     "year": 2026,
     "day": 23,
     "name": "International Celebrate Bisexuality Day",
-    "name_ru": "Международный день Celebrate Bisexuality День",
+    "name_ru": "Международный день видимости бисексуальности",
     "category": "National Observance",
     "types": [
       "Worldwide Observance"
     ],
     "icon": "📌",
     "summary": "International Celebrate Bisexuality Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «International Celebrate Bisexuality Day» в календаре США.",
+    "summary_ru": "Памятный день разнообразия и инклюзивности.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -960,7 +1092,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/world/celebrate-bisexuality-day"
+    "url": "https://www.timeanddate.com/holidays/world/celebrate-bisexuality-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "world-maritime-day-2026-09-24",
@@ -970,14 +1106,14 @@ window.HOLIDAYS_DATA = [
     "year": 2026,
     "day": 24,
     "name": "World Maritime Day",
-    "name_ru": "Всемирный день Maritime День",
+    "name_ru": "Всемирный день моря",
     "category": "UN & International",
     "types": [
       "United Nations Observance"
     ],
     "icon": "🇺🇳",
     "summary": "World Maritime Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «World Maritime Day» в календаре США.",
+    "summary_ru": "День ООН по защите морской экосистемы и судоходства.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -988,7 +1124,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/world-maritime-day"
+    "url": "https://www.timeanddate.com/holidays/un/world-maritime-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "native-american-day-2026-09-25",
@@ -1005,7 +1145,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "📌",
     "summary": "Native American Day is observed in the United States.",
-    "summary_ru": "Официальный праздник штатов Вашингтон, Делавэр, Калифорния и Невада.",
+    "summary_ru": "Официальный праздник штатов Вашингтон, Делавэр, Калифорния и Невада в честь индейских народов.",
     "business_impact": "Выходной в ряде государственных органов штатов.",
     "marketing_tips": "Культурный диалог и краеведение.",
     "states": "California, Nevada",
@@ -1016,7 +1156,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/native-americans-day"
+    "url": "https://www.timeanddate.com/holidays/us/native-americans-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "american-indian-heritage-day-2026-09-25",
@@ -1033,7 +1177,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "📌",
     "summary": "American Indian Heritage Day is observed in the United States.",
-    "summary_ru": "Праздник штатов Мэриленд, Монтана и Техас в честь коренных народов.",
+    "summary_ru": "Официальный праздник в Мэриленде, Монтане и Техасе.",
     "business_impact": "Праздник в ряде штатов.",
     "marketing_tips": "Культурные выставки и поддержка индейских ремесел.",
     "states": "Montana, Texas",
@@ -1044,7 +1188,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/american-indian-heritage-day"
+    "url": "https://www.timeanddate.com/holidays/us/american-indian-heritage-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "michigan-indian-day-2026-09-25",
@@ -1072,7 +1220,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/michigan-indian-day"
+    "url": "https://www.timeanddate.com/holidays/us/michigan-indian-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "first-day-of-sukkot-2026-09-26",
@@ -1082,14 +1234,14 @@ window.HOLIDAYS_DATA = [
     "year": 2026,
     "day": 26,
     "name": "First Day of Sukkot",
-    "name_ru": "First День of Sukkot",
+    "name_ru": "Первый день праздника Суккот",
     "category": "Religious",
     "types": [
       "Jewish holiday"
     ],
     "icon": "🕊️",
     "summary": "First Day of Sukkot is observed in the United States.",
-    "summary_ru": "Памятный день / событие «First Day of Sukkot» в календаре США.",
+    "summary_ru": "Еврейский праздник кущей в память о странствовании по пустыне.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -1100,7 +1252,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/sukkot"
+    "url": "https://www.timeanddate.com/holidays/us/sukkot",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "international-day-for-the-total-elimination-of-nuclear-weapons-2026-09-26",
@@ -1110,14 +1266,14 @@ window.HOLIDAYS_DATA = [
     "year": 2026,
     "day": 26,
     "name": "International Day for the Total Elimination of Nuclear Weapons",
-    "name_ru": "Международный день the Total Elimination of Nuclear Weapons",
+    "name_ru": "День борьбы за ликвидацию ядерного оружия",
     "category": "UN & International",
     "types": [
       "United Nations Observance"
     ],
     "icon": "🇺🇳",
     "summary": "International Day for the Total Elimination of Nuclear Weapons is observed in the United States.",
-    "summary_ru": "Памятный день / событие «International Day for the Total Elimination of Nuclear Weapons» в календаре США.",
+    "summary_ru": "Международный день ООН по ядерному разоружению.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -1128,7 +1284,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/day-to-eliminate-nuclear-weapons"
+    "url": "https://www.timeanddate.com/holidays/un/day-to-eliminate-nuclear-weapons",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "public-lands-day-2026-09-26",
@@ -1145,7 +1305,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "📌",
     "summary": "Public Lands Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «Public Lands Day» в календаре США.",
+    "summary_ru": "Памятная дата «Public Lands День», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Wyoming",
@@ -1156,7 +1316,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/public-lands-day"
+    "url": "https://www.timeanddate.com/holidays/us/public-lands-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "national-public-lands-day-2026-09-26",
@@ -1173,7 +1337,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "📌",
     "summary": "National Public Lands Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «National Public Lands Day» в календаре США.",
+    "summary_ru": "Памятная дата «National Public Lands День», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -1184,7 +1348,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/national-public-lands-day"
+    "url": "https://www.timeanddate.com/holidays/us/national-public-lands-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "indian-day-2026-09-26",
@@ -1201,7 +1369,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "📌",
     "summary": "Indian Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «Indian Day» в календаре США.",
+    "summary_ru": "Памятная дата «Indian День», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Oklahoma",
@@ -1212,7 +1380,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/indian-day"
+    "url": "https://www.timeanddate.com/holidays/us/indian-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "world-tourism-day-2026-09-27",
@@ -1222,14 +1394,14 @@ window.HOLIDAYS_DATA = [
     "year": 2026,
     "day": 27,
     "name": "World Tourism Day",
-    "name_ru": "Всемирный день Tourism День",
+    "name_ru": "Всемирный день туризма",
     "category": "UN & International",
     "types": [
       "United Nations Observance"
     ],
     "icon": "🇺🇳",
     "summary": "World Tourism Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «World Tourism Day» в календаре США.",
+    "summary_ru": "Международный праздник путешествий, гостеприимства и туризма.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -1240,7 +1412,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/world-tourism-day"
+    "url": "https://www.timeanddate.com/holidays/un/world-tourism-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "gold-star-mother-s-day-2026-09-27",
@@ -1257,7 +1433,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "📌",
     "summary": "Gold Star Mother's Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «Gold Star Mother's Day» в календаре США.",
+    "summary_ru": "Памятная дата «Gold Star Mother's День», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -1268,7 +1444,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/gold-star-mothers-day"
+    "url": "https://www.timeanddate.com/holidays/us/gold-star-mothers-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "international-day-for-universal-access-to-information-2026-09-28",
@@ -1278,14 +1458,14 @@ window.HOLIDAYS_DATA = [
     "year": 2026,
     "day": 28,
     "name": "International Day for Universal Access to Information",
-    "name_ru": "Международный день Universal Access to Information",
+    "name_ru": "День всеобщего доступа к информации",
     "category": "UN & International",
     "types": [
       "United Nations Observance"
     ],
     "icon": "🇺🇳",
     "summary": "International Day for Universal Access to Information is observed in the United States.",
-    "summary_ru": "Памятный день / событие «International Day for Universal Access to Information» в календаре США.",
+    "summary_ru": "День ЮНЕСКО по защите свободы слова и открытых данных.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -1296,7 +1476,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/international-day-for-universal-access-to-information"
+    "url": "https://www.timeanddate.com/holidays/un/international-day-for-universal-access-to-information",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "world-rabies-day-2026-09-28",
@@ -1306,14 +1490,14 @@ window.HOLIDAYS_DATA = [
     "year": 2026,
     "day": 28,
     "name": "World Rabies Day",
-    "name_ru": "Всемирный день Rabies День",
+    "name_ru": "Всемирный день борьбы против бешенства",
     "category": "National Observance",
     "types": [
       "Worldwide Observance"
     ],
     "icon": "📌",
     "summary": "World Rabies Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «World Rabies Day» в календаре США.",
+    "summary_ru": "День ветеринарного контроля и вакцинации животных.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -1324,7 +1508,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/world-rabies-day"
+    "url": "https://www.timeanddate.com/holidays/un/world-rabies-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "american-indian-day-2026-09-28",
@@ -1341,7 +1529,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "📌",
     "summary": "American Indian Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «American Indian Day» в календаре США.",
+    "summary_ru": "Памятная дата «American Indian День», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Tennessee",
@@ -1352,7 +1540,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/american-indian-day"
+    "url": "https://www.timeanddate.com/holidays/us/american-indian-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "international-day-of-awareness-of-food-loss-and-waste-2026-09-29",
@@ -1369,7 +1561,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🇺🇳",
     "summary": "International Day of Awareness of Food Loss and Waste is observed in the United States.",
-    "summary_ru": "Памятный день / событие «International Day of Awareness of Food Loss and Waste» в календаре США.",
+    "summary_ru": "Памятная дата «Международный день Awareness of Food Loss and Waste», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -1380,7 +1572,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/food-loss-and-waste-awareness-day"
+    "url": "https://www.timeanddate.com/holidays/un/food-loss-and-waste-awareness-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "world-heart-day-2026-09-29",
@@ -1390,14 +1586,14 @@ window.HOLIDAYS_DATA = [
     "year": 2026,
     "day": 29,
     "name": "World Heart Day",
-    "name_ru": "Всемирный день Heart День",
+    "name_ru": "Всемирный день сердца",
     "category": "National Observance",
     "types": [
       "Worldwide Observance"
     ],
     "icon": "📌",
     "summary": "World Heart Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «World Heart Day» в календаре США.",
+    "summary_ru": "Международный день профилактики сердечно-сосудистых заболеваний.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -1408,7 +1604,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/world/world-heart-day"
+    "url": "https://www.timeanddate.com/holidays/world/world-heart-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "international-translation-day-2026-09-30",
@@ -1418,14 +1618,14 @@ window.HOLIDAYS_DATA = [
     "year": 2026,
     "day": 30,
     "name": "International Translation Day",
-    "name_ru": "Международный день Translation День",
+    "name_ru": "Международный день переводчика",
     "category": "UN & International",
     "types": [
       "United Nations Observance"
     ],
     "icon": "🇺🇳",
     "summary": "International Translation Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «International Translation Day» в календаре США.",
+    "summary_ru": "Профессиональный праздник лингвистов и переводчиков.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -1436,7 +1636,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/international-translation-day"
+    "url": "https://www.timeanddate.com/holidays/un/international-translation-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "international-day-of-older-persons-2026-10-01",
@@ -1446,14 +1650,14 @@ window.HOLIDAYS_DATA = [
     "year": 2026,
     "day": 1,
     "name": "International Day of Older Persons",
-    "name_ru": "Международный день Older Persons",
+    "name_ru": "Международный день пожилых людей",
     "category": "UN & International",
     "types": [
       "United Nations Observance"
     ],
     "icon": "🇺🇳",
     "summary": "International Day of Older Persons is observed in the United States.",
-    "summary_ru": "Памятный день / событие «International Day of Older Persons» в календаре США.",
+    "summary_ru": "День ООН, посвященный защите прав и благополучию старшего поколения.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -1464,7 +1668,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/international-older-persons-day"
+    "url": "https://www.timeanddate.com/holidays/un/international-older-persons-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "world-vegetarian-day-2026-10-01",
@@ -1474,14 +1682,14 @@ window.HOLIDAYS_DATA = [
     "year": 2026,
     "day": 1,
     "name": "World Vegetarian Day",
-    "name_ru": "Всемирный день Vegetarian День",
+    "name_ru": "Всемирный день вегетарианства",
     "category": "National Observance",
     "types": [
       "Worldwide Observance"
     ],
     "icon": "📌",
     "summary": "World Vegetarian Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «World Vegetarian Day» в календаре США.",
+    "summary_ru": "Праздник растительного питания, этичного отношения к животным и экологии.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -1492,7 +1700,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/world/world-vegetarian-day"
+    "url": "https://www.timeanddate.com/holidays/world/world-vegetarian-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "last-day-of-sukkot-2026-10-02",
@@ -1502,14 +1714,14 @@ window.HOLIDAYS_DATA = [
     "year": 2026,
     "day": 2,
     "name": "Last Day of Sukkot",
-    "name_ru": "Last День of Sukkot",
+    "name_ru": "Заключительный день праздника Суккот",
     "category": "Religious",
     "types": [
       "Jewish holiday"
     ],
     "icon": "🕊️",
     "summary": "Last Day of Sukkot is observed in the United States.",
-    "summary_ru": "Памятный день / событие «Last Day of Sukkot» в календаре США.",
+    "summary_ru": "Седьмой день праздника Суккот (Хошана Раба).",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -1520,7 +1732,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/last-day-of-sukkot"
+    "url": "https://www.timeanddate.com/holidays/us/last-day-of-sukkot",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "international-day-of-non-violence-2026-10-02",
@@ -1530,14 +1746,14 @@ window.HOLIDAYS_DATA = [
     "year": 2026,
     "day": 2,
     "name": "International Day of Non-Violence",
-    "name_ru": "Международный день Non-Violence",
+    "name_ru": "Международный день ненасилия",
     "category": "UN & International",
     "types": [
       "United Nations Observance"
     ],
     "icon": "🇺🇳",
     "summary": "International Day of Non-Violence is observed in the United States.",
-    "summary_ru": "Памятный день / событие «International Day of Non-Violence» в календаре США.",
+    "summary_ru": "День ООН в день рождения Махатмы Ганди, пропагандирующий мирное решение конфликтов.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -1548,7 +1764,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/international-nonviolence-day"
+    "url": "https://www.timeanddate.com/holidays/un/international-nonviolence-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "shmini-atzeret-2026-10-03",
@@ -1565,7 +1785,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🕊️",
     "summary": "Shmini Atzeret is observed in the United States.",
-    "summary_ru": "Памятный день / событие «Shmini Atzeret» в календаре США.",
+    "summary_ru": "Памятная дата «Shmini Atzeret», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -1576,7 +1796,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/shmini-atzeret"
+    "url": "https://www.timeanddate.com/holidays/us/shmini-atzeret",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "feast-of-st-francis-of-assisi-2026-10-04",
@@ -1593,7 +1817,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🕊️",
     "summary": "Feast of St Francis of Assisi is observed in the United States.",
-    "summary_ru": "Памятный день / событие «Feast of St Francis of Assisi» в календаре США.",
+    "summary_ru": "Памятная дата «Праздник St Francis of Assisi», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -1604,7 +1828,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/st-francis-assisi-feast"
+    "url": "https://www.timeanddate.com/holidays/us/st-francis-assisi-feast",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "simchat-torah-2026-10-04",
@@ -1621,7 +1849,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🕊️",
     "summary": "Simchat Torah is observed in the United States.",
-    "summary_ru": "Памятный день / событие «Simchat Torah» в календаре США.",
+    "summary_ru": "Памятная дата «Simchat Torah», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -1632,7 +1860,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/simchat-torah"
+    "url": "https://www.timeanddate.com/holidays/us/simchat-torah",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "world-teachers-day-2026-10-05",
@@ -1649,7 +1881,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🇺🇳",
     "summary": "World Teachers' Day is observed in the United States.",
-    "summary_ru": "День признательности педагогам и преподавателям за их вклад в общество.",
+    "summary_ru": "День ЮНЕСКО в честь педагогов и их роли в развитии общества.",
     "business_impact": "Всемирная памятная дата.",
     "marketing_tips": "Подарки учителям, скидки на канцтовары и софт для учебы.",
     "states": "Nationwide Observance",
@@ -1660,7 +1892,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/world-teachers-day"
+    "url": "https://www.timeanddate.com/holidays/un/world-teachers-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "world-habitat-day-2026-10-05",
@@ -1670,14 +1906,14 @@ window.HOLIDAYS_DATA = [
     "year": 2026,
     "day": 5,
     "name": "World Habitat Day",
-    "name_ru": "Всемирный день Habitat День",
+    "name_ru": "Всемирный день Хабитат (День жилища)",
     "category": "UN & International",
     "types": [
       "United Nations Observance"
     ],
     "icon": "🇺🇳",
     "summary": "World Habitat Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «World Habitat Day» в календаре США.",
+    "summary_ru": "День ООН по развитию доступного жилья и устойчивой городской среды.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -1688,7 +1924,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/world-habitat-day"
+    "url": "https://www.timeanddate.com/holidays/un/world-habitat-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "frances-xavier-cabrini-day-2026-10-05",
@@ -1705,7 +1945,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🗽",
     "summary": "Frances Xavier Cabrini Day is observed in the United States.",
-    "summary_ru": "Праздник штата Колорадо в честь первой американской святой и покровительницы иммигрантов.",
+    "summary_ru": "Официальный выходной в Колорадо в честь первой американской святой и покровительницы иммигрантов.",
     "business_impact": "Официальный выходной день в штате Колорадо.",
     "marketing_tips": "Благотворительные и культурные инициативы.",
     "states": "Colorado",
@@ -1716,7 +1956,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/frances-xavier-cabrini-day"
+    "url": "https://www.timeanddate.com/holidays/us/frances-xavier-cabrini-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "child-health-day-2026-10-05",
@@ -1726,14 +1970,14 @@ window.HOLIDAYS_DATA = [
     "year": 2026,
     "day": 5,
     "name": "Child Health Day",
-    "name_ru": "Child Health День",
+    "name_ru": "Национальный день здоровья детей",
     "category": "National Observance",
     "types": [
       "Observance"
     ],
     "icon": "📌",
     "summary": "Child Health Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «Child Health Day» в календаре США.",
+    "summary_ru": "Президентская прокламация о защите физического и психологического здоровья детей в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -1744,7 +1988,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/child-health-day"
+    "url": "https://www.timeanddate.com/holidays/us/child-health-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "world-cerebral-palsy-day-2026-10-06",
@@ -1761,7 +2009,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "📌",
     "summary": "World Cerebral Palsy Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «World Cerebral Palsy Day» в календаре США.",
+    "summary_ru": "Памятная дата «Всемирный день Cerebral Palsy День», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -1772,7 +2020,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/world/world-cerebral-palsy-day"
+    "url": "https://www.timeanddate.com/holidays/world/world-cerebral-palsy-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "german-american-day-2026-10-06",
@@ -1789,7 +2041,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "📌",
     "summary": "German American Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «German American Day» в календаре США.",
+    "summary_ru": "Памятная дата «German American День», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -1800,7 +2052,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/german-american-day"
+    "url": "https://www.timeanddate.com/holidays/us/german-american-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "world-sight-day-2026-10-08",
@@ -1817,7 +2073,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "📌",
     "summary": "World Sight Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «World Sight Day» в календаре США.",
+    "summary_ru": "Памятная дата «Всемирный день Sight День», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -1828,7 +2084,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/world/world-sight-day"
+    "url": "https://www.timeanddate.com/holidays/world/world-sight-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "world-post-day-2026-10-09",
@@ -1838,14 +2098,14 @@ window.HOLIDAYS_DATA = [
     "year": 2026,
     "day": 9,
     "name": "World Post Day",
-    "name_ru": "Всемирный день Post День",
+    "name_ru": "Всемирный день почты",
     "category": "UN & International",
     "types": [
       "United Nations Observance"
     ],
     "icon": "🇺🇳",
     "summary": "World Post Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «World Post Day» в календаре США.",
+    "summary_ru": "День основания Всемирного почтового союза.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -1856,7 +2116,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/world-post-day"
+    "url": "https://www.timeanddate.com/holidays/un/world-post-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "leif-erikson-day-2026-10-09",
@@ -1874,7 +2138,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "📌",
     "summary": "Leif Erikson Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «Leif Erikson Day» в календаре США.",
+    "summary_ru": "Памятная дата «Leif Erikson День», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Colorado",
@@ -1885,7 +2149,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/leif-erikson-day"
+    "url": "https://www.timeanddate.com/holidays/us/leif-erikson-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "world-mental-health-day-2026-10-10",
@@ -1902,7 +2170,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🇺🇳",
     "summary": "World Mental Health Day is observed in the United States.",
-    "summary_ru": "День повышения осведомленности о ментальном благополучии.",
+    "summary_ru": "Международный день заботы о ментальном и эмоциональном благополучии.",
     "business_impact": "Всемирная памятная дата.",
     "marketing_tips": "Психологические сервисы, велнес, антистресс-продукты.",
     "states": "Nationwide Observance",
@@ -1913,7 +2181,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/world-mental-health-day"
+    "url": "https://www.timeanddate.com/holidays/un/world-mental-health-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "world-migratory-bird-day-2026-10-10",
@@ -1930,7 +2202,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🇺🇳",
     "summary": "World Migratory Bird Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «World Migratory Bird Day» в календаре США.",
+    "summary_ru": "Памятная дата «Всемирный день Migratory Bird День», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -1941,7 +2213,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/migratory-bird-day"
+    "url": "https://www.timeanddate.com/holidays/un/migratory-bird-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "robert-e-lee-s-birthday-2026-10-10",
@@ -1958,7 +2234,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "📌",
     "summary": "Robert E. Lee's Birthday is observed in the United States.",
-    "summary_ru": "Памятный день / событие «Robert E. Lee's Birthday» в календаре США.",
+    "summary_ru": "Памятная дата «Robert E. Lee's День рождения», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Arkansas",
@@ -1969,7 +2245,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/robert-e-lee-birthday"
+    "url": "https://www.timeanddate.com/holidays/us/robert-e-lee-birthday",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "navratri-2026-10-11",
@@ -1986,7 +2266,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🕊️",
     "summary": "Navratri is observed in the United States.",
-    "summary_ru": "Памятный день / событие «Navratri» в календаре США.",
+    "summary_ru": "Памятная дата «Navratri», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -1997,7 +2277,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/hindu-navaratri"
+    "url": "https://www.timeanddate.com/holidays/us/hindu-navaratri",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "international-day-of-the-girl-child-2026-10-11",
@@ -2014,7 +2298,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🇺🇳",
     "summary": "International Day of the Girl Child is observed in the United States.",
-    "summary_ru": "День ООН по расширению прав и возможностей девочек по всему миру.",
+    "summary_ru": "День ООН по защите прав, образования и возможностей девочек во всем мире.",
     "business_impact": "Памятная дата ООН.",
     "marketing_tips": "Образовательные гранты, менторские программы.",
     "states": "Nationwide Observance",
@@ -2025,7 +2309,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/girl-child-day"
+    "url": "https://www.timeanddate.com/holidays/un/girl-child-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "casimir-pulaski-day-2026-10-11",
@@ -2042,7 +2330,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "📌",
     "summary": "Casimir Pulaski Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «Casimir Pulaski Day» в календаре США.",
+    "summary_ru": "Памятная дата «Casimir Pulaski День», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "MA, MI, RI",
@@ -2053,7 +2341,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/casimir-pulaski-day"
+    "url": "https://www.timeanddate.com/holidays/us/casimir-pulaski-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "chicago-marathon-2026-10-11",
@@ -2070,7 +2362,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "📌",
     "summary": "Chicago Marathon is observed in the United States.",
-    "summary_ru": "Памятный день / событие «Chicago Marathon» в календаре США.",
+    "summary_ru": "Памятная дата «Chicago Marathon», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -2081,7 +2373,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/chicago-marathon"
+    "url": "https://www.timeanddate.com/holidays/us/chicago-marathon",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "columbus-day-2026-10-12",
@@ -2099,20 +2395,25 @@ window.HOLIDAYS_DATA = [
       "State Legal Holiday"
     ],
     "icon": "⛵",
-    "summary": "Federal holiday commemorating Christopher Columbus's landing in the New World on October 12, 1492.",
-    "summary_ru": "Федеральный праздник в честь прибытия Колумба в Америку.",
-    "business_impact": "Федеральные ведомства, почта и банки закрыты; фондовые биржи открыты.",
-    "marketing_tips": "Распродажи длинных выходных: мебель, матрасы, осенняя одежда.",
+    "summary": "Federal holiday commemorating the landing of Christopher Columbus in the Americas in 1492.",
+    "summary_ru": "Федеральный праздник в честь открытия Америки Христофором Колумбом в октябре 1492 года. 3-дневный осенний уикенд.",
+    "business_impact": "Федеральные службы, банки, почта и рынок облигаций закрыты. Фондовые биржи NYSE/NASDAQ работают.",
+    "marketing_tips": "Традиционные распродажи Columbus Day Weekend: мебель, матрасы, бытовая техника, осенний гардероб.",
     "states": "22 states, Tennessee",
     "is_federal": true,
     "is_commercial": false,
     "tags": [
       "federal",
-      "bank-holiday",
       "long-weekend",
-      "retail-sale"
+      "bank-closed",
+      "retail-sale",
+      "featured"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/columbus-day"
+    "url": "https://www.timeanddate.com/holidays/us/columbus-day",
+    "is_featured": true,
+    "is_major": true,
+    "long_weekend": true,
+    "bank_closed": true
   },
   {
     "id": "fraternal-day-2026-10-12",
@@ -2140,7 +2441,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/fraternal-day"
+    "url": "https://www.timeanddate.com/holidays/us/fraternal-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "yorktown-victory-day-2026-10-12",
@@ -2157,7 +2462,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🗽",
     "summary": "Yorktown Victory Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «Yorktown Victory Day» в календаре США.",
+    "summary_ru": "Памятная дата «Yorktown Victory День», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Virginia",
@@ -2168,7 +2473,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/yorktown-victory-day"
+    "url": "https://www.timeanddate.com/holidays/us/yorktown-victory-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "discoverers-day-2026-10-12",
@@ -2185,7 +2494,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "📌",
     "summary": "Discoverers' Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «Discoverers' Day» в календаре США.",
+    "summary_ru": "Памятная дата «Discoverers' День», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Hawaii",
@@ -2196,7 +2505,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/discoverers-day"
+    "url": "https://www.timeanddate.com/holidays/us/discoverers-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "native-american-day-2026-10-12",
@@ -2214,7 +2527,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🗽",
     "summary": "Native American Day is observed in the United States.",
-    "summary_ru": "Официальный праздник штатов Вашингтон, Делавэр, Калифорния и Невада.",
+    "summary_ru": "Официальный праздник штатов Вашингтон, Делавэр, Калифорния и Невада в честь индейских народов.",
     "business_impact": "Выходной в ряде государственных органов штатов.",
     "marketing_tips": "Культурный диалог и краеведение.",
     "states": "South Dakota, Oklahoma",
@@ -2225,7 +2538,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/native-americans-day"
+    "url": "https://www.timeanddate.com/holidays/us/native-americans-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "indigenous-people-s-day-2026-10-12",
@@ -2235,17 +2552,17 @@ window.HOLIDAYS_DATA = [
     "year": 2026,
     "day": 12,
     "name": "Indigenous People's Day",
-    "name_ru": "День коренных народов",
+    "name_ru": "День коренных народов Америки",
     "category": "State Holiday",
     "types": [
       "State Holiday",
       "State Observance"
     ],
     "icon": "🪶",
-    "summary": "Celebrates Native American cultures, heritages, and contributions, celebrated in place of or alongside Columbus Day in 28+ states.",
-    "summary_ru": "Праздник культуры, истории и наследия коренных индейских народов США (в 28+ штатах).",
-    "business_impact": "Официальный выходной в большинстве округов и штатов.",
-    "marketing_tips": "Акции в поддержку локальных индейских брендов и культурных фондов.",
+    "summary": "Celebrates Native American cultures and contributions, observed alongside or in place of Columbus Day in 28+ states.",
+    "summary_ru": "Праздник культуры, истории и вклада коренных индейских народов. Отмечается вместо или вместе с Днем Колумба в 28+ штатах.",
+    "business_impact": "Официальный праздник штатов в Калифорнии, Техасе, Орегоне, Вашингтоне, Миннесоте и др.",
+    "marketing_tips": "Поддержка локальных индейских мастеров, благотворительные сборы, культурные проекты.",
     "states": "DC, ME, NE, NM, 28 states",
     "is_federal": false,
     "is_commercial": false,
@@ -2253,9 +2570,13 @@ window.HOLIDAYS_DATA = [
       "state-holiday",
       "cultural",
       "heritage",
-      "diversity"
+      "featured"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/indigenous-peoples-day"
+    "url": "https://www.timeanddate.com/holidays/us/indigenous-peoples-day",
+    "is_featured": true,
+    "is_major": true,
+    "long_weekend": true,
+    "bank_closed": false
   },
   {
     "id": "indigenous-people-s-day-tentative-date-2026-10-12",
@@ -2265,25 +2586,30 @@ window.HOLIDAYS_DATA = [
     "year": 2026,
     "day": 12,
     "name": "Indigenous People's Day (Tentative Date)",
-    "name_ru": "Indigenous People's День (Tentative Date)",
+    "name_ru": "День коренных народов Америки",
     "category": "State Observance",
     "types": [
       "State Observance"
     ],
-    "icon": "📌",
-    "summary": "Indigenous People's Day (Tentative Date) is observed in the United States.",
-    "summary_ru": "Памятный день / событие «Indigenous People's Day (Tentative Date)» в календаре США.",
-    "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
-    "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
+    "icon": "🪶",
+    "summary": "Celebrates Native American cultures and contributions, observed alongside or in place of Columbus Day in 28+ states.",
+    "summary_ru": "Праздник культуры, истории и вклада коренных индейских народов. Отмечается вместо или вместе с Днем Колумба в 28+ штатах.",
+    "business_impact": "Официальный праздник штатов в Калифорнии, Техасе, Орегоне, Вашингтоне, Миннесоте и др.",
+    "marketing_tips": "Поддержка локальных индейских мастеров, благотворительные сборы, культурные проекты.",
     "states": "Michigan, Minnesota",
     "is_federal": false,
     "is_commercial": false,
     "tags": [
-      "state-observance",
-      "usa",
-      "2026"
+      "state-holiday",
+      "cultural",
+      "heritage",
+      "featured"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/indigenous-peoples-day"
+    "url": "https://www.timeanddate.com/holidays/us/indigenous-peoples-day",
+    "is_featured": true,
+    "is_major": true,
+    "long_weekend": true,
+    "bank_closed": false
   },
   {
     "id": "american-indian-heritage-day-2026-10-12",
@@ -2300,7 +2626,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🗽",
     "summary": "American Indian Heritage Day is observed in the United States.",
-    "summary_ru": "Праздник штатов Мэриленд, Монтана и Техас в честь коренных народов.",
+    "summary_ru": "Официальный праздник в Мэриленде, Монтане и Техасе.",
     "business_impact": "Праздник в ряде штатов.",
     "marketing_tips": "Культурные выставки и поддержка индейских ремесел.",
     "states": "Alabama",
@@ -2311,7 +2637,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/american-indian-heritage-day"
+    "url": "https://www.timeanddate.com/holidays/us/american-indian-heritage-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "international-day-for-disaster-risk-reduction-2026-10-13",
@@ -2328,7 +2658,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🇺🇳",
     "summary": "International Day for Disaster Risk Reduction is observed in the United States.",
-    "summary_ru": "Памятный день / событие «International Day for Disaster Risk Reduction» в календаре США.",
+    "summary_ru": "Памятная дата «Международный день Disaster Risk Reduction», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -2339,7 +2669,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/international-day-natural-disaster-reduction"
+    "url": "https://www.timeanddate.com/holidays/un/international-day-natural-disaster-reduction",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "navy-birthday-2026-10-13",
@@ -2356,7 +2690,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "📌",
     "summary": "Navy Birthday is observed in the United States.",
-    "summary_ru": "Памятный день / событие «Navy Birthday» в календаре США.",
+    "summary_ru": "Памятная дата «Navy День рождения», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -2367,7 +2701,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/navy-birthday"
+    "url": "https://www.timeanddate.com/holidays/us/navy-birthday",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "international-day-of-rural-women-2026-10-15",
@@ -2384,7 +2722,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🇺🇳",
     "summary": "International Day of Rural Women is observed in the United States.",
-    "summary_ru": "Памятный день / событие «International Day of Rural Women» в календаре США.",
+    "summary_ru": "Памятная дата «Международный день Rural Women», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -2395,7 +2733,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/rural-women-day"
+    "url": "https://www.timeanddate.com/holidays/un/rural-women-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "white-cane-safety-day-2026-10-15",
@@ -2412,7 +2754,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "📌",
     "summary": "White Cane Safety Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «White Cane Safety Day» в календаре США.",
+    "summary_ru": "Памятная дата «White Cane Safety День», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -2423,7 +2765,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/white-cane-safety-day"
+    "url": "https://www.timeanddate.com/holidays/us/white-cane-safety-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "world-food-day-2026-10-16",
@@ -2440,7 +2786,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🇺🇳",
     "summary": "World Food Day is observed in the United States.",
-    "summary_ru": "День ФАО/ООН, посвященный борьбе с голодом и здоровому питанию.",
+    "summary_ru": "День ФАО/ООН по борьбе с голодом и развитию устойчивого сельского хозяйства.",
     "business_impact": "Памятная дата ООН.",
     "marketing_tips": "Кулинарные инициативы, фудбанки, рестораны.",
     "states": "Nationwide Observance",
@@ -2451,7 +2797,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/world-food-day"
+    "url": "https://www.timeanddate.com/holidays/un/world-food-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "boss-s-day-2026-10-16",
@@ -2461,26 +2811,29 @@ window.HOLIDAYS_DATA = [
     "year": 2026,
     "day": 16,
     "name": "Boss's Day",
-    "name_ru": "День босса (День шефа)",
+    "name_ru": "День босса (National Boss's Day)",
     "category": "National Observance",
     "types": [
       "Observance"
     ],
     "icon": "👔",
-    "summary": "Celebrated to show gratitude and appreciation for supervisors, managers, and workplace leaders.",
-    "summary_ru": "День признательности руководителям, наставникам и тимлидам.",
-    "business_impact": "Обычный рабочий день; корпоративные поздравления и подарки.",
-    "marketing_tips": "Подарочные наборы, сертификаты в рестораны, деловые аксессуары.",
+    "summary": "National observance to show appreciation for bosses, managers, and workplace leaders.",
+    "summary_ru": "Традиционный праздник американской корпоративной культуры — день благодарности начальникам и тимлидам.",
+    "business_impact": "Обычный рабочий день; офисные ланчи, поздравления и коллективные подарки.",
+    "marketing_tips": "Подарочные карты в кофейни, цветы, персонализированные офисные сувениры, деликатесы.",
     "states": "Nationwide Observance",
     "is_federal": false,
     "is_commercial": false,
     "tags": [
       "observance",
       "corporate",
-      "gifting",
-      "workplace"
+      "gifting"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/boss-day"
+    "url": "https://www.timeanddate.com/holidays/us/boss-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "international-day-for-the-eradication-of-poverty-2026-10-17",
@@ -2497,7 +2850,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🇺🇳",
     "summary": "International Day for the Eradication of Poverty is observed in the United States.",
-    "summary_ru": "Памятный день / событие «International Day for the Eradication of Poverty» в календаре США.",
+    "summary_ru": "Памятная дата «Международный день the Eradication of Poverty», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -2508,7 +2861,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/international-day-for-poverty-eradication"
+    "url": "https://www.timeanddate.com/holidays/un/international-day-for-poverty-eradication",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "alaska-day-2026-10-18",
@@ -2525,7 +2882,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🗽",
     "summary": "Alaska Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «Alaska Day» в календаре США.",
+    "summary_ru": "Памятная дата «Alaska День», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Alaska",
@@ -2536,7 +2893,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/alaska-day"
+    "url": "https://www.timeanddate.com/holidays/us/alaska-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "alaska-day-observed-2026-10-19",
@@ -2553,7 +2914,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🗽",
     "summary": "Alaska Day observed is observed in the United States.",
-    "summary_ru": "Памятный день / событие «Alaska Day observed» в календаре США.",
+    "summary_ru": "Памятная дата «Alaska День observed», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Alaska",
@@ -2564,7 +2925,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/alaska-day"
+    "url": "https://www.timeanddate.com/holidays/us/alaska-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "dussehra-2026-10-20",
@@ -2581,7 +2946,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🕊️",
     "summary": "Dussehra is observed in the United States.",
-    "summary_ru": "Памятный день / событие «Dussehra» в календаре США.",
+    "summary_ru": "Памятная дата «Dussehra», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -2592,7 +2957,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/hindu-dussera"
+    "url": "https://www.timeanddate.com/holidays/us/hindu-dussera",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "united-nations-day-2026-10-24",
@@ -2620,7 +2989,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/united-nations-day"
+    "url": "https://www.timeanddate.com/holidays/un/united-nations-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "world-development-information-day-2026-10-24",
@@ -2637,7 +3010,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🇺🇳",
     "summary": "World Development Information Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «World Development Information Day» в календаре США.",
+    "summary_ru": "Памятная дата «Всемирный день Development Information День», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -2648,7 +3021,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/world-development-information-day"
+    "url": "https://www.timeanddate.com/holidays/un/world-development-information-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "world-day-for-audiovisual-heritage-2026-10-27",
@@ -2665,7 +3042,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🇺🇳",
     "summary": "World Day for Audiovisual Heritage is observed in the United States.",
-    "summary_ru": "Памятный день / событие «World Day for Audiovisual Heritage» в календаре США.",
+    "summary_ru": "Памятная дата «Всемирный день Audiovisual Heritage», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -2676,7 +3053,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/audiovisual-heritage-day"
+    "url": "https://www.timeanddate.com/holidays/un/audiovisual-heritage-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "world-stroke-day-2026-10-29",
@@ -2693,7 +3074,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "📌",
     "summary": "World Stroke Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «World Stroke Day» в календаре США.",
+    "summary_ru": "Памятная дата «Всемирный день Stroke День», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -2704,7 +3085,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/world/world-stroke-day"
+    "url": "https://www.timeanddate.com/holidays/world/world-stroke-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "nevada-day-2026-10-30",
@@ -2721,7 +3106,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🗽",
     "summary": "Nevada Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «Nevada Day» в календаре США.",
+    "summary_ru": "Памятная дата «Nevada День», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nevada",
@@ -2732,7 +3117,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/nevada-day"
+    "url": "https://www.timeanddate.com/holidays/us/nevada-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "world-cities-day-2026-10-31",
@@ -2749,7 +3138,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🇺🇳",
     "summary": "World Cities Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «World Cities Day» в календаре США.",
+    "summary_ru": "Памятная дата «Всемирный день Cities День», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -2760,7 +3149,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/world-cities-day"
+    "url": "https://www.timeanddate.com/holidays/un/world-cities-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "halloween-2026-10-31",
@@ -2770,16 +3163,16 @@ window.HOLIDAYS_DATA = [
     "year": 2026,
     "day": 31,
     "name": "Halloween",
-    "name_ru": "Хэллоуин",
+    "name_ru": "Хэллоуин (Канун Дня всех святых)",
     "category": "National Observance",
     "types": [
       "Observance"
     ],
     "icon": "🎃",
-    "summary": "Popular cultural celebration featuring costume parties, trick-or-treating, horror movies, and spooky decor.",
-    "summary_ru": "Канун Дня всех святых: костюмированные вечеринки, сладости trick-or-treat и тыквы-светильники.",
-    "business_impact": "Обычный рабочий день; пик потребительских трат на развлечения и декор.",
-    "marketing_tips": "Массовые скидки на костюмы, сладости, косметику, тематические вечеринки.",
+    "summary": "Major cultural celebration with costumes, trick-or-treating, haunted houses, generating over $12B in retail spending.",
+    "summary_ru": "Один из самых массовых и коммерчески успешных праздников США ($12B+ трат). Костюмированные вечеринки, конфеты trick-or-treat и тыквы.",
+    "business_impact": "Рабочий день; рекордный наплыв в магазины сладостей, костюмов, кинотеатры и парки развлечений.",
+    "marketing_tips": "Тематические скидки, хэллоуинские квесты в приложениях, распродажи декора и сладостей.",
     "states": "Nationwide Observance",
     "is_federal": false,
     "is_commercial": false,
@@ -2787,10 +3180,13 @@ window.HOLIDAYS_DATA = [
       "major",
       "cultural",
       "shopping",
-      "candy",
-      "festive"
+      "featured"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/halloween"
+    "url": "https://www.timeanddate.com/holidays/us/halloween",
+    "is_featured": true,
+    "is_major": true,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "all-saints-day-2026-11-01",
@@ -2807,7 +3203,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🕊️",
     "summary": "All Saints' Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «All Saints' Day» в календаре США.",
+    "summary_ru": "Памятная дата «All Saints' День», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -2818,7 +3214,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/all-saints-day"
+    "url": "https://www.timeanddate.com/holidays/us/all-saints-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "world-vegan-day-2026-11-01",
@@ -2835,7 +3235,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "📌",
     "summary": "World Vegan Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «World Vegan Day» в календаре США.",
+    "summary_ru": "Памятная дата «Всемирный день Vegan День», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -2846,7 +3246,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/world/world-vegan-day"
+    "url": "https://www.timeanddate.com/holidays/world/world-vegan-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "first-day-of-native-american-heritage-month-2026-11-01",
@@ -2856,14 +3260,14 @@ window.HOLIDAYS_DATA = [
     "year": 2026,
     "day": 1,
     "name": "First Day of Native American Heritage Month",
-    "name_ru": "First День of Native American Heritage Month",
+    "name_ru": "Начало Native American Heritage Month",
     "category": "National Observance",
     "types": [
       "Annual Monthly Observance"
     ],
     "icon": "📌",
     "summary": "First Day of Native American Heritage Month is observed in the United States.",
-    "summary_ru": "Памятный день / событие «First Day of Native American Heritage Month» в календаре США.",
+    "summary_ru": "Памятная дата «Начало Native American Heritage Month», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -2874,7 +3278,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/first-day-of-native-american-heritage-month"
+    "url": "https://www.timeanddate.com/holidays/us/first-day-of-native-american-heritage-month",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "new-york-city-marathon-2026-11-01",
@@ -2891,7 +3299,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "📌",
     "summary": "New York City Marathon is observed in the United States.",
-    "summary_ru": "Памятный день / событие «New York City Marathon» в календаре США.",
+    "summary_ru": "Памятная дата «New York City Marathon», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -2902,7 +3310,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/new-york-city-marathon"
+    "url": "https://www.timeanddate.com/holidays/us/new-york-city-marathon",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "daylight-saving-time-ends-2026-11-01",
@@ -2919,7 +3331,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "📌",
     "summary": "Daylight Saving Time ends is observed in the United States.",
-    "summary_ru": "Памятный день / событие «Daylight Saving Time ends» в календаре США.",
+    "summary_ru": "Памятная дата «Деньlight Saving Time ends», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -2930,7 +3342,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/time/change/usa/new-york"
+    "url": "https://www.timeanddate.com/time/change/usa/new-york",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "all-souls-day-2026-11-02",
@@ -2947,7 +3363,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🕊️",
     "summary": "All Souls' Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «All Souls' Day» в календаре США.",
+    "summary_ru": "Памятная дата «All Souls' День», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -2958,7 +3374,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/all-souls-day"
+    "url": "https://www.timeanddate.com/holidays/us/all-souls-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "international-day-to-end-impunity-for-crimes-against-journalists-2026-11-02",
@@ -2975,7 +3395,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🇺🇳",
     "summary": "International Day to End Impunity for Crimes against Journalists is observed in the United States.",
-    "summary_ru": "Памятный день / событие «International Day to End Impunity for Crimes against Journalists» в календаре США.",
+    "summary_ru": "Памятная дата «Международный день День to End Impunity for Crimes against Journalists», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -2986,7 +3406,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/day-to-end-impunity-for-crimes-against-journalists"
+    "url": "https://www.timeanddate.com/holidays/un/day-to-end-impunity-for-crimes-against-journalists",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "election-day-2026-11-03",
@@ -2996,17 +3420,17 @@ window.HOLIDAYS_DATA = [
     "year": 2026,
     "day": 3,
     "name": "Election Day",
-    "name_ru": "День выборов в США",
+    "name_ru": "День всеобщих выборов в США 2026",
     "category": "National Observance",
     "types": [
       "Observance",
       "State Holiday"
     ],
     "icon": "🗳️",
-    "summary": "National election day in the United States (2026 Midterm Elections for Congress, Governors, and State Legislatures).",
-    "summary_ru": "День всеобщих выборов в США (промежуточные выборы 2026 в Конгресс и органы власти штатов).",
-    "business_impact": "Выходной день в ~12 штатах; школы закрыты под избирательные участки.",
-    "marketing_tips": "Кампании 'Get Out The Vote', скидки для проголосовавших.",
+    "summary": "General Election Day (2026 Midterms for U.S. Congress, governors, and state legislatures).",
+    "summary_ru": "День промежуточных выборов (Midterm Elections) в Палату представителей, Сенат США и губернаторов штатов.",
+    "business_impact": "Официальный выходной в ~12 штатах; работодатели обязаны предоставить оплачиваемое время для голосования.",
+    "marketing_tips": "Кампании 'I Voted' с бесплатным кофе, скидками на такси/проезд до участков.",
     "states": "12 states",
     "is_federal": false,
     "is_commercial": false,
@@ -3014,9 +3438,13 @@ window.HOLIDAYS_DATA = [
       "civic",
       "state-holiday",
       "democracy",
-      "midterms"
+      "featured"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/election-day"
+    "url": "https://www.timeanddate.com/holidays/us/election-day",
+    "is_featured": true,
+    "is_major": true,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "susan-b-anthony-day-2026-11-03",
@@ -3033,7 +3461,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "📌",
     "summary": "Susan B. Anthony Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «Susan B. Anthony Day» в календаре США.",
+    "summary_ru": "Памятная дата «Susan B. Anthony День», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "West Virginia",
@@ -3044,7 +3472,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/susan-b-anthony-day"
+    "url": "https://www.timeanddate.com/holidays/us/susan-b-anthony-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "world-tsunami-awareness-day-2026-11-05",
@@ -3061,7 +3493,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🇺🇳",
     "summary": "World Tsunami Awareness Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «World Tsunami Awareness Day» в календаре США.",
+    "summary_ru": "Памятная дата «Всемирный день Tsunami Awareness День», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -3072,7 +3504,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/world-tsunami-awareness-day"
+    "url": "https://www.timeanddate.com/holidays/un/world-tsunami-awareness-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "return-day-2026-11-05",
@@ -3089,7 +3525,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🗽",
     "summary": "Return Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «Return Day» в календаре США.",
+    "summary_ru": "Памятная дата «Return День», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Delaware",
@@ -3100,7 +3536,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/return-day-delaware"
+    "url": "https://www.timeanddate.com/holidays/us/return-day-delaware",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "international-day-for-preventing-the-exploitation-of-the-environment-in-war-and-armed-conflict-2026-11-06",
@@ -3117,7 +3557,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🇺🇳",
     "summary": "International Day for Preventing the Exploitation of the Environment in War and Armed Conflict is observed in the United States.",
-    "summary_ru": "Памятный день / событие «International Day for Preventing the Exploitation of the Environment in War and Armed Conflict» в календаре США.",
+    "summary_ru": "Памятная дата «Международный день Preventing the Exploitation of the Environment in War and Armed Conflict», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -3128,7 +3568,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/day-preventing-environment-exploitation-in-war"
+    "url": "https://www.timeanddate.com/holidays/un/day-preventing-environment-exploitation-in-war",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "diwali-deepavali-2026-11-08",
@@ -3146,10 +3590,10 @@ window.HOLIDAYS_DATA = [
       "Hindu Holiday"
     ],
     "icon": "🪔",
-    "summary": "Hindu festival of lights celebrating the victory of light over darkness, knowledge over ignorance, and good over evil.",
-    "summary_ru": "Главный индуистский праздник света, добра и процветания.",
-    "business_impact": "Официальный праздник в CA и PA; пик покупок в диаспоре.",
-    "marketing_tips": "Ювелирные изделия (золото), сладости, электроника, подарочные боксы.",
+    "summary": "Hindu festival of lights celebrating victory of light over darkness. Official state holiday in CA and PA.",
+    "summary_ru": "Главный праздник индуизма, символизирующий победу добра над злом. Зажжение глиняных ламп дия, фейерверки и подарки.",
+    "business_impact": "Официальный выходной в Калифорнии и Пенсильвании; мощный всплеск розничных покупок в диаспоре.",
+    "marketing_tips": "Золотые украшения, сладости митхай, потребительская электроника, праздничные наряды.",
     "states": "California, Pennsylvania, Connecticut, North Carolina",
     "is_federal": false,
     "is_commercial": false,
@@ -3157,10 +3601,14 @@ window.HOLIDAYS_DATA = [
       "religious",
       "hindu",
       "cultural",
-      "gifting",
-      "state-holiday"
+      "state-holiday",
+      "featured"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/diwali"
+    "url": "https://www.timeanddate.com/holidays/us/diwali",
+    "is_featured": true,
+    "is_major": true,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "barack-obama-day-2026-11-09",
@@ -3177,7 +3625,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "📌",
     "summary": "Barack Obama Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «Barack Obama Day» в календаре США.",
+    "summary_ru": "Памятная дата «Barack Obama День», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Alabama",
@@ -3188,7 +3636,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/barack-obama-day"
+    "url": "https://www.timeanddate.com/holidays/us/barack-obama-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "world-science-day-for-peace-and-development-2026-11-10",
@@ -3205,7 +3657,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🇺🇳",
     "summary": "World Science Day for Peace and Development is observed in the United States.",
-    "summary_ru": "Памятный день / событие «World Science Day for Peace and Development» в календаре США.",
+    "summary_ru": "Памятная дата «Всемирный день Science День for Peace and Development», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -3216,7 +3668,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/world-science-day"
+    "url": "https://www.timeanddate.com/holidays/un/world-science-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "marine-corps-birthday-2026-11-10",
@@ -3233,7 +3689,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "📌",
     "summary": "Marine Corps Birthday is observed in the United States.",
-    "summary_ru": "Памятный день / событие «Marine Corps Birthday» в календаре США.",
+    "summary_ru": "Памятная дата «Marine Corps День рождения», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -3244,7 +3700,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/marine-corps-birthday"
+    "url": "https://www.timeanddate.com/holidays/us/marine-corps-birthday",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "singles-day-2026-11-11",
@@ -3260,10 +3720,10 @@ window.HOLIDAYS_DATA = [
       "Worldwide Observance"
     ],
     "icon": "🛍️",
-    "summary": "The world's largest online shopping festival (11.11), generating billions in global e-commerce.",
-    "summary_ru": "Крупнейший мировой онлайн-фестиваль скидок (11.11), открывающий сезон глобальных распродаж.",
-    "business_impact": "Massive global e-commerce volumes; kickstart for US cross-border sales.",
-    "marketing_tips": "11% / 22% discount codes, bundle deals, flash sales, early holiday shoppers targeting.",
+    "summary": "World's largest e-commerce shopping festival (11.11), driving billions in early holiday sales.",
+    "summary_ru": "Крупнейший глобальный онлайн-фестиваль скидок (11.11), открывающий предновогодний сезон распродаж в e-commerce.",
+    "business_impact": "Высокие объемы трансграничной торговли и онлайн-заказов в США.",
+    "marketing_tips": "Скидки 11% / 22%, флеш-распродажи, купоны на ранний рождественский шопинг.",
     "states": "Nationwide Observance",
     "is_federal": false,
     "is_commercial": true,
@@ -3271,9 +3731,13 @@ window.HOLIDAYS_DATA = [
       "commercial",
       "shopping",
       "ecommerce",
-      "deals"
+      "featured"
     ],
-    "url": "https://www.timeanddate.com/holidays/world/singles-day"
+    "url": "https://www.timeanddate.com/holidays/world/singles-day",
+    "is_featured": true,
+    "is_major": true,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "veterans-day-2026-11-11",
@@ -3283,27 +3747,32 @@ window.HOLIDAYS_DATA = [
     "year": 2026,
     "day": 11,
     "name": "Veterans Day",
-    "name_ru": "День ветеранов",
+    "name_ru": "День ветеранов (Veterans Day)",
     "category": "Federal Holiday",
     "types": [
       "Federal Holiday",
       "State Holiday"
     ],
     "icon": "🎖️",
-    "summary": "Federal holiday honoring all living and deceased military veterans who served in the US Armed Forces.",
-    "summary_ru": "Федеральный праздник в честь всех ветеранов вооруженных сил США.",
-    "business_impact": "Банки, госучреждения и почта закрыты; фондовый рынок открыт.",
-    "marketing_tips": "Специальные скидки и бесплатные меню для ветеранов; предпраздничные акции.",
+    "summary": "Federal holiday honoring all military veterans who served in the United States Armed Forces.",
+    "summary_ru": "Федеральный праздник в честь всех ветеранов вооруженных сил США. Парады на Пятой авеню и возложение венков на Арлингтонском кладбище.",
+    "business_impact": "Банки, федеральные учреждения, почта и суды закрыты. Биржи NYSE/NASDAQ открыты.",
+    "marketing_tips": "Бесплатные обеды и скидки для ветеранов; крупные предпраздничные распродажи бытовой техники и матрасов.",
     "states": "All except MA, WY",
     "is_federal": true,
     "is_commercial": false,
     "tags": [
       "federal",
-      "bank-holiday",
+      "bank-closed",
       "military",
-      "retail-sale"
+      "retail-sale",
+      "featured"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/veterans-day"
+    "url": "https://www.timeanddate.com/holidays/us/veterans-day",
+    "is_featured": true,
+    "is_major": true,
+    "long_weekend": false,
+    "bank_closed": true
   },
   {
     "id": "world-pneumonia-day-2026-11-12",
@@ -3320,7 +3789,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "📌",
     "summary": "World Pneumonia Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «World Pneumonia Day» в календаре США.",
+    "summary_ru": "Памятная дата «Всемирный день Pneumonia День», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -3331,7 +3800,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/world/pneumonia-day"
+    "url": "https://www.timeanddate.com/holidays/world/pneumonia-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "friday-the-13th-2026-11-13",
@@ -3348,7 +3821,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "📌",
     "summary": "Friday the 13th is observed in the United States.",
-    "summary_ru": "Памятный день / событие «Friday the 13th» в календаре США.",
+    "summary_ru": "Памятная дата «Friday the 13th», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -3359,7 +3832,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/world/friday-13"
+    "url": "https://www.timeanddate.com/holidays/world/friday-13",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "world-diabetes-day-2026-11-14",
@@ -3376,7 +3853,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🇺🇳",
     "summary": "World Diabetes Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «World Diabetes Day» в календаре США.",
+    "summary_ru": "Памятная дата «Всемирный день Diabetes День», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -3387,7 +3864,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/world-diabetes-day"
+    "url": "https://www.timeanddate.com/holidays/un/world-diabetes-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "world-day-of-remembrance-for-road-traffic-victims-2026-11-15",
@@ -3404,7 +3885,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🇺🇳",
     "summary": "World Day of Remembrance for Road Traffic Victims is observed in the United States.",
-    "summary_ru": "Памятный день / событие «World Day of Remembrance for Road Traffic Victims» в календаре США.",
+    "summary_ru": "Памятная дата «Всемирный день Remembrance for Road Traffic Victims», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -3415,7 +3896,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/world-day-remember-road-victims"
+    "url": "https://www.timeanddate.com/holidays/un/world-day-remember-road-victims",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "international-day-for-tolerance-2026-11-16",
@@ -3432,7 +3917,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🇺🇳",
     "summary": "International Day for Tolerance is observed in the United States.",
-    "summary_ru": "Памятный день / событие «International Day for Tolerance» в календаре США.",
+    "summary_ru": "Памятная дата «Международный день Tolerance», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -3443,7 +3928,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/international-day-tolerance"
+    "url": "https://www.timeanddate.com/holidays/un/international-day-tolerance",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "world-prematurity-day-2026-11-17",
@@ -3460,7 +3949,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "📌",
     "summary": "World Prematurity Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «World Prematurity Day» в календаре США.",
+    "summary_ru": "Памятная дата «Всемирный день Prematurity День», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -3471,7 +3960,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/world/prematurityday"
+    "url": "https://www.timeanddate.com/holidays/world/prematurityday",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "world-philosophy-day-2026-11-19",
@@ -3488,7 +3981,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🇺🇳",
     "summary": "World Philosophy Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «World Philosophy Day» в календаре США.",
+    "summary_ru": "Памятная дата «Всемирный день Philosophy День», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -3499,7 +3992,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/world-philosophy-day"
+    "url": "https://www.timeanddate.com/holidays/un/world-philosophy-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "world-toilet-day-2026-11-19",
@@ -3516,7 +4013,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🇺🇳",
     "summary": "World Toilet Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «World Toilet Day» в календаре США.",
+    "summary_ru": "Памятная дата «Всемирный день Toilet День», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -3527,7 +4024,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/toilet-day"
+    "url": "https://www.timeanddate.com/holidays/un/toilet-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "international-men-s-day-2026-11-19",
@@ -3544,7 +4045,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "📌",
     "summary": "International Men's Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «International Men's Day» в календаре США.",
+    "summary_ru": "Памятная дата «Международный день Men's День», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -3555,7 +4056,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/world/international-mens-day"
+    "url": "https://www.timeanddate.com/holidays/world/international-mens-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "george-rogers-clark-day-2026-11-19",
@@ -3572,7 +4077,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "📌",
     "summary": "George Rogers Clark Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «George Rogers Clark Day» в календаре США.",
+    "summary_ru": "Памятная дата «George Rogers Clark День», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Ohio",
@@ -3583,7 +4088,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/george-rogers-clark-day"
+    "url": "https://www.timeanddate.com/holidays/us/george-rogers-clark-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "world-children-s-day-2026-11-20",
@@ -3600,7 +4109,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🇺🇳",
     "summary": "World Children's Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «World Children's Day» в календаре США.",
+    "summary_ru": "Памятная дата «Всемирный день Children's День», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -3611,7 +4120,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/universal-childrens-day"
+    "url": "https://www.timeanddate.com/holidays/un/universal-childrens-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "africa-industrialization-day-2026-11-20",
@@ -3628,7 +4141,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🇺🇳",
     "summary": "Africa Industrialization Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «Africa Industrialization Day» в календаре США.",
+    "summary_ru": "Памятная дата «Africa Industrialization День», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -3639,7 +4152,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/africa-industrialization-day"
+    "url": "https://www.timeanddate.com/holidays/un/africa-industrialization-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "transgender-day-of-remembrance-2026-11-20",
@@ -3656,7 +4173,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "📌",
     "summary": "Transgender Day of Remembrance is observed in the United States.",
-    "summary_ru": "Памятный день / событие «Transgender Day of Remembrance» в календаре США.",
+    "summary_ru": "Памятная дата «Transgender День of Remembrance», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -3667,7 +4184,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/world/transgender-day-of-remembrance"
+    "url": "https://www.timeanddate.com/holidays/world/transgender-day-of-remembrance",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "fake-friday-2026-11-20",
@@ -3684,7 +4205,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "📌",
     "summary": "Fake Friday is observed in the United States.",
-    "summary_ru": "Памятный день / событие «Fake Friday» в календаре США.",
+    "summary_ru": "Памятная дата «Fake Friday», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -3695,7 +4216,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/world/fake-friday"
+    "url": "https://www.timeanddate.com/holidays/world/fake-friday",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "world-television-day-2026-11-21",
@@ -3712,7 +4237,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🇺🇳",
     "summary": "World Television Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «World Television Day» в календаре США.",
+    "summary_ru": "Памятная дата «Всемирный день Television День», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -3723,7 +4248,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/world-television-day"
+    "url": "https://www.timeanddate.com/holidays/un/world-television-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "international-day-for-the-elimination-of-violence-against-women-2026-11-25",
@@ -3740,7 +4269,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🇺🇳",
     "summary": "International Day for the Elimination of Violence against Women is observed in the United States.",
-    "summary_ru": "Памятный день / событие «International Day for the Elimination of Violence against Women» в календаре США.",
+    "summary_ru": "Памятная дата «Международный день the Elimination of Violence against Women», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -3751,7 +4280,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/eliminate-violence-against-women-day"
+    "url": "https://www.timeanddate.com/holidays/un/eliminate-violence-against-women-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "thanksgiving-day-2026-11-26",
@@ -3761,28 +4294,32 @@ window.HOLIDAYS_DATA = [
     "year": 2026,
     "day": 26,
     "name": "Thanksgiving Day",
-    "name_ru": "День благодарения",
+    "name_ru": "День благодарения (Thanksgiving)",
     "category": "Federal Holiday",
     "types": [
       "Federal Holiday",
       "State Holiday"
     ],
     "icon": "🦃",
-    "summary": "Beloved federal holiday centering on gratitude, family reunions, Macy's parade, NFL football, and traditional roast turkey.",
-    "summary_ru": "Главный семейный федеральный праздник США: индейка, парад Macy's и матчи NFL.",
-    "business_impact": "Полное закрытие банков, бирж, офисов и супермаркетов.",
-    "marketing_tips": "Рецепты, семейный контент, запуск ранних онлайн-предложений Черной пятницы.",
+    "summary": "Quintessential American federal holiday centered on gratitude, family reunions, Macy's parade, NFL games, and turkey feast.",
+    "summary_ru": "Главный традиционный праздник Америки: семейный ужин с запеченной индейкой, парад Macy's в Нью-Йорке и матчи NFL.",
+    "business_impact": "Полное закрытие коммерческой активности: банки, биржи, офисы, склады и супермаркеты не работают.",
+    "marketing_tips": "Кулинарный контент, предзаказ продуктов, анонсы и таймеры Черной пятницы.",
     "states": "All 50 US States",
     "is_federal": true,
     "is_commercial": false,
     "tags": [
       "federal",
+      "long-weekend",
+      "bank-closed",
       "family",
-      "bank-holiday",
-      "tradition",
-      "major"
+      "featured"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/thanksgiving-day"
+    "url": "https://www.timeanddate.com/holidays/us/thanksgiving-day",
+    "is_featured": true,
+    "is_major": true,
+    "long_weekend": true,
+    "bank_closed": true
   },
   {
     "id": "state-holiday-2026-11-27",
@@ -3799,7 +4336,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🗽",
     "summary": "State Holiday is observed in the United States.",
-    "summary_ru": "Памятный день / событие «State Holiday» в календаре США.",
+    "summary_ru": "Памятная дата «State Holiday», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Georgia",
@@ -3810,7 +4347,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/georgia-state-holiday-1"
+    "url": "https://www.timeanddate.com/holidays/us/georgia-state-holiday-1",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "presidents-day-observed-2026-11-27",
@@ -3827,7 +4368,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🗽",
     "summary": "Presidents’ Day (Observed) is observed in the United States.",
-    "summary_ru": "Памятный день / событие «Presidents’ Day (Observed)» в календаре США.",
+    "summary_ru": "Памятная дата «Presidents’ День (Observed)», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "New Mexico",
@@ -3838,7 +4379,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/washington-birthday"
+    "url": "https://www.timeanddate.com/holidays/us/washington-birthday",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "lincoln-s-birthday-lincoln-s-day-2026-11-27",
@@ -3855,7 +4400,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🗽",
     "summary": "Lincoln's Birthday/Lincoln's Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «Lincoln's Birthday/Lincoln's Day» в календаре США.",
+    "summary_ru": "Памятная дата «Lincoln's День рождения/Lincoln's День», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Indiana",
@@ -3866,7 +4411,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/lincolns-birthday"
+    "url": "https://www.timeanddate.com/holidays/us/lincolns-birthday",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "day-after-thanksgiving-2026-11-27",
@@ -3876,25 +4425,30 @@ window.HOLIDAYS_DATA = [
     "year": 2026,
     "day": 27,
     "name": "Day After Thanksgiving",
-    "name_ru": "День после Дня благодарения",
+    "name_ru": "День после Дня благодарения (State Holiday)",
     "category": "State Holiday",
     "types": [
       "State Holiday"
     ],
     "icon": "🍁",
-    "summary": "Official paid state holiday in 22+ US states, giving state employees a 4-day long weekend.",
-    "summary_ru": "Официальный оплачиваемый праздник в 22+ штатах (4-дневный уикенд).",
-    "business_impact": "Госучреждения и школы в 22 штатах закрыты.",
-    "marketing_tips": "Совпадает с Черной пятницей: пик шопинга и семейного досуга.",
+    "summary": "Official state holiday in 22+ US states, creating a 4-day long holiday weekend.",
+    "summary_ru": "Официальный оплачиваемый выходной в 22+ штатах США, создающий 4-дневные длинные выходные для миллионов семей.",
+    "business_impact": "Госучреждения и школы в 22 штатах закрыты; совпадает с Черной пятницей.",
+    "marketing_tips": "Семейный досуг, туризм, шопинг в моллах и кинопремьеры.",
     "states": "22 states",
     "is_federal": false,
     "is_commercial": false,
     "tags": [
       "state-holiday",
       "long-weekend",
-      "shopping"
+      "shopping",
+      "featured"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/day-after-thanksgiving"
+    "url": "https://www.timeanddate.com/holidays/us/day-after-thanksgiving",
+    "is_featured": true,
+    "is_major": true,
+    "long_weekend": true,
+    "bank_closed": false
   },
   {
     "id": "black-friday-2026-11-27",
@@ -3910,10 +4464,10 @@ window.HOLIDAYS_DATA = [
       "Observance"
     ],
     "icon": "🏷️",
-    "summary": "The definitive biggest retail event of the year, launching the critical Q4 holiday shopping season.",
-    "summary_ru": "Главный торговый день года в США, запуск рождественского сезона скидок.",
-    "business_impact": "Рекордные нагрузки на ритейл, склады, логистику и онлайн-серверы.",
-    "marketing_tips": "Doorbuster-скидки, прогрессивные дисконты, таймеры обратного отсчета.",
+    "summary": "The pinnacle retail shopping day of the year, kicking off the Christmas shopping season with massive doorbusters.",
+    "summary_ru": "Главный торговый день года в США! Старт рождественского сезона, рекордные скидки до 80%, штурм магазинов и пик онлайн-трафика.",
+    "business_impact": "Максимальная загрузка ритейла, курьерских служб, фулфилмента и банковских процессингов.",
+    "marketing_tips": "Doorbuster предложения, прогрессивные скидки, таймеры дедлайна, бесплатная экспресс-доставка.",
     "states": "Nationwide Observance",
     "is_federal": false,
     "is_commercial": true,
@@ -3922,9 +4476,13 @@ window.HOLIDAYS_DATA = [
       "shopping",
       "ecommerce",
       "retail-peak",
-      "major"
+      "featured"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/black-friday"
+    "url": "https://www.timeanddate.com/holidays/us/black-friday",
+    "is_featured": true,
+    "is_major": true,
+    "long_weekend": true,
+    "bank_closed": false
   },
   {
     "id": "american-indian-heritage-day-2026-11-27",
@@ -3941,7 +4499,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🗽",
     "summary": "American Indian Heritage Day is observed in the United States.",
-    "summary_ru": "Праздник штатов Мэриленд, Монтана и Техас в честь коренных народов.",
+    "summary_ru": "Официальный праздник в Мэриленде, Монтане и Техасе.",
     "business_impact": "Праздник в ряде штатов.",
     "marketing_tips": "Культурные выставки и поддержка индейских ремесел.",
     "states": "Maryland",
@@ -3952,7 +4510,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/american-indian-heritage-day"
+    "url": "https://www.timeanddate.com/holidays/us/american-indian-heritage-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "native-american-heritage-day-2026-11-27",
@@ -3970,7 +4532,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "📌",
     "summary": "Native American Heritage Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «Native American Heritage Day» в календаре США.",
+    "summary_ru": "Памятная дата «Native American Heritage День», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Washington",
@@ -3981,7 +4543,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/native-american-heritage-day"
+    "url": "https://www.timeanddate.com/holidays/us/native-american-heritage-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "first-sunday-of-advent-2026-11-29",
@@ -3998,7 +4564,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🕊️",
     "summary": "First Sunday of Advent is observed in the United States.",
-    "summary_ru": "Памятный день / событие «First Sunday of Advent» в календаре США.",
+    "summary_ru": "Памятная дата «First Sunday of Advent», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -4009,7 +4575,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/first-sunday-advent"
+    "url": "https://www.timeanddate.com/holidays/us/first-sunday-advent",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "international-day-of-solidarity-with-the-palestinian-people-2026-11-29",
@@ -4026,7 +4596,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🇺🇳",
     "summary": "International Day of Solidarity with the Palestinian People is observed in the United States.",
-    "summary_ru": "Памятный день / событие «International Day of Solidarity with the Palestinian People» в календаре США.",
+    "summary_ru": "Памятная дата «Международный день Solidarity with the Palestinian People», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -4037,7 +4607,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/solidarity-day-palestinian-people"
+    "url": "https://www.timeanddate.com/holidays/un/solidarity-day-palestinian-people",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "nellie-tayloe-ross-birthday-2026-11-29",
@@ -4054,7 +4628,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "📌",
     "summary": "Nellie Tayloe Ross' Birthday is observed in the United States.",
-    "summary_ru": "Памятный день / событие «Nellie Tayloe Ross' Birthday» в календаре США.",
+    "summary_ru": "Памятная дата «Nellie Tayloe Ross' День рождения», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Wyoming",
@@ -4065,7 +4639,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/nellie-tayloe-ross-birthday"
+    "url": "https://www.timeanddate.com/holidays/us/nellie-tayloe-ross-birthday",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "day-of-remembrance-for-all-victims-of-chemical-warfare-2026-11-30",
@@ -4082,7 +4660,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🇺🇳",
     "summary": "Day of Remembrance for all Victims of Chemical Warfare is observed in the United States.",
-    "summary_ru": "Памятный день / событие «Day of Remembrance for all Victims of Chemical Warfare» в календаре США.",
+    "summary_ru": "Памятная дата «День of Remembrance for all Victims of Chemical Warfare», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -4093,7 +4671,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/chemical-warfare-victims-day"
+    "url": "https://www.timeanddate.com/holidays/un/chemical-warfare-victims-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "cyber-monday-2026-11-30",
@@ -4109,10 +4691,10 @@ window.HOLIDAYS_DATA = [
       "Observance"
     ],
     "icon": "💻",
-    "summary": "The premier digital shopping day worldwide, breaking online e-commerce sales records every year.",
-    "summary_ru": "Крупнейший день онлайн-распродаж в мире: фокус на гаджеты, технику и софт.",
-    "business_impact": "Пик транзакций в интернет-магазинах и нагрузок на платежные шлюзы.",
-    "marketing_tips": "Скидки на технику, софт, годовые подписки, бесплатная доставка.",
+    "summary": "The largest single online shopping day globally ($12B+ in e-commerce), focused on tech, gadgets, and digital deals.",
+    "summary_ru": "Крупнейший в мире день интернет-продаж ($12B+ онлайн-выручки за 24 часа). Фокус на технику, гаджеты, софт и подписки.",
+    "business_impact": "Пиковые нагрузки на облачные сервера, дата-центры и логистические хабы.",
+    "marketing_tips": "Эксклюзивные промокоды для сайта, скидки на софт и подписки, бесплатная доставка без минимального чека.",
     "states": "Nationwide Observance",
     "is_federal": false,
     "is_commercial": true,
@@ -4121,9 +4703,13 @@ window.HOLIDAYS_DATA = [
       "ecommerce",
       "tech",
       "retail-peak",
-      "major"
+      "featured"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/cyber-monday"
+    "url": "https://www.timeanddate.com/holidays/us/cyber-monday",
+    "is_featured": true,
+    "is_major": true,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "world-aids-day-2026-12-01",
@@ -4140,7 +4726,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🇺🇳",
     "summary": "World AIDS Day is observed in the United States.",
-    "summary_ru": "День международной солидарности в борьбе с ВИЧ/СПИДом.",
+    "summary_ru": "День международной солидарности и поддержки людей с ВИЧ.",
     "business_impact": "Памятная дата ООН.",
     "marketing_tips": "Здравоохранение, благотворительные фонды.",
     "states": "Nationwide Observance",
@@ -4151,7 +4737,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/world-aids-day"
+    "url": "https://www.timeanddate.com/holidays/un/world-aids-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "givingtuesday-2026-12-01",
@@ -4168,20 +4758,23 @@ window.HOLIDAYS_DATA = [
       "Observance"
     ],
     "icon": "💛",
-    "summary": "Global movement unleashing the power of radical generosity, non-profit fundraising, and volunteering.",
-    "summary_ru": "Международный день благотворительности, волонтерства и сбора пожертвований.",
-    "business_impact": "Пик корпоративной социальной ответственности и благотворительных сборов.",
-    "marketing_tips": "Удвоение пожертвований (donation match), социальные проекты бренда.",
+    "summary": "Global movement of radical generosity and charitable fundraising following Cyber Monday.",
+    "summary_ru": "Всемирный день благотворительности и волонтерства после потребительских дней Черной пятницы и Киберпонедельника.",
+    "business_impact": "Свыше $3B пожертвований некоммерческим фондам и социальным организациям.",
+    "marketing_tips": "Удвоение корпоративных пожертвований (1+1 matching), социальные проекты бренда.",
     "states": "Nationwide Observance",
     "is_federal": false,
     "is_commercial": true,
     "tags": [
       "charity",
-      "philanthropy",
-      "social-impact",
-      "observance"
+      "social",
+      "featured"
     ],
-    "url": "https://www.timeanddate.com/holidays/world/giving-tuesday"
+    "url": "https://www.timeanddate.com/holidays/world/giving-tuesday",
+    "is_featured": true,
+    "is_major": true,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "rosa-parks-day-2026-12-01",
@@ -4209,7 +4802,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/rosa-parks-day"
+    "url": "https://www.timeanddate.com/holidays/us/rosa-parks-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "international-day-for-the-abolition-of-slavery-2026-12-02",
@@ -4226,7 +4823,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🇺🇳",
     "summary": "International Day for the Abolition of Slavery is observed in the United States.",
-    "summary_ru": "Памятный день / событие «International Day for the Abolition of Slavery» в календаре США.",
+    "summary_ru": "Памятная дата «Международный день the Abolition of Slavery», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -4237,7 +4834,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/international-day-abolish-slavery"
+    "url": "https://www.timeanddate.com/holidays/un/international-day-abolish-slavery",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "international-day-of-persons-with-disabilities-2026-12-03",
@@ -4254,7 +4855,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🇺🇳",
     "summary": "International Day of Persons with Disabilities is observed in the United States.",
-    "summary_ru": "Памятный день / событие «International Day of Persons with Disabilities» в календаре США.",
+    "summary_ru": "Памятная дата «Международный день Persons with Disabilities», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -4265,7 +4866,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/international-day-persons-disabilities"
+    "url": "https://www.timeanddate.com/holidays/un/international-day-persons-disabilities",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "international-day-of-banks-2026-12-04",
@@ -4282,7 +4887,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🇺🇳",
     "summary": "International Day of Banks is observed in the United States.",
-    "summary_ru": "Памятный день / событие «International Day of Banks» в календаре США.",
+    "summary_ru": "Памятная дата «Международный день Banks», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -4293,7 +4898,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/international-day-of-banks"
+    "url": "https://www.timeanddate.com/holidays/un/international-day-of-banks",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "chanukah-hanukkah-first-day-2026-12-05",
@@ -4303,16 +4912,16 @@ window.HOLIDAYS_DATA = [
     "year": 2026,
     "day": 5,
     "name": "Chanukah/Hanukkah (first day)",
-    "name_ru": "Ханука (1-й день)",
+    "name_ru": "Ханука (1-й день праздника огней)",
     "category": "Religious",
     "types": [
       "Jewish holiday"
     ],
     "icon": "🕎",
-    "summary": "Jewish eight-day winter festival celebrating the miracle of the oil flask that burned for eight days.",
-    "summary_ru": "Восьмидневный еврейский праздник огней и обновления: зажжение меноры и подарки.",
-    "business_impact": "Праздничные семейные вечера в еврейских общинах США.",
-    "marketing_tips": "Коллекции подарков на 8 дней, кошерные угощения, свечи.",
+    "summary": "The 8-day Jewish Festival of Lights celebrating the miracle of the oil flask with nightly menorah lighting and gifts.",
+    "summary_ru": "Восьмидневный еврейский праздник огней и чуда кувшина с маслом. Зажжение меноры, угощения (пончики, латкес) и подарки детям каждый вечер.",
+    "business_impact": "Период активных покупок подарков и семейных встреч.",
+    "marketing_tips": "Ханукальные коллекции подарков на 8 дней, декор, кошерные праздничные наборы.",
     "states": "Nationwide Observance",
     "is_federal": false,
     "is_commercial": false,
@@ -4321,9 +4930,13 @@ window.HOLIDAYS_DATA = [
       "jewish",
       "cultural",
       "gifting",
-      "holiday-season"
+      "featured"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/chanukah"
+    "url": "https://www.timeanddate.com/holidays/us/chanukah",
+    "is_featured": true,
+    "is_major": true,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "international-volunteer-day-for-economic-and-social-development-2026-12-05",
@@ -4340,7 +4953,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🇺🇳",
     "summary": "International Volunteer Day for Economic and Social Development is observed in the United States.",
-    "summary_ru": "Памятный день / событие «International Volunteer Day for Economic and Social Development» в календаре США.",
+    "summary_ru": "Памятная дата «Международный день Volunteer День for Economic and Social Development», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -4351,7 +4964,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/international-volunteer-day"
+    "url": "https://www.timeanddate.com/holidays/un/international-volunteer-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "world-soil-day-2026-12-05",
@@ -4368,7 +4985,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🇺🇳",
     "summary": "World Soil Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «World Soil Day» в календаре США.",
+    "summary_ru": "Памятная дата «Всемирный день Soil День», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -4379,7 +4996,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/world-soil-day"
+    "url": "https://www.timeanddate.com/holidays/un/world-soil-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "st-nicholas-day-2026-12-06",
@@ -4396,7 +5017,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🕊️",
     "summary": "St Nicholas Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «St Nicholas Day» в календаре США.",
+    "summary_ru": "Памятная дата «St Nicholas День», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -4407,7 +5028,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/st-nicholas-day"
+    "url": "https://www.timeanddate.com/holidays/us/st-nicholas-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "international-civil-aviation-day-2026-12-07",
@@ -4424,7 +5049,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🇺🇳",
     "summary": "International Civil Aviation Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «International Civil Aviation Day» в календаре США.",
+    "summary_ru": "Памятная дата «Международный день Civil Aviation День», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -4435,7 +5060,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/international-civil-aviation-day"
+    "url": "https://www.timeanddate.com/holidays/un/international-civil-aviation-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "pearl-harbor-remembrance-day-2026-12-07",
@@ -4453,7 +5082,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "📌",
     "summary": "Pearl Harbor Remembrance Day is observed in the United States.",
-    "summary_ru": "Национальный день памяти погибших в Перл-Харборе 7 декабря 1941 года.",
+    "summary_ru": "Национальный день памяти погибших 7 декабря 1941 года.",
     "business_impact": "Флаги приспущены на всех правительственных зданиях.",
     "marketing_tips": "Мемориальные публикации; сдержанный тон.",
     "states": "Alaska, Wyoming",
@@ -4464,7 +5093,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/pearl-harbor-remembrance-day"
+    "url": "https://www.timeanddate.com/holidays/us/pearl-harbor-remembrance-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "delaware-day-2026-12-07",
@@ -4492,7 +5125,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/delaware-day"
+    "url": "https://www.timeanddate.com/holidays/us/delaware-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "feast-of-the-immaculate-conception-2026-12-08",
@@ -4509,7 +5146,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🕊️",
     "summary": "Feast of the Immaculate Conception is observed in the United States.",
-    "summary_ru": "Памятный день / событие «Feast of the Immaculate Conception» в календаре США.",
+    "summary_ru": "Памятная дата «Праздник the Immaculate Conception», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -4520,7 +5157,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/immaculate-conception"
+    "url": "https://www.timeanddate.com/holidays/us/immaculate-conception",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "international-anti-corruption-day-2026-12-09",
@@ -4537,7 +5178,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🇺🇳",
     "summary": "International Anti-Corruption Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «International Anti-Corruption Day» в календаре США.",
+    "summary_ru": "Памятная дата «Международный день Anti-Corruption День», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -4548,7 +5189,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/international-anti-corruption-day"
+    "url": "https://www.timeanddate.com/holidays/un/international-anti-corruption-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "world-genocide-commemoration-day-2026-12-09",
@@ -4565,7 +5210,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🇺🇳",
     "summary": "World Genocide Commemoration Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «World Genocide Commemoration Day» в календаре США.",
+    "summary_ru": "Памятная дата «Всемирный день Genocide Commemoration День», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -4576,7 +5221,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/world-genocide-commemoration-day"
+    "url": "https://www.timeanddate.com/holidays/un/world-genocide-commemoration-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "human-rights-day-2026-12-10",
@@ -4593,7 +5242,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🇺🇳",
     "summary": "Human Rights Day is observed in the United States.",
-    "summary_ru": "Годовщина принятия Всеобщей декларации прав человека (1948 г.).",
+    "summary_ru": "Годовщина принятия Всеобщей декларации прав человека ООН в 1948 году.",
     "business_impact": "Памятная дата ООН.",
     "marketing_tips": "Правозащитные инициативы и социальные кампании.",
     "states": "Nationwide Observance",
@@ -4604,7 +5253,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/human-rights-day"
+    "url": "https://www.timeanddate.com/holidays/un/human-rights-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "wyoming-day-2026-12-10",
@@ -4632,7 +5285,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/wyoming-day"
+    "url": "https://www.timeanddate.com/holidays/us/wyoming-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "international-mountain-day-2026-12-11",
@@ -4649,7 +5306,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🇺🇳",
     "summary": "International Mountain Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «International Mountain Day» в календаре США.",
+    "summary_ru": "Памятная дата «Международный день Mountain День», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -4660,7 +5317,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/international-mountain-day"
+    "url": "https://www.timeanddate.com/holidays/un/international-mountain-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "last-day-of-chanukah-2026-12-12",
@@ -4688,7 +5349,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/last-day-chanukah"
+    "url": "https://www.timeanddate.com/holidays/us/last-day-chanukah",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "international-day-of-neutrality-2026-12-12",
@@ -4705,7 +5370,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🇺🇳",
     "summary": "International Day of Neutrality is observed in the United States.",
-    "summary_ru": "Памятный день / событие «International Day of Neutrality» в календаре США.",
+    "summary_ru": "Памятная дата «Международный день Neutrality», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -4716,7 +5381,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/international-day-of-neutrality"
+    "url": "https://www.timeanddate.com/holidays/un/international-day-of-neutrality",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "universal-health-coverage-day-2026-12-12",
@@ -4733,7 +5402,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🇺🇳",
     "summary": "Universal Health Coverage Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «Universal Health Coverage Day» в календаре США.",
+    "summary_ru": "Памятная дата «Universal Health Coverage День», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -4744,7 +5413,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/universal-health-coverage-day"
+    "url": "https://www.timeanddate.com/holidays/un/universal-health-coverage-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "feast-of-our-lady-of-guadalupe-2026-12-12",
@@ -4761,7 +5434,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🕊️",
     "summary": "Feast of Our Lady of Guadalupe is observed in the United States.",
-    "summary_ru": "Памятный день / событие «Feast of Our Lady of Guadalupe» в календаре США.",
+    "summary_ru": "Памятная дата «Праздник Our Lady of Guadalupe», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -4772,7 +5445,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/lady-guadalupe-day"
+    "url": "https://www.timeanddate.com/holidays/us/lady-guadalupe-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "national-guard-birthday-2026-12-13",
@@ -4789,7 +5466,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "📌",
     "summary": "National Guard Birthday is observed in the United States.",
-    "summary_ru": "Памятный день / событие «National Guard Birthday» в календаре США.",
+    "summary_ru": "Памятная дата «National Guard День рождения», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -4800,7 +5477,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/national-guard-birthday"
+    "url": "https://www.timeanddate.com/holidays/us/national-guard-birthday",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "green-monday-2026-12-14",
@@ -4816,10 +5497,10 @@ window.HOLIDAYS_DATA = [
       "Worldwide Observance"
     ],
     "icon": "💚",
-    "summary": "Historically the second Monday in December and the 3rd biggest online shopping day of the holiday season.",
-    "summary_ru": "Третий по величине день предновогоднего онлайн-шопинга в США.",
-    "business_impact": "Резкий всплеск заказов перед дедлайном стандартной почтовой доставки.",
-    "marketing_tips": "Баннеры 'Гарантированная доставка до Рождества', подарочные боксы.",
+    "summary": "Historically the 3rd biggest online shopping day in December and the key standard shipping cutoff date.",
+    "summary_ru": "Третий по величине день предновогоднего онлайн-шопинга в декабре — дедлайн стандартной доставки до Рождества.",
+    "business_impact": "Всплеск заказов с гарантированной доставкой до 24 декабря.",
+    "marketing_tips": "Баннеры 'Гарантированная доставка под елку', готовые подарочные боксы.",
     "states": "Nationwide Observance",
     "is_federal": false,
     "is_commercial": true,
@@ -4827,9 +5508,13 @@ window.HOLIDAYS_DATA = [
       "commercial",
       "shopping",
       "ecommerce",
-      "deadline"
+      "featured"
     ],
-    "url": "https://www.timeanddate.com/holidays/world/green-monday"
+    "url": "https://www.timeanddate.com/holidays/world/green-monday",
+    "is_featured": true,
+    "is_major": true,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "bill-of-rights-day-2026-12-15",
@@ -4846,7 +5531,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "📌",
     "summary": "Bill of Rights Day is observed in the United States.",
-    "summary_ru": "Годовщина ратификации первых 10 поправок к Конституции США (1791 г.).",
+    "summary_ru": "Годовщина принятия первых 10 поправок к Конституции США о гражданских свободах.",
     "business_impact": "Общенациональный памятный день.",
     "marketing_tips": "Просветительский контент о гражданских свободах.",
     "states": "Nationwide Observance",
@@ -4857,7 +5542,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/bill-of-rights-day"
+    "url": "https://www.timeanddate.com/holidays/us/bill-of-rights-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "pan-american-aviation-day-2026-12-17",
@@ -4885,7 +5574,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/pan-american-aviation-day"
+    "url": "https://www.timeanddate.com/holidays/us/pan-american-aviation-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "wright-brothers-day-2026-12-17",
@@ -4902,7 +5595,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "📌",
     "summary": "Wright Brothers Day is observed in the United States.",
-    "summary_ru": "День в честь первого управляемого полета на самолете братьев Райт (1903 г.).",
+    "summary_ru": "День первого управляемого полета самолета братьев Райт в 1903 году.",
     "business_impact": "Национальная памятная дата.",
     "marketing_tips": "Тематика авиации, инноваций и путешествий.",
     "states": "Nationwide Observance",
@@ -4913,7 +5606,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/wright-brothers-day"
+    "url": "https://www.timeanddate.com/holidays/us/wright-brothers-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "international-migrants-day-2026-12-18",
@@ -4930,7 +5627,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🇺🇳",
     "summary": "International Migrants Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «International Migrants Day» в календаре США.",
+    "summary_ru": "Памятная дата «Международный день Migrants День», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -4941,7 +5638,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/international-migrants-day"
+    "url": "https://www.timeanddate.com/holidays/un/international-migrants-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "arabic-language-day-2026-12-18",
@@ -4958,7 +5659,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🇺🇳",
     "summary": "Arabic Language Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «Arabic Language Day» в календаре США.",
+    "summary_ru": "Памятная дата «Arabic Language День», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -4969,7 +5670,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/arabic-language-day"
+    "url": "https://www.timeanddate.com/holidays/un/arabic-language-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "super-saturday-2026-12-19",
@@ -4985,10 +5690,10 @@ window.HOLIDAYS_DATA = [
       "Worldwide Observance"
     ],
     "icon": "⚡",
-    "summary": "The final Saturday before Christmas, capturing intense last-minute panic shoppers in physical retail.",
-    "summary_ru": "Последняя суббота перед Рождеством — штурм торговых центров покупателями подарков.",
-    "business_impact": "Второй по выручке день в физическом ритейле после Black Friday.",
-    "marketing_tips": "Самовывоз из магазина (BOPIS), мгновенные электронные подарочные карты.",
+    "summary": "The final Saturday before Christmas, capturing intense last-minute shoppers in physical retail.",
+    "summary_ru": "Последняя суббота перед Рождеством — массовый наплыв покупателей в торговые центры за подарками в последнюю минуту.",
+    "business_impact": "Второй по выручке день года в физических магазинах после Черной пятницы.",
+    "marketing_tips": "Самовывоз из магазина день-в-день (BOPIS), мгновенные электронные подарочные карты.",
     "states": "Nationwide Observance",
     "is_federal": false,
     "is_commercial": true,
@@ -4996,9 +5701,13 @@ window.HOLIDAYS_DATA = [
       "commercial",
       "shopping",
       "retail-peak",
-      "last-minute"
+      "featured"
     ],
-    "url": "https://www.timeanddate.com/holidays/world/super-saturday"
+    "url": "https://www.timeanddate.com/holidays/world/super-saturday",
+    "is_featured": true,
+    "is_major": true,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "asarah-b-tevet-2026-12-20",
@@ -5015,7 +5724,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🕊️",
     "summary": "Asarah B'Tevet is observed in the United States.",
-    "summary_ru": "Памятный день / событие «Asarah B'Tevet» в календаре США.",
+    "summary_ru": "Памятная дата «Asarah B'Tevet», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -5026,7 +5735,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/asarah-b-tevet"
+    "url": "https://www.timeanddate.com/holidays/us/asarah-b-tevet",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "international-human-solidarity-day-2026-12-20",
@@ -5043,7 +5756,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🇺🇳",
     "summary": "International Human Solidarity Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «International Human Solidarity Day» в календаре США.",
+    "summary_ru": "Памятная дата «Международный день Human Solidarity День», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -5054,7 +5767,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/international-human-solidarity-day"
+    "url": "https://www.timeanddate.com/holidays/un/international-human-solidarity-day",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "december-solstice-2026-12-21",
@@ -5064,26 +5781,29 @@ window.HOLIDAYS_DATA = [
     "year": 2026,
     "day": 21,
     "name": "December Solstice",
-    "name_ru": "Зимнее солнцестояние",
+    "name_ru": "Зимнее солнцестояние (Начало астрономической зимы)",
     "category": "Astronomical / Season",
     "types": [
       "Season"
     ],
     "icon": "❄️",
-    "summary": "Astronomical start of winter in the Northern Hemisphere, featuring the shortest day and longest night.",
-    "summary_ru": "Астрономическое начало зимы — самый короткий световой день в году.",
-    "business_impact": "Начало пика горнолыжного туризма и зимнего отдыха.",
-    "marketing_tips": "Коллекции зимней одежды, уютный домашний декор, горячие напитки.",
+    "summary": "Shortest day and longest night of the year; official astronomical start of winter.",
+    "summary_ru": "Самый короткий световой день и самая длинная ночь в году; официальное начало зимы в Северном полушарии.",
+    "business_impact": "Старт высокого лыжного и зимнего туристического сезона.",
+    "marketing_tips": "Зимние коллекции одежды, товары для уюта и тепла, горячие напитки.",
     "states": "Nationwide Observance",
     "is_federal": false,
     "is_commercial": false,
     "tags": [
       "season",
       "astronomical",
-      "winter",
-      "nature"
+      "winter"
     ],
-    "url": "https://www.timeanddate.com/calendar/december-solstice.html"
+    "url": "https://www.timeanddate.com/calendar/december-solstice.html",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "christmas-eve-2026-12-24",
@@ -5100,10 +5820,10 @@ window.HOLIDAYS_DATA = [
       "Observance, Christian"
     ],
     "icon": "🎄",
-    "summary": "The evening before Christmas, filled with church services, festive family dinners, and anticipation.",
-    "summary_ru": "Преддверие Рождества: праздничные службы и семейные ужины. Выходной в 11+ штатах.",
-    "business_impact": "Биржи закрываются в 13:00 EST; магазины закрываются ранним вечером.",
-    "marketing_tips": "Электронные сертификаты мгновенной отправки, праздничные поздравления.",
+    "summary": "Christmas Eve: candlelit church services, family feasts, holiday anticipation. State holiday in 11+ states.",
+    "summary_ru": "Канун Рождества: праздничные службы при свечах, семейные ужины и ожидание Санта-Клауса. Выходной день в 11+ штатах.",
+    "business_impact": "Фондовые биржи закрываются досрочно в 13:00 EST; торговые центры закрываются в 17:00-18:00.",
+    "marketing_tips": "Мгновенные цифровые сертификаты, теплые поздравления, анонс Boxing Day онлайн.",
     "states": "AR, KS, KY, MI, NC, ND, OK, SC, TX, VA, WI",
     "is_federal": false,
     "is_commercial": false,
@@ -5111,9 +5831,13 @@ window.HOLIDAYS_DATA = [
       "cultural",
       "state-holiday",
       "family",
-      "major"
+      "featured"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/christmas-eve"
+    "url": "https://www.timeanddate.com/holidays/us/christmas-eve",
+    "is_featured": true,
+    "is_major": true,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "washington-s-birthday-2026-12-24",
@@ -5130,7 +5854,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🗽",
     "summary": "Washington’s Birthday is observed in the United States.",
-    "summary_ru": "Памятный день / событие «Washington’s Birthday» в календаре США.",
+    "summary_ru": "Памятная дата «Washington’s День рождения», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Georgia, Indiana",
@@ -5141,7 +5865,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/washington-birthday"
+    "url": "https://www.timeanddate.com/holidays/us/washington-birthday",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "christmas-day-2026-12-25",
@@ -5158,21 +5886,25 @@ window.HOLIDAYS_DATA = [
       "Federal Holiday"
     ],
     "icon": "🎁",
-    "summary": "Nationwide federal and religious holiday celebrating the birth of Jesus Christ, marked by gift opening and feasts.",
-    "summary_ru": "Главный зимний федеральный праздник США: распаковка подарков под елкой и обед.",
-    "business_impact": "Полное закрытие банков, почты, бирж, магазинов и сервисов.",
-    "marketing_tips": "Искренние поздравления; старт послерождественских распродаж онлайн.",
+    "summary": "Major federal and Christian holiday celebrating the Nativity of Jesus, marked by gift giving and festive dinners.",
+    "summary_ru": "Главный зимний федеральный праздник США: утреннее открытие подарков под елкой и большой семейный рождественский обед.",
+    "business_impact": "Абсолютное закрытие всей страны: банки, почта, биржи, супермаркеты и сервисы не работают.",
+    "marketing_tips": "Праздничные поздравления; старт послерождественских онлайн-распродаж (After-Christmas Clearance).",
     "states": "All 50 US States",
     "is_federal": true,
     "is_commercial": false,
     "tags": [
       "federal",
-      "major",
-      "religious",
-      "bank-holiday",
-      "family"
+      "long-weekend",
+      "bank-closed",
+      "family",
+      "featured"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/christmas-day"
+    "url": "https://www.timeanddate.com/holidays/us/christmas-day",
+    "is_featured": true,
+    "is_major": true,
+    "long_weekend": true,
+    "bank_closed": true
   },
   {
     "id": "kwanzaa-first-day-2026-12-26",
@@ -5182,16 +5914,16 @@ window.HOLIDAYS_DATA = [
     "year": 2026,
     "day": 26,
     "name": "Kwanzaa (first day)",
-    "name_ru": "Кванза (1-й день — Umoja)",
+    "name_ru": "Кванза (1-й день — Umoja / Единство)",
     "category": "National Observance",
     "types": [
       "Observance"
     ],
     "icon": "🕯️",
-    "summary": "Seven-day cultural festival celebrating African-American heritage, community values, and African roots.",
-    "summary_ru": "Семидневный афроамериканский праздник культуры, единства и традиций.",
-    "business_impact": "Культурные ярмарки и общинные выставки.",
-    "marketing_tips": "Фокус на товары афроамериканских предпринимателей, литературу, подарки.",
+    "summary": "7-day African-American cultural festival honoring African heritage, unity (Umoja), and community values.",
+    "summary_ru": "Семидневный афроамериканский праздник культуры, единства и традиций предков. Зажжение свечей Кинара и чествование 7 принципов (Nguzo Saba).",
+    "business_impact": "Культурные ярмарки и выставки в мегаполисах США.",
+    "marketing_tips": "Товары афроамериканских предпринимателей, книги, подарки ручной работы.",
     "states": "Nationwide Observance",
     "is_federal": false,
     "is_commercial": false,
@@ -5199,9 +5931,13 @@ window.HOLIDAYS_DATA = [
       "cultural",
       "heritage",
       "community",
-      "african-american"
+      "featured"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/kwanzaa"
+    "url": "https://www.timeanddate.com/holidays/us/kwanzaa",
+    "is_featured": true,
+    "is_major": true,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "day-after-christmas-day-2026-12-26",
@@ -5211,25 +5947,31 @@ window.HOLIDAYS_DATA = [
     "year": 2026,
     "day": 26,
     "name": "Day After Christmas Day",
-    "name_ru": "День After Christmas День",
+    "name_ru": "Рождество Христово (Christmas Day)",
     "category": "State Holiday",
     "types": [
       "State Holiday"
     ],
-    "icon": "🗽",
-    "summary": "Day After Christmas Day is observed in the United States.",
-    "summary_ru": "Памятный день / событие «Day After Christmas Day» в календаре США.",
-    "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
-    "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
+    "icon": "🎁",
+    "summary": "Major federal and Christian holiday celebrating the Nativity of Jesus, marked by gift giving and festive dinners.",
+    "summary_ru": "Главный зимний федеральный праздник США: утреннее открытие подарков под елкой и большой семейный рождественский обед.",
+    "business_impact": "Абсолютное закрытие всей страны: банки, почта, биржи, супермаркеты и сервисы не работают.",
+    "marketing_tips": "Праздничные поздравления; старт послерождественских онлайн-распродаж (After-Christmas Clearance).",
     "states": "South Carolina, Texas",
     "is_federal": false,
     "is_commercial": false,
     "tags": [
-      "state-holiday",
-      "usa",
-      "2026"
+      "federal",
+      "long-weekend",
+      "bank-closed",
+      "family",
+      "featured"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/day-after-christmas"
+    "url": "https://www.timeanddate.com/holidays/us/day-after-christmas",
+    "is_featured": true,
+    "is_major": true,
+    "long_weekend": true,
+    "bank_closed": true
   },
   {
     "id": "international-day-of-epidemic-preparedness-2026-12-27",
@@ -5246,7 +5988,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🇺🇳",
     "summary": "International Day of Epidemic Preparedness is observed in the United States.",
-    "summary_ru": "Памятный день / событие «International Day of Epidemic Preparedness» в календаре США.",
+    "summary_ru": "Памятная дата «Международный день Epidemic Preparedness», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "Nationwide Observance",
@@ -5257,7 +5999,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/un/international-day-of-epidemic-preparedness"
+    "url": "https://www.timeanddate.com/holidays/un/international-day-of-epidemic-preparedness",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "christmas-holiday-2026-12-28",
@@ -5274,7 +6020,7 @@ window.HOLIDAYS_DATA = [
     ],
     "icon": "🗽",
     "summary": "Christmas Holiday is observed in the United States.",
-    "summary_ru": "Памятный день / событие «Christmas Holiday» в календаре США.",
+    "summary_ru": "Памятная дата «Christmas Holiday», отмечаемая в США.",
     "business_impact": "Standard business operations apply unless local state regulation specifies closure.",
     "marketing_tips": "Suitable for relevant themed content and contextual brand touchpoints.",
     "states": "North Carolina",
@@ -5285,7 +6031,11 @@ window.HOLIDAYS_DATA = [
       "usa",
       "2026"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/christmas-extra-holiday"
+    "url": "https://www.timeanddate.com/holidays/us/christmas-extra-holiday",
+    "is_featured": false,
+    "is_major": false,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "new-year-s-eve-2026-12-31",
@@ -5302,10 +6052,10 @@ window.HOLIDAYS_DATA = [
       "State Holiday"
     ],
     "icon": "🥂",
-    "summary": "The festive climax of the year with Times Square ball drop, champagne toasts, fireworks, and midnight countdowns.",
-    "summary_ru": "Кульминация года: шар на Таймс-сквер, фейерверки, тосты с шампанским.",
-    "business_impact": "Выходной в MI и WI; максимальная загрузка ресторанов, отелей и такси.",
-    "marketing_tips": "Вечерние наряды, игристые вина, тизеры новогодних челленджей.",
+    "summary": "New Year's Eve celebrations featuring the iconic Times Square Ball Drop, champagne toasts, and fireworks.",
+    "summary_ru": "Проводы старого года: знаменитое падение хрустального шара на Таймс-сквер в Нью-Йорке, тосты с шампанским и фейерверки.",
+    "business_impact": "Праздничный день в MI и WI; максимальная годовая выручка ресторанов, клубов, такси и отелей.",
+    "marketing_tips": "Вечерние наряды, коктейли, шампанское, анонсы новогодних челленджей.",
     "states": "Michigan, Wisconsin",
     "is_federal": false,
     "is_commercial": false,
@@ -5313,10 +6063,13 @@ window.HOLIDAYS_DATA = [
       "major",
       "celebration",
       "party",
-      "new-year",
-      "countdown"
+      "featured"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/new-year-eve"
+    "url": "https://www.timeanddate.com/holidays/us/new-year-eve",
+    "is_featured": true,
+    "is_major": true,
+    "long_weekend": false,
+    "bank_closed": false
   },
   {
     "id": "new-year-s-day-2027-01-01",
@@ -5333,20 +6086,24 @@ window.HOLIDAYS_DATA = [
       "Federal Holiday"
     ],
     "icon": "🎆",
-    "summary": "Federal holiday inaugurating 2027; highlighted by the Tournament of Roses Parade and college football bowl games.",
-    "summary_ru": "Федеральный праздник встречи Нового 2027 года, парады и футбольные Bowl Games.",
-    "business_impact": "Банки, госучреждения и почта закрыты; магазины открыты с распродажами.",
-    "marketing_tips": "Кампании 'Новый год — новая жизнь' (спорт, здоровье, финансы, планирование).",
+    "summary": "Federal holiday ushering in 2027, featuring the Tournament of Roses Parade, college football bowl games, and resolutions.",
+    "summary_ru": "Федеральный праздник встречи Нового 2027 года: знаменитый Парад Роз в Пасадине, студенческий футбол Bowl Games и новые цели на год.",
+    "business_impact": "Банки, биржи, федеральные службы и почта закрыты. Ритейл открыт с новогодними скидками.",
+    "marketing_tips": "Кампании 'New Year, New You': фитнес, здоровое питание, курсы, планеры и финансовые инструменты.",
     "states": "All 50 US States",
     "is_federal": true,
     "is_commercial": false,
     "tags": [
       "federal",
-      "bank-holiday",
-      "major",
+      "long-weekend",
+      "bank-closed",
       "new-year",
-      "resolutions"
+      "featured"
     ],
-    "url": "https://www.timeanddate.com/holidays/us/new-year-day"
+    "url": "https://www.timeanddate.com/holidays/us/new-year-day",
+    "is_featured": true,
+    "is_major": true,
+    "long_weekend": true,
+    "bank_closed": true
   }
 ];

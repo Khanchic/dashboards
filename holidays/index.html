@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>🇺🇸 Праздники США (2026–2027) — Dashboards</title>
-<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="styles.css?v=4" />
 <style>
   :root{
     --bg:#f4f5f3; --surface:#ffffff; --border:#d7dad6;
@@ -19,25 +19,25 @@
   :root[data-theme="light"]{ --bg:#f4f5f3; --surface:#ffffff; --border:#d7dad6; --text:#1c1f1d; --text-dim:#666b66; --text-faint:#9a9f9a; --accent-text:#5f4413; --accent-soft:rgba(184,132,46,0.14); --shadow: 0 1px 2px rgba(20,22,20,0.06), 0 8px 24px -12px rgba(20,22,20,0.18); }
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
-  body{ background:#0a0e17; color:#f8fafc; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; -webkit-font-smoothing:antialiased; line-height:1.45; }
+  body{ background:#090c12; color:#f8fafc; font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; -webkit-font-smoothing:antialiased; line-height:1.45; }
 
   /* Shared App Shell */
   .shell{ display:grid; grid-template-columns:190px 1fr; grid-template-rows:52px 1fr; grid-template-areas:"topbar topbar" "sidebar content"; min-height:100vh; }
   @media (max-width:720px){ .shell{ grid-template-columns:1fr; grid-template-areas:"topbar" "sidebar" "content"; } }
-  .topbar{ grid-area:topbar; position:sticky; top:0; z-index:60; display:flex; align-items:center; justify-content:space-between; padding:0 20px; background:#15130f; border-bottom:1px solid rgba(255,255,255,.08); }
+  .topbar{ grid-area:topbar; position:sticky; top:0; z-index:60; display:flex; align-items:center; justify-content:space-between; padding:0 20px; background:#111622; border-bottom:1px solid rgba(255,255,255,.08); }
   .topbar .brand{ color:#f0d29a; font-weight:700; font-size:14px; letter-spacing:.02em; text-decoration:none; display:flex; align-items:center; gap:8px; }
   .topbar .brand:hover{ opacity:.9; }
 
-  .sidebar{ grid-area:sidebar; background:#100e0b; border-right:1px solid rgba(255,255,255,.08); padding:16px 10px; display:flex; flex-direction:column; gap:4px; }
+  .sidebar{ grid-area:sidebar; background:#0d111a; border-right:1px solid rgba(255,255,255,.08); padding:16px 10px; display:flex; flex-direction:column; gap:4px; }
   @media (max-width:720px){ .sidebar{ border-right:none; border-bottom:1px solid rgba(255,255,255,.08); flex-direction:row; flex-wrap:wrap; padding:8px; } }
   .sidebar nav{ display:flex; flex-direction:column; gap:3px; width:100%; }
   @media (max-width:720px){ .sidebar nav{ flex-direction:row; flex-wrap:wrap; gap:4px; } }
-  .slink{ display:flex; align-items:center; gap:8px; padding:7px 11px; border-radius:6px; color:#a4a9a3; text-decoration:none; font-size:13px; font-weight:500; transition:all .15s ease; }
+  .slink{ display:flex; align-items:center; gap:8px; padding:7px 11px; border-radius:6px; color:#94a3b8; text-decoration:none; font-size:13px; font-weight:500; transition:all .15s ease; }
   .slink:hover{ color:#f0d29a; background:rgba(212,162,78,.08); }
-  .slink.active{ color:#15130f; background:#d4a24e; font-weight:600; }
+  .slink.active{ color:#11141b; background:#d4a24e; font-weight:700; }
 
-  .content{ grid-area:content; padding:24px 28px 60px; min-width:0; background:#0a0e17; }
-  @media (max-width:720px){ .content{ padding:14px 14px 40px; } }
+  .content{ grid-area:content; padding:20px 24px 60px; min-width:0; background:#090c12; position:relative; }
+  @media (max-width:720px){ .content{ padding:12px 10px 40px; } }
 </style>
 </head>
 <body>
@@ -62,159 +62,173 @@
   </aside>
 
   <main class="content">
-    <div class="dashboard-container" style="max-width:100%; padding:0;">
+    <div class="dashboard-wrapper">
       
-      <!-- Top App Header -->
-      <header class="app-header">
-        <div class="brand-section">
-          <div class="flag-badge" aria-hidden="true">🇺🇸</div>
-          <div class="brand-info">
-            <h1>US Holidays <span class="highlight">& Peak Radar</span></h1>
+      <!-- Top Header Card -->
+      <header class="main-header-card">
+        <div class="header-brand-group">
+          <div class="header-flag-icon" aria-hidden="true">🇺🇸</div>
+          <div class="header-text-block">
+            <h1>US Holidays <span class="gradient-text">& Peak Radar</span></h1>
             <p id="sub-header-text">02.09.2026 – 01.01.2027 • Федеральные, штатные, религиозные и коммерческие даты США</p>
           </div>
         </div>
 
-        <div class="header-actions">
+        <div class="header-meta-actions">
           <!-- Live Countdown Widget -->
-          <div class="countdown-box" id="countdown-widget">
-            <div class="countdown-icon">⏳</div>
-            <div class="countdown-text">
-              <span class="countdown-label" id="countdown-label">Следующий праздник</span>
-              <span class="countdown-val" id="countdown-val">Labor Day (Через 5 дн.)</span>
+          <div class="countdown-pill" id="countdown-widget">
+            <div class="pulse-dot"></div>
+            <div class="countdown-meta">
+              <span class="countdown-sub" id="countdown-label">Ближайший праздник</span>
+              <span class="countdown-event-title" id="countdown-val">Labor Day (Через 5 дн.)</span>
             </div>
           </div>
 
           <!-- Language Switcher -->
-          <div class="lang-switch">
-            <button class="lang-btn active" id="lang-ru" data-lang="ru">RU</button>
-            <button class="lang-btn" id="lang-en" data-lang="en">EN</button>
+          <div class="lang-switcher-box">
+            <button class="lang-toggle-btn active" id="lang-ru" data-lang="ru">RU</button>
+            <button class="lang-toggle-btn" id="lang-en" data-lang="en">EN</button>
           </div>
 
-          <!-- Export Buttons -->
-          <button class="btn btn-primary" id="export-ics-btn" title="Скачать календарь iCal для Apple / Google Calendar">
+          <!-- Action Exports -->
+          <button class="btn-action btn-accent" id="export-ics-btn" title="Скачать календарь .ICS для Apple Calendar, Google Calendar, Outlook">
             <span>📅</span> <span id="txt-export-ics">Скачать .ICS</span>
           </button>
-          <button class="btn" id="export-csv-btn" title="Экспорт в CSV / Excel">
+          <button class="btn-action" id="export-csv-btn" title="Экспорт в CSV / Excel">
             <span>📊</span> <span>CSV</span>
           </button>
-          <button class="btn" id="export-json-btn" title="Экспорт в JSON">
+          <button class="btn-action" id="export-json-btn" title="Экспорт в JSON">
             <span>💾</span> <span>JSON</span>
           </button>
         </div>
       </header>
 
-      <!-- KPI Summary Cards -->
-      <section class="kpi-grid" id="kpi-grid">
-        <div class="kpi-card kpi-total">
-          <div class="kpi-icon">🗓️</div>
-          <div class="kpi-body">
-            <span class="kpi-value" id="kpi-total-val">189</span>
+      <!-- FEATURED HERO HIGHLIGHTS: Top Milestones at a Glance -->
+      <section class="featured-section" id="featured-section">
+        <div class="featured-header">
+          <h2 id="txt-featured-title"><span>🔥</span> Главные события и длинные выходные периода</h2>
+        </div>
+        <div class="featured-cards-carousel" id="featured-cards-carousel">
+          <!-- Dynamically rendered by app.js -->
+        </div>
+      </section>
+
+      <!-- KPI Statistics Grid -->
+      <section class="kpi-row-grid" id="kpi-row-grid">
+        <div class="kpi-stat-card">
+          <div class="kpi-stat-icon">🗓️</div>
+          <div class="kpi-stat-body">
+            <span class="kpi-stat-num" id="kpi-total-val">189</span>
             <span class="kpi-label" id="kpi-total-lbl">Всего событий в периоде</span>
           </div>
         </div>
 
-        <div class="kpi-card kpi-federal">
-          <div class="kpi-icon">🏛️</div>
-          <div class="kpi-body">
-            <span class="kpi-value" id="kpi-federal-val">6</span>
+        <div class="kpi-stat-card">
+          <div class="kpi-stat-icon">🏛️</div>
+          <div class="kpi-stat-body">
+            <span class="kpi-stat-num" id="kpi-federal-val">6</span>
             <span class="kpi-label" id="kpi-federal-lbl">Федеральных праздников (US Bank)</span>
           </div>
         </div>
 
-        <div class="kpi-card kpi-retail">
-          <div class="kpi-icon">🛍️</div>
-          <div class="kpi-body">
-            <span class="kpi-value" id="kpi-retail-val">7</span>
+        <div class="kpi-stat-card">
+          <div class="kpi-stat-icon">🏖️</div>
+          <div class="kpi-stat-body">
+            <span class="kpi-stat-num" id="kpi-weekends-val">6</span>
+            <span class="kpi-label" id="kpi-weekends-lbl">Длинных 3-4 дневных уикендов</span>
+          </div>
+        </div>
+
+        <div class="kpi-stat-card">
+          <div class="kpi-stat-icon">🛍️</div>
+          <div class="kpi-stat-body">
+            <span class="kpi-stat-num" id="kpi-retail-val">7</span>
             <span class="kpi-label" id="kpi-retail-lbl">Пиков E-Commerce & Распродаж</span>
           </div>
         </div>
 
-        <div class="kpi-card kpi-state">
-          <div class="kpi-icon">🗽</div>
-          <div class="kpi-body">
-            <span class="kpi-value" id="kpi-state-val">23</span>
+        <div class="kpi-stat-card">
+          <div class="kpi-stat-icon">🗽</div>
+          <div class="kpi-stat-body">
+            <span class="kpi-stat-num" id="kpi-state-val">23</span>
             <span class="kpi-label" id="kpi-state-lbl">Праздников отдельных штатов</span>
-          </div>
-        </div>
-
-        <div class="kpi-card kpi-religious">
-          <div class="kpi-icon">🕊️</div>
-          <div class="kpi-body">
-            <span class="kpi-value" id="kpi-religious-val">20</span>
-            <span class="kpi-label" id="kpi-religious-lbl">Религиозных и духовных дат</span>
           </div>
         </div>
       </section>
 
-      <!-- Main Layout: Sidebar + Content -->
-      <div class="dashboard-layout">
+      <!-- Main Workspace Layout: Controls Sidebar + Dynamic Content -->
+      <div class="dashboard-main-layout">
         
-        <!-- Sidebar Filters -->
-        <aside class="filter-sidebar">
-          <div class="sidebar-title">
-            <span id="txt-filters-title">🔍 Фильтры и поиск</span>
-            <button class="reset-filter-btn" id="reset-filters-btn">Сбросить</button>
+        <!-- Controls Sidebar -->
+        <aside class="control-sidebar-card">
+          <div class="sidebar-header-row">
+            <h3 id="txt-filters-title"><span>🔍</span> Фильтры и поиск</h3>
+            <button class="btn-reset-filters" id="reset-filters-btn">Сбросить</button>
           </div>
 
-          <!-- Search Box -->
-          <div class="search-box">
-            <span class="search-icon">🔍</span>
-            <input type="text" id="search-input" class="search-input" placeholder="Поиск (название, штат, тег)...">
+          <!-- Search Input -->
+          <div class="search-field-wrapper">
+            <span class="search-field-icon">🔍</span>
+            <input type="text" id="search-input" class="search-field-input" placeholder="Поиск (название, штат, тег)...">
           </div>
 
-          <!-- Month Filter -->
+          <!-- Quick Filter Presets -->
           <div class="filter-group">
-            <span class="filter-group-title" id="txt-month-title">Период / Месяц</span>
-            <div class="month-filter-grid">
-              <button class="month-btn active" data-month="all">Все (5 мес.)</button>
-              <button class="month-btn" data-month="9">Сентябрь '26</button>
-              <button class="month-btn" data-month="10">Октябрь '26</button>
-              <button class="month-btn" data-month="11">Ноябрь '26</button>
-              <button class="month-btn" data-month="12">Декабрь '26</button>
-              <button class="month-btn" data-month="1">Январь '27</button>
-            </div>
-          </div>
-
-          <!-- Category Filter -->
-          <div class="filter-group">
-            <span class="filter-group-title" id="txt-category-title">Категории праздников</span>
-            <div class="pill-list" id="category-pills">
-              <div class="filter-pill active" data-cat="all">
-                <span>🌐 Все категории</span>
-                <span class="pill-count" id="count-all">189</span>
+            <span class="filter-group-title" id="txt-presets-title" style="font-size:0.75rem; text-transform:uppercase; color:var(--text-dim); font-weight:800; margin-bottom:6px; display:block;">Быстрые фильтры</span>
+            <div class="preset-chips-list" id="preset-chips">
+              <div class="preset-chip active" data-filter-type="category" data-val="all">
+                <span>🌐 Все события</span>
+                <span class="preset-chip-count" id="count-all">189</span>
               </div>
-              <div class="filter-pill" data-cat="Federal Holiday">
-                <span>🏛️ Федеральные праздники</span>
-                <span class="pill-count" id="count-federal">6</span>
+              <div class="preset-chip" data-filter-type="category" data-val="Federal Holiday">
+                <span>🏛️ Федеральные выходные</span>
+                <span class="preset-chip-count" id="count-federal">6</span>
               </div>
-              <div class="filter-pill" data-cat="Commercial & Shopping">
-                <span>🛍️ E-Commerce & Шопинг</span>
-                <span class="pill-count" id="count-commercial">7</span>
+              <div class="preset-chip" data-filter-type="preset" data-val="long_weekend">
+                <span>🏖️ Длинные уикенды (3-4 дня)</span>
+                <span class="preset-chip-count" id="count-long-weekends">6</span>
               </div>
-              <div class="filter-pill" data-cat="State Holiday">
+              <div class="preset-chip" data-filter-type="category" data-val="Commercial & Shopping">
+                <span>🛍️ E-Commerce & Распродажи</span>
+                <span class="preset-chip-count" id="count-commercial">7</span>
+              </div>
+              <div class="preset-chip" data-filter-type="category" data-val="State Holiday">
                 <span>🗽 Праздники штатов</span>
-                <span class="pill-count" id="count-state">23</span>
+                <span class="preset-chip-count" id="count-state">23</span>
               </div>
-              <div class="filter-pill" data-cat="Religious">
+              <div class="preset-chip" data-filter-type="category" data-val="Religious">
                 <span>🕊️ Религиозные и традиции</span>
-                <span class="pill-count" id="count-religious">20</span>
+                <span class="preset-chip-count" id="count-religious">20</span>
               </div>
-              <div class="filter-pill" data-cat="National Observance">
-                <span>📌 Общественные памятные даты</span>
-                <span class="pill-count" id="count-observance">49</span>
+              <div class="preset-chip" data-filter-type="category" data-val="National Observance">
+                <span>📌 Памятные даты США</span>
+                <span class="preset-chip-count" id="count-observance">49</span>
               </div>
-              <div class="filter-pill" data-cat="UN & International">
+              <div class="preset-chip" data-filter-type="category" data-val="UN & International">
                 <span>🇺🇳 ООН и международные</span>
-                <span class="pill-count" id="count-un">65</span>
+                <span class="preset-chip-count" id="count-un">65</span>
               </div>
             </div>
           </div>
 
-          <!-- State Select Filter -->
+          <!-- Month Filter Selector -->
           <div class="filter-group">
-            <span class="filter-group-title" id="txt-state-title">Фильтр по штату США</span>
-            <select id="state-select" class="state-select">
-              <option value="all">Все штаты / Общефедеральные</option>
+            <span class="filter-group-title" id="txt-month-title" style="font-size:0.75rem; text-transform:uppercase; color:var(--text-dim); font-weight:800; margin-bottom:6px; display:block;">Период / Месяц</span>
+            <div class="month-selector-grid">
+              <button class="month-filter-button active" data-month="all">Все (5 мес.)</button>
+              <button class="month-filter-button" data-month="9">Сентябрь '26</button>
+              <button class="month-filter-button" data-month="10">Октябрь '26</button>
+              <button class="month-filter-button" data-month="11">Ноябрь '26</button>
+              <button class="month-filter-button" data-month="12">Декабрь '26</button>
+              <button class="month-filter-button" data-month="1">Январь '27</button>
+            </div>
+          </div>
+
+          <!-- State Selector -->
+          <div class="filter-group">
+            <span class="filter-group-title" id="txt-state-title" style="font-size:0.75rem; text-transform:uppercase; color:var(--text-dim); font-weight:800; margin-bottom:6px; display:block;">Фильтр по штату США</span>
+            <select id="state-select" class="state-dropdown-select">
+              <option value="all">Все 50 штатов / Общефедеральные</option>
               <option value="California">Калифорния (CA)</option>
               <option value="Texas">Техас (TX)</option>
               <option value="New York">Нью-Йорк (NY)</option>
@@ -234,66 +248,66 @@
 
         </aside>
 
-        <!-- Main Content Area -->
-        <main class="main-content">
+        <!-- Main Dynamic Content Column -->
+        <main class="main-content-flow">
           
-          <!-- View Navigation Tabs -->
-          <div class="view-tabs-bar">
-            <nav class="view-tabs" role="tablist">
-              <button class="view-tab active" data-view="timeline" id="tab-timeline">
+          <!-- View Navigation Switcher Tabs -->
+          <div class="view-tabs-header-bar">
+            <nav class="nav-views-tabs" role="tablist">
+              <button class="tab-nav-btn active" data-view="timeline" id="tab-timeline">
                 <span>📋</span> <span id="txt-tab-timeline">Список и карточки</span>
               </button>
-              <button class="view-tab" data-view="calendar" id="tab-calendar">
+              <button class="tab-nav-btn" data-view="calendar" id="tab-calendar">
                 <span>🗓️</span> <span id="txt-tab-calendar">Сетка календаря</span>
               </button>
-              <button class="view-tab" data-view="radar" id="tab-radar">
+              <button class="tab-nav-btn" data-view="radar" id="tab-radar">
                 <span>⚡</span> <span id="txt-tab-radar">Маркетинговый радар (Q4)</span>
               </button>
-              <button class="view-tab" data-view="analytics" id="tab-analytics">
+              <button class="tab-nav-btn" data-view="analytics" id="tab-analytics">
                 <span>📊</span> <span id="txt-tab-analytics">Аналитика</span>
               </button>
             </nav>
 
-            <div class="view-meta">
+            <div class="showing-results-meta">
               <span id="txt-showing-label">Показано:</span> <strong id="visible-count">189</strong> <span id="txt-of-label">из</span> 189
             </div>
           </div>
 
-          <!-- VIEW 1: Cards / Timeline View -->
-          <section class="view-section active" id="view-timeline">
+          <!-- VIEW 1: Cards / Timeline -->
+          <section class="tab-view-panel active" id="view-timeline">
             <div id="cards-container"></div>
           </section>
 
-          <!-- VIEW 2: Monthly Calendar View -->
-          <section class="view-section" id="view-calendar">
-            <div class="calendar-view-container" id="calendar-container"></div>
+          <!-- VIEW 2: Monthly Calendar Grid -->
+          <section class="tab-view-panel" id="view-calendar">
+            <div id="calendar-container"></div>
           </section>
 
-          <!-- VIEW 3: E-Commerce Radar View -->
-          <section class="view-section" id="view-radar">
-            <div class="radar-hero">
+          <!-- VIEW 3: E-Commerce Radar Q4 -->
+          <section class="tab-view-panel" id="view-radar">
+            <div class="radar-command-hero">
               <h2>⚡ Q4 E-Commerce & Retail Shopping Peak Season (США 2026)</h2>
-              <p>Дорожная карта главных коммерческих дат для планирования рекламных кампаний, скидочных промо-акций, email-рассылок и складской логистики в США.</p>
+              <p>Дорожная карта главных коммерческих дат и скидочных волн для планирования рекламных бюджетов, промо-акций, email-кампаний и логистики.</p>
             </div>
-            <div class="radar-timeline" id="radar-container"></div>
+            <div id="radar-container"></div>
           </section>
 
-          <!-- VIEW 4: Analytics View -->
-          <section class="view-section" id="view-analytics">
-            <div class="analytics-grid">
-              <div class="analytics-panel">
-                <h3 class="analytics-panel-title"><span>📂</span> Распределение по категориям</h3>
-                <div class="bar-chart-list" id="analytics-categories"></div>
+          <!-- VIEW 4: Analytics -->
+          <section class="tab-view-panel" id="view-analytics">
+            <div class="analytics-grid-layout">
+              <div class="analytics-card-panel">
+                <h3><span>📂</span> Распределение по категориям</h3>
+                <div id="analytics-categories"></div>
               </div>
 
-              <div class="analytics-panel">
-                <h3 class="analytics-panel-title"><span>📅</span> Распределение событий по месяцам</h3>
-                <div class="bar-chart-list" id="analytics-months"></div>
+              <div class="analytics-card-panel">
+                <h3><span>📅</span> Насыщенность событиями по месяцам</h3>
+                <div id="analytics-months"></div>
               </div>
 
-              <div class="analytics-panel" style="grid-column: 1 / -1;">
-                <h3 class="analytics-panel-title"><span>🗽</span> Топ штатов США по числу региональных праздников</h3>
-                <div class="bar-chart-list" id="analytics-states"></div>
+              <div class="analytics-card-panel" style="grid-column: 1 / -1;">
+                <h3><span>🗽</span> Топ штатов США по числу региональных праздников</h3>
+                <div id="analytics-states"></div>
               </div>
             </div>
           </section>
@@ -304,43 +318,43 @@
 
     </div>
 
-    <!-- Detail Modal -->
-    <div class="modal-overlay" id="detail-modal" role="dialog" aria-modal="true">
-      <div class="modal-container">
-        <button class="modal-close-btn" id="modal-close-btn" aria-label="Закрыть">✕</button>
+    <!-- Detail Modal Dialog -->
+    <div class="modal-backdrop-overlay" id="detail-modal" role="dialog" aria-modal="true">
+      <div class="modal-content-card">
+        <button class="modal-btn-close" id="modal-close-btn" aria-label="Закрыть">✕</button>
         
-        <div class="modal-header">
-          <div class="modal-icon" id="modal-icon">🏛️</div>
-          <div class="modal-title-box">
+        <div class="modal-hero-header">
+          <div class="modal-hero-icon" id="modal-icon">🏛️</div>
+          <div class="modal-hero-title">
             <h2 id="modal-title">Labor Day</h2>
             <p id="modal-title-ru">День труда</p>
           </div>
         </div>
 
-        <div class="modal-meta-chips" id="modal-meta-chips"></div>
+        <div class="modal-chips-row" id="modal-meta-chips"></div>
 
-        <div class="modal-section">
-          <div class="modal-section-title"><span>📖</span> Описание и культурное значение</div>
-          <div class="modal-section-content" id="modal-summary"></div>
+        <div class="modal-detail-box">
+          <div class="modal-box-title"><span>📖</span> Описание и культурное значение</div>
+          <div class="modal-box-text" id="modal-summary"></div>
         </div>
 
-        <div class="modal-section">
-          <div class="modal-section-title"><span>💼</span> Влияние на бизнес, банки и госслужбы</div>
-          <div class="modal-section-content" id="modal-business"></div>
+        <div class="modal-detail-box">
+          <div class="modal-box-title"><span>💼</span> Влияние на бизнес, банки и госслужбы</div>
+          <div class="modal-box-text" id="modal-business"></div>
         </div>
 
-        <div class="modal-section">
-          <div class="modal-section-title"><span>🎯</span> Рекомендации для маркетинга и продаж</div>
-          <div class="modal-section-content" id="modal-marketing"></div>
+        <div class="modal-detail-box">
+          <div class="modal-box-title"><span>🎯</span> Рекомендации для маркетинга и продаж</div>
+          <div class="modal-box-text" id="modal-marketing"></div>
         </div>
 
-        <div class="modal-section">
-          <div class="modal-section-title"><span>📍</span> Охват штатов США</div>
-          <div class="modal-section-content" id="modal-states"></div>
+        <div class="modal-detail-box">
+          <div class="modal-box-title"><span>📍</span> Охват штатов США</div>
+          <div class="modal-box-text" id="modal-states"></div>
         </div>
 
-        <div class="modal-footer">
-          <button class="btn btn-primary" id="modal-add-cal-btn">
+        <div class="modal-bottom-actions">
+          <button class="btn-action btn-accent" id="modal-add-cal-btn">
             <span>📅</span> Добавить в мой календарь (.ics)
           </button>
         </div>
@@ -349,7 +363,7 @@
   </main>
 </div>
 
-<script src="holidays_data.js"></script>
-<script src="app.js"></script>
+<script src="holidays_data.js?v=4"></script>
+<script src="app.js?v=4"></script>
 </body>
 </html>

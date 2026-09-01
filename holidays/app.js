@@ -1,14 +1,15 @@
 // US Holidays Interactive Dashboard Logic
-// Supports RU / EN bilingual interface, calendar grid, radar, search, filter, and iCal/CSV export.
+// Full bilingual RU / EN, featured highlights, calendar grid, radar, search, presets, and export.
 
 (function () {
   'use strict';
 
-  // Current UI State
+  // State Management
   const state = {
     lang: 'ru',
     search: '',
-    selectedCategory: 'all',
+    filterType: 'category', // 'category' or 'preset'
+    filterVal: 'all',
     selectedMonth: 'all',
     selectedState: 'all',
     currentView: 'timeline',
@@ -24,12 +25,15 @@
       nextHoliday: 'Ближайший праздник',
       daysLeft: 'дн.',
       today: 'Сегодня',
+      featuredTitle: '🔥 Главные события и длинные выходные периода',
       totalEvents: 'Всего событий в периоде',
       federalHolidays: 'Федеральных праздников (US Bank)',
+      longWeekends: 'Длинных 3-4 дневных уикендов',
       retailPeaks: 'Пиков E-Commerce & Распродаж',
       stateHolidays: 'Праздников отдельных штатов',
       religiousEvents: 'Религиозных и духовных дат',
       filtersTitle: '🔍 Фильтры и поиск',
+      presetsTitle: 'Быстрые фильтры',
       reset: 'Сбросить',
       searchPlaceholder: 'Поиск (название, штат, тег)...',
       monthTitle: 'Период / Месяц',
@@ -46,6 +50,10 @@
       noResultsSub: 'Попробуйте изменить категорию, месяц или поисковый запрос.',
       exportIcs: 'Скачать .ICS',
       moreEvents: 'еще',
+      bankClosedBadge: '🏦 Банки закрыты',
+      longWeekendBadge: '🏖️ 3 дня отдыха',
+      retailPeakBadge: '🔥 Пик шопинга',
+      federalBadge: '🏛️ Федеральный',
       months: {
         9: 'Сентябрь 2026',
         10: 'Октябрь 2026',
@@ -60,10 +68,9 @@
         'Commercial & Shopping': '🛍️ E-Commerce & Шопинг',
         'State Holiday': '🗽 Праздники штатов',
         'Religious': '🕊️ Религиозные и традиции',
-        'National Observance': '📌 Общественные памятные даты',
+        'National Observance': '📌 Памятные даты США',
         'UN & International': '🇺🇳 ООН и международные',
-        'Astronomical / Season': '🪐 Астрономические / Сезоны',
-        'State Observance': '🗽 Памятные даты штатов'
+        'Astronomical / Season': '🪐 Сезоны и астрономия'
       }
     },
     en: {
@@ -71,12 +78,15 @@
       nextHoliday: 'Next Major Event',
       daysLeft: 'days',
       today: 'Today',
+      featuredTitle: '🔥 Major US Milestones & Long Holiday Weekends',
       totalEvents: 'Total Events in Period',
       federalHolidays: 'Federal Bank Holidays',
+      longWeekends: 'Long Holiday Weekends (3-4 Days)',
       retailPeaks: 'E-Commerce & Retail Peaks',
       stateHolidays: 'Individual State Holidays',
       religiousEvents: 'Religious & Cultural Observances',
       filtersTitle: '🔍 Filters & Search',
+      presetsTitle: 'Quick Presets',
       reset: 'Reset',
       searchPlaceholder: 'Search (name, state, tag)...',
       monthTitle: 'Period / Month',
@@ -93,6 +103,10 @@
       noResultsSub: 'Try broadening your search or resetting category filters.',
       exportIcs: 'Download .ICS',
       moreEvents: 'more',
+      bankClosedBadge: '🏦 Banks Closed',
+      longWeekendBadge: '🏖️ 3-Day Weekend',
+      retailPeakBadge: '🔥 Retail Peak',
+      federalBadge: '🏛️ Federal Holiday',
       months: {
         9: 'September 2026',
         10: 'October 2026',
@@ -107,10 +121,9 @@
         'Commercial & Shopping': '🛍️ E-Commerce & Retail',
         'State Holiday': '🗽 State Holidays',
         'Religious': '🕊️ Religious & Faith',
-        'National Observance': '📌 National Observances',
+        'National Observance': '📌 US Observances',
         'UN & International': '🇺🇳 UN & International',
-        'Astronomical / Season': '🪐 Astronomical / Seasons',
-        'State Observance': '🗽 State Observances'
+        'Astronomical / Season': '🪐 Seasons & Astronomy'
       }
     }
   };
@@ -127,33 +140,37 @@
     exportJsonBtn: document.getElementById('export-json-btn'),
     txtExportIcs: document.getElementById('txt-export-ics'),
     
+    // Featured Carousel
+    txtFeaturedTitle: document.getElementById('txt-featured-title'),
+    featuredCardsCarousel: document.getElementById('featured-cards-carousel'),
+
     // KPI
     kpiTotalVal: document.getElementById('kpi-total-val'),
     kpiFederalVal: document.getElementById('kpi-federal-val'),
+    kpiWeekendsVal: document.getElementById('kpi-weekends-val'),
     kpiRetailVal: document.getElementById('kpi-retail-val'),
     kpiStateVal: document.getElementById('kpi-state-val'),
-    kpiReligiousVal: document.getElementById('kpi-religious-val'),
     
     kpiTotalLbl: document.getElementById('kpi-total-lbl'),
     kpiFederalLbl: document.getElementById('kpi-federal-lbl'),
+    kpiWeekendsLbl: document.getElementById('kpi-weekends-lbl'),
     kpiRetailLbl: document.getElementById('kpi-retail-lbl'),
     kpiStateLbl: document.getElementById('kpi-state-lbl'),
-    kpiReligiousLbl: document.getElementById('kpi-religious-lbl'),
     
     // Sidebar
     searchInput: document.getElementById('search-input'),
     resetBtn: document.getElementById('reset-filters-btn'),
-    categoryPills: document.querySelectorAll('.filter-pill'),
-    monthBtns: document.querySelectorAll('.month-btn'),
+    presetChips: document.querySelectorAll('.preset-chip'),
+    monthBtns: document.querySelectorAll('.month-filter-button'),
     stateSelect: document.getElementById('state-select'),
     
     txtFiltersTitle: document.getElementById('txt-filters-title'),
+    txtPresetsTitle: document.getElementById('txt-presets-title'),
     txtMonthTitle: document.getElementById('txt-month-title'),
-    txtCategoryTitle: document.getElementById('txt-category-title'),
     txtStateTitle: document.getElementById('txt-state-title'),
     
     // Tabs & Views
-    viewTabs: document.querySelectorAll('.view-tab'),
+    viewTabs: document.querySelectorAll('.tab-nav-btn'),
     txtTabTimeline: document.getElementById('txt-tab-timeline'),
     txtTabCalendar: document.getElementById('txt-tab-calendar'),
     txtTabRadar: document.getElementById('txt-tab-radar'),
@@ -197,6 +214,27 @@
     };
   }
 
+  // Calculate Days Until
+  function getDaysUntil(dateStr) {
+    const refDate = new Date('2026-09-02');
+    const targetDate = new Date(dateStr);
+    const diffTime = targetDate - refDate;
+    return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  }
+
+  // Category CSS Class
+  function getCategoryClass(cat) {
+    switch (cat) {
+      case 'Federal Holiday': return 'tag-federal';
+      case 'State Holiday': return 'tag-state';
+      case 'Commercial & Shopping': return 'tag-commercial';
+      case 'Religious': return 'tag-religious';
+      case 'National Observance': return 'tag-observance';
+      case 'UN & International': return 'tag-un';
+      default: return 'tag-observance';
+    }
+  }
+
   // Filter Logic
   function getFilteredHolidays() {
     const q = state.search.trim().toLowerCase();
@@ -209,9 +247,11 @@
         }
       }
 
-      // Category filter
-      if (state.selectedCategory !== 'all') {
-        if (h.category !== state.selectedCategory) {
+      // Presets & Categories
+      if (state.filterType === 'preset') {
+        if (state.filterVal === 'long_weekend' && !h.long_weekend) return false;
+      } else if (state.filterType === 'category' && state.filterVal !== 'all') {
+        if (h.category !== state.filterVal) {
           return false;
         }
       }
@@ -219,7 +259,7 @@
       // State filter
       if (state.selectedState !== 'all') {
         const stateLow = state.selectedState.toLowerCase();
-        const matchesState = (h.states || '').toLowerCase().includes(stateLow) || (h.states || '').includes('All 50 US States') || (h.states || '').includes('Federal');
+        const matchesState = (h.states || '').toLowerCase().includes(stateLow) || (h.states || '').includes('All 50') || (h.states || '').includes('Federal');
         if (!matchesState) {
           return false;
         }
@@ -227,7 +267,7 @@
 
       // Text Search
       if (q) {
-        const matchName = h.name.toLowerCase().includes(q);
+        const matchName = (h.name || '').toLowerCase().includes(q);
         const matchNameRu = (h.name_ru || '').toLowerCase().includes(q);
         const matchSummary = (h.summary || '').toLowerCase().includes(q);
         const matchSummaryRu = (h.summary_ru || '').toLowerCase().includes(q);
@@ -242,18 +282,50 @@
     });
   }
 
-  // Category CSS Class
-  function getCategoryClass(cat) {
-    switch (cat) {
-      case 'Federal Holiday': return 'cat-federal';
-      case 'State Holiday': return 'cat-state';
-      case 'Commercial & Shopping': return 'cat-commercial';
-      case 'Religious': return 'cat-religious';
-      case 'National Observance': return 'cat-observance';
-      case 'UN & International': return 'cat-un';
-      case 'Astronomical / Season': return 'cat-season';
-      default: return 'cat-observance';
-    }
+  // Render Top Featured Milestones Carousel
+  function renderFeaturedCarousel() {
+    if (!els.featuredCardsCarousel) return;
+
+    const featuredItems = holidays.filter(h => h.is_featured);
+    let html = '';
+
+    featuredItems.forEach(h => {
+      const days = getDaysUntil(h.date);
+      const countdownStr = days === 0 ? i18n[state.lang].today : (days > 0 ? (state.lang === 'ru' ? `через ${days} дн.` : `in ${days} days`) : '');
+      const title = state.lang === 'ru' ? (h.name_ru || h.name) : h.name;
+      const desc = state.lang === 'ru' ? (h.summary_ru || h.summary) : h.summary;
+
+      const dateParts = h.date.split('-');
+      const formattedDate = `${dateParts[2]}.${dateParts[1]}`;
+
+      let highlightClass = '';
+      if (h.is_federal) highlightClass = 'highlight-federal';
+      else if (h.is_commercial) highlightClass = 'highlight-commercial';
+
+      html += `
+        <div class="featured-card ${highlightClass}" onclick="window.App.openDetailModal('${h.id}')" tabindex="0" role="button">
+          <div class="featured-card-top">
+            <span class="featured-date-badge">📅 ${formattedDate} (${h.day_of_week})</span>
+            <span class="featured-countdown-tag">⏳ ${countdownStr}</span>
+          </div>
+
+          <div class="featured-card-title">
+            <span>${h.icon}</span> ${title}
+          </div>
+
+          <div class="featured-card-desc">${desc}</div>
+
+          <div class="featured-card-badges">
+            ${h.is_federal ? `<span class="mini-badge badge-bank">${i18n[state.lang].federalBadge}</span>` : ''}
+            ${h.bank_closed ? `<span class="mini-badge badge-bank">${i18n[state.lang].bankClosedBadge}</span>` : ''}
+            ${h.long_weekend ? `<span class="mini-badge badge-weekend">${i18n[state.lang].longWeekendBadge}</span>` : ''}
+            ${h.is_commercial ? `<span class="mini-badge badge-retail">${i18n[state.lang].retailPeakBadge}</span>` : ''}
+          </div>
+        </div>
+      `;
+    });
+
+    els.featuredCardsCarousel.innerHTML = html;
   }
 
   // Render Cards / Timeline View
@@ -262,19 +334,19 @@
     
     if (filtered.length === 0) {
       els.cardsContainer.innerHTML = `
-        <div class="empty-state">
-          <div class="empty-state-icon">🔎</div>
+        <div class="empty-results-box">
+          <div class="empty-results-icon">🔎</div>
           <h3>${i18n[state.lang].noResults}</h3>
-          <p>${i18n[state.lang].noResultsSub}</p>
+          <p style="color:var(--text-muted);font-size:0.86rem;margin-top:4px;">${i18n[state.lang].noResultsSub}</p>
         </div>
       `;
       return;
     }
 
-    // Group by month
+    // Group by month (pad with 0 to ensure strict chronological sorting)
     const groups = {};
     filtered.forEach(h => {
-      const monthKey = `${h.year}-${h.month}`;
+      const monthKey = `${h.year}-${String(h.month).padStart(2, '0')}`;
       if (!groups[monthKey]) {
         groups[monthKey] = {
           year: h.year,
@@ -293,12 +365,12 @@
       const monthTitle = i18n[state.lang].months[group.month] || `Month ${group.month}`;
 
       html += `
-        <div class="month-group">
-          <div class="month-group-header">
-            <h2 class="month-group-title">${monthTitle}</h2>
-            <span class="month-badge">${group.items.length} ${state.lang === 'ru' ? 'событий' : 'events'}</span>
+        <div class="month-cards-block">
+          <div class="month-block-header">
+            <h2 class="month-block-title">${monthTitle}</h2>
+            <span class="month-block-badge">${group.items.length} ${state.lang === 'ru' ? 'событий' : 'events'}</span>
           </div>
-          <div class="holidays-cards-grid">
+          <div class="cards-render-grid">
       `;
 
       group.items.forEach(h => {
@@ -309,28 +381,28 @@
         const summaryText = state.lang === 'ru' ? (h.summary_ru || h.summary) : h.summary;
 
         html += `
-          <article class="holiday-card" onclick="window.App.openDetailModal('${h.id}')" tabindex="0" role="button" aria-label="${titlePrimary}">
-            <div class="card-top">
-              <div class="date-badge">
-                <span class="date-month">${dateBadge.month}</span>
-                <span class="date-day">${dateBadge.day}</span>
+          <article class="holiday-card-modern" onclick="window.App.openDetailModal('${h.id}')" tabindex="0" role="button" aria-label="${titlePrimary}">
+            <div class="card-top-row">
+              <div class="date-box-square">
+                <span class="date-box-month">${dateBadge.month}</span>
+                <span class="date-box-day">${dateBadge.day}</span>
               </div>
-              <div class="card-header-meta">
-                <span class="card-category-tag ${catClass}">
+              <div class="card-titles-col">
+                <span class="category-tag-pill ${catClass}">
                   <span>${h.icon}</span> ${h.category}
                 </span>
-                <h3 class="card-title">${titlePrimary}</h3>
-                ${titleSecondary && titleSecondary !== titlePrimary ? `<div class="card-title-ru">${titleSecondary}</div>` : ''}
+                <h3 class="card-name-main">${titlePrimary}</h3>
+                ${titleSecondary && titleSecondary !== titlePrimary ? `<div class="card-name-sub">${titleSecondary}</div>` : ''}
               </div>
             </div>
 
-            <p class="card-summary">${summaryText}</p>
+            <p class="card-desc-snippet">${summaryText}</p>
 
-            <div class="card-footer">
-              <span class="state-badge-text" title="${h.states}">
+            <div class="card-bottom-bar">
+              <span class="card-states-snippet" title="${h.states}">
                 <span>📍</span> ${h.states}
               </span>
-              <span class="card-action-hint">${i18n[state.lang].detailsHint}</span>
+              <span class="card-action-link">${i18n[state.lang].detailsHint}</span>
             </div>
           </article>
         `;
@@ -349,29 +421,25 @@
   function renderCalendar(filtered) {
     if (!els.calendarContainer) return;
 
-    // Months in range: Sep 2026, Oct 2026, Nov 2026, Dec 2026, Jan 2027
     const calendarMonths = [
-      { year: 2026, month: 9, days: 30, startDay: 2 }, // Sep 1, 2026 is Tuesday (2)
-      { year: 2026, month: 10, days: 31, startDay: 4 }, // Oct 1, 2026 is Thursday (4)
-      { year: 2026, month: 11, days: 30, startDay: 0 }, // Nov 1, 2026 is Sunday (0)
-      { year: 2026, month: 12, days: 31, startDay: 2 }, // Dec 1, 2026 is Tuesday (2)
-      { year: 2027, month: 1, days: 31, startDay: 5 }   // Jan 1, 2027 is Friday (5)
+      { year: 2026, month: 9, days: 30, startDay: 2 },
+      { year: 2026, month: 10, days: 31, startDay: 4 },
+      { year: 2026, month: 11, days: 30, startDay: 0 },
+      { year: 2026, month: 12, days: 31, startDay: 2 },
+      { year: 2027, month: 1, days: 31, startDay: 5 }
     ];
 
     const activeMonths = state.selectedMonth === 'all' 
       ? calendarMonths 
       : calendarMonths.filter(m => m.month.toString() === state.selectedMonth);
 
-    // Map filtered events by date
     const eventsByDate = {};
     filtered.forEach(h => {
-      if (!eventsByDate[h.date]) {
-        eventsByDate[h.date] = [];
-      }
+      if (!eventsByDate[h.date]) eventsByDate[h.date] = [];
       eventsByDate[h.date].push(h);
     });
 
-    // Sort events on each day so Federal and Commercial always appear first
+    // Prioritize Federal & Commercial first
     Object.keys(eventsByDate).forEach(d => {
       eventsByDate[d].sort((a, b) => {
         const score = item => item.is_federal ? 3 : (item.is_commercial ? 2 : (item.category === 'State Holiday' ? 1 : 0));
@@ -386,31 +454,26 @@
       const monthTitle = i18n[state.lang].months[m.month];
       
       html += `
-        <div class="calendar-month-block">
-          <div class="cal-month-header">
-            <h3 class="cal-month-name">${monthTitle}</h3>
+        <div class="calendar-block-wrapper">
+          <h3 class="calendar-header-title">${monthTitle}</h3>
+
+          <div class="cal-week-row">
+            ${weekdays.map(w => `<div class="cal-week-col-head">${w}</div>`).join('')}
           </div>
 
-          <div class="cal-weekdays-row">
-            ${weekdays.map(w => `<div class="cal-weekday">${w}</div>`).join('')}
-          </div>
-
-          <div class="cal-days-grid">
+          <div class="cal-cells-grid">
       `;
 
-      // Empty cells before start of month
       for (let i = 0; i < m.startDay; i++) {
-        html += `<div class="cal-day-cell empty"></div>`;
+        html += `<div class="cal-day-box empty"></div>`;
       }
 
-      // Day cells
       const totalDaysToRender = (m.month === 1 && m.year === 2027 && state.selectedMonth === 'all') ? 1 : m.days;
       for (let d = 1; d <= totalDaysToRender; d++) {
         const dateStr = `${m.year}-${m.month.toString().padStart(2, '0')}-${d.toString().padStart(2, '0')}`;
         
-        // Check range bounds
         if (dateStr < '2026-09-02' || dateStr > '2027-01-01') {
-          html += `<div class="cal-day-cell empty" style="opacity:0.3;"><span class="cal-day-num">${d}</span></div>`;
+          html += `<div class="cal-day-box empty" style="opacity:0.3;"><span class="cal-day-number">${d}</span></div>`;
           continue;
         }
 
@@ -418,19 +481,18 @@
         const hasFederal = dayEvents.some(e => e.is_federal);
         const hasCommercial = dayEvents.some(e => e.is_commercial);
 
-        let cellClasses = 'cal-day-cell';
-        if (dayEvents.length > 0) cellClasses += ' has-events';
-        if (hasFederal) cellClasses += ' federal-day';
-        if (hasCommercial) cellClasses += ' commercial-day';
+        let cellClasses = 'cal-day-box';
+        if (hasFederal) cellClasses += ' has-federal';
+        if (hasCommercial) cellClasses += ' has-commercial';
 
         html += `
           <div class="${cellClasses}" onclick="window.App.onCalendarDayClick('${dateStr}')">
-            <span class="cal-day-num">${d}</span>
-            <div class="cal-day-events-preview">
+            <span class="cal-day-number">${d}</span>
+            <div class="cal-day-chips-container">
               ${dayEvents.slice(0, 2).map(e => {
                 const catClass = getCategoryClass(e.category);
                 const title = state.lang === 'ru' ? (e.name_ru || e.name) : e.name;
-                return `<div class="cal-event-chip ${catClass}" title="${title}">${e.icon} ${title}</div>`;
+                return `<div class="cal-chip-item ${catClass}" title="${title}">${e.icon} ${title}</div>`;
               }).join('')}
               ${dayEvents.length > 2 ? `<span style="font-size:0.65rem; color:var(--text-dim);">+${dayEvents.length - 2} ${i18n[state.lang].moreEvents}</span>` : ''}
             </div>
@@ -451,7 +513,6 @@
   function renderRadar() {
     if (!els.radarContainer) return;
 
-    // Major Q4 peaks
     const radarHolidays = holidays.filter(h => 
       h.is_commercial || 
       h.is_federal || 
@@ -466,20 +527,20 @@
       const formattedDate = `${dateParts[2]}.${dateParts[1]}.${dateParts[0]}`;
 
       html += `
-        <div class="radar-step-card" onclick="window.App.openDetailModal('${h.id}')" style="cursor:pointer;">
-          <div class="radar-date-col">
-            <span class="radar-date-val">${formattedDate}</span>
-            <span class="radar-date-day">${h.day_of_week}</span>
+        <div class="radar-step-card-modern" onclick="window.App.openDetailModal('${h.id}')">
+          <div class="radar-date-side">
+            <span class="date-num">${formattedDate}</span>
+            <span class="date-day">${h.day_of_week}</span>
           </div>
 
-          <div class="radar-info-col">
+          <div class="radar-info-side">
             <h3><span>${h.icon}</span> ${titlePrimary}</h3>
             <p>${state.lang === 'ru' ? (h.summary_ru || h.summary) : h.summary}</p>
           </div>
 
-          <div class="radar-action-col">
-            <span class="radar-action-label">${state.lang === 'ru' ? '💡 Маркетинговая стратегия' : '💡 Marketing Strategy'}</span>
-            <span class="radar-action-text">${h.marketing_tips}</span>
+          <div class="radar-checklist-box">
+            <span class="radar-checklist-label">💡 ${state.lang === 'ru' ? 'Маркетинговая стратегия' : 'Marketing Strategy'}</span>
+            <span class="radar-checklist-text">${h.marketing_tips}</span>
           </div>
         </div>
       `;
@@ -488,7 +549,7 @@
     els.radarContainer.innerHTML = html;
   }
 
-  // Render Analytics View
+  // Render Analytics
   function renderAnalytics(filtered) {
     if (!els.analyticsCategories || !els.analyticsMonths || !els.analyticsStates) return;
 
@@ -507,13 +568,13 @@
       const label = (i18n[state.lang].categories[cat] || cat);
 
       catHtml += `
-        <div class="bar-chart-row">
-          <div class="bar-label-row">
+        <div class="bar-row-item">
+          <div class="bar-row-label">
             <span>${label}</span>
             <span><strong>${count}</strong></span>
           </div>
-          <div class="bar-track">
-            <div class="bar-fill ${catClass}" style="width: ${percent}%;"></div>
+          <div class="bar-track-bg">
+            <div class="bar-fill-bar ${catClass}" style="width: ${percent}%;"></div>
           </div>
         </div>
       `;
@@ -536,13 +597,13 @@
       const label = i18n[state.lang].months[mNum];
 
       monthHtml += `
-        <div class="bar-chart-row">
-          <div class="bar-label-row">
+        <div class="bar-row-item">
+          <div class="bar-row-label">
             <span>${label}</span>
             <span><strong>${count}</strong></span>
           </div>
-          <div class="bar-track">
-            <div class="bar-fill" style="width: ${percent}%; background: linear-gradient(90deg, #6366f1, #06b6d4);"></div>
+          <div class="bar-track-bg">
+            <div class="bar-fill-bar" style="width: ${percent}%; background: linear-gradient(90deg, #d4a24e, #6366f1);"></div>
           </div>
         </div>
       `;
@@ -571,13 +632,13 @@
       const percent = Math.round((count / maxState) * 100);
 
       stateHtml += `
-        <div class="bar-chart-row">
-          <div class="bar-label-row">
+        <div class="bar-row-item">
+          <div class="bar-row-label">
             <span>🗽 ${st}</span>
-            <span><strong>${count}</strong> ${state.lang === 'ru' ? 'региональных праздников' : 'state holidays'}</span>
+            <span><strong>${count}</strong> ${state.lang === 'ru' ? 'праздников' : 'holidays'}</span>
           </div>
-          <div class="bar-track">
-            <div class="bar-fill" style="width: ${percent}%; background: linear-gradient(90deg, #3b82f6, #ec4899);"></div>
+          <div class="bar-track-bg">
+            <div class="bar-fill-bar" style="width: ${percent}%; background: linear-gradient(90deg, #38bdf8, #ec4899);"></div>
           </div>
         </div>
       `;
@@ -592,6 +653,7 @@
       els.visibleCount.textContent = filtered.length;
     }
 
+    renderFeaturedCarousel();
     renderCards(filtered);
     renderCalendar(filtered);
     renderRadar();
@@ -599,25 +661,21 @@
     updateCountdown();
   }
 
-  // Countdown Widget Calculator
+  // Countdown Widget
   function updateCountdown() {
     if (!els.countdownVal) return;
     
-    // Next major federal or commercial event from Sep 2, 2026
     const todayStr = '2026-09-02';
     const upcoming = holidays.find(h => (h.is_federal || h.is_commercial) && h.date >= todayStr);
 
     if (upcoming) {
-      const targetDate = new Date(upcoming.date);
-      const refDate = new Date(todayStr);
-      const diffDays = Math.ceil((targetDate - refDate) / (1000 * 60 * 60 * 24));
-      
+      const diffDays = getDaysUntil(upcoming.date);
       const name = state.lang === 'ru' ? (upcoming.name_ru || upcoming.name) : upcoming.name;
       els.countdownVal.textContent = `${name} (${diffDays} ${i18n[state.lang].daysLeft})`;
     }
   }
 
-  // Open Modal Details
+  // Open Detail Modal
   function openDetailModal(holidayId) {
     const holiday = holidays.find(h => h.id === holidayId);
     if (!holiday) return;
@@ -630,10 +688,12 @@
 
     const catClass = getCategoryClass(holiday.category);
     els.modalMetaChips.innerHTML = `
-      <span class="card-category-tag ${catClass}"><span>${holiday.icon}</span> ${holiday.category}</span>
-      <span class="card-category-tag" style="background:rgba(255,255,255,0.06);color:#fff;">📅 ${holiday.date} (${holiday.day_of_week})</span>
-      ${holiday.is_federal ? '<span class="card-category-tag cat-federal">🏛️ US Federal Holiday</span>' : ''}
-      ${holiday.is_commercial ? '<span class="card-category-tag cat-commercial">🛍️ Q4 Retail Peak</span>' : ''}
+      <span class="category-tag-pill ${catClass}"><span>${holiday.icon}</span> ${holiday.category}</span>
+      <span class="category-tag-pill" style="background:rgba(255,255,255,0.06);color:#fff;">📅 ${holiday.date} (${holiday.day_of_week})</span>
+      ${holiday.is_federal ? `<span class="category-tag-pill tag-federal">${i18n[state.lang].federalBadge}</span>` : ''}
+      ${holiday.bank_closed ? `<span class="category-tag-pill tag-federal">${i18n[state.lang].bankClosedBadge}</span>` : ''}
+      ${holiday.long_weekend ? `<span class="category-tag-pill tag-observance">${i18n[state.lang].longWeekendBadge}</span>` : ''}
+      ${holiday.is_commercial ? `<span class="category-tag-pill tag-commercial">${i18n[state.lang].retailPeakBadge}</span>` : ''}
     `;
 
     els.modalSummary.textContent = state.lang === 'ru' ? (holiday.summary_ru || holiday.summary) : holiday.summary;
@@ -649,7 +709,7 @@
     state.selectedHolidayModal = null;
   }
 
-  // Export ICS Calendar
+  // Export ICS
   function exportICS(singleEvent = null) {
     const eventsToExport = singleEvent ? [singleEvent] : getFilteredHolidays();
     if (eventsToExport.length === 0) return;
@@ -733,7 +793,7 @@
     document.body.removeChild(link);
   }
 
-  // Change Language
+  // Set Language
   function setLanguage(lang) {
     state.lang = lang;
 
@@ -745,15 +805,15 @@
       els.langRuBtn.classList.remove('active');
     }
 
-    // Update UI text strings
     const texts = i18n[lang];
     els.subHeader.textContent = texts.subHeader;
     els.countdownLabel.textContent = texts.nextHoliday;
-    els.txtFiltersTitle.textContent = texts.filtersTitle;
+    els.txtFeaturedTitle.innerHTML = `<span>🔥</span> ${texts.featuredTitle}`;
+    els.txtFiltersTitle.innerHTML = `<span>🔍</span> ${texts.filtersTitle}`;
+    els.txtPresetsTitle.textContent = texts.presetsTitle;
     els.resetBtn.textContent = texts.reset;
     els.searchInput.placeholder = texts.searchPlaceholder;
     els.txtMonthTitle.textContent = texts.monthTitle;
-    els.txtCategoryTitle.textContent = texts.categoryTitle;
     els.txtStateTitle.textContent = texts.stateTitle;
     
     els.txtTabTimeline.textContent = texts.tabTimeline;
@@ -767,14 +827,14 @@
 
     els.kpiTotalLbl.textContent = texts.totalEvents;
     els.kpiFederalLbl.textContent = texts.federalHolidays;
+    els.kpiWeekendsLbl.textContent = texts.longWeekends;
     els.kpiRetailLbl.textContent = texts.retailPeaks;
     els.kpiStateLbl.textContent = texts.stateHolidays;
-    els.kpiReligiousLbl.textContent = texts.religiousEvents;
 
     updateDashboard();
   }
 
-  // Event Listeners Setup
+  // Setup Event Listeners
   function initEventListeners() {
     // Search
     els.searchInput.addEventListener('input', (e) => {
@@ -785,24 +845,26 @@
     // Reset Filters
     els.resetBtn.addEventListener('click', () => {
       state.search = '';
-      state.selectedCategory = 'all';
+      state.filterType = 'category';
+      state.filterVal = 'all';
       state.selectedMonth = 'all';
       state.selectedState = 'all';
       els.searchInput.value = '';
       els.stateSelect.value = 'all';
 
-      els.categoryPills.forEach(p => p.classList.toggle('active', p.dataset.cat === 'all'));
+      els.presetChips.forEach(p => p.classList.toggle('active', p.dataset.val === 'all'));
       els.monthBtns.forEach(b => b.classList.toggle('active', b.dataset.month === 'all'));
 
       updateDashboard();
     });
 
-    // Category Pills
-    els.categoryPills.forEach(pill => {
-      pill.addEventListener('click', () => {
-        els.categoryPills.forEach(p => p.classList.remove('active'));
-        pill.classList.add('active');
-        state.selectedCategory = pill.dataset.cat;
+    // Preset & Category Chips
+    els.presetChips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        els.presetChips.forEach(p => p.classList.remove('active'));
+        chip.classList.add('active');
+        state.filterType = chip.dataset.filterType;
+        state.filterVal = chip.dataset.val;
         updateDashboard();
       });
     });
@@ -832,7 +894,7 @@
         const targetView = tab.dataset.view;
         state.currentView = targetView;
 
-        document.querySelectorAll('.view-section').forEach(sec => {
+        document.querySelectorAll('.tab-view-panel').forEach(sec => {
           sec.classList.remove('active');
         });
         const activeSec = document.getElementById(`view-${targetView}`);
@@ -884,7 +946,6 @@
     updateDashboard();
   }
 
-  // Launch when DOM is ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {
