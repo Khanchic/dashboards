@@ -1,3 +1,9 @@
+// US Holidays Interactive Dashboard Logic
+// Full bilingual RU / EN, featured highlights, calendar grid, radar, search, presets, and export.
+
+(function () {
+  'use strict';
+
   // State Management
   const state = {
     lang: 'ru',
