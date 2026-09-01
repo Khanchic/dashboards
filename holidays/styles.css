@@ -1346,19 +1346,107 @@ body {
   border-top: 1px solid var(--border);
 }
 
-/* Empty search state */
-.empty-results-box {
-  text-align: center;
-  padding: 60px 20px;
-  background: var(--bg-surface);
-  border: 1px dashed var(--border);
-  border-radius: var(--radius-xl);
+/* Past and Today Event States */
+.holiday-card-modern.is-past,
+.featured-card.is-past,
+.radar-step-card-modern.is-past {
+  opacity: 0.45;
+  filter: grayscale(0.85);
+  transition: var(--transition);
 }
 
-.empty-results-icon {
-  font-size: 2.8rem;
-  margin-bottom: 10px;
-  opacity: 0.6;
+.holiday-card-modern.is-past:hover,
+.featured-card.is-past:hover,
+.radar-step-card-modern.is-past:hover {
+  opacity: 0.85;
+  filter: grayscale(0.2);
+}
+
+.holiday-card-modern.is-today,
+.featured-card.is-today {
+  border-color: #10b981;
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.35);
+  background: linear-gradient(145deg, rgba(16, 185, 129, 0.12) 0%, rgba(15, 20, 32, 0.95) 100%);
+}
+
+.badge-past {
+  background: rgba(148, 163, 184, 0.15);
+  color: #94a3b8;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+}
+
+.badge-today {
+  background: rgba(16, 185, 129, 0.2);
+  color: #6ee7b7;
+  border: 1px solid rgba(16, 185, 129, 0.5);
+  animation: pulse-glow 2s infinite;
+}
+
+/* Auto-Hide Past Toggle Switch */
+.auto-hide-toggle-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  margin-bottom: 12px;
+}
+
+.toggle-switch-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #e2e8f0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.switch-control {
+  position: relative;
+  display: inline-block;
+  width: 42px;
+  height: 22px;
+}
+
+.switch-control input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.switch-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.15);
+  transition: .3s;
+  border-radius: 22px;
+}
+
+.switch-slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: .3s;
+  border-radius: 50%;
+}
+
+input:checked + .switch-slider {
+  background-color: var(--accent-gold);
+}
+
+input:checked + .switch-slider:before {
+  transform: translateX(20px);
+  background-color: #11141b;
 }
 
 /* Responsive */

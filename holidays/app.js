@@ -1,9 +1,3 @@
-// US Holidays Interactive Dashboard Logic
-// Full bilingual RU / EN, featured highlights, calendar grid, radar, search, presets, and export.
-
-(function () {
-  'use strict';
-
   // State Management
   const state = {
     lang: 'ru',
@@ -13,8 +7,18 @@
     selectedMonth: 'all',
     selectedState: 'all',
     currentView: 'timeline',
+    hidePast: false, // by default false so user sees all, but can toggle or auto-dim
     selectedHolidayModal: null
   };
+
+  // Dynamic Current Date Determination
+  function getTodayStr() {
+    const now = new Date();
+    const y = now.getFullYear();
+    const m = String(now.getMonth() + 1).padStart(2, '0');
+    const d = String(now.getDate()).padStart(2, '0');
+    return `${y}-${m}-${d}`;
+  }
 
   const holidays = window.HOLIDAYS_DATA || [];
 
@@ -34,6 +38,7 @@
       religiousEvents: 'Религиозных и духовных дат',
       filtersTitle: '🔍 Фильтры и поиск',
       presetsTitle: 'Быстрые фильтры',
+      hidePastLabel: 'Скрывать прошедшие (авто)',
       reset: 'Сбросить',
       searchPlaceholder: 'Поиск (название, штат, тег)...',
       monthTitle: 'Период / Месяц',
@@ -50,6 +55,8 @@
       noResultsSub: 'Попробуйте изменить категорию, месяц или поисковый запрос.',
       exportIcs: 'Скачать .ICS',
       moreEvents: 'еще',
+      pastBadge: '✓ Прошло',
+      todayBadge: '🔥 СЕГОДНЯ',
       bankClosedBadge: '🏦 Банки закрыты',
       longWeekendBadge: '🏖️ 3 дня отдыха',
       retailPeakBadge: '🔥 Пик шопинга',
@@ -87,6 +94,7 @@
       religiousEvents: 'Religious & Cultural Observances',
       filtersTitle: '🔍 Filters & Search',
       presetsTitle: 'Quick Presets',
+      hidePastLabel: 'Auto-hide past holidays',
       reset: 'Reset',
       searchPlaceholder: 'Search (name, state, tag)...',
       monthTitle: 'Period / Month',
@@ -103,6 +111,8 @@
       noResultsSub: 'Try broadening your search or resetting category filters.',
       exportIcs: 'Download .ICS',
       moreEvents: 'more',
+      pastBadge: '✓ Past',
+      todayBadge: '🔥 TODAY',
       bankClosedBadge: '🏦 Banks Closed',
       longWeekendBadge: '🏖️ 3-Day Weekend',
       retailPeakBadge: '🔥 Retail Peak',
@@ -168,6 +178,8 @@
     txtPresetsTitle: document.getElementById('txt-presets-title'),
     txtMonthTitle: document.getElementById('txt-month-title'),
     txtStateTitle: document.getElementById('txt-state-title'),
+    txtHidePastLabel: document.getElementById('txt-hide-past-label'),
+    hidePastToggle: document.getElementById('hide-past-toggle'),
     
     // Tabs & Views
     viewTabs: document.querySelectorAll('.tab-nav-btn'),
@@ -216,7 +228,8 @@
 
   // Calculate Days Until
   function getDaysUntil(dateStr) {
-    const refDate = new Date('2026-09-02');
+    const todayStr = getTodayStr();
+    const refDate = new Date(todayStr);
     const targetDate = new Date(dateStr);
     const diffTime = targetDate - refDate;
     return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
@@ -238,8 +251,14 @@
   // Filter Logic
   function getFilteredHolidays() {
     const q = state.search.trim().toLowerCase();
+    const todayStr = getTodayStr();
     
     return holidays.filter(h => {
+      // Auto-hide past filter if enabled
+      if (state.hidePast && h.date < todayStr) {
+        return false;
+      }
+
       // Month filter
       if (state.selectedMonth !== 'all') {
         if (h.month.toString() !== state.selectedMonth) {
@@ -286,12 +305,24 @@
   function renderFeaturedCarousel() {
     if (!els.featuredCardsCarousel) return;
 
+    const todayStr = getTodayStr();
     const featuredItems = holidays.filter(h => h.is_featured);
     let html = '';
 
     featuredItems.forEach(h => {
       const days = getDaysUntil(h.date);
-      const countdownStr = days === 0 ? i18n[state.lang].today : (days > 0 ? (state.lang === 'ru' ? `через ${days} дн.` : `in ${days} days`) : '');
+      const isPast = h.date < todayStr;
+      const isToday = h.date === todayStr;
+
+      let countdownStr = '';
+      if (isToday) {
+        countdownStr = i18n[state.lang].today;
+      } else if (isPast) {
+        countdownStr = i18n[state.lang].pastBadge;
+      } else {
+        countdownStr = state.lang === 'ru' ? `через ${days} дн.` : `in ${days} days`;
+      }
+
       const title = state.lang === 'ru' ? (h.name_ru || h.name) : h.name;
       const desc = state.lang === 'ru' ? (h.summary_ru || h.summary) : h.summary;
 
@@ -301,12 +332,14 @@
       let highlightClass = '';
       if (h.is_federal) highlightClass = 'highlight-federal';
       else if (h.is_commercial) highlightClass = 'highlight-commercial';
+      if (isPast) highlightClass += ' is-past';
+      if (isToday) highlightClass += ' is-today';
 
       html += `
         <div class="featured-card ${highlightClass}" onclick="window.App.openDetailModal('${h.id}')" tabindex="0" role="button">
           <div class="featured-card-top">
             <span class="featured-date-badge">📅 ${formattedDate} (${h.day_of_week})</span>
-            <span class="featured-countdown-tag">⏳ ${countdownStr}</span>
+            <span class="featured-countdown-tag">${isPast ? '✓ ' : '⏳ '}${countdownStr}</span>
           </div>
 
           <div class="featured-card-title">
@@ -316,6 +349,8 @@
           <div class="featured-card-desc">${desc}</div>
 
           <div class="featured-card-badges">
+            ${isPast ? `<span class="mini-badge badge-past">${i18n[state.lang].pastBadge}</span>` : ''}
+            ${isToday ? `<span class="mini-badge badge-today">${i18n[state.lang].todayBadge}</span>` : ''}
             ${h.is_federal ? `<span class="mini-badge badge-bank">${i18n[state.lang].federalBadge}</span>` : ''}
             ${h.bank_closed ? `<span class="mini-badge badge-bank">${i18n[state.lang].bankClosedBadge}</span>` : ''}
             ${h.long_weekend ? `<span class="mini-badge badge-weekend">${i18n[state.lang].longWeekendBadge}</span>` : ''}
@@ -374,23 +409,35 @@
       `;
 
       group.items.forEach(h => {
+        const todayStr = getTodayStr();
+        const isPast = h.date < todayStr;
+        const isToday = h.date === todayStr;
+
         const dateBadge = formatDateBadge(h.date);
         const catClass = getCategoryClass(h.category);
         const titlePrimary = state.lang === 'ru' ? (h.name_ru || h.name) : h.name;
         const titleSecondary = state.lang === 'ru' ? h.name : (h.name_ru || '');
         const summaryText = state.lang === 'ru' ? (h.summary_ru || h.summary) : h.summary;
 
+        let cardClasses = 'holiday-card-modern';
+        if (isPast) cardClasses += ' is-past';
+        if (isToday) cardClasses += ' is-today';
+
         html += `
-          <article class="holiday-card-modern" onclick="window.App.openDetailModal('${h.id}')" tabindex="0" role="button" aria-label="${titlePrimary}">
+          <article class="${cardClasses}" onclick="window.App.openDetailModal('${h.id}')" tabindex="0" role="button" aria-label="${titlePrimary}">
             <div class="card-top-row">
               <div class="date-box-square">
                 <span class="date-box-month">${dateBadge.month}</span>
                 <span class="date-box-day">${dateBadge.day}</span>
               </div>
               <div class="card-titles-col">
-                <span class="category-tag-pill ${catClass}">
-                  <span>${h.icon}</span> ${h.category}
-                </span>
+                <div style="display:flex;gap:5px;align-items:center;flex-wrap:wrap;">
+                  <span class="category-tag-pill ${catClass}">
+                    <span>${h.icon}</span> ${h.category}
+                  </span>
+                  ${isPast ? `<span class="category-tag-pill" style="background:rgba(148,163,184,0.15);color:#94a3b8;border:1px solid rgba(148,163,184,0.3);">✓ ${i18n[state.lang].pastBadge}</span>` : ''}
+                  ${isToday ? `<span class="category-tag-pill" style="background:rgba(16,185,129,0.2);color:#6ee7b7;border:1px solid rgba(16,185,129,0.5);">🔥 ${i18n[state.lang].todayBadge}</span>` : ''}
+                </div>
                 <h3 class="card-name-main">${titlePrimary}</h3>
                 ${titleSecondary && titleSecondary !== titlePrimary ? `<div class="card-name-sub">${titleSecondary}</div>` : ''}
               </div>
@@ -836,11 +883,17 @@
 
   // Setup Event Listeners
   function initEventListeners() {
-    // Search
-    els.searchInput.addEventListener('input', (e) => {
-      state.search = e.target.value;
-      updateDashboard();
-    });
+    // Auto-Hide Past Toggle
+    if (els.hidePastToggle) {
+      els.hidePastToggle.addEventListener('change', (e) => {
+        state.hidePast = e.target.checked;
+        updateDashboard();
+      });
+    }
+
+    // Auto Refresh Check every 60 seconds and on window focus (handles midnight day change)
+    setInterval(updateDashboard, 60000);
+    window.addEventListener('focus', updateDashboard);
 
     // Reset Filters
     els.resetBtn.addEventListener('click', () => {
