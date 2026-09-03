@@ -67,6 +67,9 @@
       longWeekendBadge: '🏖️ 3 дня отдыха',
       retailPeakBadge: '🔥 Пик шопинга',
       federalBadge: '🏛️ Федеральный',
+      gamingBadge: '🎰 Social Casino',
+      gamingHookTitle: 'Креативный хук для Social Casino (8 Брендов)',
+      kpiGamingLbl: 'Инфоповодов для Social Casino',
       months: {
         9: 'Сентябрь 2026',
         10: 'Октябрь 2026',
@@ -77,6 +80,7 @@
       weekdays: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
       categories: {
         'all': '🌐 Все категории',
+        'Gaming & Casino': '🎰 Гейминг & Social Casino',
         'Federal Holiday': '🏛️ Федеральные праздники',
         'Commercial & Shopping': '🛍️ E-Commerce & Шопинг',
         'State Holiday': '🗽 Праздники штатов',
@@ -98,6 +102,9 @@
       retailPeaks: 'E-Commerce & Retail Peaks',
       stateHolidays: 'Individual State Holidays',
       religiousEvents: 'Religious & Cultural Observances',
+      gamingBadge: '🎰 Social Casino',
+      gamingHookTitle: 'Social Casino Creative Hook (8 Brands)',
+      kpiGamingLbl: 'Social Casino Promo Hooks',
       filtersTitle: '🔍 Filters & Search',
       presetsTitle: 'Quick Presets',
       hidePastLabel: 'Auto-hide past holidays',
@@ -133,6 +140,7 @@
       weekdays: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
       categories: {
         'all': '🌐 All Categories',
+        'Gaming & Casino': '🎰 Gaming & Social Casino',
         'Federal Holiday': '🏛️ Federal Holidays',
         'Commercial & Shopping': '🛍️ E-Commerce & Retail',
         'State Holiday': '🗽 State Holidays',
@@ -166,12 +174,14 @@
     kpiWeekendsVal: document.getElementById('kpi-weekends-val'),
     kpiRetailVal: document.getElementById('kpi-retail-val'),
     kpiStateVal: document.getElementById('kpi-state-val'),
+    kpiGamingVal: document.getElementById('kpi-gaming-val'),
     
     kpiTotalLbl: document.getElementById('kpi-total-lbl'),
     kpiFederalLbl: document.getElementById('kpi-federal-lbl'),
     kpiWeekendsLbl: document.getElementById('kpi-weekends-lbl'),
     kpiRetailLbl: document.getElementById('kpi-retail-lbl'),
     kpiStateLbl: document.getElementById('kpi-state-lbl'),
+    kpiGamingLbl: document.getElementById('kpi-gaming-lbl'),
     
     // Sidebar
     searchInput: document.getElementById('search-input'),
@@ -179,6 +189,7 @@
     presetChips: document.querySelectorAll('.preset-chip'),
     monthBtns: document.querySelectorAll('.month-filter-button'),
     stateSelect: document.getElementById('state-select'),
+    countGaming: document.getElementById('count-gaming'),
     
     txtFiltersTitle: document.getElementById('txt-filters-title'),
     txtPresetsTitle: document.getElementById('txt-presets-title'),
@@ -218,6 +229,9 @@
     modalBusiness: document.getElementById('modal-business'),
     modalMarketing: document.getElementById('modal-marketing'),
     modalStates: document.getElementById('modal-states'),
+    modalGamingBox: document.getElementById('modal-gaming-box'),
+    modalGamingTitle: document.getElementById('modal-gaming-title'),
+    modalGamingHook: document.getElementById('modal-gaming-hook'),
     modalAddCalBtn: document.getElementById('modal-add-cal-btn')
   };
 
@@ -244,6 +258,7 @@
   // Category CSS Class
   function getCategoryClass(cat) {
     switch (cat) {
+      case 'Gaming & Casino': return 'tag-gaming';
       case 'Federal Holiday': return 'tag-federal';
       case 'State Holiday': return 'tag-state';
       case 'Commercial & Shopping': return 'tag-commercial';
@@ -275,6 +290,7 @@
       // Presets & Categories
       if (state.filterType === 'preset') {
         if (state.filterVal === 'long_weekend' && !h.long_weekend) return false;
+        if (state.filterVal === 'gaming' && !h.is_gaming && h.category !== 'Gaming & Casino') return false;
       } else if (state.filterType === 'category' && state.filterVal !== 'all') {
         if (h.category !== state.filterVal) {
           return false;
@@ -298,7 +314,8 @@
         const matchSummaryRu = (h.summary_ru || '').toLowerCase().includes(q);
         const matchStates = (h.states || '').toLowerCase().includes(q);
         const matchTags = (h.tags || []).some(t => t.toLowerCase().includes(q));
-        if (!matchName && !matchNameRu && !matchSummary && !matchSummaryRu && !matchStates && !matchTags) {
+        const matchBrand = (h.brand_hook || '').toLowerCase().includes(q) || (h.brand_hook_ru || '').toLowerCase().includes(q);
+        if (!matchName && !matchNameRu && !matchSummary && !matchSummaryRu && !matchStates && !matchTags && !matchBrand) {
           return false;
         }
       }
@@ -357,6 +374,7 @@
           <div class="featured-card-badges">
             ${isPast ? `<span class="mini-badge badge-past">${i18n[state.lang].pastBadge}</span>` : ''}
             ${isToday ? `<span class="mini-badge badge-today">${i18n[state.lang].todayBadge}</span>` : ''}
+            ${(h.is_gaming || h.category === 'Gaming & Casino') ? `<span class="mini-badge badge-gaming">${i18n[state.lang].gamingBadge}</span>` : ''}
             ${h.is_federal ? `<span class="mini-badge badge-bank">${i18n[state.lang].federalBadge}</span>` : ''}
             ${h.bank_closed ? `<span class="mini-badge badge-bank">${i18n[state.lang].bankClosedBadge}</span>` : ''}
             ${h.long_weekend ? `<span class="mini-badge badge-weekend">${i18n[state.lang].longWeekendBadge}</span>` : ''}
@@ -441,6 +459,7 @@
                   <span class="category-tag-pill ${catClass}">
                     <span>${h.icon}</span> ${h.category}
                   </span>
+                  ${(h.is_gaming || h.category === 'Gaming & Casino') ? `<span class="mini-badge badge-gaming">${i18n[state.lang].gamingBadge}</span>` : ''}
                   ${isPast ? `<span class="category-tag-pill" style="background:rgba(148,163,184,0.15);color:#94a3b8;border:1px solid rgba(148,163,184,0.3);">✓ ${i18n[state.lang].pastBadge}</span>` : ''}
                   ${isToday ? `<span class="category-tag-pill" style="background:rgba(16,185,129,0.2);color:#6ee7b7;border:1px solid rgba(16,185,129,0.5);">🔥 ${i18n[state.lang].todayBadge}</span>` : ''}
                 </div>
@@ -450,6 +469,12 @@
             </div>
 
             <p class="card-desc-snippet">${summaryText}</p>
+
+            ${(h.brand_hook_ru || h.brand_hook) ? `
+              <div class="card-gaming-hook-snippet">
+                <strong>⚡ Social Casino Hook:</strong> ${state.lang === 'ru' ? (h.brand_hook_ru || h.brand_hook) : (h.brand_hook || h.brand_hook_ru)}
+              </div>
+            ` : ''}
 
             <div class="card-bottom-bar">
               <span class="card-states-snippet" title="${h.states}">
@@ -699,8 +724,39 @@
     els.analyticsStates.innerHTML = stateHtml || '<p style="color:var(--text-dim);font-size:0.85rem;">Нет специфических данных по выбранным фильтрам.</p>';
   }
 
+  // Update Global KPI & Preset Stats
+  function updateGlobalStats() {
+    const totalCount = holidays.length;
+    const federalCount = holidays.filter(h => h.is_federal).length;
+    const weekendCount = holidays.filter(h => h.long_weekend).length;
+    const retailCount = holidays.filter(h => h.is_commercial).length;
+    const stateCount = holidays.filter(h => h.category === 'State Holiday').length;
+    const gamingCount = holidays.filter(h => h.is_gaming || h.category === 'Gaming & Casino').length;
+
+    if (els.kpiTotalVal) els.kpiTotalVal.textContent = totalCount;
+    if (els.kpiFederalVal) els.kpiFederalVal.textContent = federalCount;
+    if (els.kpiWeekendsVal) els.kpiWeekendsVal.textContent = weekendCount;
+    if (els.kpiRetailVal) els.kpiRetailVal.textContent = retailCount;
+    if (els.kpiStateVal) els.kpiStateVal.textContent = stateCount;
+    if (els.kpiGamingVal) els.kpiGamingVal.textContent = gamingCount;
+
+    // Preset chip counts
+    const countAllEl = document.getElementById('count-all');
+    if (countAllEl) countAllEl.textContent = totalCount;
+    const countFedEl = document.getElementById('count-federal');
+    if (countFedEl) countFedEl.textContent = federalCount;
+    const countWeekendEl = document.getElementById('count-long-weekends');
+    if (countWeekendEl) countWeekendEl.textContent = weekendCount;
+    const countCommEl = document.getElementById('count-commercial');
+    if (countCommEl) countCommEl.textContent = retailCount;
+    const countStateEl = document.getElementById('count-state');
+    if (countStateEl) countStateEl.textContent = stateCount;
+    if (els.countGaming) els.countGaming.textContent = gamingCount;
+  }
+
   // Update All Views and Counts
   function updateDashboard() {
+    updateGlobalStats();
     const filtered = getFilteredHolidays();
     if (els.visibleCount) {
       els.visibleCount.textContent = filtered.length;
@@ -743,6 +799,7 @@
     els.modalMetaChips.innerHTML = `
       <span class="category-tag-pill ${catClass}"><span>${holiday.icon}</span> ${holiday.category}</span>
       <span class="category-tag-pill" style="background:rgba(255,255,255,0.06);color:#fff;">📅 ${holiday.date} (${holiday.day_of_week})</span>
+      ${(holiday.is_gaming || holiday.category === 'Gaming & Casino') ? `<span class="category-tag-pill tag-gaming">${i18n[state.lang].gamingBadge}</span>` : ''}
       ${holiday.is_federal ? `<span class="category-tag-pill tag-federal">${i18n[state.lang].federalBadge}</span>` : ''}
       ${holiday.bank_closed ? `<span class="category-tag-pill tag-federal">${i18n[state.lang].bankClosedBadge}</span>` : ''}
       ${holiday.long_weekend ? `<span class="category-tag-pill tag-observance">${i18n[state.lang].longWeekendBadge}</span>` : ''}
@@ -753,6 +810,17 @@
     els.modalBusiness.textContent = holiday.business_impact || 'Обычный рабочий день.';
     els.modalMarketing.textContent = holiday.marketing_tips || 'Тематический контент.';
     els.modalStates.textContent = holiday.states || 'Общефедеральное.';
+
+    if (els.modalGamingBox) {
+      const hook = state.lang === 'ru' ? (holiday.brand_hook_ru || holiday.brand_hook) : (holiday.brand_hook || holiday.brand_hook_ru);
+      if (hook) {
+        els.modalGamingBox.style.display = 'block';
+        if (els.modalGamingTitle) els.modalGamingTitle.innerHTML = `<span>🎰</span> ${i18n[state.lang].gamingHookTitle}`;
+        if (els.modalGamingHook) els.modalGamingHook.textContent = hook;
+      } else {
+        els.modalGamingBox.style.display = 'none';
+      }
+    }
 
     els.modal.classList.add('active');
   }
@@ -883,12 +951,32 @@
     els.kpiWeekendsLbl.textContent = texts.longWeekends;
     els.kpiRetailLbl.textContent = texts.retailPeaks;
     els.kpiStateLbl.textContent = texts.stateHolidays;
+    if (els.kpiGamingLbl) els.kpiGamingLbl.textContent = texts.kpiGamingLbl;
+
+    const chipGamingSpan = document.querySelector('#chip-gaming span:first-child');
+    if (chipGamingSpan) {
+      chipGamingSpan.textContent = lang === 'ru' ? '🎰 Гейминг & Social Casino' : '🎰 Gaming & Social Casino';
+    }
 
     updateDashboard();
   }
 
   // Setup Event Listeners
   function initEventListeners() {
+    // KPI Gaming Card Click Shortcut
+    const kpiGamingCard = document.getElementById('kpi-gaming-card');
+    if (kpiGamingCard) {
+      kpiGamingCard.style.cursor = 'pointer';
+      kpiGamingCard.addEventListener('click', () => {
+        els.presetChips.forEach(p => p.classList.remove('active'));
+        const chip = document.getElementById('chip-gaming');
+        if (chip) chip.classList.add('active');
+        state.filterType = 'preset';
+        state.filterVal = 'gaming';
+        updateDashboard();
+      });
+    }
+
     // Auto-Hide Past Toggle
     if (els.hidePastToggle) {
       els.hidePastToggle.addEventListener('change', (e) => {
