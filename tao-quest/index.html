@@ -1,60 +1,15 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>🪐 ТАО: Похищенный Звёздный Ключ — 7-Day Interactive Discord Quest</title>
-<meta name="description" content="Интерактивный дашборд производства графики и сторителлинга для Discord-кампании TAO Fortune. 7 дней, 13 кинематографичных сцен для Gemini Nano Banana 2." />
-<link rel="stylesheet" href="styles.css?v=2" />
-<style>
-  :root {
-    --bg:#06070d; --surface:#101424; --border:rgba(255,255,255,0.08);
-  }
-  html, body { margin:0; padding:0; }
-  body { background:#06070d; color:#f0f4fc; font-family:'Outfit',sans-serif; -webkit-font-smoothing:antialiased; }
-
-  /* Shared App Shell */
-  .shell { display:grid; grid-template-columns:190px 1fr; grid-template-rows:52px 1fr; grid-template-areas:"topbar topbar" "sidebar content"; min-height:100vh; }
-  @media (max-width:720px){ .shell { grid-template-columns:1fr; grid-template-areas:"topbar" "sidebar" "content"; } }
-  .topbar { grid-area:topbar; position:sticky; top:0; z-index:60; display:flex; align-items:center; justify-content:space-between; padding:0 20px; background:#0b0e18; border-bottom:1px solid rgba(255,255,255,.08); }
-  .topbar .brand { color:#f0d29a; font-weight:700; font-size:14px; letter-spacing:.02em; text-decoration:none; display:flex; align-items:center; gap:8px; }
-  .topbar .brand:hover { opacity:.9; }
-
-  .sidebar { grid-area:sidebar; background:#090c14; border-right:1px solid rgba(255,255,255,.08); padding:16px 10px; display:flex; flex-direction:column; gap:4px; }
-  @media (max-width:720px){ .sidebar { border-right:none; border-bottom:1px solid rgba(255,255,255,.08); flex-direction:row; flex-wrap:wrap; padding:8px; } }
-  .sidebar nav { display:flex; flex-direction:column; gap:3px; width:100%; }
-  @media (max-width:720px){ .sidebar nav { flex-direction:row; flex-wrap:wrap; gap:4px; } }
-  .slink { display:flex; align-items:center; gap:8px; padding:7px 11px; border-radius:6px; color:#94a3b8; text-decoration:none; font-size:13px; font-weight:500; transition:all .15s ease; }
-  .slink:hover { color:#f0d29a; background:rgba(212,162,78,.08); }
-  .slink.active { color:#0b0d18; background:linear-gradient(135deg, #ffb700, #ff7b00); font-weight:700; }
-
-  .content { grid-area:content; padding:0; min-width:0; background:#06070d; position:relative; overflow-x:hidden; }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🪐 ТАО: Похищенный Звёздный Ключ — 7-Day Interactive Discord Quest Dashboard</title>
+  <meta name="description" content="Интерактивный дашборд производства графики и сторителлинга для Discord-кампании TAO Fortune. 7 дней, 14 кинематографичных сцен для Gemini Nano Banana 2, механика голосования реакциями.">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div class="shell">
-  <header class="topbar">
-    <a class="brand" href="/dashboards/">
-      <span>📊</span> <span>Dashboards</span>
-    </a>
-  </header>
-  <aside class="sidebar">
-    <nav>
-      <a href="/dashboards/" class="slink">Главная</a>
-      <a href="/dashboards/reports/" class="slink">Отчеты</a>
-      <a href="/dashboards/planning/" class="slink">Планирование</a>
-      <a href="/dashboards/promo-codes/" class="slink">Промокоды</a>
-      <a href="/dashboards/visual/" class="slink">Визуал</a>
-      <a href="/dashboards/giveaways/" class="slink">Розыгрыши</a>
-      <a href="/dashboards/poll-breakdown/" class="slink">Опросы</a>
-      <a href="/dashboards/chat-triage/" class="slink">Чат-триаж</a>
-      <a href="/dashboards/holidays/" class="slink">🇺🇸 Праздники США</a>
-      <a href="/dashboards/tao-quest/" class="slink active">🪐 ТАО Квест</a>
-    </nav>
-  </aside>
 
-  <main class="content">
-<!-- Ambient Cosmic Dust Layer -->
+  <!-- Ambient Cosmic Dust Layer -->
   <div class="cosmic-dust-ambient" aria-hidden="true"></div>
 
   <div class="dashboard-container">
@@ -63,7 +18,7 @@
     <header class="header-card" id="main-header">
       <div class="brand-section">
         <div class="mascot-avatar-badge">
-          <img src="assets/TAO_Rocket_Repair.png" alt="TAO avatar" id="header-avatar-img">
+          <img src="assets/TAO_character.png" alt="TAO avatar" id="header-avatar-img">
         </div>
         <div class="brand-info">
           <h1 id="page-main-heading">
@@ -92,9 +47,9 @@
       
       <!-- Character Lore Card -->
       <aside class="character-card" id="character-dna-card">
-        <div class="character-image-box">
-          <img src="assets/TAO_Rocket_Repair.png" alt="TAO Rocket Repair Master Reference" id="hero-ref-img">
-          <div class="image-overlay-badge">🔒 Locked Master Reference</div>
+        <div class="character-image-box" style="background: radial-gradient(circle, #182038 0%, #0c1020 100%); display:flex; align-items:center; justify-content:center;">
+          <img src="assets/TAO_character.png" alt="TAO Master Character Reference" id="hero-ref-img" style="object-fit: contain; max-height: 96%;">
+          <div class="image-overlay-badge">🔒 Official Master Character PNG</div>
         </div>
 
         <div class="character-specs">
@@ -108,7 +63,7 @@
           </div>
           <div class="spec-row">
             <span class="spec-label">Костюм:</span>
-            <span class="spec-value" id="spec-char-outfit">Сине-оранжевый скафандр механика</span>
+            <span class="spec-value" id="spec-char-outfit">Navy & Orange Armor Suit (Honeycomb)</span>
           </div>
           <div class="spec-row">
             <span class="spec-label">Формат кадра:</span>
@@ -118,11 +73,11 @@
             <span class="spec-label">Мастер-теги:</span>
             <div class="tag-cloud">
               <span class="dna-tag highlight">Red Panda</span>
-              <span class="dna-tag highlight">Mechanic Spacesuit</span>
-              <span class="dna-tag">Tool Belt</span>
-              <span class="dna-tag">Pixar 3D</span>
+              <span class="dna-tag highlight">Honeycomb Armor</span>
+              <span class="dna-tag">Utility Belt</span>
+              <span class="dna-tag">Feature 3D</span>
               <span class="dna-tag">Octane Render</span>
-              <span class="dna-tag">Solo Arc</span>
+              <span class="dna-tag">IP-Safe</span>
             </div>
           </div>
         </div>
@@ -130,11 +85,11 @@
         <!-- Master Prompt Token Snippet -->
         <div class="master-token-box">
           <div class="master-token-header">
-            <span class="master-token-title">DNA Промпт-Префикс</span>
+            <span class="master-token-title">DNA Промпт-Префикс (Без копирайт-триггеров)</span>
             <button class="mini-copy-btn" id="btn-copy-dna" title="Копировать базовые токены ТАО">📋 Копировать</button>
           </div>
-          <div class="master-token-code" id="dna-token-text">Reference Image: TAO_Rocket_Repair.png
-TAO, anthropomorphic cosmic red panda, navy-blue and bright orange mechanic spacesuit, planet patch, leather tool belt, Pixar 3D style, 16:9 widescreen, octane render quality.</div>
+          <div class="master-token-code" id="dna-token-text">Based on the character in the attached reference image.
+Keep the character TAO 100% identical to the reference image: red panda face, fur grooming, navy-blue and orange textured armor suit with honeycomb chestplate, harness straps, utility belt. Award-winning cinematic 3D animated feature render, 16:9 widescreen, Octane quality.</div>
         </div>
       </aside>
 
@@ -217,10 +172,7 @@ TAO, anthropomorphic cosmic red panda, navy-blue and bright orange mechanic spac
   </div>
 
   <!-- Scripts -->
-  </main>
-</div>
-
-<script src="arc_data.js"></script>
-<script src="app.js"></script>
+  <script src="arc_data.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
