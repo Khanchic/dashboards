@@ -282,7 +282,7 @@ function renderDaysCards() {
           <div class="prompt-container">
             <div class="prompt-bar-label">
               <span>Nano Banana 2 Prompt (16:9 Cinematic 3D)</span>
-              <span style="color: var(--accent-gold); font-size: 10px;">Octane 3D • Ref: TAO_Rocket_Repair.png</span>
+              <span style="color: var(--accent-gold); font-size: 10px;">Octane 3D • Ref: Attached TAO PNG</span>
             </div>
             <div class="prompt-text-box" id="prompt-text-1">${escapeHtml(qDay.singleScene.prompt)}</div>
             <button class="copy-prompt-btn" data-target="prompt-text-1" id="btn-copy-prompt-1">
@@ -372,7 +372,7 @@ function renderBranchCard(day, branchLetter, branchData) {
       <div class="prompt-container">
         <div class="prompt-bar-label">
           <span>Nano Banana 2 Prompt (16:9 3D)</span>
-          <span style="color: var(--accent-gold); font-size: 10px;">Octane 3D • Ref: TAO_Rocket_Repair.png</span>
+          <span style="color: var(--accent-gold); font-size: 10px;">Octane 3D • Ref: Attached TAO PNG</span>
         </div>
         <div class="prompt-text-box" id="prompt-text-${branchData.id}">${escapeHtml(branchData.prompt)}</div>
         <button class="copy-prompt-btn" data-target="prompt-text-${branchData.id}" id="btn-copy-prompt-${branchData.id}">
@@ -545,7 +545,7 @@ function exportEntireCampaignMarkdown() {
   let md = `# 🪐 TAO: Похищенный Звёздный Ключ (The Stolen Celestial Key)
 **Интерактивная 7-дневная сюжетная кампания для Discord • Tao Fortune**
 * Персонаж: ТАО (Космическая Красная Панда в сине-оранжевом скафандре механика)
-* Референс: \`assets/TAO_Rocket_Repair.png\`
+* Референс: \`assets/TAO_character.png\` (Официальный арт ТАО)
 * Модель генерации: Gemini 3.1 Flash Image (Nano Banana 2), 16:9 Cinematic 3D
 
 ---
