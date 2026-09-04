@@ -1,0 +1,651 @@
+<title>TaoFortune — SMM-офери</title>
+<style>
+  /* Same token system as the single-project page: neutrals biased toward the
+     accent blue, series slots 1-6 in the validated colour-blind-safe order. */
+  :root {
+    color-scheme: light;
+    --page:#f3f4f7; --surface:#fbfbfc; --surface-2:#f7f8fa;
+    --ink:#101319; --ink-2:#4c5462; --ink-muted:#838b99;
+    --rule:#e2e4ea; --rule-strong:#c8ccd6;
+    --accent:#2a78d6; --accent-soft:rgba(42,120,214,.10);
+    --good:#0a7a2f; --bad:#c0392b;
+    --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a;
+    --s4:#eda100; --s5:#e87ba4; --s6:#008300; --s0:#9aa1ad;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --page:#0d0f12; --surface:#16181c; --surface-2:#1c1f24;
+      --ink:#f2f4f8; --ink-2:#b3bac6; --ink-muted:#7d8593;
+      --rule:#262a31; --rule-strong:#363b45;
+      --accent:#4b93e8; --accent-soft:rgba(75,147,232,.14);
+      --good:#3fbf62; --bad:#e8695b;
+      --s1:#3987e5; --s2:#d95926; --s3:#199e70;
+      --s4:#c98500; --s5:#d55181; --s6:#008300; --s0:#6c7381;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --page:#0d0f12; --surface:#16181c; --surface-2:#1c1f24;
+    --ink:#f2f4f8; --ink-2:#b3bac6; --ink-muted:#7d8593;
+    --rule:#262a31; --rule-strong:#363b45;
+    --accent:#4b93e8; --accent-soft:rgba(75,147,232,.14);
+    --good:#3fbf62; --bad:#e8695b;
+    --s1:#3987e5; --s2:#d95926; --s3:#199e70;
+    --s4:#c98500; --s5:#d55181; --s6:#008300; --s0:#6c7381;
+  }
+
+  body { background:var(--page); color:var(--ink);
+         font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+         font-size:15px; line-height:1.55; -webkit-font-smoothing:antialiased; }
+  .wrap { max-width:1120px; margin:0 auto; padding:36px 22px 96px;
+          display:flex; flex-direction:column; gap:30px; }
+
+  .eyebrow { font-family:ui-monospace,SFMono-Regular,"Cascadia Mono",Menlo,monospace;
+             font-size:11px; letter-spacing:.13em; text-transform:uppercase; color:var(--ink-muted); }
+
+  header.masthead { display:flex; flex-direction:column; gap:10px; }
+  header.masthead h1 { font-size:clamp(26px,4vw,38px); line-height:1.08;
+    letter-spacing:-.022em; font-weight:680; text-wrap:balance; margin:0; }
+  header.masthead h1 em { font-style:normal; color:var(--accent); }
+  .standfirst { max-width:64ch; color:var(--ink-2); font-size:16px; margin:0; }
+  .meta-row { display:flex; flex-wrap:wrap; gap:8px 18px; padding-top:8px;
+    border-top:1px solid var(--rule);
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+    font-size:11.5px; color:var(--ink-muted); }
+
+  /* project switcher */
+  .switcher { position:sticky; top:0; z-index:20; background:var(--page);
+    padding:10px 0 12px; border-bottom:1px solid var(--rule);
+    display:flex; flex-wrap:wrap; gap:6px; }
+  .switcher button {
+    font:inherit; font-size:13px; font-weight:560; cursor:pointer;
+    padding:6px 13px; border-radius:999px; border:1px solid var(--rule-strong);
+    background:var(--surface); color:var(--ink-2);
+  }
+  .switcher button:hover { border-color:var(--accent); color:var(--ink); }
+  .switcher button[aria-current="true"] {
+    background:var(--accent); border-color:var(--accent); color:#fff;
+  }
+  .switcher .sep { width:1px; align-self:stretch; background:var(--rule-strong); margin:2px 6px; }
+  .switcher .pgroup { align-self:center; font-size:11px; letter-spacing:.05em;
+    text-transform:uppercase; color:var(--ink-muted); margin-right:2px; }
+
+  section { display:flex; flex-direction:column; gap:14px; }
+  section > h2 { margin:0; font-size:13px; font-weight:660; letter-spacing:.04em;
+    text-transform:uppercase; color:var(--ink-2);
+    display:flex; align-items:baseline; gap:10px; }
+  section > h2::after { content:""; flex:1; height:1px; background:var(--rule); }
+  .note { color:var(--ink-2); font-size:13.5px; max-width:72ch; }
+
+  /* payout tables — wide content scrolls inside its own box, never the page */
+  .tbl-wrap { overflow-x:auto; margin-top:12px; }
+  table.tbl { width:100%; border-collapse:collapse; font-size:13px; }
+  table.tbl th, table.tbl td { padding:7px 10px; text-align:left;
+    border-bottom:1px solid var(--rule); white-space:nowrap; }
+  table.tbl thead th { font-size:11px; font-weight:620; letter-spacing:.04em;
+    text-transform:uppercase; color:var(--ink-muted); border-bottom:1px solid var(--rule-strong); }
+  table.tbl tbody tr:last-child td { border-bottom:0; }
+  table.tbl .num { text-align:right; font-variant-numeric:tabular-nums; }
+  table.tbl .lead { font-weight:640; color:var(--ink); }
+  table.tbl td code { font-size:12px; }
+
+  .kpis { display:grid; grid-template-columns:repeat(auto-fit,minmax(184px,1fr));
+    gap:1px; background:var(--rule); border:1px solid var(--rule);
+    border-radius:3px; overflow:hidden; }
+  .kpi { background:var(--surface); padding:16px 18px 18px;
+         display:flex; flex-direction:column; gap:4px; }
+  .kpi .label { font-size:12px; color:var(--ink-muted); }
+  .kpi .value { font-size:30px; font-weight:660; letter-spacing:-.02em; line-height:1.1; }
+  .kpi .sub { font-size:12px; color:var(--ink-2); font-variant-numeric:tabular-nums; }
+  .delta { font-weight:620; }
+  .delta.up { color:var(--good); }
+  .delta.down { color:var(--bad); }
+
+  .panel { background:var(--surface); border:1px solid var(--rule);
+           border-radius:3px; padding:18px 20px 20px; }
+  .grid-4 { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:14px; }
+  .mini h3 { margin:0 0 2px; font-size:13px; font-weight:620; }
+  .mini .cap { font-size:11.5px; color:var(--ink-muted); margin-bottom:10px; }
+
+  svg { display:block; width:100%; height:auto; overflow:visible; }
+  .tick { font-size:10px; fill:var(--ink-muted); font-family:ui-monospace,Menlo,monospace; }
+  .vlab { font-size:10.5px; fill:var(--ink-2); font-variant-numeric:tabular-nums; }
+  .vlab.lead { fill:var(--ink); font-weight:640; }
+  .grid-line { stroke:var(--rule); stroke-width:1; }
+
+  .legend { display:flex; flex-wrap:wrap; gap:6px 16px; margin-top:12px;
+            font-size:12px; color:var(--ink-2); }
+  .legend span.sw { width:10px; height:10px; border-radius:2px;
+                    display:inline-block; margin-right:6px; vertical-align:-1px; }
+
+  .tablewrap { overflow-x:auto; }
+  table { border-collapse:collapse; width:100%; font-size:13px; font-variant-numeric:tabular-nums; }
+  th, td { padding:7px 10px; text-align:right; white-space:nowrap; }
+  th:first-child, td:first-child { text-align:left; white-space:normal; min-width:170px; }
+  thead th { font-size:11px; text-transform:uppercase; letter-spacing:.06em;
+             color:var(--ink-muted); font-weight:600; border-bottom:1px solid var(--rule-strong); }
+  tbody tr + tr td { border-top:1px solid var(--rule); }
+  tbody tr:hover td { background:var(--surface-2); }
+  tfoot td { border-top:1px solid var(--rule-strong); font-weight:640; }
+  td.now { font-weight:640; }
+  .chip { display:inline-block; width:9px; height:9px; border-radius:2px;
+          margin-right:7px; vertical-align:0; }
+  td button.jump { font:inherit; font-size:13px; background:none; border:0; padding:0;
+    color:var(--accent); cursor:pointer; text-align:left; }
+  td button.jump:hover { text-decoration:underline; }
+
+  .heat td.cell { text-align:right; position:relative; }
+  .heat td.cell span { position:relative; z-index:1; }
+  .heat td.cell i { position:absolute; inset:3px 2px; border-radius:2px;
+                    background:var(--accent); z-index:0; display:block; }
+
+  .movers { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:14px; }
+  .mlist { display:flex; flex-direction:column; }
+  .mrow { display:grid; grid-template-columns:1fr auto auto; gap:12px; align-items:baseline;
+          padding:7px 0; border-top:1px solid var(--rule); font-size:13px; }
+  .mrow:first-child { border-top:0; }
+  .mrow .nm { color:var(--ink); }
+  .mrow .nm small { display:block; color:var(--ink-muted); font-size:11px; }
+  .mrow .num { font-variant-numeric:tabular-nums; color:var(--ink-2); }
+  .mrow .d { font-variant-numeric:tabular-nums; font-weight:640; min-width:44px; text-align:right; }
+
+  ul.reads { margin:0; padding-left:0; list-style:none; display:flex; flex-direction:column; gap:14px; }
+  ul.reads li { display:grid; grid-template-columns:26px 1fr; gap:12px; }
+  ul.reads li .k { font-family:ui-monospace,Menlo,monospace; font-size:11px;
+                   color:var(--accent); padding-top:3px; }
+  ul.reads li p { margin:0; max-width:74ch; color:var(--ink-2); }
+  ul.reads li p strong { color:var(--ink); font-weight:640; }
+
+  .caveats { font-size:12.5px; color:var(--ink-muted); max-width:78ch; }
+  .caveats p { margin:0 0 8px; }
+  code { font-family:ui-monospace,Menlo,monospace; font-size:12px;
+         background:var(--accent-soft); padding:1px 5px; border-radius:2px; color:var(--ink-2); }
+
+  :focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
+  @media (prefers-reduced-motion: reduce) { * { animation:none !important; transition:none !important; } }
+</style>
+
+<div class="wrap">
+  <header class="masthead">
+    <div class="eyebrow" id="eyebrow"></div>
+    <h1 id="h1"></h1>
+    <p class="standfirst" id="standfirst"></p>
+    <div class="meta-row" id="meta"></div>
+  </header>
+
+  <nav class="switcher" id="switcher" aria-label="Проєкт"></nav>
+
+  <main id="view"></main>
+
+  <section>
+    <h2>Методика й межі даних</h2>
+    <div class="caveats" id="caveats"></div>
+  </section>
+</div>
+
+<script id="report-data" type="application/json">{"eyebrow": "Power BI · USA Offer Monitoring · вкладка Offers", "kpi_note": "Free money — це не знижка. Гравець платить повну ціну офера й отримує вказаний відсоток назад на бонусний баланс, тож це витрата поверх депозиту, а не мінус із нього.", "trend_note": "Порядок тижнів — найновіший ліворуч, як у решті дашбордів. Унікальні покупці беруться з рядка проєкту в звіті (справжній distinct), а не як сума по оферах — по тижнях їх не можна додавати.", "title": "TaoFortune — SMM-офери", "h1": "TaoFortune: <em>SMM-офери</em>", "standfirst": "Що купували гравці з промо-оферів SMM на кожному бренді, скільки це принесло депозитів, скільки free money ми за це віддали і скільки повернулось виплатами. Тижні понеділок–неділя, <code>Offer&nbsp;Type&nbsp;=&nbsp;SMM</code>. Перемикач угорі — окремий розбір по кожному бренду; посилання на конкретний бренд закінчується його хешем, напр. <code>#stormrush</code>.", "overview_reads": ["<strong>Пул стояв чотири тижні й просів на п'ятому.</strong> $77.7k → $78.3k → $81.1k → $77.6k → $69.4k. Останній тиждень −10.6%, і це майже цілком один бренд: <strong>ScarletSands</strong> віддав $9.8k при загальному падінні платформи на $8.2k. Тобто без нього тиждень був би в невеликому плюсі.", "<strong>Група лідерів щільна, розрив у ній — копійки.</strong> NoLimitCoins $14.2k, FortuneWheelz $13.8k, StormRush $12.2k, FireSevens $11.9k. Між першим і четвертим 16%, і за п'ять тижнів вони кілька разів міняли порядок. Далі відрив: VegasWay $6.3k, ScarletSands $5.7k, TaoFortune $4.4k, DexyPlay $0.9k.", "<strong>Найшвидше ріс найменший: TaoFortune +23.7% за п'ять тижнів</strong> ($3 525 → $4 360) і +31% унікальних (70 → 92). Приріст широкий, а не на одному офері: Discord $620 → $900, Automation $460 → $580, Broadcast з нуля до $550. У грошах це $835, але форма росту здорова — і покупки, і люди, і чек одночасно.", "<strong>FireSevens втрачає аудиторію п'ять тижнів підряд, і це найтриваліший тренд на платформі.</strong> Унікальні 351 → 237 (−32%), депозит $14 647 → $11 909 (−18.7%). Чек при цьому виріс $22.99 → $24.45 — тобто залишаються дорожчі гравці, а дешевші йдуть. Жодного тижня перерви в тренді не було.", "<strong>VegasWay — найдорожчий бренд, і він дорожчає.</strong> Free money 26.9% → 32.3% від депозиту за п'ять тижнів, при тому що депозит −17% ($7 568 → $6 269), а унікальні стоять (200 → 198). Ми платимо все більший відсоток за ту саму аудиторію й менші гроші. У решти брендів частка тримається в діапазоні 21–25%.", "<strong>Broadcast досі запущений не всюди.</strong> На StormRush він з'явився лише з W33 (0 → $670), на TaoFortune так само з нуля до $550, а на DexyPlay його немає взагалі. На брендах, де він працює давно, це $2–3k на тиждень — тобто на DexyPlay це не «нічого», а незапущений канал.", "<strong>Щабель free money 15% / 18% другий тиждень сидить на одному бренді.</strong> Усі 101 покупка цього щабля — тільки NoLimitCoins ($4 430). Решта сімки його не бачила. Це або тест, який пора розкатати, або тест, який пора згорнути — але не третій тиждень у підвішеному стані.", "<strong>Виплати по всьому пулу вийшли за робочий діапазон: 51.8% від депозитів</strong> проти 42–45% у трьох попередніх тижнях. У грошах $35.8k — більше, ніж тижнем раніше, на базі, меншій на $8.3k. Найгостріше на StormRush (69.7%, чотири підсвічені дні з семи), ScarletSands (85.8%) і TaoFortune (75.9%)."], "caveats": ["Джерело оферів — вкладка <code>Offers</code> звіту USA Offer Monitoring, зріз <code>Offer Type = SMM</code>, <code>Period = Week</code>, тижні понеділок–неділя. Експорт вимкнено на рівні тенанта, тому цифри зчитані з матриці й звірені з контрольним рядком кожного проєкту: <code>Offers Count</code> збігається точно, <code>Dep Sum</code> — у межах округлення рядків.", "Унікальні покупці по тижнях — distinct-значення з рядка проєкту; <strong>сумувати їх у місяць не можна</strong>. Середній чек = Dep Sum ÷ Offers Count, обидві метрики адитивні.", "<code>free money</code> — це <strong>не знижка</strong>. Гравець платить повну ціну й отримує відсоток назад на бонусний баланс, тож «віддано free money» — це наша вартість промо, а не зменшення виторгу.", "Сегменти не зчитувалися зі звіту — вони декодуються з назви офера за сіткою планування. Канали Automation, CheapAutomation і DailyPromoCode ведуть власні варіанти оферів, яких у сітці немає — вони показані рядком «поза сіткою».", "Блок «Виплати» — з вкладки <code>Deposit Number</code>, окремий прохід від оферного. <code>Payout after</code> зберігається як частка, гроші = база × частка, а тижневий відсоток перераховано зі сум, а не усереднено. Підсвічування — власне умовне форматування звіту, не наш порог.", "<strong>Тиждень W31 у виплатах не порівнюваний</strong> з рештою: він знятий під фільтром <code>Action = react14d</code>, тобто на підмножині, і його база в кілька разів менша за справжню. Тренд виплат читайте з W32.", "У зріз <strong>не входять</strong>: активації промокодів і FTD із вкладки <code>PromoCode</code> — вона ріжеться по <code>tag</code>, а не по проєкту, тому по одному бренду з неї нічого чесно не дістати. Бонусні дні теж не входять — бонуси не потрапляють у вкладку Offers. Розрізу виплат <strong>по іграх</strong> у звіті немає взагалі: <code>Deposit Number</code> знає гравця, день і офер, але не гру."], "weeks": ["2026-W35", "2026-W34", "2026-W33", "2026-W32", "2026-W31"], "labels": {"2026-W31": "27.07–02.08", "2026-W32": "03.08–09.08", "2026-W33": "10.08–16.08", "2026-W34": "17.08–23.08", "2026-W35": "24.08–30.08"}, "period": "27.07.2026 – 30.08.2026", "pool": [69331, 77549, 81067, 78240, 77674], "projects": [{"project": "taofortune", "weeks": ["2026-W35", "2026-W34", "2026-W33", "2026-W32", "2026-W31"], "labels": {"2026-W31": "27.07–02.08", "2026-W32": "03.08–09.08", "2026-W33": "10.08–16.08", "2026-W34": "17.08–23.08", "2026-W35": "24.08–30.08"}, "totals": {"oc": [206, 156, 151, 205, 168], "dep": [4360, 2950, 3230, 4129, 3525], "uu": [92, 68, 69, 79, 70], "give": [935, 700, 701, 948, 772]}, "channels": [{"n": "Channel", "slot": "s1", "oc": [54, 44, 53, 77, 59], "dep": [1350, 1050, 1460, 1839, 1550]}, {"n": "Discord", "slot": "s2", "oc": [36, 20, 17, 24, 24], "dep": [900, 430, 380, 560, 620]}, {"n": "Broadcast", "slot": "s3", "oc": [26, 13, 11, 14, 0], "dep": [550, 310, 340, 330, 0]}, {"n": "DailyPromoCode", "slot": "s4", "oc": [24, 16, 16, 16, 21], "dep": [570, 400, 330, 400, 460]}, {"n": "Automation", "slot": "s5", "oc": [25, 13, 16, 22, 20], "dep": [580, 260, 340, 480, 460]}, {"n": "CheapAutomation", "slot": "s6", "oc": [41, 50, 38, 52, 43], "dep": [410, 500, 380, 520, 430]}, {"n": "інші / старі назви", "slot": "s0", "oc": [0, 0, 0, 0, 1], "dep": [0, 0, 0, 0, 5]}], "segments": [{"n": "avgDep≤20, 7d−", "oc": [85, 57, 56, 90, 61], "dep": [1700, 1140, 1120, 1799, 1220]}, {"n": "avgDep 20–40, 7d−", "oc": [20, 14, 20, 22, 21], "dep": [800, 560, 800, 880, 840]}, {"n": "avgDep>40, 7d−", "oc": [4, 0, 2, 0, 1], "dep": [240, 0, 120, 0, 60]}, {"n": "avgDep≤20, 7d+", "oc": [7, 4, 4, 6, 4], "dep": [140, 80, 80, 120, 80]}, {"n": "avgDep>40, 7d+", "oc": [0, 0, 3, 1, 2], "dep": [0, 0, 150, 50, 100]}, {"n": "D0 — жодної покупки", "oc": [4, 5, 1, 4, 1], "dep": [40, 50, 10, 40, 10]}, {"n": "inout<−10 — у плюсі", "oc": [0, 2, 0, 0, 0], "dep": [0, 100, 0, 0, 0]}, {"n": "inout≥−10 — $9,99", "oc": [3, 4, 3, 2, 2], "dep": [30, 40, 30, 20, 20]}, {"n": "поза сіткою (Automation / DailyPromoCode)", "oc": [83, 70, 62, 80, 75], "dep": [1410, 980, 920, 1220, 1190]}, {"n": "старі назви без free money", "oc": [0, 0, 0, 0, 1], "dep": [0, 0, 0, 0, 5]}], "warm_cold": {"warm": [109, 71, 78, 112, 83], "cold": [7, 4, 7, 7, 6]}, "movers_up": [{"n": "SMM_Broadcast_19,99_20%", "sub": "Broadcast · avgDep≤20, 7d−", "a": 9, "b": 23, "d": 14}, {"n": "SMM_DailyPromoCode_19,99_10%", "sub": "DailyPromoCode · поза сіткою", "a": 7, "b": 16, "d": 9}, {"n": "SMM_Discord_19,99_20%", "sub": "Discord · avgDep≤20, 7d−", "a": 17, "b": 24, "d": 7}, {"n": "SMM_Automation_19,99_10%", "sub": "Automation · поза сіткою", "a": 12, "b": 18, "d": 6}, {"n": "SMM_Channel_19,99_20%", "sub": "Channel · avgDep≤20, 7d−", "a": 30, "b": 35, "d": 5}, {"n": "SMM_Channel_39,99_20%", "sub": "Channel · avgDep 20–40, 7d−", "a": 9, "b": 14, "d": 5}, {"n": "SMM_CheapAutomation_9,99_10%", "sub": "CheapAutomation · поза сіткою", "a": 6, "b": 9, "d": 3}], "movers_down": [{"n": "SMM_CheapAutomation_9,99_40%", "sub": "CheapAutomation · поза сіткою", "a": 42, "b": 32, "d": -10}], "new_offers": ["SMM_DailyPromoCode_59,99_20% (59.99 $)"], "gone_offers": ["SMM_CheapAutomation_9,99_100% (9.99 $)", "SMM_DailyPromoCode_49,99_10% (49.99 $)"], "share": {"all": [69331, 77549, 81067, 78240, 77674], "project": [4358, 2948, 3228, 4128, 3523]}, "problems": [], "period": "27.07.2026 – 30.08.2026", "label": "TaoFortune", "standfirst": "Найшвидше зростання на платформі за п'ять тижнів — і найширше за складом.", "reads": ["<strong>+23.7% за п'ять тижнів ($3 525 → $4 360)</strong> і +31% унікальних (70 → 92). Останній тиждень особливо сильний: +47.8% депозиту, +35.3% унікальних, чек +$2.26. Найменший бренд четвірки хвоста — і єдиний, хто впевнено росте.", "<strong>Ріст широкий, а не на одному офері — це головне.</strong> Discord $620 → $900, Automation $460 → $580, DailyPromoCode $460 → $570, Broadcast з нуля до $550. Останній тиждень: <code>Broadcast_19,99_20%</code> +$280, <code>Channel_39,99_20%</code> +$200, <code>DailyPromoCode_19,99_10%</code> +$180 плюс два нові рядки.", "<strong>Broadcast тут запустили тільки з W33</strong> — і за три тижні він дійшов до $550, тобто вже 13% бренду. На брендах-лідерах цей канал дає $2–3k, тож простір для росту саме тут ще великий.", "<strong>Що стоїть: Channel.</strong> $1 550 у W31 → $1 350 тепер, і це при тому, що на решті брендів Channel — найбільший канал. На цьому бренді він єдиний, хто за період не виріс, хоча останній тиждень дав +$300.", "<strong>Free money 21.4% — найнижча на платформі.</strong> І за період вона не піднялась (21.9% → 21.4%). Тобто зростання бренду не куплене надбавкою — це найдешевший ріст у пулі.", "<strong>Питання до продукту:</strong> бренд росте на дешевій економіці й малій базі — що обмежує масштаб? Якщо це обсяг розсилок, то Broadcast за три тижні з нуля до 13% показує, що аудиторія є."], "newgone": "", "payouts": {"weeks": [{"week": "2026-W35", "has": true, "dep": 4360, "pay": 3310, "ratio": 0.7590793577981652, "flagged": 2, "days": ["08-25", "08-28"]}, {"week": "2026-W34", "has": true, "dep": 2950, "pay": 2932, "ratio": 0.9937718644067797, "flagged": 4, "days": ["08-18", "08-20", "08-21", "08-22"]}, {"week": "2026-W33", "has": true, "dep": 3230, "pay": 1626, "ratio": 0.5033201238390093, "flagged": 3, "days": ["08-10", "08-13", "08-15"]}, {"week": "2026-W32", "has": true, "dep": 4130, "pay": 2141, "ratio": 0.5184133171912833, "flagged": 1, "days": ["08-08"]}, {"week": "2026-W31", "has": true, "dep": 380, "pay": 0, "ratio": 0.0, "flagged": 0, "days": []}], "players": [{"login": "3086662", "ratio": 11.113, "dep": 180, "deps": 3, "pay": 2000}, {"login": "9819220", "ratio": 0.8129, "dep": 320, "deps": 17, "pay": 260}, {"login": "9849447", "ratio": 3.1258, "dep": 80, "deps": 2, "pay": 250}, {"login": "5912378", "ratio": 1.6671, "dep": 120, "deps": 3, "pay": 200}, {"login": "1979714", "ratio": 1.4007, "dep": 120, "deps": 6, "pay": 168}, {"login": "4581439", "ratio": 13.013, "dep": 10, "deps": 1, "pay": 130}, {"login": "7566348", "ratio": 10.01, "dep": 10, "deps": 1, "pay": 100}, {"login": "9788767", "ratio": 0.3848, "dep": 260, "deps": 11, "pay": 100}], "repeats": [{"login": "8528264", "weeks": ["W35", "W34"], "n": 2, "pay": 500, "here": true}], "n_players": 9}, "payout_note": "75.9% цього тижня — і це вже другий високий тиждень підряд після 99.4% у W34, коли виплати практично зрівнялися з депозитами ($2 932 на базі $2 950). База маленька, тож у грошах це дрібниця, але два тижні поспіль на такому рівні — це не шум. Найбільша виплата тижня: логін 3086662, 1111.30% на базі $180.", "offers": [{"n": "SMM_Channel_19.99_20% (19.99 $)", "sub": "Channel · avgDep<=20, 7d-", "dep": [700, 600, 660, 1099, 720], "oc": [35, 30, 33, 55, 36]}, {"n": "SMM_Channel_39.99_20% (39.99 $)", "sub": "Channel · avgDep 20-40, 7d-", "dep": [560, 360, 640, 600, 640], "oc": [14, 9, 16, 15, 16]}, {"n": "SMM_CheapAutomation_9.99_40% (9.99 $)", "sub": "CheapAutomation · CheapAutomation $9.99/40%", "dep": [320, 420, 280, 410, 390], "oc": [32, 42, 28, 41, 39]}, {"n": "SMM_Discord_19.99_20% (19.99 $)", "sub": "Discord · avgDep<=20, 7d-", "dep": [480, 340, 260, 360, 360], "oc": [24, 17, 13, 18, 18]}, {"n": "SMM_Automation_19.99_10% (19.99 $)", "sub": "Automation · Automation $19.99/10%", "dep": [360, 240, 200, 240, 200], "oc": [18, 12, 10, 12, 10]}, {"n": "SMM_DailyPromoCode_19.99_10% (19.99 $)", "sub": "DailyPromoCode · DailyPromoCode $19.99/10%", "dep": [320, 140, 220, 180, 320], "oc": [16, 7, 11, 9, 16]}, {"n": "SMM_Broadcast_19.99_20% (19.99 $)", "sub": "Broadcast · avgDep<=20, 7d-", "dep": [460, 180, 100, 180, 0], "oc": [23, 9, 5, 9, 0]}, {"n": "SMM_DailyPromoCode_39.99_40% (39.99 $)", "sub": "DailyPromoCode · DailyPromoCode $39.99/40%", "dep": [160, 120, 80, 200, 120], "oc": [4, 3, 2, 5, 3]}, {"n": "SMM_Discord_39.99_20% (39.99 $)", "sub": "Discord · avgDep 20-40, 7d-", "dep": [160, 80, 80, 160, 200], "oc": [4, 2, 2, 4, 5]}, {"n": "SMM_Automation_19.99_20% (19.99 $)", "sub": "Automation · avgDep<=20, 7d-", "dep": [60, 20, 100, 160, 140], "oc": [3, 1, 5, 8, 7]}, {"n": "SMM_Automation_39.99_10% (39.99 $)", "sub": "Automation · Automation $39.99/10%", "dep": [160, 0, 40, 80, 120], "oc": [4, 0, 1, 2, 3]}, {"n": "SMM_CheapAutomation_9.99_10% (9.99 $)", "sub": "CheapAutomation · CheapAutomation $9.99/10%", "dep": [90, 60, 100, 110, 40], "oc": [9, 6, 10, 11, 4]}, {"n": "SMM_Broadcast_39.99_20% (39.99 $)", "sub": "Broadcast · avgDep 20-40, 7d-", "dep": [80, 120, 80, 120, 0], "oc": [2, 3, 2, 3, 0]}, {"n": "SMM_Channel_19.99_40% (19.99 $)", "sub": "Channel · avgDep<=20, 7d+", "dep": [80, 80, 0, 60, 80], "oc": [4, 4, 0, 3, 4]}, {"n": "SMM_Channel_49.99_30% (49.99 $)", "sub": "Channel · avgDep>40, 7d+", "dep": [0, 0, 150, 50, 100], "oc": [0, 0, 3, 1, 2]}, {"n": "SMM_Discord_59.99_20% (59.99 $)", "sub": "Discord · avgDep>40, 7d-", "dep": [180, 0, 0, 0, 60], "oc": [3, 0, 0, 0, 1]}, {"n": "SMM_DailyPromoCode_9.99_20% (9.99 $)", "sub": "DailyPromoCode · inout>=-10 — $9,99", "dep": [30, 40, 30, 20, 20], "oc": [3, 4, 3, 2, 2]}, {"n": "SMM_Discord_19.99_40% (19.99 $)", "sub": "Discord · avgDep<=20, 7d+", "dep": [60, 0, 40, 40, 0], "oc": [3, 0, 2, 2, 0]}, {"n": "SMM_Broadcast_59.99_20% (59.99 $)", "sub": "Broadcast · avgDep>40, 7d-", "dep": [0, 0, 120, 0, 0], "oc": [0, 0, 2, 0, 0]}, {"n": "SMM_DailyPromoCode_49.99_10% (49.99 $)", "sub": "DailyPromoCode · inout<-10 — net winner", "dep": [0, 100, 0, 0, 0], "oc": [0, 2, 0, 0, 0]}, {"n": "SMM_Channel_9.99_100% (9.99 $)", "sub": "Channel · D0 — 0 purchases", "dep": [10, 10, 10, 30, 10], "oc": [1, 1, 1, 3, 1]}, {"n": "SMM_Broadcast_19.99_40% (19.99 $)", "sub": "Broadcast · avgDep<=20, 7d+", "dep": [0, 0, 40, 20, 0], "oc": [0, 0, 2, 1, 0]}, {"n": "SMM_DailyPromoCode_59.99_20% (59.99 $)", "sub": "DailyPromoCode · avgDep>40, 7d-", "dep": [60, 0, 0, 0, 0], "oc": [1, 0, 0, 0, 0]}, {"n": "SMM_Broadcast_9.99_100% (9.99 $)", "sub": "Broadcast · D0 — 0 purchases", "dep": [10, 10, 0, 10, 0], "oc": [1, 1, 0, 1, 0]}, {"n": "SMM_Discord_9.99_100% (9.99 $)", "sub": "Discord · D0 — 0 purchases", "dep": [20, 10, 0, 0, 0], "oc": [2, 1, 0, 0, 0]}, {"n": "SMM_CheapAutomation_9.99_100% (9.99 $)", "sub": "CheapAutomation · D0 — 0 purchases", "dep": [0, 20, 0, 0, 0], "oc": [0, 2, 0, 0, 0]}, {"n": "SMM_FBmain_Offer_10.03 (4.99 $)", "sub": "", "dep": [0, 0, 0, 0, 5], "oc": [0, 0, 0, 0, 1]}], "pool": [69331, 77549, 81067, 78240, 77674]}], "meta": ["Період у сторі: 27.07.2026 – 30.08.2026", "Тижнів доступно: 5", "Звірено з контрольними сумами звіту"]}</script>
+<script>
+(function () {
+  const D = JSON.parse(document.getElementById("report-data").textContent);
+  const W = D.weeks, LBL = D.labels;
+  const el = id => document.getElementById(id);
+  const nbsp = " ";
+  const fmt = n => Math.round(n).toLocaleString("uk-UA").replace(/\s/g, nbsp);
+  const usd = n => "$" + fmt(n);
+  const money2 = n => "$" + n.toFixed(2).replace(".", ",");
+  const pct = n => (n * 100).toFixed(1).replace(".", ",") + "%";
+  const wk = w => w.replace("2026-", "");
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+  D.projects.forEach(p => { p.totals.avg = p.totals.dep.map((d, i) => d / p.totals.oc[i]); });
+
+  // ---- period ------------------------------------------------------------
+  // Arrays are newest-first, so a period of N weeks is simply the first N slots
+  // and the period it is compared against is the N slots behind them.
+  //
+  // Only additive metrics may be summed over a period. Deposits, purchases and
+  // free money are; unique buyers are NOT — Power BI counts a player once per
+  // week, so adding four weeks counts anyone active in all four four times. The
+  // page therefore never sums `uu`: it shows the best single week of the period
+  // and says so.
+  const SINGLE = D.projects.length === 1;
+  const MAXW = W.length;
+  const PERIODS = [1, 2, 4, MAXW].filter((n, i, a) => n <= MAXW && a.indexOf(n) === i);
+  let span = 1;
+
+  const sum = (arr, from, n) => {
+    let t = 0;
+    for (let i = from; i < from + n && i < arr.length; i++) t += arr[i] || 0;
+    return t;
+  };
+  const peak = (arr, from, n) => {
+    let t = 0;
+    for (let i = from; i < from + n && i < arr.length; i++) t = Math.max(t, arr[i] || 0);
+    return t;
+  };
+  const hasPrev = () => span * 2 <= MAXW;
+  const periodLabel = () => span === 1 ? LBL[W[0]]
+    : `${LBL[W[span - 1]].split("–")[0]}–${LBL[W[0]].split("–")[1] || LBL[W[0]]}`;
+  const spanName = n => n === 1 ? "1 тиждень" : (n === MAXW ? `усі ${n}` : `${n} тижні`);
+
+  el("eyebrow").textContent = D.eyebrow;
+  el("h1").innerHTML = D.h1;
+  el("standfirst").innerHTML = D.standfirst;
+  el("meta").innerHTML = D.meta.map(m => `<span>${m}</span>`).join("");
+  el("caveats").innerHTML = D.caveats.map(p => `<p>${p}</p>`).join("");
+
+  // ---- shared chart builders ---------------------------------------------
+  function bars(title, cap, vals, fmtV) {
+    const w = 260, h = 116, padB = 20, gap = 8;
+    const max = Math.max(...vals) * 1.18 || 1;
+    const bw = (w - gap * (vals.length - 1)) / vals.length;
+    let s = `<svg viewBox="0 0 ${w} ${h + padB}" role="img" aria-label="${title}">`;
+    s += `<line class="grid-line" x1="0" y1="${h}" x2="${w}" y2="${h}"></line>`;
+    vals.forEach((v, i) => {
+      const bh = Math.max(2, (v / max) * (h - 18)), x = i * (bw + gap), y = h - bh;
+      s += `<rect x="${x}" y="${y}" width="${bw}" height="${bh}" rx="4" ry="4"
+             style="fill:var(--accent)" opacity="${i === 0 ? 1 : 0.42}"><title>${LBL[W[i]]}: ${fmtV(v)}</title></rect>`;
+      s += `<text class="vlab${i === 0 ? " lead" : ""}" x="${x + bw / 2}" y="${y - 5}" text-anchor="middle">${fmtV(v)}</text>`;
+      s += `<text class="tick" x="${x + bw / 2}" y="${h + 13}" text-anchor="middle">${wk(W[i])}</text>`;
+    });
+    return `<div class="panel mini"><h3>${title}</h3><div class="cap">${cap}</div>${s}</svg></div>`;
+  }
+
+  function deltaHTML(now, prev, money, vs) {
+    const d = now - prev, r = prev ? d / prev : 0;
+    return `<span class="delta ${d >= 0 ? "up" : "down"}">${d >= 0 ? "+" : "−"}${pct(Math.abs(r))}</span> проти `
+         + (money ? usd(prev) : fmt(prev)) + " " + (vs || "тижнем раніше");
+  }
+
+  // ---- overview -----------------------------------------------------------
+  function renderOverview() {
+    const last = 0, prev = 1;
+    const totDep = D.pool[last], totDepPrev = D.pool[prev];
+    const totOc = D.projects.reduce((a, p) => a + p.totals.oc[last], 0);
+    const totOcPrev = D.projects.reduce((a, p) => a + p.totals.oc[prev], 0);
+    const totGive = D.projects.reduce((a, p) => a + p.totals.give[last], 0);
+    const ranked = D.projects.slice().sort((a, b) => b.totals.dep[last] - a.totals.dep[last]);
+    const grown = D.projects.slice().sort((a, b) =>
+      (b.totals.dep[last] / b.totals.dep[W.length - 1]) - (a.totals.dep[last] / a.totals.dep[W.length - 1]));
+
+    let h = "";
+
+    h += `<section><h2>Усі проєкти · тиждень ${LBL[W[0]]}</h2><div class="kpis">` + [
+      ["Депозит із SMM-оферів", usd(totDep), deltaHTML(totDep, totDepPrev, true)],
+      ["Куплено оферів", fmt(totOc), deltaHTML(totOc, totOcPrev, false)],
+      ["Free money віддано", usd(totGive), `<span class="delta">${pct(totGive / totDep)}</span> від депозиту тижня`],
+      ["Найбільший бренд", ranked[0].label, `${usd(ranked[0].totals.dep[last])} · ${pct(ranked[0].totals.dep[last] / totDep)} пулу`],
+      ["Найшвидший ріст", grown[0].label, `×${(grown[0].totals.dep[last] / grown[0].totals.dep[W.length - 1]).toFixed(1).replace(".", ",")} за ${W.length} тижнів`],
+    ].map(([l, v, s]) => `<div class="kpi"><div class="label">${l}</div>
+        <div class="value" style="font-size:${v.length > 9 ? "22px" : "30px"}">${v}</div>
+        <div class="sub">${s}</div></div>`).join("") + `</div></section>`;
+
+    // ranked bars, W31 with the previous week as a ghost behind it
+    const w = 900, rowH = 30, padL = 132, padR = 96;
+    const max = Math.max(...ranked.map(p => p.totals.dep[last])) * 1.02;
+    let s = `<svg viewBox="0 0 ${w} ${ranked.length * rowH + 8}" role="img"
+      aria-label="Депозит по проєктах за останній тиждень">`;
+    ranked.forEach((p, i) => {
+      const y = i * rowH + 4, avail = w - padL - padR;
+      const bw = (p.totals.dep[last] / max) * avail;
+      const gw = (p.totals.dep[prev] / max) * avail;
+      s += `<text class="vlab lead" x="${padL - 10}" y="${y + 15}" text-anchor="end">${p.label}</text>`;
+      s += `<rect x="${padL}" y="${y + 3}" width="${Math.max(1, gw)}" height="18" rx="3" ry="3"
+             style="fill:var(--rule-strong)"><title>${p.label} · ${LBL[W[prev]]}: ${usd(p.totals.dep[prev])}</title></rect>`;
+      s += `<rect x="${padL}" y="${y + 6}" width="${Math.max(1, bw)}" height="12" rx="3" ry="3"
+             style="fill:var(--accent)"><title>${p.label} · ${LBL[W[last]]}: ${usd(p.totals.dep[last])}</title></rect>`;
+      s += `<text class="vlab lead" x="${padL + Math.max(gw, bw) + 8}" y="${y + 15}">${usd(p.totals.dep[last])}</text>`;
+    });
+    s += "</svg>";
+    h += `<section><h2>Хто скільки приносить</h2><div class="panel">${s}
+      <div class="legend"><span><span class="sw" style="background:var(--accent)"></span>${LBL[W[last]]}</span>
+      <span><span class="sw" style="background:var(--rule-strong)"></span>${LBL[W[prev]]}</span></div>
+      <p class="note" style="margin-top:12px">${D.overview_chart_note || ""}</p></div></section>`;
+
+    // comparison table
+    let t = `<thead><tr><th>Проєкт</th>` + W.map(x => `<th>${wk(x)}</th>`).join("")
+      + `<th>Ріст ×</th><th>Ср. чек</th><th>Free money</th></tr></thead><tbody>`;
+    ranked.forEach(p => {
+      const g = p.totals.dep[last] / p.totals.dep[W.length - 1];
+      t += `<tr><td><button class="jump" data-go="${p.project}">${p.label}</button></td>`
+        + W.map((_, i) => `<td class="${i === 0 ? "now" : ""}">${usd(p.totals.dep[i])}</td>`).join("")
+        + `<td style="color:${g >= 1 ? "var(--good)" : "var(--bad)"}">×${g.toFixed(1).replace(".", ",")}</td>`
+        + `<td>${money2(p.totals.avg[last])}</td>`
+        + `<td>${pct(p.totals.give[last] / p.totals.dep[last])}</td></tr>`;
+    });
+    t += `</tbody><tfoot><tr><td>Разом</td>`
+      + W.map((_, i) => `<td>${usd(D.pool[i])}</td>`).join("")
+      + `<td>×${(D.pool[0] / D.pool[W.length - 1]).toFixed(1).replace(".", ",")}</td><td></td><td></td></tr></tfoot>`;
+    h += `<section><h2>Порівняння · депозит по тижнях</h2>
+      <div class="panel tablewrap"><table>${t}</table></div>
+      <p class="note">Натисни на назву бренду, щоб відкрити його розбір.</p></section>`;
+
+    h += `<section><h2>Як це читати</h2><ul class="reads">`
+      + D.overview_reads.map((r, i) => `<li><span class="k">${String(i + 1).padStart(2, "0")}</span><p>${r}</p></li>`).join("")
+      + `</ul></section>`;
+    return h;
+  }
+
+  // ---- one project --------------------------------------------------------
+  function renderProject(p) {
+    const T = p.totals;
+    let h = "";
+
+    // Everything in this block is aggregated over the chosen period, and compared
+    // with the period of the same length immediately before it. When there is no
+    // such period left in the store the comparison is dropped rather than made
+    // against a shorter one, which would read as a collapse.
+    const dep = sum(T.dep, 0, span), oc = sum(T.oc, 0, span), give = sum(T.give, 0, span);
+    const pdep = sum(T.dep, span, span), poc = sum(T.oc, span, span);
+    const avg = oc ? dep / oc : 0, pavg = poc ? pdep / poc : 0;
+    const uuPeak = peak(T.uu, 0, span);
+    const cmp = hasPrev();
+    const vs = span === 1 ? "тижнем раніше" : `попередніми ${span === MAXW ? span : span} тижнями`;
+    const dlt = (now, prev, money) => cmp ? deltaHTML(now, prev, money, vs) : `<span class="delta">за ${spanName(span)}</span>`;
+
+    h += `<section><h2>${p.label} · ${periodLabel()}</h2><div class="kpis">` + [
+      ["Депозит із SMM-оферів", usd(dep), dlt(dep, pdep, true)],
+      ["Куплено оферів", fmt(oc), dlt(oc, poc, false)],
+      [span === 1 ? "Унікальні покупці" : "Унікальні · найкращий тиждень",
+       fmt(uuPeak),
+       span === 1 ? dlt(T.uu[0], T.uu[1], false)
+                  : `<span class="delta">не сумується</span> за період — гравець рахується щотижня`],
+      ["Середній чек", money2(avg), dlt(avg, pavg, false)],
+      ["Free money віддано", usd(give), `<span class="delta">${pct(dep ? give / dep : 0)}</span> від депозиту періоду`],
+    ].map(([l, v, s]) => `<div class="kpi"><div class="label">${l}</div>
+        <div class="value">${v}</div><div class="sub">${s}</div></div>`).join("")
+      + `</div>${p.standfirst ? `<p class="note">${p.standfirst}</p>` : ""}</section>`;
+
+    h += `<section><h2>Динаміка · ${W.length} тижнів</h2><div class="panel"><div class="grid-4">`
+      + bars("Депозит", "сума покупок оферів, $", T.dep, usd)
+      + bars("Куплено оферів", "штук за тиждень", T.oc, fmt)
+      + bars("Унікальні покупці", "distinct-гравці", T.uu, fmt)
+      + bars("Середній чек", "депозит ÷ покупки", T.avg, money2)
+      + `</div><p class="note" style="margin-top:14px">${D.trend_note}</p></div></section>`;
+
+    // channels
+    const CH = p.channels;
+    const w = 900, ch = 230, padB = 26, padT = 22, gap = 26;
+    const tot = W.map((_, i) => CH.reduce((a, c) => a + c.dep[i], 0));
+    const max = Math.max(...tot) * 1.1 || 1;
+    const bw = (w - gap * (W.length - 1)) / W.length;
+    let s = `<svg viewBox="0 0 ${w} ${ch + padB + padT}" role="img" aria-label="Депозит по каналах">`;
+    for (let g = 0; g <= 4; g++) {
+      const y = padT + (ch - (g / 4) * ch);
+      s += `<line class="grid-line" x1="0" y1="${y}" x2="${w}" y2="${y}"></line>`;
+      s += `<text class="tick" x="${w + 6}" y="${y + 3}">${g ? "$" + fmt((max * g) / 4) : "0"}</text>`;
+    }
+    W.forEach((x, i) => {
+      let acc = 0; const px = i * (bw + gap);
+      CH.forEach(c => {
+        const v = c.dep[i]; if (!v) return;
+        const bh = (v / max) * ch, y = padT + ch - (acc / max) * ch - bh;
+        s += `<rect x="${px}" y="${y}" width="${bw}" height="${Math.max(0, bh - 2)}" rx="3" ry="3"
+               style="fill:var(--${c.slot})" opacity="${i === 0 ? 1 : 0.55}"><title>${LBL[x]} · ${c.n}: ${usd(v)} (${c.oc[i]} покупок)</title></rect>`;
+        acc += v;
+      });
+      s += `<text class="vlab lead" x="${px + bw / 2}" y="${padT + ch - (acc / max) * ch - 8}" text-anchor="middle">${usd(acc)}</text>`;
+      s += `<text class="tick" x="${px + bw / 2}" y="${padT + ch + 16}" text-anchor="middle">${wk(x)}</text>`;
+      s += `<text class="tick" x="${px + bw / 2}" y="${padT + ch + 28}" text-anchor="middle">${LBL[x]}</text>`;
+    });
+    s += "</svg>";
+
+    // Week columns stay per week — that is the trend. The two summary columns on
+    // the right follow the chosen period instead of the newest week.
+    let ct = `<thead><tr><th>Канал</th>` + W.map(x => `<th>${wk(x)}</th>`).join("")
+      + `<th>Куплено за період</th><th>Ср. чек</th></tr></thead><tbody>`;
+    CH.forEach(c => {
+      const coc = sum(c.oc, 0, span), cdep = sum(c.dep, 0, span);
+      ct += `<tr><td><span class="chip" style="background:var(--${c.slot})"></span>${c.n}</td>`
+        + W.map((_, i) => `<td class="${i < span ? "now" : ""}">${c.dep[i] ? usd(c.dep[i]) : "—"}</td>`).join("")
+        + `<td>${coc || "—"}</td><td>${coc ? money2(cdep / coc) : "—"}</td></tr>`;
+    });
+    ct += `</tbody><tfoot><tr><td>Разом</td>` + tot.map(v => `<td>${usd(v)}</td>`).join("")
+      + `<td>${fmt(oc)}</td><td>${money2(avg)}</td></tr></tfoot>`;
+
+    h += `<section><h2>Канали · звідки приходить депозит</h2>
+      <div class="panel">${s}<div class="legend">`
+      + CH.map(c => `<span><span class="sw" style="background:var(--${c.slot})"></span>${c.n}</span>`).join("")
+      + `</div></div><div class="panel tablewrap"><table>${ct}</table></div></section>`;
+
+    // segments
+    const SEG = p.segments;
+    const smax = Math.max(...SEG.flatMap(r => r.oc)) || 1;
+    let st = `<thead><tr><th>Сегмент</th>` + W.map(x => `<th>${wk(x)}</th>`).join("")
+      + `<th>Депозит за період</th><th>Ср. чек</th></tr></thead><tbody>`;
+    SEG.forEach(r => {
+      const sdep = sum(r.dep, 0, span), soc = sum(r.oc, 0, span);
+      st += `<tr><td>${r.n}</td>` + r.oc.map(v => {
+        const a = v ? 0.10 + 0.55 * (v / smax) : 0;
+        return `<td class="cell">${v ? `<i style="opacity:${a.toFixed(3)}"></i>` : ""}<span>${v || "—"}</span></td>`;
+      }).join("")
+      + `<td class="now">${sdep ? usd(sdep) : "—"}</td>`
+      + `<td>${soc ? money2(sdep / soc) : "—"}</td></tr>`;
+    });
+    st += `</tbody><tfoot><tr><td>Разом куплено</td>`
+      + W.map((_, i) => `<td>${fmt(SEG.reduce((a, r) => a + r.oc[i], 0))}</td>`).join("")
+      + `<td>${usd(dep)}</td><td>${money2(avg)}</td></tr></tfoot>`;
+
+    // warm / cold
+    const WC = p.warm_cold;
+    const ww = 260, wh = 110, wpadB = 20, wgap = 14, bg = 3;
+    const wmax = Math.max(...WC.warm, 1) * 1.2;
+    const slot = (ww - wgap * (W.length - 1)) / W.length, wbw = (slot - bg) / 2;
+    let ws = `<svg viewBox="0 0 ${ww} ${wh + wpadB}" role="img" aria-label="Теплі проти холодних">`;
+    ws += `<line class="grid-line" x1="0" y1="${wh}" x2="${ww}" y2="${wh}"></line>`;
+    W.forEach((x, i) => {
+      const px = i * (slot + wgap);
+      [["warm", "s1"], ["cold", "s2"]].forEach(([k, sl], j) => {
+        const v = WC[k][i], bh = Math.max(2, (v / wmax) * (wh - 14));
+        ws += `<rect x="${px + j * (wbw + bg)}" y="${wh - bh}" width="${wbw}" height="${bh}" rx="3" ry="3"
+                style="fill:var(--${sl})" opacity="${i === 0 ? 1 : 0.45}"><title>${LBL[x]} · ${k === "warm" ? "7d−" : "7d+"}: ${v}</title></rect>`;
+      });
+      ws += `<text class="vlab${i === 0 ? " lead" : ""}" x="${px + slot / 2}" y="${wh - (WC.warm[i] / wmax) * (wh - 14) - 5}"
+              text-anchor="middle">${WC.warm[i]}/${WC.cold[i]}</text>`;
+      ws += `<text class="tick" x="${px + slot / 2}" y="${wh + 13}" text-anchor="middle">${wk(x)}</text>`;
+    });
+    ws += "</svg>";
+
+    h += `<section><h2>Сегменти · кому продаємо</h2>
+      <div class="panel tablewrap"><table class="heat">${st}</table></div>
+      <div class="grid-4">
+        <div class="panel mini"><h3>Теплі проти холодних</h3>
+          <div class="cap">куплено оферів, тільки «драбинкові» сегменти</div>${ws}
+          <div class="legend"><span><span class="sw" style="background:var(--s1)"></span>7d− теплі</span>
+          <span><span class="sw" style="background:var(--s2)"></span>7d+ холодні</span></div></div>
+        <div class="panel mini" style="grid-column:span 2"><h3>Що означає сегмент</h3>
+          <div class="cap">пара (ціна, free money) однозначно задає аудиторію</div>
+          <p class="note" style="font-size:12.5px">Драбина йде по середньому депозиту за 30 днів
+          (≤20 / 20–40 / &gt;40) і по давності останнього депозиту: <strong>7d−</strong> — купував
+          протягом тижня, <strong>7d+</strong> — давніше. Холодному гравцю свідомо дають
+          <em>дешевший</em> офер із <em>більшим</em> free money. <code>D0</code> — жодної покупки
+          за весь час, <code>inout&lt;-10</code> — гравець у плюсі.</p></div>
+      </div></section>`;
+
+    // movers
+    const mrow = m => `<div class="mrow"><span class="nm">${esc(m.n)}<small>${esc(m.sub)}</small></span>
+      <span class="num">${m.a}→${m.b}</span>
+      <span class="d" style="color:${m.d >= 0 ? "var(--good)" : "var(--bad)"}">${m.d >= 0 ? "+" : "−"}${Math.abs(m.d)}</span></div>`;
+    // Movers are recomputed for the chosen period rather than read from the
+    // payload's one-week version, so "4 weeks" compares four against four.
+    let mUp = p.movers_up, mDown = p.movers_down, mNew = p.new_offers, mGone = p.gone_offers;
+    let mTitle = `Рухи тижня · ${wk(W[1])} → ${wk(W[0])}`;
+    if (p.offers && cmp) {
+      const rowsM = p.offers.map(o => {
+        const b = sum(o.oc, 0, span), a = sum(o.oc, span, span);
+        const bd = sum(o.dep, 0, span), ad = sum(o.dep, span, span);
+        return { n: o.n, sub: o.sub, a: a, b: b, d: b - a, bd: bd, ad: ad };
+      });
+      mUp = rowsM.filter(r => r.d > 0).sort((x, y) => y.d - x.d).slice(0, 8);
+      mDown = rowsM.filter(r => r.d < 0).sort((x, y) => x.d - y.d).slice(0, 8);
+      mNew = rowsM.filter(r => r.bd > 0 && r.ad === 0).map(r => r.n);
+      mGone = rowsM.filter(r => r.bd === 0 && r.ad > 0).map(r => r.n);
+      mTitle = span === 1
+        ? `Рухи тижня · ${wk(W[1])} → ${wk(W[0])}`
+        : `Рухи періоду · попередні ${span} тижні → ${periodLabel()}`;
+    }
+    if (mUp.length || mDown.length) {
+      h += `<section><h2>${mTitle}</h2><div class="movers">
+        <div class="panel"><div class="eyebrow" style="margin-bottom:10px">Зростання</div>
+          <div class="mlist">${mUp.map(mrow).join("") || '<p class="note">нічого помітного</p>'}</div></div>
+        <div class="panel"><div class="eyebrow" style="margin-bottom:10px">Падіння</div>
+          <div class="mlist">${mDown.map(mrow).join("") || '<p class="note">нічого помітного</p>'}</div></div>
+      </div>`;
+      const ng = [];
+      if (mNew.length) ng.push(`<strong>З’явилось:</strong> ${mNew.map(esc).join(", ")}`);
+      if (mGone.length) ng.push(`<strong>Зникло:</strong> ${mGone.map(esc).join(", ")}`);
+      if (p.newgone) ng.push(p.newgone);
+      if (ng.length) {
+        h += `<div class="panel"><div class="eyebrow" style="margin-bottom:10px">Нове й зникле</div>
+          <p class="note" style="margin:0">${ng.join("<br>")}</p></div>`;
+      }
+      h += `</section>`;
+    }
+
+    // share of the pool
+    if (p.share) {
+      const sw = 900, sh = 120, spadB = 30, spadT = 18, sgap = 26;
+      const smaxv = Math.max(...p.share.all) * 1.08;
+      const sbw = (sw - sgap * (W.length - 1)) / W.length;
+      let ss = `<svg viewBox="0 0 ${sw} ${sh + spadB + spadT}" role="img" aria-label="Частка проєкту">`;
+      W.forEach((x, i) => {
+        const px = i * (sbw + sgap);
+        const ah = (p.share.all[i] / smaxv) * sh, nh = (p.share.project[i] / smaxv) * sh;
+        ss += `<rect x="${px}" y="${spadT + sh - ah}" width="${sbw}" height="${ah}" rx="3" ry="3"
+                style="fill:var(--rule-strong)"><title>${LBL[x]} · усі бренди: ${usd(p.share.all[i])}</title></rect>`;
+        ss += `<rect x="${px}" y="${spadT + sh - nh}" width="${sbw}" height="${nh}" rx="3" ry="3"
+                style="fill:var(--accent)" opacity="${i === 0 ? 1 : 0.6}"><title>${LBL[x]} · ${p.label}: ${usd(p.share.project[i])}</title></rect>`;
+        ss += `<text class="vlab lead" x="${px + sbw / 2}" y="${spadT + sh - ah - 6}" text-anchor="middle">${pct(p.share.project[i] / p.share.all[i])}</text>`;
+        ss += `<text class="tick" x="${px + sbw / 2}" y="${spadT + sh + 14}" text-anchor="middle">${wk(x)}</text>`;
+      });
+      ss += "</svg>";
+      h += `<section><h2>Частка ${p.label} у пулі</h2><div class="panel">${ss}
+        <div class="legend"><span><span class="sw" style="background:var(--accent)"></span>${p.label}</span>
+        <span><span class="sw" style="background:var(--rule-strong)"></span>усі бренди разом</span></div>
+        </div></section>`;
+    }
+
+    // payouts — from the Deposit Number store, not the offers pass
+    if (p.payouts) {
+      const PO = p.payouts, PW = PO.weeks;
+      const pmax = Math.max(...PW.map(x => x.ratio)) * 1.15 || 1;
+      const pw = 900, ph = 150, ppadB = 30, ppadT = 20, pgap = 26;
+      const pbw = (pw - pgap * (PW.length - 1)) / PW.length;
+      let ps = `<svg viewBox="0 0 ${pw} ${ph + ppadB + ppadT}" role="img" aria-label="Виплати у % від депозиту">`;
+      for (let g = 0; g <= 4; g++) {
+        const y = ppadT + (ph - (g / 4) * ph);
+        ps += `<line class="grid-line" x1="0" y1="${y}" x2="${pw}" y2="${y}"></line>`;
+        ps += `<text class="tick" x="${pw + 6}" y="${y + 3}">${g ? pct((pmax * g) / 4) : "0"}</text>`;
+      }
+      PW.forEach((x, i) => {
+        const px = i * (pbw + pgap);
+        if (!x.has) {
+          ps += `<text class="tick" x="${px + pbw / 2}" y="${ppadT + ph - 8}" text-anchor="middle">н/д</text>`;
+        } else {
+          const bh = (x.ratio / pmax) * ph;
+          ps += `<rect x="${px}" y="${ppadT + ph - bh}" width="${pbw}" height="${Math.max(0, bh)}" rx="3" ry="3"
+                  style="fill:var(${x.flagged ? "--bad" : "--rule-strong"})" opacity="${i === 0 ? 1 : 0.6}"
+                  ><title>${LBL[x.week]} · виплати ${usd(x.pay)} від депозиту ${usd(x.dep)}</title></rect>`;
+          ps += `<text class="vlab lead" x="${px + pbw / 2}" y="${ppadT + ph - bh - 6}" text-anchor="middle">${pct(x.ratio)}</text>`;
+        }
+        ps += `<text class="tick" x="${px + pbw / 2}" y="${ppadT + ph + 14}" text-anchor="middle">${wk(x.week)}</text>`;
+      });
+      ps += "</svg>";
+
+      const prows = PW.map(x => `<tr><td>${LBL[x.week]}</td>
+        <td class="num">${x.has ? usd(x.dep) : "—"}</td>
+        <td class="num">${x.has ? usd(x.pay) : "—"}</td>
+        <td class="num">${x.has ? pct(x.ratio) : "—"}</td>
+        <td class="num">${x.has ? (x.flagged || "—") : "—"}</td>
+        <td>${x.days.length ? x.days.join(", ") : "—"}</td></tr>`).join("");
+
+      const plr = PO.players.length
+        ? PO.players.map(x => `<tr><td><code>${esc(x.login)}</code></td>
+            <td class="num">${pct(x.ratio)}</td><td class="num">${usd(x.dep)}</td>
+            <td class="num">${x.deps}</td><td class="num lead">${usd(x.pay)}</td></tr>`).join("")
+        : `<tr><td colspan="5" class="note">жодної виплати цього тижня</td></tr>`;
+
+      const rep = PO.repeats.length
+        ? PO.repeats.map(x => `<tr><td><code>${esc(x.login)}</code>${x.here ? ' <span class="delta">є й цього тижня</span>' : ""}</td>
+            <td class="num">${x.n}</td><td>${x.weeks.join(", ")}</td>
+            <td class="num lead">${usd(x.pay)}</td></tr>`).join("")
+        : `<tr><td colspan="4" class="note">повторних логінів у накопиченій історії немає</td></tr>`;
+
+      h += `<section><h2>Виплати · ${p.label}</h2><div class="panel">${ps}
+        <p class="note" style="margin-top:12px">Стовпчик підсвічено, якщо того тижня звіт позначив
+        хоча б одну клітинку <code>Payout&nbsp;after</code> своїм умовним форматуванням. Великі виплати
+        для казино — норма: варіанс на малих ставках величезний, і великий виграш означає, що продукт
+        працює. Дивитись варто на <em>гроші</em>, а не на відсоток.${PO.n_players ? ` Гравців із виплатою
+        за ${LBL[W[0]]}: <strong>${PO.n_players}</strong>.` : ""}</p>
+        <div class="tbl-wrap"><table class="tbl"><thead><tr><th>Тиждень</th><th class="num">Депозит</th>
+          <th class="num">Виплачено</th><th class="num">% від депозиту</th><th class="num">Підсвічено днів</th>
+          <th>Які дні</th></tr></thead><tbody>${prows}</tbody></table></div>
+        ${p.payout_note ? `<p class="note">${p.payout_note}</p>` : ""}
+        </div>
+        <div class="movers" style="margin-top:14px">
+          <div class="panel"><div class="eyebrow" style="margin-bottom:10px">Найбільші виплати за ${LBL[W[0]]}</div>
+            <div class="tbl-wrap"><table class="tbl"><thead><tr><th>Логін</th><th class="num">%</th>
+              <th class="num">База</th><th class="num">Деп.</th><th class="num">Виплата</th></tr></thead>
+              <tbody>${plr}</tbody></table></div>
+            <p class="note">Відсоток — це відношення, тому мала база дає величезний %. Порядок — за грошима.</p></div>
+          <div class="panel"><div class="eyebrow" style="margin-bottom:10px">Логіни, що повторюються</div>
+            <div class="tbl-wrap"><table class="tbl"><thead><tr><th>Логін</th><th class="num">Тижнів</th>
+              <th>Коли</th><th class="num">Разом</th></tr></thead><tbody>${rep}</tbody></table></div>
+            <p class="note">Один великий виграш — варіанс. Той самий логін у кількох тижнях — це вже
+            те, що варто перевірити в адмінці.</p></div>
+        </div></section>`;
+    }
+
+    h += `<section><h2>Як це читати · ${p.label}</h2><ul class="reads">`
+      + p.reads.map((r, i) => `<li><span class="k">${String(i + 1).padStart(2, "0")}</span><p>${r}</p></li>`).join("")
+      + `</ul></section>`;
+    return h;
+  }
+
+  // ---- switcher -----------------------------------------------------------
+  let current = "__overview__";
+  function show(key) {
+    current = key;
+    const p = D.projects.find(x => x.project === key);
+    el("view").innerHTML = p ? renderProject(p) : renderOverview();
+    Array.from(el("switcher").children).forEach(b => {
+      if (b.dataset.key) b.setAttribute("aria-current", b.dataset.key === key ? "true" : "false");
+    });
+    el("view").querySelectorAll("button.jump").forEach(b =>
+      b.addEventListener("click", () => { show(b.dataset.go); window.scrollTo({ top: 0 }); }));
+    if (history.replaceState) history.replaceState(null, "", "#" + key);
+  }
+
+  // A single-brand page has nothing to switch between: the product manager who
+  // opens it should see their brand, not a way into everyone else's numbers.
+  // The period picker stays either way.
+  const periodHTML = PERIODS.map(n =>
+    `<button data-span="${n}"${n === span ? ' aria-current="true"' : ""}>${spanName(n)}</button>`).join("");
+
+  el("switcher").innerHTML =
+    (SINGLE ? "" :
+      `<button data-key="__overview__">Огляд</button><span class="sep"></span>`
+      + D.projects.slice()
+          .sort((a, b) => b.totals.dep[0] - a.totals.dep[0])
+          .map(p => `<button data-key="${p.project}">${p.label}</button>`).join("")
+      + `<span class="sep"></span>`)
+    + `<span class="pgroup">Період:</span>` + periodHTML;
+
+  Array.from(el("switcher").children).forEach(b => {
+    if (b.dataset.key) b.addEventListener("click", () => show(b.dataset.key));
+    if (b.dataset.span) b.addEventListener("click", () => {
+      span = Number(b.dataset.span);
+      Array.from(el("switcher").children).forEach(x => {
+        if (x.dataset.span) x.setAttribute("aria-current", Number(x.dataset.span) === span ? "true" : "false");
+      });
+      show(current);
+    });
+  });
+
+  const fromHash = (location.hash || "").slice(1);
+  if (SINGLE) show(D.projects[0].project);
+  else show(D.projects.some(p => p.project === fromHash) || fromHash === "__overview__"
+            ? fromHash : "__overview__");
+})();
+</script>
