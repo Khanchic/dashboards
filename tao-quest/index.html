@@ -13,7 +13,7 @@
   <div class="cosmic-dust-ambient" aria-hidden="true"></div>
 
   <div class="dashboard-container">
-    
+
     <!-- Top Header Card -->
     <header class="header-card" id="main-header">
       <div class="brand-section">
@@ -44,7 +44,7 @@
 
     <!-- Hero Deck: Character Specs & Storyline Simulator -->
     <section class="hero-deck-grid" id="hero-deck-section">
-      
+
       <!-- Character Lore Card -->
       <aside class="character-card" id="character-dna-card">
         <div class="character-image-box" style="background: radial-gradient(circle, #182038 0%, #0c1020 100%); display:flex; align-items:center; justify-content:center;">
@@ -72,11 +72,11 @@
           <div class="spec-row">
             <span class="spec-label">Мастер-теги:</span>
             <div class="tag-cloud">
-              <span class="dna-tag highlight">Red Panda</span>
+              <span class="dna-tag highlight">Panda-like Mascot</span>
               <span class="dna-tag highlight">Honeycomb Armor</span>
               <span class="dna-tag">Utility Belt</span>
               <span class="dna-tag">Stylized 3D</span>
-              <span class="dna-tag">PBR Materials</span>
+              <span class="dna-tag">PBR Lighting</span>
               <span class="dna-tag">IP-Safe</span>
             </div>
           </div>
@@ -88,7 +88,19 @@
             <span class="master-token-title">DNA Промпт-Префикс (Без копирайт-триггеров)</span>
             <button class="mini-copy-btn" id="btn-copy-dna" title="Копировать базовые токены ТАО">📋 Копировать</button>
           </div>
-          <div class="master-token-code" id="dna-token-text">Use the attached image as the character reference. Keep his design consistent: the same panda-like mascot with red-orange and cream fur, rounded ears, amber eyes and a bushy ringed tail, wearing the same navy-blue and orange armor suit with honeycomb chest plate, harness straps, utility belt and knee pads. Change only his pose and expression.</div>
+          <div class="master-token-code" id="dna-token-text">Use the attached image as the character reference. Keep his design consistent: the same panda-like mascot with red-orange and cream fur, rounded ears, amber eyes and a bushy ringed tail, wearing the same navy-blue and orange armor suit with honeycomb chest plate, harness straps, utility belt and knee pads. Change only his pose and expression.
+
+Stylized 3D character render, soft subsurface fur shading, glossy PBR materials, shallow depth of field, high detail, 16:9 widescreen.</div>
+        </div>
+
+        <!-- Filter Rules Reminder -->
+        <div class="master-token-box" style="margin-top: 12px;">
+          <div class="master-token-header">
+            <span class="master-token-title">⛔ Стоп-слова (из-за них режет генерацию)</span>
+          </div>
+          <div class="master-token-code" id="banned-words-text">award-winning · animated feature · feature animation · Octane · 8k · blockbuster · space-opera · cyberpunk · film-noir · cantina · 100% identical · exact same · Negative Prompt · watermark
+
+Negative prompts Nano Banana не поддерживает вообще — всё из такой строки читается как позитив. Генерировать в AI Studio, там фильтр мягче.</div>
         </div>
       </aside>
 
@@ -97,7 +109,7 @@
         <div>
           <div class="simulator-header">
             <h2>
-              <span>🗺️</span> 
+              <span>🗺️</span>
               <span>Интерактивная карта ветвления сюжета</span>
             </h2>
             <div class="simulator-legend">
