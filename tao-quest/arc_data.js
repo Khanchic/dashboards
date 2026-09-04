@@ -1,6 +1,7 @@
 /**
  * TAO Quest Arc Data: "The Stolen Celestial Key" (Похищенный Звёздный Ключ)
- * 7 Days, 14 Branching Scenes, Nano Banana 2 Prompts, and Discord Post Copies.
+ * 7 Days, 13 Scenes (1 Master Kickoff + 12 Branching Scenes).
+ * Optimized for Gemini Nano Banana 2 (Clean IP-safe prompts referencing the user's attached TAO PNG).
  */
 
 const ARC_METADATA = {
@@ -9,8 +10,8 @@ const ARC_METADATA = {
   character: "TAO (The Cosmic Red Panda Mechanic)",
   brand: "Tao Fortune",
   duration: "7 Days (Interactive Discord Event)",
-  outfit: "Blue & Orange Sci-Fi Mechanic Spacesuit",
-  referenceImage: "assets/TAO_Rocket_Repair.png",
+  outfit: "Navy & Orange Textured Armor Suit with Honeycomb Chestplate",
+  referenceImage: "assets/TAO_character.png",
   aspectRatio: "16:9",
   renderEngine: "Gemini / Nano Banana 2"
 };
@@ -19,8 +20,8 @@ const CHARACTER_DNA = {
   name: "TAO",
   role: "Chief Cosmic Engineer & Explorer",
   species: "Anthropomorphic Cosmic Red Panda",
-  appearance: "Expressive amber eyes, soft red-orange fur, white markings around cheeks and snout, cute rounded ears, fluffy striped tail",
-  attire: "Navy blue & vibrant orange industrial mechanic spacesuit, padded joints, chest planet patch, utility leather tool belt with brass wrenches and gadgets, magnetic boots",
+  appearance: "Expressive amber eyes, fluffy red-orange and white fur, cute rounded ears, black nose, bushy striped tail",
+  attire: "Navy-blue and bright orange textured armor suit, honeycomb chest plate, shoulder armor, utility belt with pouches and brass tools, knee pads, magnetic boots",
   personality: "Resourceful, optimistic, quick-witted, slightly mischievous, cares deeply for his machinery and community"
 };
 
@@ -47,14 +48,19 @@ const QUEST_DAYS = [
       id: "1",
       label: "Стартовый мастер-кадр",
       sceneTitle: "Шок ТАО перед пустым алтарем и загадочный след",
-      prompt: `Reference Image: TAO_Rocket_Repair.png
-A breathtaking cinematic 3D Pixar-style scene in 16:9 widescreen format.
-Subject: TAO, the cute anthropomorphic cosmic red panda mechanic from the reference image, wearing his signature navy-blue and bright orange mechanic spacesuit with the planet emblem patch and leather utility belt with brass tools.
-Action: TAO stands shocked, alarmed, and bewildered inside the center of the grand ancient celestial observatory. With wide expressive amber eyes and his fluffy striped tail bristling in surprise, he holds a high-tech glowing diagnostic scanner tablet in one paw and a brass wrench in the other. He looks down in disbelief at an ornate floating circular celestial pedestal where the sacred golden Constellation Key should be—now only shimmering golden stardust swirls in the empty air.
-Details & Clues: On the ancient engraved obsidian and brass floor, a mysterious trail of glowing cyan neon coolant gel and miniature mechanical tire tracks leads away from the pedestal towards the shadowed arches of the station.
-Environment: The grand star observatory dome at midnight with massive rotating bronze astrolabes, celestial star maps, glowing holographic constellations, and a crystal-clear glass dome revealing an infinite deep-space purple nebula and glittering star clusters.
-Lighting & Atmosphere: Volumetric golden rim lighting illuminating TAO's soft fur, moody cinematic contrast, mystical neon cyan glow from the mystery trail, floating stardust particles, 8k resolution, octane render quality.
-Negative Prompt: no text, no watermark, no human, no 2D flat drawing, no distorted paws or extra fingers, no blurry background, no dark muddy colors.`,
+      prompt: `Based on the character in the attached reference image, generate a stunning cinematic 3D animated scene in 16:9 widescreen format.
+
+Character Consistency: Keep the character TAO 100% identical to the reference image: the exact same red panda facial features, fur grooming, cute rounded ears, and his full navy-blue and orange textured armor suit with chest honeycomb plate, harness straps, utility belt, and knee pads.
+
+Action & Expression: Place the character in the center of the scene. Change his pose and expression: he looks shocked, alarmed, and bewildered with wide expressive eyes and his mouth open in an "O" shape of surprise, looking down in disbelief. In his right paw he holds a high-tech glowing holographic datapad displaying an amber warning alert, and in his left paw he holds a heavy brass mechanic wrench.
+
+Scene & Pedestal: TAO stands before an ornate floating circular celestial pedestal of white marble and gold filigree inside an ancient star observatory. The sacred Constellation Key is missing—in its place hovers a mesmerizing, luminous spiral vortex of sparkling golden starlight and cosmic embers that warmly casts golden glow onto TAO's chest and face.
+
+Environment & Clues: On the glossy, reflective dark-blue patterned floor, a bright glowing electric-cyan neon fluid trail with glowing robotic tire tracks leads away toward an arched doorway. In the background, massive brass astrolabes gleam with golden reflections. Above, a giant crystal glass dome reveals a deep cosmic sky filled with vibrant purple and magenta nebulae and glittering stars.
+
+Lighting & Style: Award-winning cinematic 3D animated feature quality, Octane 3D render style. Rich volumetric atmospheric lighting, warm golden god-rays beaming up from the stardust, vibrant cyan neon bounce light, crisp sharp focus, detailed tactile fur grooming, 8k resolution.
+
+Negative Prompt: flat 2D, plastic toy, preschool cartoon, smooth clay, dark muddy colors, desaturated gray, deformed paws, extra limbs, human face, text, watermark, low quality.`,
       discordCopy: `🚨 **ТАО В ШОКЕ! ЗВЁЗДНЫЙ КЛЮЧ ИСЧЕЗ! НАЧИНАЕМ 7-ДНЕВНЫЙ КВЕСТ!** 🚨
 
 Друзья, у нас космическое ЧП в Обсерватории Фортуны! 
@@ -86,13 +92,17 @@ Negative Prompt: no text, no watermark, no human, no 2D flat drawing, no distort
         label: "По вентиляционным туннелям",
         choiceText: "🅰️ Проползти через узкие кабельные туннели базы",
         sceneTitle: "ТАО в неоновой кабельной шахте с микрочипом",
-        prompt: `Reference Image: TAO_Rocket_Repair.png
-A stunning cinematic 3D animation style scene in 16:9 aspect ratio.
-Subject: TAO, the cute cosmic red panda mechanic, crawling carefully through a tight industrial maintenance conduit tube.
-Action: TAO holds a miniature LED inspection flashlight between his teeth and carefully examines a glowing triangular cyber-microchip with golden circuits held in his gloved paw. His amber eyes show deep concentration and curiosity.
-Environment: Tight metallic maintenance tunnel with bundles of glowing cyan and magenta optical cables, pulsating conduits, vents blowing steam, reflective metal walls with slight wear and scratches.
-Lighting & Atmosphere: Moody cyberpunk volumetric lighting, high-contrast rim light on TAO's fur, neon reflections, cinematic depth of field, Octane render quality, ultra-detailed textures.
-Negative Prompt: no text, no watermark, no human face, no distorted anatomy, no 2D style, no blurry artifacts.`,
+        prompt: `Based on the character in the attached reference image, generate a stunning cinematic 3D animated scene in 16:9 widescreen format.
+
+Character Consistency: Keep the character TAO 100% identical to the reference image: the exact same red panda face, fur grooming, cute rounded ears, and his full navy-blue and orange textured armor suit with honeycomb chestplate, straps, and knee pads.
+
+Action & Pose: TAO is crawling carefully through a tight, futuristic maintenance conduit tube. He holds a miniature glowing LED inspection torch between his teeth, carefully examining a triangular golden cyber-microchip held in his gloved paw. His expressive amber eyes show intense curiosity and sharp focus. His fluffy banded tail curves behind him in the tunnel.
+
+Environment: A high-tech industrial ventilation shaft packed with thick glowing bundles of cyan and magenta fiber-optic cables, pulsating holographic conduits, gentle steam venting from metal grates, and reflective worn metallic walls.
+
+Lighting & Style: Award-winning cinematic 3D feature animation render, Octane 3D style. Cyberpunk-inspired moody volumetric lighting with high-contrast rim light on TAO's fur, bright neon reflections on the metal walls, rich depth of field, sharp textures, 8k resolution.
+
+Negative Prompt: flat 2D, plastic toy, preschool cartoon, smooth clay, dark muddy colors, desaturated gray, deformed paws, extra limbs, human face, text, watermark, low quality.`,
         discordCopy: `🔍 **ДЕНЬ 2: ВЕЛИКАЯ НАХОДКА В ШАХТЕ!** 🔍
 
 Вы проголосовали за шахты — и ТАО нашёл ключевую улику! 
@@ -112,13 +122,17 @@ Negative Prompt: no text, no watermark, no human face, no distorted anatomy, no 
         label: "По следу на орбите",
         choiceText: "🅱️ Сканировать обломки с внешней подвесной платформы",
         sceneTitle: "ТАО на внешней платформе станции со сканером",
-        prompt: `Reference Image: TAO_Rocket_Repair.png
-A breathtaking cinematic 3D animation still in 16:9 aspect ratio.
-Subject: TAO, the cosmic red panda in his blue and orange mechanic spacesuit, standing on an open metal gantry bridge in zero gravity outside the station.
-Action: TAO wears an illuminated sci-fi visor over one eye. He aims a long-range holographic cosmic sensor into the deep starry void. The scanner projects a glowing neon-cyan trajectory cone pointing towards a distant glowing asteroid station.
-Environment: Epic open space backdrop with a dazzling violet nebula, glittering asteroid field, and the shadowy silhouette of the mysterious outlaw outpost 'Neon Drift' illuminated by flickering neon signs.
-Lighting & Atmosphere: Cosmic rim lighting, starlight reflections on visor and spacesuit metal parts, cinematic wide composition, awe-inspiring scale, 8k resolution.
-Negative Prompt: no text, no extra limbs, no flat 2D, no oversaturated cartoonish colors, no blurry elements.`,
+        prompt: `Based on the character in the attached reference image, generate an epic cinematic 3D animated scene in 16:9 widescreen format.
+
+Character Consistency: Keep the character TAO 100% identical to the reference image: the exact same red panda face, fur grooming, cute rounded ears, and his full navy-blue and orange textured armor suit with honeycomb chestplate, straps, and knee pads.
+
+Action & Pose: TAO stands heroically on an open metal gantry catwalk in zero gravity outside the orbital space station. He wears an illuminated tactical holographic visor over one eye. In both paws, he aims a high-tech cosmic scanner that projects a glowing cyan holographic trajectory beam into the deep starry void, pointing directly at a distant glowing asteroid station.
+
+Environment: Breathtaking open cosmic vista featuring a dazzling purple, violet, and magenta nebula, a shimmering field of floating crystal asteroids, and the shadowy silhouette of the outlaw asteroid outpost 'Neon Drift' illuminated by flickering neon signs.
+
+Lighting & Style: Award-winning cinematic 3D feature animation render. Majestic starlight reflections on armor and visor, glowing cyan scanner cone, warm golden rim lights outlining TAO's fur, cinematic wide-angle epic framing, crisp 8k resolution.
+
+Negative Prompt: flat 2D, plastic toy, preschool cartoon, smooth clay, dark muddy colors, desaturated gray, deformed paws, extra limbs, human face, text, watermark, low quality.`,
         discordCopy: `📡 **ДЕНЬ 2: ТРАЕКТОРИЯ ЗАФИКСИРОВАНА!** 📡
 
 Сенсоры космодрома не соврали! Сканирование внешней платформы показало четкий плазменный след, ведущий к космическому аванпосту **«Неоновый Дрифт»**!
@@ -147,13 +161,17 @@ Negative Prompt: no text, no extra limbs, no flat 2D, no oversaturated cartoonis
         label: "Тайный переулок свалки",
         choiceText: "🅰️ Пробираться через тёмный переулок мимо спящих охранников",
         sceneTitle: "ТАО крадется по неоновому киберпанк-переулку",
-        prompt: `Reference Image: TAO_Rocket_Repair.png
-A cinematic 3D animation masterpiece in 16:9 aspect ratio.
-Subject: TAO, the anthropomorphic cosmic red panda, in his navy-blue and orange mechanic suit, crouching stealthily behind large glowing cargo crates.
-Action: TAO peeks around the corner with a determined, cautious expression. In his hand he holds a holographic radar that shows a pulsing golden beacon icon ahead. His fluffy striped tail is tucked low for stealth.
-Environment: A gritty, vibrant sci-fi alleyway on a space station. Giant glowing neon signs in alien glyphs (pink, teal, electric amber), steam venting from overhead pipes, floating surveillance drones in the distance with scanning red lasers scanning the street.
-Lighting & Atmosphere: Cinematic film noir sci-fi lighting, wet ground reflections with colored neon puddles, volumetric fog, deep shadows, rich atmospheric depth.
-Negative Prompt: no text, no readable English words, no deformed paws, no 2D, no watermark, no low quality.`,
+        prompt: `Based on the character in the attached reference image, generate a thrilling cinematic 3D animated scene in 16:9 widescreen format.
+
+Character Consistency: Keep the character TAO 100% identical to the reference image: the exact same red panda face, fur grooming, cute rounded ears, and his full navy-blue and orange textured armor suit with honeycomb chestplate, straps, and knee pads.
+
+Action & Pose: TAO is crouching stealthily behind large glowing cargo crates in a dark alleyway. He peeks cautiously around the corner with a determined, focused expression. In one paw he holds a mini radar datapad displaying a pulsing golden beacon icon ahead. His fluffy striped tail is tucked low for stealth.
+
+Environment: A gritty, colorful sci-fi alley on the outlaw asteroid station. Giant glowing alien neon signs in electric magenta, cyan, and amber, overhead pipes releasing billows of warm white steam, wet metallic ground with glowing colorful reflections, floating security drones with red scanning beams in the background.
+
+Lighting & Style: Award-winning cinematic 3D animated feature render. Film-noir atmospheric sci-fi lighting, rich neon glow and wet puddle reflections, volumetric fog, strong rim lights on TAO's fur, sharp focus, Octane 3D render quality.
+
+Negative Prompt: flat 2D, plastic toy, preschool cartoon, smooth clay, dark muddy colors, desaturated gray, deformed paws, extra limbs, human face, text, watermark, low quality.`,
         discordCopy: `🤫 **ДЕНЬ 3: СТЕЛС-РЕЖИМ НА МАКСИМУМ!** 🤫
 
 Вы выбрали скрытный путь — и ТАО мастерски обошел все патрули на свалке «Неонового Дрифта»!
@@ -172,13 +190,17 @@ Negative Prompt: no text, no readable English words, no deformed paws, no 2D, no
         label: "Космо-бар контрабандистов",
         choiceText: "🅱️ Сидеть у стойки космо-бара и сканировать частоты гостей",
         sceneTitle: "ТАО в шумном космическом баре с детективным сканером",
-        prompt: `Reference Image: TAO_Rocket_Repair.png
-A vibrant cinematic 3D animation scene in 16:9 aspect ratio.
-Subject: TAO, the cosmic red panda mechanic, sitting casually at a glowing curved bar counter inside a bustling alien cantina.
-Action: TAO pretends to clean a chrome space-wrench while subtly glancing at a miniature frequency analyzer concealed inside his toolbox. On the screen, a golden signal frequency peaks with high amplitude.
-Environment: A crowded sci-fi space bar filled with quirky friendly alien patrons in the soft background, glowing holographic drink dispensers, neon tap handles, floating luminescent jellyfish lanterns.
-Lighting & Atmosphere: Warm amber and electric magenta tavern lighting, lens flare, cinematic bokeh, highly detailed fur and leather textures, lively space-opera atmosphere.
-Negative Prompt: no human faces, no text, no deformed hands, no flat anime, no watermark, no low res.`,
+        prompt: `Based on the character in the attached reference image, generate a vibrant cinematic 3D animated scene in 16:9 widescreen format.
+
+Character Consistency: Keep the character TAO 100% identical to the reference image: the exact same red panda face, fur grooming, cute rounded ears, and his full navy-blue and orange textured armor suit with honeycomb chestplate, straps, and knee pads.
+
+Action & Pose: TAO is sitting casually at a sleek curved counter inside a bustling alien cantina. He pretends to polish a shiny brass space wrench with a cloth while secretly glancing down at an open toolkit containing a glowing frequency analyzer device. The device's screen shows a golden energy wave peaking at maximum frequency.
+
+Environment: A lively, colorful space tavern filled with friendly quirky alien characters in soft background blur, glowing neon tap handles, floating luminous jellyfish lanterns, and holographic drink menus casting amber and magenta light.
+
+Lighting & Style: Award-winning cinematic 3D animated feature render. Warm golden and magenta ambient lighting, beautiful lens flares, cinematic shallow depth of field, sharp tactile detail on TAO's suit and fur, 8k resolution.
+
+Negative Prompt: flat 2D, plastic toy, preschool cartoon, smooth clay, dark muddy colors, desaturated gray, deformed paws, extra limbs, human face, text, watermark, low quality.`,
         discordCopy: `🍹 **ДЕНЬ 3: РАЗВЕДКА В КОСМО-БАРЕ!** 🍹
 
 ТАО вошёл как свой в бар «Шестерёнка и Квазар»! Пока инопланетные пилоты спорят о курсе звёздной пыли, портативный сканер ТАО засек частоту Ключа! 
@@ -207,13 +229,17 @@ Negative Prompt: no human faces, no text, no deformed hands, no flat anime, no w
         label: "Шок сквозь бронестекло",
         choiceText: "🅰️ ТАО светит фонарем сквозь бронированное стекло на запертого дрона",
         sceneTitle: "ТАО узнает своего старого круглого сервисного дрона",
-        prompt: `Reference Image: TAO_Rocket_Repair.png
-An emotional and dramatic cinematic 3D Pixar-style scene in 16:9 aspect ratio.
-Subject: TAO, the cosmic red panda mechanic in his blue and orange spacesuit, pressing his gloved paw against a thick reinforced circular glass viewport of a massive steel vault door.
-Action: His amber eyes are wide with shock and emotional relief. On the other side of the thick glass stands a cute little vintage spherical service drone with metal patches and glowing blue optic eyes, holding the glowing golden Constellation Key safely in its robotic clamp, looking apologetically at TAO.
-Environment: Cold metallic industrial corridor outside the heavy blast vault door. Emergency red lights flicker, steam hisses from high-pressure valves.
-Lighting & Atmosphere: Golden starlight glow emanating from the Key inside, contrasting against cool blue-grey corridor tones, cinematic rim lighting on TAO's fur, emotional storytelling moment, 8k render.
-Negative Prompt: no text, no letters, no human, no distorted paws, no 2D, no low quality, no dark blur.`,
+        prompt: `Based on the character in the attached reference image, generate an emotional, high-stakes cinematic 3D animated scene in 16:9 widescreen format.
+
+Character Consistency: Keep the character TAO 100% identical to the reference image: the exact same red panda face, fur grooming, cute rounded ears, and his full navy-blue and orange textured armor suit with honeycomb chestplate, straps, and knee pads.
+
+Action & Emotion: TAO is pressing his gloved paw against the thick circular reinforced glass viewport of a massive titanium vault door. His amber eyes are wide with shock, relief, and affection, mouth parted in realization. On the inside of the locked vault, a cute, battered vintage spherical robot drone with brass patch-welds and glowing blue robotic eyes holds the radiant golden Constellation Key, looking apologetically at TAO.
+
+Environment: A massive industrial bunker entrance with heavy steel gear teeth, flickering amber emergency lights, hydraulic pipes with hissing steam, and hazard warning decals.
+
+Lighting & Style: Award-winning cinematic 3D animated feature render. Brilliant golden light radiating from the Key inside casting warm highlights onto TAO's face through the glass, contrasted with deep cyan and amber corridor lighting, emotional storytelling atmosphere, 8k Octane render.
+
+Negative Prompt: flat 2D, plastic toy, preschool cartoon, smooth clay, dark muddy colors, desaturated gray, deformed paws, extra limbs, human face, text, watermark, low quality.`,
         discordCopy: `💥 **ДЕНЬ 4: СЮЖЕТНЫЙ ПОВОРОТ! ОН НЕ ВОР!** 💥
 
 ТАО добрался до бункера, посветил в смотровое окно... И ОБОМЛЕЛ! 😱
@@ -235,13 +261,17 @@ Negative Prompt: no text, no letters, no human, no distorted paws, no 2D, no low
         label: "Голограмма надвигающейся бури",
         choiceText: "🅱️ Дрон проецирует голограмму космической бури",
         sceneTitle: "Проекция предупреждения о космической буре сквозь стекло",
-        prompt: `Reference Image: TAO_Rocket_Repair.png
-A dramatic high-stakes cinematic 3D animation scene in 16:9 aspect ratio.
-Subject: TAO, the cosmic red panda mechanic, looking intensely through a heavy vault window at a holographic projection.
-Action: Inside the locked bunker, the cute round robot drone projects a 3D red wireframe hologram of a massive cosmic solar flare and gamma storm hurtling towards the constellation observatory. TAO holds his toolkit ready, understanding the extreme urgency of the mission.
-Environment: Deep underground bunker corridor with heavy steel ribs, hazard warning stripes, flickering amber warning screens, hydraulic pistons.
-Lighting & Atmosphere: Dramatic red and cyan dual-tone lighting, bright holographic glow illuminating TAO's expressive face, cinematic tension, high production value, Octane render.
-Negative Prompt: no text, no watermark, no extra limbs, no flat cartoon, no blurry artifacts.`,
+        prompt: `Based on the character in the attached reference image, generate a dramatic cinematic 3D animated scene in 16:9 widescreen format.
+
+Character Consistency: Keep the character TAO 100% identical to the reference image: the exact same red panda face, fur grooming, cute rounded ears, and his full navy-blue and orange textured armor suit with honeycomb chestplate, straps, and knee pads.
+
+Action & Pose: TAO stands outside the locked blast door, watching intensely through the thick reinforced viewport. On the other side, the little round robot drone projects a glowing 3D red and amber wireframe hologram showing a massive solar flare and gamma storm hurtling toward the home observatory. TAO grips his heavy wrench with determination, his eyes reflecting the urgency.
+
+Environment: An underground high-security vault corridor with heavy steel ribs, hydraulic pistons, flashing amber hazard beacons, and steam venting from high-pressure valves.
+
+Lighting & Style: Award-winning cinematic 3D animated feature render. Dramatic red and cyan dual-tone lighting, bright holographic glow illuminating TAO's expressive face and suit textures, cinematic tension, Octane 3D render quality.
+
+Negative Prompt: flat 2D, plastic toy, preschool cartoon, smooth clay, dark muddy colors, desaturated gray, deformed paws, extra limbs, human face, text, watermark, low quality.`,
         discordCopy: `⚠️ **ДЕНЬ 4: ТРЕВОГА ГАЛАКТИЧЕСКОГО МАСШТАБА!** ⚠️
 
 Голограмма дрона не оставляет сомнений: это была не кража, это была СПАСАТЕЛЬНАЯ ОПЕРАЦИЯ! 
@@ -270,13 +300,17 @@ Negative Prompt: no text, no watermark, no extra limbs, no flat cartoon, no blur
         label: "Силовой взлом кабелей",
         choiceText: "🅰️ ТАО висит на тросе и режет кабели плазменным резаком",
         sceneTitle: "ТАО на подвесе перерезает силовые магистрали замка",
-        prompt: `Reference Image: TAO_Rocket_Repair.png
-A dynamic, high-adrenaline cinematic 3D animation scene in 16:9 aspect ratio.
-Subject: TAO, the brave cosmic red panda engineer, suspended on a safety harness cable above a deep glowing reactor shaft.
-Action: TAO wears protective welder-goggles over his forehead. With focused determination, he uses a glowing blue plasma cutting torch to rewire a massive junction box of thick power conduits. Bright golden and electric-blue sparks shower dynamically through the air.
-Environment: Industrial reactor core shaft with giant hydraulic pistons, heavy pipes with venting white steam, glowing status indicators, massive metal machinery.
-Lighting & Atmosphere: Spectacular lighting from plasma spark bursts, deep dark industrial shadows, vibrant cyan lens flares, intense cinematic action framing, 8k render quality.
-Negative Prompt: no text, no watermark, no human, no distorted paws, no 2D style, no low resolution.`,
+        prompt: `Based on the character in the attached reference image, generate a high-action cinematic 3D animated scene in 16:9 widescreen format.
+
+Character Consistency: Keep the character TAO 100% identical to the reference image: the exact same red panda face, fur grooming, cute rounded ears, and his full navy-blue and orange textured armor suit with honeycomb chestplate, straps, and knee pads.
+
+Action & Pose: TAO is suspended in a heavy-duty safety harness cable high above a deep, glowing reactor shaft. He has protective flip-up welding goggles resting above his brow. With intense concentration, he uses a glowing blue plasma cutting torch to rewire a massive junction box of thick glowing cables. A spectacular shower of bright golden and electric-cyan sparks sprays dynamically through the air.
+
+Environment: A massive industrial elevator and reactor shaft, giant hydraulic pistons, humming conduits, venting white steam clouds, and metallic walkways.
+
+Lighting & Style: Award-winning cinematic 3D animated feature render. Brilliant dynamic lighting from cutting sparks and blue plasma arc, glowing cyan accents, warm golden reflections on TAO's armor and fur, high-adrenaline cinematic composition, 8k resolution.
+
+Negative Prompt: flat 2D, plastic toy, preschool cartoon, smooth clay, dark muddy colors, desaturated gray, deformed paws, extra limbs, human face, text, watermark, low quality.`,
         discordCopy: `⚡ **ДЕНЬ 5: ИСКРЫ, ПЛАЗМА И СЕКУНДОМЕР!** ⚡
 
 Вы выбрали силовой взлом — и ТАО уже на тросе прямо над шахтой реактора! 
@@ -296,13 +330,17 @@ Negative Prompt: no text, no watermark, no human, no distorted paws, no 2D style
         label: "Интеллектуальный взлом консоли",
         choiceText: "🅱️ ТАО настраивает голографические кольца созвездий на консоли",
         sceneTitle: "ТАО решает астрономическую головоломку на терминале",
-        prompt: `Reference Image: TAO_Rocket_Repair.png
-An intellectually thrilling cinematic 3D animation scene in 16:9 aspect ratio.
-Subject: TAO, the clever cosmic red panda mechanic, standing before a towering ancient technological terminal.
-Action: TAO delicately adjusts glowing holographic concentric rings of constellations and star alignments floating above the control pedestal with his paws. His face reflects the brilliant golden and cyan star-charts, eyes glowing with insight.
-Environment: Ancient star-tech vault chamber with geometric glyphs, glowing runes embedded in dark obsidian walls, floating data particles.
-Lighting & Atmosphere: Enchanting ethereal starlight glow, intricate holographic geometry, moody ambient shadows, Pixar-level subsurface scattering on fur, masterpiece quality.
-Negative Prompt: no text, no real letters, no human, no extra fingers, no flat 2D, no dark mud.`,
+        prompt: `Based on the character in the attached reference image, generate an enchanting cinematic 3D animated scene in 16:9 widescreen format.
+
+Character Consistency: Keep the character TAO 100% identical to the reference image: the exact same red panda face, fur grooming, cute rounded ears, and his full navy-blue and orange textured armor suit with honeycomb chestplate, straps, and knee pads.
+
+Action & Pose: TAO stands before a towering ancient technological terminal pedestal. With both paws, he is delicately rotating and aligning glowing holographic rings of golden constellations and celestial glyphs floating in mid-air. His face is lit with inspiration and focus, amber eyes sparkling with insight.
+
+Environment: A mystical star-tech chamber with dark polished obsidian walls engraved with glowing cyan runes, floating data particles, and spinning astrolabe gears.
+
+Lighting & Style: Award-winning cinematic 3D animated feature render. Ethereal golden and cyan holographic glow reflecting off TAO's face, fur, and suit armor, magical atmosphere, rich volumetric lighting, crisp 8k resolution.
+
+Negative Prompt: flat 2D, plastic toy, preschool cartoon, smooth clay, dark muddy colors, desaturated gray, deformed paws, extra limbs, human face, text, watermark, low quality.`,
         discordCopy: `🧩 **ДЕНЬ 5: ГОЛОВОЛОМКА ЗВЁЗДНЫХ ВРАТ!** 🧩
 
 Вы выбрали интеллект — и ТАО уже перед древним терминалом доступа!
@@ -330,13 +368,17 @@ Negative Prompt: no text, no real letters, no human, no extra fingers, no flat 2
         label: "Распахнутый шлюз бункера",
         choiceText: "🅰️ Огромные створки бункера раскрываются, ТАО принимает Ключ",
         sceneTitle: "Триумфальное открытие тяжелых гермодверей",
-        prompt: `Reference Image: TAO_Rocket_Repair.png
-An awe-inspiring cinematic 3D animation scene in 16:9 aspect ratio.
-Subject: TAO, the joyful cosmic red panda in his blue-orange spacesuit, and his cute little spherical service drone.
-Action: The massive circular geared vault door has split open with huge clouds of billowing white steam and brilliant golden light pouring from within. The little drone hovers proudly forward, placing the radiant, glowing golden Constellation Key right into TAO's open paws. TAO has a triumphant, warm smile.
-Environment: Industrial bunker doorway with heavy interlocking gears and steel teeth retracted, floor bathed in warm golden light, atmosphere of victory and relief.
-Lighting & Atmosphere: Volumetric god-rays of golden starlight streaming through steam clouds, warm cinematic lighting, rich metallic reflections, emotional and rewarding moment.
-Negative Prompt: no text, no watermark, no human, no distorted anatomy, no 2D, no low quality.`,
+        prompt: `Based on the character in the attached reference image, generate a heartwarming and triumphant cinematic 3D animated scene in 16:9 widescreen format.
+
+Character Consistency: Keep the character TAO 100% identical to the reference image: the exact same red panda face, fur grooming, cute rounded ears, and his full navy-blue and orange textured armor suit with honeycomb chestplate, straps, and knee pads.
+
+Action & Emotion: The massive circular geared vault door has split open with huge clouds of billowing white steam and brilliant golden light pouring through. TAO is joyfully kneeling down, with a big proud smile, as the cute little spherical robot drone hovers forward and safely places the glowing golden Constellation Key into TAO's open paws.
+
+Environment: Industrial bunker doorway with heavy retracted steel gears, polished floor reflecting golden light and drifting steam, joyful victorious atmosphere.
+
+Lighting & Style: Award-winning cinematic 3D animated feature render. Warm volumetric god-rays streaming through the doorway, brilliant golden glow from the Key illuminating TAO and the drone, cinematic depth, 8k Octane quality.
+
+Negative Prompt: flat 2D, plastic toy, preschool cartoon, smooth clay, dark muddy colors, desaturated gray, deformed paws, extra limbs, human face, text, watermark, low quality.`,
         discordCopy: `🔓 **ДЕНЬ 6: ЗАМОК СЛОМАН! КЛЮЧ У НАС!** 🔓
 
 ЕСТЬ ПРОРЫВ! Огромная дверь бункера с шипением пара распахнулась!
@@ -354,13 +396,15 @@ Negative Prompt: no text, no watermark, no human, no distorted anatomy, no 2D, n
         label: "Старт ракеты сквозь бурю",
         choiceText: "🅱️ Ракета ТАО взлетает сквозь фиолетовые волны космической бури",
         sceneTitle: "Ракета ТАО мчится сквозь космический шторм",
-        prompt: `Reference Image: TAO_Rocket_Repair.png
-An epic, high-stakes cinematic 3D animation scene in 16:9 aspect ratio.
-Subject: TAO's retro-futuristic purple space rocket with golden star emblems, blazing across the screen at hyper-speed.
-Action: The rocket's twin ion engines blast glowing cyan and golden fire trails. Through the cockpit glass canopy, TAO can be seen at the helm with the little round drone happily sitting on the dashboard beside the glowing golden Key.
-Environment: A tempestuous, epic space storm with rolling violet clouds, crackling plasma lightning, and cosmic solar flares in the background. Ahead lies the tranquil golden halo of the home planet and observatory.
-Lighting & Atmosphere: Electrifying purple and cyan ambient lighting, intense thruster fire glow, speed blur on background debris, cinematic space-opera spectacle, 8k quality.
-Negative Prompt: no text, no watermark, no low quality, no 2D anime, no blurry foreground.`,
+        prompt: `Based on the character in the attached reference image, generate an epic, high-stakes cinematic 3D animated space scene in 16:9 widescreen format.
+
+Action & Subject: TAO's retro-futuristic purple space rocket with golden star emblems is blasting at hyper-speed across the screen. Through the transparent cockpit canopy, TAO (in his signature navy-and-orange armor suit from the reference image) is seen skillfully piloting at the control helm, with the happy little round robot drone sitting on the dashboard beside the radiant golden Constellation Key.
+
+Environment: An epic, tempestuous space storm with rolling violet and magenta cosmic clouds, crackling cyan plasma lightning bolts, and drifting space debris. Ahead in the distance lies the serene golden corona of the home planet and observatory.
+
+Lighting & Style: Award-winning cinematic 3D feature animation render. Electrifying violet and cyan ambient lighting, intense golden ion engine exhaust plumes trailing behind, cinematic motion blur on cosmic dust, blockbuster space-opera spectacle, 8k resolution.
+
+Negative Prompt: flat 2D, plastic toy, preschool cartoon, smooth clay, dark muddy colors, desaturated gray, deformed paws, extra limbs, human face, text, watermark, low quality.`,
         discordCopy: `⚡ **ДЕНЬ 6: ГОНКА НА ГИПЕРСКОРОСТИ!** ⚡
 
 Мы успели вырваться с аванпоста за секунду до удара шторма! 
@@ -385,13 +429,17 @@ Negative Prompt: no text, no watermark, no low quality, no 2D anime, no blurry f
         label: "Активация Звёздного Двигателя",
         choiceText: "🅰️ ТАО поворачивает Ключ в алтаре — рождение золотого портала",
         sceneTitle: "Торжественный момент активации Звездного Алтаря",
-        prompt: `Reference Image: TAO_Rocket_Repair.png
-A breathtaking, climactic cinematic 3D Pixar-style scene in 16:9 aspect ratio.
-Subject: TAO, the victorious cosmic red panda mechanic in his blue-orange spacesuit, standing at the center of the grand celestial observatory terrace.
-Action: With a proud, joyful expression, TAO firmly inserts and turns the golden Constellation Key into the intricate astronomical slot. A majestic pillar of golden starlight shoots skyward from the altar, creating an expanding ring of shimmering constellations and golden lucky runes across the cosmic night sky.
-Environment: The grand observatory fully restored, ancient bronze astrolabes spinning smoothly, glowing cosmic dust swirling in the air, his loyal round robot drone hovering happily nearby.
-Lighting & Atmosphere: Glorious golden volumetric god-rays, deep majestic navy starlight backdrop, shimmering particle effects, cinematic masterpiece, awe-inspiring emotional payoff.
-Negative Prompt: no text, no watermark, no human, no deformed limbs, no flat cartoon, no low resolution.`,
+        prompt: `Based on the character in the attached reference image, generate a breathtaking, climactic cinematic 3D animated scene in 16:9 widescreen format.
+
+Character Consistency: Keep the character TAO 100% identical to the reference image: the exact same red panda face, fur grooming, cute rounded ears, and his full navy-blue and orange textured armor suit with honeycomb chestplate, straps, and knee pads.
+
+Action & Emotion: TAO stands victoriously at the center of the grand celestial observatory terrace. With a radiant, proud smile, he firmly turns the golden Constellation Key inside the ornate astronomical altar slot. A majestic, blinding pillar of golden starlight shoots straight up into the night sky, creating an expanding ring of shimmering golden constellations and glowing runes of fortune across the cosmos. The little repaired robot drone hovers nearby cheering joyfully.
+
+Environment: The ancient star observatory fully restored, massive bronze astrolabes spinning smoothly, swirling golden cosmic dust, panoramic glass dome showing vibrant purple starlight.
+
+Lighting & Style: Award-winning cinematic 3D animated feature render. Glorious golden volumetric god-rays, warm sparkling particle effects, rich vibrant celestial colors, emotional blockbuster climax, 8k Octane quality.
+
+Negative Prompt: flat 2D, plastic toy, preschool cartoon, smooth clay, dark muddy colors, desaturated gray, deformed paws, extra limbs, human face, text, watermark, low quality.`,
         discordCopy: `🌟 **ДЕНЬ 7: ДВИГАТЕЛЬ ФОРТУНЫ ЗАПУЩЕН! МЫ СДЕЛАЛИ ЭТО!** 🌟
 
 ВЫ ЭТО ВИДИТЕ?! ТАО вернул Звёздный Ключ на законное место! ✨
@@ -413,13 +461,17 @@ Negative Prompt: no text, no watermark, no human, no deformed limbs, no flat car
         label: "Мега-праздник с сундуком сокровищ",
         choiceText: "🅱️ ТАО на сундуке с сокровищами празднует победу с комьюнити",
         sceneTitle: "ТАО на вершине горы золотых монет и кристаллов",
-        prompt: `Reference Image: TAO_Rocket_Repair.png
-A joyful, festive cinematic 3D animation scene in 16:9 aspect ratio.
-Subject: TAO, the cheerful cosmic red panda mechanic in his blue-orange spacesuit, sitting triumphantly atop a giant open treasure chest overflowing with glowing golden coins, gems, and cosmic fortune envelopes.
-Action: TAO raises his shiny wrench in a victory salute with one paw, giving a big cheerful wink to the viewer. In his other paw he holds an open glowing starlight scroll. The little repaired robot drone flies confetti streamers around him.
-Environment: Celebration hall in the observatory filled with festive starlight balloons, floating gold confetti, glowing star lanterns, warm and inviting atmosphere.
-Lighting & Atmosphere: Warm sparkling golden lighting, dazzling reflections on coins and crystals, festive bokeh, vibrant high-key cinematic render, 8k resolution.
-Negative Prompt: no text on coins, no watermark, no human face, no distorted anatomy, no 2D flat drawing, no blur.`,
+        prompt: `Based on the character in the attached reference image, generate a joyful, celebratory cinematic 3D animated scene in 16:9 widescreen format.
+
+Character Consistency: Keep the character TAO 100% identical to the reference image: the exact same red panda face, fur grooming, cute rounded ears, and his full navy-blue and orange textured armor suit with honeycomb chestplate, straps, and knee pads.
+
+Action & Emotion: TAO is sitting triumphantly and joyfully atop a massive open treasure chest overflowing with sparkling golden coins, glowing gems, and cosmic fortune envelopes. He raises a shiny brass wrench in a victory salute with a cheerful wink. In his other paw he holds an open glowing scroll. The cute little round robot drone flies celebratory confetti streamers and sparkles around him.
+
+Environment: The festive observatory celebration hall decorated with floating starlight balloons, golden confetti in mid-air, glowing star lanterns, and warm holiday ambiance.
+
+Lighting & Style: Award-winning cinematic 3D animated feature render. Sparkling warm golden lighting, dazzling reflections on coins and crystals, festive bokeh, vibrant high-key atmosphere, rich 8k resolution.
+
+Negative Prompt: flat 2D, plastic toy, preschool cartoon, smooth clay, dark muddy colors, desaturated gray, deformed paws, extra limbs, human face, text on coins, watermark, low quality.`,
         discordCopy: `🎉 **ГРАНД-ФИНАЛ: ВЕЛИКИЙ ПРАЗДНИК TAO FORTUNE!** 🎉
 
 СУНДУК ФОРТУНЫ РАСПАХНУТ ДЛЯ ВСЕХ! 💰✨
