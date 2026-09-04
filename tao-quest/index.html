@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>🪐 ТАО: Похищенный Звёздный Ключ — 7-Day Interactive Discord Quest</title>
+<meta name="description" content="Интерактивный дашборд производства графики и сторителлинга для Discord-кампании TAO Fortune. 7 дней, 13 кинематографичных сцен для Gemini Nano Banana 2." />
+<link rel="stylesheet" href="styles.css?v=2" />
+<style>
+  :root {
+    --bg:#06070d; --surface:#101424; --border:rgba(255,255,255,0.08);
+  }
+  html, body { margin:0; padding:0; }
+  body { background:#06070d; color:#f0f4fc; font-family:'Outfit',sans-serif; -webkit-font-smoothing:antialiased; }
+
+  /* Shared App Shell */
+  .shell { display:grid; grid-template-columns:190px 1fr; grid-template-rows:52px 1fr; grid-template-areas:"topbar topbar" "sidebar content"; min-height:100vh; }
+  @media (max-width:720px){ .shell { grid-template-columns:1fr; grid-template-areas:"topbar" "sidebar" "content"; } }
+  .topbar { grid-area:topbar; position:sticky; top:0; z-index:60; display:flex; align-items:center; justify-content:space-between; padding:0 20px; background:#0b0e18; border-bottom:1px solid rgba(255,255,255,.08); }
+  .topbar .brand { color:#f0d29a; font-weight:700; font-size:14px; letter-spacing:.02em; text-decoration:none; display:flex; align-items:center; gap:8px; }
+  .topbar .brand:hover { opacity:.9; }
+
+  .sidebar { grid-area:sidebar; background:#090c14; border-right:1px solid rgba(255,255,255,.08); padding:16px 10px; display:flex; flex-direction:column; gap:4px; }
+  @media (max-width:720px){ .sidebar { border-right:none; border-bottom:1px solid rgba(255,255,255,.08); flex-direction:row; flex-wrap:wrap; padding:8px; } }
+  .sidebar nav { display:flex; flex-direction:column; gap:3px; width:100%; }
+  @media (max-width:720px){ .sidebar nav { flex-direction:row; flex-wrap:wrap; gap:4px; } }
+  .slink { display:flex; align-items:center; gap:8px; padding:7px 11px; border-radius:6px; color:#94a3b8; text-decoration:none; font-size:13px; font-weight:500; transition:all .15s ease; }
+  .slink:hover { color:#f0d29a; background:rgba(212,162,78,.08); }
+  .slink.active { color:#0b0d18; background:linear-gradient(135deg, #ffb700, #ff7b00); font-weight:700; }
+
+  .content { grid-area:content; padding:0; min-width:0; background:#06070d; position:relative; overflow-x:hidden; }
+</style>
+</head>
+<body>
+<div class="shell">
+  <header class="topbar">
+    <a class="brand" href="/dashboards/">
+      <span>📊</span> <span>Dashboards</span>
+    </a>
+  </header>
+  <aside class="sidebar">
+    <nav>
+      <a href="/dashboards/" class="slink">Главная</a>
+      <a href="/dashboards/reports/" class="slink">Отчеты</a>
+      <a href="/dashboards/planning/" class="slink">Планирование</a>
+      <a href="/dashboards/promo-codes/" class="slink">Промокоды</a>
+      <a href="/dashboards/visual/" class="slink">Визуал</a>
+      <a href="/dashboards/giveaways/" class="slink">Розыгрыши</a>
+      <a href="/dashboards/poll-breakdown/" class="slink">Опросы</a>
+      <a href="/dashboards/chat-triage/" class="slink">Чат-триаж</a>
+      <a href="/dashboards/holidays/" class="slink">🇺🇸 Праздники США</a>
+      <a href="/dashboards/tao-quest/" class="slink active">🪐 ТАО Квест</a>
+    </nav>
+  </aside>
+
+  <main class="content">
+<!-- Ambient Cosmic Dust Layer -->
+  <div class="cosmic-dust-ambient" aria-hidden="true"></div>
+
+  <div class="dashboard-container">
+    
+    <!-- Top Header Card -->
+    <header class="header-card" id="main-header">
+      <div class="brand-section">
+        <div class="mascot-avatar-badge">
+          <img src="assets/TAO_Rocket_Repair.png" alt="TAO avatar" id="header-avatar-img">
+        </div>
+        <div class="brand-info">
+          <h1 id="page-main-heading">
+            <span class="gradient-text-gold">ТАО</span>: Похищенный Звёздный Ключ
+            <span class="meta-badge" id="arc-badge">7-Day Quest Arc</span>
+          </h1>
+          <p id="page-subheading">Интерактивная сюжетная кампания для Discord • 1 стартовый мастер-кадр + 12 ответвлений (16:9) • Голосование реакциями 🅰️/🅱️</p>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <button class="action-btn" id="btn-export-markdown" title="Экспортировать весь план и все промпты в единый .md файл">
+          <span>📄</span> <span>Экспорт в Markdown</span>
+        </button>
+        <button class="action-btn" id="btn-export-json" title="Экспортировать структуру в JSON">
+          <span>💾</span> <span>Экспорт JSON</span>
+        </button>
+        <a href="https://aistudio.google.com/" target="_blank" rel="noopener noreferrer" class="action-btn action-btn-primary" id="btn-open-gemini">
+          <span>🍌</span> <span>Открыть Nano Banana 2</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- Hero Deck: Character Specs & Storyline Simulator -->
+    <section class="hero-deck-grid" id="hero-deck-section">
+      
+      <!-- Character Lore Card -->
+      <aside class="character-card" id="character-dna-card">
+        <div class="character-image-box">
+          <img src="assets/TAO_Rocket_Repair.png" alt="TAO Rocket Repair Master Reference" id="hero-ref-img">
+          <div class="image-overlay-badge">🔒 Locked Master Reference</div>
+        </div>
+
+        <div class="character-specs">
+          <div class="spec-row">
+            <span class="spec-label">Персонаж:</span>
+            <span class="spec-value" id="spec-char-name">ТАО (Космическая Красная Панда)</span>
+          </div>
+          <div class="spec-row">
+            <span class="spec-label">Роль в арке:</span>
+            <span class="spec-value" id="spec-char-role">Главный инженер-механик Обсерватории</span>
+          </div>
+          <div class="spec-row">
+            <span class="spec-label">Костюм:</span>
+            <span class="spec-value" id="spec-char-outfit">Сине-оранжевый скафандр механика</span>
+          </div>
+          <div class="spec-row">
+            <span class="spec-label">Формат кадра:</span>
+            <span class="spec-value" id="spec-char-format">16:9 Cinematic Widescreen</span>
+          </div>
+          <div class="spec-row">
+            <span class="spec-label">Мастер-теги:</span>
+            <div class="tag-cloud">
+              <span class="dna-tag highlight">Red Panda</span>
+              <span class="dna-tag highlight">Mechanic Spacesuit</span>
+              <span class="dna-tag">Tool Belt</span>
+              <span class="dna-tag">Pixar 3D</span>
+              <span class="dna-tag">Octane Render</span>
+              <span class="dna-tag">Solo Arc</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Master Prompt Token Snippet -->
+        <div class="master-token-box">
+          <div class="master-token-header">
+            <span class="master-token-title">DNA Промпт-Префикс</span>
+            <button class="mini-copy-btn" id="btn-copy-dna" title="Копировать базовые токены ТАО">📋 Копировать</button>
+          </div>
+          <div class="master-token-code" id="dna-token-text">Reference Image: TAO_Rocket_Repair.png
+TAO, anthropomorphic cosmic red panda, navy-blue and bright orange mechanic spacesuit, planet patch, leather tool belt, Pixar 3D style, 16:9 widescreen, octane render quality.</div>
+        </div>
+      </aside>
+
+      <!-- Interactive Story Arc Tree & Simulator -->
+      <main class="arc-simulator-card" id="arc-simulator-card">
+        <div>
+          <div class="simulator-header">
+            <h2>
+              <span>🗺️</span> 
+              <span>Интерактивная карта ветвления сюжета</span>
+            </h2>
+            <div class="simulator-legend">
+              <div class="legend-item">
+                <span class="legend-dot a"></span>
+                <span>Ветка 🅰️</span>
+              </div>
+              <div class="legend-item">
+                <span class="legend-dot b"></span>
+                <span>Ветка 🅱️</span>
+              </div>
+            </div>
+          </div>
+
+          <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 12px;">
+            Кликай по кнопкам <strong>🅰️</strong> или <strong>🅱️</strong> на шагах дней, чтобы симулировать выбор комьюнити Discord и отслеживать активную цепочку событий:
+          </p>
+
+          <!-- 7-Step Interactive Node Timeline -->
+          <div class="timeline-strip" id="interactive-timeline-strip">
+            <!-- Dynamically populated or rendered -->
+          </div>
+        </div>
+
+        <!-- Active Path Summary Bar -->
+        <div class="active-path-summary-bar" id="path-summary-bar">
+          <div class="active-path-label">
+            <span>Текущий симулируемый маршрут:</span>
+          </div>
+          <div class="active-path-string" id="active-path-display">
+            1A ➔ 2A ➔ 3A ➔ 4A ➔ 5A ➔ 6A ➔ 7A
+          </div>
+          <button class="action-btn action-btn-cyan" style="padding: 6px 12px; font-size: 11px;" id="btn-reset-path">
+            Сбросить на дефолт
+          </button>
+        </div>
+      </main>
+
+    </section>
+
+    <!-- Filter & Day Navigation Toolbar -->
+    <nav class="toolbar-section" id="filter-toolbar">
+      <div class="filter-tabs" id="day-filter-tabs">
+        <button class="filter-tab-btn active" data-filter="all" id="tab-filter-all">Все 7 дней</button>
+        <button class="filter-tab-btn" data-filter="1" id="tab-filter-day-1">День 1 (🚀 Старт)</button>
+        <button class="filter-tab-btn" data-filter="2" id="tab-filter-day-2">День 2</button>
+        <button class="filter-tab-btn" data-filter="3" id="tab-filter-day-3">День 3</button>
+        <button class="filter-tab-btn" data-filter="4" id="tab-filter-day-4">День 4 (💥 Поворот)</button>
+        <button class="filter-tab-btn" data-filter="5" id="tab-filter-day-5">День 5</button>
+        <button class="filter-tab-btn" data-filter="6" id="tab-filter-day-6">День 6</button>
+        <button class="filter-tab-btn" data-filter="7" id="tab-filter-day-7">День 7 (Финал)</button>
+      </div>
+
+      <div class="status-counter-badge" id="production-status-badge">
+        <span>Статус производства:</span>
+        <span class="progress-pill" id="total-scenes-counter">13 сцен (1 старт + 12 ответвлений)</span>
+      </div>
+    </nav>
+
+    <!-- Main Days Container (Populated via JS) -->
+    <section class="days-container" id="days-cards-container">
+      <!-- Day module cards will be rendered dynamically here -->
+    </section>
+
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast-notice" id="toast-element" role="status" aria-live="polite">
+    <span id="toast-icon">✨</span>
+    <span id="toast-message">Промпт скопирован в буфер обмена!</span>
+  </div>
+
+  <!-- Scripts -->
+  </main>
+</div>
+
+<script src="arc_data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
