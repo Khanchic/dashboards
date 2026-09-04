@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>⚡ STORM RUSH: Похищенная Корона Гроз — 7-Day Quest Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+</head>
+<body>
+
+  <!-- Top App Header -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand-badge">
+        <div class="brand-logo-glow">⚡</div>
+        <div class="brand-title-box">
+          <h1>STORM RUSH • Похищенная Корона Гроз</h1>
+          <p>Интерактивная 7-дневная сюжетная кампания для Discord • Голем и Спарки • 13 сцен (16:9)</p>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <a href="https://khanchic.github.io/dashboards/" class="action-btn" target="_blank" rel="noopener">
+          <span>🏛️</span>
+          <span>Все дашборды</span>
+        </a>
+        <a href="https://khanchic.github.io/dashboards/tao-quest/" class="action-btn" target="_blank" rel="noopener">
+          <span>🪐</span>
+          <span>Квест ТАО</span>
+        </a>
+        <button class="action-btn action-btn-primary" id="btn-export-markdown">
+          <span>📥</span>
+          <span>Экспорт всей арки в Markdown</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Layout Container -->
+  <div class="layout-wrapper">
+
+    <!-- Top Grid: Character Card & Interactive Arc Map -->
+    <section class="strategy-strip">
+      
+      <!-- Character & DNA Specifications Card -->
+      <aside class="character-card">
+        <div class="char-image-box">
+          <img src="assets/Golem_and_Sparky.jpg" alt="Storm Rush — Golem and Sparky" id="char-image-preview">
+          <div class="char-badge-overlay">⚡ Master Reference</div>
+        </div>
+
+        <div class="char-details-body">
+          <div class="spec-row">
+            <span class="spec-label">Персонажи:</span>
+            <span class="spec-value" id="spec-char-name">Голем и Спарки (Икринка)</span>
+          </div>
+          <div class="spec-row">
+            <span class="spec-label">Роль:</span>
+            <span class="spec-value" id="spec-char-role">Хранители Святилища Гроз</span>
+          </div>
+          <div class="spec-row">
+            <span class="spec-label">Стихии:</span>
+            <span class="spec-value" id="spec-char-species">Древний Базальт + Живая Плазма</span>
+          </div>
+          <div class="spec-row">
+            <span class="spec-label">Формат кадров:</span>
+            <span class="spec-value">16:9 Widescreen (Google Flow)</span>
+          </div>
+          <div class="spec-row">
+            <span class="spec-label">Мастер-теги:</span>
+            <div class="tag-cloud">
+              <span class="dna-tag highlight">Golem & Sparky</span>
+              <span class="dna-tag emerald">Mossy Basalt</span>
+              <span class="dna-tag highlight">Cyan Plasma</span>
+              <span class="dna-tag">Stylized 3D</span>
+              <span class="dna-tag">PBR Materials</span>
+              <span class="dna-tag">IP-Safe</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Master Token Snippet -->
+        <div class="master-token-box">
+          <div class="master-token-header">
+            <span class="master-token-title">DNA Промпт-Префикс (Без стоп-слов)</span>
+            <button class="mini-copy-btn" id="btn-copy-dna" title="Копировать базовые токены Голема и Спарки">📋 Копировать</button>
+          </div>
+          <div class="master-token-code" id="dna-token-text">Use the attached image as the character reference. Keep their design consistent: the massive ancient stone golem made of dark cracked boulders with moss textures, glowing emerald-green fissures, slit-shaped glowing green eyes and a warm wide smile; and his tiny companion, the cute floating spirit made of pure glowing electric-cyan plasma with dark eyes and trailing energy wisps. Change only their pose and expression.</div>
+        </div>
+      </aside>
+
+      <!-- Interactive Story Arc Tree & Simulator -->
+      <main class="arc-simulator-card" id="arc-simulator-card">
+        <div>
+          <div class="simulator-header">
+            <h2>
+              <span>🗺️</span> 
+              <span>Интерактивная карта ветвления сюжета</span>
+            </h2>
+            <div class="simulator-legend">
+              <div class="legend-item">
+                <span class="legend-dot a"></span>
+                <span>Ветка 🅰️</span>
+              </div>
+              <div class="legend-item">
+                <span class="legend-dot b"></span>
+                <span>Ветка 🅱️</span>
+              </div>
+            </div>
+          </div>
+
+          <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 12px;">
+            Кликай по кнопкам <strong>🅰️</strong> или <strong>🅱️</strong> на шагах дней, чтобы симулировать выбор комьюнити Discord и отслеживать цепочку событий:
+          </p>
+
+          <!-- 7-Step Interactive Node Timeline -->
+          <div class="timeline-strip" id="interactive-timeline-strip">
+            <!-- Dynamically populated via app.js -->
+          </div>
+        </div>
+
+        <!-- Active Path Summary Bar -->
+        <div class="active-path-summary-bar" id="path-summary-bar">
+          <div class="active-path-label">
+            <span>Текущий симулируемый маршрут:</span>
+          </div>
+          <div class="active-path-string" id="active-path-display">
+            1A ➔ 2A ➔ 3A ➔ 4A ➔ 5A ➔ 6A ➔ 7A
+          </div>
+          <button class="action-btn" style="padding: 6px 12px; font-size: 11px;" id="btn-reset-path">
+            Сбросить на дефолт
+          </button>
+        </div>
+      </main>
+
+    </section>
+
+    <!-- Main Quest Day Content Section -->
+    <section class="day-details-section">
+      
+      <!-- Day Navigation Bar & Headline -->
+      <div class="day-banner-card">
+        <div class="day-headline-box">
+          <h2 id="current-day-title">День 1: Пустой Постамент в Святилище (Старт)</h2>
+          <p id="current-day-summary">Утром Голем и Спарки обнаруживают, что священная Корона Гроз исчезла с алтаря! Каменный постамент расколот, по мшистым корням стекают капли заряженной влаги и тянутся электрические следы.</p>
+        </div>
+
+        <!-- Day Filter Pills -->
+        <div class="day-filter-pills" id="day-pills-container">
+          <!-- Dynamically populated via app.js -->
+        </div>
+      </div>
+
+      <!-- Dynamic Branching Panels (Single or Dual Branch) -->
+      <div class="branches-grid" id="branches-container">
+        <!-- Rendered dynamically by app.js -->
+      </div>
+
+    </section>
+
+  </div>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <p>⚡ <strong>Storm Rush (STR)</strong> Interactive Discord Storytelling Dashboard • Generated for Google Flow & Nano Banana • 2026</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="arc_data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
