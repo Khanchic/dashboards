@@ -152,7 +152,126 @@ body {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 20px;
+}
+
+/* Week Switcher Card */
+.week-switcher-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 14px;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.week-switcher-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent-cyan);
+  box-shadow: 0 0 8px var(--accent-cyan);
+  animation: pulse-glow 2s infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+.week-tabs-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.week-tab-btn {
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 7px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-nested);
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.week-tab-btn:hover {
+  border-color: var(--accent-cyan);
+  color: var(--text-primary);
+  background: var(--bg-card-hover);
+}
+
+.week-tab-btn.active {
+  background: linear-gradient(135deg, rgba(0, 229, 255, 0.15) 0%, rgba(0, 255, 136, 0.15) 100%);
+  border-color: var(--accent-emerald);
+  color: #ffffff;
+  box-shadow: 0 0 14px var(--accent-emerald-glow);
+}
+
+.week-tab-badge {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 10px;
+  text-transform: uppercase;
+}
+
+.badge-active {
+  background: rgba(0, 229, 255, 0.2);
+  color: var(--accent-cyan);
+  border: 1px solid rgba(0, 229, 255, 0.4);
+}
+
+.badge-archive {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-muted);
+}
+
+/* Promo Code Box */
+.promo-badge-box {
+  background: linear-gradient(135deg, rgba(0, 229, 255, 0.15), rgba(0, 255, 136, 0.15));
+  border: 1px solid var(--accent-emerald);
+  border-radius: 8px;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 12px;
+}
+
+.promo-code-pill {
+  font-family: var(--font-mono);
+  font-weight: 800;
+  font-size: 13px;
+  color: var(--accent-emerald);
+  background: rgba(0, 0, 0, 0.4);
+  padding: 2px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.08em;
 }
 
 /* Character & Strategy Strip */
