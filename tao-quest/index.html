@@ -3,56 +3,48 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🪐 ТАО: Интерактивный Quest Dashboard — 7-Day Discord Campaigns</title>
-  <meta name="description" content="Интерактивный дашборд производства графики и сторителлинга для Discord-кампаний TAO Fortune. Переключение между недельными арками, 13 кинематографичных сцен для Gemini Nano Banana 2, симулятор ветвления.">
+  <title>🪐 TAO FORTUNE: 7-Day Quest Dashboard — Discord Campaigns</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🪐</text></svg>">
 </head>
 <body>
 
-  <!-- Ambient Cosmic Dust Layer -->
-  <div class="cosmic-dust-ambient" aria-hidden="true"></div>
-
-  <div class="dashboard-container">
-    
-    <!-- Top Header Card -->
-    <header class="header-card" id="main-header">
-      <div class="brand-section">
-        <div class="mascot-avatar-badge">
-          <img src="assets/TAO_character.png" alt="TAO avatar" id="header-avatar-img">
-        </div>
-        <div class="brand-info">
-          <h1 id="page-main-heading">
-            <span class="gradient-text-gold">ТАО</span>: <span id="heading-arc-title">Затерянный Неоновый Оазис</span>
-            <span class="meta-badge" id="arc-badge">Неделя 2 (Текущая)</span>
-          </h1>
-          <p id="page-subheading">Интерактивная сюжетная кампания для Discord • 1 стартовый мастер-кадр + 12 ответвлений (16:9) • Голосование реакциями 🅰️/🅱️</p>
+  <!-- Top App Header -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand-badge">
+        <div class="brand-logo-glow">🪐</div>
+        <div class="brand-title-box">
+          <h1 id="header-brand-title">ТАО • Затерянный Неоновый Оазис</h1>
+          <p id="header-brand-subtitle">Интерактивная 7-дневная сюжетная кампания для Discord • Маскот ТАО • 13 сцен (16:9)</p>
         </div>
       </div>
 
       <div class="header-actions">
-        <a href="https://khanchic.github.io/dashboards/" class="action-btn" title="Главный хаб всех дашбордов">
-          <span>🏛️</span> <span>Все дашборды</span>
+        <a href="https://khanchic.github.io/dashboards/" class="action-btn" target="_blank" rel="noopener">
+          <span>🏛️</span>
+          <span>Все дашборды</span>
         </a>
-        <a href="https://khanchic.github.io/dashboards/storm-quest/" class="action-btn" title="Перейти к квесту Storm Rush">
-          <span>⚡</span> <span>Квест Storm Rush</span>
+        <a href="https://khanchic.github.io/dashboards/storm-quest/" class="action-btn" target="_blank" rel="noopener">
+          <span>⚡</span>
+          <span>Квест Storm Rush</span>
         </a>
-        <button class="action-btn" id="btn-export-markdown" title="Экспортировать весь план и все промпты текущей недели в единый .md файл">
-          <span>📄</span> <span>Экспорт Markdown</span>
+        <button class="action-btn action-btn-primary" id="btn-export-markdown">
+          <span>📥</span>
+          <span>Экспорт всей арки в Markdown</span>
         </button>
-        <button class="action-btn" id="btn-export-json" title="Экспортировать структуру текущей недели в JSON">
-          <span>💾</span> <span>Экспорт JSON</span>
-        </button>
-        <a href="https://aistudio.google.com/" target="_blank" rel="noopener noreferrer" class="action-btn action-btn-primary" id="btn-open-gemini">
-          <span>🍌</span> <span>Открыть Nano Banana 2</span>
-        </a>
       </div>
-    </header>
+    </div>
+  </header>
 
-    <!-- Week Switcher Bar -->
-    <nav class="week-switcher-bar" id="week-switcher-section" aria-label="Выбор сюжетной недели">
+  <!-- Main Layout Container -->
+  <div class="layout-wrapper">
+
+    <!-- Week Switcher Strip -->
+    <div class="week-switcher-card" id="week-switcher-card">
       <div class="week-switcher-label">
-        <span class="pulse-indicator"></span>
-        <span>Сюжетная арка:</span>
+        <span class="pulse-dot"></span>
+        <span>Сюжетная кампания:</span>
       </div>
       <div class="week-tabs-container" id="week-tabs-container">
         <button class="week-tab-btn" data-week="week-1" id="tab-week-1">
@@ -66,41 +58,41 @@
           <span class="week-tab-badge badge-active">Текущая</span>
         </button>
       </div>
-    </nav>
+    </div>
 
-    <!-- Hero Deck: Character Specs & Storyline Simulator -->
-    <section class="hero-deck-grid" id="hero-deck-section">
+    <!-- Top Grid: Character Card & Interactive Arc Map -->
+    <section class="strategy-strip">
       
-      <!-- Character Lore Card -->
-      <aside class="character-card" id="character-dna-card">
-        <div class="character-image-box" style="background: radial-gradient(circle, #182038 0%, #0c1020 100%); display:flex; align-items:center; justify-content:center;">
-          <img src="assets/TAO_character.png" alt="TAO Master Character Reference" id="hero-ref-img" style="object-fit: contain; max-height: 96%;">
-          <div class="image-overlay-badge">🔒 Official Master Character PNG</div>
+      <!-- Character & DNA Specifications Card -->
+      <aside class="character-card">
+        <div class="char-image-box">
+          <img src="assets/TAO_character.png" alt="TAO — Master Character Reference" id="char-image-preview">
+          <div class="char-badge-overlay">🔒 Master Reference</div>
         </div>
 
-        <div class="character-specs">
+        <div class="char-details-body">
           <div class="spec-row">
             <span class="spec-label">Персонаж:</span>
-            <span class="spec-value" id="spec-char-name">ТАО (Космический Маскот-Механик)</span>
+            <span class="spec-value" id="spec-char-name">ТАО (Космический Панда-Механик)</span>
           </div>
           <div class="spec-row">
-            <span class="spec-label">Роль в арке:</span>
+            <span class="spec-label">Роль:</span>
             <span class="spec-value" id="spec-char-role">Главный инженер и исследователь</span>
           </div>
           <div class="spec-row">
             <span class="spec-label">Костюм:</span>
-            <span class="spec-value" id="spec-char-outfit">Navy & Orange Armor Suit (Honeycomb)</span>
+            <span class="spec-value" id="spec-char-species">Navy & Orange Armor Suit (Honeycomb)</span>
           </div>
           <div class="spec-row">
-            <span class="spec-label">Формат кадра:</span>
-            <span class="spec-value" id="spec-char-format">16:9 Cinematic Widescreen</span>
+            <span class="spec-label">Формат кадров:</span>
+            <span class="spec-value">16:9 Widescreen (Nano Banana 2)</span>
           </div>
           <div class="spec-row">
             <span class="spec-label">Мастер-теги:</span>
             <div class="tag-cloud">
               <span class="dna-tag highlight">Panda Mascot</span>
-              <span class="dna-tag highlight">Honeycomb Armor</span>
-              <span class="dna-tag">Utility Belt</span>
+              <span class="dna-tag gold">Honeycomb Armor</span>
+              <span class="dna-tag highlight">Utility Belt</span>
               <span class="dna-tag">Stylized 3D</span>
               <span class="dna-tag">PBR Materials</span>
               <span class="dna-tag">IP-Safe</span>
@@ -108,10 +100,10 @@
           </div>
         </div>
 
-        <!-- Master Prompt Token Snippet -->
+        <!-- Master Token Snippet -->
         <div class="master-token-box">
           <div class="master-token-header">
-            <span class="master-token-title">DNA Промпт-Префикс (Без копирайт-триггеров)</span>
+            <span class="master-token-title">DNA Промпт-Префикс (Без стоп-слов)</span>
             <button class="mini-copy-btn" id="btn-copy-dna" title="Копировать базовые токены ТАО">📋 Копировать</button>
           </div>
           <div class="master-token-code" id="dna-token-text">Use the attached image as the character reference. Keep his design consistent: the same panda-like mascot with red-orange and cream fur, rounded ears, amber eyes and a bushy ringed tail, wearing the same navy-blue and orange armor suit with honeycomb chest plate, harness straps, utility belt and knee pads. Change only his pose and expression.</div>
@@ -139,7 +131,7 @@
           </div>
 
           <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 12px;">
-            Кликай по кнопкам <strong>🅰️</strong> или <strong>🅱️</strong> на шагах дней, чтобы симулировать выбор комьюнити Discord и отслеживать активную цепочку событий:
+            Кликай по кнопкам <strong>🅰️</strong> или <strong>🅱️</strong> на шагах дней, чтобы симулировать выбор комьюнити Discord и отслеживать цепочку событий:
           </p>
 
           <!-- 7-Step Interactive Node Timeline -->
@@ -154,9 +146,9 @@
             <span>Текущий симулируемый маршрут:</span>
           </div>
           <div class="active-path-string" id="active-path-display">
-            1A ➔ 2A ➔ 3A ➔ 4A ➔ 5A ➔ 6A ➔ 7A
+            1 ➔ 2A ➔ 3A ➔ 4A ➔ 5A ➔ 6A ➔ 7A
           </div>
-          <button class="action-btn action-btn-cyan" style="padding: 6px 12px; font-size: 11px;" id="btn-reset-path">
+          <button class="action-btn" style="padding: 6px 12px; font-size: 11px;" id="btn-reset-path">
             Сбросить на дефолт
           </button>
         </div>
@@ -164,37 +156,35 @@
 
     </section>
 
-    <!-- Filter & Day Navigation Toolbar -->
-    <nav class="toolbar-section" id="filter-toolbar">
-      <div class="filter-tabs" id="day-filter-tabs">
-        <button class="filter-tab-btn active" data-filter="all" id="tab-filter-all">Все 7 дней</button>
-        <button class="filter-tab-btn" data-filter="1" id="tab-filter-day-1">День 1 (🚀 Старт)</button>
-        <button class="filter-tab-btn" data-filter="2" id="tab-filter-day-2">День 2</button>
-        <button class="filter-tab-btn" data-filter="3" id="tab-filter-day-3">День 3</button>
-        <button class="filter-tab-btn" data-filter="4" id="tab-filter-day-4">День 4 (💥 Поворот)</button>
-        <button class="filter-tab-btn" data-filter="5" id="tab-filter-day-5">День 5</button>
-        <button class="filter-tab-btn" data-filter="6" id="tab-filter-day-6">День 6</button>
-        <button class="filter-tab-btn" data-filter="7" id="tab-filter-day-7">День 7 (Финал)</button>
+    <!-- Main Quest Day Content Section -->
+    <section class="day-details-section">
+      
+      <!-- Day Navigation Bar & Headline -->
+      <div class="day-banner-card">
+        <div class="day-headline-box">
+          <h2 id="current-day-title">День 1: Высадка на границе Неонового Оазиса (Старт)</h2>
+          <p id="current-day-summary">Шаттл ТАО приземляется у границы светящихся джунглей...</p>
+        </div>
+
+        <!-- Day Filter Pills -->
+        <div class="day-filter-pills" id="day-pills-container">
+          <!-- Dynamically populated via app.js -->
+        </div>
       </div>
 
-      <div class="status-counter-badge" id="production-status-badge">
-        <span>Статус производства:</span>
-        <span class="progress-pill" id="total-scenes-counter">13 сцен (1 старт + 12 ответвлений)</span>
+      <!-- Dynamic Branching Panels (Single or Dual Branch) -->
+      <div class="branches-grid" id="branches-container">
+        <!-- Rendered dynamically by app.js -->
       </div>
-    </nav>
 
-    <!-- Main Days Container (Populated via JS) -->
-    <section class="days-container" id="days-cards-container">
-      <!-- Day module cards will be rendered dynamically here -->
     </section>
 
   </div>
 
-  <!-- Toast Notification -->
-  <div class="toast-notice" id="toast-element" role="status" aria-live="polite">
-    <span id="toast-icon">✨</span>
-    <span id="toast-message">Промпт скопирован в буфер обмена!</span>
-  </div>
+  <!-- Footer -->
+  <footer class="app-footer">
+    <p>🪐 <strong>Tao Fortune (TAO)</strong> Interactive Discord Storytelling Dashboard • Generated for Google AI Studio & Nano Banana 2 • 2026</p>
+  </footer>
 
   <!-- Scripts -->
   <script src="arc_data.js"></script>
