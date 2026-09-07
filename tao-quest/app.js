@@ -1,10 +1,11 @@
 /**
- * TAO Discord Arc Dashboard — Application Logic
- * Interactive multi-week campaign switcher, story branch simulator, prompt copiers, Discord preview toggles, and campaign export.
+ * TAO FORTUNE: 7-Day Interactive Discord Storytelling Dashboard
+ * Logic matching the Storm Rush dashboard pattern with multi-week switching
  */
 
-// State: Days 2 to 7 branches (Day 1 is single root start scene)
-let selectedBranches = {
+let activeDay = 1;
+let communityDecisions = {
+  1: 'A',
   2: 'A',
   3: 'A',
   4: 'A',
@@ -13,23 +14,10 @@ let selectedBranches = {
   7: 'A'
 };
 
-let currentFilter = 'all';
-
-// DOM Elements
-const timelineStripEl = document.getElementById('interactive-timeline-strip');
-const pathDisplayEl = document.getElementById('active-path-display');
-const daysContainerEl = document.getElementById('days-cards-container');
-const toastEl = document.getElementById('toast-element');
-const toastMsgEl = document.getElementById('toast-message');
-const toastIconEl = document.getElementById('toast-icon');
-
-// Initialize
 document.addEventListener('DOMContentLoaded', () => {
   setupWeekSwitcher();
-  renderCurrentWeek();
-  setupFilterTabs();
-  setupHeaderActions();
-  setupDnaCopy();
+  initWeekView();
+  initGlobalEvents();
 });
 
 /**
@@ -39,7 +27,6 @@ function setupWeekSwitcher() {
   const weekTabsContainer = document.getElementById('week-tabs-container');
   if (!weekTabsContainer) return;
 
-  // Render week tab buttons if ALL_ARCS is available
   if (typeof ALL_ARCS !== 'undefined') {
     weekTabsContainer.innerHTML = '';
     Object.keys(ALL_ARCS).forEach(weekKey => {
@@ -76,7 +63,7 @@ function setupWeekSwitcher() {
 /**
  * Switch Active Week Campaign
  */
-function switchWeek(weekId, showToastNotice = true) {
+function switchWeek(weekId, updateStorage = true) {
   if (typeof setActiveArcWeek === 'function') {
     const activeArc = setActiveArcWeek(weekId);
     if (!activeArc) return;
@@ -90,709 +77,512 @@ function switchWeek(weekId, showToastNotice = true) {
       }
     });
 
-    // Save state
-    localStorage.setItem('tao_active_week', weekId);
-    if (window.location.hash !== `#${weekId}`) {
-      history.replaceState(null, '', `#${weekId}`);
+    if (updateStorage) {
+      localStorage.setItem('tao_active_week', weekId);
+      if (window.location.hash !== `#${weekId}`) {
+        history.replaceState(null, '', `#${weekId}`);
+      }
     }
 
-    // Reset branch selections
-    selectedBranches = { 2: 'A', 3: 'A', 4: 'A', 5: 'A', 6: 'A', 7: 'A' };
-
-    // Re-render UI
-    renderCurrentWeek();
-
-    if (showToastNotice) {
-      showToast(`Переключено: ${activeArc.metadata.titleRu}`, '🔀');
-    }
+    communityDecisions = { 1: 'A', 2: 'A', 3: 'A', 4: 'A', 5: 'A', 6: 'A', 7: 'A' };
+    activeDay = 1;
+    initWeekView();
   }
 }
 
 /**
- * Render all components for current active week
+ * Initialize current active week view
  */
-function renderCurrentWeek() {
-  updateHeaderInfo();
-  renderTimelineStrip();
-  renderDaysCards();
-  updatePathDisplay();
-  updateCounterText();
-  applyFilter(currentFilter);
+function initWeekView() {
+  updateHeaderAndMeta();
+  initTimeline();
+  initDayPills();
+  renderDayView(activeDay);
+  updateActivePathDisplay();
 }
 
 /**
- * Update Header and Lore Elements dynamically
+ * Update Header and Lore Metadata
  */
-function updateHeaderInfo() {
+function updateHeaderAndMeta() {
   if (typeof ARC_METADATA === 'undefined') return;
 
-  const headingTitleEl = document.getElementById('heading-arc-title');
-  const arcBadgeEl = document.getElementById('arc-badge');
-  const subheadingEl = document.getElementById('page-subheading');
+  const headerTitleEl = document.getElementById('header-brand-title');
+  const headerSubtitleEl = document.getElementById('header-brand-subtitle');
   const specRoleEl = document.getElementById('spec-char-role');
   const dnaTextEl = document.getElementById('dna-token-text');
 
-  if (headingTitleEl) headingTitleEl.textContent = ARC_METADATA.titleRu;
-  if (arcBadgeEl) {
-    arcBadgeEl.textContent = CURRENT_WEEK_ID === 'week-2' ? 'Неделя 2 (Текущая)' : 'Неделя 1 (Архив)';
-    arcBadgeEl.style.borderColor = CURRENT_WEEK_ID === 'week-2' ? 'rgba(0, 240, 255, 0.4)' : 'rgba(255, 200, 55, 0.4)';
+  if (headerTitleEl) {
+    headerTitleEl.textContent = `ТАО • ${ARC_METADATA.titleRu}`;
   }
-  
+
   if (typeof ALL_ARCS !== 'undefined' && ALL_ARCS[CURRENT_WEEK_ID]) {
     const arc = ALL_ARCS[CURRENT_WEEK_ID];
-    if (subheadingEl && arc.subheading) subheadingEl.textContent = arc.subheading;
-    if (specRoleEl && arc.characterDna && arc.characterDna.role) specRoleEl.textContent = arc.characterDna.role;
-    if (dnaTextEl && arc.dnaPrefix) dnaTextEl.textContent = arc.dnaPrefix;
+    if (headerSubtitleEl && arc.subheading) {
+      headerSubtitleEl.textContent = arc.subheading;
+    }
+    if (specRoleEl && arc.characterDna && arc.characterDna.role) {
+      specRoleEl.textContent = arc.characterDna.role;
+    }
+    if (dnaTextEl && arc.dnaPrefix) {
+      dnaTextEl.textContent = arc.dnaPrefix;
+    }
   }
 
-  document.title = `🪐 ТАО: ${ARC_METADATA.titleRu} — 7-Day Quest Dashboard`;
+  document.title = `🪐 TAO FORTUNE: ${ARC_METADATA.titleRu} — 7-Day Quest Dashboard`;
 }
 
 /**
- * Update total counter text
+ * Initialize 7-Day Interactive Node Timeline
  */
-function updateCounterText() {
-  const counterEl = document.getElementById('total-scenes-counter');
-  if (counterEl) {
-    counterEl.textContent = '13 сцен (1 старт + 12 ответвлений)';
-  }
-}
+function initTimeline() {
+  const container = document.getElementById('interactive-timeline-strip');
+  if (!container || !QUEST_DAYS) return;
 
-/**
- * Render 7-Step Interactive Node Timeline
- */
-function renderTimelineStrip() {
-  if (!timelineStripEl || !QUEST_DAYS) return;
-  timelineStripEl.innerHTML = '';
+  container.innerHTML = '';
 
   QUEST_DAYS.forEach((qDay) => {
-    const node = document.createElement('div');
-    const isTwist = qDay.day === 4;
-    const isSingle = qDay.isSingleScene;
+    const nodeBtn = document.createElement('button');
+    nodeBtn.className = `day-node-btn ${qDay.day === activeDay ? 'active' : ''}`;
+    nodeBtn.id = `node-day-${qDay.day}`;
 
-    node.className = `timeline-step-node ${isTwist ? 'twist-node' : ''} ${isSingle ? 'root-node' : ''}`;
-    node.id = `timeline-node-${qDay.day}`;
+    const choice = communityDecisions[qDay.day] || 'A';
+    const choiceClass = qDay.isSingleScene ? 'choice-start' : (choice === 'A' ? 'choice-a' : 'choice-b');
+    const choiceLabel = qDay.isSingleScene ? '1' : `${qDay.day}${choice}`;
 
-    if (isSingle) {
-      // Day 1: Root Kickoff Scene, controls Day 2's starting branch
-      const activeD2Choice = selectedBranches[2];
-      const optALabel = qDay.votingOptions && qDay.votingOptions.A ? qDay.votingOptions.A.label : 'Вариант A';
-      const optBLabel = qDay.votingOptions && qDay.votingOptions.B ? qDay.votingOptions.B.label : 'Вариант B';
-      node.innerHTML = `
-        <div class="step-day-pill" style="color: var(--accent-gold);">День 1 🚀 СТАРТ</div>
-        <div class="step-name">${qDay.singleScene.label}</div>
-        <div class="node-branch-toggle">
-          <button class="branch-choice-btn ${activeD2Choice === 'A' ? 'selected-a' : ''}" 
-                  data-target-day="2" data-branch="A" id="btn-node-1-a" title="Выбор на День 2: ${optALabel}">
-            🅰️ ${optALabel} (Д2)
-          </button>
-          <button class="branch-choice-btn ${activeD2Choice === 'B' ? 'selected-b' : ''}" 
-                  data-target-day="2" data-branch="B" id="btn-node-1-b" title="Выбор на День 2: ${optBLabel}">
-            🅱️ ${optBLabel} (Д2)
-          </button>
-        </div>
-      `;
+    nodeBtn.innerHTML = `
+      <span class="node-day-num">День ${qDay.day}</span>
+      <span class="node-branch-choice ${choiceClass}" id="node-choice-label-${qDay.day}">
+        ${choiceLabel}
+      </span>
+    `;
 
-      const btnA = node.querySelector('#btn-node-1-a');
-      const btnB = node.querySelector('#btn-node-1-b');
-
-      btnA.addEventListener('click', (e) => {
-        e.stopPropagation();
-        setBranch(2, 'A');
-      });
-
-      btnB.addEventListener('click', (e) => {
-        e.stopPropagation();
-        setBranch(2, 'B');
-      });
-
-    } else {
-      // Days 2 to 7: Dual branch choices
-      const activeChoice = selectedBranches[qDay.day];
-      const labelA = qDay.branches && qDay.branches.A ? qDay.branches.A.label : 'Ветка A';
-      const labelB = qDay.branches && qDay.branches.B ? qDay.branches.B.label : 'Ветка B';
-      node.innerHTML = `
-        <div class="step-day-pill">День ${qDay.day} ${isTwist ? '💥' : ''}</div>
-        <div class="step-name">${getShortDayTitle(qDay.day)}</div>
-        <div class="node-branch-toggle">
-          <button class="branch-choice-btn ${activeChoice === 'A' ? 'selected-a' : ''}" 
-                  data-day="${qDay.day}" data-branch="A" id="btn-node-${qDay.day}-a" title="${labelA}">
-            🅰️ ${labelA.substring(0, 7)}…
-          </button>
-          <button class="branch-choice-btn ${activeChoice === 'B' ? 'selected-b' : ''}" 
-                  data-day="${qDay.day}" data-branch="B" id="btn-node-${qDay.day}-b" title="${labelB}">
-            🅱️ ${labelB.substring(0, 7)}…
-          </button>
-        </div>
-      `;
-
-      const btnA = node.querySelector(`[data-branch="A"]`);
-      const btnB = node.querySelector(`[data-branch="B"]`);
-
-      btnA.addEventListener('click', (e) => {
-        e.stopPropagation();
-        setBranch(qDay.day, 'A');
-      });
-
-      btnB.addEventListener('click', (e) => {
-        e.stopPropagation();
-        setBranch(qDay.day, 'B');
-      });
-    }
-
-    // Click node to scroll
-    node.addEventListener('click', (e) => {
-      if (e.target.tagName !== 'BUTTON') {
-        scrollToDay(qDay.day);
+    nodeBtn.addEventListener('click', () => {
+      if (activeDay !== qDay.day) {
+        selectDay(qDay.day);
+      } else if (!qDay.isSingleScene) {
+        toggleDayChoice(qDay.day);
       }
     });
 
-    timelineStripEl.appendChild(node);
+    container.appendChild(nodeBtn);
   });
 }
 
 /**
- * Set selected branch for a day
+ * Initialize Day Filter Pills
  */
-function setBranch(day, branch) {
-  selectedBranches[day] = branch;
+function initDayPills() {
+  const container = document.getElementById('day-pills-container');
+  if (!container || !QUEST_DAYS) return;
 
-  // Update Day 1 buttons if target day is 2
-  if (day === 2) {
-    const d1BtnA = document.getElementById('btn-node-1-a');
-    const d1BtnB = document.getElementById('btn-node-1-b');
-    if (d1BtnA && d1BtnB) {
-      if (branch === 'A') {
-        d1BtnA.classList.add('selected-a');
-        d1BtnB.classList.remove('selected-b');
-      } else {
-        d1BtnB.classList.add('selected-b');
-        d1BtnA.classList.remove('selected-a');
-      }
-    }
+  container.innerHTML = '';
+
+  QUEST_DAYS.forEach((qDay) => {
+    const pill = document.createElement('button');
+    pill.className = `pill-btn ${qDay.day === activeDay ? 'active' : ''}`;
+    pill.id = `pill-day-${qDay.day}`;
+    pill.textContent = `День ${qDay.day}`;
+
+    pill.addEventListener('click', () => {
+      selectDay(qDay.day);
+    });
+
+    container.appendChild(pill);
+  });
+}
+
+/**
+ * Select active day
+ */
+function selectDay(dayNum) {
+  activeDay = dayNum;
+
+  document.querySelectorAll('.day-node-btn').forEach(btn => btn.classList.remove('active'));
+  const activeNode = document.getElementById(`node-day-${dayNum}`);
+  if (activeNode) activeNode.classList.add('active');
+
+  document.querySelectorAll('.pill-btn').forEach(pill => pill.classList.remove('active'));
+  const activePill = document.getElementById(`pill-day-${dayNum}`);
+  if (activePill) activePill.classList.add('active');
+
+  renderDayView(dayNum);
+}
+
+/**
+ * Toggle Day Branch Choice between A and B
+ */
+function toggleDayChoice(dayNum) {
+  const current = communityDecisions[dayNum] || 'A';
+  communityDecisions[dayNum] = current === 'A' ? 'B' : 'A';
+
+  const labelEl = document.getElementById(`node-choice-label-${dayNum}`);
+  if (labelEl) {
+    const newChoice = communityDecisions[dayNum];
+    labelEl.textContent = `${dayNum}${newChoice}`;
+    labelEl.className = `node-branch-choice ${newChoice === 'A' ? 'choice-a' : 'choice-b'}`;
   }
 
-  // Update Timeline Buttons UI
-  const btnA = document.getElementById(`btn-node-${day}-a`);
-  const btnB = document.getElementById(`btn-node-${day}-b`);
-  if (btnA && btnB) {
-    if (branch === 'A') {
-      btnA.classList.add('selected-a');
-      btnB.classList.remove('selected-b');
+  updateActivePathDisplay();
+  renderDayView(activeDay);
+}
+
+/**
+ * Update Active Path Summary Bar
+ */
+function updateActivePathDisplay() {
+  const displayEl = document.getElementById('active-path-display');
+  if (!displayEl || !QUEST_DAYS) return;
+
+  const pathParts = [];
+  QUEST_DAYS.forEach(qDay => {
+    if (qDay.isSingleScene) {
+      pathParts.push(`1 (${communityDecisions[1] || 'A'})`);
     } else {
-      btnB.classList.add('selected-b');
-      btnA.classList.remove('selected-a');
+      pathParts.push(`${qDay.day}${communityDecisions[qDay.day] || 'A'}`);
     }
-  }
+  });
 
-  updatePathDisplay();
-  highlightBranchCard(day, branch);
-  showToast(`День ${day}: выбран вариант ${branch === 'A' ? '🅰️' : '🅱️'}`, '🔀');
+  displayEl.textContent = pathParts.join(' ➔ ');
 }
 
 /**
- * Update Path Display String
+ * Render Day Details (1 Single Root Scene or 2 Dual Branches)
  */
-function updatePathDisplay() {
-  if (!pathDisplayEl) return;
-  const pathParts = [`<span style="color: var(--accent-gold); font-weight: 700;">🚀 1 (Старт)</span>`];
+function renderDayView(dayNum) {
+  if (!QUEST_DAYS) return;
+  const qDay = QUEST_DAYS.find(d => d.day === dayNum);
+  if (!qDay) return;
 
-  for (let d = 2; d <= 7; d++) {
-    const b = selectedBranches[d];
-    const isTwist = d === 4;
-    const isA = b === 'A';
-    const color = isA ? 'var(--accent-cyan)' : 'var(--accent-orange)';
-    pathParts.push(`<span style="color: ${color}; font-weight: 700;">${d}${b}${isTwist ? '💥' : ''}</span>`);
-  }
+  const titleEl = document.getElementById('current-day-title');
+  const summaryEl = document.getElementById('current-day-summary');
+  const container = document.getElementById('branches-container');
 
-  pathDisplayEl.innerHTML = pathParts.join(' ➔ ');
-}
+  if (titleEl) titleEl.textContent = qDay.titleRu;
+  if (summaryEl) summaryEl.textContent = qDay.summary;
 
-/**
- * Highlight Active Branch Card
- */
-function highlightBranchCard(day, branch) {
-  if (day === 1) return; // Day 1 has only single scene
-  const cardA = document.getElementById(`scene-card-${day}A`);
-  const cardB = document.getElementById(`scene-card-${day}B`);
-  if (!cardA || !cardB) return;
+  if (!container) return;
 
-  if (branch === 'A') {
-    cardA.style.borderColor = 'var(--accent-cyan)';
-    cardA.style.boxShadow = '0 0 20px rgba(0, 240, 255, 0.2)';
-    cardB.style.borderColor = 'var(--border-subtle)';
-    cardB.style.boxShadow = 'none';
+  if (qDay.isSingleScene) {
+    container.style.gridTemplateColumns = '1fr';
+    
+    const votingOptA = qDay.votingOptions && qDay.votingOptions.A ? qDay.votingOptions.A.choiceText : '';
+    const votingOptB = qDay.votingOptions && qDay.votingOptions.B ? qDay.votingOptions.B.choiceText : '';
+    const questionText = qDay.votingQuestion || '';
+
+    container.innerHTML = `
+      <div class="branch-panel active-branch">
+        <div class="branch-header">
+          <span class="branch-tag tag-a">Мастер-Старт Квеста</span>
+          <span style="font-size: 11px; color: var(--text-muted);">${escapeHtml(qDay.act || '')}</span>
+        </div>
+        <h3 class="branch-title">${escapeHtml(qDay.singleScene.sceneTitle)}</h3>
+
+        <div class="voting-info-box">
+          <div class="voting-question-text">Голосование дня в Discord: ${escapeHtml(questionText)}</div>
+          <div class="voting-options-list">
+            <div class="voting-opt-a">${escapeHtml(votingOptA)}</div>
+            <div class="voting-opt-b">${escapeHtml(votingOptB)}</div>
+          </div>
+        </div>
+
+        <div class="prompt-container">
+          <div class="prompt-bar-label">
+            <span>Nano Banana 2 / 3D Prompt (16:9 Widescreen)</span>
+            <span style="color: var(--accent-cyan); font-size: 10px;">Stylized 3D • Ref: TAO</span>
+          </div>
+          <div class="prompt-text-box" id="prompt-text-1">${escapeHtml(qDay.singleScene.prompt)}</div>
+          <button class="copy-prompt-btn" data-target="prompt-text-1" id="btn-copy-prompt-1">
+            <span>📋</span> <span>Скопировать стартовый промпт для Nano Banana 2</span>
+          </button>
+        </div>
+
+        <div class="discord-accordion">
+          <button class="accordion-trigger" data-target="accordion-body-1">
+            <span>💬 Стартовый текст публикации для Discord (Запуск квеста)</span>
+            <span class="accordion-arrow">▼</span>
+          </button>
+          <div class="accordion-body" id="accordion-body-1">
+            <div class="discord-preview-box" id="discord-text-1">${escapeHtml(qDay.singleScene.discordCopy)}</div>
+            <button class="action-btn" style="margin-top: 10px; width: 100%; justify-content: center;" data-copy-target="discord-text-1">
+              <span>📋 Скопировать пост для Discord</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
   } else {
-    cardB.style.borderColor = 'var(--accent-orange)';
-    cardB.style.boxShadow = '0 0 20px rgba(255, 123, 0, 0.2)';
-    cardA.style.borderColor = 'var(--border-subtle)';
-    cardA.style.boxShadow = 'none';
-  }
-}
+    container.style.gridTemplateColumns = '';
+    const chosen = communityDecisions[dayNum] || 'A';
+    const bA = qDay.branches.A;
+    const bB = qDay.branches.B;
 
-/**
- * Render all 7 Day Cards
- */
-function renderDaysCards() {
-  if (!daysContainerEl || !QUEST_DAYS) return;
-  daysContainerEl.innerHTML = '';
-
-  QUEST_DAYS.forEach((qDay) => {
-    const isTwist = qDay.day === 4;
-    const isSingle = qDay.isSingleScene;
-
-    const dayCard = document.createElement('article');
-    dayCard.className = `day-module-card ${isTwist ? 'twist-day' : ''}`;
-    dayCard.id = `day-card-${qDay.day}`;
-    dayCard.setAttribute('data-day', qDay.day);
-
-    let contentHtml = '';
-
-    if (isSingle) {
-      // Day 1 Single Kickoff Scene
-      contentHtml = `
-        <div class="day-header">
-          <div class="day-title-group">
-            <div class="day-number-badge" style="background: linear-gradient(135deg, rgba(255, 200, 55, 0.25), rgba(255, 123, 0, 0.25)); border-color: var(--accent-gold); color: var(--accent-gold);">
-              ДЕНЬ 1 🚀 СТАРТ
-            </div>
-            <div class="day-title-text">
-              <h3>${qDay.titleRu}</h3>
-              <span class="day-act-label">${qDay.act} • ${qDay.titleEn}</span>
-            </div>
-          </div>
-
-          <div style="display: flex; gap: 8px;">
-            <button class="action-btn" style="padding: 6px 12px; font-size: 12px;" onclick="focusDay(${qDay.day})">
-              🎯 Фокус на дне
-            </button>
-          </div>
-        </div>
-
-        <p class="day-summary-text">
-          <strong>Сюжетный синопсис:</strong> ${qDay.summary}<br>
-          <span style="color: var(--accent-gold);">⚡ Голосование старта (определяет кадр Дня 2):</span> <em>«${qDay.votingQuestion}»</em>
-        </p>
-
-        <!-- Single Master Scene Card -->
-        <div class="single-scene-card" id="scene-card-1">
-          <div class="branch-card-header">
-            <span class="kickoff-badge">
-              🌟 Стартовый мастер-кадр недели (#1)
-            </span>
-            <span style="font-size: 12px; color: var(--text-muted); font-family: 'Space Grotesk', sans-serif;">Кадр #1 (Kickoff Scene)</span>
-          </div>
-
-          <h4 class="scene-heading" style="font-size: 18px;">${qDay.singleScene.sceneTitle}</h4>
-
-          <div class="kickoff-voting-options">
-            <div class="voting-option-box opt-a">
-              <strong>Вариант 🅰️ (голос комьюнити):</strong><br>
-              ${qDay.votingOptions.A.choiceText}
-            </div>
-            <div class="voting-option-box opt-b">
-              <strong>Вариант 🅱️ (голос комьюнити):</strong><br>
-              ${qDay.votingOptions.B.choiceText}
-            </div>
-          </div>
-
-          <!-- Nano Banana 2 Prompt Block -->
-          <div class="prompt-container">
-            <div class="prompt-bar-label">
-              <span>Nano Banana 2 Prompt (16:9 Cinematic 3D)</span>
-              <span style="color: var(--accent-gold); font-size: 10px;">Stylized 3D • Ref: Attached TAO PNG</span>
-            </div>
-            <div class="prompt-text-box" id="prompt-text-1">${escapeHtml(qDay.singleScene.prompt)}</div>
-            <button class="copy-prompt-btn" data-target="prompt-text-1" id="btn-copy-prompt-1">
-              <span>📋</span> <span>Скопировать первый стартовый промпт для Gemini</span>
-            </button>
-          </div>
-
-          <!-- Discord Post Preview Accordion -->
-          <div class="discord-accordion">
-            <button class="accordion-trigger" data-target="accordion-body-1">
-              <span>💬 Стартовый текст публикации для Discord (Запуск квеста)</span>
-              <span class="accordion-arrow">▼</span>
-            </button>
-            <div class="accordion-body" id="accordion-body-1">
-              <div class="discord-preview-box" id="discord-text-1">${escapeHtml(qDay.singleScene.discordCopy)}</div>
-              <button class="copy-discord-btn" data-target="discord-text-1" id="btn-copy-discord-1">
-                <span>💬</span> <span>Скопировать стартовый пост для Discord</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      `;
-    } else {
-      // Days 2 to 7 Dual Branching Grid
-      contentHtml = `
-        <div class="day-header">
-          <div class="day-title-group">
-            <div class="day-number-badge">ДЕНЬ ${qDay.day} ${isTwist ? '💥' : ''}</div>
-            <div class="day-title-text">
-              <h3>${qDay.titleRu}</h3>
-              <span class="day-act-label">${qDay.act} • ${qDay.titleEn}</span>
-            </div>
-          </div>
-
-          <div style="display: flex; gap: 8px;">
-            <button class="action-btn" style="padding: 6px 12px; font-size: 12px;" onclick="focusDay(${qDay.day})">
-              🎯 Фокус на дне
-            </button>
-          </div>
-        </div>
-
-        <p class="day-summary-text">
-          <strong>Сюжетный синопсис:</strong> ${qDay.summary}<br>
-          <span style="color: var(--accent-gold);">⚡ Интерактивный вопрос дня:</span> <em>«${qDay.votingQuestion}»</em>
-        </p>
-
-        <!-- Branches Grid (A vs B) -->
-        <div class="branches-grid">
-          ${renderBranchCard(qDay.day, 'A', qDay.branches.A)}
-          ${renderBranchCard(qDay.day, 'B', qDay.branches.B)}
-        </div>
-      `;
-    }
-
-    dayCard.innerHTML = contentHtml;
-    daysContainerEl.appendChild(dayCard);
-  });
-
-  // Attach event listeners for copies and accordions
-  attachDynamicCardEvents();
-}
-
-/**
- * Render single branch card (A or B)
- */
-function renderBranchCard(day, branchLetter, branchData) {
-  const isA = branchLetter === 'A';
-  const branchClass = isA ? 'branch-a' : 'branch-b';
-  const badgeClass = isA ? 'branch-badge-a' : 'branch-badge-b';
-  const btnClass = isA ? 'copy-prompt-btn-a' : 'copy-prompt-btn-b';
-  const promoCode = branchData.promoCode ? `<div class="promocode-pill" style="margin-top: 8px; display:inline-block; font-family: monospace; font-size: 13px; font-weight: 700; background: rgba(255,200,55,0.15); border: 1px solid var(--accent-gold); color: var(--accent-gold); padding: 4px 10px; border-radius: 6px;">🎁 Промокод: ${escapeHtml(branchData.promoCode)}</div>` : '';
-
-  return `
-    <div class="branch-card ${branchClass}" id="scene-card-${branchData.id}">
-      <div class="branch-card-header">
-        <span class="branch-indicator-badge ${badgeClass}">
-          ${isA ? '🅰️ Ветка А' : '🅱️ Ветка B'} (${branchData.label})
-        </span>
-        <span style="font-size: 12px; color: var(--text-muted); font-family: 'Space Grotesk', sans-serif;">
-          Кадр #${branchData.id}
-        </span>
+    const promoBadgeA = bA.promoCode ? `
+      <div class="promo-badge-box">
+        <span>🎁 <strong>Победный промокод ветки 🅰️:</strong></span>
+        <span class="promo-code-pill">${escapeHtml(bA.promoCode)}</span>
       </div>
+    ` : '';
 
-      <div class="branch-choice-quote">
-        <strong>Выбор зрителей:</strong> ${branchData.choiceText}
+    const promoBadgeB = bB.promoCode ? `
+      <div class="promo-badge-box" style="border-color: var(--accent-orange);">
+        <span>🎁 <strong>Победный промокод ветки 🅱️:</strong></span>
+        <span class="promo-code-pill">${escapeHtml(bB.promoCode)}</span>
       </div>
+    ` : '';
 
-      <h4 class="scene-heading">${branchData.sceneTitle}</h4>
-      ${promoCode}
-
-      <!-- Nano Banana 2 Prompt Block -->
-      <div class="prompt-container" style="margin-top: 14px;">
-        <div class="prompt-bar-label">
-          <span>Nano Banana 2 Prompt (16:9)</span>
-          <span style="color: ${isA ? 'var(--accent-cyan)' : 'var(--accent-orange)'}; font-size: 10px;">ID: ${branchData.id}</span>
-        </div>
-        <div class="prompt-text-box" id="prompt-text-${branchData.id}">${escapeHtml(branchData.prompt)}</div>
-        <button class="copy-prompt-btn ${btnClass}" data-target="prompt-text-${branchData.id}" id="btn-copy-prompt-${branchData.id}">
-          <span>📋</span> <span>Скопировать промпт кадра #${branchData.id}</span>
-        </button>
-      </div>
-
-      <!-- Discord Post Preview Accordion -->
-      <div class="discord-accordion">
-        <button class="accordion-trigger" data-target="accordion-body-${branchData.id}">
-          <span>💬 Текст публикации в Discord для ветки ${branchLetter}</span>
-          <span class="accordion-arrow">▼</span>
-        </button>
-        <div class="accordion-body" id="accordion-body-${branchData.id}">
-          <div class="discord-preview-box" id="discord-text-${branchData.id}">${escapeHtml(branchData.discordCopy)}</div>
-          <button class="copy-discord-btn" data-target="discord-text-${branchData.id}" id="btn-copy-discord-${branchData.id}">
-            <span>💬</span> <span>Скопировать пост ветки #${branchData.id} для Discord</span>
+    container.innerHTML = `
+      <!-- Branch A Panel -->
+      <div class="branch-panel ${chosen === 'A' ? 'active-branch' : ''}" id="panel-branch-A">
+        <div class="branch-header">
+          <span class="branch-tag tag-a">${escapeHtml(bA.label || 'Ветка 🅰️')}</span>
+          <button class="action-btn" style="padding: 4px 10px; font-size: 11px;" onclick="setBranchChoice(${dayNum}, 'A')">
+            ${chosen === 'A' ? '✅ Выбрано комьюнити' : 'Выбрать ветку 🅰️'}
           </button>
         </div>
+        <h3 class="branch-title">${escapeHtml(bA.sceneTitle)}</h3>
+
+        ${promoBadgeA}
+
+        <div class="prompt-container">
+          <div class="prompt-bar-label">
+            <span>Nano Banana 2 Prompt (16:9)</span>
+            <span style="color: var(--accent-cyan); font-size: 10px;">Stylized 3D • Ref: TAO</span>
+          </div>
+          <div class="prompt-text-box" id="prompt-text-${bA.id}">${escapeHtml(bA.prompt)}</div>
+          <button class="copy-prompt-btn" data-target="prompt-text-${bA.id}">
+            <span>📋</span> <span>Скопировать промпт ветки 🅰️</span>
+          </button>
+        </div>
+
+        <div class="discord-accordion">
+          <button class="accordion-trigger" data-target="accordion-body-${bA.id}">
+            <span>💬 Текст публикации Discord (Ветка 🅰️)</span>
+            <span class="accordion-arrow">▼</span>
+          </button>
+          <div class="accordion-body" id="accordion-body-${bA.id}">
+            <div class="discord-preview-box" id="discord-text-${bA.id}">${escapeHtml(bA.discordCopy)}</div>
+            <button class="action-btn" style="margin-top: 10px; width: 100%; justify-content: center;" data-copy-target="discord-text-${bA.id}">
+              <span>📋 Скопировать пост для Discord</span>
+            </button>
+          </div>
+        </div>
       </div>
-    </div>
-  `;
-}
 
-/**
- * Attach Card Event Listeners (Prompt copies, discord copies, accordions)
- */
-function attachDynamicCardEvents() {
-  // Accordion toggle
-  document.querySelectorAll('.accordion-trigger').forEach(trigger => {
-    trigger.addEventListener('click', () => {
-      const targetId = trigger.getAttribute('data-target');
-      const bodyEl = document.getElementById(targetId);
-      if (bodyEl) {
-        bodyEl.classList.toggle('open');
-        trigger.classList.toggle('active');
-      }
-    });
-  });
+      <!-- Branch B Panel -->
+      <div class="branch-panel ${chosen === 'B' ? 'active-branch-b' : ''}" id="panel-branch-B">
+        <div class="branch-header">
+          <span class="branch-tag tag-b">${escapeHtml(bB.label || 'Ветка 🅱️')}</span>
+          <button class="action-btn" style="padding: 4px 10px; font-size: 11px;" onclick="setBranchChoice(${dayNum}, 'B')">
+            ${chosen === 'B' ? '✅ Выбрано комьюнити' : 'Выбрать ветку 🅱️'}
+          </button>
+        </div>
+        <h3 class="branch-title">${escapeHtml(bB.sceneTitle)}</h3>
 
-  // Copy Prompt buttons
-  document.querySelectorAll('.copy-prompt-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const targetId = btn.getAttribute('data-target');
-      const textEl = document.getElementById(targetId);
-      if (textEl) {
-        copyToClipboard(textEl.innerText);
-        showToast('Промпт успешно скопирован для Google AI Studio!', '📋');
-      }
-    });
-  });
+        ${promoBadgeB}
 
-  // Copy Discord text buttons
-  document.querySelectorAll('.copy-discord-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const targetId = btn.getAttribute('data-target');
-      const textEl = document.getElementById(targetId);
-      if (textEl) {
-        copyToClipboard(textEl.innerText);
-        showToast('Текст поста для Discord скопирован!', '💬');
-      }
-    });
-  });
-}
+        <div class="prompt-container">
+          <div class="prompt-bar-label">
+            <span>Nano Banana 2 Prompt (16:9)</span>
+            <span style="color: var(--accent-orange); font-size: 10px;">Stylized 3D • Ref: TAO</span>
+          </div>
+          <div class="prompt-text-box" id="prompt-text-${bB.id}">${escapeHtml(bB.prompt)}</div>
+          <button class="copy-prompt-btn copy-prompt-btn-b" data-target="prompt-text-${bB.id}">
+            <span>📋</span> <span>Скопировать промпт ветки 🅱️</span>
+          </button>
+        </div>
 
-/**
- * Filter Tabs Logic
- */
-function setupFilterTabs() {
-  const tabs = document.querySelectorAll('.filter-tab-btn');
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      tabs.forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-
-      const filterVal = tab.getAttribute('data-filter');
-      currentFilter = filterVal;
-      applyFilter(filterVal);
-    });
-  });
-}
-
-/**
- * Apply Filter on Day Cards
- */
-function applyFilter(filterVal) {
-  const dayCards = document.querySelectorAll('.day-module-card');
-  dayCards.forEach(card => {
-    const cardDay = card.getAttribute('data-day');
-    if (filterVal === 'all' || filterVal === cardDay) {
-      card.style.display = 'block';
-    } else {
-      card.style.display = 'none';
-    }
-  });
-}
-
-/**
- * Focus Single Day
- */
-window.focusDay = function(dayNumber) {
-  const targetTab = document.getElementById(`tab-filter-day-${dayNumber}`);
-  if (targetTab) {
-    targetTab.click();
-    scrollToDay(dayNumber);
+        <div class="discord-accordion">
+          <button class="accordion-trigger" data-target="accordion-body-${bB.id}">
+            <span>💬 Текст публикации Discord (Ветка 🅱️)</span>
+            <span class="accordion-arrow">▼</span>
+          </button>
+          <div class="accordion-body" id="accordion-body-${bB.id}">
+            <div class="discord-preview-box discord-preview-box-b" id="discord-text-${bB.id}">${escapeHtml(bB.discordCopy)}</div>
+            <button class="action-btn" style="margin-top: 10px; width: 100%; justify-content: center;" data-copy-target="discord-text-${bB.id}">
+              <span>📋 Скопировать пост для Discord</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
   }
+
+  attachDynamicCardListeners();
+}
+
+/**
+ * User sets specific branch choice
+ */
+window.setBranchChoice = function(dayNum, choice) {
+  communityDecisions[dayNum] = choice;
+  
+  const labelEl = document.getElementById(`node-choice-label-${dayNum}`);
+  if (labelEl) {
+    labelEl.textContent = `${dayNum}${choice}`;
+    labelEl.className = `node-branch-choice ${choice === 'A' ? 'choice-a' : 'choice-b'}`;
+  }
+
+  updateActivePathDisplay();
+  renderDayView(dayNum);
 };
 
 /**
- * Scroll to Day
+ * Attach listeners to dynamically created cards
  */
-function scrollToDay(dayNumber) {
-  const card = document.getElementById(`day-card-${dayNumber}`);
-  if (card) {
-    card.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-}
-
-/**
- * Setup Header Actions (Export Markdown & JSON, Reset)
- */
-function setupHeaderActions() {
-  // Export Markdown
-  const exportMdBtn = document.getElementById('btn-export-markdown');
-  if (exportMdBtn) {
-    exportMdBtn.addEventListener('click', exportEntireCampaignMarkdown);
-  }
-
-  // Export JSON
-  const exportJsonBtn = document.getElementById('btn-export-json');
-  if (exportJsonBtn) {
-    exportJsonBtn.addEventListener('click', exportEntireCampaignJson);
-  }
-
-  // Reset Path
-  const resetBtn = document.getElementById('btn-reset-path');
-  if (resetBtn) {
-    resetBtn.addEventListener('click', () => {
-      for (let i = 2; i <= 7; i++) {
-        setBranch(i, 'A');
+function attachDynamicCardListeners() {
+  document.querySelectorAll('.accordion-trigger').forEach(trigger => {
+    trigger.addEventListener('click', () => {
+      const targetId = trigger.getAttribute('data-target');
+      const body = document.getElementById(targetId);
+      if (body) {
+        const isOpen = body.classList.contains('open');
+        body.classList.toggle('open', !isOpen);
+        const arrow = trigger.querySelector('.accordion-arrow');
+        if (arrow) arrow.textContent = isOpen ? '▼' : '▲';
       }
-      showToast('Маршрут сброшен на базовый (Все ветки А)', '🔄');
     });
-  }
+  });
+
+  document.querySelectorAll('.copy-prompt-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const targetId = btn.getAttribute('data-target');
+      const box = document.getElementById(targetId);
+      if (box) {
+        copyToClipboard(box.textContent, btn);
+      }
+    });
+  });
+
+  document.querySelectorAll('[data-copy-target]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const targetId = btn.getAttribute('data-copy-target');
+      const box = document.getElementById(targetId);
+      if (box) {
+        copyToClipboard(box.textContent, btn);
+      }
+    });
+  });
 }
 
 /**
- * Setup DNA Token Copy
+ * Global static events
  */
-function setupDnaCopy() {
-  const copyDnaBtn = document.getElementById('btn-copy-dna');
-  const dnaTextEl = document.getElementById('dna-token-text');
-  if (copyDnaBtn && dnaTextEl) {
-    copyDnaBtn.addEventListener('click', () => {
-      copyToClipboard(dnaTextEl.innerText);
-      showToast('DNA префикс ТАО скопирован!', '🧬');
+function initGlobalEvents() {
+  const btnDna = document.getElementById('btn-copy-dna');
+  if (btnDna) {
+    btnDna.addEventListener('click', () => {
+      const textEl = document.getElementById('dna-token-text');
+      if (textEl) {
+        copyToClipboard(textEl.textContent, btnDna);
+      }
+    });
+  }
+
+  const btnReset = document.getElementById('btn-reset-path');
+  if (btnReset) {
+    btnReset.addEventListener('click', () => {
+      communityDecisions = { 1: 'A', 2: 'A', 3: 'A', 4: 'A', 5: 'A', 6: 'A', 7: 'A' };
+      initTimeline();
+      updateActivePathDisplay();
+      renderDayView(activeDay);
+    });
+  }
+
+  const btnExport = document.getElementById('btn-export-markdown');
+  if (btnExport) {
+    btnExport.addEventListener('click', () => {
+      exportEntireCampaignMarkdown();
     });
   }
 }
 
 /**
- * Export Entire Campaign as Clean Markdown
+ * Copy to clipboard with visual feedback
+ */
+function copyToClipboard(text, btnElement) {
+  navigator.clipboard.writeText(text).then(() => {
+    const originalText = btnElement.innerHTML;
+    btnElement.innerHTML = '<span>✅ Скопировано!</span>';
+    btnElement.style.borderColor = 'var(--accent-emerald)';
+    btnElement.style.color = 'var(--accent-emerald)';
+
+    setTimeout(() => {
+      btnElement.innerHTML = originalText;
+      btnElement.style.borderColor = '';
+      btnElement.style.color = '';
+    }, 2000);
+  }).catch(err => {
+    console.error('Failed to copy text: ', err);
+  });
+}
+
+/**
+ * Export campaign to markdown
  */
 function exportEntireCampaignMarkdown() {
-  const activeTitle = ARC_METADATA ? ARC_METADATA.titleRu : 'TAO Quest Campaign';
-  const activeEn = ARC_METADATA ? ARC_METADATA.title : 'The Quest';
-  let md = `# 🪐 TAO: ${activeTitle} (${activeEn})\n`;
-  md += `**Интерактивная 7-дневная сюжетная кампания для Discord • Tao Fortune**\n`;
-  md += `* Персонаж: ${CHARACTER_DNA ? CHARACTER_DNA.name : 'ТАО'}\n`;
-  md += `* Референс: \`assets/TAO_character.png\` (Официальный арт ТАО)\n`;
-  md += `* Модель генерации: Google AI Studio / Gemini Nano Banana 2 (16:9 Cinematic 3D)\n\n`;
-  md += `---\n\n`;
+  if (typeof ARC_METADATA === 'undefined' || !QUEST_DAYS) return;
+
+  let md = `# 🪐 TAO FORTUNE: ${ARC_METADATA.titleRu} (${ARC_METADATA.title})
+**Интерактивная 7-дневная сюжетная кампания для Discord • Tao Fortune**
+* Персонаж: ТАО (Космический Панда-Механик)
+* Референс: \`assets/TAO_character.png\`
+* Модель генерации: Google AI Studio / Nano Banana 2, 16:9 Widescreen
+
+---
+
+`;
 
   QUEST_DAYS.forEach(qDay => {
     md += `## 📅 ${qDay.titleRu} (${qDay.titleEn})\n`;
     md += `**Фаза**: ${qDay.act}\n`;
     md += `**Синопсис**: ${qDay.summary}\n`;
-    md += `**Вопрос дня**: ${qDay.votingQuestion}\n\n`;
+    if (qDay.votingQuestion) {
+      md += `**Вопрос дня**: ${qDay.votingQuestion}\n\n`;
+    }
 
     if (qDay.isSingleScene) {
-      md += `### 🌟 Стартовый Кадр #1: ${qDay.singleScene.sceneTitle}\n`;
-      md += `* **Голосование за День 2**:\n`;
-      md += `  - 🅰️ ${qDay.votingOptions.A.choiceText}\n`;
-      md += `  - 🅱️ ${qDay.votingOptions.B.choiceText}\n`;
-      md += `* **Промпт для Nano Banana 2**:\n\`\`\`text\n${qDay.singleScene.prompt}\n\`\`\`\n`;
-      md += `* **Текст поста для Discord**:\n\`\`\`markdown\n${qDay.singleScene.discordCopy}\n\`\`\`\n\n`;
+      md += `### 🎬 ${qDay.singleScene.sceneTitle}\n\n`;
+      md += `**Промпт для Nano Banana 2 (16:9):**\n\`\`\`text\n${qDay.singleScene.prompt}\n\`\`\`\n\n`;
+      md += `**Текст публикации в Discord:**\n\`\`\`markdown\n${qDay.singleScene.discordCopy}\n\`\`\`\n\n`;
     } else {
-      // Branch A
-      md += `### 🅰️ Кадр ${qDay.branches.A.id}: ${qDay.branches.A.sceneTitle}\n`;
-      md += `* **Выбор**: ${qDay.branches.A.choiceText}\n`;
-      if (qDay.branches.A.promoCode) md += `* **Промокод**: \`${qDay.branches.A.promoCode}\`\n`;
-      md += `* **Промпт для Nano Banana 2**:\n\`\`\`text\n${qDay.branches.A.prompt}\n\`\`\`\n`;
-      md += `* **Текст поста для Discord**:\n\`\`\`markdown\n${qDay.branches.A.discordCopy}\n\`\`\`\n\n`;
+      md += `### 🅰️ ${qDay.branches.A.sceneTitle}\n\n`;
+      if (qDay.branches.A.promoCode) {
+        md += `🎁 **Победный промокод**: \`${qDay.branches.A.promoCode}\`\n\n`;
+      }
+      md += `**Промпт для Nano Banana 2 (16:9):**\n\`\`\`text\n${qDay.branches.A.prompt}\n\`\`\`\n\n`;
+      md += `**Текст публикации в Discord:**\n\`\`\`markdown\n${qDay.branches.A.discordCopy}\n\`\`\`\n\n`;
 
-      // Branch B
-      md += `### 🅱️ Кадр ${qDay.branches.B.id}: ${qDay.branches.B.sceneTitle}\n`;
-      md += `* **Выбор**: ${qDay.branches.B.choiceText}\n`;
-      if (qDay.branches.B.promoCode) md += `* **Промокод**: \`${qDay.branches.B.promoCode}\`\n`;
-      md += `* **Промпт для Nano Banana 2**:\n\`\`\`text\n${qDay.branches.B.prompt}\n\`\`\`\n`;
-      md += `* **Текст поста для Discord**:\n\`\`\`markdown\n${qDay.branches.B.discordCopy}\n\`\`\`\n\n`;
+      md += `### 🅱️ ${qDay.branches.B.sceneTitle}\n\n`;
+      if (qDay.branches.B.promoCode) {
+        md += `🎁 **Победный промокод**: \`${qDay.branches.B.promoCode}\`\n\n`;
+      }
+      md += `**Промпт для Nano Banana 2 (16:9):**\n\`\`\`text\n${qDay.branches.B.prompt}\n\`\`\`\n\n`;
+      md += `**Текст публикации в Discord:**\n\`\`\`markdown\n${qDay.branches.B.discordCopy}\n\`\`\`\n\n`;
     }
 
     md += `---\n\n`;
   });
 
-  downloadFile(`TAO_${CURRENT_WEEK_ID}_Discord_Quest.md`, md, 'text/markdown');
-  showToast(`Кампания (${activeTitle}) экспортирована в Markdown!`, '📄');
-}
-
-/**
- * Export JSON
- */
-function exportEntireCampaignJson() {
-  const exportData = {
-    weekId: CURRENT_WEEK_ID,
-    metadata: ARC_METADATA,
-    character: CHARACTER_DNA,
-    days: QUEST_DAYS
-  };
-  const jsonStr = JSON.stringify(exportData, null, 2);
-  downloadFile(`TAO_${CURRENT_WEEK_ID}_arc_data.json`, jsonStr, 'application/json');
-  showToast('Структура кампании экспортирована в JSON!', '💾');
-}
-
-/**
- * Helper: Download File
- */
-function downloadFile(filename, content, mimeType) {
-  const blob = new Blob([content], { type: mimeType });
+  const blob = new Blob([md], { type: 'text/markdown;charset=utf-8;' });
   const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = filename;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
+  const link = document.createElement('a');
+  link.setAttribute('href', url);
+  link.setAttribute('download', `TAO_Quest_Campaign_${CURRENT_WEEK_ID}.md`);
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
 }
 
-/**
- * Helper: Copy to Clipboard
- */
-function copyToClipboard(text) {
-  if (navigator.clipboard && window.isSecureContext) {
-    navigator.clipboard.writeText(text);
-  } else {
-    const textArea = document.createElement('textarea');
-    textArea.value = text;
-    textArea.style.position = 'fixed';
-    textArea.style.left = '-999999px';
-    document.body.appendChild(textArea);
-    textArea.focus();
-    textArea.select();
-    try {
-      document.execCommand('copy');
-    } catch (err) {
-      console.error('Fallback copy error', err);
-    }
-    document.body.removeChild(textArea);
-  }
-}
-
-/**
- * Helper: Show Toast
- */
-let toastTimeout;
-function showToast(message, icon = '✨') {
-  if (!toastEl) return;
-  toastMsgEl.textContent = message;
-  toastIconEl.textContent = icon;
-  toastEl.classList.add('show');
-  clearTimeout(toastTimeout);
-  toastTimeout = setTimeout(() => {
-    toastEl.classList.remove('show');
-  }, 3000);
-}
-
-/**
- * Helper: Get Short Title for Node
- */
-function getShortDayTitle(day) {
-  if (typeof QUEST_DAYS !== 'undefined' && QUEST_DAYS[day - 1]) {
-    const title = QUEST_DAYS[day - 1].titleRu;
-    const parts = title.split(':');
-    return parts.length > 1 ? parts[1].replace(/\(.*\)/, '').trim() : title;
-  }
-  return `День ${day}`;
-}
-
-/**
- * Helper: Escape HTML
- */
 function escapeHtml(string) {
-  return String(string)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;');
+  const entityMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  };
+  return String(string).replace(/[&<>"']/g, function (s) {
+    return entityMap[s];
+  });
 }
