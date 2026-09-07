@@ -1,0 +1,641 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Адаптація SMM · Тиждень 1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Commissioner:wght@300;400;500;600;700&family=Oswald:wght@500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+
+<style>
+:root{
+  --bg:#E9EDEB;
+  --surface:#FAFCFB;
+  --surface-2:#F0F4F2;
+  --line:#CBD6D2;
+  --line-soft:#DCE5E2;
+  --ink:#121B19;
+  --ink-2:#4C5C58;
+  --ink-3:#74857F;
+  --accent:#0E5B60;
+  --accent-2:#0A464A;
+  --accent-soft:#D8E8E7;
+  --risk:#9C382A;
+  --risk-soft:#F4E1DC;
+  --shadow:0 1px 2px rgba(18,27,25,.05), 0 8px 24px -18px rgba(18,27,25,.35);
+  --f-body:"Commissioner", "Segoe UI", system-ui, sans-serif;
+  --f-disp:"Oswald", "Arial Narrow", sans-serif;
+  --f-mono:"JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0C1312;
+    --surface:#131D1C;
+    --surface-2:#172321;
+    --line:#263634;
+    --line-soft:#1E2C2A;
+    --ink:#E2EAE7;
+    --ink-2:#9BADA8;
+    --ink-3:#788A85;
+    --accent:#54B9B2;
+    --accent-2:#7FD2CB;
+    --accent-soft:#13322F;
+    --risk:#E08A76;
+    --risk-soft:#37201B;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px -20px rgba(0,0,0,.9);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0C1312;
+  --surface:#131D1C;
+  --surface-2:#172321;
+  --line:#263634;
+  --line-soft:#1E2C2A;
+  --ink:#E2EAE7;
+  --ink-2:#9BADA8;
+  --ink-3:#788A85;
+  --accent:#54B9B2;
+  --accent-2:#7FD2CB;
+  --accent-soft:#13322F;
+  --risk:#E08A76;
+  --risk-soft:#37201B;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px -20px rgba(0,0,0,.9);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--f-body);
+  font-size:15px;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1120px;margin:0 auto;padding:clamp(22px,4vw,44px) clamp(16px,4vw,40px) 110px}
+h1,h2,h3{margin:0;text-wrap:balance}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+
+/* ---------- masthead ---------- */
+.masthead{border-bottom:1px solid var(--line);padding-bottom:26px;margin-bottom:28px}
+.eyebrow{
+  font-family:var(--f-disp);font-weight:600;font-size:12px;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--accent);
+}
+h1{
+  font-family:var(--f-disp);font-weight:600;
+  font-size:clamp(34px,6.2vw,52px);line-height:1.02;
+  letter-spacing:-.005em;margin:8px 0 4px;
+}
+h1 .h1-sub{display:block;font-size:.42em;letter-spacing:.05em;color:var(--ink-2);font-weight:500;margin-top:10px}
+.role{color:var(--ink-2);max-width:60ch;margin:12px 0 20px}
+.brands{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:22px}
+.brand{
+  font-size:12.5px;padding:3px 9px;border:1px solid var(--line);
+  border-radius:2px;color:var(--ink-2);background:var(--surface);
+}
+.meta{
+  display:flex;flex-wrap:wrap;gap:10px 28px;align-items:flex-end;
+  background:var(--surface);border:1px solid var(--line);border-radius:3px;
+  padding:16px 18px;box-shadow:var(--shadow);
+}
+.field{display:flex;flex-direction:column;gap:5px;min-width:190px;flex:1 1 190px}
+.field label{
+  font-family:var(--f-disp);font-size:11px;font-weight:500;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink-3);
+}
+.field input{
+  font:inherit;color:var(--ink);background:transparent;
+  border:0;border-bottom:1px solid var(--line);
+  padding:4px 2px;border-radius:0;
+}
+.field input::placeholder{color:var(--ink-3)}
+.field input:focus-visible{outline:0;border-bottom-color:var(--accent);box-shadow:0 1px 0 var(--accent)}
+.field .hintline{font-size:12px;color:var(--ink-3)}
+
+/* ---------- columns ---------- */
+.cols{display:grid;grid-template-columns:250px minmax(0,1fr);gap:clamp(26px,4vw,60px);align-items:start}
+@media (max-width:900px){.cols{grid-template-columns:1fr;gap:26px}}
+
+/* ---------- rail ---------- */
+.rail{position:sticky;top:18px;display:flex;flex-direction:column;gap:16px}
+@media (max-width:900px){.rail{position:static}}
+.tracker{
+  background:var(--surface);border:1px solid var(--line);border-radius:3px;
+  padding:16px 16px 14px;box-shadow:var(--shadow);
+}
+.tracker__top{display:flex;align-items:baseline;justify-content:space-between;gap:8px}
+.score{font-family:var(--f-mono);font-size:27px;font-weight:500;letter-spacing:-.02em;line-height:1}
+.score span{color:var(--ink-3);font-size:17px}
+.pct{font-family:var(--f-disp);font-size:13px;letter-spacing:.1em;color:var(--accent)}
+.bar{height:4px;background:var(--surface-2);border:1px solid var(--line-soft);margin-top:12px;overflow:hidden}
+.bar__fill{height:100%;width:0;background:var(--accent);transition:width .28s ease}
+.tracker__label{
+  font-family:var(--f-disp);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-3);margin-top:10px;
+}
+
+nav.days{display:flex;flex-direction:column;border-top:1px solid var(--line-soft)}
+nav.days a{
+  display:grid;grid-template-columns:26px minmax(0,1fr) auto;gap:10px;align-items:center;
+  padding:9px 4px;border-bottom:1px solid var(--line-soft);
+  text-decoration:none;color:var(--ink-2);font-size:13.5px;
+}
+nav.days a:hover{color:var(--ink)}
+nav.days a.active{color:var(--ink)}
+nav.days a.active .nav-no{color:var(--accent)}
+nav.days a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.nav-no{font-family:var(--f-disp);font-size:12px;letter-spacing:.08em;color:var(--ink-3)}
+.nav-count{font-family:var(--f-mono);font-size:11.5px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+nav.days a.done .nav-count{color:var(--accent)}
+
+.rail__actions{display:flex;flex-direction:column;gap:8px}
+button{
+  font:inherit;font-size:13px;cursor:pointer;
+  background:var(--surface);color:var(--ink);
+  border:1px solid var(--line);border-radius:2px;padding:8px 12px;text-align:left;
+  transition:border-color .15s ease,color .15s ease;
+}
+button:hover{border-color:var(--accent);color:var(--accent)}
+button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+button.armed{border-color:var(--risk);color:var(--risk)}
+
+/* ---------- days ---------- */
+.day{padding-top:30px;margin-top:30px;border-top:1px solid var(--line)}
+.day:first-of-type{border-top:0;margin-top:0;padding-top:2px}
+.day__head{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 14px;margin-bottom:6px}
+.day__no{
+  font-family:var(--f-disp);font-weight:600;font-size:12px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--accent);
+}
+.day__count{font-family:var(--f-mono);font-size:12px;color:var(--ink-3);margin-left:auto}
+.day h2{font-size:clamp(21px,3vw,26px);font-weight:600;letter-spacing:-.01em;flex-basis:100%}
+.day__date{font-size:12.5px;color:var(--ink-3)}
+.day__note{color:var(--ink-2);font-size:13.5px;margin:2px 0 0}
+
+.group{margin-top:20px}
+.group__title{
+  font-family:var(--f-disp);font-size:12px;font-weight:500;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink-2);
+  padding-bottom:6px;border-bottom:1px solid var(--line-soft);margin-bottom:4px;
+}
+.list{display:flex;flex-direction:column}
+
+.item{
+  display:grid;grid-template-columns:22px minmax(0,1fr);gap:11px;align-items:start;
+  padding:9px 4px;border-bottom:1px solid var(--line-soft);cursor:pointer;
+}
+.item:hover .box{border-color:var(--accent)}
+.item input{position:absolute;opacity:0;width:1px;height:1px;margin:0}
+.box{
+  width:19px;height:19px;margin-top:2px;border:1.5px solid var(--line);
+  border-radius:2px;background:var(--surface);
+  display:grid;place-items:center;flex:none;
+}
+.box::after{
+  content:"";width:9px;height:5px;border-left:2px solid var(--surface);
+  border-bottom:2px solid var(--surface);transform:rotate(-45deg) scale(.4);
+  opacity:0;transition:opacity .12s ease,transform .12s ease;margin-top:-2px;
+}
+.item input:focus-visible + .box{outline:2px solid var(--accent);outline-offset:2px}
+.item.is-done .box{background:var(--accent);border-color:var(--accent)}
+.item.is-done .box::after{opacity:1;transform:rotate(-45deg) scale(1)}
+.txt{display:block}
+.item.is-done .txt > .t{color:var(--ink-3);text-decoration:line-through;text-decoration-color:var(--line)}
+.t{display:block}
+.t b{font-weight:600}
+.hint{display:block;font-size:12.5px;color:var(--ink-3);margin-top:2px}
+.tool{font-family:var(--f-mono);font-size:13.5px;font-weight:500}
+.tool + .sep{color:var(--ink-3);padding:0 4px}
+
+/* ---------- who to ask ---------- */
+.who{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 8px;margin-top:4px}
+.who__k{
+  font-family:var(--f-disp);font-size:10px;font-weight:500;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink-3);
+}
+.who a{
+  font-family:var(--f-mono);font-size:12px;color:var(--accent);
+  text-decoration:none;border-bottom:1px solid var(--accent-soft);
+}
+.who a:hover{border-bottom-color:var(--accent)}
+.who a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.who .name{font-size:12.5px;color:var(--ink-2)}
+
+/* ---------- deferred ---------- */
+.item.defer{cursor:default;border-bottom:1px dashed var(--line-soft)}
+.marker{
+  width:19px;height:19px;margin-top:2px;border:1.5px dashed var(--line);
+  border-radius:2px;background:transparent;
+}
+.item.defer .t{color:var(--ink-2)}
+.flag{
+  display:inline-block;font-family:var(--f-disp);font-size:10.5px;font-weight:600;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);margin-bottom:3px;
+}
+
+.sub{display:flex;flex-direction:column;gap:2px;margin:4px 0 0 0;padding-left:0}
+.sub li{list-style:none;font-size:13px;color:var(--ink-2);position:relative;padding-left:14px}
+.sub li::before{content:"—";position:absolute;left:0;color:var(--ink-3)}
+
+/* ---------- next week ---------- */
+.next{
+  margin-top:34px;padding:20px;border:1px dashed var(--line);border-radius:3px;
+  background:transparent;
+}
+.next .day__no{color:var(--ink-3)}
+.next p{margin:6px 0 0;color:var(--ink-2);font-size:14px}
+
+/* ---------- toast ---------- */
+.toast{
+  position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(12px);
+  background:var(--accent);color:#fff;padding:9px 16px;border-radius:2px;
+  font-size:13px;opacity:0;pointer-events:none;transition:opacity .2s ease,transform .2s ease;
+  box-shadow:var(--shadow);z-index:9;
+}
+:root[data-theme="dark"] .toast,
+:root:not([data-theme="light"]) .toast{color:#07100F}
+@media (prefers-color-scheme: light){:root:not([data-theme="dark"]) .toast{color:#fff}}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media (prefers-reduced-motion: reduce){
+  *{transition:none !important;animation:none !important}
+}
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="eyebrow">Адаптація · SMM USA</div>
+    <h1>Тиждень 1<span class="h1-sub">чек-лист першого тижня</span></h1>
+    <p class="role"><b>Роль:</b> SMM / контент по проєктах. Вісім брендів, три Jira-проєкти, повний цикл: промокоди → тексти → постинг → перевірка.</p>
+    <div class="brands">
+      <span class="brand">Storm Rush</span>
+      <span class="brand">DexyPlay</span>
+      <span class="brand">TAO Fortune</span>
+      <span class="brand">Scarlet Sands</span>
+      <span class="brand">Vegas Way</span>
+      <span class="brand">NoLimitCoins</span>
+      <span class="brand">Fire Seven</span>
+      <span class="brand">Fortune Wheelz</span>
+    </div>
+    <div class="meta">
+      <div class="field">
+        <label for="buddy">Бадді</label>
+        <input id="buddy" type="text" placeholder="хто веде" autocomplete="off">
+      </div>
+      <div class="field">
+        <label for="start">Дата старту</label>
+        <input id="start" type="date">
+        <span class="hintline" id="start-hint">дні рахуються по робочих</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="cols">
+    <aside class="rail">
+      <div class="tracker">
+        <div class="tracker__top">
+          <div class="score mono"><b id="score-done">0</b><span> / <span id="score-total">0</span></span></div>
+          <div class="pct" id="score-pct">0%</div>
+        </div>
+        <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Прогрес тижня">
+          <div class="bar__fill" id="bar"></div>
+        </div>
+        <div class="tracker__label">Виконано пунктів</div>
+      </div>
+      <nav class="days" id="nav" aria-label="Дні тижня"></nav>
+      <div class="rail__actions">
+        <button type="button" id="copy">Скопіювати статус</button>
+        <button type="button" id="reset">Скинути все</button>
+      </div>
+    </aside>
+
+    <main id="plan"></main>
+  </div>
+
+  <div class="next">
+    <div class="eyebrow day__no">Тиждень 2</div>
+    <p>Discord, аналітика, продуктові задачі — додати окремо.</p>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const PLAN = [
+  {
+    id:'d1', no:'День 1', title:'Доступи', days:[1],
+    note:'Без цього перший тиждень не починається — збирати все в перший день.',
+    groups:[
+      { title:'Facebook / Meta', items:[
+        {id:'fb-acc',  t:'Зареєструвати робочий акаунт у Facebook'},
+        {id:'fb-bm',   t:'Попросити доступ до Business Manager', hint:'Не тільки сторінки — інакше не побачить Community Channels', who:'m.kremenchuk@cleack.com'},
+        {id:'fb-pages',t:'Доступ до фб сторінок усіх проєктів', who:'m.kremenchuk@cleack.com'},
+        {id:'fb-ig',   t:'Доступ до Instagram-акаунтів брендів'},
+        {id:'fb-x',    t:'Доступ до X-акаунтів брендів'}
+      ]},
+      { title:'Discord', items:[
+        {id:'ds-inv', t:'Інвайти на сервери всіх брендів', who:'Олександр Ханчич'},
+        {id:'ds-role',t:'Роль з правами на контент'}
+      ]},
+      { title:'Робочі інструменти', items:[
+        {id:'t-tools', t:'<span class="tool">BotCake</span><span class="sep">·</span><span class="tool">Publer</span><span class="sep">·</span><span class="tool">Popup-manager</span>', who:'m.kremenchuk@cleack.com'},
+        {id:'t-jira',  t:'<span class="tool">Jira</span> — доступ до проєктів FWL, NLC, USADES', who:'m.orendochka@cleack.com'},
+        {id:'t-admin', t:'Адмінка проєктів', hint:'Вхід + права на промокоди та бонуси', who:'a.bohdaniuk@cleack.com'},
+        {id:'t-drive', t:'<span class="tool">Google Drive</span>', hint:'Контент-плани, шаблони, брендбуки'},
+        {id:'t-pbi',   t:'<span class="tool">Power BI</span> — USA Offer Monitoring, на перегляд', flag:'через місяць', defer:true}
+      ]}
+    ]
+  },
+  {
+    id:'d23', no:'Дні 2–3', title:'Спостереження', days:[2,3],
+    groups:[
+      { items:[
+        {id:'o-cycle', t:'Пройти разом повний цикл', sub:['генерація промокодів','тексти','постинг у BotCake','перевірка']},
+        {id:'o-offers',t:'Подивитись, як збирається тижнева вигрузка по оферах'},
+        {id:'o-jira',  t:'Прочитати 5 готових Jira-тикетів', hint:'Зрозуміти формат і рівень деталізації'}
+      ]}
+    ]
+  },
+  {
+    id:'d34', no:'Дні 3–4', title:'Перші задачі під рев’ю', days:[3,4],
+    groups:[
+      { items:[
+        {id:'r-promo',t:'Згенерувати батч промокодів по шаблону на один бренд', hint:'Перевірка перед заливкою'},
+        {id:'r-posts',t:'Написати 3–5 постів для одного бренду', hint:'Правки з поясненням'},
+        {id:'r-plan', t:'Заповнити контент-план на тиждень для одного проєкту'}
+      ]}
+    ]
+  },
+  {
+    id:'d5', no:'День 5', title:'Самостійно + чек', days:[5],
+    groups:[
+      { items:[
+        {id:'s-full',  t:'Повний день одного бренду: промокоди, тексти, постинг', hint:'Публікація тільки після підтвердження'},
+        {id:'s-jira',  t:'Дрібний Jira-тикет українською', hint:'Наприклад, правка тексту в попапі'},
+        {id:'s-debrief',t:'Розбір 30 хвилин: що зрозумів, де плутається'}
+      ]}
+    ]
+  }
+];
+
+const KEY = 'onb-smm-w1';
+let state = {items:{}, buddy:'', start:''};
+
+try{
+  const raw = localStorage.getItem(KEY);
+  if(raw){ const p = JSON.parse(raw); if(p && typeof p === 'object'){ state = {items:p.items||{}, buddy:p.buddy||'', start:p.start||''}; } }
+}catch(e){}
+
+function save(){
+  try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){}
+}
+
+/* ---- who to ask ---- */
+function whoHtml(who){
+  if(!who) return '';
+  const val = who.indexOf('@') > -1
+    ? '<a href="mailto:'+who+'">'+who+'</a>'
+    : '<span class="name">'+who+'</span>';
+  return '<span class="who"><span class="who__k">доступ у</span>'+val+'</span>';
+}
+
+/* ---- dates: day N = Nth working day from start ---- */
+function workday(startStr, n){
+  if(!startStr) return null;
+  const parts = startStr.split('-').map(Number);
+  if(parts.length !== 3 || !parts[0]) return null;
+  let d = new Date(parts[0], parts[1]-1, parts[2]);
+  if(isNaN(d)) return null;
+  while(d.getDay() === 0 || d.getDay() === 6) d.setDate(d.getDate()+1);
+  let left = n - 1;
+  while(left > 0){
+    d.setDate(d.getDate()+1);
+    if(d.getDay() !== 0 && d.getDay() !== 6) left--;
+  }
+  return d;
+}
+const fmtDay = new Intl.DateTimeFormat('uk-UA', {weekday:'short', day:'numeric', month:'short'});
+function dateLabel(days){
+  if(!state.start || !days.length) return '';
+  const a = workday(state.start, days[0]);
+  if(!a) return '';
+  if(days.length === 1) return fmtDay.format(a);
+  const b = workday(state.start, days[days.length-1]);
+  return fmtDay.format(a) + ' → ' + fmtDay.format(b);
+}
+
+/* ---- render ---- */
+const planEl = document.getElementById('plan');
+const navEl  = document.getElementById('nav');
+
+planEl.innerHTML = PLAN.map(day => {
+  const groups = day.groups.map(g => {
+    const items = g.items.map(it => {
+      const flag = it.flag ? '<span class="flag">'+it.flag+'</span>' : '';
+      const hint = it.hint ? '<span class="hint">'+it.hint+'</span>' : '';
+      const sub  = it.sub ? '<ul class="sub">'+it.sub.map(s=>'<li>'+s+'</li>').join('')+'</ul>' : '';
+      const body = '<span class="txt">'+flag+'<span class="t">'+it.t+'</span>'+hint+whoHtml(it.who)+sub+'</span>';
+
+      if(it.defer){
+        return '<div class="item defer" data-id="'+it.id+'" data-day="'+day.id+'">'
+          + '<span class="marker" aria-hidden="true"></span>' + body + '</div>';
+      }
+      return '<label class="item" data-id="'+it.id+'" data-day="'+day.id+'">'
+        + '<input type="checkbox">'
+        + '<span class="box" aria-hidden="true"></span>'
+        + body + '</label>';
+    }).join('');
+    return '<div class="group">'
+      + (g.title ? '<h3 class="group__title">'+g.title+'</h3>' : '')
+      + '<div class="list">'+items+'</div></div>';
+  }).join('');
+
+  return '<section class="day" id="'+day.id+'">'
+    + '<div class="day__head">'
+      + '<span class="day__no">'+day.no+'</span>'
+      + '<span class="day__date" data-date="'+day.id+'">'+dateLabel(day.days)+'</span>'
+      + '<span class="day__count mono" data-count="'+day.id+'"></span>'
+      + '<h2>'+day.title+'</h2>'
+    + '</div>'
+    + (day.note ? '<p class="day__note">'+day.note+'</p>' : '')
+    + groups
+    + '</section>';
+}).join('');
+
+navEl.innerHTML = PLAN.map(day =>
+  '<a href="#'+day.id+'" data-nav="'+day.id+'">'
+  + '<span class="nav-no">'+day.no.replace('День ','Д').replace('Дні ','Д')+'</span>'
+  + '<span>'+day.title+'</span>'
+  + '<span class="nav-count" data-navcount="'+day.id+'"></span></a>'
+).join('');
+
+/* ---- state → UI ---- */
+const boxes = Array.from(planEl.querySelectorAll('.item:not(.defer)'));
+const total = boxes.length;
+document.getElementById('score-total').textContent = total;
+
+function paint(){
+  let done = 0;
+  const per = {};
+  PLAN.forEach(d => per[d.id] = {done:0, total:0});
+
+  boxes.forEach(el => {
+    const id = el.dataset.id, dayId = el.dataset.day;
+    const on = !!state.items[id];
+    el.classList.toggle('is-done', on);
+    el.querySelector('input').checked = on;
+    per[dayId].total++;
+    if(on){ done++; per[dayId].done++; }
+  });
+
+  document.getElementById('score-done').textContent = done;
+  const pct = total ? Math.round(done/total*100) : 0;
+  document.getElementById('score-pct').textContent = pct + '%';
+  document.getElementById('bar').style.width = pct + '%';
+  document.querySelector('.bar').setAttribute('aria-valuenow', pct);
+
+  PLAN.forEach(d => {
+    const c = per[d.id];
+    const txt = c.done + '/' + c.total;
+    const dc = planEl.querySelector('[data-count="'+d.id+'"]');
+    if(dc) dc.textContent = txt;
+    const nc = navEl.querySelector('[data-navcount="'+d.id+'"]');
+    if(nc) nc.textContent = txt;
+    const link = navEl.querySelector('[data-nav="'+d.id+'"]');
+    if(link) link.classList.toggle('done', c.done === c.total && c.total > 0);
+  });
+}
+
+planEl.addEventListener('change', e => {
+  const input = e.target;
+  if(input.type !== 'checkbox') return;
+  const item = input.closest('.item');
+  if(!item) return;
+  if(input.checked) state.items[item.dataset.id] = true;
+  else delete state.items[item.dataset.id];
+  save();
+  paint();
+});
+
+/* ---- fields ---- */
+const buddyEl = document.getElementById('buddy');
+const startEl = document.getElementById('start');
+buddyEl.value = state.buddy;
+startEl.value = state.start;
+
+buddyEl.addEventListener('input', () => { state.buddy = buddyEl.value; save(); });
+startEl.addEventListener('change', () => {
+  state.start = startEl.value; save(); paintDates();
+});
+function paintDates(){
+  PLAN.forEach(d => {
+    const el = planEl.querySelector('[data-date="'+d.id+'"]');
+    if(el) el.textContent = dateLabel(d.days);
+  });
+  const hint = document.getElementById('start-hint');
+  hint.textContent = state.start ? 'вихідні пропускаються' : 'дні рахуються по робочих';
+}
+
+/* ---- actions ---- */
+const toast = document.getElementById('toast');
+let toastT;
+function say(msg){
+  toast.textContent = msg;
+  toast.classList.add('show');
+  clearTimeout(toastT);
+  toastT = setTimeout(() => toast.classList.remove('show'), 2200);
+}
+
+function plainText(html){
+  const t = document.createElement('div');
+  t.innerHTML = html;
+  return (t.textContent || '').trim().replace(/\s+/g,' ');
+}
+
+document.getElementById('copy').addEventListener('click', () => {
+  const lines = [];
+  const open = [];
+  const later = [];
+  let done = 0;
+
+  PLAN.forEach(d => {
+    let dd = 0, dt = 0;
+    d.groups.forEach(g => g.items.forEach(it => {
+      if(it.defer){ later.push(plainText(it.t) + ' (' + (it.flag || 'пізніше') + ')'); return; }
+      dt++;
+      if(state.items[it.id]){ dd++; done++; }
+      else open.push(d.no + ': ' + plainText(it.t) + (it.who ? ' → ' + it.who : ''));
+    }));
+    lines.push(d.no + ' — ' + d.title + ': ' + dd + '/' + dt);
+  });
+
+  const head = 'Адаптація SMM · Тиждень 1 — ' + done + '/' + total;
+  const meta = [
+    state.buddy ? 'Бадді: ' + state.buddy : null,
+    state.start ? 'Старт: ' + state.start : null
+  ].filter(Boolean).join(' · ');
+
+  const parts = [head];
+  if(meta) parts.push(meta);
+  parts.push('', ...lines);
+  parts.push(open.length ? '\nЩе не зроблено:' : '\nВсе закрито ✅');
+  open.forEach(o => parts.push('— ' + o));
+  if(later.length){
+    parts.push('\nПізніше:');
+    later.forEach(l => parts.push('— ' + l));
+  }
+
+  navigator.clipboard.writeText(parts.join('\n'))
+    .then(() => say('Статус скопійовано'))
+    .catch(() => say('Не вдалося скопіювати — виділіть текст вручну'));
+});
+
+const resetBtn = document.getElementById('reset');
+let armed = false, armT;
+resetBtn.addEventListener('click', () => {
+  if(!armed){
+    armed = true;
+    resetBtn.textContent = 'Точно скинути? Натисніть ще раз';
+    resetBtn.classList.add('armed');
+    clearTimeout(armT);
+    armT = setTimeout(() => {
+      armed = false;
+      resetBtn.textContent = 'Скинути все';
+      resetBtn.classList.remove('armed');
+    }, 4000);
+    return;
+  }
+  armed = false;
+  clearTimeout(armT);
+  resetBtn.textContent = 'Скинути все';
+  resetBtn.classList.remove('armed');
+  state = {items:{}, buddy:'', start:''};
+  save();
+  buddyEl.value = '';
+  startEl.value = '';
+  paint(); paintDates();
+  say('Чек-лист очищено');
+});
+
+/* ---- active day in rail ---- */
+if('IntersectionObserver' in window){
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(en => {
+      if(!en.isIntersecting) return;
+      navEl.querySelectorAll('a').forEach(a => a.classList.remove('active'));
+      const link = navEl.querySelector('[data-nav="'+en.target.id+'"]');
+      if(link) link.classList.add('active');
+    });
+  }, {rootMargin:'-15% 0px -70% 0px'});
+  planEl.querySelectorAll('.day').forEach(s => io.observe(s));
+}
+
+paint();
+paintDates();
+</script>
+
+</body>
+</html>
