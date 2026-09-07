@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🪐 ТАО: Похищенный Звёздный Ключ — 7-Day Interactive Discord Quest Dashboard</title>
-  <meta name="description" content="Интерактивный дашборд производства графики и сторителлинга для Discord-кампании TAO Fortune. 7 дней, 14 кинематографичных сцен для Gemini Nano Banana 2, механика голосования реакциями.">
+  <title>🪐 ТАО: Интерактивный Quest Dashboard — 7-Day Discord Campaigns</title>
+  <meta name="description" content="Интерактивный дашборд производства графики и сторителлинга для Discord-кампаний TAO Fortune. Переключение между недельными арками, 13 кинематографичных сцен для Gemini Nano Banana 2, симулятор ветвления.">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -13,7 +13,7 @@
   <div class="cosmic-dust-ambient" aria-hidden="true"></div>
 
   <div class="dashboard-container">
-
+    
     <!-- Top Header Card -->
     <header class="header-card" id="main-header">
       <div class="brand-section">
@@ -22,18 +22,18 @@
         </div>
         <div class="brand-info">
           <h1 id="page-main-heading">
-            <span class="gradient-text-gold">ТАО</span>: Похищенный Звёздный Ключ
-            <span class="meta-badge" id="arc-badge">7-Day Quest Arc</span>
+            <span class="gradient-text-gold">ТАО</span>: <span id="heading-arc-title">Затерянный Неоновый Оазис</span>
+            <span class="meta-badge" id="arc-badge">Неделя 2 (Текущая)</span>
           </h1>
           <p id="page-subheading">Интерактивная сюжетная кампания для Discord • 1 стартовый мастер-кадр + 12 ответвлений (16:9) • Голосование реакциями 🅰️/🅱️</p>
         </div>
       </div>
 
       <div class="header-actions">
-        <button class="action-btn" id="btn-export-markdown" title="Экспортировать весь план и все промпты в единый .md файл">
-          <span>📄</span> <span>Экспорт в Markdown</span>
+        <button class="action-btn" id="btn-export-markdown" title="Экспортировать весь план и все промпты текущей недели в единый .md файл">
+          <span>📄</span> <span>Экспорт Markdown</span>
         </button>
-        <button class="action-btn" id="btn-export-json" title="Экспортировать структуру в JSON">
+        <button class="action-btn" id="btn-export-json" title="Экспортировать структуру текущей недели в JSON">
           <span>💾</span> <span>Экспорт JSON</span>
         </button>
         <a href="https://aistudio.google.com/" target="_blank" rel="noopener noreferrer" class="action-btn action-btn-primary" id="btn-open-gemini">
@@ -42,9 +42,29 @@
       </div>
     </header>
 
+    <!-- Week Switcher Bar -->
+    <nav class="week-switcher-bar" id="week-switcher-section" aria-label="Выбор сюжетной недели">
+      <div class="week-switcher-label">
+        <span class="pulse-indicator"></span>
+        <span>Сюжетная арка:</span>
+      </div>
+      <div class="week-tabs-container" id="week-tabs-container">
+        <button class="week-tab-btn" data-week="week-1" id="tab-week-1">
+          <span class="week-tab-icon">🔑</span>
+          <span class="week-tab-title">Неделя 1: Похищенный Ключ</span>
+          <span class="week-tab-badge badge-archive">Архив</span>
+        </button>
+        <button class="week-tab-btn active" data-week="week-2" id="tab-week-2">
+          <span class="week-tab-icon">🌴</span>
+          <span class="week-tab-title">Неделя 2: Неоновый Оазис</span>
+          <span class="week-tab-badge badge-active">Текущая</span>
+        </button>
+      </div>
+    </nav>
+
     <!-- Hero Deck: Character Specs & Storyline Simulator -->
     <section class="hero-deck-grid" id="hero-deck-section">
-
+      
       <!-- Character Lore Card -->
       <aside class="character-card" id="character-dna-card">
         <div class="character-image-box" style="background: radial-gradient(circle, #182038 0%, #0c1020 100%); display:flex; align-items:center; justify-content:center;">
@@ -55,11 +75,11 @@
         <div class="character-specs">
           <div class="spec-row">
             <span class="spec-label">Персонаж:</span>
-            <span class="spec-value" id="spec-char-name">ТАО (Космическая Красная Панда)</span>
+            <span class="spec-value" id="spec-char-name">ТАО (Космический Маскот-Механик)</span>
           </div>
           <div class="spec-row">
             <span class="spec-label">Роль в арке:</span>
-            <span class="spec-value" id="spec-char-role">Главный инженер-механик Обсерватории</span>
+            <span class="spec-value" id="spec-char-role">Главный инженер и исследователь</span>
           </div>
           <div class="spec-row">
             <span class="spec-label">Костюм:</span>
@@ -72,11 +92,11 @@
           <div class="spec-row">
             <span class="spec-label">Мастер-теги:</span>
             <div class="tag-cloud">
-              <span class="dna-tag highlight">Panda-like Mascot</span>
+              <span class="dna-tag highlight">Panda Mascot</span>
               <span class="dna-tag highlight">Honeycomb Armor</span>
               <span class="dna-tag">Utility Belt</span>
               <span class="dna-tag">Stylized 3D</span>
-              <span class="dna-tag">PBR Lighting</span>
+              <span class="dna-tag">PBR Materials</span>
               <span class="dna-tag">IP-Safe</span>
             </div>
           </div>
@@ -88,23 +108,7 @@
             <span class="master-token-title">DNA Промпт-Префикс (Без копирайт-триггеров)</span>
             <button class="mini-copy-btn" id="btn-copy-dna" title="Копировать базовые токены ТАО">📋 Копировать</button>
           </div>
-          <div class="master-token-code" id="dna-token-text">Use the attached image as the character reference. Keep his design consistent: the same panda-like mascot with red-orange and cream fur, rounded ears, amber eyes and a bushy ringed tail, wearing the same navy-blue and orange armor suit with honeycomb chest plate, harness straps, utility belt and knee pads. Change only his pose and expression.
-
-Stylized 3D character render, soft subsurface fur shading, glossy PBR materials, shallow depth of field, high detail, 16:9 widescreen.</div>
-        </div>
-
-        <!-- Filter Rules Reminder -->
-        <div class="master-token-box" style="margin-top: 12px;">
-          <div class="master-token-header">
-            <span class="master-token-title">⛔ Стоп-слова (из-за них режет генерацию)</span>
-          </div>
-          <div class="master-token-code" id="banned-words-text">Копирайт-фильтр («third-party content providers»):
-award-winning · animated feature · feature animation · Octane · 8k · blockbuster · space-opera · cyberpunk · film-noir · cantina · 100% identical · exact same · Negative Prompt · watermark
-
-Safety-фильтр («може порушувати наші правила»):
-aims a … · tactical · blast door · cutting torch · weapon · персонаж в открытом космосе без шлема
-
-Negative prompts Nano Banana не поддерживает вообще — всё из такой строки читается как позитив. Генерировать в AI Studio, Dangerous Content → Block none. Поймал ошибку — открывай НОВЫЙ чат: тред после блока сыпется весь.</div>
+          <div class="master-token-code" id="dna-token-text">Use the attached image as the character reference. Keep his design consistent: the same panda-like mascot with red-orange and cream fur, rounded ears, amber eyes and a bushy ringed tail, wearing the same navy-blue and orange armor suit with honeycomb chest plate, harness straps, utility belt and knee pads. Change only his pose and expression.</div>
         </div>
       </aside>
 
@@ -113,7 +117,7 @@ Negative prompts Nano Banana не поддерживает вообще — вс
         <div>
           <div class="simulator-header">
             <h2>
-              <span>🗺️</span>
+              <span>🗺️</span> 
               <span>Интерактивная карта ветвления сюжета</span>
             </h2>
             <div class="simulator-legend">
@@ -134,7 +138,7 @@ Negative prompts Nano Banana не поддерживает вообще — вс
 
           <!-- 7-Step Interactive Node Timeline -->
           <div class="timeline-strip" id="interactive-timeline-strip">
-            <!-- Dynamically populated or rendered -->
+            <!-- Dynamically populated via app.js -->
           </div>
         </div>
 
