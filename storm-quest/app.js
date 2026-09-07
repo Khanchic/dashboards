@@ -1,5 +1,6 @@
 /**
- * Storm Rush (STR): The Stolen Crown of Storms — Dashboard Logic
+ * Storm Rush (STR): Interactive Discord Storytelling Dashboard
+ * Logic supporting multi-week campaign switching and dynamic branching
  */
 
 let activeDay = 1;
@@ -14,16 +15,129 @@ let communityDecisions = {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
+  setupWeekSwitcher();
+  initWeekView();
+  initGlobalEvents();
+});
+
+/**
+ * Setup Week Switcher Tabs & State Restoration
+ */
+function setupWeekSwitcher() {
+  const weekTabsContainer = document.getElementById('week-tabs-container');
+  if (!weekTabsContainer) return;
+
+  if (typeof ALL_ARCS !== 'undefined') {
+    weekTabsContainer.innerHTML = '';
+    Object.keys(ALL_ARCS).forEach(weekKey => {
+      const arc = ALL_ARCS[weekKey];
+      const isWeek2 = weekKey === 'week-2';
+      const btn = document.createElement('button');
+      btn.className = `week-tab-btn ${weekKey === CURRENT_WEEK_ID ? 'active' : ''}`;
+      btn.id = `tab-${weekKey}`;
+      btn.setAttribute('data-week', weekKey);
+      btn.innerHTML = `
+        <span class="week-tab-icon">${isWeek2 ? '🎰' : '👑'}</span>
+        <span class="week-tab-title">${arc.tabLabel || arc.metadata.titleRu}</span>
+        <span class="week-tab-badge ${isWeek2 ? 'badge-active' : 'badge-archive'}">${isWeek2 ? 'Текущая' : 'Архив'}</span>
+      `;
+
+      btn.addEventListener('click', () => {
+        switchWeek(weekKey);
+      });
+
+      weekTabsContainer.appendChild(btn);
+    });
+  }
+
+  // Restore active week from URL hash or localStorage
+  const urlHash = window.location.hash.replace('#', '');
+  const savedWeek = localStorage.getItem('storm_active_week');
+  if (urlHash && (urlHash === 'week-1' || urlHash === 'week-2')) {
+    switchWeek(urlHash, false);
+  } else if (savedWeek && (savedWeek === 'week-1' || savedWeek === 'week-2')) {
+    switchWeek(savedWeek, false);
+  }
+}
+
+/**
+ * Switch Active Week Campaign
+ */
+function switchWeek(weekId, updateStorage = true) {
+  if (typeof setActiveArcWeek === 'function') {
+    const activeArc = setActiveArcWeek(weekId);
+    if (!activeArc) return;
+
+    // Update active tab buttons
+    document.querySelectorAll('.week-tab-btn').forEach(btn => {
+      if (btn.getAttribute('data-week') === weekId) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+      }
+    });
+
+    if (updateStorage) {
+      localStorage.setItem('storm_active_week', weekId);
+      if (window.location.hash !== `#${weekId}`) {
+        history.replaceState(null, '', `#${weekId}`);
+      }
+    }
+
+    communityDecisions = { 1: 'A', 2: 'A', 3: 'A', 4: 'A', 5: 'A', 6: 'A', 7: 'A' };
+    activeDay = 1;
+    initWeekView();
+  }
+}
+
+/**
+ * Initialize current active week view
+ */
+function initWeekView() {
+  updateHeaderAndMeta();
   initTimeline();
   initDayPills();
   renderDayView(activeDay);
   updateActivePathDisplay();
-  initGlobalEvents();
-});
+}
 
+/**
+ * Update Header and Lore Metadata
+ */
+function updateHeaderAndMeta() {
+  if (typeof ARC_METADATA === 'undefined') return;
+
+  const headerTitleEl = document.getElementById('header-brand-title');
+  const headerSubtitleEl = document.getElementById('header-brand-subtitle');
+  const specRoleEl = document.getElementById('spec-char-role');
+  const dnaTextEl = document.getElementById('dna-token-text');
+
+  if (headerTitleEl) {
+    headerTitleEl.textContent = `STORM RUSH • ${ARC_METADATA.titleRu}`;
+  }
+
+  if (typeof ALL_ARCS !== 'undefined' && ALL_ARCS[CURRENT_WEEK_ID]) {
+    const arc = ALL_ARCS[CURRENT_WEEK_ID];
+    if (headerSubtitleEl && arc.subheading) {
+      headerSubtitleEl.textContent = arc.subheading;
+    }
+    if (specRoleEl && arc.characterDna && arc.characterDna.role) {
+      specRoleEl.textContent = arc.characterDna.role;
+    }
+    if (dnaTextEl && arc.dnaPrefix) {
+      dnaTextEl.textContent = arc.dnaPrefix;
+    }
+  }
+
+  document.title = `⚡ STORM RUSH: ${ARC_METADATA.titleRu} — 7-Day Quest Dashboard`;
+}
+
+/**
+ * Initialize 7-Day Interactive Node Timeline
+ */
 function initTimeline() {
   const container = document.getElementById('interactive-timeline-strip');
-  if (!container) return;
+  if (!container || !QUEST_DAYS) return;
 
   container.innerHTML = '';
 
@@ -55,9 +169,12 @@ function initTimeline() {
   });
 }
 
+/**
+ * Initialize Day Filter Pills
+ */
 function initDayPills() {
   const container = document.getElementById('day-pills-container');
-  if (!container) return;
+  if (!container || !QUEST_DAYS) return;
 
   container.innerHTML = '';
 
@@ -75,6 +192,9 @@ function initDayPills() {
   });
 }
 
+/**
+ * Select active day
+ */
 function selectDay(dayNum) {
   activeDay = dayNum;
 
@@ -89,6 +209,9 @@ function selectDay(dayNum) {
   renderDayView(dayNum);
 }
 
+/**
+ * Toggle Day Branch Choice between A and B
+ */
 function toggleDayChoice(dayNum) {
   const current = communityDecisions[dayNum] || 'A';
   communityDecisions[dayNum] = current === 'A' ? 'B' : 'A';
@@ -104,9 +227,12 @@ function toggleDayChoice(dayNum) {
   renderDayView(activeDay);
 }
 
+/**
+ * Update Active Path Summary Bar
+ */
 function updateActivePathDisplay() {
   const displayEl = document.getElementById('active-path-display');
-  if (!displayEl) return;
+  if (!displayEl || !QUEST_DAYS) return;
 
   const pathParts = [];
   QUEST_DAYS.forEach(qDay => {
@@ -120,7 +246,11 @@ function updateActivePathDisplay() {
   displayEl.textContent = pathParts.join(' ➔ ');
 }
 
+/**
+ * Render Day Details (1 Single Root Scene or 2 Dual Branches)
+ */
 function renderDayView(dayNum) {
+  if (!QUEST_DAYS) return;
   const qDay = QUEST_DAYS.find(d => d.day === dayNum);
   if (!qDay) return;
 
@@ -135,19 +265,24 @@ function renderDayView(dayNum) {
 
   if (qDay.isSingleScene) {
     container.style.gridTemplateColumns = '1fr';
+    
+    const votingOptA = qDay.votingOptions && qDay.votingOptions.A ? qDay.votingOptions.A.choiceText : '';
+    const votingOptB = qDay.votingOptions && qDay.votingOptions.B ? qDay.votingOptions.B.choiceText : '';
+    const questionText = qDay.votingQuestion || '';
+
     container.innerHTML = `
       <div class="branch-panel active-branch">
         <div class="branch-header">
           <span class="branch-tag tag-a">Мастер-Старт Квеста</span>
-          <span style="font-size: 11px; color: var(--text-muted);">${qDay.act}</span>
+          <span style="font-size: 11px; color: var(--text-muted);">${escapeHtml(qDay.act || '')}</span>
         </div>
         <h3 class="branch-title">${escapeHtml(qDay.singleScene.sceneTitle)}</h3>
 
         <div style="background: rgba(0, 229, 255, 0.06); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 12px; font-size: 13px;">
-          <strong>Голосование дня в Discord:</strong> ${escapeHtml(qDay.votingQuestion)}<br>
-          <div style="margin-top: 8px; display: flex; flex-direction: column; gap: 4px;">
-            <div style="color: var(--accent-cyan);">${escapeHtml(qDay.votingOptions.A.choiceText)}</div>
-            <div style="color: var(--accent-emerald);">${escapeHtml(qDay.votingOptions.B.choiceText)}</div>
+          <div style="font-weight: 700; color: #ffffff; margin-bottom: 6px;">Голосование дня в Discord: ${escapeHtml(questionText)}</div>
+          <div style="display: flex; flex-direction: column; gap: 4px;">
+            <div style="color: var(--accent-cyan);">${escapeHtml(votingOptA)}</div>
+            <div style="color: var(--accent-emerald);">${escapeHtml(votingOptB)}</div>
           </div>
         </div>
 
@@ -182,16 +317,32 @@ function renderDayView(dayNum) {
     const bA = qDay.branches.A;
     const bB = qDay.branches.B;
 
+    const promoBadgeA = bA.promoCode ? `
+      <div class="promo-badge-box">
+        <span>🎁 <strong>Победный промокод ветки 🅰️:</strong></span>
+        <span class="promo-code-pill">${escapeHtml(bA.promoCode)}</span>
+      </div>
+    ` : '';
+
+    const promoBadgeB = bB.promoCode ? `
+      <div class="promo-badge-box" style="border-color: var(--accent-emerald);">
+        <span>🎁 <strong>Победный промокод ветки 🅱️:</strong></span>
+        <span class="promo-code-pill">${escapeHtml(bB.promoCode)}</span>
+      </div>
+    ` : '';
+
     container.innerHTML = `
       <!-- Branch A Panel -->
       <div class="branch-panel ${chosen === 'A' ? 'active-branch' : ''}" id="panel-branch-A">
         <div class="branch-header">
-          <span class="branch-tag tag-a">${bA.branchLabel}</span>
+          <span class="branch-tag tag-a">${escapeHtml(bA.label || 'Ветка 🅰️')}</span>
           <button class="action-btn" style="padding: 4px 10px; font-size: 11px;" onclick="setBranchChoice(${dayNum}, 'A')">
             ${chosen === 'A' ? '✅ Выбрано комьюнити' : 'Выбрать ветку 🅰️'}
           </button>
         </div>
         <h3 class="branch-title">${escapeHtml(bA.sceneTitle)}</h3>
+
+        ${promoBadgeA}
 
         <div class="prompt-container">
           <div class="prompt-bar-label">
@@ -221,12 +372,14 @@ function renderDayView(dayNum) {
       <!-- Branch B Panel -->
       <div class="branch-panel ${chosen === 'B' ? 'active-branch-b' : ''}" id="panel-branch-B">
         <div class="branch-header">
-          <span class="branch-tag tag-b">${bB.branchLabel}</span>
+          <span class="branch-tag tag-b">${escapeHtml(bB.label || 'Ветка 🅱️')}</span>
           <button class="action-btn" style="padding: 4px 10px; font-size: 11px;" onclick="setBranchChoice(${dayNum}, 'B')">
             ${chosen === 'B' ? '✅ Выбрано комьюнити' : 'Выбрать ветку 🅱️'}
           </button>
         </div>
         <h3 class="branch-title">${escapeHtml(bB.sceneTitle)}</h3>
+
+        ${promoBadgeB}
 
         <div class="prompt-container">
           <div class="prompt-bar-label">
@@ -258,6 +411,9 @@ function renderDayView(dayNum) {
   attachDynamicCardListeners();
 }
 
+/**
+ * User sets specific branch choice
+ */
 window.setBranchChoice = function(dayNum, choice) {
   communityDecisions[dayNum] = choice;
   
@@ -271,6 +427,9 @@ window.setBranchChoice = function(dayNum, choice) {
   renderDayView(dayNum);
 };
 
+/**
+ * Attach listeners to dynamically created cards
+ */
 function attachDynamicCardListeners() {
   document.querySelectorAll('.accordion-trigger').forEach(trigger => {
     trigger.addEventListener('click', () => {
@@ -306,6 +465,9 @@ function attachDynamicCardListeners() {
   });
 }
 
+/**
+ * Global static events
+ */
 function initGlobalEvents() {
   const btnDna = document.getElementById('btn-copy-dna');
   if (btnDna) {
@@ -335,6 +497,9 @@ function initGlobalEvents() {
   }
 }
 
+/**
+ * Copy to clipboard with visual feedback
+ */
 function copyToClipboard(text, btnElement) {
   navigator.clipboard.writeText(text).then(() => {
     const originalText = btnElement.innerHTML;
@@ -352,12 +517,17 @@ function copyToClipboard(text, btnElement) {
   });
 }
 
+/**
+ * Export campaign to markdown
+ */
 function exportEntireCampaignMarkdown() {
-  let md = `# ⚡ STORM RUSH: Похищенная Корона Гроз (The Stolen Crown of Storms)
+  if (typeof ARC_METADATA === 'undefined' || !QUEST_DAYS) return;
+
+  let md = `# ⚡ STORM RUSH: ${ARC_METADATA.titleRu} (${ARC_METADATA.title})
 **Интерактивная 7-дневная сюжетная кампания для Discord • Storm Rush**
 * Персонажи: Голем и Спарки (Икринка)
 * Референс: \`assets/Golem_and_Sparky.jpg\`
-* Модель генерации: Google Flow / Nano Banana, 16:9 Widescreen
+* Модель генерации: Google Flow / Nano Banana 2, 16:9 Widescreen
 
 ---
 
@@ -367,7 +537,9 @@ function exportEntireCampaignMarkdown() {
     md += `## 📅 ${qDay.titleRu} (${qDay.titleEn})\n`;
     md += `**Фаза**: ${qDay.act}\n`;
     md += `**Синопсис**: ${qDay.summary}\n`;
-    md += `**Вопрос дня**: ${qDay.votingQuestion}\n\n`;
+    if (qDay.votingQuestion) {
+      md += `**Вопрос дня**: ${qDay.votingQuestion}\n\n`;
+    }
 
     if (qDay.isSingleScene) {
       md += `### 🎬 ${qDay.singleScene.sceneTitle}\n\n`;
@@ -375,10 +547,16 @@ function exportEntireCampaignMarkdown() {
       md += `**Текст публикации в Discord:**\n\`\`\`markdown\n${qDay.singleScene.discordCopy}\n\`\`\`\n\n`;
     } else {
       md += `### 🅰️ ${qDay.branches.A.sceneTitle}\n\n`;
+      if (qDay.branches.A.promoCode) {
+        md += `🎁 **Победный промокод**: \`${qDay.branches.A.promoCode}\`\n\n`;
+      }
       md += `**Промпт для Google Flow (16:9):**\n\`\`\`text\n${qDay.branches.A.prompt}\n\`\`\`\n\n`;
       md += `**Текст публикации в Discord:**\n\`\`\`markdown\n${qDay.branches.A.discordCopy}\n\`\`\`\n\n`;
 
       md += `### 🅱️ ${qDay.branches.B.sceneTitle}\n\n`;
+      if (qDay.branches.B.promoCode) {
+        md += `🎁 **Победный промокод**: \`${qDay.branches.B.promoCode}\`\n\n`;
+      }
       md += `**Промпт для Google Flow (16:9):**\n\`\`\`text\n${qDay.branches.B.prompt}\n\`\`\`\n\n`;
       md += `**Текст публикации в Discord:**\n\`\`\`markdown\n${qDay.branches.B.discordCopy}\n\`\`\`\n\n`;
     }
@@ -390,7 +568,7 @@ function exportEntireCampaignMarkdown() {
   const url = URL.createObjectURL(blob);
   const link = document.createElement('a');
   link.setAttribute('href', url);
-  link.setAttribute('download', 'Storm_Rush_7Day_Quest_Campaign.md');
+  link.setAttribute('download', `Storm_Rush_Quest_Campaign_${CURRENT_WEEK_ID}.md`);
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
