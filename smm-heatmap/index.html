@@ -1,480 +1,1036 @@
 <!doctype html>
-<html lang="uk">
+<html lang="ru">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Формати контенту — теплова карта · SMM Insights USA2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="robots" content="noindex, nofollow" />
+<meta name="theme-color" content="#080b14" />
+<title>SMM Performance & Heatmap · Аналитика USA2</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-  :root{color-scheme:light}
-  body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#f7f5f1;color:#1c1a16}
-  .viz-root {
-    --bg: #f7f5f1; --surface: #ffffff; --surface-2: #f1ede4;
-    --ink: #1c1a16; --ink-secondary: #5b574c; --ink-muted: #8b8578;
-    --accent: #a8791f; --accent-ink: #7a5713;
-    --line: rgba(28,26,22,0.10); --line-strong: rgba(28,26,22,0.16);
-    --empty-cell: #eeeae1; --empty-hatch: rgba(28,26,22,0.06);
-    --shadow: 0 1px 2px rgba(28,26,22,0.04), 0 8px 24px -12px rgba(28,26,22,0.18);
-  }
-  @media (prefers-color-scheme: dark) {
-    :root:where(:not([data-theme="light"])) .viz-root {
-      --bg: #1a1917; --surface: #232120; --surface-2: #2a2725;
-      --ink: #f3f0ea; --ink-secondary: #b3ada0; --ink-muted: #837c6e;
-      --accent: #d9ab4c; --accent-ink: #f0c674;
-      --line: rgba(243,240,234,0.09); --line-strong: rgba(243,240,234,0.16);
-      --empty-cell: #2a2725; --empty-hatch: rgba(243,240,234,0.05);
-      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 12px 32px -16px rgba(0,0,0,0.6);
-    }
-  }
-  :root[data-theme="dark"] .viz-root {
-    --bg: #1a1917; --surface: #232120; --surface-2: #2a2725;
-    --ink: #f3f0ea; --ink-secondary: #b3ada0; --ink-muted: #837c6e;
-    --accent: #d9ab4c; --accent-ink: #f0c674;
-    --line: rgba(243,240,234,0.09); --line-strong: rgba(243,240,234,0.16);
-    --empty-cell: #2a2725; --empty-hatch: rgba(243,240,234,0.05);
-    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 12px 32px -16px rgba(0,0,0,0.6);
-  }
-  :root[data-theme="light"] .viz-root {
-    --bg: #f7f5f1; --surface: #ffffff; --surface-2: #f1ede4;
-    --ink: #1c1a16; --ink-secondary: #5b574c; --ink-muted: #8b8578;
-    --accent: #a8791f; --accent-ink: #7a5713;
-    --line: rgba(28,26,22,0.10); --line-strong: rgba(28,26,22,0.16);
-    --empty-cell: #eeeae1; --empty-hatch: rgba(28,26,22,0.06);
-    --shadow: 0 1px 2px rgba(28,26,22,0.04), 0 8px 24px -12px rgba(28,26,22,0.18);
-  }
+:root {
+  --bg: #070a13;
+  --bg-mesh: radial-gradient(at 15% 15%, rgba(0, 229, 255, 0.08) 0px, transparent 50%),
+             radial-gradient(at 85% 20%, rgba(213, 0, 249, 0.07) 0px, transparent 50%),
+             radial-gradient(at 50% 85%, rgba(0, 245, 155, 0.05) 0px, transparent 55%);
+  --panel: rgba(14, 20, 36, 0.72);
+  --panel-solid: #0e1526;
+  --panel-hover: rgba(20, 28, 50, 0.88);
+  --panel-2: rgba(9, 14, 26, 0.85);
+  --line: rgba(255, 255, 255, 0.08);
+  --line-strong: rgba(255, 255, 255, 0.16);
+  --text: #f0f4fc;
+  --muted: #8493b2;
+  --muted-light: #a6b5d4;
+  --brand: #00e5ff;
+  --brand-glow: rgba(0, 229, 255, 0.28);
+  --brand-2: #2f6fed;
+  --up: #00f59b;
+  --up-glow: rgba(0, 245, 155, 0.22);
+  --down: #ff4d6d;
+  --down-glow: rgba(255, 77, 109, 0.22);
+  --glass-border: 1px solid rgba(255, 255, 255, 0.08);
+  --glass-border-hover: 1px solid rgba(0, 229, 255, 0.35);
+  --card-shadow: 0 8px 32px -4px rgba(0, 0, 0, 0.5);
+  --radius-lg: 14px;
+  --radius-md: 10px;
+  --radius-sm: 8px;
+}
 
-  * { box-sizing: border-box; }
-  .viz-root { background: var(--bg); color: var(--ink); font-family: system-ui, -apple-system, "Segoe UI", sans-serif; padding: 40px 20px 64px; min-height: 100%; }
-  .viz-root .wrap { max-width: 1180px; margin: 0 auto; display: flex; flex-direction: column; gap: 36px; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { min-height: 100%; background: var(--bg); color: var(--text); font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 14px; -webkit-font-smoothing: antialiased; }
+body { background-image: var(--bg-mesh); background-attachment: fixed; }
 
-  .eyebrow { font-size: 11.5px; font-weight: 700; letter-spacing: 0.11em; text-transform: uppercase; color: var(--accent-ink); margin: 0 0 10px; }
-  h1 { font-size: clamp(24px, 3.2vw, 34px); line-height: 1.15; font-weight: 800; letter-spacing: -0.015em; margin: 0 0 8px; text-wrap: balance; }
-  .subtitle { font-size: 15px; color: var(--ink-secondary); margin: 0 0 16px; max-width: 66ch; line-height: 1.55; }
-  .subtitle b { color: var(--ink); font-weight: 600; }
-  .subtitle code { background: var(--surface-2); padding: 1px 6px; border-radius: 4px; font-size: 13px; }
+.hidden { display: none !important; }
 
-  .weeks { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-  .weeks .weeks-label { font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-muted); margin-right: 4px; }
-  .week-pill { border: 1px solid var(--line); background: var(--surface); color: var(--ink-secondary); font-size: 12.5px; font-weight: 650; padding: 6px 13px; border-radius: 99px; cursor: pointer; font-variant-numeric: tabular-nums; transition: border-color .12s, color .12s, background .12s; }
-  .week-pill:hover { border-color: var(--accent); color: var(--ink); }
-  .week-pill.active { background: var(--accent); border-color: var(--accent); color: #fff9f0; }
+/* ---- Шапка Sticky ---- */
+.topbar {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(7, 10, 19, 0.85);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  border-bottom: var(--glass-border);
+  padding: 10px 20px 12px;
+  padding-top: max(10px, env(safe-area-inset-top));
+  display: flex; flex-direction: column; gap: 10px;
+}
+.topbar-row { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
+.brand-box { display: flex; align-items: center; gap: 10px; }
+.brand-title { font-weight: 800; font-size: 16px; letter-spacing: -0.01em; display: flex; align-items: center; gap: 8px; }
+.brand-title .badge-neon {
+  background: linear-gradient(135deg, #00e5ff 0%, #2f6fed 100%);
+  color: #050811; font-weight: 800; font-size: 11px; padding: 2px 7px; border-radius: 6px; text-transform: uppercase;
+}
+.home-btn {
+  color: var(--muted); text-decoration: none; font-weight: 600; font-size: 12.5px;
+  padding: 5px 10px; border: var(--glass-border); border-radius: var(--radius-sm);
+  background: var(--panel); transition: all .15s ease; display: inline-flex; align-items: center; gap: 4px;
+}
+.home-btn:hover { color: var(--text); border-color: var(--brand); background: var(--panel-hover); }
 
-  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
-  .stat { background: var(--surface); padding: 18px 20px; display: flex; flex-direction: column; gap: 6px; }
-  .stat .label { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-muted); }
-  .stat .value { font-size: 26px; font-weight: 800; font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
-  .stat .value small { font-size: 14px; font-weight: 600; color: var(--ink-secondary); }
-  .stat .sub { font-size: 12.5px; color: var(--ink-secondary); }
-  @media (max-width: 720px) { .stats { grid-template-columns: repeat(2, 1fr); } }
+.topbar-right { display: flex; align-items: center; gap: 10px; }
+.meta-tag { color: var(--muted); font-size: 11.5px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.ghost-btn {
+  background: var(--panel); border: var(--glass-border); color: var(--text); border-radius: var(--radius-sm);
+  padding: 6px 12px; cursor: pointer; font-size: 13px; font-weight: 600; transition: all .15s ease;
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.ghost-btn:hover { border-color: var(--brand); background: var(--panel-hover); color: #fff; box-shadow: 0 0 12px var(--brand-glow); }
+.ghost-btn.sm { padding: 5px 9px; font-size: 12px; }
 
-  .main { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(260px, 0.85fr); gap: 20px; align-items: start; }
-  @media (max-width: 980px) { .main { grid-template-columns: 1fr; } }
+/* ---- Табы ---- */
+.nav-tabs { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 8px; }
+.nav-tabs::-webkit-scrollbar { display: none; }
+.nav-tab {
+  color: var(--muted); text-decoration: none; font-size: 13px; font-weight: 600; padding: 6px 14px;
+  border-radius: var(--radius-sm); border: 1px solid transparent; transition: all .15s ease; white-space: nowrap; cursor: pointer;
+}
+.nav-tab:hover { color: var(--text); background: rgba(255,255,255,0.04); }
+.nav-tab.active { color: #fff; background: var(--panel-hover); border-color: var(--line-strong); box-shadow: 0 0 16px rgba(0, 229, 255, 0.15); }
+.nav-tab.powerbi-glow {
+  color: #ffd600; border-color: rgba(255, 214, 0, 0.25); background: rgba(255, 214, 0, 0.06);
+}
+.nav-tab.powerbi-glow:hover { background: rgba(255, 214, 0, 0.12); box-shadow: 0 0 16px rgba(255, 214, 0, 0.25); }
+.nav-tab.powerbi-glow.active { background: #ffd600; color: #070a13; font-weight: 800; border-color: #ffd600; }
 
-  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 22px 22px 20px; box-shadow: var(--shadow); }
-  .card h2 { font-size: 13px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink-secondary); margin: 0 0 4px; }
-  .card .card-sub { font-size: 12.5px; color: var(--ink-muted); margin: 0 0 16px; }
-  .card .card-note { font-size: 12px; color: var(--ink-muted); font-style: italic; padding: 10px 12px; background: var(--surface-2); border-radius: 8px; }
+/* ---- Чипсы проектов ---- */
+.chips-scroll { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; padding: 2px 0; }
+.chips-scroll::-webkit-scrollbar { display: none; }
+.chip {
+  flex: 0 0 auto; background: var(--panel); border: var(--glass-border); color: var(--muted);
+  border-radius: 999px; padding: 6px 13px; cursor: pointer; font-size: 12.5px; font-weight: 600;
+  transition: all .15s ease; white-space: nowrap; display: inline-flex; align-items: center; gap: 6px;
+}
+.chip .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+.chip:hover { border-color: rgba(255,255,255,0.25); color: var(--text); transform: translateY(-1px); }
+.chip.active {
+  background: rgba(0, 229, 255, 0.14); border-color: var(--brand); color: #fff; font-weight: 700;
+  box-shadow: 0 0 14px var(--brand-glow);
+}
 
-  .heat-scroll { overflow-x: auto; margin: 0 -4px; padding: 0 4px; }
-  table.heat { border-collapse: separate; border-spacing: 0; width: 100%; min-width: 620px; font-size: 12.5px; }
-  table.heat th, table.heat td { padding: 0; }
-  table.heat thead th { font-size: 10.5px; font-weight: 700; letter-spacing: 0.03em; text-transform: uppercase; color: var(--ink-muted); text-align: center; padding: 0 4px 8px; white-space: nowrap; }
-  table.heat thead th.rowhead-col { text-align: left; }
-  table.heat tbody th { text-align: left; font-weight: 600; font-size: 13px; color: var(--ink); padding: 6px 12px 6px 4px; white-space: nowrap; position: sticky; left: 0; background: var(--surface); }
-  table.heat tbody th .n { display: block; font-weight: 500; font-size: 11px; color: var(--ink-muted); margin-top: 1px; }
-  td.cell { text-align: center; vertical-align: middle; font-variant-numeric: tabular-nums; font-weight: 700; font-size: 12.5px; color: #2a1c0f; height: 34px; border-radius: 6px; }
-  td.cell.empty { color: var(--ink-muted); font-weight: 400; background: var(--empty-cell); background-image: repeating-linear-gradient(135deg, var(--empty-hatch) 0 5px, transparent 5px 10px); }
-  td.cell-pad { padding: 2px; }
-  :root[data-theme="dark"] td.cell { color: #1a1310; }
-  :root[data-theme="light"] td.cell { color: #2a1c0f; }
-  @media (prefers-color-scheme: dark) { :root:where(:not([data-theme="light"])) td.cell { color: #1a1310; } }
-  td.cell.hot-text { color: #fbeee0 !important; }
+/* ---- Контролы (Период + Неделя) ---- */
+.controls-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.select-box {
+  background: var(--panel); border: var(--glass-border); color: var(--text);
+  border-radius: var(--radius-sm); padding: 7px 11px; font-size: 13px; font-weight: 600;
+  outline: none; cursor: pointer; transition: all .15s ease;
+}
+.select-box:hover, .select-box:focus { border-color: var(--brand); box-shadow: 0 0 10px var(--brand-glow); }
+.select-box option { background: #0c1220; color: #f0f4fc; }
 
-  .legend { display: flex; align-items: center; gap: 10px; margin-top: 14px; font-size: 11.5px; color: var(--ink-muted); }
-  .legend .ramp { flex: 1; max-width: 220px; height: 8px; border-radius: 4px; background: linear-gradient(90deg, #fbf1e4, #f4d9ad, #e8b473, #d68a45, #c0522f); }
-  .legend .swatch-empty { width: 14px; height: 14px; border-radius: 3px; background: var(--empty-cell); background-image: repeating-linear-gradient(135deg, var(--empty-hatch) 0 4px, transparent 4px 8px); display: inline-block; vertical-align: -3px; margin-right: 6px; }
+.seg-group {
+  display: flex; background: var(--panel); border: var(--glass-border); border-radius: var(--radius-sm); overflow: hidden;
+}
+.seg-btn {
+  background: none; border: 0; color: var(--muted); padding: 7px 13px; font-size: 12.5px; font-weight: 600;
+  cursor: pointer; transition: all .15s ease;
+}
+.seg-btn:hover { color: var(--text); }
+.seg-btn.active { background: var(--brand-2); color: #fff; font-weight: 700; box-shadow: 0 0 12px rgba(47, 111, 237, 0.4); }
 
-  .board-row { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--line); }
-  .board-row:last-child { border-bottom: none; }
-  .board-name { font-size: 13px; font-weight: 600; }
-  .board-name .count { font-weight: 400; color: var(--ink-muted); font-size: 11.5px; }
-  .board-bar-wrap { grid-column: 1 / -1; height: 6px; border-radius: 3px; background: var(--surface-2); overflow: hidden; }
-  .board-bar { height: 100%; border-radius: 3px; background: var(--accent); }
-  .board-val { font-size: 13px; font-weight: 700; font-variant-numeric: tabular-nums; text-align: right; }
-  .board-row.top .board-name { color: var(--accent-ink); }
-  .board-row.top .board-bar { background: var(--accent); }
+/* ---- Основной контент ---- */
+.main-wrap { max-width: 1360px; margin: 0 auto; padding: 20px 20px 60px; display: flex; flex-direction: column; gap: 20px; }
 
-  table.glossary { width: 100%; border-collapse: collapse; font-size: 12px; }
-  table.glossary th { text-align: left; font-size: 10px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink-muted); padding: 0 8px 7px 0; border-bottom: 1px solid var(--line-strong); }
-  table.glossary td { padding: 8px 8px 8px 0; border-bottom: 1px solid var(--line); vertical-align: top; color: var(--ink-secondary); line-height: 1.4; }
-  table.glossary tr:last-child td { border-bottom: none; }
-  table.glossary td.metric { font-weight: 700; color: var(--ink); white-space: nowrap; }
-  table.glossary td.formula { font-family: ui-monospace, "SF Mono", Consolas, monospace; font-size: 11px; color: var(--ink-muted); white-space: nowrap; }
+/* ---- Панели ---- */
+.panel {
+  background: var(--panel); border: var(--glass-border); border-radius: var(--radius-lg);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  padding: 16px 18px 20px; box-shadow: var(--card-shadow); transition: border-color .15s ease;
+}
+.panel:hover { border-color: rgba(255, 255, 255, 0.13); }
+.panel-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; flex-wrap: wrap; gap: 8px; }
+.panel-title { font-size: 14.5px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+.panel-sub { color: var(--muted); font-size: 12px; font-weight: 500; }
 
-  .insights { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
-  @media (max-width: 720px) { .insights { grid-template-columns: 1fr; } }
-  .insight { padding: 16px 18px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface-2); }
-  .insight .tag { font-size: 10.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent-ink); display: block; margin-bottom: 6px; }
-  .insight p { margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--ink-secondary); }
-  .insight p b { color: var(--ink); font-weight: 600; }
+/* ---- KPI Грид ---- */
+.kpis-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(154px, 1fr)); gap: 12px;
+}
+.kpi-card {
+  background: var(--panel); border: var(--glass-border); border-radius: var(--radius-md);
+  padding: 14px 14px 12px; display: flex; flex-direction: column; justify-content: space-between;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25); transition: all .15s ease; position: relative; overflow: hidden;
+}
+.kpi-card:before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(0, 229, 255, 0.4), transparent); opacity: 0; transition: opacity .2s ease;
+}
+.kpi-card:hover { transform: translateY(-2px); border-color: rgba(0, 229, 255, 0.3); }
+.kpi-card:hover:before { opacity: 1; }
+.kpi-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); }
+.kpi-val { font-size: 24px; font-weight: 800; margin-top: 6px; line-height: 1.1; font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+.kpi-delta-row { margin-top: 6px; font-size: 12px; font-variant-numeric: tabular-nums; display: flex; align-items: center; gap: 6px; }
+.delta-badge {
+  display: inline-flex; align-items: center; gap: 3px; font-weight: 700; font-size: 11.5px; padding: 2px 7px; border-radius: 6px;
+}
+.delta-badge.up { color: var(--up); background: rgba(0, 245, 155, 0.12); border: 1px solid rgba(0, 245, 155, 0.25); }
+.delta-badge.down { color: var(--down); background: rgba(255, 77, 109, 0.12); border: 1px solid rgba(255, 77, 109, 0.25); }
+.delta-badge.flat { color: var(--muted); background: rgba(255, 255, 255, 0.05); }
 
-  .project-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
-  @media (max-width: 980px) { .project-grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 560px) { .project-grid { grid-template-columns: 1fr; } }
-  .project-card { border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px 12px; background: var(--surface-2); }
-  .project-card .ph { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
-  .project-card .pname { font-size: 14px; font-weight: 700; }
-  .project-card .per { font-size: 16px; font-weight: 800; color: var(--accent-ink); font-variant-numeric: tabular-nums; white-space: nowrap; }
-  .project-card .pmeta { font-size: 11px; color: var(--ink-muted); margin: 1px 0 10px; }
-  .ptype-row { display: grid; grid-template-columns: 46px 1fr auto; gap: 8px; align-items: center; padding: 3px 0; }
-  .ptype-pill { font-size: 11px; font-weight: 700; text-align: center; border-radius: 5px; padding: 3px 0; font-variant-numeric: tabular-nums; }
-  .ptype-name { font-size: 12px; color: var(--ink); line-height: 1.3; }
-  .ptype-name .cnt { color: var(--ink-muted); font-weight: 400; font-size: 10px; }
-  .ptype-er { font-size: 11px; color: var(--ink-muted); font-variant-numeric: tabular-nums; text-align: right; }
-  .project-card .prank { display: block; font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 2px; }
+/* ---- Графики 2x2 ---- */
+.charts-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+@media (max-width: 1100px) { .charts-grid { grid-template-columns: 1fr; } }
+.chart-box { position: relative; height: 260px; width: 100%; }
 
-  ol.recs { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
-  ol.recs li { display: grid; grid-template-columns: 26px 1fr; gap: 12px; align-items: baseline; font-size: 13.5px; line-height: 1.55; color: var(--ink-secondary); }
-  ol.recs li .num { font-weight: 800; color: var(--accent); font-size: 14px; font-variant-numeric: tabular-nums; }
-  ol.recs li b { color: var(--ink); font-weight: 600; }
+/* ---- Таблица Сравнения ---- */
+.table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: var(--radius-sm); }
+.cmp-table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 13px; font-variant-numeric: tabular-nums; min-width: 720px; }
+.cmp-table th, .cmp-table td { padding: 11px 12px; text-align: right; border-bottom: 1px solid var(--line); white-space: nowrap; }
+.cmp-table th {
+  color: var(--muted-light); font-weight: 700; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em;
+  position: sticky; top: 0; background: var(--panel-solid); z-index: 10; border-bottom: 1px solid var(--line-strong);
+}
+.cmp-table th:first-child, .cmp-table td:first-child {
+  text-align: left; position: sticky; left: 0; background: var(--panel-solid); z-index: 15;
+}
+.cmp-table tr:hover td { background: var(--panel-hover); }
+.cmp-table tr.total td {
+  background: rgba(0, 229, 255, 0.07); font-weight: 800; border-top: 1px solid var(--brand); color: #fff;
+}
+.cmp-table .delta-sub { display: block; font-size: 11px; margin-top: 2px; font-weight: 600; }
+.cmp-table .delta-sub.up { color: var(--up); }
+.cmp-table .delta-sub.down { color: var(--down); }
+.cmp-table .delta-sub.flat { color: var(--muted); }
 
-  footer.note { font-size: 12px; color: var(--ink-muted); border-top: 1px solid var(--line); padding-top: 16px; line-height: 1.6; }
-  footer.note code { background: var(--surface-2); padding: 1px 6px; border-radius: 4px; font-size: 11.5px; }
+/* Мини прогресс-бар в таблице */
+.rank-bar-wrap { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+.rank-bar { width: 80px; height: 5px; background: rgba(255,255,255,0.08); border-radius: 99px; overflow: hidden; }
+.rank-bar-fill { height: 100%; border-radius: 99px; transition: width .3s ease; }
 
-  .shell{ display:grid; grid-template-columns:190px 1fr; grid-template-rows:52px 1fr; grid-template-areas:"topbar topbar" "sidebar content"; min-height:100vh; font-family:system-ui,-apple-system,"Segoe UI",sans-serif; }
-  @media (max-width:720px){ .shell{ grid-template-columns:1fr; grid-template-areas:"topbar" "sidebar" "content"; } }
-  .topbar{ grid-area:topbar; position:sticky; top:0; z-index:60; display:flex; align-items:center; padding:0 20px; background:#15130f; border-bottom:1px solid rgba(255,255,255,.08); }
-  .topbar .brand{ color:#f0d29a; font-weight:700; font-size:14px; letter-spacing:.02em; text-decoration:none; }
-  .sidebar{ grid-area:sidebar; position:sticky; top:52px; align-self:start; height:calc(100vh - 52px); overflow-y:auto; background:#15130f; border-right:1px solid rgba(255,255,255,.08); padding:18px 12px; }
-  @media (max-width:720px){ .sidebar{ position:static; height:auto; border-right:0; border-bottom:1px solid rgba(255,255,255,.08); } }
-  .sidebar nav{ display:flex; flex-direction:column; gap:3px; }
-  @media (max-width:720px){ .sidebar nav{ flex-direction:row; overflow-x:auto; } }
-  .slink{ color:#a8a39a; text-decoration:none; font-size:13px; font-weight:650; letter-spacing:.02em; padding:9px 12px; border-radius:8px; white-space:nowrap; transition:background .12s,color .12s; }
-  .slink:hover{ background:rgba(255,255,255,.06); color:#f2efe9; }
-  .slink.active{ background:rgba(217,171,76,.16); color:#f0c674; }
-  .slink.soon{ opacity:.55; }
-  .slink.soon::after{ content:" · soon"; font-size:9px; letter-spacing:0; opacity:.8; }
-  .content{ grid-area:content; min-width:0; }
+/* Карточки на мобилке */
+.cmp-cards { display: none; flex-direction: column; gap: 10px; }
+.mobile-card {
+  background: var(--panel-2); border: var(--glass-border); border-radius: var(--radius-md); padding: 13px 14px;
+}
+.mobile-card-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; border-bottom: 1px solid var(--line); padding-bottom: 6px; }
+.mobile-card-name { font-weight: 800; font-size: 14px; display: flex; align-items: center; gap: 6px; }
+.mobile-card-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px 14px; }
+.mobile-card-cell { display: flex; justify-content: space-between; gap: 6px; font-size: 12px; }
+.mobile-card-cell span:first-child { color: var(--muted); }
+.mobile-card-cell b { font-variant-numeric: tabular-nums; }
 
-  .widgets{ position:fixed; right:16px; bottom:16px; z-index:55; display:flex; flex-direction:column; align-items:flex-end; gap:10px; font-family:system-ui,-apple-system,"Segoe UI",sans-serif; }
-  @media (max-width:720px){ .widgets{ position:static; align-items:stretch; margin:32px 20px 0; } }
-  .widgets-toggle{ width:42px; height:42px; border-radius:50%; border:1px solid rgba(255,255,255,.14); background:#1b1a16; color:#e9e6df; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 8px 24px -12px rgba(0,0,0,.5); padding:0; }
-  .widgets-toggle:hover{ border-color:#d9ab4c; }
-  .widgets-panel{ display:flex; flex-direction:column; gap:10px; width:230px; }
-  @media (max-width:720px){ .widgets-panel{ width:auto; } }
-  .widgets-panel.hidden{ display:none; }
-  .back-link{ display:inline-block; font-size:12.5px; color:var(--ink-secondary); text-decoration:none; margin-bottom:14px; }
-  .back-link:hover{ color:var(--ink); }
-  .status-tile{ background:#1b1a16; border:1px solid rgba(255,255,255,.10); border-radius:12px; padding:12px 14px; box-shadow:0 8px 24px -12px rgba(0,0,0,.5); color:#e9e6df; }
-  .st-top{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px; gap:8px; }
-  .st-label{ font-size:11.5px; font-weight:650; color:#a8a39a; }
-  .st-pct{ font-size:12.5px; font-weight:700; font-variant-numeric:tabular-nums; color:#e9e6df; }
-  .st-bar-track{ height:5px; border-radius:3px; background:rgba(255,255,255,.08); overflow:hidden; margin-bottom:6px; }
-  .st-bar-fill{ height:100%; border-radius:3px; }
-  .st-sub{ font-size:10.5px; color:#7a766c; }
-  .status-tile.countdown{ display:flex; flex-direction:column; justify-content:center; }
-  .st-value{ font-size:22px; font-weight:800; font-variant-numeric:tabular-nums; letter-spacing:-0.01em; color:#f0d29a; }
-  .countdown .st-top{ margin-bottom:2px; }
-  .logs-btn{ font-size:10px; font-weight:650; letter-spacing:.03em; text-transform:uppercase; color:#a8a39a; text-decoration:none; border:1px solid rgba(255,255,255,.14); border-radius:99px; padding:3px 9px; transition:border-color .12s,color .12s; }
-  .logs-btn:hover{ border-color:#d9ab4c; color:#f0c674; }
+/* ---- Теплокарта Форматов ---- */
+.hm-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: var(--radius-sm); margin-top: 10px; }
+.hm-table { width: 100%; border-collapse: separate; border-spacing: 4px; font-size: 12.5px; font-variant-numeric: tabular-nums; }
+.hm-table th { padding: 8px 10px; text-align: center; color: var(--muted-light); font-size: 11px; font-weight: 700; text-transform: uppercase; }
+.hm-table th.rowhead {
+  text-align: left; max-width: 170px; min-width: 140px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--text);
+}
+.hm-table td {
+  padding: 8px 6px; text-align: center; border-radius: 6px; cursor: pointer; transition: transform .12s ease, box-shadow .12s ease;
+  min-width: 60px; font-weight: 700;
+}
+.hm-table td.empty { background: rgba(255,255,255,0.02); border: 1px dashed rgba(255,255,255,0.08); color: #424e68; }
+.hm-table td.filled:hover { transform: scale(1.08); z-index: 20; position: relative; box-shadow: 0 0 14px rgba(0, 229, 255, 0.4); }
+.hm-table td.light-text { color: #080b14; font-weight: 800; }
 
-  .viz-root{ padding-bottom:220px; }
+.hm-legend { display: flex; align-items: center; gap: 10px; margin-top: 12px; font-size: 11.5px; color: var(--muted); flex-wrap: wrap; }
+.hm-swatches { display: flex; gap: 3px; border-radius: 4px; overflow: hidden; }
+.hm-swatches i { width: 28px; height: 12px; display: block; }
+
+/* ---- Аналитические инсайты и выводы ---- */
+.insights-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 14px; }
+.insight-card {
+  background: var(--panel-2); border: var(--glass-border); border-radius: var(--radius-md); padding: 14px 16px;
+  display: flex; flex-direction: column; gap: 8px; border-left: 3px solid var(--brand);
+}
+.insight-tag { font-weight: 700; font-size: 12.5px; color: var(--brand); text-transform: uppercase; letter-spacing: 0.04em; }
+.insight-body { font-size: 13px; line-height: 1.6; color: var(--muted-light); }
+.insight-body b { color: var(--text); }
+
+.recs-list { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-top: 6px; }
+.recs-list li {
+  background: var(--panel-2); border: var(--glass-border); border-radius: var(--radius-md); padding: 12px 14px;
+  display: flex; align-items: flex-start; gap: 12px; font-size: 13px; line-height: 1.55; color: var(--muted-light);
+}
+.recs-list li b { color: var(--text); }
+.rec-num {
+  background: linear-gradient(135deg, #00e5ff 0%, #2f6fed 100%); color: #050811;
+  font-weight: 800; font-size: 11px; width: 22px; height: 22px; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px;
+}
+
+/* ---- Power BI Встроенный фрейм ---- */
+.powerbi-container {
+  width: 100%; height: calc(100vh - 180px); min-height: 580px; border-radius: var(--radius-lg);
+  overflow: hidden; border: var(--glass-border); position: relative; background: #000;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+}
+.powerbi-container iframe { width: 100%; height: 100%; border: 0; }
+.powerbi-bar {
+  display: flex; align-items: center; justify-content: space-between; padding: 10px 14px;
+  background: var(--panel-solid); border-bottom: var(--glass-border);
+}
+
+/* ---- Тултип ---- */
+.tip {
+  position: fixed; z-index: 100; background: #070b14; border: 1px solid var(--brand);
+  border-radius: var(--radius-sm); padding: 9px 12px; font-size: 12px; pointer-events: none;
+  box-shadow: 0 10px 30px rgba(0, 229, 255, 0.25); max-width: 280px; line-height: 1.5; color: var(--text);
+  transform: translate(-50%, -100%); margin-top: -8px;
+}
+.tip b { display: block; font-size: 12.5px; color: var(--brand); margin-bottom: 2px; }
+
+/* ---- Тост ---- */
+.toast {
+  position: fixed; left: 50%; transform: translateX(-50%); bottom: 24px;
+  background: var(--panel-solid); border: 1px solid var(--brand); border-radius: var(--radius-sm);
+  padding: 11px 18px; font-size: 13px; font-weight: 600; z-index: 120;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6); max-width: 90vw;
+}
+
+/* ---- Мобильная адаптивность ---- */
+@media (max-width: 860px) {
+  .topbar { padding: 10px 12px 12px; }
+  .main-wrap { padding: 12px 12px 40px; gap: 14px; }
+  .kpis-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .kpi-card { padding: 11px 12px; }
+  .kpi-val { font-size: 20px; }
+  .charts-grid { grid-template-columns: 1fr; }
+  .chart-box { height: 220px; }
+  .table-wrap { display: none; }
+  .cmp-cards { display: flex; }
+  .hm-table th.rowhead { max-width: 110px; min-width: 90px; font-size: 11px; }
+  .hm-table td { min-width: 48px; padding: 6px 3px; font-size: 11px; }
+  .powerbi-container { height: calc(100vh - 220px); min-height: 420px; }
+}
 </style>
 </head>
 <body>
-<div class="shell">
-  <header class="topbar">
-    <a class="brand" href="/dashboards/">Dashboards</a>
-  </header>
-  <aside class="sidebar">
-    <nav>
-      <a href="/dashboards/" class="slink">ГЛАВНАЯ</a>
-      <a href="/dashboards/reports/" class="slink active">ОТЧЁТЫ</a>
-      <a href="/dashboards/planning/" class="slink">ПЛАНИРОВАНИЕ</a>
-      <a href="/dashboards/promo-codes/" class="slink">ПРОМОКОДЫ</a>
-    </nav>
-  </aside>
-  <main class="content">
-<div class="viz-root">
-<div class="wrap">
-  <a class="back-link" href="/dashboards/reports/">← Назад к отчётам</a>
 
-  <header>
-    <p class="eyebrow">SMM Insights · USA2 · Facebook</p>
-    <h1>Які формати контенту реально працюють</h1>
-    <p class="subtitle" id="subtitle"></p>
-    <div class="weeks"><span class="weeks-label">Тижні</span><div id="week-pills"></div></div>
-  </header>
-
-  <section class="stats" id="stats"></section>
-
-  <section class="main">
-    <div class="card">
-      <h2>Тип × Проєкт — Interactions / пост</h2>
-      <p class="card-sub">Колір = температура формату для конкретного бренду. Заштриховано — комбінація ще не пробувалась цього тижня (не 0, а немає даних).</p>
-      <div class="heat-scroll">
-        <table class="heat">
-          <thead id="heat-head"></thead>
-          <tbody id="heat-body"></tbody>
-        </table>
+<header class="topbar">
+  <div class="topbar-row">
+    <div class="brand-box">
+      <a href="../" class="home-btn" title="Вернуться в главное меню">← Меню</a>
+      <div class="brand-title">
+        <span>⚡ SMM Insights & Heatmap</span>
+        <span class="badge-neon">USA2</span>
       </div>
-      <div class="legend"><span><span class="swatch-empty"></span>немає даних</span><span class="ramp"></span><span>холодно → гаряче</span></div>
     </div>
-
-    <div class="card">
-      <h2>Рейтинг форматів</h2>
-      <p class="card-sub" id="board-sub"></p>
-      <div id="board"></div>
-    </div>
-  </section>
-
-  <section class="card">
-    <h2>Формати по кожному бренду</h2>
-    <p class="card-sub">Кожна картка — власна міні-теплова карта бренду (та сама шкала кольору, що й у зведеній), і його загальний ER за тиждень: Interactions ÷ Reach. Відсортовано за ER — від найбільш залученої аудиторії до найменш.</p>
-    <div class="project-grid" id="project-grid"></div>
-  </section>
-
-  <section class="card">
-    <h2>Що означають метрики</h2>
-    <p class="card-sub">Для тих, хто відкриває звіт без контексту</p>
-    <table class="glossary">
-      <thead><tr><th>Метрика</th><th>Що означає</th><th>Формула / джерело</th></tr></thead>
-      <tbody>
-        <tr><td class="metric">Reach</td><td>Скільки унікальних людей побачили пост</td><td class="formula">Meta Business Suite → Content</td></tr>
-        <tr><td class="metric">Interactions</td><td>Взаємодії з постом: лайки + коментарі + шери + реакції</td><td class="formula">Meta Business Suite → Content</td></tr>
-        <tr><td class="metric">Interactions/пост</td><td>Середня «температура» формату — саме це показує колір на карті</td><td class="formula">Σ Interactions ÷ n</td></tr>
-        <tr><td class="metric">n</td><td>Скільки постів у вибірці. Малий n (1–2) — менш надійне середнє, може тримати один викид</td><td class="formula">кількість постів</td></tr>
-        <tr><td class="metric">ER%</td><td>Engagement Rate — яка частка тих, хто побачив пост, з ним взаємодіяла</td><td class="formula">Interactions ÷ Reach × 100%</td></tr>
-        <tr><td class="metric">Колір клітинки</td><td>Температура формату: темніше й тепліше = вище Interactions/пост</td><td class="formula">лог. шкала мін→макс за тиждень</td></tr>
-        <tr><td class="metric">— / штрихування</td><td>Цей формат бренд не публікував цього тижня — відсутність спроби, не нульовий результат</td><td class="formula">немає даних</td></tr>
-      </tbody>
-    </table>
-  </section>
-
-  <section class="card">
-    <h2>Що видно на карті</h2>
-    <p class="card-sub" id="insights-sub"></p>
-    <div id="insights-slot"></div>
-  </section>
-
-  <section class="card">
-    <h2>Висновки та рекомендації</h2>
-    <div id="recs-slot"></div>
-  </section>
-
-  <footer class="note" id="footer-note"></footer>
-
-</div>
-</div>
-  </main>
-
-  <div class="widgets">
-    <button class="widgets-toggle" id="widgetsToggle" aria-label="Скрыть/показать виджеты">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V10M12 20V4M20 20V14"/></svg>
-    </button>
-    <div class="widgets-panel hidden" id="widgetsPanel">
-      <div class="status-tile">
-        <div class="st-top"><span class="st-label">Лимит Claude</span><span class="st-pct">68%</span></div>
-        <div class="st-bar-track"><div class="st-bar-fill" style="width:68%;background:#d9ab4c;"></div></div>
-        <div class="st-sub">использовано за 5 часов · сброс через 1ч 40м</div>
-      </div>
-      <div class="status-tile">
-        <div class="st-top"><span class="st-label">Лимит ChatGPT</span><span class="st-pct">45%</span></div>
-        <div class="st-bar-track"><div class="st-bar-fill" style="width:45%;background:#2dd4bf;"></div></div>
-        <div class="st-sub">использовано за неделю · сброс в понедельник</div>
-      </div>
-      <div class="status-tile countdown">
-        <div class="st-top"><span class="st-label">Обратный отсчёт</span><a class="logs-btn" href="/dashboards/logs/">Логи</a></div>
-        <span class="st-value" id="shell-countdown">10:00</span>
-      </div>
+    <div class="topbar-right">
+      <span id="metaInfo" class="meta-tag">Загрузка...</span>
+      <button id="refreshBtn" class="ghost-btn sm" title="Обновить страницу">⟳</button>
     </div>
   </div>
-</div>
 
-<script>
-(function(){
-  var toggle = document.getElementById('widgetsToggle');
-  var panel = document.getElementById('widgetsPanel');
-  toggle.addEventListener('click', function(){ panel.classList.toggle('hidden'); });
-})();
-(function(){
-  var COUNTDOWN_SECONDS = 10 * 60;
-  var deadline = Date.now() + COUNTDOWN_SECONDS * 1000;
-  var el = document.getElementById('shell-countdown');
-  function tick(){
-    var remaining = Math.round((deadline - Date.now()) / 1000);
-    if(remaining <= 0){ deadline = Date.now() + COUNTDOWN_SECONDS * 1000; remaining = COUNTDOWN_SECONDS; }
-    var m = Math.floor(remaining / 60), s = remaining % 60;
-    el.textContent = String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
-  }
-  tick();
-  setInterval(tick, 1000);
-})();
-</script>
+  <nav class="nav-tabs">
+    <a class="nav-tab active" id="tabAnalytics" onclick="switchMainTab('analytics')">📊 SMM Аналитика & Теплокарта</a>
+    <a class="nav-tab powerbi-glow" id="tabPowerBI" onclick="switchMainTab('powerbi')">📈 Power BI Live</a>
+    <a href="../chat/" class="nav-tab">💬 Chat Operations</a>
+    <a href="../highrollers/" class="nav-tab">💎 Highrollers</a>
+    <a href="../" class="nav-tab">🏠 Все дашборды</a>
+  </nav>
 
+  <div id="analyticsControls">
+    <div class="chips-scroll" id="brandChips"></div>
+
+    <div class="topbar-row" style="margin-top: 8px;">
+      <div class="controls-row">
+        <div class="seg-group" id="periodSeg">
+          <button class="seg-btn" data-weeks="8">8 нед</button>
+          <button class="seg-btn active" data-weeks="13">13 нед</button>
+          <button class="seg-btn" data-weeks="15">Все 15 нед</button>
+        </div>
+        <select id="weekSel" class="select-box" title="Выбор отчетной недели"></select>
+      </div>
+      <div id="scopePill" class="meta-tag" style="color: var(--brand); font-weight: 700;"></div>
+    </div>
+  </div>
+</header>
+
+<!-- Вкладка 1: SMM Аналитика -->
+<main class="main-wrap" id="viewAnalytics">
+  <!-- 8 KPI Карточек -->
+  <section class="kpis-grid" id="kpisSlot"></section>
+
+  <!-- 4 Графика 2x2 -->
+  <section class="charts-grid">
+    <div class="panel">
+      <div class="panel-head">
+        <div class="panel-title">📈 Охват по брендам <span id="ch1Sub" class="panel-sub"></span></div>
+      </div>
+      <div class="chart-box"><canvas id="chDynamics"></canvas></div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head">
+        <div class="panel-title">⚡ Охват и взаимодействия <span class="panel-sub">в динамике по неделям</span></div>
+      </div>
+      <div class="chart-box"><canvas id="chReachInter"></canvas></div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head">
+        <div class="panel-title">🎯 ER (Engagement Rate) <span class="panel-sub">взаимодействия ÷ охват (%)</span></div>
+      </div>
+      <div class="chart-box"><canvas id="chEr"></canvas></div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head">
+        <div class="panel-title">📦 Посты и реакции на пост <span class="panel-sub">интенсивность и отдача</span></div>
+      </div>
+      <div class="chart-box"><canvas id="chPosts"></canvas></div>
+    </div>
+  </section>
+
+  <!-- Таблица сравнения брендов -->
+  <section class="panel">
+    <div class="panel-head">
+      <div class="panel-title">🏆 Сравнение брендов <span id="tblWeekLabel" class="panel-sub"></span></div>
+    </div>
+    <div class="table-wrap">
+      <table class="cmp-table" id="cmpTable"></table>
+    </div>
+    <div class="cmp-cards" id="cmpCards"></div>
+  </section>
+
+  <!-- Теплокарта форматов -->
+  <section class="panel">
+    <div class="panel-head">
+      <div class="panel-title">🌡️ Теплокарта: Формат × Бренд <span class="panel-sub">средние реакции на пост за неделю</span></div>
+    </div>
+    <div class="hm-wrap">
+      <table class="hm-table" id="heatmapTable"></table>
+    </div>
+    <div class="hm-legend" id="hmLegendSlot"></div>
+  </section>
+
+  <!-- Аналитические инсайты -->
+  <section class="panel">
+    <div class="panel-head">
+      <div class="panel-title">💡 Выводы и аналитика недели <span id="insightsWeekLabel" class="panel-sub"></span></div>
+    </div>
+    <div class="insights-grid" id="insightsSlot"></div>
+  </section>
+
+  <!-- Рекомендации -->
+  <section class="panel">
+    <div class="panel-head">
+      <div class="panel-title">🚀 Приоритетные рекомендации к действию</div>
+    </div>
+    <ol class="recs-list" id="recsSlot"></ol>
+  </section>
+</main>
+
+<!-- Вкладка 2: Встроенный Power BI -->
+<main class="main-wrap hidden" id="viewPowerBI">
+  <section class="panel" style="padding: 10px;">
+    <div class="powerbi-bar">
+      <div style="font-weight: 700; font-size: 14px; display: flex; align-items: center; gap: 8px;">
+        <span>📊 Интерактивный Power BI отчет</span>
+        <span class="badge-neon" style="background:#ffd600; color:#070a13;">Live Embed</span>
+      </div>
+      <div style="display: flex; gap: 8px;">
+        <button class="ghost-btn sm" onclick="togglePbiFullscreen()">⛶ Полный экран</button>
+        <a href="https://app.powerbi.com/reportEmbed?reportId=6705e06d-cf36-47e5-ace3-0400e15b2ce2&autoAuth=true&ctid=1f6b8b60-80b4-4d1e-aef7-deeffe0879c1" target="_blank" rel="noopener" class="ghost-btn sm">Открыть в Power BI ↗</a>
+      </div>
+    </div>
+    <div class="powerbi-container" id="pbiWrap">
+      <iframe id="pbiFrame"
+        title="USA Offer Monitoring"
+        src="https://app.powerbi.com/reportEmbed?reportId=6705e06d-cf36-47e5-ace3-0400e15b2ce2&autoAuth=true&ctid=1f6b8b60-80b4-4d1e-aef7-deeffe0879c1"
+        allowfullscreen="true"
+        loading="lazy">
+      </iframe>
+    </div>
+  </section>
+</main>
+
+<div id="tip" class="tip hidden"></div>
+<div id="toast" class="toast hidden"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script>
-(function () {
+(function() {
+  "use strict";
+
   var WEEKS = [{"label":"31.08–06.09","from":"31.08.2026","to":"06.09.2026","prevFrom":"24.08.2026","prevTo":"30.08.2026","nextFrom":"07.09.2026","nextTo":"13.09.2026","posts":168,"totalReach":193686,"totalInteractions":22980,"er":11.864564294786408,"prevEr":11.000690381890193,"prevTotalReach":275210,"hottest":{"type":"Вгадай слово","count":6,"avg":490.8333333333333},"projects":["DEXYPLAY","FWL","FireSeven","NLC","SCS","StormRush","TAO Fortune","Vegas Way"],"projectsCount":8,"typesCount":14,"rows":[{"name":"Вгадай слово","n":6,"avg":490.8333333333333,"cells":{"FWL":{"v":414,"n":1},"FireSeven":{"v":491,"n":1},"NLC":{"v":496,"n":1},"SCS":{"v":700,"n":1},"TAO Fortune":{"v":473,"n":1},"Vegas Way":{"v":371,"n":1}}},{"name":"Битва слотів","n":1,"avg":473,"cells":{"TAO Fortune":{"v":473,"n":1}}},{"name":"Сокет","n":3,"avg":347.3333333333333,"cells":{"FireSeven":{"v":514,"n":1},"StormRush":{"v":166,"n":1},"Vegas Way":{"v":362,"n":1}}},{"name":"Лабіринт","n":7,"avg":343.14285714285717,"cells":{"FWL":{"v":366,"n":1},"FireSeven":{"v":197,"n":1},"NLC":{"v":408,"n":1},"SCS":{"v":523,"n":1},"StormRush":{"v":202,"n":1},"TAO Fortune":{"v":361,"n":1},"Vegas Way":{"v":345,"n":1}}},{"name":"Знайди без пари","n":7,"avg":337.42857142857144,"cells":{"DEXYPLAY":{"v":125,"n":1},"FWL":{"v":349,"n":1},"NLC":{"v":341,"n":1},"SCS":{"v":546,"n":1},"StormRush":{"v":205,"n":1},"TAO Fortune":{"v":423,"n":1},"Vegas Way":{"v":373,"n":1}}},{"name":"Порахуй кількість","n":4,"avg":332,"cells":{"DEXYPLAY":{"v":106,"n":1},"FWL":{"v":374,"n":1},"NLC":{"v":383,"n":1},"TAO Fortune":{"v":465,"n":1}}},{"name":"Хрестики-нулики","n":1,"avg":330,"cells":{"FireSeven":{"v":330,"n":1}}},{"name":"Квіз","n":2,"avg":315.5,"cells":{"NLC":{"v":288,"n":1},"TAO Fortune":{"v":343,"n":1}}},{"name":"Пазл","n":7,"avg":290.2857142857143,"cells":{"DEXYPLAY":{"v":105,"n":1},"FWL":{"v":372,"n":1},"FireSeven":{"v":381,"n":1},"NLC":{"v":287,"n":1},"SCS":{"v":347,"n":1},"StormRush":{"v":204,"n":1},"Vegas Way":{"v":336,"n":1}}},{"name":"Тінь","n":4,"avg":278.75,"cells":{"DEXYPLAY":{"v":76,"n":1},"FWL":{"v":515,"n":1},"StormRush":{"v":226,"n":1},"Vegas Way":{"v":298,"n":1}}},{"name":"Ребус","n":10,"avg":260.6,"cells":{"DEXYPLAY":{"v":119,"n":1},"FWL":{"v":267,"n":1},"FireSeven":{"v":361.5,"n":2},"NLC":{"v":167,"n":1},"SCS":{"v":332,"n":1},"StormRush":{"v":202.5,"n":2},"TAO Fortune":{"v":368,"n":1},"Vegas Way":{"v":225,"n":1}}},{"name":"Знайди відмінності","n":2,"avg":223,"cells":{"DEXYPLAY":{"v":53,"n":1},"SCS":{"v":393,"n":1}}},{"name":"Опитування","n":5,"avg":118.8,"cells":{"DEXYPLAY":{"v":20,"n":1},"FWL":{"v":179,"n":1},"FireSeven":{"v":89,"n":1},"NLC":{"v":93,"n":1},"SCS":{"v":213,"n":1}}},{"name":"Промо/анонс","n":109,"avg":42.88073394495413,"cells":{"DEXYPLAY":{"v":16.928571428571427,"n":14},"FWL":{"v":50.53846153846154,"n":13},"FireSeven":{"v":36.38461538461539,"n":13},"NLC":{"v":43.23076923076923,"n":13},"SCS":{"v":59.357142857142854,"n":14},"StormRush":{"v":28.214285714285715,"n":14},"TAO Fortune":{"v":59.285714285714285,"n":14},"Vegas Way":{"v":49.214285714285715,"n":14}}}],"projectCards":[{"name":"Vegas Way","posts":21,"er":15.975921585339867,"avg":142.8095238095238,"types":[{"name":"Знайди без пари","v":373,"n":1,"er":27.1865889212828},{"name":"Вгадай слово","v":371,"n":1,"er":32.45844269466316},{"name":"Сокет","v":362,"n":1,"er":27.91056283731688},{"name":"Лабіринт","v":345,"n":1,"er":21.428571428571427},{"name":"Пазл","v":336,"n":1,"er":30.215827338129497},{"name":"Тінь","v":298,"n":1,"er":35.05882352941177},{"name":"Ребус","v":225,"n":1,"er":23.364485981308412},{"name":"Промо/анонс","v":49.214285714285715,"n":14,"er":6.609112709832134}]},{"name":"DEXYPLAY","posts":21,"er":13.914626075446723,"avg":40.04761904761905,"types":[{"name":"Знайди без пари","v":125,"n":1,"er":25.354969574036513},{"name":"Ребус","v":119,"n":1,"er":25.319148936170212},{"name":"Порахуй кількість","v":106,"n":1,"er":29.2817679558011},{"name":"Пазл","v":105,"n":1,"er":45.258620689655174},{"name":"Тінь","v":76,"n":1,"er":19.791666666666664},{"name":"Знайди відмінності","v":53,"n":1,"er":17.491749174917494},{"name":"Опитування","v":20,"n":1,"er":6.042296072507553},{"name":"Промо/анонс","v":16.928571428571427,"n":14,"er":6.831940040357452}]},{"name":"SCS","posts":21,"er":13.078166027065238,"avg":185,"types":[{"name":"Вгадай слово","v":700,"n":1,"er":22.421524663677133},{"name":"Знайди без пари","v":546,"n":1,"er":25.840037860861337},{"name":"Лабіринт","v":523,"n":1,"er":18.57904085257549},{"name":"Знайди відмінності","v":393,"n":1,"er":23.97803538743136},{"name":"Пазл","v":347,"n":1,"er":30.899376669634908},{"name":"Ребус","v":332,"n":1,"er":16.2426614481409},{"name":"Опитування","v":213,"n":1,"er":18.75},{"name":"Промо/анонс","v":59.357142857142854,"n":14,"er":5.28827796869034}]},{"name":"TAO Fortune","posts":21,"er":12.58929774902278,"avg":177.9047619047619,"types":[{"name":"Вгадай слово","v":473,"n":1,"er":35.37771129394166},{"name":"Битва слотів","v":473,"n":1,"er":35.32486930545183},{"name":"Порахуй кількість","v":465,"n":1,"er":25.992174399105643},{"name":"Знайди без пари","v":423,"n":1,"er":26.520376175548588},{"name":"Ребус","v":368,"n":1,"er":15.848406546080964},{"name":"Лабіринт","v":361,"n":1,"er":13.500373971578162},{"name":"Квіз","v":343,"n":1,"er":14.226462048942349},{"name":"Промо/анонс","v":59.285714285714285,"n":14,"er":5.120612005675859}]},{"name":"FWL","posts":21,"er":11.722656643286237,"avg":166.33333333333334,"types":[{"name":"Тінь","v":515,"n":1,"er":15.754053227286633},{"name":"Вгадай слово","v":414,"n":1,"er":17.100371747211895},{"name":"Порахуй кількість","v":374,"n":1,"er":20.437158469945356},{"name":"Пазл","v":372,"n":1,"er":31.33951137320977},{"name":"Лабіринт","v":366,"n":1,"er":16.317432010699957},{"name":"Знайди без пари","v":349,"n":1,"er":20.52941176470588},{"name":"Ребус","v":267,"n":1,"er":12.911025145067697},{"name":"Опитування","v":179,"n":1,"er":10.153148043108338},{"name":"Промо/анонс","v":50.53846153846154,"n":13,"er":4.933914088314809}]},{"name":"StormRush","posts":21,"er":11.282147550215882,"avg":85.85714285714286,"types":[{"name":"Тінь","v":226,"n":1,"er":12.782805429864252},{"name":"Знайди без пари","v":205,"n":1,"er":19.35788479697828},{"name":"Пазл","v":204,"n":1,"er":22.36842105263158},{"name":"Ребус","v":202.5,"n":2,"er":17.578125},{"name":"Лабіринт","v":202,"n":1,"er":12.074118350268979},{"name":"Сокет","v":166,"n":1,"er":27.07993474714519},{"name":"Промо/анонс","v":28.214285714285715,"n":14,"er":5.162049137480397}]},{"name":"FireSeven","posts":21,"er":10.386826463996881,"avg":152.28571428571428,"types":[{"name":"Сокет","v":514,"n":1,"er":14.527981910684002},{"name":"Вгадай слово","v":491,"n":1,"er":13.068937982432793},{"name":"Пазл","v":381,"n":1,"er":14.328694998119593},{"name":"Ребус","v":361.5,"n":2,"er":14.123852314905255},{"name":"Хрестики-нулики","v":330,"n":1,"er":12.648524338827135},{"name":"Лабіринт","v":197,"n":1,"er":28.928046989721},{"name":"Опитування","v":89,"n":1,"er":11.93029490616622},{"name":"Промо/анонс","v":36.38461538461539,"n":13,"er":4.049657534246575}]},{"name":"NLC","posts":21,"er":9.188663770845357,"avg":144.04761904761904,"types":[{"name":"Вгадай слово","v":496,"n":1,"er":10.655209452201934},{"name":"Лабіринт","v":408,"n":1,"er":12.085308056872037},{"name":"Порахуй кількість","v":383,"n":1,"er":14.285714285714285},{"name":"Знайди без пари","v":341,"n":1,"er":13.435776201733649},{"name":"Квіз","v":288,"n":1,"er":10.933940774487471},{"name":"Пазл","v":287,"n":1,"er":17.093508040500296},{"name":"Ребус","v":167,"n":1,"er":15.058611361587015},{"name":"Опитування","v":93,"n":1,"er":6.70995670995671},{"name":"Промо/анонс","v":43.23076923076923,"n":13,"er":4.369120733887896}]}]},{"label":"24.08–30.08","from":"24.08.2026","to":"30.08.2026","prevFrom":"17.08.2026","prevTo":"23.08.2026","nextFrom":"31.08.2026","nextTo":"06.09.2026","posts":168,"totalReach":275210,"totalInteractions":30275,"er":11.000690381890193,"prevEr":12.10559937204865,"prevTotalReach":239509,"hottest":{"type":"Вгадай слово","count":7,"avg":674.4285714285714},"projects":["DEXYPLAY","FWL","FireSeven","NLC","SCS","StormRush","TAO Fortune","Vegas Way"],"projectsCount":8,"typesCount":14,"rows":[{"name":"Вгадай слово","n":7,"avg":674.4285714285714,"cells":{"DEXYPLAY":{"v":279,"n":1},"FWL":{"v":461,"n":1},"FireSeven":{"v":914,"n":1},"NLC":{"v":1065,"n":1},"SCS":{"v":760,"n":1},"StormRush":{"v":390,"n":1},"Vegas Way":{"v":852,"n":1}}},{"name":"Тінь","n":3,"avg":547,"cells":{"FWL":{"v":707,"n":1},"FireSeven":{"v":397,"n":1},"TAO Fortune":{"v":537,"n":1}}},{"name":"Лабіринт","n":6,"avg":530.1666666666666,"cells":{"FWL":{"v":1015,"n":1},"NLC":{"v":525,"n":1},"SCS":{"v":506,"n":1},"StormRush":{"v":278,"n":1},"TAO Fortune":{"v":413,"n":1},"Vegas Way":{"v":444,"n":1}}},{"name":"Сокет","n":1,"avg":429,"cells":{"FWL":{"v":429,"n":1}}},{"name":"Інше","n":7,"avg":416.42857142857144,"cells":{"DEXYPLAY":{"v":115,"n":2},"FireSeven":{"v":1746,"n":1},"NLC":{"v":277,"n":3},"SCS":{"v":108,"n":1}}},{"name":"Хрестики-нулики","n":4,"avg":406.25,"cells":{"FireSeven":{"v":369,"n":1},"SCS":{"v":505,"n":1},"TAO Fortune":{"v":414,"n":1},"Vegas Way":{"v":337,"n":1}}},{"name":"Порахуй кількість","n":4,"avg":402.75,"cells":{"FireSeven":{"v":325,"n":1},"SCS":{"v":461,"n":1},"TAO Fortune":{"v":490,"n":1},"Vegas Way":{"v":335,"n":1}}},{"name":"Пазл","n":6,"avg":382.8333333333333,"cells":{"DEXYPLAY":{"v":124,"n":1},"FWL":{"v":485,"n":1},"FireSeven":{"v":508,"n":1},"NLC":{"v":470,"n":1},"StormRush":{"v":255,"n":1},"TAO Fortune":{"v":455,"n":1}}},{"name":"Квіз","n":1,"avg":358,"cells":{"NLC":{"v":358,"n":1}}},{"name":"Знайди без пари","n":6,"avg":333,"cells":{"DEXYPLAY":{"v":100,"n":1},"FWL":{"v":382,"n":1},"SCS":{"v":479,"n":1},"StormRush":{"v":269,"n":1},"TAO Fortune":{"v":354,"n":1},"Vegas Way":{"v":414,"n":1}}},{"name":"Ребус","n":9,"avg":294.1111111111111,"cells":{"DEXYPLAY":{"v":118.5,"n":2},"FWL":{"v":508,"n":1},"NLC":{"v":385,"n":1},"SCS":{"v":406,"n":1},"StormRush":{"v":222,"n":2},"TAO Fortune":{"v":283,"n":1},"Vegas Way":{"v":384,"n":1}}},{"name":"Знайди відмінності","n":6,"avg":283.5,"cells":{"DEXYPLAY":{"v":127,"n":1},"FWL":{"v":447,"n":1},"FireSeven":{"v":381,"n":1},"SCS":{"v":267,"n":1},"StormRush":{"v":158,"n":1},"Vegas Way":{"v":321,"n":1}}},{"name":"Битва слотів","n":1,"avg":76,"cells":{"FireSeven":{"v":76,"n":1}}},{"name":"Промо/анонс","n":107,"avg":47.429906542056074,"cells":{"DEXYPLAY":{"v":16.307692307692307,"n":13},"FWL":{"v":52.666666666666664,"n":12},"FireSeven":{"v":65.84615384615384,"n":13},"NLC":{"v":31.46153846153846,"n":13},"SCS":{"v":64.61538461538461,"n":13},"StormRush":{"v":41.6,"n":15},"TAO Fortune":{"v":55.42857142857143,"n":14},"Vegas Way":{"v":51.857142857142854,"n":14}}}],"projectCards":[{"name":"Vegas Way","posts":21,"er":13.918090232150679,"avg":181.57142857142858,"types":[{"name":"Вгадай слово","v":852,"n":1,"er":28.95989123045547},{"name":"Лабіринт","v":444,"n":1,"er":22.79260780287474},{"name":"Знайди без пари","v":414,"n":1,"er":28.356164383561644},{"name":"Ребус","v":384,"n":1,"er":14.339058999253174},{"name":"Хрестики-нулики","v":337,"n":1,"er":16.217516843118382},{"name":"Порахуй кількість","v":335,"n":1,"er":22.696476964769648},{"name":"Знайди відмінності","v":321,"n":1,"er":17.96306659205372},{"name":"Промо/анонс","v":51.857142857142854,"n":14,"er":5.573040607968066}]},{"name":"SCS","posts":21,"er":13.053304004580108,"avg":206.28571428571428,"types":[{"name":"Вгадай слово","v":760,"n":1,"er":22.067363530778163},{"name":"Лабіринт","v":506,"n":1,"er":18.92296185489903},{"name":"Хрестики-нулики","v":505,"n":1,"er":28.514963297571995},{"name":"Знайди без пари","v":479,"n":1,"er":25.863930885529157},{"name":"Порахуй кількість","v":461,"n":1,"er":16.967243283032758},{"name":"Ребус","v":406,"n":1,"er":18.421052631578945},{"name":"Знайди відмінності","v":267,"n":1,"er":20.69767441860465},{"name":"Інше","v":108,"n":1,"er":7.086614173228346},{"name":"Промо/анонс","v":64.61538461538461,"n":13,"er":5.346572465151804}]},{"name":"DEXYPLAY","posts":21,"er":12.537113303323435,"avg":62.333333333333336,"types":[{"name":"Вгадай слово","v":279,"n":1,"er":18.813216453135535},{"name":"Знайди відмінності","v":127,"n":1,"er":18.621700879765395},{"name":"Пазл","v":124,"n":1,"er":15.252152521525215},{"name":"Ребус","v":118.5,"n":2,"er":16.344827586206897},{"name":"Інше","v":115,"n":2,"er":15.488215488215488},{"name":"Знайди без пари","v":100,"n":1,"er":16.528925619834713},{"name":"Промо/анонс","v":16.307692307692307,"n":13,"er":5.404027529951567}]},{"name":"FWL","posts":20,"er":11.635812393770959,"avg":253.3,"types":[{"name":"Лабіринт","v":1015,"n":1,"er":27.284946236559136},{"name":"Тінь","v":707,"n":1,"er":10.873577360812057},{"name":"Ребус","v":508,"n":1,"er":14.448236632536974},{"name":"Пазл","v":485,"n":1,"er":14.547090581883623},{"name":"Вгадай слово","v":461,"n":1,"er":15.648336727766463},{"name":"Знайди відмінності","v":447,"n":1,"er":15.656742556917688},{"name":"Сокет","v":429,"n":1,"er":12.492719860221316},{"name":"Знайди без пари","v":382,"n":1,"er":22.17063261752757},{"name":"Промо/анонс","v":52.666666666666664,"n":12,"er":4.075315965953057}]},{"name":"FireSeven","posts":21,"er":10.948890766540252,"avg":265.3333333333333,"types":[{"name":"Інше","v":1746,"n":1,"er":19.271523178807946},{"name":"Вгадай слово","v":914,"n":1,"er":13.9201949436491},{"name":"Пазл","v":508,"n":1,"er":21.525423728813557},{"name":"Тінь","v":397,"n":1,"er":9.846230158730158},{"name":"Знайди відмінності","v":381,"n":1,"er":14.07462135205024},{"name":"Хрестики-нулики","v":369,"n":1,"er":12.206417466093285},{"name":"Порахуй кількість","v":325,"n":1,"er":9.173017217047699},{"name":"Битва слотів","v":76,"n":1,"er":5.523255813953488},{"name":"Промо/анонс","v":65.84615384615384,"n":13,"er":4.697102721685689}]},{"name":"StormRush","posts":22,"er":10.793197339642012,"avg":109.9090909090909,"types":[{"name":"Вгадай слово","v":390,"n":1,"er":16.129032258064516},{"name":"Лабіринт","v":278,"n":1,"er":22.491909385113267},{"name":"Знайди без пари","v":269,"n":1,"er":19.46454413892909},{"name":"Пазл","v":255,"n":1,"er":20.06294256490952},{"name":"Ребус","v":222,"n":2,"er":16.075307748008687},{"name":"Знайди відмінності","v":158,"n":1,"er":19.578686493184634},{"name":"Промо/анонс","v":41.6,"n":15,"er":4.981240520475772}]},{"name":"TAO Fortune","posts":21,"er":9.207401543637443,"avg":177.23809523809524,"types":[{"name":"Тінь","v":537,"n":1,"er":11.199165797705945},{"name":"Порахуй кількість","v":490,"n":1,"er":9.762900976290098},{"name":"Пазл","v":455,"n":1,"er":14.522821576763487},{"name":"Хрестики-нулики","v":414,"n":1,"er":21.652719665271967},{"name":"Лабіринт","v":413,"n":1,"er":13.52324819908317},{"name":"Знайди без пари","v":354,"n":1,"er":21.960297766749378},{"name":"Ребус","v":283,"n":1,"er":17.501546072974644},{"name":"Промо/анонс","v":55.42857142857143,"n":14,"er":4.024478788507416}]},{"name":"NLC","posts":21,"er":8.614958448753463,"avg":192.52380952380952,"types":[{"name":"Вгадай слово","v":1065,"n":1,"er":9.784106568672485},{"name":"Лабіринт","v":525,"n":1,"er":12.580877066858376},{"name":"Пазл","v":470,"n":1,"er":13.051930019439045},{"name":"Ребус","v":385,"n":1,"er":12.479740680713128},{"name":"Квіз","v":358,"n":1,"er":11.68788769180542},{"name":"Інше","v":277,"n":3,"er":10.23272995936461},{"name":"Промо/анонс","v":31.46153846153846,"n":13,"er":2.921011284102271}]}]},{"label":"17.08–23.08","from":"17.08.2026","to":"23.08.2026","prevFrom":"10.08.2026","prevTo":"16.08.2026","nextFrom":"24.08.2026","nextTo":"30.08.2026","posts":168,"totalReach":239509,"totalInteractions":28994,"er":12.10559937204865,"prevEr":13.158249469472013,"prevTotalReach":259647,"hottest":{"type":"Вгадай слово","count":6,"avg":571.5},"projects":["DEXYPLAY","FWL","FireSeven","NLC","SCS","StormRush","TAO Fortune","Vegas Way"],"projectsCount":8,"typesCount":14,"rows":[{"name":"Вгадай слово","n":6,"avg":571.5,"cells":{"FWL":{"v":959,"n":1},"NLC":{"v":617,"n":1},"SCS":{"v":598,"n":1},"StormRush":{"v":297,"n":1},"TAO Fortune":{"v":430,"n":1},"Vegas Way":{"v":528,"n":1}}},{"name":"Квіз","n":2,"avg":485,"cells":{"NLC":{"v":506,"n":1},"Vegas Way":{"v":464,"n":1}}},{"name":"Пазл","n":5,"avg":450.2,"cells":{"DEXYPLAY":{"v":125,"n":1},"FireSeven":{"v":566,"n":1},"SCS":{"v":398,"n":1},"StormRush":{"v":656,"n":1},"Vegas Way":{"v":506,"n":1}}},{"name":"Тінь","n":4,"avg":442,"cells":{"FWL":{"v":533,"n":1},"FireSeven":{"v":311,"n":1},"SCS":{"v":745,"n":1},"StormRush":{"v":179,"n":1}}},{"name":"Порахуй кількість","n":8,"avg":405.875,"cells":{"DEXYPLAY":{"v":22,"n":1},"FWL":{"v":517,"n":1},"NLC":{"v":613,"n":1},"SCS":{"v":374,"n":2},"TAO Fortune":{"v":461,"n":2},"Vegas Way":{"v":425,"n":1}}},{"name":"Ребус","n":14,"avg":373.7142857142857,"cells":{"DEXYPLAY":{"v":156,"n":1},"FWL":{"v":403.5,"n":2},"FireSeven":{"v":502,"n":2},"NLC":{"v":485,"n":1},"SCS":{"v":371.6666666666667,"n":3},"StormRush":{"v":289.5,"n":2},"TAO Fortune":{"v":290,"n":2},"Vegas Way":{"v":506,"n":1}}},{"name":"Лабіринт","n":2,"avg":372,"cells":{"FireSeven":{"v":361,"n":1},"TAO Fortune":{"v":383,"n":1}}},{"name":"Знайди без пари","n":1,"avg":347,"cells":{"Vegas Way":{"v":347,"n":1}}},{"name":"Хрестики-нулики","n":3,"avg":341,"cells":{"DEXYPLAY":{"v":129,"n":1},"FireSeven":{"v":519,"n":1},"NLC":{"v":375,"n":1}}},{"name":"Битва слотів","n":8,"avg":264.5,"cells":{"DEXYPLAY":{"v":71,"n":1},"FWL":{"v":371,"n":1},"FireSeven":{"v":295,"n":1},"NLC":{"v":160,"n":1},"SCS":{"v":331,"n":1},"StormRush":{"v":218,"n":1},"TAO Fortune":{"v":404,"n":1},"Vegas Way":{"v":266,"n":1}}},{"name":"Знайди відмінності","n":3,"avg":257.3333333333333,"cells":{"DEXYPLAY":{"v":125,"n":1},"FWL":{"v":526,"n":1},"StormRush":{"v":121,"n":1}}},{"name":"Сокет","n":1,"avg":133,"cells":{"DEXYPLAY":{"v":133,"n":1}}},{"name":"Промо/анонс","n":108,"avg":62.99074074074074,"cells":{"DEXYPLAY":{"v":17.666666666666668,"n":12},"FWL":{"v":99.07142857142857,"n":14},"FireSeven":{"v":78.07692307692308,"n":13},"NLC":{"v":56.733333333333334,"n":15},"SCS":{"v":60.416666666666664,"n":12},"StormRush":{"v":59.785714285714285,"n":14},"TAO Fortune":{"v":72.76923076923077,"n":13},"Vegas Way":{"v":55.333333333333336,"n":15}}},{"name":"Опитування","n":3,"avg":53,"cells":{"DEXYPLAY":{"v":37.5,"n":2},"TAO Fortune":{"v":84,"n":1}}}],"projectCards":[{"name":"DEXYPLAY","posts":21,"er":15.63479039236163,"avg":49.904761904761905,"types":[{"name":"Ребус","v":156,"n":1,"er":21.195652173913043},{"name":"Сокет","v":133,"n":1,"er":36.94444444444444},{"name":"Хрестики-нулики","v":129,"n":1,"er":42.15686274509804},{"name":"Пазл","v":125,"n":1,"er":24.366471734892787},{"name":"Знайди відмінності","v":125,"n":1,"er":17.17032967032967},{"name":"Битва слотів","v":71,"n":1,"er":21.779141104294478},{"name":"Опитування","v":37.5,"n":2,"er":9.67741935483871},{"name":"Порахуй кількість","v":22,"n":1,"er":9.482758620689655},{"name":"Промо/анонс","v":17.666666666666668,"n":12,"er":7.774110744407774}]},{"name":"SCS","posts":21,"er":15.594672378020213,"avg":221.9047619047619,"types":[{"name":"Тінь","v":745,"n":1,"er":34.71575023299161},{"name":"Вгадай слово","v":598,"n":1,"er":23.524783634933126},{"name":"Пазл","v":398,"n":1,"er":29.459659511472985},{"name":"Порахуй кількість","v":374,"n":2,"er":21.070422535211268},{"name":"Ребус","v":371.6666666666667,"n":3,"er":17.998385794995965},{"name":"Битва слотів","v":331,"n":1,"er":23.211781206171107},{"name":"Промо/анонс","v":60.416666666666664,"n":12,"er":5.721275252525253}]},{"name":"Vegas Way","posts":22,"er":14.471520406637763,"avg":176,"types":[{"name":"Вгадай слово","v":528,"n":1,"er":23.85901491188432},{"name":"Пазл","v":506,"n":1,"er":19.454056132256824},{"name":"Ребус","v":506,"n":1,"er":18.227665706051873},{"name":"Квіз","v":464,"n":1,"er":16.139130434782608},{"name":"Порахуй кількість","v":425,"n":1,"er":24.666279744631456},{"name":"Знайди без пари","v":347,"n":1,"er":44.54428754813864},{"name":"Битва слотів","v":266,"n":1,"er":20.684292379471227},{"name":"Промо/анонс","v":55.333333333333336,"n":15,"er":6.638406782372231}]},{"name":"FWL","posts":21,"er":12.113151081870651,"avg":242.85714285714286,"types":[{"name":"Вгадай слово","v":959,"n":1,"er":14.690563725490197},{"name":"Тінь","v":533,"n":1,"er":13.196335726665016},{"name":"Знайди відмінності","v":526,"n":1,"er":23.985408116735066},{"name":"Порахуй кількість","v":517,"n":1,"er":14.381084840055633},{"name":"Ребус","v":403.5,"n":2,"er":16.65290961617829},{"name":"Битва слотів","v":371,"n":1,"er":16.54034774855105},{"name":"Промо/анонс","v":99.07142857142857,"n":14,"er":7.433410150597567}]},{"name":"TAO Fortune","posts":21,"er":12.04807661406948,"avg":178.52380952380952,"types":[{"name":"Порахуй кількість","v":461,"n":2,"er":18.326376465911352},{"name":"Вгадай слово","v":430,"n":1,"er":17.64464505539598},{"name":"Битва слотів","v":404,"n":1,"er":19.029674988224208},{"name":"Лабіринт","v":383,"n":1,"er":32.34797297297297},{"name":"Ребус","v":290,"n":2,"er":14.883243520656917},{"name":"Опитування","v":84,"n":1,"er":7.440212577502214},{"name":"Промо/анонс","v":72.76923076923077,"n":13,"er":6.17654740141029}]},{"name":"StormRush","posts":21,"er":11.435474926721065,"avg":137.47619047619048,"types":[{"name":"Пазл","v":656,"n":1,"er":19.40254362614611},{"name":"Вгадай слово","v":297,"n":1,"er":15.36471805483704},{"name":"Ребус","v":289.5,"n":2,"er":14.060223409422049},{"name":"Битва слотів","v":218,"n":1,"er":15.181058495821729},{"name":"Тінь","v":179,"n":1,"er":15.996425379803394},{"name":"Знайди відмінності","v":121,"n":1,"er":27.313769751693002},{"name":"Промо/анонс","v":59.785714285714285,"n":14,"er":6.530898876404495}]},{"name":"FireSeven","posts":20,"er":10.936786395508154,"avg":203.55,"types":[{"name":"Пазл","v":566,"n":1,"er":14.989406779661016},{"name":"Хрестики-нулики","v":519,"n":1,"er":18.153200419727177},{"name":"Ребус","v":502,"n":2,"er":14.554943461873007},{"name":"Лабіринт","v":361,"n":1,"er":19.726775956284154},{"name":"Тінь","v":311,"n":1,"er":9.336535574902431},{"name":"Битва слотів","v":295,"n":1,"er":17.49703440094899},{"name":"Промо/анонс","v":78.07692307692308,"n":13,"er":6.026242355874844}]},{"name":"NLC","posts":21,"er":8.910793250821413,"avg":171.76190476190476,"types":[{"name":"Вгадай слово","v":617,"n":1,"er":11.652502360717659},{"name":"Порахуй кількість","v":613,"n":1,"er":14.259130030239591},{"name":"Квіз","v":506,"n":1,"er":17.199184228416044},{"name":"Ребус","v":485,"n":1,"er":14.881865602945687},{"name":"Хрестики-нулики","v":375,"n":1,"er":21.102982554867754},{"name":"Битва слотів","v":160,"n":1,"er":10.95890410958904},{"name":"Промо/анонс","v":56.733333333333334,"n":15,"er":3.9679209213409803}]}]},{"label":"10.08–16.08","from":"10.08.2026","to":"16.08.2026","prevFrom":"03.08.2026","prevTo":"09.08.2026","nextFrom":"17.08.2026","nextTo":"23.08.2026","posts":165,"totalReach":259647,"totalInteractions":34165,"er":13.158249469472013,"prevEr":13.350831845515673,"prevTotalReach":225162,"hottest":{"type":"Тінь","count":5,"avg":1326.4},"projects":["DEXYPLAY","FWL","FireSeven","NLC","SCS","StormRush","TAO Fortune","Vegas Way"],"projectsCount":8,"typesCount":13,"rows":[{"name":"Тінь","n":5,"avg":1326.4,"cells":{"DEXYPLAY":{"v":166,"n":1},"FireSeven":{"v":326,"n":1},"SCS":{"v":5430,"n":1},"StormRush":{"v":391,"n":1},"Vegas Way":{"v":319,"n":1}}},{"name":"Сокет","n":3,"avg":910,"cells":{"NLC":{"v":1184,"n":1},"StormRush":{"v":318,"n":1},"Vegas Way":{"v":1228,"n":1}}},{"name":"Вгадай слово","n":4,"avg":535.5,"cells":{"DEXYPLAY":{"v":104,"n":1},"FireSeven":{"v":1100,"n":1},"NLC":{"v":570,"n":1},"StormRush":{"v":368,"n":1}}},{"name":"Пазл","n":8,"avg":467.875,"cells":{"DEXYPLAY":{"v":127,"n":1},"FWL":{"v":535,"n":2},"FireSeven":{"v":510,"n":1},"NLC":{"v":683,"n":1},"SCS":{"v":707,"n":1},"StormRush":{"v":249,"n":1},"TAO Fortune":{"v":397,"n":1}}},{"name":"Лабіринт","n":4,"avg":413.25,"cells":{"DEXYPLAY":{"v":105,"n":1},"FWL":{"v":517,"n":1},"FireSeven":{"v":547,"n":1},"SCS":{"v":484,"n":1}}},{"name":"Ребус","n":6,"avg":366.8333333333333,"cells":{"DEXYPLAY":{"v":193,"n":1},"FWL":{"v":400,"n":2},"FireSeven":{"v":518,"n":1},"TAO Fortune":{"v":313,"n":1},"Vegas Way":{"v":377,"n":1}}},{"name":"Квіз","n":4,"avg":348.75,"cells":{"NLC":{"v":330,"n":1},"SCS":{"v":240,"n":1},"StormRush":{"v":208,"n":1},"Vegas Way":{"v":617,"n":1}}},{"name":"Знайди відмінності","n":5,"avg":300.4,"cells":{"FWL":{"v":451,"n":1},"FireSeven":{"v":370,"n":1},"StormRush":{"v":138,"n":1},"TAO Fortune":{"v":291,"n":1},"Vegas Way":{"v":252,"n":1}}},{"name":"Знайди без пари","n":2,"avg":290.5,"cells":{"NLC":{"v":340,"n":1},"TAO Fortune":{"v":241,"n":1}}},{"name":"Порахуй кількість","n":5,"avg":255.8,"cells":{"DEXYPLAY":{"v":168,"n":1},"FireSeven":{"v":430,"n":1},"NLC":{"v":45,"n":1},"SCS":{"v":551,"n":1},"TAO Fortune":{"v":85,"n":1}}},{"name":"Битва слотів","n":7,"avg":247.85714285714286,"cells":{"DEXYPLAY":{"v":109,"n":1},"FWL":{"v":332,"n":1},"NLC":{"v":321,"n":1},"StormRush":{"v":199,"n":1},"TAO Fortune":{"v":252,"n":2},"Vegas Way":{"v":270,"n":1}}},{"name":"Опитування","n":9,"avg":150,"cells":{"DEXYPLAY":{"v":55,"n":2},"FWL":{"v":283,"n":1},"FireSeven":{"v":94,"n":1},"NLC":{"v":195,"n":1},"SCS":{"v":167,"n":4}}},{"name":"Промо/анонс","n":103,"avg":70.11650485436893,"cells":{"DEXYPLAY":{"v":18.416666666666668,"n":12},"FWL":{"v":89.58333333333333,"n":12},"FireSeven":{"v":86.27272727272727,"n":11},"NLC":{"v":74.61538461538461,"n":13},"SCS":{"v":120.41666666666667,"n":12},"StormRush":{"v":53.285714285714285,"n":14},"TAO Fortune":{"v":60.214285714285715,"n":14},"Vegas Way":{"v":64.86666666666666,"n":15}}}],"projectCards":[{"name":"SCS","posts":21,"er":17.213025878270926,"avg":453.57142857142856,"types":[{"name":"Тінь","v":5430,"n":1,"er":29.983434566537824},{"name":"Пазл","v":707,"n":1,"er":22.05240174672489},{"name":"Порахуй кількість","v":551,"n":1,"er":22.362012987012985},{"name":"Лабіринт","v":484,"n":1,"er":30.382925298179536},{"name":"Квіз","v":240,"n":1,"er":12.448132780082988},{"name":"Опитування","v":167,"n":4,"er":11.637630662020907},{"name":"Промо/анонс","v":120.41666666666667,"n":12,"er":6.481273828212604}]},{"name":"DEXYPLAY","posts":21,"er":16.98383733055266,"avg":62.04761904761905,"types":[{"name":"Ребус","v":193,"n":1,"er":17.970204841713223},{"name":"Порахуй кількість","v":168,"n":1,"er":34.07707910750507},{"name":"Тінь","v":166,"n":1,"er":34.511434511434516},{"name":"Пазл","v":127,"n":1,"er":18.168812589413445},{"name":"Битва слотів","v":109,"n":1,"er":21.414538310412574},{"name":"Лабіринт","v":105,"n":1,"er":22.340425531914892},{"name":"Вгадай слово","v":104,"n":1,"er":19.734345351043643},{"name":"Опитування","v":55,"n":2,"er":18.363939899833053},{"name":"Промо/анонс","v":18.416666666666668,"n":12,"er":7.836879432624114}]},{"name":"Vegas Way","posts":21,"er":13.821444471079758,"avg":192.1904761904762,"types":[{"name":"Сокет","v":1228,"n":1,"er":18.86039010904623},{"name":"Квіз","v":617,"n":1,"er":24.177115987460816},{"name":"Ребус","v":377,"n":1,"er":20.95608671484158},{"name":"Тінь","v":319,"n":1,"er":26.27677100494234},{"name":"Битва слотів","v":270,"n":1,"er":19.340974212034386},{"name":"Знайди відмінності","v":252,"n":1,"er":12.150433944069432},{"name":"Промо/анонс","v":64.86666666666666,"n":15,"er":7.125595020139143}]},{"name":"NLC","posts":21,"er":11.950836146254733,"avg":220.85714285714286,"types":[{"name":"Сокет","v":1184,"n":1,"er":17.705996710034395},{"name":"Пазл","v":683,"n":1,"er":13.154853620955315},{"name":"Вгадай слово","v":570,"n":1,"er":15.881861242685986},{"name":"Знайди без пари","v":340,"n":1,"er":24.619840695148444},{"name":"Квіз","v":330,"n":1,"er":11.870503597122301},{"name":"Битва слотів","v":321,"n":1,"er":24.69230769230769},{"name":"Опитування","v":195,"n":1,"er":10.061919504643962},{"name":"Промо/анонс","v":74.61538461538461,"n":13,"er":6.496115724618269},{"name":"Порахуй кількість","v":45,"n":1,"er":4.455445544554455}]},{"name":"TAO Fortune","posts":21,"er":11.661578717836894,"avg":127.33333333333333,"types":[{"name":"Пазл","v":397,"n":1,"er":18.012704174228674},{"name":"Ребус","v":313,"n":1,"er":26.638297872340427},{"name":"Знайди відмінності","v":291,"n":1,"er":16.357504215851602},{"name":"Битва слотів","v":252,"n":2,"er":19.984139571768438},{"name":"Знайди без пари","v":241,"n":1,"er":38.87096774193549},{"name":"Порахуй кількість","v":85,"n":1,"er":6.273062730627306},{"name":"Промо/анонс","v":60.214285714285715,"n":14,"er":6.350282485875707}]},{"name":"FireSeven","posts":19,"er":11.589348517836209,"avg":254.94736842105263,"types":[{"name":"Вгадай слово","v":1100,"n":1,"er":14.778986967620583},{"name":"Лабіринт","v":547,"n":1,"er":14.728056004308025},{"name":"Ребус","v":518,"n":1,"er":21.220811142974192},{"name":"Пазл","v":510,"n":1,"er":31.42329020332717},{"name":"Порахуй кількість","v":430,"n":1,"er":13.534781240163676},{"name":"Знайди відмінності","v":370,"n":1,"er":25.552486187845304},{"name":"Тінь","v":326,"n":1,"er":13.59466221851543},{"name":"Опитування","v":94,"n":1,"er":5.17051705170517},{"name":"Промо/анонс","v":86.27272727272727,"n":11,"er":5.351000845785171}]},{"name":"FWL","posts":20,"er":11.404967004181149,"avg":226.4,"types":[{"name":"Пазл","v":535,"n":2,"er":14.003402695982201},{"name":"Лабіринт","v":517,"n":1,"er":15.033439953474847},{"name":"Знайди відмінності","v":451,"n":1,"er":18.355718355718356},{"name":"Ребус","v":400,"n":2,"er":18.744142455482663},{"name":"Битва слотів","v":332,"n":1,"er":17.547568710359407},{"name":"Опитування","v":283,"n":1,"er":10.092724679029958},{"name":"Промо/анонс","v":89.58333333333333,"n":12,"er":6.249636649032033}]},{"name":"StormRush","posts":21,"er":10.814049586776859,"avg":124.61904761904762,"types":[{"name":"Тінь","v":391,"n":1,"er":15.804365400161682},{"name":"Вгадай слово","v":368,"n":1,"er":16.31929046563193},{"name":"Сокет","v":318,"n":1,"er":20.15209125475285},{"name":"Пазл","v":249,"n":1,"er":29.294117647058826},{"name":"Квіз","v":208,"n":1,"er":15.3960029607698},{"name":"Битва слотів","v":199,"n":1,"er":13.974719101123595},{"name":"Знайди відмінності","v":138,"n":1,"er":13.622902270483712},{"name":"Промо/анонс","v":53.285714285714285,"n":14,"er":5.628064881176914}]}]},{"label":"03.08–09.08","from":"03.08.2026","to":"09.08.2026","prevFrom":"27.07.2026","prevTo":"02.08.2026","nextFrom":"10.08.2026","nextTo":"16.08.2026","posts":162,"totalReach":225162,"totalInteractions":30061,"er":13.350831845515673,"prevEr":11.526451520334689,"prevTotalReach":264843,"hottest":{"type":"Хрестики-нулики","count":2,"avg":719.5},"projects":["DEXYPLAY","FWL","FireSeven","NLC","SCS","StormRush","TAO Fortune","Vegas Way"],"projectsCount":8,"typesCount":14,"rows":[{"name":"Хрестики-нулики","n":2,"avg":719.5,"cells":{"FWL":{"v":635,"n":1},"Vegas Way":{"v":804,"n":1}}},{"name":"Знайди без пари","n":2,"avg":677.5,"cells":{"NLC":{"v":580,"n":1},"TAO Fortune":{"v":775,"n":1}}},{"name":"Вгадай слово","n":2,"avg":666,"cells":{"TAO Fortune":{"v":745,"n":1},"Vegas Way":{"v":587,"n":1}}},{"name":"Сокет","n":3,"avg":605.6666666666666,"cells":{"FireSeven":{"v":856,"n":1},"SCS":{"v":587,"n":1},"StormRush":{"v":374,"n":1}}},{"name":"Тінь","n":5,"avg":563,"cells":{"DEXYPLAY":{"v":359,"n":1},"NLC":{"v":848,"n":1},"StormRush":{"v":637,"n":1},"TAO Fortune":{"v":402,"n":1},"Vegas Way":{"v":569,"n":1}}},{"name":"Пазл","n":6,"avg":517.5,"cells":{"DEXYPLAY":{"v":381,"n":1},"FireSeven":{"v":365,"n":1},"SCS":{"v":522,"n":1},"StormRush":{"v":706,"n":1},"TAO Fortune":{"v":501,"n":1},"Vegas Way":{"v":630,"n":1}}},{"name":"Ребус","n":10,"avg":446.2,"cells":{"DEXYPLAY":{"v":106,"n":1},"FWL":{"v":936,"n":1},"FireSeven":{"v":622.3333333333334,"n":3},"NLC":{"v":350.5,"n":2},"StormRush":{"v":302,"n":1},"TAO Fortune":{"v":313,"n":1},"Vegas Way":{"v":237,"n":1}}},{"name":"Порахуй кількість","n":5,"avg":401.4,"cells":{"DEXYPLAY":{"v":330,"n":1},"FireSeven":{"v":497,"n":1},"NLC":{"v":385,"n":1},"SCS":{"v":412,"n":1},"StormRush":{"v":383,"n":1}}},{"name":"Знайди відмінності","n":1,"avg":349,"cells":{"SCS":{"v":349,"n":1}}},{"name":"Лабіринт","n":5,"avg":339.2,"cells":{"DEXYPLAY":{"v":201,"n":1},"FWL":{"v":542,"n":1},"StormRush":{"v":275,"n":1},"TAO Fortune":{"v":275,"n":1},"Vegas Way":{"v":403,"n":1}}},{"name":"Битва слотів","n":7,"avg":289.85714285714283,"cells":{"DEXYPLAY":{"v":71,"n":1},"FireSeven":{"v":363,"n":1},"NLC":{"v":365,"n":1},"SCS":{"v":233,"n":1},"StormRush":{"v":347,"n":1},"TAO Fortune":{"v":254,"n":1},"Vegas Way":{"v":396,"n":1}}},{"name":"Квіз","n":1,"avg":237,"cells":{"SCS":{"v":237,"n":1}}},{"name":"Опитування","n":6,"avg":148,"cells":{"DEXYPLAY":{"v":38,"n":1},"FireSeven":{"v":282,"n":1},"NLC":{"v":208.5,"n":2},"SCS":{"v":75.5,"n":2}}},{"name":"Промо/анонс","n":107,"avg":61.02803738317757,"cells":{"DEXYPLAY":{"v":33.333333333333336,"n":15},"FWL":{"v":178,"n":9},"FireSeven":{"v":88.53846153846153,"n":13},"NLC":{"v":40.15384615384615,"n":13},"SCS":{"v":53.07142857142857,"n":14},"StormRush":{"v":38,"n":15},"TAO Fortune":{"v":48.42857142857143,"n":14},"Vegas Way":{"v":54.57142857142857,"n":14}}}],"projectCards":[{"name":"DEXYPLAY","posts":22,"er":21.34565778159931,"avg":90.27272727272727,"types":[{"name":"Пазл","v":381,"n":1,"er":29.24021488871834},{"name":"Тінь","v":359,"n":1,"er":38.1104033970276},{"name":"Порахуй кількість","v":330,"n":1,"er":38.506417736289386},{"name":"Лабіринт","v":201,"n":1,"er":28.07262569832402},{"name":"Ребус","v":106,"n":1,"er":27.532467532467532},{"name":"Битва слотів","v":71,"n":1,"er":23.666666666666668},{"name":"Опитування","v":38,"n":1,"er":10.242587601078167},{"name":"Промо/анонс","v":33.333333333333336,"n":15,"er":11.286681715575622}]},{"name":"Vegas Way","posts":21,"er":14.696036422067488,"avg":209.04761904761904,"types":[{"name":"Хрестики-нулики","v":804,"n":1,"er":24.594677271336803},{"name":"Пазл","v":630,"n":1,"er":19.58955223880597},{"name":"Вгадай слово","v":587,"n":1,"er":23.06483300589391},{"name":"Тінь","v":569,"n":1,"er":21.960632960247008},{"name":"Лабіринт","v":403,"n":1,"er":20.06972111553785},{"name":"Битва слотів","v":396,"n":1,"er":18.20689655172414},{"name":"Ребус","v":237,"n":1,"er":20.954907161803714},{"name":"Промо/анонс","v":54.57142857142857,"n":14,"er":5.9055422431784805}]},{"name":"FWL","posts":12,"er":14.14860799025022,"avg":309.5833333333333,"types":[{"name":"Ребус","v":936,"n":1,"er":25.91362126245847},{"name":"Хрестики-нулики","v":635,"n":1,"er":25.08889766890557},{"name":"Лабіринт","v":542,"n":1,"er":32.80871670702179},{"name":"Промо/анонс","v":178,"n":9,"er":8.677283067923302}]},{"name":"TAO Fortune","posts":21,"er":13.38107034988292,"avg":187.76190476190476,"types":[{"name":"Знайди без пари","v":775,"n":1,"er":34.598214285714285},{"name":"Вгадай слово","v":745,"n":1,"er":24.251302083333336},{"name":"Пазл","v":501,"n":1,"er":21.839581517000873},{"name":"Тінь","v":402,"n":1,"er":16.164053075995174},{"name":"Ребус","v":313,"n":1,"er":15.41871921182266},{"name":"Лабіринт","v":275,"n":1,"er":23.975588491717524},{"name":"Битва слотів","v":254,"n":1,"er":13.03901437371663},{"name":"Промо/анонс","v":48.42857142857143,"n":14,"er":4.758228647624395}]},{"name":"SCS","posts":22,"er":13.246497911034652,"avg":147,"types":[{"name":"Сокет","v":587,"n":1,"er":32.16438356164383},{"name":"Пазл","v":522,"n":1,"er":24.704212020823473},{"name":"Порахуй кількість","v":412,"n":1,"er":24.67065868263473},{"name":"Знайди відмінності","v":349,"n":1,"er":33.58999037536093},{"name":"Квіз","v":237,"n":1,"er":27.751756440281028},{"name":"Битва слотів","v":233,"n":1,"er":15.03225806451613},{"name":"Опитування","v":75.5,"n":2,"er":6.475128644939966},{"name":"Промо/анонс","v":53.07142857142857,"n":14,"er":5.701788043895326}]},{"name":"StormRush","posts":22,"er":12.6687581515034,"avg":163.36363636363637,"types":[{"name":"Пазл","v":706,"n":1,"er":18.414188836724048},{"name":"Тінь","v":637,"n":1,"er":16.754339821146765},{"name":"Порахуй кількість","v":383,"n":1,"er":28.539493293591654},{"name":"Сокет","v":374,"n":1,"er":22.598187311178247},{"name":"Битва слотів","v":347,"n":1,"er":19.2670738478623},{"name":"Ребус","v":302,"n":1,"er":15.017404276479363},{"name":"Лабіринт","v":275,"n":1,"er":23.464163822525595},{"name":"Промо/анонс","v":38,"n":15,"er":4.469887076537014}]},{"name":"FireSeven","posts":21,"er":12.258520138509203,"avg":256.23809523809524,"types":[{"name":"Сокет","v":856,"n":1,"er":30.802446923353727},{"name":"Ребус","v":622.3333333333334,"n":3,"er":15.244549685637299},{"name":"Порахуй кількість","v":497,"n":1,"er":20.360507988529292},{"name":"Пазл","v":365,"n":1,"er":21.856287425149702},{"name":"Битва слотів","v":363,"n":1,"er":13.147410358565736},{"name":"Опитування","v":282,"n":1,"er":10.243370868143844},{"name":"Промо/анонс","v":88.53846153846153,"n":13,"er":5.980774227071967}]},{"name":"NLC","posts":21,"er":11.368847333472292,"avg":181.8095238095238,"types":[{"name":"Тінь","v":848,"n":1,"er":13.644408688656476},{"name":"Знайди без пари","v":580,"n":1,"er":15.846994535519126},{"name":"Порахуй кількість","v":385,"n":1,"er":28.102189781021895},{"name":"Битва слотів","v":365,"n":1,"er":20.266518600777346},{"name":"Ребус","v":350.5,"n":2,"er":19.937428896473264},{"name":"Опитування","v":208.5,"n":2,"er":10.996835443037975},{"name":"Промо/анонс","v":40.15384615384615,"n":13,"er":3.9458764834832563}]}]},{"label":"27.07–02.08","from":"27.07.2026","to":"02.08.2026","prevFrom":"20.07.2026","prevTo":"26.07.2026","nextFrom":"03.08.2026","nextTo":"09.08.2026","posts":161,"totalReach":264843,"totalInteractions":30527,"er":11.526451520334689,"prevEr":14.36743095112728,"prevTotalReach":250692,"hottest":{"type":"Сокет","count":4,"avg":775},"projects":["DEXYPLAY","FWL","FireSeven","NLC","SCS","StormRush","TAO Fortune","Vegas Way"],"projectsCount":8,"typesCount":14,"rows":[{"name":"Сокет","n":4,"avg":775,"cells":{"FWL":{"v":936,"n":1},"FireSeven":{"v":938,"n":1},"NLC":{"v":771,"n":1},"SCS":{"v":455,"n":1}}},{"name":"Пазл","n":3,"avg":684,"cells":{"SCS":{"v":555,"n":1},"StormRush":{"v":868,"n":1},"TAO Fortune":{"v":629,"n":1}}},{"name":"Порахуй кількість","n":2,"avg":635,"cells":{"DEXYPLAY":{"v":167,"n":1},"FireSeven":{"v":1103,"n":1}}},{"name":"Вгадай слово","n":4,"avg":634.25,"cells":{"DEXYPLAY":{"v":86,"n":1},"FireSeven":{"v":1254,"n":1},"StormRush":{"v":804,"n":1},"TAO Fortune":{"v":393,"n":1}}},{"name":"Лабіринт","n":2,"avg":561.5,"cells":{"FireSeven":{"v":742,"n":1},"SCS":{"v":381,"n":1}}},{"name":"Знайди без пари","n":1,"avg":490,"cells":{"StormRush":{"v":490,"n":1}}},{"name":"Хрестики-нулики","n":2,"avg":488,"cells":{"SCS":{"v":388,"n":1},"Vegas Way":{"v":588,"n":1}}},{"name":"Квіз","n":1,"avg":473,"cells":{"Vegas Way":{"v":473,"n":1}}},{"name":"Ребус","n":17,"avg":401,"cells":{"DEXYPLAY":{"v":106.5,"n":2},"FWL":{"v":605,"n":2},"FireSeven":{"v":533.6666666666666,"n":3},"NLC":{"v":347.6666666666667,"n":3},"StormRush":{"v":285.5,"n":2},"TAO Fortune":{"v":343.6666666666667,"n":3},"Vegas Way":{"v":574,"n":2}}},{"name":"Знайди відмінності","n":4,"avg":328,"cells":{"DEXYPLAY":{"v":112,"n":1},"FWL":{"v":468,"n":1},"StormRush":{"v":248,"n":1},"Vegas Way":{"v":484,"n":1}}},{"name":"Битва слотів","n":7,"avg":280.2857142857143,"cells":{"DEXYPLAY":{"v":82,"n":1},"FWL":{"v":409,"n":1},"FireSeven":{"v":327,"n":1},"NLC":{"v":385,"n":1},"StormRush":{"v":260,"n":1},"TAO Fortune":{"v":191,"n":1},"Vegas Way":{"v":308,"n":1}}},{"name":"Опитування","n":5,"avg":225.6,"cells":{"FWL":{"v":326,"n":1},"NLC":{"v":218,"n":1},"SCS":{"v":124,"n":1},"StormRush":{"v":204,"n":1},"TAO Fortune":{"v":256,"n":1}}},{"name":"Тінь","n":1,"avg":145,"cells":{"DEXYPLAY":{"v":145,"n":1}}},{"name":"Промо/анонс","n":108,"avg":66.12962962962963,"cells":{"DEXYPLAY":{"v":13.076923076923077,"n":13},"FWL":{"v":88.5,"n":12},"FireSeven":{"v":96.58333333333333,"n":12},"NLC":{"v":56.13333333333333,"n":15},"SCS":{"v":88.5,"n":16},"StormRush":{"v":67.9090909090909,"n":11},"TAO Fortune":{"v":38.714285714285715,"n":14},"Vegas Way":{"v":80.26666666666667,"n":15}}}],"projectCards":[{"name":"Vegas Way","posts":21,"er":13.770180436847104,"avg":200.23809523809524,"types":[{"name":"Хрестики-нулики","v":588,"n":1,"er":39.12175648702595},{"name":"Ребус","v":574,"n":2,"er":21.5182755388941},{"name":"Знайди відмінності","v":484,"n":1,"er":24.60599898322318},{"name":"Квіз","v":473,"n":1,"er":19.832285115303982},{"name":"Битва слотів","v":308,"n":1,"er":17.94871794871795},{"name":"Промо/анонс","v":80.26666666666667,"n":15,"er":6.828880948329647}]},{"name":"DEXYPLAY","posts":20,"er":13.521009568714465,"avg":48.75,"types":[{"name":"Порахуй кількість","v":167,"n":1,"er":19.786729857819903},{"name":"Тінь","v":145,"n":1,"er":31.868131868131865},{"name":"Знайди відмінності","v":112,"n":1,"er":20.973782771535582},{"name":"Ребус","v":106.5,"n":2,"er":19.48764867337603},{"name":"Вгадай слово","v":86,"n":1,"er":29.054054054054053},{"name":"Битва слотів","v":82,"n":1,"er":19.248826291079812},{"name":"Промо/анонс","v":13.076923076923077,"n":13,"er":4.771260174010665}]},{"name":"SCS","posts":21,"er":12.324545116969922,"avg":158.04761904761904,"types":[{"name":"Пазл","v":555,"n":1,"er":22.093949044585987},{"name":"Сокет","v":455,"n":1,"er":29.48801036941024},{"name":"Хрестики-нулики","v":388,"n":1,"er":20.782003213711835},{"name":"Лабіринт","v":381,"n":1,"er":14.88862837045721},{"name":"Опитування","v":124,"n":1,"er":8.757062146892656},{"name":"Промо/анонс","v":88.5,"n":16,"er":8.313274232372454}]},{"name":"FireSeven","posts":20,"er":12.122655957526462,"avg":356.2,"types":[{"name":"Вгадай слово","v":1254,"n":1,"er":14.92501785289217},{"name":"Порахуй кількість","v":1103,"n":1,"er":14.41830065359477},{"name":"Сокет","v":938,"n":1,"er":15.53237290942209},{"name":"Лабіринт","v":742,"n":1,"er":18.141809290953546},{"name":"Ребус","v":533.6666666666666,"n":3,"er":16.22909275215408},{"name":"Битва слотів","v":327,"n":1,"er":12.950495049504951},{"name":"Промо/анонс","v":96.58333333333333,"n":12,"er":5.73904431790047}]},{"name":"StormRush","posts":19,"er":11.290366021169437,"avg":220.6315789473684,"types":[{"name":"Пазл","v":868,"n":1,"er":20.41872500588097},{"name":"Вгадай слово","v":804,"n":1,"er":18.913196894848273},{"name":"Знайди без пари","v":490,"n":1,"er":28.705330990041006},{"name":"Ребус","v":285.5,"n":2,"er":14.705124903425187},{"name":"Битва слотів","v":260,"n":1,"er":16.645326504481435},{"name":"Знайди відмінності","v":248,"n":1,"er":22.02486678507993},{"name":"Опитування","v":204,"n":1,"er":17.099748533109807},{"name":"Промо/анонс","v":67.9090909090909,"n":11,"er":3.8995614950929216}]},{"name":"NLC","posts":21,"er":10.682093808384412,"avg":155.1904761904762,"types":[{"name":"Сокет","v":771,"n":1,"er":21.87854710556186},{"name":"Битва слотів","v":385,"n":1,"er":20.263157894736842},{"name":"Ребус","v":347.6666666666667,"n":3,"er":19.14815494767762},{"name":"Опитування","v":218,"n":1,"er":12.365286443562109},{"name":"Промо/анонс","v":56.13333333333333,"n":15,"er":4.710489510489511}]},{"name":"FWL","posts":18,"er":10.657421053903212,"avg":245.05555555555554,"types":[{"name":"Сокет","v":936,"n":1,"er":17.84897025171625},{"name":"Ребус","v":605,"n":2,"er":15.115552779512806},{"name":"Знайди відмінності","v":468,"n":1,"er":15.66265060240964},{"name":"Битва слотів","v":409,"n":1,"er":12.580744386342662},{"name":"Опитування","v":326,"n":1,"er":12.36253318164581},{"name":"Промо/анонс","v":88.5,"n":12,"er":5.512873754152824}]},{"name":"TAO Fortune","posts":21,"er":9.397009761522304,"avg":144.85714285714286,"types":[{"name":"Пазл","v":629,"n":1,"er":18.4891240446796},{"name":"Вгадай слово","v":393,"n":1,"er":16.881443298969074},{"name":"Ребус","v":343.6666666666667,"n":3,"er":14.179617659194058},{"name":"Опитування","v":256,"n":1,"er":11.352549889135254},{"name":"Битва слотів","v":191,"n":1,"er":12.975543478260871},{"name":"Промо/анонс","v":38.714285714285715,"n":14,"er":3.4645870621324466}]}]},{"label":"20.07–26.07","from":"20.07.2026","to":"26.07.2026","prevFrom":"13.07.2026","prevTo":"19.07.2026","nextFrom":"27.07.2026","nextTo":"02.08.2026","posts":157,"totalReach":250692,"totalInteractions":36018,"er":14.36743095112728,"prevEr":12.901307357087926,"prevTotalReach":292575,"hottest":{"type":"Вгадай слово","count":3,"avg":1211.6666666666667},"projects":["DEXYPLAY","FWL","FireSeven","NLC","SCS","StormRush","TAO Fortune","Vegas Way"],"projectsCount":8,"typesCount":13,"rows":[{"name":"Вгадай слово","n":3,"avg":1211.6666666666667,"cells":{"DEXYPLAY":{"v":313,"n":1},"FWL":{"v":1182,"n":1},"FireSeven":{"v":2140,"n":1}}},{"name":"Сокет","n":6,"avg":710,"cells":{"FWL":{"v":1060,"n":1},"FireSeven":{"v":836,"n":1},"NLC":{"v":627,"n":1},"SCS":{"v":508,"n":1},"StormRush":{"v":571,"n":1},"TAO Fortune":{"v":658,"n":1}}},{"name":"Пазл","n":5,"avg":607.2,"cells":{"DEXYPLAY":{"v":157,"n":1},"FireSeven":{"v":876,"n":1},"SCS":{"v":683,"n":1},"Vegas Way":{"v":660,"n":2}}},{"name":"Лабіринт","n":6,"avg":546.6666666666666,"cells":{"FWL":{"v":706,"n":1},"NLC":{"v":608,"n":1},"SCS":{"v":403,"n":1},"StormRush":{"v":380,"n":1},"TAO Fortune":{"v":455,"n":1},"Vegas Way":{"v":728,"n":1}}},{"name":"Знайди без пари","n":3,"avg":536.6666666666666,"cells":{"DEXYPLAY":{"v":89,"n":1},"FWL":{"v":822,"n":1},"StormRush":{"v":699,"n":1}}},{"name":"Тінь","n":3,"avg":536,"cells":{"DEXYPLAY":{"v":257,"n":1},"FireSeven":{"v":726,"n":1},"TAO Fortune":{"v":625,"n":1}}},{"name":"Ребус","n":13,"avg":499.38461538461536,"cells":{"DEXYPLAY":{"v":122,"n":2},"FWL":{"v":593.5,"n":2},"FireSeven":{"v":912.5,"n":2},"NLC":{"v":419.5,"n":2},"StormRush":{"v":390,"n":2},"TAO Fortune":{"v":424,"n":1},"Vegas Way":{"v":596.5,"n":2}}},{"name":"Знайди відмінності","n":4,"avg":418.5,"cells":{"FWL":{"v":490,"n":1},"FireSeven":{"v":577,"n":1},"NLC":{"v":316,"n":1},"SCS":{"v":291,"n":1}}},{"name":"Квіз","n":1,"avg":394,"cells":{"SCS":{"v":394,"n":1}}},{"name":"Порахуй кількість","n":4,"avg":297.5,"cells":{"DEXYPLAY":{"v":139,"n":1},"NLC":{"v":399,"n":1},"StormRush":{"v":365,"n":1},"TAO Fortune":{"v":287,"n":1}}},{"name":"Опитування","n":4,"avg":241.75,"cells":{"NLC":{"v":213.5,"n":2},"StormRush":{"v":219,"n":1},"TAO Fortune":{"v":321,"n":1}}},{"name":"Битва слотів","n":8,"avg":192.625,"cells":{"DEXYPLAY":{"v":72,"n":1},"FWL":{"v":271,"n":1},"FireSeven":{"v":99,"n":1},"NLC":{"v":225,"n":1},"SCS":{"v":181,"n":1},"StormRush":{"v":198,"n":1},"TAO Fortune":{"v":151,"n":1},"Vegas Way":{"v":344,"n":1}}},{"name":"Промо/анонс","n":97,"avg":65.26804123711341,"cells":{"DEXYPLAY":{"v":17.583333333333332,"n":12},"FWL":{"v":82.7,"n":10},"FireSeven":{"v":129.5,"n":10},"NLC":{"v":49.75,"n":12},"SCS":{"v":70,"n":13},"StormRush":{"v":53.23076923076923,"n":13},"TAO Fortune":{"v":77.78571428571429,"n":14},"Vegas Way":{"v":54.61538461538461,"n":13}}}],"projectCards":[{"name":"DEXYPLAY","posts":20,"er":18.157314383729478,"avg":74.1,"types":[{"name":"Вгадай слово","v":313,"n":1,"er":29.556185080264402},{"name":"Тінь","v":257,"n":1,"er":21.65122156697557},{"name":"Пазл","v":157,"n":1,"er":22.886297376093296},{"name":"Порахуй кількість","v":139,"n":1,"er":47.27891156462585},{"name":"Ребус","v":122,"n":2,"er":23.39405560882071},{"name":"Знайди без пари","v":89,"n":1,"er":23.05699481865285},{"name":"Битва слотів","v":72,"n":1,"er":31.03448275862069},{"name":"Промо/анонс","v":17.583333333333332,"n":12,"er":6.442748091603054}]},{"name":"Vegas Way","posts":19,"er":15.544697792254796,"avg":226.05263157894737,"types":[{"name":"Лабіринт","v":728,"n":1,"er":23.008849557522122},{"name":"Пазл","v":660,"n":2,"er":21.435531016563818},{"name":"Ребус","v":596.5,"n":2,"er":25.861695209191417},{"name":"Битва слотів","v":344,"n":1,"er":38.95809739524349},{"name":"Промо/анонс","v":54.61538461538461,"n":13,"er":5.541679675304402}]},{"name":"FireSeven","posts":18,"er":15.30839823041205,"avg":465.22222222222223,"types":[{"name":"Вгадай слово","v":2140,"n":1,"er":15.472489335550573},{"name":"Ребус","v":912.5,"n":2,"er":20.030732082098563},{"name":"Пазл","v":876,"n":1,"er":18.11414392059553},{"name":"Сокет","v":836,"n":1,"er":60.75581395348837},{"name":"Тінь","v":726,"n":1,"er":14.587100663050029},{"name":"Знайди відмінності","v":577,"n":1,"er":20.35273368606702},{"name":"Промо/анонс","v":129.5,"n":10,"er":7.674074074074073},{"name":"Битва слотів","v":99,"n":1,"er":11.498257839721255}]},{"name":"StormRush","posts":21,"er":14.776125052041936,"avg":185.9047619047619,"types":[{"name":"Знайди без пари","v":699,"n":1,"er":21.05421686746988},{"name":"Сокет","v":571,"n":1,"er":37.19869706840391},{"name":"Ребус","v":390,"n":2,"er":27.008310249307478},{"name":"Лабіринт","v":380,"n":1,"er":24.691358024691358},{"name":"Порахуй кількість","v":365,"n":1,"er":23.10126582278481},{"name":"Опитування","v":219,"n":1,"er":19.98175182481752},{"name":"Битва слотів","v":198,"n":1,"er":20.349434737923946},{"name":"Промо/анонс","v":53.23076923076923,"n":13,"er":5.129725722757598}]},{"name":"FWL","posts":18,"er":14.205408690367669,"avg":363.6111111111111,"types":[{"name":"Вгадай слово","v":1182,"n":1,"er":26.65764546684709},{"name":"Сокет","v":1060,"n":1,"er":18.58670874978082},{"name":"Знайди без пари","v":822,"n":1,"er":15.930232558139535},{"name":"Лабіринт","v":706,"n":1,"er":15.19913885898816},{"name":"Ребус","v":593.5,"n":2,"er":15.879598662207359},{"name":"Знайди відмінності","v":490,"n":1,"er":24.426719840478565},{"name":"Битва слотів","v":271,"n":1,"er":18.510928961748636},{"name":"Промо/анонс","v":82.7,"n":10,"er":5.445446763679463}]},{"name":"SCS","posts":19,"er":13.86317824673989,"avg":177.3684210526316,"types":[{"name":"Пазл","v":683,"n":1,"er":20.231042654028435},{"name":"Сокет","v":508,"n":1,"er":34.254888739042485},{"name":"Лабіринт","v":403,"n":1,"er":27.303523035230352},{"name":"Квіз","v":394,"n":1,"er":16.16741895773492},{"name":"Знайди відмінності","v":291,"n":1,"er":19.30988719309887},{"name":"Битва слотів","v":181,"n":1,"er":39.86784140969163},{"name":"Промо/анонс","v":70,"n":13,"er":6.703005303476724}]},{"name":"TAO Fortune","posts":21,"er":12.705554323373782,"avg":190.95238095238096,"types":[{"name":"Сокет","v":658,"n":1,"er":24.137931034482758},{"name":"Тінь","v":625,"n":1,"er":19.42200124300808},{"name":"Лабіринт","v":455,"n":1,"er":15.66265060240964},{"name":"Ребус","v":424,"n":1,"er":19.33424532603739},{"name":"Опитування","v":321,"n":1,"er":13.22620519159456},{"name":"Порахуй кількість","v":287,"n":1,"er":23.089300080450524},{"name":"Битва слотів","v":151,"n":1,"er":18.80448318804483},{"name":"Промо/анонс","v":77.78571428571429,"n":14,"er":6.786738127882338}]},{"name":"NLC","posts":21,"er":12.684949580623881,"avg":192.28571428571428,"types":[{"name":"Сокет","v":627,"n":1,"er":28.3710407239819},{"name":"Лабіринт","v":608,"n":1,"er":14.19565724959141},{"name":"Ребус","v":419.5,"n":2,"er":15.93542260208927},{"name":"Порахуй кількість","v":399,"n":1,"er":45.96774193548387},{"name":"Знайди відмінності","v":316,"n":1,"er":17.732884399551065},{"name":"Битва слотів","v":225,"n":1,"er":37.12871287128713},{"name":"Опитування","v":213.5,"n":2,"er":11.746905089408529},{"name":"Промо/анонс","v":49.75,"n":12,"er":4.528216019417475}]}]},{"label":"13.07–19.07","from":"13.07.2026","to":"19.07.2026","prevFrom":"06.07.2026","prevTo":"12.07.2026","nextFrom":"20.07.2026","nextTo":"26.07.2026","posts":156,"totalReach":292575,"totalInteractions":37746,"er":12.901307357087926,"prevEr":12.132898990277207,"prevTotalReach":320484,"hottest":{"type":"Вгадай слово","count":3,"avg":817.6666666666666},"projects":["DEXYPLAY","FWL","FireSeven","NLC","SCS","StormRush","TAO Fortune","Vegas Way"],"projectsCount":8,"typesCount":13,"rows":[{"name":"Вгадай слово","n":3,"avg":817.6666666666666,"cells":{"FWL":{"v":1090,"n":1},"StormRush":{"v":593,"n":1},"Vegas Way":{"v":770,"n":1}}},{"name":"Пазл","n":5,"avg":742.4,"cells":{"DEXYPLAY":{"v":202,"n":1},"FWL":{"v":1097,"n":1},"FireSeven":{"v":719,"n":1},"SCS":{"v":792,"n":1},"Vegas Way":{"v":902,"n":1}}},{"name":"Тінь","n":9,"avg":690.8888888888889,"cells":{"DEXYPLAY":{"v":221,"n":1},"FWL":{"v":1221,"n":1},"FireSeven":{"v":780,"n":1},"NLC":{"v":656,"n":2},"SCS":{"v":729,"n":1},"StormRush":{"v":702,"n":1},"TAO Fortune":{"v":601,"n":1},"Vegas Way":{"v":652,"n":1}}},{"name":"Сокет","n":3,"avg":596.3333333333334,"cells":{"FireSeven":{"v":523,"n":1},"SCS":{"v":402,"n":1},"TAO Fortune":{"v":864,"n":1}}},{"name":"Лабіринт","n":4,"avg":554,"cells":{"DEXYPLAY":{"v":142,"n":1},"FWL":{"v":804,"n":1},"FireSeven":{"v":653,"n":1},"TAO Fortune":{"v":617,"n":1}}},{"name":"Порахуй кількість","n":6,"avg":519.5,"cells":{"DEXYPLAY":{"v":163,"n":1},"FWL":{"v":1004,"n":1},"FireSeven":{"v":751,"n":1},"StormRush":{"v":366,"n":1},"TAO Fortune":{"v":273,"n":1},"Vegas Way":{"v":560,"n":1}}},{"name":"Знайди без пари","n":6,"avg":442,"cells":{"FWL":{"v":620,"n":1},"NLC":{"v":339,"n":2},"SCS":{"v":496,"n":1},"StormRush":{"v":465,"n":1},"TAO Fortune":{"v":393,"n":1}}},{"name":"Ребус","n":11,"avg":432.6363636363636,"cells":{"DEXYPLAY":{"v":116,"n":1},"FWL":{"v":369,"n":1},"FireSeven":{"v":795.5,"n":2},"NLC":{"v":442,"n":2},"StormRush":{"v":352,"n":1},"TAO Fortune":{"v":300,"n":3},"Vegas Way":{"v":547,"n":1}}},{"name":"Квіз","n":3,"avg":353.3333333333333,"cells":{"SCS":{"v":344,"n":1},"StormRush":{"v":240,"n":1},"Vegas Way":{"v":476,"n":1}}},{"name":"Битва слотів","n":9,"avg":341.44444444444446,"cells":{"DEXYPLAY":{"v":107,"n":1},"FWL":{"v":451,"n":1},"FireSeven":{"v":476,"n":2},"NLC":{"v":261,"n":1},"SCS":{"v":402,"n":1},"StormRush":{"v":286,"n":1},"TAO Fortune":{"v":239,"n":1},"Vegas Way":{"v":375,"n":1}}},{"name":"Знайди відмінності","n":3,"avg":252.33333333333334,"cells":{"DEXYPLAY":{"v":164,"n":1},"FWL":{"v":353,"n":1},"SCS":{"v":240,"n":1}}},{"name":"Опитування","n":8,"avg":154.625,"cells":{"DEXYPLAY":{"v":48,"n":2},"FWL":{"v":269,"n":1},"NLC":{"v":200.5,"n":2},"SCS":{"v":134,"n":2},"TAO Fortune":{"v":203,"n":1}}},{"name":"Промо/анонс","n":86,"avg":54.68604651162791,"cells":{"DEXYPLAY":{"v":12.5,"n":12},"FWL":{"v":66.71428571428571,"n":7},"FireSeven":{"v":89.88888888888889,"n":9},"NLC":{"v":38.166666666666664,"n":12},"SCS":{"v":50.44444444444444,"n":9},"StormRush":{"v":52.142857142857146,"n":14},"TAO Fortune":{"v":70.9,"n":10},"Vegas Way":{"v":71.23076923076923,"n":13}}}],"projectCards":[{"name":"Vegas Way","posts":20,"er":14.53287197231834,"avg":260.4,"types":[{"name":"Пазл","v":902,"n":1,"er":19.540727902946273},{"name":"Вгадай слово","v":770,"n":1,"er":21.937321937321936},{"name":"Тінь","v":652,"n":1,"er":24.819185382565664},{"name":"Порахуй кількість","v":560,"n":1,"er":22.58064516129032},{"name":"Ребус","v":547,"n":1,"er":15.98013438504236},{"name":"Квіз","v":476,"n":1,"er":20.25531914893617},{"name":"Битва слотів","v":375,"n":1,"er":30.120481927710845},{"name":"Промо/анонс","v":71.23076923076923,"n":13,"er":5.941610522938722}]},{"name":"SCS","posts":18,"er":13.963323859791583,"avg":229.27777777777777,"types":[{"name":"Пазл","v":792,"n":1,"er":20.625},{"name":"Тінь","v":729,"n":1,"er":18.530757498729027},{"name":"Знайди без пари","v":496,"n":1,"er":30.024213075060537},{"name":"Сокет","v":402,"n":1,"er":27.107215104517866},{"name":"Битва слотів","v":402,"n":1,"er":20.51020408163265},{"name":"Квіз","v":344,"n":1,"er":15.439856373429084},{"name":"Знайди відмінності","v":240,"n":1,"er":21.77858439201452},{"name":"Опитування","v":134,"n":2,"er":9.057113889827646},{"name":"Промо/анонс","v":50.44444444444444,"n":9,"er":4.366224273898827}]},{"name":"DEXYPLAY","posts":21,"er":13.399625873781629,"avg":64.80952380952381,"types":[{"name":"Тінь","v":221,"n":1,"er":20.692883895131086},{"name":"Пазл","v":202,"n":1,"er":35.879218472468914},{"name":"Знайди відмінності","v":164,"n":1,"er":22.043010752688172},{"name":"Порахуй кількість","v":163,"n":1,"er":16.365461847389557},{"name":"Лабіринт","v":142,"n":1,"er":28.174603174603174},{"name":"Ребус","v":116,"n":1,"er":18.70967741935484},{"name":"Битва слотів","v":107,"n":1,"er":21.442885771543086},{"name":"Опитування","v":48,"n":2,"er":9.125475285171103},{"name":"Промо/анонс","v":12.5,"n":12,"er":3.648747263439552}]},{"name":"FWL","posts":17,"er":13.278129232457268,"avg":455.5882352941176,"types":[{"name":"Тінь","v":1221,"n":1,"er":14.652586103444138},{"name":"Пазл","v":1097,"n":1,"er":16.43691938867246},{"name":"Вгадай слово","v":1090,"n":1,"er":13.60289529514539},{"name":"Порахуй кількість","v":1004,"n":1,"er":20.25418599959653},{"name":"Лабіринт","v":804,"n":1,"er":14.596949891067537},{"name":"Знайди без пари","v":620,"n":1,"er":17.357222844344903},{"name":"Битва слотів","v":451,"n":1,"er":14.724126673196213},{"name":"Ребус","v":369,"n":1,"er":11.819346572709803},{"name":"Знайди відмінності","v":353,"n":1,"er":21.18847539015606},{"name":"Опитування","v":269,"n":1,"er":10.0749063670412},{"name":"Промо/анонс","v":66.71428571428571,"n":7,"er":4.343781973769882}]},{"name":"TAO Fortune","posts":20,"er":12.849072264317652,"avg":239.95,"types":[{"name":"Сокет","v":864,"n":1,"er":16.750678557580457},{"name":"Лабіринт","v":617,"n":1,"er":18.75950136819702},{"name":"Тінь","v":601,"n":1,"er":17.314894842984728},{"name":"Знайди без пари","v":393,"n":1,"er":26.21747831887925},{"name":"Ребус","v":300,"n":3,"er":13.073794305636257},{"name":"Порахуй кількість","v":273,"n":1,"er":21.13003095975232},{"name":"Битва слотів","v":239,"n":1,"er":10.423026602703882},{"name":"Опитування","v":203,"n":1,"er":10.902255639097744},{"name":"Промо/анонс","v":70.9,"n":10,"er":6.111542108438927}]},{"name":"FireSeven","posts":18,"er":12.598981374772297,"avg":376.55555555555554,"types":[{"name":"Ребус","v":795.5,"n":2,"er":21.699399890889254},{"name":"Тінь","v":780,"n":1,"er":11.827141774071267},{"name":"Порахуй кількість","v":751,"n":1,"er":13.736967258094019},{"name":"Пазл","v":719,"n":1,"er":19.6126568466994},{"name":"Лабіринт","v":653,"n":1,"er":15.965770171149144},{"name":"Сокет","v":523,"n":1,"er":15.468796214137829},{"name":"Битва слотів","v":476,"n":2,"er":15.339993554624556},{"name":"Промо/анонс","v":89.88888888888889,"n":9,"er":4.741808803704355}]},{"name":"StormRush","posts":21,"er":11.985619824099635,"avg":177.8095238095238,"types":[{"name":"Тінь","v":702,"n":1,"er":17.50623441396509},{"name":"Вгадай слово","v":593,"n":1,"er":14.552147239263805},{"name":"Знайди без пари","v":465,"n":1,"er":29.523809523809526},{"name":"Порахуй кількість","v":366,"n":1,"er":23.95287958115183},{"name":"Ребус","v":352,"n":1,"er":16.37971149371801},{"name":"Битва слотів","v":286,"n":1,"er":16.094541361845806},{"name":"Квіз","v":240,"n":1,"er":21.957913998170174},{"name":"Промо/анонс","v":52.142857142857146,"n":14,"er":4.883923195290025}]},{"name":"NLC","posts":21,"er":10.973733377294208,"avg":190.1904761904762,"types":[{"name":"Тінь","v":656,"n":2,"er":16.929032258064517},{"name":"Ребус","v":442,"n":2,"er":13.795255930087391},{"name":"Знайди без пари","v":339,"n":2,"er":21.772639691714836},{"name":"Битва слотів","v":261,"n":1,"er":22.25063938618926},{"name":"Опитування","v":200.5,"n":2,"er":11.48997134670487},{"name":"Промо/анонс","v":38.166666666666664,"n":12,"er":3.1671392019915636}]}]},{"label":"06.07–12.07","from":"06.07.2026","to":"12.07.2026","prevFrom":"29.06.2026","prevTo":"05.07.2026","nextFrom":"13.07.2026","nextTo":"19.07.2026","posts":153,"totalReach":320484,"totalInteractions":38884,"er":12.132898990277207,"prevEr":7.991505054163511,"prevTotalReach":303710,"hottest":{"type":"Вгадай слово","count":3,"avg":1135},"projects":["DEXYPLAY","FWL","FireSeven","NLC","SCS","StormRush","TAO Fortune","Vegas Way"],"projectsCount":8,"typesCount":14,"rows":[{"name":"Вгадай слово","n":3,"avg":1135,"cells":{"DEXYPLAY":{"v":248,"n":1},"FireSeven":{"v":2200,"n":1},"Vegas Way":{"v":957,"n":1}}},{"name":"Порахуй кількість","n":2,"avg":980,"cells":{"FWL":{"v":1007,"n":1},"FireSeven":{"v":953,"n":1}}},{"name":"Пазл","n":4,"avg":861,"cells":{"FWL":{"v":803,"n":1},"FireSeven":{"v":972,"n":1},"SCS":{"v":774,"n":1},"Vegas Way":{"v":895,"n":1}}},{"name":"Сокет","n":2,"avg":858,"cells":{"FWL":{"v":616,"n":1},"FireSeven":{"v":1100,"n":1}}},{"name":"Знайди відмінності","n":1,"avg":764,"cells":{"FireSeven":{"v":764,"n":1}}},{"name":"Знайди без пари","n":6,"avg":643.8333333333334,"cells":{"DEXYPLAY":{"v":158,"n":1},"FWL":{"v":681,"n":1},"NLC":{"v":1000,"n":1},"StormRush":{"v":572,"n":1},"TAO Fortune":{"v":517,"n":1},"Vegas Way":{"v":935,"n":1}}},{"name":"Лабіринт","n":3,"avg":626.6666666666666,"cells":{"DEXYPLAY":{"v":286,"n":1},"NLC":{"v":938,"n":1},"TAO Fortune":{"v":656,"n":1}}},{"name":"Хрестики-нулики","n":2,"avg":559.5,"cells":{"DEXYPLAY":{"v":173,"n":1},"FWL":{"v":946,"n":1}}},{"name":"Ребус","n":16,"avg":519.125,"cells":{"DEXYPLAY":{"v":240,"n":1},"FWL":{"v":644.5,"n":2},"FireSeven":{"v":766,"n":2},"NLC":{"v":536,"n":2},"SCS":{"v":500.5,"n":2},"StormRush":{"v":401,"n":2},"TAO Fortune":{"v":340,"n":2},"Vegas Way":{"v":563.3333333333334,"n":3}}},{"name":"Тінь","n":3,"avg":485.3333333333333,"cells":{"DEXYPLAY":{"v":138,"n":1},"SCS":{"v":716,"n":1},"StormRush":{"v":602,"n":1}}},{"name":"Квіз","n":4,"avg":417.75,"cells":{"NLC":{"v":573,"n":1},"SCS":{"v":480,"n":1},"StormRush":{"v":307,"n":1},"TAO Fortune":{"v":311,"n":1}}},{"name":"Битва слотів","n":8,"avg":287.5,"cells":{"DEXYPLAY":{"v":154,"n":1},"FWL":{"v":125,"n":1},"FireSeven":{"v":292,"n":3},"StormRush":{"v":324,"n":1},"TAO Fortune":{"v":362,"n":1},"Vegas Way":{"v":459,"n":1}}},{"name":"Опитування","n":5,"avg":174,"cells":{"NLC":{"v":165,"n":2},"SCS":{"v":80,"n":1},"StormRush":{"v":247,"n":1},"TAO Fortune":{"v":213,"n":1}}},{"name":"Промо/анонс","n":94,"avg":65.2127659574468,"cells":{"DEXYPLAY":{"v":24.846153846153847,"n":13},"FWL":{"v":87.77777777777777,"n":9},"FireSeven":{"v":114.5,"n":8},"NLC":{"v":58.53846153846154,"n":13},"SCS":{"v":75.15384615384616,"n":13},"StormRush":{"v":55.07692307692308,"n":13},"TAO Fortune":{"v":65.07692307692308,"n":13},"Vegas Way":{"v":66.75,"n":12}}}],"projectCards":[{"name":"Vegas Way","posts":19,"er":13.748232643964627,"avg":301.94736842105266,"types":[{"name":"Вгадай слово","v":957,"n":1,"er":17.52105455876968},{"name":"Знайди без пари","v":935,"n":1,"er":23.682877406281662},{"name":"Пазл","v":895,"n":1,"er":16.2609011627907},{"name":"Ребус","v":563.3333333333334,"n":3,"er":20.3003003003003},{"name":"Битва слотів","v":459,"n":1,"er":15.093719171325223},{"name":"Промо/анонс","v":66.75,"n":12,"er":5.184801605281895}]},{"name":"FireSeven","posts":18,"er":12.533308211988265,"avg":517.3888888888889,"types":[{"name":"Вгадай слово","v":2200,"n":1,"er":16.80287176353777},{"name":"Сокет","v":1100,"n":1,"er":24.075289997811335},{"name":"Пазл","v":972,"n":1,"er":16.43002028397566},{"name":"Порахуй кількість","v":953,"n":1,"er":13.888079277178663},{"name":"Ребус","v":766,"n":2,"er":15.153313550939664},{"name":"Знайди відмінності","v":764,"n":1,"er":12.071417285511139},{"name":"Битва слотів","v":292,"n":3,"er":9.920724801812005},{"name":"Промо/анонс","v":114.5,"n":8,"er":4.925525622412217}]},{"name":"DEXYPLAY","posts":20,"er":12.492736780941312,"avg":86,"types":[{"name":"Лабіринт","v":286,"n":1,"er":22.308892355694226},{"name":"Вгадай слово","v":248,"n":1,"er":20.462046204620464},{"name":"Ребус","v":240,"n":1,"er":25.945945945945947},{"name":"Хрестики-нулики","v":173,"n":1,"er":19.158361018826135},{"name":"Знайди без пари","v":158,"n":1,"er":17.36263736263736},{"name":"Битва слотів","v":154,"n":1,"er":19.84536082474227},{"name":"Тінь","v":138,"n":1,"er":20.353982300884958},{"name":"Промо/анонс","v":24.846153846153847,"n":13,"er":4.560858514543914}]},{"name":"StormRush","posts":20,"er":12.284927735719203,"avg":178.5,"types":[{"name":"Тінь","v":602,"n":1,"er":27.488584474885847},{"name":"Знайди без пари","v":572,"n":1,"er":21.691315889268107},{"name":"Ребус","v":401,"n":2,"er":14.293352343610765},{"name":"Битва слотів","v":324,"n":1,"er":15.984213122841636},{"name":"Квіз","v":307,"n":1,"er":22.791388270230144},{"name":"Опитування","v":247,"n":1,"er":24.144672531769306},{"name":"Промо/анонс","v":55.07692307692308,"n":13,"er":5.033391915641476}]},{"name":"FWL","posts":17,"er":12.184055769755034,"avg":368.05882352941177,"types":[{"name":"Порахуй кількість","v":1007,"n":1,"er":17.06201287699085},{"name":"Хрестики-нулики","v":946,"n":1,"er":15.063694267515922},{"name":"Пазл","v":803,"n":1,"er":14.23758865248227},{"name":"Знайди без пари","v":681,"n":1,"er":28.094059405940598},{"name":"Ребус","v":644.5,"n":2,"er":12.558456742010913},{"name":"Сокет","v":616,"n":1,"er":25.65597667638484},{"name":"Битва слотів","v":125,"n":1,"er":7.175660160734787},{"name":"Промо/анонс","v":87.77777777777777,"n":9,"er":4.730255673312976}]},{"name":"SCS","posts":19,"er":11.807815202415501,"avg":212,"types":[{"name":"Пазл","v":774,"n":1,"er":20.497881355932204},{"name":"Тінь","v":716,"n":1,"er":20.1123595505618},{"name":"Ребус","v":500.5,"n":2,"er":15.682281059063136},{"name":"Квіз","v":480,"n":1,"er":16.73056814220983},{"name":"Опитування","v":80,"n":1,"er":5.33689126084056},{"name":"Промо/анонс","v":75.15384615384616,"n":13,"er":6.096343441906901}]},{"name":"NLC","posts":20,"er":10.923112876840383,"avg":233.7,"types":[{"name":"Знайди без пари","v":1000,"n":1,"er":24.801587301587304},{"name":"Лабіринт","v":938,"n":1,"er":15.690866510538642},{"name":"Квіз","v":573,"n":1,"er":15.863787375415283},{"name":"Ребус","v":536,"n":2,"er":14.798453892876864},{"name":"Опитування","v":165,"n":2,"er":8.25},{"name":"Промо/анонс","v":58.53846153846154,"n":13,"er":4.245704083909842}]},{"name":"TAO Fortune","posts":20,"er":10.745114494664907,"avg":179.25,"types":[{"name":"Лабіринт","v":656,"n":1,"er":18.334264952487423},{"name":"Знайди без пари","v":517,"n":1,"er":28.143712574850298},{"name":"Битва слотів","v":362,"n":1,"er":17.229890528319846},{"name":"Ребус","v":340,"n":2,"er":14.830970556161397},{"name":"Квіз","v":311,"n":1,"er":21.994342291371993},{"name":"Опитування","v":213,"n":1,"er":10.451422963689891},{"name":"Промо/анонс","v":65.07692307692308,"n":13,"er":4.749873673572512}]}]},{"label":"29.06–05.07","from":"29.06.2026","to":"05.07.2026","prevFrom":"22.06.2026","prevTo":"28.06.2026","nextFrom":"06.07.2026","nextTo":"12.07.2026","posts":153,"totalReach":303710,"totalInteractions":24271,"er":7.991505054163511,"prevEr":7.916193314088835,"prevTotalReach":268475,"hottest":{"type":"Сокет","count":1,"avg":483},"projects":["DEXYPLAY","FWL","FireSeven","NLC","SCS","StormRush","TAO Fortune","Vegas Way"],"projectsCount":8,"typesCount":14,"rows":[{"name":"Сокет","n":1,"avg":483,"cells":{"SCS":{"v":483,"n":1}}},{"name":"Пазл","n":7,"avg":447.2857142857143,"cells":{"DEXYPLAY":{"v":168,"n":1},"FWL":{"v":566,"n":2},"FireSeven":{"v":401,"n":1},"NLC":{"v":699,"n":1},"SCS":{"v":366,"n":1},"Vegas Way":{"v":365,"n":1}}},{"name":"Тінь","n":6,"avg":429.1666666666667,"cells":{"FWL":{"v":563.5,"n":2},"FireSeven":{"v":413,"n":1},"StormRush":{"v":250,"n":1},"TAO Fortune":{"v":233,"n":1},"Vegas Way":{"v":552,"n":1}}},{"name":"Вгадай слово","n":3,"avg":375.6666666666667,"cells":{"DEXYPLAY":{"v":205,"n":1},"FWL":{"v":748,"n":1},"TAO Fortune":{"v":174,"n":1}}},{"name":"Лабіринт","n":5,"avg":340.8,"cells":{"FWL":{"v":328,"n":1},"FireSeven":{"v":600,"n":1},"NLC":{"v":246,"n":1},"SCS":{"v":303,"n":1},"TAO Fortune":{"v":227,"n":1}}},{"name":"Знайди без пари","n":5,"avg":339.4,"cells":{"DEXYPLAY":{"v":148,"n":1},"NLC":{"v":331,"n":1},"StormRush":{"v":367,"n":1},"TAO Fortune":{"v":272,"n":1},"Vegas Way":{"v":579,"n":1}}},{"name":"Ребус","n":14,"avg":327.64285714285717,"cells":{"DEXYPLAY":{"v":88.5,"n":2},"FWL":{"v":416,"n":2},"FireSeven":{"v":486,"n":2},"NLC":{"v":304,"n":1},"SCS":{"v":310.5,"n":2},"StormRush":{"v":449,"n":1},"TAO Fortune":{"v":274,"n":2},"Vegas Way":{"v":342,"n":2}}},{"name":"Порахуй кількість","n":4,"avg":272.25,"cells":{"DEXYPLAY":{"v":108,"n":1},"FireSeven":{"v":367,"n":2},"StormRush":{"v":247,"n":1}}},{"name":"Знайди відмінності","n":2,"avg":258.5,"cells":{"SCS":{"v":216,"n":1},"Vegas Way":{"v":301,"n":1}}},{"name":"Битва слотів","n":7,"avg":205.71428571428572,"cells":{"DEXYPLAY":{"v":67,"n":1},"FWL":{"v":260,"n":1},"FireSeven":{"v":259,"n":1},"SCS":{"v":211,"n":1},"StormRush":{"v":170,"n":1},"TAO Fortune":{"v":214,"n":1},"Vegas Way":{"v":259,"n":1}}},{"name":"Опитування","n":4,"avg":199.75,"cells":{"NLC":{"v":166,"n":1},"SCS":{"v":170,"n":1},"StormRush":{"v":222,"n":1},"TAO Fortune":{"v":241,"n":1}}},{"name":"Квіз","n":1,"avg":167,"cells":{"StormRush":{"v":167,"n":1}}},{"name":"Хрестики-нулики","n":1,"avg":67,"cells":{"DEXYPLAY":{"v":67,"n":1}}},{"name":"Промо/анонс","n":93,"avg":52.55913978494624,"cells":{"DEXYPLAY":{"v":16.666666666666668,"n":12},"FWL":{"v":63.55555555555556,"n":9},"FireSeven":{"v":95.45454545454545,"n":11},"NLC":{"v":62.666666666666664,"n":15},"SCS":{"v":36.888888888888886,"n":9},"StormRush":{"v":40.38461538461539,"n":13},"TAO Fortune":{"v":40.54545454545455,"n":11},"Vegas Way":{"v":63.30769230769231,"n":13}}}],"projectCards":[{"name":"SCS","posts":17,"er":9.428102864719634,"avg":158.94117647058823,"types":[{"name":"Сокет","v":483,"n":1,"er":21.678635547576302},{"name":"Пазл","v":366,"n":1,"er":13.858386974630822},{"name":"Ребус","v":310.5,"n":2,"er":13.51763169351328},{"name":"Лабіринт","v":303,"n":1,"er":12.36734693877551},{"name":"Знайди відмінності","v":216,"n":1,"er":11.220779220779221},{"name":"Битва слотів","v":211,"n":1,"er":12.210648148148149},{"name":"Опитування","v":170,"n":1,"er":10.725552050473187},{"name":"Промо/анонс","v":36.888888888888886,"n":9,"er":2.8849496002780675}]},{"name":"FWL","posts":18,"er":9.063548182395069,"avg":277.72222222222223,"types":[{"name":"Вгадай слово","v":748,"n":1,"er":12.483311081441922},{"name":"Пазл","v":566,"n":2,"er":11.857127893579134},{"name":"Тінь","v":563.5,"n":2,"er":9.984053862508858},{"name":"Ребус","v":416,"n":2,"er":12.287697533599173},{"name":"Лабіринт","v":328,"n":1,"er":10.383032605254828},{"name":"Битва слотів","v":260,"n":1,"er":8.170961659333752},{"name":"Промо/анонс","v":63.55555555555556,"n":9,"er":3.759200841219769}]},{"name":"Vegas Way","posts":20,"er":8.103436512088063,"avg":178.15,"types":[{"name":"Знайди без пари","v":579,"n":1,"er":12.37443898268861},{"name":"Тінь","v":552,"n":1,"er":21.861386138613863},{"name":"Пазл","v":365,"n":1,"er":10.5643994211288},{"name":"Ребус","v":342,"n":2,"er":12.116917626217893},{"name":"Знайди відмінності","v":301,"n":1,"er":9.123976962715973},{"name":"Битва слотів","v":259,"n":1,"er":8.593231585932317},{"name":"Промо/анонс","v":63.30769230769231,"n":13,"er":3.8544398651180214}]},{"name":"StormRush","posts":20,"er":8.002537308449904,"avg":119.85,"types":[{"name":"Ребус","v":449,"n":1,"er":13.548581774290888},{"name":"Знайди без пари","v":367,"n":1,"er":18.96640826873385},{"name":"Тінь","v":250,"n":1,"er":10.271158586688578},{"name":"Порахуй кількість","v":247,"n":1,"er":11.542056074766355},{"name":"Опитування","v":222,"n":1,"er":17.535545023696685},{"name":"Битва слотів","v":170,"n":1,"er":8.891213389121338},{"name":"Квіз","v":167,"n":1,"er":12.689969604863222},{"name":"Промо/анонс","v":40.38461538461539,"n":13,"er":3.357636224098235}]},{"name":"DEXYPLAY","posts":20,"er":7.7356314039492435,"avg":57,"types":[{"name":"Вгадай слово","v":205,"n":1,"er":14.539007092198581},{"name":"Пазл","v":168,"n":1,"er":14.814814814814813},{"name":"Знайди без пари","v":148,"n":1,"er":21.082621082621085},{"name":"Порахуй кількість","v":108,"n":1,"er":13.316892725030826},{"name":"Ребус","v":88.5,"n":2,"er":9.746696035242291},{"name":"Битва слотів","v":67,"n":1,"er":7.235421166306695},{"name":"Хрестики-нулики","v":67,"n":1,"er":8.052884615384617},{"name":"Промо/анонс","v":16.666666666666668,"n":12,"er":2.814522938361948}]},{"name":"FireSeven","posts":19,"er":7.413296732726299,"avg":233.10526315789474,"types":[{"name":"Лабіринт","v":600,"n":1,"er":9.623095429029672},{"name":"Ребус","v":486,"n":2,"er":10.127109814544696},{"name":"Тінь","v":413,"n":1,"er":8.613138686131387},{"name":"Пазл","v":401,"n":1,"er":9.646379600673564},{"name":"Порахуй кількість","v":367,"n":2,"er":9.216474133601206},{"name":"Битва слотів","v":259,"n":1,"er":8.39546191247974},{"name":"Промо/анонс","v":95.45454545454545,"n":11,"er":4.391468005018821}]},{"name":"TAO Fortune","posts":19,"er":7.369508073601201,"avg":123.94736842105263,"types":[{"name":"Ребус","v":274,"n":2,"er":12.39819004524887},{"name":"Знайди без пари","v":272,"n":1,"er":14.623655913978496},{"name":"Опитування","v":241,"n":1,"er":9.942244224422442},{"name":"Тінь","v":233,"n":1,"er":12.746170678336979},{"name":"Лабіринт","v":227,"n":1,"er":9.387923904052936},{"name":"Битва слотів","v":214,"n":1,"er":8.625554212011286},{"name":"Вгадай слово","v":174,"n":1,"er":11.83673469387755},{"name":"Промо/анонс","v":40.54545454545455,"n":11,"er":2.9624709398870808}]},{"name":"NLC","posts":20,"er":6.793636340642942,"avg":134.3,"types":[{"name":"Пазл","v":699,"n":1,"er":12.122788761706556},{"name":"Знайди без пари","v":331,"n":1,"er":16.130604288499026},{"name":"Ребус","v":304,"n":1,"er":11.010503440782324},{"name":"Лабіринт","v":246,"n":1,"er":7.365269461077845},{"name":"Опитування","v":166,"n":1,"er":7.611187528656579},{"name":"Промо/анонс","v":62.666666666666664,"n":15,"er":4.010752229380894}]}]},{"label":"22.06–28.06","from":"22.06.2026","to":"28.06.2026","prevFrom":"15.06.2026","prevTo":"21.06.2026","nextFrom":"29.06.2026","nextTo":"05.07.2026","posts":140,"totalReach":268475,"totalInteractions":21253,"er":7.916193314088835,"prevEr":8.391541203485748,"prevTotalReach":312243,"hottest":{"type":"Хрестики-нулики","count":1,"avg":570},"projects":["DEXYPLAY","FWL","FireSeven","NLC","SCS","StormRush","TAO Fortune","Vegas Way"],"projectsCount":8,"typesCount":13,"rows":[{"name":"Хрестики-нулики","n":1,"avg":570,"cells":{"FireSeven":{"v":570,"n":1}}},{"name":"Вгадай слово","n":3,"avg":498,"cells":{"FireSeven":{"v":851,"n":1},"StormRush":{"v":260,"n":1},"TAO Fortune":{"v":383,"n":1}}},{"name":"Порахуй кількість","n":6,"avg":392.3333333333333,"cells":{"FWL":{"v":886,"n":1},"NLC":{"v":306,"n":1},"SCS":{"v":294,"n":1},"StormRush":{"v":248,"n":1},"TAO Fortune":{"v":245,"n":1},"Vegas Way":{"v":375,"n":1}}},{"name":"Сокет","n":3,"avg":391.6666666666667,"cells":{"DEXYPLAY":{"v":149,"n":1},"FWL":{"v":627,"n":1},"StormRush":{"v":399,"n":1}}},{"name":"Тінь","n":3,"avg":389,"cells":{"FireSeven":{"v":401,"n":1},"NLC":{"v":420,"n":1},"Vegas Way":{"v":346,"n":1}}},{"name":"Квіз","n":3,"avg":338.3333333333333,"cells":{"SCS":{"v":278,"n":1},"StormRush":{"v":170,"n":1},"Vegas Way":{"v":567,"n":1}}},{"name":"Лабіринт","n":4,"avg":332.5,"cells":{"DEXYPLAY":{"v":128,"n":1},"FWL":{"v":417,"n":1},"NLC":{"v":449,"n":1},"StormRush":{"v":336,"n":1}}},{"name":"Пазл","n":3,"avg":311.3333333333333,"cells":{"DEXYPLAY":{"v":120,"n":1},"FWL":{"v":496,"n":1},"SCS":{"v":318,"n":1}}},{"name":"Ребус","n":12,"avg":296.5,"cells":{"DEXYPLAY":{"v":115,"n":1},"FWL":{"v":328.6666666666667,"n":3},"FireSeven":{"v":353,"n":2},"NLC":{"v":243,"n":1},"SCS":{"v":294,"n":1},"TAO Fortune":{"v":249.66666666666666,"n":3},"Vegas Way":{"v":465,"n":1}}},{"name":"Битва слотів","n":8,"avg":190.625,"cells":{"DEXYPLAY":{"v":58,"n":1},"FWL":{"v":282,"n":1},"FireSeven":{"v":235,"n":1},"NLC":{"v":58,"n":1},"SCS":{"v":218,"n":1},"StormRush":{"v":156,"n":1},"TAO Fortune":{"v":192,"n":1},"Vegas Way":{"v":326,"n":1}}},{"name":"Опитування","n":1,"avg":161,"cells":{"SCS":{"v":161,"n":1}}},{"name":"Знайди відмінності","n":1,"avg":103,"cells":{"DEXYPLAY":{"v":103,"n":1}}},{"name":"Промо/анонс","n":92,"avg":63.77173913043478,"cells":{"DEXYPLAY":{"v":35.166666666666664,"n":12},"FWL":{"v":68.77777777777777,"n":9},"FireSeven":{"v":122.11111111111111,"n":9},"NLC":{"v":70.6923076923077,"n":13},"SCS":{"v":28.083333333333332,"n":12},"StormRush":{"v":52.333333333333336,"n":12},"TAO Fortune":{"v":49.25,"n":12},"Vegas Way":{"v":96.3076923076923,"n":13}}}],"projectCards":[{"name":"FireSeven","posts":15,"er":8.920198637256034,"avg":257.46666666666664,"types":[{"name":"Вгадай слово","v":851,"n":1,"er":13.705910774681913},{"name":"Хрестики-нулики","v":570,"n":1,"er":13.761467889908257},{"name":"Тінь","v":401,"n":1,"er":13.456375838926174},{"name":"Ребус","v":353,"n":2,"er":9.856205500488622},{"name":"Битва слотів","v":235,"n":1,"er":8.231173380035026},{"name":"Промо/анонс","v":122.11111111111111,"n":9,"er":5.509876667000903}]},{"name":"FWL","posts":17,"er":8.607407998722758,"avg":253.7058823529412,"types":[{"name":"Порахуй кількість","v":886,"n":1,"er":15.291681049361408},{"name":"Сокет","v":627,"n":1,"er":19.441860465116278},{"name":"Пазл","v":496,"n":1,"er":11.60233918128655},{"name":"Лабіринт","v":417,"n":1,"er":9.460072595281305},{"name":"Ребус","v":328.6666666666667,"n":3,"er":9.641145986115184},{"name":"Битва слотів","v":282,"n":1,"er":9.14100486223663},{"name":"Промо/анонс","v":68.77777777777777,"n":9,"er":3.2418560804441188}]},{"name":"StormRush","posts":18,"er":8.424402776180068,"avg":122.05555555555556,"types":[{"name":"Сокет","v":399,"n":1,"er":20.050251256281406},{"name":"Лабіринт","v":336,"n":1,"er":12.27173119065011},{"name":"Вгадай слово","v":260,"n":1,"er":9.74878140232471},{"name":"Порахуй кількість","v":248,"n":1,"er":13.390928725701945},{"name":"Квіз","v":170,"n":1,"er":14.80836236933798},{"name":"Битва слотів","v":156,"n":1,"er":8.38709677419355},{"name":"Промо/анонс","v":52.333333333333336,"n":12,"er":4.542824074074074}]},{"name":"Vegas Way","posts":18,"er":8.389794222099086,"avg":185.05555555555554,"types":[{"name":"Квіз","v":567,"n":1,"er":14.988104678826328},{"name":"Ребус","v":465,"n":1,"er":13.880597014925373},{"name":"Порахуй кількість","v":375,"n":1,"er":12.242899118511264},{"name":"Тінь","v":346,"n":1,"er":16.44486692015209},{"name":"Битва слотів","v":326,"n":1,"er":12.025082995204722},{"name":"Промо/анонс","v":96.3076923076923,"n":13,"er":5.070468167827637}]},{"name":"SCS","posts":18,"er":8,"avg":105.55555555555556,"types":[{"name":"Пазл","v":318,"n":1,"er":13.333333333333334},{"name":"Порахуй кількість","v":294,"n":1,"er":19.47019867549669},{"name":"Ребус","v":294,"n":1,"er":13.573407202216067},{"name":"Квіз","v":278,"n":1,"er":13.748763600395646},{"name":"Битва слотів","v":218,"n":1,"er":11.783783783783784},{"name":"Опитування","v":161,"n":1,"er":13.283828382838283},{"name":"Промо/анонс","v":28.083333333333332,"n":12,"er":2.6735422451408173}]},{"name":"NLC","posts":18,"er":7.000467672161815,"avg":133.05555555555554,"types":[{"name":"Лабіринт","v":449,"n":1,"er":10.759645339084592},{"name":"Тінь","v":420,"n":1,"er":14.941302027748133},{"name":"Порахуй кількість","v":306,"n":1,"er":11.430706014194994},{"name":"Ребус","v":243,"n":1,"er":9.782608695652174},{"name":"Промо/анонс","v":70.6923076923077,"n":13,"er":4.44756327735566},{"name":"Битва слотів","v":58,"n":1,"er":4.131054131054131}]},{"name":"TAO Fortune","posts":18,"er":6.678828731331746,"avg":120,"types":[{"name":"Вгадай слово","v":383,"n":1,"er":9.812964386369458},{"name":"Ребус","v":249.66666666666666,"n":3,"er":10.097061202480454},{"name":"Порахуй кількість","v":245,"n":1,"er":11.11111111111111},{"name":"Битва слотів","v":192,"n":1,"er":8},{"name":"Промо/анонс","v":49.25,"n":12,"er":3.600365519342065}]},{"name":"DEXYPLAY","posts":18,"er":5.7671038078685415,"avg":60.833333333333336,"types":[{"name":"Сокет","v":149,"n":1,"er":19.787516600265604},{"name":"Лабіринт","v":128,"n":1,"er":12.213740458015266},{"name":"Пазл","v":120,"n":1,"er":10.56338028169014},{"name":"Ребус","v":115,"n":1,"er":12.041884816753926},{"name":"Знайди відмінності","v":103,"n":1,"er":12.669126691266912},{"name":"Битва слотів","v":58,"n":1,"er":6.880189798339265},{"name":"Промо/анонс","v":35.166666666666664,"n":12,"er":3.1401145918595135}]}]},{"label":"15.06–21.06","from":"15.06.2026","to":"21.06.2026","prevFrom":"08.06.2026","prevTo":"14.06.2026","nextFrom":"22.06.2026","nextTo":"28.06.2026","posts":150,"totalReach":312243,"totalInteractions":26202,"er":8.391541203485748,"prevEr":10.779148793799967,"prevTotalReach":200257,"hottest":{"type":"Лабіринт","count":1,"avg":636},"projects":["DEXYPLAY","FWL","FireSeven","NLC","SCS","StormRush","TAO Fortune","Vegas Way"],"projectsCount":8,"typesCount":13,"rows":[{"name":"Лабіринт","n":1,"avg":636,"cells":{"FireSeven":{"v":636,"n":1}}},{"name":"Порахуй кількість","n":3,"avg":518,"cells":{"NLC":{"v":479,"n":1},"TAO Fortune":{"v":370,"n":1},"Vegas Way":{"v":705,"n":1}}},{"name":"Який з 3 відрізняється","n":3,"avg":415.6666666666667,"cells":{"SCS":{"v":103,"n":1},"StormRush":{"v":323,"n":1},"Vegas Way":{"v":821,"n":1}}},{"name":"Тінь","n":8,"avg":415.5,"cells":{"DEXYPLAY":{"v":168,"n":1},"FWL":{"v":545,"n":1},"FireSeven":{"v":439,"n":1},"NLC":{"v":453,"n":1},"SCS":{"v":398,"n":1},"StormRush":{"v":461,"n":1},"TAO Fortune":{"v":313,"n":1},"Vegas Way":{"v":547,"n":1}}},{"name":"Пазл","n":6,"avg":375,"cells":{"DEXYPLAY":{"v":181,"n":1},"FWL":{"v":511,"n":1},"FireSeven":{"v":362,"n":1},"StormRush":{"v":301,"n":1},"TAO Fortune":{"v":373,"n":1},"Vegas Way":{"v":522,"n":1}}},{"name":"Вгадай слово","n":2,"avg":372.5,"cells":{"StormRush":{"v":358,"n":1},"TAO Fortune":{"v":387,"n":1}}},{"name":"Ребус","n":12,"avg":361.4166666666667,"cells":{"DEXYPLAY":{"v":100,"n":1},"FWL":{"v":410,"n":1},"FireSeven":{"v":465,"n":2},"NLC":{"v":349,"n":2},"SCS":{"v":331.75,"n":4},"Vegas Way":{"v":436,"n":2}}},{"name":"Битва слотів","n":6,"avg":343.6666666666667,"cells":{"DEXYPLAY":{"v":105,"n":1},"FWL":{"v":369,"n":2},"FireSeven":{"v":413,"n":1},"TAO Fortune":{"v":224,"n":1},"Vegas Way":{"v":582,"n":1}}},{"name":"Сокет","n":1,"avg":334,"cells":{"FWL":{"v":334,"n":1}}},{"name":"Хрестики-нулики","n":1,"avg":310,"cells":{"NLC":{"v":310,"n":1}}},{"name":"Знайди без пари","n":2,"avg":308.5,"cells":{"NLC":{"v":329,"n":1},"TAO Fortune":{"v":288,"n":1}}},{"name":"Знайди відмінності","n":2,"avg":215.5,"cells":{"DEXYPLAY":{"v":96,"n":1},"FireSeven":{"v":335,"n":1}}},{"name":"Промо/анонс","n":103,"avg":81.11650485436893,"cells":{"DEXYPLAY":{"v":42.9375,"n":16},"FWL":{"v":115.9,"n":10},"FireSeven":{"v":101.88888888888889,"n":9},"NLC":{"v":63.63636363636363,"n":11},"SCS":{"v":89.66666666666667,"n":12},"StormRush":{"v":94.41176470588235,"n":17},"TAO Fortune":{"v":78.13333333333334,"n":15},"Vegas Way":{"v":79.92307692307692,"n":13}}}],"projectCards":[{"name":"Vegas Way","posts":20,"er":9.392132612186883,"avg":254.4,"types":[{"name":"Який з 3 відрізняється","v":821,"n":1,"er":10.371399696816574},{"name":"Порахуй кількість","v":705,"n":1,"er":15.64927857935627},{"name":"Битва слотів","v":582,"n":1,"er":16.162177173007496},{"name":"Тінь","v":547,"n":1,"er":12.142064372918979},{"name":"Пазл","v":522,"n":1,"er":19.065010956902846},{"name":"Ребус","v":436,"n":2,"er":12.474964234620888},{"name":"Промо/анонс","v":79.92307692307692,"n":13,"er":4.344008696379296}]},{"name":"StormRush","posts":21,"er":9.216255442670537,"avg":145.14285714285714,"types":[{"name":"Тінь","v":461,"n":1,"er":11.697538695762496},{"name":"Вгадай слово","v":358,"n":1,"er":10.753980174226495},{"name":"Який з 3 відрізняється","v":323,"n":1,"er":16.231155778894472},{"name":"Пазл","v":301,"n":1,"er":18.800749531542785},{"name":"Промо/анонс","v":94.41176470588235,"n":17,"er":7.226149205348702}]},{"name":"SCS","posts":18,"er":9.08323167870883,"avg":161.33333333333334,"types":[{"name":"Тінь","v":398,"n":1,"er":20.50489438433797},{"name":"Ребус","v":331.75,"n":4,"er":13.133412509897072},{"name":"Який з 3 відрізняється","v":103,"n":1,"er":6.547997457088366},{"name":"Промо/анонс","v":89.66666666666667,"n":12,"er":5.862801721789354}]},{"name":"TAO Fortune","posts":21,"er":8.587120692022518,"avg":148.9047619047619,"types":[{"name":"Вгадай слово","v":387,"n":1,"er":12.285714285714286},{"name":"Пазл","v":373,"n":1,"er":14.997989545637314},{"name":"Порахуй кількість","v":370,"n":1,"er":16.65166516651665},{"name":"Тінь","v":313,"n":1,"er":17.495807713806595},{"name":"Знайди без пари","v":288,"n":1,"er":15.592853275582025},{"name":"Битва слотів","v":224,"n":1,"er":9.116809116809117},{"name":"Промо/анонс","v":78.13333333333334,"n":15,"er":5.217468726349997}]},{"name":"DEXYPLAY","posts":21,"er":8.407218763755266,"avg":63.666666666666664,"types":[{"name":"Пазл","v":181,"n":1,"er":21.8335343787696},{"name":"Тінь","v":168,"n":1,"er":14.583333333333334},{"name":"Битва слотів","v":105,"n":1,"er":10.48951048951049},{"name":"Ребус","v":100,"n":1,"er":9.45179584120983},{"name":"Знайди відмінності","v":96,"n":1,"er":10.158730158730158},{"name":"Промо/анонс","v":42.9375,"n":16,"er":6.292361238322037}]},{"name":"FireSeven","posts":16,"er":7.922037095253065,"avg":252,"types":[{"name":"Лабіринт","v":636,"n":1,"er":10.434782608695652},{"name":"Ребус","v":465,"n":2,"er":11.390079608083283},{"name":"Тінь","v":439,"n":1,"er":9.292972057578323},{"name":"Битва слотів","v":413,"n":1,"er":10.060901339829478},{"name":"Пазл","v":362,"n":1,"er":11.492063492063492},{"name":"Знайди відмінності","v":335,"n":1,"er":13.019821220365332},{"name":"Промо/анонс","v":101.88888888888889,"n":9,"er":4.152327476906358}]},{"name":"NLC","posts":17,"er":7.916699997333547,"avg":174.64705882352942,"types":[{"name":"Порахуй кількість","v":479,"n":1,"er":10.571617744427279},{"name":"Тінь","v":453,"n":1,"er":13.981481481481481},{"name":"Ребус","v":349,"n":2,"er":11.203852327447834},{"name":"Знайди без пари","v":329,"n":1,"er":19.03935185185185},{"name":"Хрестики-нулики","v":310,"n":1,"er":12.062256809338521},{"name":"Промо/анонс","v":63.63636363636363,"n":11,"er":3.645073942928557}]},{"name":"FWL","posts":16,"er":7.067482316956605,"avg":231.0625,"types":[{"name":"Тінь","v":545,"n":1,"er":10.081391046984832},{"name":"Пазл","v":511,"n":1,"er":10.167130919220057},{"name":"Ребус","v":410,"n":1,"er":10.186335403726709},{"name":"Битва слотів","v":369,"n":2,"er":9.528728211749515},{"name":"Сокет","v":334,"n":1,"er":8.255066732575383},{"name":"Промо/анонс","v":115.9,"n":10,"er":4.4470877139129765}]}]},{"label":"08.06–14.06","from":"08.06.2026","to":"14.06.2026","prevFrom":"01.06.2026","prevTo":"07.06.2026","nextFrom":"15.06.2026","nextTo":"21.06.2026","posts":90,"totalReach":200257,"totalInteractions":21586,"er":10.779148793799967,"prevEr":13.445910123206698,"prevTotalReach":252746,"hottest":{"type":"Вгадай слово","count":1,"avg":705},"projects":["DEXYPLAY","FWL","FireSeven","NLC","SCS","StormRush","TAO Fortune","Vegas Way"],"projectsCount":8,"typesCount":11,"rows":[{"name":"Вгадай слово","n":1,"avg":705,"cells":{"FWL":{"v":705,"n":1}}},{"name":"Пазл","n":4,"avg":635.25,"cells":{"DEXYPLAY":{"v":320,"n":1},"FWL":{"v":1194,"n":1},"TAO Fortune":{"v":365,"n":1},"Vegas Way":{"v":662,"n":1}}},{"name":"Тінь","n":3,"avg":541.6666666666666,"cells":{"FWL":{"v":558,"n":1},"StormRush":{"v":476,"n":1},"TAO Fortune":{"v":591,"n":1}}},{"name":"Знайди без пари","n":3,"avg":501.6666666666667,"cells":{"FWL":{"v":447,"n":1},"SCS":{"v":665,"n":1},"StormRush":{"v":393,"n":1}}},{"name":"Сокет","n":4,"avg":481.5,"cells":{"DEXYPLAY":{"v":195,"n":1},"FireSeven":{"v":601,"n":1},"StormRush":{"v":398,"n":1},"Vegas Way":{"v":732,"n":1}}},{"name":"Ребус","n":7,"avg":456.7142857142857,"cells":{"FireSeven":{"v":771,"n":1},"NLC":{"v":403.5,"n":2},"SCS":{"v":400,"n":1},"StormRush":{"v":327,"n":1},"TAO Fortune":{"v":321,"n":1},"Vegas Way":{"v":571,"n":1}}},{"name":"Знайди відмінності","n":3,"avg":434.6666666666667,"cells":{"FireSeven":{"v":454,"n":1},"TAO Fortune":{"v":346,"n":1},"Vegas Way":{"v":504,"n":1}}},{"name":"Порахуй кількість","n":2,"avg":429,"cells":{"FireSeven":{"v":405,"n":1},"SCS":{"v":453,"n":1}}},{"name":"Битва слотів","n":2,"avg":363,"cells":{"FWL":{"v":388,"n":1},"Vegas Way":{"v":338,"n":1}}},{"name":"Лабіринт","n":1,"avg":207,"cells":{"DEXYPLAY":{"v":207,"n":1}}},{"name":"Промо/анонс","n":60,"avg":116.53333333333333,"cells":{"DEXYPLAY":{"v":56.4,"n":10},"FWL":{"v":83.5,"n":4},"FireSeven":{"v":178.2,"n":5},"NLC":{"v":210.75,"n":8},"SCS":{"v":89.16666666666667,"n":6},"StormRush":{"v":115.27272727272727,"n":11},"TAO Fortune":{"v":83,"n":7},"Vegas Way":{"v":125.88888888888889,"n":9}}}],"projectCards":[{"name":"StormRush","posts":15,"er":11.45716573258607,"avg":190.8,"types":[{"name":"Тінь","v":476,"n":1,"er":16.43646408839779},{"name":"Сокет","v":398,"n":1,"er":22.91306850892343},{"name":"Знайди без пари","v":393,"n":1,"er":19.66966966966967},{"name":"Ребус","v":327,"n":1,"er":13.473423980222496},{"name":"Промо/анонс","v":115.27272727272727,"n":11,"er":7.9638236402462}]},{"name":"Vegas Way","posts":14,"er":11.243650476570972,"avg":281.42857142857144,"types":[{"name":"Сокет","v":732,"n":1,"er":20.327686753679533},{"name":"Пазл","v":662,"n":1,"er":14.488947253228277},{"name":"Ребус","v":571,"n":1,"er":18.888521336420773},{"name":"Знайди відмінності","v":504,"n":1,"er":14.723926380368098},{"name":"Битва слотів","v":338,"n":1,"er":15.27338454586534},{"name":"Промо/анонс","v":125.88888888888889,"n":9,"er":6.220831274364465}]},{"name":"FireSeven","posts":9,"er":11.02050901902644,"avg":346.8888888888889,"types":[{"name":"Ребус","v":771,"n":1,"er":15.728274173806609},{"name":"Сокет","v":601,"n":1,"er":17.86032689450223},{"name":"Знайди відмінності","v":454,"n":1,"er":15.590659340659341},{"name":"Порахуй кількість","v":405,"n":1,"er":13.728813559322035},{"name":"Промо/анонс","v":178.2,"n":5,"er":6.274647887323943}]},{"name":"FWL","posts":9,"er":10.917740575695532,"avg":402.8888888888889,"types":[{"name":"Пазл","v":1194,"n":1,"er":15.392548665721284},{"name":"Вгадай слово","v":705,"n":1,"er":17.111650485436893},{"name":"Тінь","v":558,"n":1,"er":9.099804305283756},{"name":"Знайди без пари","v":447,"n":1,"er":16.855203619909503},{"name":"Битва слотів","v":388,"n":1,"er":12.929023658780405},{"name":"Промо/анонс","v":83.5,"n":4,"er":3.4973821989528795}]},{"name":"NLC","posts":10,"er":10.634304483214606,"avg":249.3,"types":[{"name":"Ребус","v":403.5,"n":2,"er":15.91715976331361},{"name":"Промо/анонс","v":210.75,"n":8,"er":9.17650900778316}]},{"name":"TAO Fortune","posts":11,"er":10.571757482732156,"avg":200.36363636363637,"types":[{"name":"Тінь","v":591,"n":1,"er":14.867924528301888},{"name":"Пазл","v":365,"n":1,"er":18.2226660009985},{"name":"Знайди відмінності","v":346,"n":1,"er":12.586395052746452},{"name":"Ребус","v":321,"n":1,"er":16.130653266331656},{"name":"Промо/анонс","v":83,"n":7,"er":5.734873161583259}]},{"name":"DEXYPLAY","posts":13,"er":9.960498799473317,"avg":98.92307692307692,"types":[{"name":"Пазл","v":320,"n":1,"er":11.080332409972298},{"name":"Лабіринт","v":207,"n":1,"er":16.693548387096772},{"name":"Сокет","v":195,"n":1,"er":20.354906054279752},{"name":"Промо/анонс","v":56.4,"n":10,"er":7.2076677316293924}]},{"name":"SCS","posts":9,"er":9.552391587567467,"avg":228.11111111111111,"types":[{"name":"Знайди без пари","v":665,"n":1,"er":15.117072061832234},{"name":"Порахуй кількість","v":453,"n":1,"er":15.729166666666666},{"name":"Ребус","v":400,"n":1,"er":17.57469244288225},{"name":"Промо/анонс","v":89.16666666666667,"n":6,"er":4.4818631146854315}]}]},{"label":"01.06–07.06","from":"01.06.2026","to":"07.06.2026","prevFrom":"25.05.2026","prevTo":"31.05.2026","nextFrom":"08.06.2026","nextTo":"14.06.2026","posts":107,"totalReach":252746,"totalInteractions":33984,"er":13.445910123206698,"prevEr":12.39391017109644,"prevTotalReach":229169,"hottest":{"type":"Сокет","count":2,"avg":1043},"projects":["DEXYPLAY","FWL","FireSeven","NLC","SCS","StormRush","TAO Fortune","Vegas Way"],"projectsCount":8,"typesCount":11,"rows":[{"name":"Сокет","n":2,"avg":1043,"cells":{"TAO Fortune":{"v":714,"n":1},"Vegas Way":{"v":1372,"n":1}}},{"name":"Лабіринт","n":4,"avg":693,"cells":{"FWL":{"v":657,"n":1},"SCS":{"v":543,"n":1},"Vegas Way":{"v":786,"n":2}}},{"name":"Пазл","n":7,"avg":609.2857142857143,"cells":{"DEXYPLAY":{"v":300,"n":1},"FireSeven":{"v":596,"n":1},"NLC":{"v":649,"n":1},"SCS":{"v":568,"n":1},"StormRush":{"v":549,"n":1},"TAO Fortune":{"v":517,"n":1},"Vegas Way":{"v":1086,"n":1}}},{"name":"Знайди без пари","n":3,"avg":559.6666666666666,"cells":{"NLC":{"v":538,"n":1},"SCS":{"v":598,"n":1},"StormRush":{"v":543,"n":1}}},{"name":"Порахуй кількість","n":8,"avg":544.375,"cells":{"DEXYPLAY":{"v":212,"n":1},"FWL":{"v":937,"n":1},"FireSeven":{"v":506,"n":1},"NLC":{"v":396,"n":1},"SCS":{"v":484,"n":1},"StormRush":{"v":466,"n":1},"TAO Fortune":{"v":554,"n":1},"Vegas Way":{"v":800,"n":1}}},{"name":"Хрестики-нулики","n":5,"avg":500,"cells":{"FWL":{"v":751,"n":1},"FireSeven":{"v":325,"n":1},"SCS":{"v":433,"n":1},"StormRush":{"v":581,"n":1},"TAO Fortune":{"v":410,"n":1}}},{"name":"Ребус","n":14,"avg":490.64285714285717,"cells":{"DEXYPLAY":{"v":144,"n":1},"FWL":{"v":564,"n":2},"FireSeven":{"v":622.6666666666666,"n":3},"NLC":{"v":423,"n":2},"SCS":{"v":402.5,"n":2},"StormRush":{"v":548,"n":1},"TAO Fortune":{"v":402,"n":2},"Vegas Way":{"v":726,"n":1}}},{"name":"Вгадай слово","n":3,"avg":484,"cells":{"DEXYPLAY":{"v":185,"n":1},"StormRush":{"v":519,"n":1},"Vegas Way":{"v":748,"n":1}}},{"name":"Знайди відмінності","n":5,"avg":433.4,"cells":{"FWL":{"v":544,"n":1},"FireSeven":{"v":435,"n":1},"NLC":{"v":444,"n":1},"StormRush":{"v":347,"n":1},"TAO Fortune":{"v":397,"n":1}}},{"name":"Битва слотів","n":2,"avg":307.5,"cells":{"DEXYPLAY":{"v":84,"n":1},"NLC":{"v":531,"n":1}}},{"name":"Промо/анонс","n":54,"avg":96.74074074074075,"cells":{"DEXYPLAY":{"v":60.875,"n":8},"FWL":{"v":118.66666666666667,"n":6},"FireSeven":{"v":160.8,"n":5},"NLC":{"v":84.71428571428571,"n":7},"SCS":{"v":78,"n":7},"StormRush":{"v":87.14285714285714,"n":7},"TAO Fortune":{"v":108.85714285714286,"n":7},"Vegas Way":{"v":101.42857142857143,"n":7}}}],"projectCards":[{"name":"Vegas Way","posts":14,"er":16.36834612961191,"avg":501,"types":[{"name":"Сокет","v":1372,"n":1,"er":24.278888692266857},{"name":"Пазл","v":1086,"n":1,"er":26.455542021924483},{"name":"Порахуй кількість","v":800,"n":1,"er":23.7741456166419},{"name":"Лабіринт","v":786,"n":2,"er":20.020376974019356},{"name":"Вгадай слово","v":748,"n":1,"er":19.081632653061227},{"name":"Ребус","v":726,"n":1,"er":17.207869163308843},{"name":"Промо/анонс","v":101.42857142857143,"n":7,"er":5.167770580100444}]},{"name":"SCS","posts":14,"er":14.254991218323237,"avg":284.07142857142856,"types":[{"name":"Знайди без пари","v":598,"n":1,"er":21.334284694969675},{"name":"Пазл","v":568,"n":1,"er":16.031611628563365},{"name":"Лабіринт","v":543,"n":1,"er":21.046511627906977},{"name":"Порахуй кількість","v":484,"n":1,"er":18.42405786067758},{"name":"Хрестики-нулики","v":433,"n":1,"er":20.224194301728165},{"name":"Ребус","v":402.5,"n":2,"er":18.42526894026093},{"name":"Промо/анонс","v":78,"n":7,"er":5.551037006913379}]},{"name":"TAO Fortune","posts":14,"er":14.231440599650888,"avg":297,"types":[{"name":"Сокет","v":714,"n":1,"er":21.447882246920997},{"name":"Порахуй кількість","v":554,"n":1,"er":20.211601605253556},{"name":"Пазл","v":517,"n":1,"er":18.98641204553801},{"name":"Хрестики-нулики","v":410,"n":1,"er":21.63588390501319},{"name":"Ребус","v":402,"n":2,"er":17.168481742472775},{"name":"Знайди відмінності","v":397,"n":1,"er":14.868913857677905},{"name":"Промо/анонс","v":108.85714285714286,"n":7,"er":6.8181818181818175}]},{"name":"StormRush","posts":14,"er":14.21449790009219,"avg":297.35714285714283,"types":[{"name":"Хрестики-нулики","v":581,"n":1,"er":18.912760416666664},{"name":"Пазл","v":549,"n":1,"er":24.50892857142857},{"name":"Ребус","v":548,"n":1,"er":22.785862785862786},{"name":"Знайди без пари","v":543,"n":1,"er":17.140151515151516},{"name":"Вгадай слово","v":519,"n":1,"er":14.905226881102815},{"name":"Порахуй кількість","v":466,"n":1,"er":13.108298171589311},{"name":"Знайди відмінності","v":347,"n":1,"er":19.95399654974123},{"name":"Промо/анонс","v":87.14285714285714,"n":7,"er":6.337003947641803}]},{"name":"NLC","posts":14,"er":12.326908249807248,"avg":285.5,"types":[{"name":"Пазл","v":649,"n":1,"er":14.320388349514563},{"name":"Знайди без пари","v":538,"n":1,"er":19.118692253020612},{"name":"Битва слотів","v":531,"n":1,"er":18.651211801896732},{"name":"Знайди відмінності","v":444,"n":1,"er":14.117647058823529},{"name":"Ребус","v":423,"n":2,"er":15.666666666666668},{"name":"Порахуй кількість","v":396,"n":1,"er":18.274111675126903},{"name":"Промо/анонс","v":84.71428571428571,"n":7,"er":5.147569444444445}]},{"name":"FireSeven","posts":12,"er":12.008687360949253,"avg":377.8333333333333,"types":[{"name":"Ребус","v":622.6666666666666,"n":3,"er":17.805738251834907},{"name":"Пазл","v":596,"n":1,"er":17.764530551415795},{"name":"Порахуй кількість","v":506,"n":1,"er":13.939393939393941},{"name":"Знайди відмінності","v":435,"n":1,"er":11.731391585760518},{"name":"Хрестики-нулики","v":325,"n":1,"er":11.724386724386724},{"name":"Промо/анонс","v":160.8,"n":5,"er":5.826086956521739}]},{"name":"FWL","posts":12,"er":11.945539052238052,"avg":394.0833333333333,"types":[{"name":"Порахуй кількість","v":937,"n":1,"er":17.52712308267864},{"name":"Хрестики-нулики","v":751,"n":1,"er":17.412473916067704},{"name":"Лабіринт","v":657,"n":1,"er":18.798283261802577},{"name":"Ребус","v":564,"n":2,"er":12.876712328767123},{"name":"Знайди відмінності","v":544,"n":1,"er":17.96565389696169},{"name":"Промо/анонс","v":118.66666666666667,"n":6,"er":4.861395602894988}]},{"name":"DEXYPLAY","posts":13,"er":10.289295343583763,"avg":108.61538461538461,"types":[{"name":"Пазл","v":300,"n":1,"er":17.271157167530223},{"name":"Порахуй кількість","v":212,"n":1,"er":13.64221364221364},{"name":"Вгадай слово","v":185,"n":1,"er":13.734224201930214},{"name":"Ребус","v":144,"n":1,"er":12.203389830508476},{"name":"Битва слотів","v":84,"n":1,"er":9.32297447280799},{"name":"Промо/анонс","v":60.875,"n":8,"er":6.953169617361507}]}]},{"label":"25.05–31.05","from":"25.05.2026","to":"31.05.2026","prevFrom":"18.05.2026","prevTo":"24.05.2026","nextFrom":"01.06.2026","nextTo":"07.06.2026","posts":67,"totalReach":229169,"totalInteractions":28403,"er":12.39391017109644,"prevEr":null,"prevTotalReach":null,"hottest":{"type":"Сокет","count":2,"avg":1360.5},"projects":["DEXYPLAY","FWL","FireSeven","NLC","SCS","StormRush","TAO Fortune","Vegas Way"],"projectsCount":8,"typesCount":12,"rows":[{"name":"Сокет","n":2,"avg":1360.5,"cells":{"FWL":{"v":1192,"n":1},"Vegas Way":{"v":1529,"n":1}}},{"name":"Хрестики-нулики","n":2,"avg":870,"cells":{"FWL":{"v":914,"n":1},"FireSeven":{"v":826,"n":1}}},{"name":"Вгадай слово","n":3,"avg":747.6666666666666,"cells":{"NLC":{"v":707,"n":1},"StormRush":{"v":574,"n":1},"Vegas Way":{"v":962,"n":1}}},{"name":"Знайди без пари","n":1,"avg":675,"cells":{"StormRush":{"v":675,"n":1}}},{"name":"Знайди відмінності","n":4,"avg":646.25,"cells":{"FireSeven":{"v":702,"n":2},"SCS":{"v":476,"n":1},"Vegas Way":{"v":705,"n":1}}},{"name":"Пазл","n":4,"avg":636.5,"cells":{"DEXYPLAY":{"v":262,"n":1},"FWL":{"v":887,"n":1},"NLC":{"v":677,"n":1},"TAO Fortune":{"v":720,"n":1}}},{"name":"Порахуй кількість","n":4,"avg":609.5,"cells":{"FWL":{"v":766,"n":1},"NLC":{"v":517,"n":1},"SCS":{"v":575,"n":1},"TAO Fortune":{"v":580,"n":1}}},{"name":"Лабіринт","n":3,"avg":554.6666666666666,"cells":{"DEXYPLAY":{"v":221,"n":1},"SCS":{"v":515,"n":1},"Vegas Way":{"v":928,"n":1}}},{"name":"Ребус","n":5,"avg":494.6,"cells":{"SCS":{"v":495,"n":2},"StormRush":{"v":488.5,"n":2},"TAO Fortune":{"v":506,"n":1}}},{"name":"Опитування","n":3,"avg":485,"cells":{"DEXYPLAY":{"v":129,"n":1},"FireSeven":{"v":896,"n":1},"TAO Fortune":{"v":430,"n":1}}},{"name":"Битва слотів","n":4,"avg":441.25,"cells":{"DEXYPLAY":{"v":247,"n":1},"FireSeven":{"v":449,"n":1},"SCS":{"v":450,"n":1},"Vegas Way":{"v":619,"n":1}}},{"name":"Промо/анонс","n":32,"avg":190.5625,"cells":{"DEXYPLAY":{"v":49,"n":3},"FWL":{"v":182.8,"n":5},"FireSeven":{"v":485,"n":2},"NLC":{"v":183.2,"n":5},"SCS":{"v":166.8,"n":5},"StormRush":{"v":165.66666666666666,"n":6},"TAO Fortune":{"v":209,"n":2},"Vegas Way":{"v":226.25,"n":4}}}],"projectCards":[{"name":"TAO Fortune","posts":6,"er":14.767415980413979,"avg":442.3333333333333,"types":[{"name":"Пазл","v":720,"n":1,"er":22.59177910260433},{"name":"Порахуй кількість","v":580,"n":1,"er":16.919486581096848},{"name":"Ребус","v":506,"n":1,"er":16.568434839554683},{"name":"Опитування","v":430,"n":1,"er":18.17413355874894},{"name":"Промо/анонс","v":209,"n":2,"er":7.040592892033014}]},{"name":"Vegas Way","posts":9,"er":14.463878716484416,"avg":627.5555555555555,"types":[{"name":"Сокет","v":1529,"n":1,"er":23.107148254495996},{"name":"Вгадай слово","v":962,"n":1,"er":18.668736658257327},{"name":"Лабіринт","v":928,"n":1,"er":21.095703568992953},{"name":"Знайди відмінності","v":705,"n":1,"er":13.349744366597236},{"name":"Битва слотів","v":619,"n":1,"er":16.22542595019659},{"name":"Промо/анонс","v":226.25,"n":4,"er":6.5655832849680795}]},{"name":"SCS","posts":11,"er":13.865819311042102,"avg":349.09090909090907,"types":[{"name":"Порахуй кількість","v":575,"n":1,"er":18.44722489573308},{"name":"Лабіринт","v":515,"n":1,"er":17.938000696621387},{"name":"Ребус","v":495,"n":2,"er":17.653352353780313},{"name":"Знайди відмінності","v":476,"n":1,"er":19.08580593424218},{"name":"Битва слотів","v":450,"n":1,"er":12.94219154443486},{"name":"Промо/анонс","v":166.8,"n":5,"er":8.235410289325564}]},{"name":"FireSeven","posts":7,"er":13.232982006638327,"avg":649.2857142857143,"types":[{"name":"Опитування","v":896,"n":1,"er":14.365881032547701},{"name":"Хрестики-нулики","v":826,"n":1,"er":16.51009394363382},{"name":"Знайди відмінності","v":702,"n":2,"er":14.226365386563987},{"name":"Промо/анонс","v":485,"n":2,"er":12.252115700391562},{"name":"Битва слотів","v":449,"n":1,"er":8.43984962406015}]},{"name":"FWL","posts":9,"er":11.245337504512094,"avg":519.2222222222222,"types":[{"name":"Сокет","v":1192,"n":1,"er":18.332820670562906},{"name":"Хрестики-нулики","v":914,"n":1,"er":13.248296854616612},{"name":"Пазл","v":887,"n":1,"er":18.135350644040074},{"name":"Порахуй кількість","v":766,"n":1,"er":16.353543979504696},{"name":"Промо/анонс","v":182.8,"n":5,"er":4.9195328058560746}]},{"name":"DEXYPLAY","posts":7,"er":10.552816532046574,"avg":143.71428571428572,"types":[{"name":"Пазл","v":262,"n":1,"er":14.785553047404063},{"name":"Битва слотів","v":247,"n":1,"er":20.43010752688172},{"name":"Лабіринт","v":221,"n":1,"er":13.123515439429928},{"name":"Опитування","v":129,"n":1,"er":7.837181044957473},{"name":"Промо/анонс","v":49,"n":3,"er":4.562383612662942}]},{"name":"NLC","posts":8,"er":10.453078036290773,"avg":352.125,"types":[{"name":"Вгадай слово","v":707,"n":1,"er":13.551849722062487},{"name":"Пазл","v":677,"n":1,"er":16.464007782101167},{"name":"Порахуй кількість","v":517,"n":1,"er":13.0062893081761},{"name":"Промо/анонс","v":183.2,"n":5,"er":6.713081714913888}]},{"name":"StormRush","posts":10,"er":10.040223254653737,"avg":322,"types":[{"name":"Знайди без пари","v":675,"n":1,"er":11.546356483065344},{"name":"Вгадай слово","v":574,"n":1,"er":13.57937071208895},{"name":"Ребус","v":488.5,"n":2,"er":13.668158925573588},{"name":"Промо/анонс","v":165.66666666666666,"n":6,"er":6.693602693602693}]}]}];
   var LATEST_LABEL = "31.08–06.09";
-  var INSIGHTS_HTML = "\n      <div class=\"insight\">\n        <span class=\"tag\">Охоплення обвалилось у всіх 8 брендів</span>\n        <p>Сітка не змінилась — <b>168 постів</b>, рівно 21 на бренд, три слоти на день, без жодної дірки. А охоплення на пост <b>1 638 → 1 153 (−29,6%)</b>, це найнижчий тиждень із трьох (1 426 → 1 638 → 1 153). Падіння <b>одночасне в усіх восьми</b>: DEXYPLAY −42%, FireSeven −40%, FWL −32%, Vegas Way −31%, NLC −30%, StormRush −29%, TAO Fortune −27%, SCS −10%. Сторінкові метрики це підтверджують (FWL Views 151 419 → 70 876). Синхронність по всіх брендах при незмінному контенті — це доставка, а не копірайтинг.</p>\n      </div>\n      <div class=\"insight\">\n        <span class=\"tag\">ER виріс попри падіння — реагує та сама ядрова аудиторія</span>\n        <p>Взаємодії <b>30 275 → 22 980 (−24,1%)</b>, тобто просіли слабше за охоплення, і ER уперше за три тижні пішов угору: <b>12,1% → 11,0% → 11,9%</b>. ER підріс у <b>7 з 8</b> брендів. Найяскравіший — <b>TAO Fortune</b>: охоплення −27%, а взаємодії втримались (3 722 → 3 736), ER <b>9,2% → 12,6%</b>. Лідер тижня — <b>Vegas Way 16,0%</b> (з 13,9%), у хвості <b>NLC 9,2%</b>. Просів лише <b>FireSeven</b> (10,9% → 10,4%) — і саме в нього друге найбільше падіння охоплення.</p>\n      </div>\n      <div class=\"insight\">\n        <span class=\"tag\">Два слоти з трьох — промо, і вони дають 6% віддачі</span>\n        <p>Розкладка дня жорстка й однакова в усіх брендів: <b>18:xx — 100% промо</b> (58 постів, avg 30 взаємодій, ER 3,9%), <b>20:xx — 94% промо</b> (54 пости, avg 65, ER 6,8%), <b>22:xx — 0% промо, тільки механіки</b> (56 постів, avg 317, ER 18,0%). Тобто <b>112 із 168 постів (67% сітки)</b> — це промо-інвентар, який приносить близько <b>6% усіх реакцій тижня</b>. Вечірній слот дає в <b>10 разів</b> більше реакцій на пост, ніж ранній, і вдвічі більше охоплення (1 757 проти 760).</p>\n      </div>\n      <div class=\"insight\">\n        <span class=\"tag\">Feature-нагадування деградують четвертий тиждень</span>\n        <p>Нагадування про Discord / Instagram / broadcast / застосунок — <b>44 пости (26% сітки)</b> при <b>22 взаємодіях на пост і ER 3,0%</b>, разом <b>4,1% взаємодій тижня</b>. Динаміка вниз без винятків: <b>30 → 26 → 22</b> на пост за три тижні. Решта промо (офери, релізи, фічі сайту) дає 57/пост — утричі більше, але й вона осідає (86 → 66 → 57).</p>\n      </div>\n      <div class=\"insight\">\n        <span class=\"tag\">Механіки: 77% взаємодій на 32% сітки</span>\n        <p><b>54 ігрові пости</b> дали <b>17 719 взаємодій — 77,1% тижня</b> при 328/пост і ER 18,3% (це найвищий ER механік за три тижні: 17,7% → 15,6% → 18,3%). Топ за реакціями: <b>«Вгадай слово» 491</b>/пост (n=6), «Сокет» 347 (n=3 — підтвердити), «Лабіринт» 343 (n=7), «Знайди без пари» 337 (n=7). Найвищий ER серед типів із n≥4 — у механік із дешевим охопленням: <b>«Пазл» 22,8%</b>, «Знайди без пари» 21,7%, «Порахуй кількість» 19,9%. Пост №1 тижня — SCS «Вгадай слово» 31.08 (<b>700 реакцій, ER 22%</b>); 3 з топ-5 у Scarlet Sands. Рекламних «Качественный креатив» цього тижня <b>0</b> (минулого було 7 на 9,6% взаємодій) — тижневий топ знову чисто органічний.</p>\n      </div>";
-  var RECS_HTML = "<li><span class=\"num\">1</span><span><b>Слот 20:xx — перевести на механіку.</b> Зараз це 54 пости, з них 51 промо, avg 65 взаємодій при ER 6,8%; механіка в тому ж дні дає 328 і 18,3%. Почати з <b>NLC і FireSeven</b> (найнижчий ER групи), 3 дні на тиждень, і за тиждень порівняти ER слота з поточними 6,8%. Це єдина рекомендація, яку можна перевірити без зміни розміру сітки.</span></li><li><span class=\"num\">2</span><span><b>Feature-нагадування — зрізати до 1 на бренд на тиждень.</b> 44 пости по 22 взаємодії — це четвертий тиждень падіння підряд (30 → 26 → 22). Звільняється <b>~36 слотів</b>, які при 328 у механік дають орієнтовно <b>+11 тис. взаємодій</b> без жодного додаткового поста.</span></li><li><span class=\"num\">3</span><span><b>Розібратись із падінням охоплення −29,6% на рівні доставки, не контенту.</b> Просіли всі 8 брендів одночасно, сітка й частота не змінювались, ER при цьому виріс. Перевірити, чи не порізало Meta органіку саме промо-інвентарю: avg охоплення 760 у слоті 18:xx проти 1 757 у механік 22:xx.</span></li><li><span class=\"num\">4</span><span><b>«Вгадай слово» — масштабувати до 1 на бренд на тиждень.</b> 491 реакція/пост, найкращий тип тижня, але зараз це 6 постів на 8 брендів — <b>DEXYPLAY і StormRush</b> цього тижня його не отримали взагалі. Ставити у слот 22:xx.</span></li><li><span class=\"num\">5</span><span><b>Опитування — замінити на Лабіринт / Знайди без пари.</b> 119 реакцій/пост і ER 11,1% проти 337–343 і 15,9–21,7% у цих механік. Формат для гравця однаково «легкий», навантаження на призовий фонд те саме, віддача втричі вища.</span></li>";
-  var current = 0;
+  var INSIGHTS_RAW = "\n      <div class=\"insight\">\n        <span class=\"tag\">Охоплення обвалилось у всіх 8 брендів</span>\n        <p>Сітка не змінилась — <b>168 постів</b>, рівно 21 на бренд, три слоти на день, без жодної дірки. А охоплення на пост <b>1 638 → 1 153 (−29,6%)</b>, це найнижчий тиждень із трьох (1 426 → 1 638 → 1 153). Падіння <b>одночасне в усіх восьми</b>: DEXYPLAY −42%, FireSeven −40%, FWL −32%, Vegas Way −31%, NLC −30%, StormRush −29%, TAO Fortune −27%, SCS −10%. Сторінкові метрики це підтверджують (FWL Views 151 419 → 70 876). Синхронність по всіх брендах при незмінному контенті — це доставка, а не копірайтинг.</p>\n      </div>\n      <div class=\"insight\">\n        <span class=\"tag\">ER виріс попри падіння — реагує та сама ядрова аудиторія</span>\n        <p>Взаємодії <b>30 275 → 22 980 (−24,1%)</b>, тобто просіли слабше за охоплення, і ER уперше за три тижні пішов угору: <b>12,1% → 11,0% → 11,9%</b>. ER підріс у <b>7 з 8</b> брендів. Найяскравіший — <b>TAO Fortune</b>: охоплення −27%, а взаємодії втримались (3 722 → 3 736), ER <b>9,2% → 12,6%</b>. Лідер тижня — <b>Vegas Way 16,0%</b> (з 13,9%), у хвості <b>NLC 9,2%</b>. Просів лише <b>FireSeven</b> (10,9% → 10,4%) — і саме в нього друге найбільше падіння охоплення.</p>\n      </div>\n      <div class=\"insight\">\n        <span class=\"tag\">Два слоти з трьох — промо, і вони дають 6% віддачі</span>\n        <p>Розкладка дня жорстка й однакова в усіх брендів: <b>18:xx — 100% промо</b> (58 постів, avg 30 взаємодій, ER 3,9%), <b>20:xx — 94% промо</b> (54 пости, avg 65, ER 6,8%), <b>22:xx — 0% промо, тільки механіки</b> (56 постів, avg 317, ER 18,0%). Тобто <b>112 із 168 постів (67% сітки)</b> — це промо-інвентар, який приносить близько <b>6% усіх реакцій тижня</b>. Вечірній слот дає в <b>10 разів</b> більше реакцій на пост, ніж ранній, і вдвічі більше охоплення (1 757 проти 760).</p>\n      </div>\n      <div class=\"insight\">\n        <span class=\"tag\">Feature-нагадування деградують четвертий тиждень</span>\n        <p>Нагадування про Discord / Instagram / broadcast / застосунок — <b>44 пости (26% сітки)</b> при <b>22 взаємодіях на пост і ER 3,0%</b>, разом <b>4,1% взаємодій тижня</b>. Динаміка вниз без винятків: <b>30 → 26 → 22</b> на пост за три тижні. Решта промо (офери, релізи, фічі сайту) дає 57/пост — утричі більше, але й вона осідає (86 → 66 → 57).</p>\n      </div>\n      <div class=\"insight\">\n        <span class=\"tag\">Механіки: 77% взаємодій на 32% сітки</span>\n        <p><b>54 ігрові пости</b> дали <b>17 719 взаємодій — 77,1% тижня</b> при 328/пост і ER 18,3% (це найвищий ER механік за три тижні: 17,7% → 15,6% → 18,3%). Топ за реакціями: <b>«Вгадай слово» 491</b>/пост (n=6), «Сокет» 347 (n=3 — підтвердити), «Лабіринт» 343 (n=7), «Знайди без пари» 337 (n=7). Найвищий ER серед типів із n≥4 — у механік із дешевим охопленням: <b>«Пазл» 22,8%</b>, «Знайди без пари» 21,7%, «Порахуй кількість» 19,9%. Пост №1 тижня — SCS «Вгадай слово» 31.08 (<b>700 реакцій, ER 22%</b>); 3 з топ-5 у Scarlet Sands. Рекламних «Качественный креатив» цього тижня <b>0</b> (минулого було 7 на 9,6% взаємодій) — тижневий топ знову чисто органічний.</p>\n      </div>";
+  var RECS_RAW = "<li><span class=\"num\">1</span><span><b>Слот 20:xx — перевести на механіку.</b> Зараз це 54 пости, з них 51 промо, avg 65 взаємодій при ER 6,8%; механіка в тому ж дні дає 328 і 18,3%. Почати з <b>NLC і FireSeven</b> (найнижчий ER групи), 3 дні на тиждень, і за тиждень порівняти ER слота з поточними 6,8%. Це єдина рекомендація, яку можна перевірити без зміни розміру сітки.</span></li><li><span class=\"num\">2</span><span><b>Feature-нагадування — зрізати до 1 на бренд на тиждень.</b> 44 пости по 22 взаємодії — це четвертий тиждень падіння підряд (30 → 26 → 22). Звільняється <b>~36 слотів</b>, які при 328 у механік дають орієнтовно <b>+11 тис. взаємодій</b> без жодного додаткового поста.</span></li><li><span class=\"num\">3</span><span><b>Розібратись із падінням охоплення −29,6% на рівні доставки, не контенту.</b> Просіли всі 8 брендів одночасно, сітка й частота не змінювались, ER при цьому виріс. Перевірити, чи не порізало Meta органіку саме промо-інвентарю: avg охоплення 760 у слоті 18:xx проти 1 757 у механік 22:xx.</span></li><li><span class=\"num\">4</span><span><b>«Вгадай слово» — масштабувати до 1 на бренд на тиждень.</b> 491 реакція/пост, найкращий тип тижня, але зараз це 6 постів на 8 брендів — <b>DEXYPLAY і StormRush</b> цього тижня його не отримали взагалі. Ставити у слот 22:xx.</span></li><li><span class=\"num\">5</span><span><b>Опитування — замінити на Лабіринт / Знайди без пари.</b> 119 реакцій/пост і ER 11,1% проти 337–343 і 15,9–21,7% у цих механік. Формат для гравця однаково «легкий», навантаження на призовий фонд те саме, віддача втричі вища.</span></li>";
 
-  function isDarkNow() {
-    var attr = document.documentElement.getAttribute('data-theme');
-    if (attr === 'dark') return true;
-    if (attr === 'light') return false;
-    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-  }
-  function lerpRgb(lo, hi, tt) {
-    var r = Math.round(lo[0] + (hi[0]-lo[0])*tt);
-    var g = Math.round(lo[1] + (hi[1]-lo[1])*tt);
-    var b = Math.round(lo[2] + (hi[2]-lo[2])*tt);
-    return 'rgb(' + r + ',' + g + ',' + b + ')';
-  }
-  var LIGHT_LOW = [251,241,228], LIGHT_HIGH = [192,82,47];
-  var DARK_LOW  = [61,44,28],   DARK_HIGH  = [232,83,47];
+  // Конфигурация 8 наших брендов
+  var BRAND_CONFIG = {
+    "DEXYPLAY":    { color: "#00E5FF", emoji: "⚡", name: "DEXYPLAY" },
+    "FWL":         { color: "#FF9100", emoji: "🎡", name: "FWL" },
+    "FireSeven":   { color: "#FF3366", emoji: "🔥", name: "FireSeven" },
+    "NLC":         { color: "#00E676", emoji: "💎", name: "NLC" },
+    "SCS":         { color: "#FFD600", emoji: "🏜️", name: "SCS" },
+    "StormRush":   { color: "#D500F9", emoji: "🌪️", name: "StormRush" },
+    "TAO Fortune": { color: "#FF5722", emoji: "🥠", name: "TAO Fortune" },
+    "Vegas Way":   { color: "#F50057", emoji: "🎰", name: "Vegas Way" }
+  };
+  var BRAND_KEYS = ["DEXYPLAY", "FWL", "FireSeven", "NLC", "SCS", "StormRush", "TAO Fortune", "Vegas Way"];
 
-  function renderWeekPills() {
-    var el = document.getElementById('week-pills');
-    el.innerHTML = WEEKS.map(function (w, i) {
-      return '<button type="button" class="week-pill' + (i === current ? ' active' : '') + '" data-i="' + i + '">' + w.label + '</button>';
+  // Неоновая 7-шаговая шкала теплокарты
+  var HEAT_RAMP = ["#132347", "#174075", "#1861a8", "#0083cc", "#00aef0", "#00e5ff", "#00f59b", "#ffd600"];
+
+  var state = {
+    brand: "ALL",
+    weekIdx: 0,
+    periodWeeks: 13,
+    mainTab: "analytics"
+  };
+
+  var charts = {};
+
+  var NF = new Intl.NumberFormat("ru-RU");
+  function nf(n) { return (n == null || isNaN(n)) ? "—" : NF.format(Math.round(n)); }
+  function kfmt(v) { return (v >= 10000) ? Math.round(v / 1000) + "k" : NF.format(Math.round(v)); }
+  function pct(n, d) { return (n == null || isNaN(n)) ? "—" : (n * 100).toFixed(d == null ? 1 : d).replace(".", ",") + "%"; }
+  function pctRaw(n, d) { return (n == null || isNaN(n)) ? "—" : Number(n).toFixed(d == null ? 1 : d).replace(".", ",") + "%"; }
+
+  function delta(cur, prev) {
+    if (cur == null || prev == null || !prev) return null;
+    return (cur - prev) / Math.abs(prev);
+  }
+  function deltaBadge(d) {
+    if (d == null) return '<span class="delta-badge flat">—</span>';
+    var isUp = d > 0.0005, isDown = d < -0.0005;
+    var cls = isUp ? "up" : (isDown ? "down" : "flat");
+    var sign = d > 0 ? "+" : "";
+    return '<span class="delta-badge ' + cls + '">' + sign + (d * 100).toFixed(1).replace(".", ",") + '%</span>';
+  }
+  function deltaSubText(d) {
+    if (d == null) return '<span class="delta-sub flat">—</span>';
+    var isUp = d > 0.0005, isDown = d < -0.0005;
+    var cls = isUp ? "up" : (isDown ? "down" : "flat");
+    var sign = d > 0 ? "+" : "";
+    return '<span class="delta-sub ' + cls + '">' + sign + (d * 100).toFixed(1).replace(".", ",") + '%</span>';
+  }
+  function ppBadge(cur, prev) {
+    if (cur == null || prev == null) return '<span class="delta-badge flat">—</span>';
+    var diff = cur - prev;
+    var isUp = diff > 0.05, isDown = diff < -0.05;
+    var cls = isUp ? "up" : (isDown ? "down" : "flat");
+    var sign = diff > 0 ? "+" : "";
+    return '<span class="delta-badge ' + cls + '">' + sign + diff.toFixed(1).replace(".", ",") + ' п.п.</span>';
+  }
+
+  // Получение метрик за неделю для ALL или конкретного бренда
+  function getWeekMetrics(wIdx, brand) {
+    var w = WEEKS[wIdx];
+    if (!w) return null;
+    if (brand === "ALL") {
+      return {
+        reach: w.totalReach,
+        interactions: w.totalInteractions,
+        posts: w.posts,
+        er: w.er,
+        perPost: w.posts > 0 ? (w.totalInteractions / w.posts) : 0,
+        reachPerPost: w.posts > 0 ? (w.totalReach / w.posts) : 0,
+        hottest: w.hottest
+      };
+    }
+    var card = (w.projectCards || []).find(function(c) { return c.name === brand; });
+    if (!card) return null;
+    var inter = Math.round(card.avg * card.posts);
+    var reach = card.er > 0 ? Math.round(inter / (card.er / 100)) : 0;
+    return {
+      reach: reach,
+      interactions: inter,
+      posts: card.posts,
+      er: card.er,
+      perPost: card.avg,
+      reachPerPost: card.posts > 0 ? (reach / card.posts) : 0,
+      types: card.types || []
+    };
+  }
+
+  // ---------- Рендер Чипсов Брендов ----------
+  function renderChips() {
+    var container = document.getElementById("brandChips");
+    var html = '<button class="chip' + (state.brand === "ALL" ? " active" : "") + '" onclick="window.selectBrand('ALL')">' +
+      '<span class="dot" style="background:#00e5ff"></span>📦 Все бренды (8)</button>';
+
+    BRAND_KEYS.forEach(function(code) {
+      var cfg = BRAND_CONFIG[code];
+      var isAct = state.brand === code;
+      html += '<button class="chip' + (isAct ? " active" : "") + '" onclick="window.selectBrand('' + code + '')">' +
+        '<span class="dot" style="background:' + cfg.color + '"></span>' + cfg.emoji + ' ' + cfg.name + '</button>';
+    });
+    container.innerHTML = html;
+  }
+
+  // ---------- Селектор Недель ----------
+  function renderWeekSelect() {
+    var sel = document.getElementById("weekSel");
+    sel.innerHTML = WEEKS.map(function(w, i) {
+      var isNewest = (i === 0);
+      return '<option value="' + i + '"' + (i === state.weekIdx ? ' selected' : '') + '>' +
+        'нед. ' + w.label + (isNewest ? ' (Новейшая)' : '') + '</option>';
     }).join('');
-    el.parentElement.style.display = 'flex';
-    Array.prototype.forEach.call(el.querySelectorAll('.week-pill'), function (btn) {
-      btn.addEventListener('click', function () { renderWeek(parseInt(btn.dataset.i, 10)); });
-    });
+    sel.onchange = function() {
+      state.weekIdx = parseInt(sel.value, 10);
+      renderAll();
+    };
   }
 
-  function renderWeek(idx) {
-    current = idx;
-    var w = WEEKS[idx];
-    var dark = isDarkNow();
+  // ---------- Рендер 8 KPI ----------
+  function renderKpis() {
+    var cur = getWeekMetrics(state.weekIdx, state.brand);
+    var prev = (state.weekIdx + 1 < WEEKS.length) ? getWeekMetrics(state.weekIdx + 1, state.brand) : null;
+    var slot = document.getElementById("kpisSlot");
+    if (!cur) return;
 
-    // active pill
-    Array.prototype.forEach.call(document.querySelectorAll('.week-pill'), function (btn, i) {
-      btn.classList.toggle('active', i === idx);
-    });
+    var dReach = prev ? delta(cur.reach, prev.reach) : null;
+    var dInter = prev ? delta(cur.interactions, prev.interactions) : null;
+    var dPosts = prev ? delta(cur.posts, prev.posts) : null;
+    var dPerPost = prev ? delta(cur.perPost, prev.perPost) : null;
+    var dReachPer = prev ? delta(cur.reachPerPost, prev.reachPerPost) : null;
 
-    document.getElementById('subtitle').innerHTML =
-      'Теплова карта середніх Interactions/пост по ' + w.typesCount + ' інфоприводах і ' + w.projectsCount + ' брендах. ' +
-      'Дані — тиждень <b>' + w.from + '–' + w.to + '</b>, ' + w.posts + ' FB-постів, знято через <code>smm-posts-log</code> ' +
-      'і живе на листі <b>ІНФОПРИВОДИ</b> в SMM Insights USA2.';
+    var hotTitle = "—", hotSub = "";
+    if (state.brand === "ALL" && cur.hottest) {
+      hotTitle = cur.hottest.type || "—";
+      hotSub = Math.round(cur.hottest.avg || 0) + " реакций/пост";
+    } else if (cur.types && cur.types.length > 0) {
+      var sortedT = cur.types.slice().sort(function(a,b){ return (b.v||0) - (a.v||0); });
+      hotTitle = sortedT[0].name;
+      hotSub = Math.round(sortedT[0].v) + " реакций/пост";
+    }
 
-    var prevErText = w.prevEr === null ? 'немає даних' : (fmtDec1(w.prevEr) + '%');
-    document.getElementById('stats').innerHTML =
-      '<div class="stat"><span class="label">Постів за тиждень</span><span class="value">' + w.posts + '</span><span class="sub">по ' + w.projectsCount + ' проєктах</span></div>' +
-      '<div class="stat"><span class="label">Сумарний Reach</span><span class="value">' + fmtInt(w.totalReach) + '</span><span class="sub">≈ ' + fmtInt(w.totalReach / Math.max(1, w.posts)) + ' на пост у середньому</span></div>' +
-      '<div class="stat"><span class="label">Сумарні Interactions</span><span class="value">' + fmtInt(w.totalInteractions) + '</span><span class="sub">ER ≈ ' + fmtDec1(w.er) + '% від Reach (тиждень тому — ' + prevErText + ')</span></div>' +
-      '<div class="stat"><span class="label">Найгарячіший формат</span><span class="value">' + (w.hottest ? fmtInt(w.hottest.avg) : '—') + '<small>/пост</small></span><span class="sub">«' + (w.hottest ? esc(w.hottest.type) : '—') + '»</span></div>';
+    // Лидер по ER
+    var leaderName = "—", leaderEr = "—";
+    var w = WEEKS[state.weekIdx];
+    if (w.projectCards && w.projectCards.length) {
+      var sortedCards = w.projectCards.slice().sort(function(a,b){ return b.er - a.er; });
+      var topCard = sortedCards[0];
+      leaderName = (BRAND_CONFIG[topCard.name] ? BRAND_CONFIG[topCard.name].emoji + " " : "") + topCard.name;
+      leaderEr = topCard.er.toFixed(1) + "%";
+    }
 
-    document.getElementById('board-sub').textContent = 'За середніми Interactions/пост, усі ' + w.projectsCount + ' проєктів разом';
+    slot.innerHTML = [
+      kpiCard("Охват за неделю", nf(cur.reach), deltaBadge(dReach)),
+      kpiCard("Взаимодействия", nf(cur.interactions), deltaBadge(dInter)),
+      kpiCard("ER", pctRaw(cur.er), ppBadge(cur.er, prev ? prev.er : null)),
+      kpiCard("Постов", nf(cur.posts), deltaBadge(dPosts)),
+      kpiCard("Реакций / пост", nf(cur.perPost), deltaBadge(dPerPost)),
+      kpiCard("Охват / пост", nf(cur.reachPerPost), deltaBadge(dReachPer)),
+      kpiCard("Топ-формат недели", hotTitle, '<span style="color:var(--brand);font-weight:700;">' + hotSub + '</span>'),
+      kpiCard("Лидер по ER", leaderName, '<span style="color:var(--up);font-weight:700;">' + leaderEr + '</span>')
+    ].join('');
+  }
 
-    // лог-шкала для ЦЬОГО тижня
-    var allVals = [];
-    w.rows.forEach(function (r) { Object.keys(r.cells).forEach(function (p) { allVals.push(r.cells[p].v); }); });
-    var minV = allVals.length ? Math.min.apply(null, allVals) : 0, maxV = allVals.length ? Math.max.apply(null, allVals) : 1;
-    var logMin = Math.log(minV + 1), logMax = Math.log(maxV + 1);
-    function t(v) { var raw = (Math.log(v + 1) - logMin) / (logMax - logMin || 1); return Math.max(0, Math.min(1, raw)); }
+  function kpiCard(label, val, deltaHtml) {
+    return '<div class="kpi-card">' +
+      '<div class="kpi-label">' + label + '</div>' +
+      '<div class="kpi-val">' + val + '</div>' +
+      '<div class="kpi-delta-row">' + deltaHtml + '</div>' +
+    '</div>';
+  }
 
-    // heatmap head
-    document.getElementById('heat-head').innerHTML = '<tr><th class="rowhead-col">Інфопривід</th>' + w.projects.map(function (p) { return '<th>' + esc(p) + '</th>'; }).join('') + '</tr>';
+  // ---------- Рендер 4 Графиков Chart.js ----------
+  function renderCharts() {
+    var count = Math.min(state.periodWeeks, WEEKS.length);
+    // Берем последние count недель в хронологическом порядке
+    var sliceWeeks = WEEKS.slice(0, count).reverse();
+    var labels = sliceWeeks.map(function(w){ return w.label; });
 
-    // heatmap body
-    var tbody = document.getElementById('heat-body');
-    tbody.innerHTML = '';
-    w.rows.forEach(function (row) {
-      var tr = document.createElement('tr');
-      var th = document.createElement('th');
-      th.innerHTML = row.name + '<span class="n">' + row.n + ' ' + (row.n === 1 ? 'пост' : 'постів') + ' · avg ' + fmtDec1(row.avg) + '</span>';
-      tr.appendChild(th);
-      w.projects.forEach(function (p) {
-        var td = document.createElement('td');
-        td.className = 'cell-pad';
-        var inner = document.createElement('div');
-        var cell = row.cells[p];
-        if (!cell) {
-          inner.className = 'cell empty';
-          inner.textContent = '—';
-        } else {
-          var tt = t(cell.v);
-          var hot = dark ? tt >= 0.55 : tt >= 0.7;
-          inner.className = 'cell' + (hot ? ' hot-text' : '');
-          inner.style.background = lerpRgb(dark ? DARK_LOW : LIGHT_LOW, dark ? DARK_HIGH : LIGHT_HIGH, tt);
-          inner.textContent = Math.round(cell.v).toLocaleString('uk-UA');
+    // Опции шкал и осей
+    var axisBase = {
+      x: { grid: { color: "rgba(255,255,255,0.05)" }, ticks: { color: "#8493b2", maxRotation: 0, font: { size: 11 } } },
+      y: {
+        beginAtZero: true, grid: { color: "rgba(255,255,255,0.06)" }, border: { display: false },
+        ticks: { color: "#8493b2", callback: function(v){ return kfmt(v); }, font: { size: 11 } }
+      }
+    };
+    var commonOpts = {
+      responsive: true, maintainAspectRatio: false,
+      interaction: { mode: "index", intersect: false },
+      plugins: {
+        legend: { labels: { color: "#a6b5d4", usePointStyle: true, boxWidth: 8, font: { size: 11, weight: 600 } } },
+        tooltip: {
+          backgroundColor: "rgba(7, 11, 20, 0.92)",
+          borderColor: "rgba(0, 229, 255, 0.35)", borderWidth: 1,
+          padding: 10, titleFont: { weight: 700 }, bodyFont: { size: 12 }
         }
-        td.appendChild(inner);
-        tr.appendChild(td);
+      }
+    };
+
+    // График 1: Охват брендов
+    var ds1 = [];
+    if (state.brand === "ALL") {
+      document.getElementById("ch1Sub").textContent = "динамика по 8 брендам";
+      BRAND_KEYS.forEach(function(code) {
+        var cfg = BRAND_CONFIG[code];
+        var data = sliceWeeks.map(function(w) {
+          var card = (w.projectCards || []).find(function(c){ return c.name === code; });
+          if (!card || card.er <= 0) return 0;
+          return Math.round((card.avg * card.posts) / (card.er / 100));
+        });
+        ds1.push({
+          label: cfg.name, data: data, borderColor: cfg.color, backgroundColor: cfg.color,
+          borderWidth: 2, pointRadius: 2, pointHoverRadius: 5, tension: 0.35
+        });
       });
-      tbody.appendChild(tr);
+    } else {
+      var curCfg = BRAND_CONFIG[state.brand];
+      document.getElementById("ch1Sub").textContent = "тренд охвата: " + curCfg.name;
+      var singleData = sliceWeeks.map(function(w) {
+        var card = (w.projectCards || []).find(function(c){ return c.name === state.brand; });
+        if (!card || card.er <= 0) return 0;
+        return Math.round((card.avg * card.posts) / (card.er / 100));
+      });
+      ds1.push({
+        label: curCfg.name + " (Охват)", data: singleData, borderColor: curCfg.color,
+        backgroundColor: curCfg.color + "25", fill: true, borderWidth: 2.5, pointRadius: 3, tension: 0.35
+      });
+    }
+    mountChart("chDynamics", { type: "line", data: { labels: labels, datasets: ds1 }, options: Object.assign({}, commonOpts, { scales: axisBase }) });
+
+    // График 2: Охват и Взаимодействия (Combo)
+    var reachData = [], interData = [];
+    sliceWeeks.forEach(function(w, idx) {
+      var m = getWeekMetrics(WEEKS.indexOf(w), state.brand);
+      reachData.push(m ? m.reach : 0);
+      interData.push(m ? m.interactions : 0);
+    });
+    var ds2 = [
+      { type: "bar", label: "Охват", data: reachData, backgroundColor: "#00e5ff55", hoverBackgroundColor: "#00e5ff99", borderRadius: 4, order: 2 },
+      { type: "line", label: "Взаимодействия", data: interData, borderColor: "#00f59b", backgroundColor: "#00f59b", borderWidth: 2.5, pointRadius: 2, tension: 0.3, yAxisID: "y1", order: 1 }
+    ];
+    mountChart("chReachInter", {
+      data: { labels: labels, datasets: ds2 },
+      options: Object.assign({}, commonOpts, {
+        scales: {
+          x: axisBase.x,
+          y: axisBase.y,
+          y1: {
+            position: "right", beginAtZero: true, grid: { display: false }, border: { display: false },
+            ticks: { color: "#00f59b", callback: function(v){ return kfmt(v); }, font: { size: 11 } }
+          }
+        }
+      })
     });
 
-    // board
-    var board = document.getElementById('board');
-    var max = w.rows[0] ? w.rows[0].avg : 1;
-    board.innerHTML = w.rows.map(function (row, i) {
-      return '<div class="board-row' + (i === 0 ? ' top' : '') + '">' +
-        '<span class="board-name">' + row.name + ' <span class="count">' + row.n + '</span></span>' +
-        '<span class="board-val">' + fmtDec1(row.avg) + '</span>' +
-        '<span class="board-bar-wrap"><span class="board-bar" style="width:' + (row.avg / max * 100).toFixed(1) + '%"></span></span>' +
-        '</div>';
-    }).join('');
+    // График 3: ER Тренд
+    var erData = sliceWeeks.map(function(w) {
+      var m = getWeekMetrics(WEEKS.indexOf(w), state.brand);
+      return m ? Number(m.er.toFixed(1)) : null;
+    });
+    mountChart("chEr", {
+      type: "line",
+      data: {
+        labels: labels,
+        datasets: [{
+          label: "ER (%)", data: erData, borderColor: "#ffd600", backgroundColor: "#ffd60020",
+          borderWidth: 2.5, pointRadius: 3, pointHoverRadius: 6, tension: 0.35, fill: true
+        }]
+      },
+      options: Object.assign({}, commonOpts, {
+        scales: {
+          x: axisBase.x,
+          y: {
+            grid: { color: "rgba(255,255,255,0.06)" }, border: { display: false },
+            ticks: { color: "#ffd600", callback: function(v){ return v + "%"; }, font: { size: 11 } }
+          }
+        }
+      })
+    });
 
-    // project cards
-    var grid = document.getElementById('project-grid');
-    grid.innerHTML = w.projectCards.map(function (proj, i) {
-      var rowsHtml = proj.types.map(function (ty) {
-        var tt = t(ty.v);
-        var hot = dark ? tt >= 0.55 : tt >= 0.7;
-        var bg = lerpRgb(dark ? DARK_LOW : LIGHT_LOW, dark ? DARK_HIGH : LIGHT_HIGH, tt);
-        var color = hot ? '#fbeee0' : (dark ? '#1a1310' : '#2a1c0f');
-        return '<div class="ptype-row">' +
-          '<span class="ptype-pill" style="background:' + bg + ';color:' + color + '">' + Math.round(ty.v).toLocaleString('uk-UA') + '</span>' +
-          '<span class="ptype-name">' + ty.name + (ty.n > 1 ? ' <span class="cnt">×' + ty.n + '</span>' : '') + '</span>' +
-          '<span class="ptype-er">' + fmtDec1(ty.er) + '%</span>' +
-          '</div>';
-      }).join('');
-      return '<div class="project-card">' +
-        '<span class="prank">#' + (i + 1) + ' за ER</span>' +
-        '<div class="ph"><span class="pname">' + proj.name + '</span><span class="per">' + fmtDec1(proj.er) + '%</span></div>' +
-        '<div class="pmeta">' + proj.posts + ' постів · ' + fmtDec1(proj.avg) + ' Interactions/пост в серед.</div>' +
-        rowsHtml +
-        '</div>';
-    }).join('');
-
-    // insights / recs — тільки для найновішого тижня
-    var isLatest = w.label === LATEST_LABEL;
-    document.getElementById('insights-sub').textContent = isLatest
-      ? ''
-      : 'Аналіз нижче написаний для тижня ' + LATEST_LABEL + ' — перемкнись на нього, щоб побачити актуальні інсайти.';
-    document.getElementById('insights-slot').innerHTML = isLatest
-      ? '<div class="insights">' + INSIGHTS_HTML + '</div>'
-      : '<div class="card-note">Інсайти рахуються тільки для останнього знятого тижня (' + LATEST_LABEL + ').</div>';
-    document.getElementById('recs-slot').innerHTML = isLatest
-      ? '<ol class="recs">' + RECS_HTML + '</ol>'
-      : '<div class="card-note">Рекомендації написані під тиждень ' + LATEST_LABEL + ' і не перераховуються для інших тижнів.</div>';
-
-    // footer
-    var prevReachText = w.prevTotalReach === null ? 'ще не знято' : (
-      (w.prevTotalReach > w.totalReach ? 'був вищим' : 'був нижчим') + ' (' + fmtInt(w.prevTotalReach) + '), ER ' +
-      (w.prevEr < w.er ? 'нижчим' : 'вищим') + ' (' + fmtDec1(w.prevEr) + '%)'
-    );
-    document.getElementById('footer-note').innerHTML =
-      'Джерело: Google Sheet <b>SMM Insights USA2</b>, лист <code>ІНФОПРИВОДИ</code> (формули з <code>ПОСТИ ЛОГ</code>) + ' +
-      '<code>ВИСНОВКИ</code>, тиждень ' + w.from + '–' + w.to + ', тільки FB-пости. Порожні клітинки карти — відсутність спроби, ' +
-      'не нульовий результат. Попередній тиждень (' + w.prevFrom + '–' + w.prevTo + ') — Reach ' + prevReachText + '. ' +
-      'Наступний тиждень (' + w.nextFrom + '–' + w.nextTo + ') ще не знятий на момент звіту.';
+    // График 4: Посты и Реакции на пост
+    var postsData = [], perPostData = [];
+    sliceWeeks.forEach(function(w) {
+      var m = getWeekMetrics(WEEKS.indexOf(w), state.brand);
+      postsData.push(m ? m.posts : 0);
+      perPostData.push(m ? Math.round(m.perPost) : 0);
+    });
+    var ds4 = [
+      { type: "bar", label: "Постов", data: postsData, backgroundColor: "#d500f955", hoverBackgroundColor: "#d500f999", borderRadius: 4, order: 2 },
+      { type: "line", label: "Реакций/пост", data: perPostData, borderColor: "#ff5722", backgroundColor: "#ff5722", borderWidth: 2.5, pointRadius: 2, tension: 0.3, yAxisID: "y1", order: 1 }
+    ];
+    mountChart("chPosts", {
+      data: { labels: labels, datasets: ds4 },
+      options: Object.assign({}, commonOpts, {
+        scales: {
+          x: axisBase.x,
+          y: { beginAtZero: true, grid: { color: "rgba(255,255,255,0.06)" }, border: { display: false }, ticks: { color: "#8493b2", font: { size: 11 } } },
+          y1: {
+            position: "right", beginAtZero: true, grid: { display: false }, border: { display: false },
+            ticks: { color: "#ff5722", callback: function(v){ return kfmt(v); }, font: { size: 11 } }
+          }
+        }
+      })
+    });
   }
 
-  function fmtInt(n) { return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' '); }
-  function fmtDec1(n) { return (Math.round(n * 10) / 10).toFixed(1).replace('.', ','); }
-  function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]; }); }
+  function mountChart(id, cfg) {
+    if (typeof Chart === "undefined") return;
+    if (charts[id]) charts[id].destroy();
+    charts[id] = new Chart(document.getElementById(id), cfg);
+  }
 
-  renderWeekPills();
-  renderWeek(0);
+  // ---------- Таблица Сравнения Брендов ----------
+  function renderTable() {
+    var w = WEEKS[state.weekIdx];
+    var prevW = (state.weekIdx + 1 < WEEKS.length) ? WEEKS[state.weekIdx + 1] : null;
+    document.getElementById("tblWeekLabel").textContent = "нед. " + w.label;
 
-  var mq = window.matchMedia('(prefers-color-scheme: dark)');
-  mq.addEventListener('change', function () { renderWeek(current); });
-  new MutationObserver(function () { renderWeek(current); }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    var maxEr = 1;
+    (w.projectCards || []).forEach(function(c){ if (c.er > maxEr) maxEr = c.er; });
+
+    var head = '<thead><tr>' +
+      '<th>Бренд</th><th>Охват</th><th>Взаимодействия</th><th>ER</th>' +
+      '<th>Постов</th><th>Реакций / пост</th><th>Охват / пост</th><th>Топ-формат</th>' +
+    '</tr></thead>';
+
+    var rows = BRAND_KEYS.map(function(code) {
+      var cfg = BRAND_CONFIG[code];
+      var card = (w.projectCards || []).find(function(c){ return c.name === code; });
+      if (!card) return '';
+
+      var prevCard = prevW ? (prevW.projectCards || []).find(function(c){ return c.name === code; }) : null;
+
+      var inter = Math.round(card.avg * card.posts);
+      var prevInter = prevCard ? Math.round(prevCard.avg * prevCard.posts) : null;
+      var dInter = delta(inter, prevInter);
+
+      var reach = card.er > 0 ? Math.round(inter / (card.er / 100)) : 0;
+      var prevReach = (prevCard && prevCard.er > 0) ? Math.round(prevInter / (prevCard.er / 100)) : null;
+      var dReach = delta(reach, prevReach);
+
+      var erDiff = prevCard ? (card.er - prevCard.er) : null;
+      var erDiffHtml = erDiff != null ? '<span class="delta-sub ' + (erDiff > 0 ? 'up' : (erDiff < 0 ? 'down' : 'flat')) + '">' + (erDiff > 0 ? '+' : '') + erDiff.toFixed(1).replace('.', ',') + ' п.п.</span>' : '';
+
+      var dPerPost = prevCard ? delta(card.avg, prevCard.avg) : null;
+      var reachPer = card.posts > 0 ? Math.round(reach / card.posts) : 0;
+      var prevReachPer = (prevCard && prevCard.posts > 0) ? Math.round(prevReach / prevCard.posts) : null;
+      var dReachPer = delta(reachPer, prevReachPer);
+
+      var topFmt = (card.types && card.types.length) ? card.types.slice().sort(function(a,b){ return b.v - a.v; })[0] : null;
+      var topFmtText = topFmt ? topFmt.name + ' <span style="color:var(--muted);font-size:11px;">(' + Math.round(topFmt.v) + ')</span>' : '—';
+
+      var barW = Math.max(4, Math.round((card.er / maxEr) * 100));
+
+      return '<tr>' +
+        '<td><span style="color:' + cfg.color + ';margin-right:6px;">●</span><b>' + cfg.emoji + ' ' + cfg.name + '</b></td>' +
+        '<td>' + nf(reach) + deltaSubText(dReach) + '</td>' +
+        '<td>' + nf(inter) + deltaSubText(dInter) + '</td>' +
+        '<td><div class="rank-bar-wrap"><span>' + card.er.toFixed(1).replace('.', ',') + '%</span>' +
+          '<div class="rank-bar"><div class="rank-bar-fill" style="width:' + barW + '%;background:' + cfg.color + '"></div></div>' +
+          erDiffHtml + '</div></td>' +
+        '<td>' + nf(card.posts) + '</td>' +
+        '<td>' + nf(card.avg) + deltaSubText(dPerPost) + '</td>' +
+        '<td>' + nf(reachPer) + deltaSubText(dReachPer) + '</td>' +
+        '<td>' + topFmtText + '</td>' +
+      '</tr>';
+    }).join('');
+
+    // Итоговая строка
+    var totPrev = prevW ? prevW : null;
+    var totReachDelta = totPrev ? delta(w.totalReach, totPrev.totalReach) : null;
+    var totInterDelta = totPrev ? delta(w.totalInteractions, totPrev.totalInteractions) : null;
+    var totErDiff = totPrev ? (w.er - totPrev.er) : null;
+    var totErDiffHtml = totErDiff != null ? '<span class="delta-sub ' + (totErDiff > 0 ? 'up' : (totErDiff < 0 ? 'down' : 'flat')) + '">' + (totErDiff > 0 ? '+' : '') + totErDiff.toFixed(1).replace('.', ',') + ' п.п.</span>' : '';
+    var totPerPost = w.posts > 0 ? (w.totalInteractions / w.posts) : 0;
+    var totPrevPerPost = (totPrev && totPrev.posts > 0) ? (totPrev.totalInteractions / totPrev.posts) : null;
+    var totReachPer = w.posts > 0 ? (w.totalReach / w.posts) : 0;
+    var totPrevReachPer = (totPrev && totPrev.posts > 0) ? (totPrev.totalReach / totPrev.posts) : null;
+
+    var totalRow = '<tr class="total">' +
+      '<td>📦 Все бренды (ИТОГО)</td>' +
+      '<td>' + nf(w.totalReach) + deltaSubText(totReachDelta) + '</td>' +
+      '<td>' + nf(w.totalInteractions) + deltaSubText(totInterDelta) + '</td>' +
+      '<td><div class="rank-bar-wrap"><span>' + w.er.toFixed(1).replace('.', ',') + '%</span>' + totErDiffHtml + '</div></td>' +
+      '<td>' + nf(w.posts) + '</td>' +
+      '<td>' + nf(totPerPost) + deltaSubText(delta(totPerPost, totPrevPerPost)) + '</td>' +
+      '<td>' + nf(totReachPer) + deltaSubText(delta(totReachPer, totPrevReachPer)) + '</td>' +
+      '<td>' + (w.hottest ? w.hottest.type : '—') + '</td>' +
+    '</tr>';
+
+    document.getElementById("cmpTable").innerHTML = head + '<tbody>' + rows + totalRow + '</tbody>';
+
+    // Карточки для мобилки
+    var cardsHtml = BRAND_KEYS.map(function(code) {
+      var cfg = BRAND_CONFIG[code];
+      var card = (w.projectCards || []).find(function(c){ return c.name === code; });
+      if (!card) return '';
+      var inter = Math.round(card.avg * card.posts);
+      var reach = card.er > 0 ? Math.round(inter / (card.er / 100)) : 0;
+      return '<div class="mobile-card">' +
+        '<div class="mobile-card-head">' +
+          '<div class="mobile-card-name"><span style="color:' + cfg.color + '">●</span> ' + cfg.emoji + ' ' + cfg.name + '</div>' +
+          '<div style="font-weight:800;color:var(--brand);">' + card.er.toFixed(1) + '% ER</div>' +
+        '</div>' +
+        '<div class="mobile-card-grid">' +
+          '<div class="mobile-card-cell"><span>Охват:</span><b>' + nf(reach) + '</b></div>' +
+          '<div class="mobile-card-cell"><span>Взаимодействия:</span><b>' + nf(inter) + '</b></div>' +
+          '<div class="mobile-card-cell"><span>Постов:</span><b>' + nf(card.posts) + '</b></div>' +
+          '<div class="mobile-card-cell"><span>Реакций/пост:</span><b>' + nf(card.avg) + '</b></div>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+    document.getElementById("cmpCards").innerHTML = cardsHtml;
+  }
+
+  // ---------- Теплокарта Форматов ----------
+  function renderHeatmap() {
+    var w = WEEKS[state.weekIdx];
+    var rows = w.rows || [];
+    var table = document.getElementById("heatmapTable");
+    var legendSlot = document.getElementById("hmLegendSlot");
+    if (!rows.length) { table.innerHTML = ''; return; }
+
+    // Сбор значений реакций для квантилей
+    var vals = [];
+    rows.forEach(function(r) {
+      BRAND_KEYS.forEach(function(b) {
+        if (r.cells && r.cells[b] && r.cells[b].v > 0) vals.push(r.cells[b].v);
+      });
+    });
+    vals.sort(function(a,b){ return a - b; });
+
+    var lo = vals.length ? vals[Math.floor(vals.length * 0.05)] : 0;
+    var hi = vals.length ? vals[Math.floor(vals.length * 0.95)] : 100;
+    if (hi <= lo) hi = lo + 1;
+
+    function getRampIdx(val) {
+      if (val <= lo) return 0;
+      if (val >= hi) return HEAT_RAMP.length - 1;
+      var ratio = (val - lo) / (hi - lo);
+      return Math.min(HEAT_RAMP.length - 1, Math.max(0, Math.floor(ratio * HEAT_RAMP.length)));
+    }
+
+    var head = '<thead><tr><th class="rowhead">Формат контента</th>' +
+      BRAND_KEYS.map(function(b){
+        var cfg = BRAND_CONFIG[b];
+        return '<th>' + cfg.emoji + ' ' + cfg.name + '</th>';
+      }).join('') + '</tr></thead>';
+
+    var body = rows.map(function(r) {
+      var cellsHtml = BRAND_KEYS.map(function(b) {
+        var c = (r.cells && r.cells[b]) ? r.cells[b] : null;
+        if (!c || c.v <= 0) return '<td class="empty">—</td>';
+        var idx = getRampIdx(c.v);
+        var bg = HEAT_RAMP[idx];
+        var isLight = idx >= 5;
+        return '<td class="filled' + (isLight ? ' light-text' : '') + '" style="background:' + bg + '" ' +
+          'data-type="' + esc(r.name) + '" data-brand="' + esc(b) + '" data-val="' + Math.round(c.v) + '" ' +
+          'data-posts="' + c.n + '" data-er="' + (c.er ? c.er.toFixed(1) : '') + '">' +
+          Math.round(c.v) +
+        '</td>';
+      }).join('');
+      return '<tr><th class="rowhead" title="' + esc(r.name) + '">' + esc(r.name) + '</th>' + cellsHtml + '</tr>';
+    }).join('');
+
+    table.innerHTML = head + '<tbody>' + body + '</tbody>';
+
+    legendSlot.innerHTML = '<span>Мин: ≤ ' + Math.round(lo) + '</span>' +
+      '<div class="hm-swatches">' + HEAT_RAMP.map(function(c){ return '<i style="background:' + c + '"></i>'; }).join('') + '</div>' +
+      '<span>Макс: ≥ ' + Math.round(hi) + ' реакций/пост</span>' +
+      '<span style="opacity:0.6;margin-left:auto;">Шкала 5–95% процентиля</span>';
+  }
+
+  // Тултип теплокарты
+  var tipEl = document.getElementById("tip");
+  function showTip(html, x, y) {
+    tipEl.innerHTML = html;
+    tipEl.classList.remove("hidden");
+    tipEl.style.left = x + "px";
+    tipEl.style.top = y + "px";
+  }
+  function hideTip() { tipEl.classList.add("hidden"); }
+
+  document.getElementById("heatmapTable").addEventListener("mouseover", function(e) {
+    var td = e.target.closest("td.filled");
+    if (!td) return hideTip();
+    var r = td.getBoundingClientRect();
+    var html = '<b>' + td.dataset.brand + ' · ' + td.dataset.type + '</b>' +
+      'Среднее: ' + td.dataset.val + ' реакций/пост<br>' +
+      'Постов: ' + td.dataset.posts + (td.dataset.er ? ' · ER: ' + td.dataset.er + '%' : '');
+    showTip(html, r.left + r.width / 2, r.top);
+  });
+  document.getElementById("heatmapTable").addEventListener("mouseleave", hideTip);
+
+  // ---------- Аналитические выводы и рекомендации ----------
+  function renderInsights() {
+    var w = WEEKS[state.weekIdx];
+    var isLatest = (w.label === LATEST_LABEL);
+    document.getElementById("insightsWeekLabel").textContent = "нед. " + w.label + (isLatest ? " (Актуальный анализ)" : " (Архив)");
+
+    var insightsSlot = document.getElementById("insightsSlot");
+    var recsSlot = document.getElementById("recsSlot");
+
+    if (isLatest) {
+      insightsSlot.innerHTML = INSIGHTS_RAW;
+      recsSlot.innerHTML = RECS_RAW;
+    } else {
+      insightsSlot.innerHTML = '<div style="grid-column:1/-1;padding:16px;color:var(--muted);background:var(--panel-2);border-radius:10px;">' +
+        '📅 Аналитические выводы зафиксированы для новейшей недели (' + LATEST_LABEL + '). Вы просматриваете архивные данные за неделю ' + w.label + '.' +
+      '</div>';
+      recsSlot.innerHTML = '<li style="color:var(--muted);">' +
+        'Стратегические рекомендации относятся к текущему периоду (' + LATEST_LABEL + ').' +
+      '</li>';
+    }
+  }
+
+  // ---------- Глобальные экшены и фильтры ----------
+  window.selectBrand = function(brandCode) {
+    state.brand = brandCode;
+    renderChips();
+    document.getElementById("scopePill").textContent = (brandCode === "ALL") ? "Все 8 брендов" : (BRAND_CONFIG[brandCode].emoji + " " + BRAND_CONFIG[brandCode].name);
+    renderKpis();
+    renderCharts();
+  };
+
+  window.switchMainTab = function(tabName) {
+    state.mainTab = tabName;
+    var isAnalytics = (tabName === "analytics");
+    document.getElementById("tabAnalytics").classList.toggle("active", isAnalytics);
+    document.getElementById("tabPowerBI").classList.toggle("active", !isAnalytics);
+    document.getElementById("viewAnalytics").classList.toggle("hidden", !isAnalytics);
+    document.getElementById("viewPowerBI").classList.toggle("hidden", isAnalytics);
+    document.getElementById("analyticsControls").classList.toggle("hidden", !isAnalytics);
+  };
+
+  window.togglePbiFullscreen = function() {
+    var wrap = document.getElementById("pbiWrap");
+    if (!document.fullscreenElement) {
+      wrap.requestFullscreen().catch(function(){});
+    } else {
+      document.exitFullscreen();
+    }
+  };
+
+  function renderAll() {
+    document.getElementById("metaInfo").textContent = "Неделя " + WEEKS[state.weekIdx].label + " · 8 брендов";
+    renderChips();
+    renderKpis();
+    renderCharts();
+    renderTable();
+    renderHeatmap();
+    renderInsights();
+  }
+
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function(c) {
+      return { "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c];
+    });
+  }
+
+  // Привязка кнопок периода
+  var periodBtns = document.querySelectorAll("#periodSeg .seg-btn");
+  Array.prototype.forEach.call(periodBtns, function(btn) {
+    btn.addEventListener("click", function() {
+      Array.prototype.forEach.call(periodBtns, function(b){ b.classList.remove("active"); });
+      btn.classList.add("active");
+      state.periodWeeks = parseInt(btn.dataset.weeks, 10);
+      renderCharts();
+    });
+  });
+
+  document.getElementById("refreshBtn").addEventListener("click", function() {
+    window.location.reload();
+  });
+
+  // Инициализация
+  renderWeekSelect();
+  window.selectBrand("ALL");
+  renderAll();
+
 })();
 </script>
 </body>
