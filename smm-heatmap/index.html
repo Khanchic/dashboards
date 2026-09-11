@@ -252,16 +252,39 @@ body { background-image: var(--bg-mesh); background-attachment: fixed; }
   display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px;
 }
 
-/* ---- Power BI Встроенный фрейм ---- */
-.powerbi-container {
-  width: 100%; height: calc(100vh - 180px); min-height: 580px; border-radius: var(--radius-lg);
-  overflow: hidden; border: var(--glass-border); position: relative; background: #000;
-  box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+/* ---- Power BI Встроенный баннер ---- */
+.powerbi-banner-card {
+  background: var(--panel); border: var(--glass-border); border-radius: var(--radius-lg);
+  overflow: hidden; box-shadow: var(--card-shadow); position: relative;
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
 }
-.powerbi-container iframe { width: 100%; height: 100%; border: 0; }
 .powerbi-bar {
-  display: flex; align-items: center; justify-content: space-between; padding: 10px 14px;
-  background: var(--panel-solid); border-bottom: var(--glass-border);
+  display: flex; align-items: center; justify-content: space-between; padding: 12px 18px;
+  background: var(--panel-solid); border-bottom: var(--glass-border); flex-wrap: wrap; gap: 10px;
+}
+.powerbi-container {
+  width: 100%; height: 380px; border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  overflow: hidden; position: relative; background: #070a13;
+}
+.powerbi-container:fullscreen {
+  height: 100vh !important; border-radius: 0;
+}
+.powerbi-container iframe { width: 100%; height: 100%; border: 0; display: block; }
+.powerbi-meta-row {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; margin-top: 14px;
+}
+.powerbi-meta-tile {
+  background: var(--panel); border: var(--glass-border); border-radius: var(--radius-md);
+  padding: 14px 16px; display: flex; align-items: flex-start; gap: 12px;
+}
+.powerbi-meta-tile .tile-icon {
+  font-size: 20px; line-height: 1; flex-shrink: 0; margin-top: 2px;
+}
+.powerbi-meta-tile .tile-title {
+  font-weight: 700; font-size: 13.5px; color: #fff; margin-bottom: 3px;
+}
+.powerbi-meta-tile .tile-desc {
+  font-size: 12px; color: var(--muted); line-height: 1.45;
 }
 
 /* ---- Тултип ---- */
@@ -294,7 +317,7 @@ body { background-image: var(--bg-mesh); background-attachment: fixed; }
   .cmp-cards { display: flex; }
   .hm-table th.rowhead { max-width: 110px; min-width: 90px; font-size: 11px; }
   .hm-table td { min-width: 48px; padding: 6px 3px; font-size: 11px; }
-  .powerbi-container { height: calc(100vh - 220px); min-height: 420px; }
+  .powerbi-container { height: 280px; }
 }
 </style>
 </head>
@@ -414,17 +437,18 @@ body { background-image: var(--bg-mesh); background-attachment: fixed; }
   </section>
 </main>
 
-<!-- Вкладка 2: Встроенный Power BI -->
+<!-- Вкладка 2: Встроенный Power BI Баннер -->
 <main class="main-wrap hidden" id="viewPowerBI">
-  <section class="panel" style="padding: 10px;">
+  <div class="powerbi-banner-card">
     <div class="powerbi-bar">
       <div style="font-weight: 700; font-size: 14px; display: flex; align-items: center; gap: 8px;">
-        <span>📊 Интерактивный Power BI отчет</span>
-        <span class="badge-neon" style="background:#ffd600; color:#070a13;">Live Embed</span>
+        <span style="font-size: 18px;">📊</span>
+        <span>USA Offer Monitoring</span>
+        <span class="badge-neon" style="background:#ffd600; color:#070a13;">Live Embed Banner</span>
       </div>
-      <div style="display: flex; gap: 8px;">
-        <button class="ghost-btn sm" onclick="togglePbiFullscreen()">⛶ Полный экран</button>
-        <a href="https://app.powerbi.com/reportEmbed?reportId=6705e06d-cf36-47e5-ace3-0400e15b2ce2&autoAuth=true&ctid=1f6b8b60-80b4-4d1e-aef7-deeffe0879c1" target="_blank" rel="noopener" class="ghost-btn sm">Открыть в Power BI ↗</a>
+      <div style="display: flex; gap: 8px; align-items: center;">
+        <button class="ghost-btn sm" onclick="togglePbiFullscreen()" title="Развернуть во весь экран">⛶ Полный экран</button>
+        <a href="https://app.powerbi.com/reportEmbed?reportId=6705e06d-cf36-47e5-ace3-0400e15b2ce2&autoAuth=true&ctid=1f6b8b60-80b4-4d1e-aef7-deeffe0879c1" target="_blank" rel="noopener" class="ghost-btn sm">В отдельной вкладке ↗</a>
       </div>
     </div>
     <div class="powerbi-container" id="pbiWrap">
@@ -435,7 +459,31 @@ body { background-image: var(--bg-mesh); background-attachment: fixed; }
         loading="lazy">
       </iframe>
     </div>
-  </section>
+  </div>
+
+  <div class="powerbi-meta-row">
+    <div class="powerbi-meta-tile">
+      <span class="tile-icon">⚡</span>
+      <div>
+        <div class="tile-title">Живая синхронизация срезов</div>
+        <div class="tile-desc">Отчёт отображает актуальные офферы и динамику депозитов по 8 брендам в реальном времени.</div>
+      </div>
+    </div>
+    <div class="powerbi-meta-tile">
+      <span class="tile-icon">🎯</span>
+      <div>
+        <div class="tile-title">Интерактивная фильтрация</div>
+        <div class="tile-desc">Выбирайте даты, типы офферов и каналы коммуникации прямо внутри баннера.</div>
+      </div>
+    </div>
+    <div class="powerbi-meta-tile">
+      <span class="tile-icon">⛶</span>
+      <div>
+        <div class="tile-title">Полноэкранный режим</div>
+        <div class="tile-desc">Кликните «Полный экран» в шапке баннера для детального анализа широких аналитических таблиц.</div>
+      </div>
+    </div>
+  </div>
 </main>
 
 <div id="tip" class="tip hidden"></div>
