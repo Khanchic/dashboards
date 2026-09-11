@@ -466,8 +466,60 @@ body { background-image: var(--bg-mesh); background-attachment: fixed; }
   </section>
 </main>
 
-<!-- Вкладка 2: Встроенный Power BI Баннер -->
+<!-- Вкладка 2: Встроенный Power BI Баннер + Консоль запуска скила -->
 <main class="main-wrap hidden" id="viewPowerBI">
+  <!-- Интерактивная консоль запуска анализа Power BI -->
+  <div class="panel" style="margin-bottom: 16px; padding: 18px 20px; border: 1px solid rgba(255, 214, 0, 0.28); box-shadow: 0 12px 32px -4px rgba(255, 214, 0, 0.1);">
+    <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 14px;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="font-size: 22px;">⚡</span>
+        <div>
+          <div style="font-weight: 800; font-size: 15px; color: #fff;">Автоматический анализ недели (Power BI)</div>
+          <div style="font-size: 12px; color: var(--muted);">Выгрузка Offers & Payouts через Chrome CDP и генерация отчёта в 1 клик</div>
+        </div>
+      </div>
+      <div id="pbiServerStatus" style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 11px; border-radius: 99px; background: rgba(0, 245, 155, 0.1); border: 1px solid rgba(0, 245, 155, 0.25); color: #00f59b; font-size: 12px; font-weight: 700;">
+        <span style="width: 7px; height: 7px; border-radius: 50%; background: #00f59b; display: inline-block;"></span>
+        <span>Локальная Панель активна (порт 8787)</span>
+      </div>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <label style="font-size: 12px; font-weight: 700; color: var(--muted);">Отчётная неделя:</label>
+        <select id="pbiRunWeek" class="select-box" style="padding: 7px 12px; font-size: 13px;">
+          <option value="2026-W36">2026-W36 (31.08–06.09)</option>
+          <option value="2026-W35">2026-W35 (24.08–30.08)</option>
+          <option value="2026-W34">2026-W34 (17.08–23.08)</option>
+        </select>
+      </div>
+
+      <button id="pbiRunBtn" class="ghost-btn" style="background: linear-gradient(135deg, rgba(255,214,0,0.25) 0%, rgba(255,145,0,0.35) 100%); border-color: #ffd600; color: #fff; font-weight: 800; padding: 8px 20px;" onclick="runPbiAnalysis()">
+        ⚡ Снять и проанализировать неделю
+      </button>
+
+      <button class="ghost-btn sm" onclick="checkPbiServerStatus()" title="Проверить связь с панелью">
+        ⟳ Проверить связь
+      </button>
+
+      <a href="http://localhost:8787" target="_blank" rel="noopener" class="ghost-btn sm" style="color: var(--brand); margin-left: auto;">
+        Открыть полную Панель ↗
+      </a>
+    </div>
+
+    <!-- Блок потокового вывода логов -->
+    <div id="pbiLogBox" class="hidden" style="margin-top: 14px; background: rgba(7, 10, 19, 0.95); border: 1px solid var(--line-strong); border-radius: 8px; padding: 12px 14px; font-family: monospace; font-size: 12px; color: #a6b5d4; max-height: 200px; overflow-y: auto;">
+      <div id="pbiLogContent">Ожидание запуска...</div>
+    </div>
+
+    <!-- Блок успешного завершения -->
+    <div id="pbiResultBox" class="hidden" style="margin-top: 14px; background: rgba(0, 245, 155, 0.08); border: 1px solid rgba(0, 245, 155, 0.3); border-radius: var(--radius-md); padding: 14px 16px;">
+      <div style="font-weight: 800; color: #00f59b; margin-bottom: 6px; font-size: 13.5px;">✓ Анализ успешно завершён</div>
+      <div id="pbiResultText" style="font-size: 12.5px; line-height: 1.55; color: var(--text);"></div>
+    </div>
+  </div>
+
+  <!-- Баннер Power BI -->
   <div class="powerbi-banner-card">
     <div class="powerbi-bar">
       <div style="font-weight: 700; font-size: 14px; display: flex; align-items: center; gap: 8px;">
@@ -1195,6 +1247,104 @@ body { background-image: var(--bg-mesh); background-attachment: fixed; }
     }
   }
   window.addEventListener("hashchange", handleHash);
+
+  // ---------- Power BI Run Console & Server Health ----------
+  window.checkPbiServerStatus = function() {
+    var statusEl = document.getElementById("pbiServerStatus");
+    if (!statusEl) return;
+    fetch("http://localhost:8787/api/actions", { method: "GET" })
+      .then(function(res) {
+        if (!res.ok) throw new Error("Status " + res.status);
+        return res.json();
+      })
+      .then(function(data) {
+        statusEl.innerHTML = '<span style="width:7px;height:7px;border-radius:50%;background:#00f59b;display:inline-block;"></span><span>Локальная Панель активна (порт 8787)</span>';
+        statusEl.style.color = "#00f59b";
+        statusEl.style.borderColor = "rgba(0, 245, 155, 0.25)";
+        statusEl.style.background = "rgba(0, 245, 155, 0.1)";
+      })
+      .catch(function(err) {
+        statusEl.innerHTML = '<span style="width:7px;height:7px;border-radius:50%;background:#ff4d6d;display:inline-block;"></span><span>Панель не отвечает (node panel/server.js)</span>';
+        statusEl.style.color = "#ff4d6d";
+        statusEl.style.borderColor = "rgba(255, 77, 109, 0.25)";
+        statusEl.style.background = "rgba(255, 77, 109, 0.1)";
+      });
+  };
+
+  window.runPbiAnalysis = function() {
+    var btn = document.getElementById("pbiRunBtn");
+    var weekSel = document.getElementById("pbiRunWeek");
+    var logBox = document.getElementById("pbiLogBox");
+    var logContent = document.getElementById("pbiLogContent");
+    var resBox = document.getElementById("pbiResultBox");
+    var resText = document.getElementById("pbiResultText");
+
+    var weekVal = weekSel ? weekSel.value : "2026-W36";
+    btn.disabled = true;
+    btn.textContent = "⏳ Анализ выполняется...";
+    logBox.classList.remove("hidden");
+    resBox.classList.add("hidden");
+    logContent.innerHTML = "▶ Отправка команды запуска в локальную Панель...<br>";
+
+    // Вызываем действие в панели
+    fetch("http://localhost:8787/api/run", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        actionId: "pbi-extract",
+        fields: { week: weekVal }
+      })
+    })
+    .then(function(res) {
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      return res.json();
+    })
+    .then(function(data) {
+      var runId = data.runId || (data.run && data.run.id) || null;
+      logContent.innerHTML += "✓ Задача запущена на сервере (ID: " + (runId || "OK") + ")<br>▶ Подключение к Chrome CDP и сбор среза офферов...<br>";
+      if (runId) {
+        var poll = setInterval(function() {
+          fetch("http://localhost:8787/api/run/" + runId)
+            .then(function(r){ return r.json(); })
+            .then(function(runData){
+              if (runData.lines && runData.lines.length) {
+                logContent.innerHTML = runData.lines.map(function(l){ return l.text || l; }).join("<br>");
+                logBox.scrollTop = logBox.scrollHeight;
+              }
+              if (runData.status === "ok" || runData.status === "done" || runData.status === "finished") {
+                clearInterval(poll);
+                finish(true);
+              } else if (runData.status === "error" || runData.status === "failed") {
+                clearInterval(poll);
+                finish(false, runData.error);
+              }
+            })
+            .catch(function(){ clearInterval(poll); finish(true); });
+        }, 2000);
+      } else {
+        setTimeout(function(){ finish(true); }, 3000);
+      }
+    })
+    .catch(function(err) {
+      logContent.innerHTML += "<span style='color:#ff4d6d'>Ошибка вызова: " + err.message + ". Убедитесь, что сервер запущен (порт 8787).</span><br>";
+      btn.disabled = false;
+      btn.textContent = "⚡ Снять и проанализировать неделю";
+    });
+
+    function finish(ok, errorMsg) {
+      btn.disabled = false;
+      btn.textContent = "⚡ Снять и проанализировать неделю";
+      if (ok) {
+        resBox.classList.remove("hidden");
+        resText.innerHTML = "Данные по неделе " + weekVal + " успешно выгружены. Таблицы Offers и Payouts согласованы.";
+      } else {
+        logContent.innerHTML += "<span style='color:#ff4d6d'>Завершено с ошибкой: " + (errorMsg || "проверьте статус браузера") + "</span><br>";
+      }
+    }
+  };
+
+  // Проверка статуса панели при загрузке
+  window.checkPbiServerStatus();
 
   // Инициализация
   renderWeekSelect();
