@@ -2,216 +2,631 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Промокоды — Dashboards</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Промокоды — Dashboards Hub</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏷️</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --bg:#f4f5f3; --surface:#ffffff; --surface-2:#eceeec; --border:#d7dad6;
-    --text:#1c1f1d; --text-dim:#666b66; --text-faint:#9a9f9a;
-    --accent:#b8842e; --accent-text:#5f4413; --accent-soft:rgba(184,132,46,0.14);
-    --shadow: 0 1px 2px rgba(20,22,20,0.06), 0 8px 24px -12px rgba(20,22,20,0.18);
-  }
-  @media (prefers-color-scheme: dark){
-    :root{ --bg:#0d0f0e; --surface:#161917; --surface-2:#1e2220; --border:#2b302d; --text:#e9ebe8; --text-dim:#a4a9a3; --text-faint:#6f746f; --accent:#d4a24e; --accent-text:#f0d29a; --accent-soft:rgba(212,162,78,0.16); --shadow: 0 1px 2px rgba(0,0,0,0.4), 0 12px 32px -16px rgba(0,0,0,0.6); }
-  }
-  :root[data-theme="dark"]{ --bg:#0d0f0e; --surface:#161917; --surface-2:#1e2220; --border:#2b302d; --text:#e9ebe8; --text-dim:#a4a9a3; --text-faint:#6f746f; --accent:#d4a24e; --accent-text:#f0d29a; --accent-soft:rgba(212,162,78,0.16); --shadow: 0 1px 2px rgba(0,0,0,0.4), 0 12px 32px -16px rgba(0,0,0,0.6); }
-  :root[data-theme="light"]{ --bg:#f4f5f3; --surface:#ffffff; --surface-2:#eceeec; --border:#d7dad6; --text:#1c1f1d; --text-dim:#666b66; --text-faint:#9a9f9a; --accent:#b8842e; --accent-text:#5f4413; --accent-soft:rgba(184,132,46,0.14); --shadow: 0 1px 2px rgba(20,22,20,0.06), 0 8px 24px -12px rgba(20,22,20,0.18); }
-  *{box-sizing:border-box;}
-  html,body{margin:0;padding:0;}
-  body{ background:var(--bg); color:var(--text); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; -webkit-font-smoothing:antialiased; line-height:1.45; }
+:root {
+  --bg: #070a13;
+  --bg-mesh: radial-gradient(at 12% 15%, rgba(0, 229, 255, 0.08) 0px, transparent 50%),
+             radial-gradient(at 88% 22%, rgba(213, 0, 249, 0.07) 0px, transparent 50%),
+             radial-gradient(at 50% 85%, rgba(0, 245, 155, 0.05) 0px, transparent 55%);
+  --panel: rgba(14, 20, 36, 0.75);
+  --panel-solid: #0e1526;
+  --panel-hover: rgba(20, 28, 50, 0.9);
+  --panel-2: rgba(9, 14, 26, 0.85);
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.16);
+  --text: #f0f4fc;
+  --text-dim: #8493b2;
+  --text-faint: #627191;
+  --brand: #00e5ff;
+  --brand-glow: rgba(0, 229, 255, 0.28);
+  --accent: #ffd600;
+  --accent-2: #00f59b;
+  --ok: #00f59b;
+  --fail: #ff5252;
+  --shadow: 0 8px 32px -4px rgba(0, 0, 0, 0.5);
+  --radius-lg: 14px;
+  --radius-md: 10px;
+  --radius-sm: 8px;
+}
 
-  .shell{ display:grid; grid-template-columns:190px 1fr; grid-template-rows:52px 1fr; grid-template-areas:"topbar topbar" "sidebar content"; min-height:100vh; }
-  @media (max-width:720px){ .shell{ grid-template-columns:1fr; grid-template-areas:"topbar" "sidebar" "content"; } }
-  .topbar{ grid-area:topbar; position:sticky; top:0; z-index:60; display:flex; align-items:center; padding:0 20px; background:#15130f; border-bottom:1px solid rgba(255,255,255,.08); }
-  .topbar .brand{ color:#f0d29a; font-weight:700; font-size:14px; letter-spacing:.02em; text-decoration:none; }
-  .sidebar{ grid-area:sidebar; position:sticky; top:52px; align-self:start; height:calc(100vh - 52px); overflow-y:auto; background:#15130f; border-right:1px solid rgba(255,255,255,.08); padding:18px 12px; }
-  @media (max-width:720px){ .sidebar{ position:static; height:auto; border-right:0; border-bottom:1px solid rgba(255,255,255,.08); } }
-  .sidebar nav{ display:flex; flex-direction:column; gap:3px; }
-  @media (max-width:720px){ .sidebar nav{ flex-direction:row; overflow-x:auto; } }
-  .slink{ color:#a8a39a; text-decoration:none; font-size:13px; font-weight:650; letter-spacing:.02em; padding:9px 12px; border-radius:8px; white-space:nowrap; transition:background .12s,color .12s; }
-  .slink:hover{ background:rgba(255,255,255,.06); color:#f2efe9; }
-  .slink.active{ background:rgba(217,171,76,.16); color:#f0c674; }
-  .slink.soon{ opacity:.55; }
-  .slink.soon::after{ content:" · soon"; font-size:9px; letter-spacing:0; opacity:.8; }
-  .content{ grid-area:content; min-width:0; }
+[data-theme="light"] {
+  --bg: #f4f6fb;
+  --bg-mesh: radial-gradient(at 12% 15%, rgba(0, 119, 255, 0.05) 0px, transparent 50%),
+             radial-gradient(at 88% 22%, rgba(150, 0, 249, 0.05) 0px, transparent 50%);
+  --panel: #ffffff;
+  --panel-solid: #ffffff;
+  --panel-hover: #f0f4f9;
+  --panel-2: #e9eef5;
+  --border: rgba(0, 0, 0, 0.08);
+  --border-strong: rgba(0, 0, 0, 0.16);
+  --text: #111827;
+  --text-dim: #4b5563;
+  --text-faint: #9ca3af;
+  --brand: #0066ff;
+  --shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
 
-  .widgets{ position:fixed; right:16px; bottom:16px; z-index:55; display:flex; flex-direction:column; align-items:flex-end; gap:10px; }
-  @media (max-width:720px){ .widgets{ position:static; align-items:stretch; margin:32px 20px 0; } }
-  .widgets-toggle{ width:42px; height:42px; border-radius:50%; border:1px solid rgba(255,255,255,.14); background:#1b1a16; color:#e9e6df; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 8px 24px -12px rgba(0,0,0,.5); padding:0; }
-  .widgets-toggle:hover{ border-color:#d9ab4c; }
-  .widgets-panel{ display:flex; flex-direction:column; gap:10px; width:230px; }
-  @media (max-width:720px){ .widgets-panel{ width:auto; } }
-  .widgets-panel.hidden{ display:none; }
-  .back{ display:inline-block; font-size:12.5px; color:var(--text-dim); text-decoration:none; margin-bottom:16px; }
-  .back:hover{ color:var(--text); }
-  .status-tile{ background:#1b1a16; border:1px solid rgba(255,255,255,.10); border-radius:12px; padding:12px 14px; box-shadow:0 8px 24px -12px rgba(0,0,0,.5); color:#e9e6df; }
-  .st-top{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px; gap:8px; }
-  .st-label{ font-size:11.5px; font-weight:650; color:#a8a39a; }
-  .st-pct{ font-size:12.5px; font-weight:700; font-variant-numeric:tabular-nums; color:#e9e6df; }
-  .st-bar-track{ height:5px; border-radius:3px; background:rgba(255,255,255,.08); overflow:hidden; margin-bottom:6px; }
-  .st-bar-fill{ height:100%; border-radius:3px; }
-  .st-sub{ font-size:10.5px; color:#7a766c; }
-  .status-tile.countdown{ display:flex; flex-direction:column; justify-content:center; }
-  .st-value{ font-size:22px; font-weight:800; font-variant-numeric:tabular-nums; letter-spacing:-0.01em; color:#f0d29a; }
-  .countdown .st-top{ margin-bottom:2px; }
-  .logs-btn{ font-size:10px; font-weight:650; letter-spacing:.03em; text-transform:uppercase; color:#a8a39a; text-decoration:none; border:1px solid rgba(255,255,255,.14); border-radius:99px; padding:3px 9px; transition:border-color .12s,color .12s; }
-  .logs-btn:hover{ border-color:#d9ab4c; color:#f0c674; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { min-height: 100%; background: var(--bg); color: var(--text); font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 14px; -webkit-font-smoothing: antialiased; line-height: 1.45; }
+body { background-image: var(--bg-mesh); background-attachment: fixed; }
 
-  .wrap{ max-width:680px; padding:28px 20px 220px; }
-  .eyebrow{ text-transform:uppercase; letter-spacing:.09em; font-size:11.5px; font-weight:600; color:var(--text-faint); margin-bottom:8px; }
-  h1{ margin:0 0 6px; font-size:26px; font-weight:650; letter-spacing:-0.01em; }
-  .sub{ color:var(--text-dim); font-size:14px; max-width:60ch; margin-bottom:22px; }
-  .sub b{ color:var(--text); }
+/* Layout Shell */
+.shell {
+  display: grid; grid-template-columns: 210px 1fr; grid-template-rows: 56px 1fr;
+  grid-template-areas: "topbar topbar" "sidebar content"; min-height: 100vh;
+}
+@media (max-width: 768px) {
+  .shell { grid-template-columns: 1fr; grid-template-areas: "topbar" "sidebar" "content"; }
+}
 
-  .queue-list{ display:flex; flex-direction:column; gap:10px; }
-  .queue-card{ background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:14px 16px; display:flex; flex-direction:column; gap:8px; }
-  .q-head{ display:flex; align-items:baseline; justify-content:space-between; gap:10px; flex-wrap:wrap; }
-  .q-title{ font-size:14px; font-weight:700; }
-  .q-title .q-day{ font-weight:600; color:var(--text-dim); }
-  .q-time{ font-size:11.5px; color:var(--text-faint); font-variant-numeric:tabular-nums; }
-  .q-text{ font-size:13px; color:var(--text-dim); white-space:pre-wrap; background:var(--surface-2); border-radius:8px; padding:10px 12px; }
-  .q-remove{ align-self:flex-start; font-size:11.5px; font-weight:650; color:var(--text-faint); background:none; border:1px solid var(--border); border-radius:8px; padding:5px 10px; cursor:pointer; font-family:inherit; }
-  .q-remove:hover{ color:var(--text); border-color:var(--text-dim); }
-  .empty-hint{ color:var(--text-faint); font-size:13.5px; font-style:italic; }
+/* Topbar */
+.topbar {
+  grid-area: topbar; position: sticky; top: 0; z-index: 60;
+  display: flex; align-items: center; justify-content: space-between; padding: 0 22px;
+  background: rgba(7, 10, 19, 0.88); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+}
+[data-theme="light"] .topbar { background: rgba(255, 255, 255, 0.9); }
+.topbar-left { display: flex; align-items: center; gap: 14px; }
+.brand { color: var(--text); font-weight: 800; font-size: 14px; letter-spacing: 0.04em; text-decoration: none; display: flex; align-items: center; gap: 8px; }
+.brand span { background: linear-gradient(135deg, #00e5ff, #00f59b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+/* Sidebar */
+.sidebar {
+  grid-area: sidebar; position: sticky; top: 56px; align-self: start;
+  height: calc(100vh - 56px); overflow-y: auto;
+  background: rgba(7, 10, 19, 0.65); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border-right: 1px solid var(--border); padding: 18px 10px;
+}
+[data-theme="light"] .sidebar { background: #ffffff; }
+@media (max-width: 768px) {
+  .sidebar { position: static; height: auto; border-right: 0; border-bottom: 1px solid var(--border); }
+}
+.sidebar nav { display: flex; flex-direction: column; gap: 3px; }
+@media (max-width: 768px) { .sidebar nav { flex-direction: row; overflow-x: auto; } }
+.slink {
+  color: var(--text-dim); text-decoration: none; font-size: 12.5px; font-weight: 600;
+  letter-spacing: 0.02em; padding: 9px 12px; border-radius: var(--radius-sm);
+  white-space: nowrap; transition: background 0.15s, color 0.15s; display: flex; align-items: center; gap: 8px;
+}
+.slink:hover { background: var(--border); color: var(--text); }
+.slink.active { background: rgba(0, 229, 255, 0.12); color: var(--brand); border-left: 3px solid var(--brand); font-weight: 700; }
+.slink.slink-highlight { color: #f0c674; }
+
+/* Main Content */
+.content { grid-area: content; min-width: 0; padding: 28px 24px 64px; }
+.wrap { max-width: 1400px; margin: 0 auto; }
+
+/* Header & Breadcrumbs */
+.eyebrow { font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--brand); margin-bottom: 4px; }
+.page-title { font-size: 26px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
+.page-sub { font-size: 13.5px; color: var(--text-dim); max-width: 860px; line-height: 1.5; margin-bottom: 20px; }
+.action-links { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 24px; }
+.ext-link {
+  display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px;
+  background: var(--panel); border: 1px solid var(--border-strong); border-radius: var(--radius-sm);
+  color: var(--text); text-decoration: none; font-size: 12.5px; font-weight: 600; transition: all 0.15s;
+}
+.ext-link:hover { border-color: var(--brand); background: var(--panel-hover); color: var(--brand); }
+.refresh-btn {
+  display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px;
+  background: rgba(0, 229, 255, 0.12); border: 1px solid rgba(0, 229, 255, 0.3); border-radius: var(--radius-sm);
+  color: var(--brand); cursor: pointer; font-size: 12.5px; font-weight: 700; transition: all 0.15s;
+}
+.refresh-btn:hover { background: rgba(0, 229, 255, 0.22); border-color: var(--brand); }
+.refresh-btn.loading { opacity: 0.6; pointer-events: none; }
+.last-sync { font-size: 12px; color: var(--text-faint); }
+
+/* KPI Stats Strip */
+.kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; margin-bottom: 24px; }
+.kpi-card {
+  background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius-md);
+  padding: 16px 18px; box-shadow: var(--shadow); backdrop-filter: blur(10px);
+}
+.kpi-label { font-size: 12px; font-weight: 600; color: var(--text-dim); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.04em; }
+.kpi-val { font-size: 26px; font-weight: 800; color: var(--text); font-variant-numeric: tabular-nums; line-height: 1.1; }
+.kpi-val.warn { color: var(--fail); }
+.kpi-val.ok { color: var(--ok); }
+.kpi-sub { font-size: 11.5px; color: var(--text-faint); margin-top: 5px; }
+
+/* Filter Container */
+.filter-card {
+  background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius-md);
+  padding: 16px 18px; margin-bottom: 20px; box-shadow: var(--shadow);
+  display: flex; flex-direction: column; gap: 14px;
+}
+.filter-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.filter-title { font-size: 12px; font-weight: 700; color: var(--text-faint); text-transform: uppercase; min-width: 75px; }
+.pill-list { display: flex; gap: 6px; flex-wrap: wrap; }
+.pill {
+  background: var(--panel-2); border: 1px solid var(--border); color: var(--text);
+  padding: 6px 12px; border-radius: var(--radius-sm); font-size: 12.5px; font-weight: 600;
+  cursor: pointer; transition: all 0.15s; display: inline-flex; align-items: center; gap: 6px;
+}
+.pill:hover { border-color: var(--border-strong); background: var(--panel-hover); }
+.pill.active { background: var(--brand); color: #000; border-color: var(--brand); font-weight: 700; }
+.pill .count { font-size: 10.5px; opacity: 0.85; padding: 1px 5px; border-radius: 10px; background: rgba(255, 255, 255, 0.15); }
+.pill.active .count { background: rgba(0, 0, 0, 0.18); }
+
+.search-row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.search-inp {
+  flex: 1; min-width: 220px; background: var(--panel-2); border: 1px solid var(--border);
+  color: var(--text); padding: 8px 14px; border-radius: var(--radius-sm); font-size: 13px; outline: none;
+}
+.search-inp:focus { border-color: var(--brand); }
+.date-inp {
+  background: var(--panel-2); border: 1px solid var(--border); color: var(--text);
+  padding: 7px 12px; border-radius: var(--radius-sm); font-size: 12.5px; outline: none;
+}
+
+/* Table Area */
+.table-meta { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--text-dim); margin-bottom: 8px; padding: 0 4px; }
+.table-wrap {
+  background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius-md);
+  overflow: auto; max-height: 640px; box-shadow: var(--shadow); position: relative;
+}
+table.data-tbl { width: 100%; border-collapse: collapse; text-align: left; font-size: 13px; }
+table.data-tbl th {
+  background: var(--panel-solid); color: var(--text-dim); font-weight: 700;
+  padding: 10px 14px; border-bottom: 1px solid var(--border-strong); position: sticky; top: 0; z-index: 5;
+  white-space: nowrap; font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em;
+}
+table.data-tbl td { padding: 10px 14px; border-bottom: 1px solid var(--border); white-space: nowrap; vertical-align: middle; }
+table.data-tbl tr:hover td { background: var(--panel-hover); }
+table.data-tbl tr:last-child td { border-bottom: none; }
+
+/* Badges */
+.chan-badge { display: inline-block; padding: 3px 8px; border-radius: 4px; font-size: 11px; font-weight: 700; text-transform: uppercase; color: #fff; letter-spacing: 0.04em; }
+.type-badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11.5px; font-weight: 600; }
+.type-badge.offer { background: rgba(255, 214, 0, 0.15); color: #ffd600; border: 1px solid rgba(255, 214, 0, 0.3); }
+.type-badge.bonus { background: rgba(0, 245, 155, 0.15); color: #00f59b; border: 1px solid rgba(0, 245, 155, 0.3); }
+.type-badge.other { background: var(--panel-2); color: var(--text-dim); border: 1px solid var(--border); }
+
+.code-btn {
+  font-family: 'JetBrains Mono', monospace, Consolas; font-size: 13px; font-weight: 700;
+  padding: 4px 10px; border-radius: 6px; background: rgba(255, 255, 255, 0.06);
+  border: 1px dashed var(--border-strong); color: var(--brand); cursor: pointer;
+  display: inline-flex; align-items: center; gap: 6px; transition: all 0.15s;
+}
+.code-btn:hover { background: rgba(0, 229, 255, 0.15); border-color: var(--brand); transform: translateY(-1px); }
+.code-btn:active { transform: scale(0.96); }
+
+.status-tag { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 12px; }
+.status-tag.yes { background: rgba(0, 245, 155, 0.15); color: #00f59b; }
+.status-tag.no { background: rgba(255, 82, 82, 0.15); color: #ff5252; }
+
+/* Toast */
+.toast {
+  position: fixed; bottom: 24px; right: 24px; z-index: 9999;
+  background: var(--text); color: var(--bg); padding: 10px 18px; border-radius: 8px;
+  font-size: 13px; font-weight: 700; box-shadow: var(--shadow);
+  opacity: 0; transform: translateY(10px); transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1); pointer-events: none;
+}
+.toast.show { opacity: 1; transform: translateY(0); }
+
+/* Theme Button */
+.theme-btn {
+  background: var(--panel); border: 1px solid var(--border); color: var(--text);
+  padding: 6px 12px; border-radius: var(--radius-sm); font-size: 12px; font-weight: 600; cursor: pointer;
+}
+
+.empty-msg { padding: 48px 16px; text-align: center; color: var(--text-faint); font-size: 14px; }
 </style>
 </head>
 <body>
+
 <div class="shell">
   <header class="topbar">
-    <a class="brand" href="/dashboards/">Dashboards</a>
+    <div class="topbar-left">
+      <a class="brand" href="/dashboards/">
+        <span>⚡ DASHBOARDS HUB</span>
+      </a>
+    </div>
+    <div>
+      <button type="button" class="theme-btn" id="themeBtn">🌓 Тема</button>
+    </div>
   </header>
+
   <aside class="sidebar">
     <nav>
-      <a href="/dashboards/" class="slink">ГЛАВНАЯ</a>
-      <a href="/dashboards/reports/" class="slink">ОТЧЁТЫ</a>
-      <a href="/dashboards/planning/" class="slink">ПЛАНИРОВАНИЕ</a>
-      <a href="/dashboards/promo-codes/" class="slink active">ПРОМОКОДЫ</a>
-      <a href="/dashboards/visual/" class="slink">ВИЗУАЛ</a>
-      <a href="/dashboards/giveaways/" class="slink">ГИВЕВЕИ</a>
-      <a href="/dashboards/poll-breakdown/" class="slink">ОПРОС</a>
-      <a href="/dashboards/holidays/" class="slink">🇺🇸 Праздники США</a>
+      <a href="/dashboards/" class="slink">🏠 ГЛАВНАЯ</a>
+      <a href="/dashboards/smm-heatmap/" class="slink slink-highlight">⚡ SMM ХИТМАП</a>
+      <a href="/dashboards/smm-heatmap/#powerbi" class="slink slink-highlight">📈 POWER BI LIVE</a>
+      <a href="/dashboards/smm-heatmap/#discord" class="slink slink-highlight">🎮 DISCORD ПЛАННЕР</a>
+      <a href="/dashboards/reports/" class="slink">📋 ОТЧЁТЫ</a>
+      <a href="/dashboards/highrollers/" class="slink">💎 ХАЙРОЛЛЫ</a>
+      <a href="/dashboards/planning/" class="slink">📅 ПЛАНИРОВАНИЕ</a>
+      <a href="/dashboards/promo-codes/" class="slink active">🏷️ ПРОМОКОДЫ</a>
+      <a href="/dashboards/poll-breakdown/" class="slink">📊 ОПРОС</a>
+      <a href="/dashboards/chat-triage/" class="slink">✅ ЧЕК-ЛИСТ ЧАТА</a>
+      <a href="/dashboards/onboarding/" class="slink">🎓 ОНБОРДИНГ</a>
+      <a href="http://0112-co-khanchych.tail650bfe.ts.net:8787/" class="slink" target="_blank" rel="noopener" title="Панель на рабочем ноуте">🎛 ПАНЕЛЬ</a>
     </nav>
   </aside>
+
   <main class="content">
     <div class="wrap">
-      <a class="back" href="/dashboards/planning/facebook/">← Назад к Facebook</a>
-      <div class="eyebrow">Промокоды</div>
-      <h1>Промокоды</h1>
-      <div class="sub">Тексты, отправленные со страницы Facebook-планирования. <b>Хранится только в этом браузере</b> — на других устройствах очередь не видна.</div>
-      <div class="queue-list" id="queueList"></div>
-    </div>
-    <div class="widgets">
-      <button class="widgets-toggle" id="widgetsToggle" aria-label="Скрыть/показать виджеты">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20V10M12 20V4M20 20V14"/></svg>
-      </button>
-      <div class="widgets-panel hidden" id="widgetsPanel">
-        <div class="status-tile">
-          <div class="st-top"><span class="st-label">Лимит Claude</span><span class="st-pct">68%</span></div>
-          <div class="st-bar-track"><div class="st-bar-fill" style="width:68%;background:#d9ab4c;"></div></div>
-          <div class="st-sub">использовано за 5 часов · сброс через 1ч 40м</div>
+      <div class="eyebrow">SMM & Operations USA2 · База данных</div>
+      <h1 class="page-title">🏷️ Промокоды для админок</h1>
+      <p class="page-sub">Актуальные промокоды по категориям (ФБ, Дискорд, Бродкаст, Автоматизация), синхронизируемые в реальном времени с Google Таблицей. Кликните по любому промокоду, чтобы мгновенно скопировать его в буфер обмена.</p>
+
+      <div class="action-links">
+        <a href="https://docs.google.com/spreadsheets/d/1K0oX336wfxNHCE163NnOj0L7EX5QZb6hpuQOvUP8RqE/edit#gid=1675768145" target="_blank" rel="noopener" class="ext-link">
+          Открыть в Google Таблицах ↗
+        </a>
+        <button type="button" class="refresh-btn" id="refreshBtn">🔄 Обновить из Sheets</button>
+        <span class="last-sync" id="lastSync">Синхронизировано: 17:41:32</span>
+      </div>
+
+      <!-- KPI Grid -->
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-label">Всего кодов</div>
+          <div class="kpi-val" id="kpiTotal">613</div>
+          <div class="kpi-sub">Общая база промокодов</div>
         </div>
-        <div class="status-tile">
-          <div class="st-top"><span class="st-label">Лимит ChatGPT</span><span class="st-pct">45%</span></div>
-          <div class="st-bar-track"><div class="st-bar-fill" style="width:45%;background:#2dd4bf;"></div></div>
-          <div class="st-sub">использовано за неделю · сброс в понедельник</div>
+        <div class="kpi-card">
+          <div class="kpi-label">Сегодня (2026-09-11)</div>
+          <div class="kpi-val ok" id="kpiToday">15</div>
+          <div class="kpi-sub">Назначены на текущую дату</div>
         </div>
-        <div class="status-tile countdown">
-          <div class="st-top"><span class="st-label">Обратный отсчёт</span><a class="logs-btn" href="/dashboards/logs/">Логи</a></div>
-          <span class="st-value" id="shell-countdown">10:00</span>
+        <div class="kpi-card">
+          <div class="kpi-label">Не запланировано</div>
+          <div class="kpi-val warn" id="kpiUnplanned">88</div>
+          <div class="kpi-sub">Требуют публикации/шедула</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Не в админках</div>
+          <div class="kpi-val warn" id="kpiUnsetup">4</div>
+          <div class="kpi-sub">Требуют заливки в казино</div>
         </div>
       </div>
+
+      <!-- Filters -->
+      <div class="filter-card">
+        <!-- Row 1: Channels -->
+        <div class="filter-row">
+          <span class="filter-title">Канал:</span>
+          <div class="pill-list" id="chanPills">
+            
+              <button type="button" class="pill active" data-chan="all">
+                Все <span class="count">613</span>
+              </button>
+            
+              <button type="button" class="pill " data-chan="FB">
+                ФБ (Facebook) <span class="count">156</span>
+              </button>
+            
+              <button type="button" class="pill " data-chan="DS">
+                Дискорд (Discord) <span class="count">282</span>
+              </button>
+            
+              <button type="button" class="pill " data-chan="BC">
+                Бродкаст (BotCake) <span class="count">118</span>
+              </button>
+            
+              <button type="button" class="pill " data-chan="AUTO">
+                Автоматизация <span class="count">57</span>
+              </button>
+            
+          </div>
+        </div>
+
+        <!-- Row 2: Dates & Status -->
+        <div class="filter-row">
+          <span class="filter-title">Дата:</span>
+          <div class="pill-list" id="datePills">
+            <button type="button" class="pill" data-date="today">Сегодня (2026-09-11)</button>
+            <button type="button" class="pill active" data-date="all">Все даты</button>
+            <input type="date" id="dateInp" class="date-inp" />
+          </div>
+        </div>
+
+        <!-- Row 3: Status & Search -->
+        <div class="search-row">
+          <span class="filter-title">Статус:</span>
+          <div class="pill-list" id="statusPills">
+            <button type="button" class="pill active" data-status="all">Все</button>
+            <button type="button" class="pill" data-status="unsettled">⚠️ Требуют внимания</button>
+            <button type="button" class="pill" data-status="done">✓ Закрытые</button>
+          </div>
+          <input type="search" id="searchInp" class="search-inp" placeholder="🔍 Быстрый поиск по бренду, коду, типу..." />
+        </div>
+      </div>
+
+      <div class="table-meta">
+        <span id="tableCount">Загрузка данных...</span>
+        <span>💡 Кликните по промокоду, чтобы скопировать</span>
+      </div>
+
+      <!-- Main Table -->
+      <div class="table-wrap">
+        <table class="data-tbl">
+          <thead>
+            <tr>
+              <th>Канал</th>
+              <th>Дата</th>
+              <th>Бренд</th>
+              <th>Тип</th>
+              <th>Промокод</th>
+              <th>Запланировано</th>
+              <th>В админке</th>
+            </tr>
+          </thead>
+          <tbody id="tblBody"></tbody>
+        </table>
+      </div>
+
     </div>
   </main>
 </div>
+
+<div id="toast" class="toast"></div>
+
 <script>
-(function(){
-  var toggle = document.getElementById('widgetsToggle');
-  var panel = document.getElementById('widgetsPanel');
-  toggle.addEventListener('click', function(){ panel.classList.toggle('hidden'); });
-})();
-(function(){
-  var COUNTDOWN_SECONDS = 10 * 60;
-  var deadline = Date.now() + COUNTDOWN_SECONDS * 1000;
-  var el = document.getElementById('shell-countdown');
-  function tick(){
-    var remaining = Math.round((deadline - Date.now()) / 1000);
-    if(remaining <= 0){ deadline = Date.now() + COUNTDOWN_SECONDS * 1000; remaining = COUNTDOWN_SECONDS; }
-    var m = Math.floor(remaining / 60), s = remaining % 60;
-    el.textContent = String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
-  }
-  tick();
-  setInterval(tick, 1000);
-})();
+window.__PROMO_DATA__ = {"updatedAt":"2026-09-11T14:41:32.250Z","sheetUrl":"https://docs.google.com/spreadsheets/d/1K0oX336wfxNHCE163NnOj0L7EX5QZb6hpuQOvUP8RqE/edit#gid=1675768145","categories":[{"id":"all","title":"Все","count":613},{"id":"FB","title":"ФБ (Facebook)","color":"#1877f2","count":156},{"id":"DS","title":"Дискорд (Discord)","color":"#5865f2","count":282},{"id":"BC","title":"Бродкаст (BotCake)","color":"#00a884","count":118},{"id":"AUTO","title":"Автоматизация","color":"#9b59b6","count":57}],"items":[{"id":"FB-1","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-03","brand":"TAO Fortune","type":"Оффер","code":"TQV6183","planned":true,"setup":true},{"id":"FB-2","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-03","brand":"Vegas Way","type":"Оффер","code":"LDG5127V","planned":true,"setup":true},{"id":"FB-3","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-03","brand":"Fortune Wheelz","type":"Оффер","code":"WHL7362","planned":true,"setup":true},{"id":"FB-4","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-04","brand":"TAO Fortune","type":"Бонус","code":"TQ58MRD","planned":true,"setup":true},{"id":"FB-5","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-04","brand":"Vegas Way","type":"Бонус","code":"VW37KPZ","planned":true,"setup":true},{"id":"FB-6","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-04","brand":"Fortune Wheelz","type":"Бонус","code":"FW82NHC","planned":true,"setup":true},{"id":"FB-7","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-05","brand":"TAO Fortune","type":"Оффер","code":"TQ81FVN","planned":true,"setup":true},{"id":"FB-8","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-05","brand":"Vegas Way","type":"Оффер","code":"VW64MTD","planned":true,"setup":true},{"id":"FB-9","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-05","brand":"Fortune Wheelz","type":"Оффер","code":"FW53QXB","planned":true,"setup":true},{"id":"FB-10","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-06","brand":"TAO Fortune","type":"Бонус","code":"TQ39BWL","planned":true,"setup":true},{"id":"FB-11","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-06","brand":"Vegas Way","type":"Бонус","code":"VW17JDS","planned":true,"setup":true},{"id":"FB-12","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-06","brand":"Fortune Wheelz","type":"Бонус","code":"FW74CPN","planned":true,"setup":true},{"id":"FB-13","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-08","brand":"TAO Fortune","type":"Бонус","code":"TQ57DVK","planned":true,"setup":true},{"id":"FB-14","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-08","brand":"Vegas Way","type":"Бонус","code":"VW46CZP","planned":true,"setup":true},{"id":"FB-15","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-08","brand":"Fortune Wheelz","type":"Бонус","code":"FW37KDN","planned":true,"setup":true},{"id":"FB-16","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-07","brand":"TAO Fortune","type":"Оффер","code":"TQ64BXM","planned":true,"setup":true},{"id":"FB-17","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-07","brand":"Vegas Way","type":"Оффер","code":"VW85RQN","planned":true,"setup":true},{"id":"FB-18","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-07","brand":"Fortune Wheelz","type":"Оффер","code":"FW46TZP","planned":true,"setup":true},{"id":"FB-19","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-12","brand":"TAO Fortune","type":"Оффер","code":"TALLYK10","planned":true,"setup":true},{"id":"FB-20","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-12","brand":"Vegas Way","type":"Оффер","code":"CLOAKTAG7","planned":true,"setup":true},{"id":"FB-21","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-12","brand":"Fortune Wheelz","type":"Оффер","code":"RIMCALL8","planned":true,"setup":true},{"id":"FB-22","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-13","brand":"TAO Fortune","type":"Бонус","code":"TQ38VLK","planned":true,"setup":true},{"id":"FB-23","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-13","brand":"Vegas Way","type":"Бонус","code":"VW74JQM","planned":true,"setup":true},{"id":"FB-24","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-13","brand":"Fortune Wheelz","type":"Бонус","code":"FW46QDN","planned":true,"setup":true},{"id":"FB-25","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-14","brand":"TAO Fortune","type":"Оффер","code":"TQ63MWD","planned":true,"setup":true},{"id":"FB-26","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-14","brand":"Vegas Way","type":"Оффер","code":"VW58KPT","planned":true,"setup":true},{"id":"FB-27","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-14","brand":"Fortune Wheelz","type":"Оффер","code":"FW87NQD","planned":true,"setup":true},{"id":"FB-28","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-17","brand":"TAO Fortune","type":"Оффер","code":"TQ92LFR","planned":true,"setup":true},{"id":"FB-29","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-17","brand":"Vegas Way","type":"Оффер","code":"VW36DKP","planned":true,"setup":true},{"id":"FB-30","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-17","brand":"Fortune Wheelz","type":"Оффер","code":"FW58RJC","planned":true,"setup":true},{"id":"FB-31","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-18","brand":"TAO Fortune","type":"Бонус","code":"TQ76BTG","planned":true,"setup":true},{"id":"FB-32","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-18","brand":"Vegas Way","type":"Бонус","code":"VW49CHP","planned":true,"setup":true},{"id":"FB-33","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-18","brand":"Fortune Wheelz","type":"Бонус","code":"FW83RIM","planned":true,"setup":true},{"id":"FB-34","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-18","brand":"NoLimitCoins","type":"Бонус","code":"NL91FKV","planned":true,"setup":true},{"id":"FB-35","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-18","brand":"DexyPlay","type":"Бонус","code":"DX54BQR","planned":true,"setup":true},{"id":"FB-36","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-18","brand":"Fire Seven","type":"Бонус","code":"F7N38ZP","planned":true,"setup":true},{"id":"FB-37","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-18","brand":"Storm Rush","type":"Бонус","code":"SR47MHD","planned":true,"setup":true},{"id":"FB-38","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-19","brand":"TAO Fortune","type":"Оффер","code":"TQ58NWR","planned":true,"setup":true},{"id":"FB-39","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-19","brand":"Vegas Way","type":"Оффер","code":"VW73BKP","planned":true,"setup":true},{"id":"FB-40","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-19","brand":"Fortune Wheelz","type":"Оффер","code":"FW29LDC","planned":true,"setup":true},{"id":"FB-41","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-20","brand":"TAO Fortune","type":"Бонус","code":"TQ47BDN","planned":true,"setup":true},{"id":"FB-42","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-20","brand":"Vegas Way","type":"Бонус","code":"VW38KRP","planned":true,"setup":true},{"id":"FB-43","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-20","brand":"Fortune Wheelz","type":"Бонус","code":"FW56TQJ","planned":true,"setup":true},{"id":"FB-44","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-21","brand":"TAO Fortune","type":"Оффер","code":"TQ53WKB","planned":true,"setup":true},{"id":"FB-45","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-21","brand":"Vegas Way","type":"Оффер","code":"VW62TQL","planned":true,"setup":true},{"id":"FB-46","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-21","brand":"Fortune Wheelz","type":"Оффер","code":"FW34PVN","planned":true,"setup":true},{"id":"FB-47","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-22","brand":"TAO Fortune","type":"Бонус","code":"TQ68DVN","planned":true,"setup":true},{"id":"FB-48","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-22","brand":"Vegas Way","type":"Бонус","code":"VW45NCT","planned":true,"setup":true},{"id":"FB-49","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-22","brand":"Fortune Wheelz","type":"Бонус","code":"FW79KDM","planned":true,"setup":true},{"id":"FB-50","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-24","brand":"TAO Fortune","type":"Оффер","code":"TQ38KVR","planned":true,"setup":true},{"id":"FB-51","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-24","brand":"Vegas Way","type":"Оффер","code":"VW72NDP","planned":true,"setup":true},{"id":"FB-52","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-24","brand":"Fortune Wheelz","type":"Оффер","code":"FW48QTB","planned":true,"setup":true},{"id":"FB-53","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-25","brand":"TAO Fortune","type":"Бонус","code":"TQ64WMP","planned":true,"setup":true},{"id":"FB-54","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-25","brand":"Vegas Way","type":"Бонус","code":"VW58JQD","planned":true,"setup":true},{"id":"FB-55","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-25","brand":"Fortune Wheelz","type":"Бонус","code":"FW67LDT","planned":true,"setup":true},{"id":"FB-56","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-26","brand":"TAO Fortune","type":"Оффер","code":"TQ47BNM","planned":true,"setup":true},{"id":"FB-57","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-26","brand":"Vegas Way","type":"Оффер","code":"VW83LTQ","planned":true,"setup":true},{"id":"FB-58","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-26","brand":"Fortune Wheelz","type":"Оффер","code":"FW74NDQ","planned":true,"setup":true},{"id":"FB-59","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-28","brand":"TAO Fortune","type":"Бонус","code":"TQ74MDB","planned":true,"setup":true},{"id":"FB-60","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-28","brand":"Vegas Way","type":"Бонус","code":"VW39PKT","planned":true,"setup":true},{"id":"FB-61","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-28","brand":"Fortune Wheelz","type":"Бонус","code":"FW83VLM","planned":true,"setup":true},{"id":"FB-62","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-27","brand":"TAO Fortune","type":"Бонус","code":"TQ57BKD","planned":true,"setup":true},{"id":"FB-63","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-27","brand":"Vegas Way","type":"Бонус","code":"VW74MPC","planned":true,"setup":true},{"id":"FB-64","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-27","brand":"Fortune Wheelz","type":"Бонус","code":"FW62WTL","planned":true,"setup":true},{"id":"FB-65","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-27","brand":"NoLimitCoins","type":"Бонус","code":"NL29GBX","planned":true,"setup":true},{"id":"FB-66","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-28","brand":"TAO Fortune","type":"Оффер","code":"TQ86MVD","planned":true,"setup":true},{"id":"FB-67","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-28","brand":"Vegas Way","type":"Оффер","code":"VW58QNR","planned":true,"setup":true},{"id":"FB-68","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-28","brand":"Fortune Wheelz","type":"Оффер","code":"FW34KBT","planned":true,"setup":true},{"id":"FB-69","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-28","brand":"NoLimitCoins","type":"Оффер","code":"NL92RDV","planned":true,"setup":true},{"id":"FB-70","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-31","brand":"TAO Fortune","type":"Оффер","code":"TQ29HWL","planned":false,"setup":true},{"id":"FB-71","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-31","brand":"Vegas Way","type":"Оффер","code":"VW56DKT","planned":false,"setup":true},{"id":"FB-72","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-31","brand":"Fortune Wheelz","type":"Оффер","code":"FW71NVQ","planned":false,"setup":true},{"id":"FB-73","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-08-31","brand":"NoLimitCoins","type":"Оффер","code":"NL83CKM","planned":false,"setup":true},{"id":"FB-74","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-01","brand":"TAO Fortune","type":"Бонус","code":"TQ63LMV","planned":false,"setup":true},{"id":"FB-75","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-01","brand":"Vegas Way","type":"Бонус","code":"VW47HXB","planned":false,"setup":true},{"id":"FB-76","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-01","brand":"Fortune Wheelz","type":"Бонус","code":"FW29TCP","planned":false,"setup":true},{"id":"FB-77","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-01","brand":"NoLimitCoins","type":"Бонус","code":"NL64WPD","planned":false,"setup":true},{"id":"FB-78","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-01","brand":"DexyPlay","type":"Бонус","code":"DX46QWM","planned":false,"setup":true},{"id":"FB-79","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-01","brand":"Fire Seven","type":"Бонус","code":"F7B93LT","planned":false,"setup":true},{"id":"FB-80","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-01","brand":"Storm Rush","type":"Бонус","code":"SR27VXK","planned":false,"setup":true},{"id":"FB-81","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-02","brand":"TAO Fortune","type":"Оффер","code":"PLATEPIN7","planned":false,"setup":true},{"id":"FB-82","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-02","brand":"Vegas Way","type":"Оффер","code":"LEGMARK7","planned":false,"setup":true},{"id":"FB-83","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-02","brand":"Fortune Wheelz","type":"Оффер","code":"BASEMARK7","planned":false,"setup":true},{"id":"FB-84","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-02","brand":"NoLimitCoins","type":"Оффер","code":"DOCKMARK7","planned":false,"setup":true},{"id":"FB-85","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-02","brand":"DexyPlay","type":"Оффер","code":"DX92LWK","planned":false,"setup":true},{"id":"FB-86","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-02","brand":"Fire Seven","type":"Оффер","code":"F7T64PJ","planned":false,"setup":true},{"id":"FB-87","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-02","brand":"Storm Rush","type":"Оффер","code":"SR38HDT","planned":false,"setup":true},{"id":"FB-88","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-03","brand":"DexyPlay","type":"Бонус","code":"DX57MNB","planned":false,"setup":true},{"id":"FB-89","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-03","brand":"Fire Seven","type":"Бонус","code":"F7K84QW","planned":false,"setup":true},{"id":"FB-90","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-03","brand":"Storm Rush","type":"Бонус","code":"SR63TVN","planned":false,"setup":true},{"id":"FB-91","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-03","brand":"TAO Fortune","type":"Бонус","code":"6QXNP2K","planned":false,"setup":true},{"id":"FB-92","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-03","brand":"Vegas Way","type":"Бонус","code":"V93TXQL","planned":false,"setup":true},{"id":"FB-93","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-03","brand":"Fortune Wheelz","type":"Бонус","code":"4KXRQ7M","planned":false,"setup":true},{"id":"FB-94","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-03","brand":"NoLimitCoins","type":"Бонус","code":"N7QXK92","planned":false,"setup":true},{"id":"FB-95","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-04","brand":"TAO Fortune","type":"Оффер","code":"QK73XPLM","planned":false,"setup":true},{"id":"FB-96","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-04","brand":"Vegas Way","type":"Оффер","code":"9RTZQL4K","planned":false,"setup":true},{"id":"FB-97","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-04","brand":"Fortune Wheelz","type":"Оффер","code":"XM2K87QT","planned":false,"setup":true},{"id":"FB-98","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-04","brand":"NoLimitCoins","type":"Оффер","code":"5QPXT91K","planned":false,"setup":true},{"id":"FB-99","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-05","brand":"TAO Fortune","type":"Бонус","code":"K7QXM3PL","planned":false,"setup":true},{"id":"FB-100","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-05","brand":"Vegas Way","type":"Бонус","code":"T9XZQ4RK","planned":false,"setup":true},{"id":"FB-101","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-05","brand":"Fortune Wheelz","type":"Бонус","code":"M3K7XQPL","planned":false,"setup":true},{"id":"FB-102","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-05","brand":"NoLimitCoins","type":"Бонус","code":"Q9RTXK52","planned":false,"setup":true},{"id":"FB-103","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-06","brand":"TAO Fortune","type":"Оффер","code":"X4QKPT78","planned":false,"setup":true},{"id":"FB-104","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-06","brand":"Vegas Way","type":"Оффер","code":"7MXQK3RT","planned":false,"setup":true},{"id":"FB-105","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-06","brand":"Fortune Wheelz","type":"Оффер","code":"K2XTQM95","planned":false,"setup":true},{"id":"FB-106","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-06","brand":"NoLimitCoins","type":"Оффер","code":"Q7XKPT34","planned":false,"setup":true},{"id":"FB-107","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-04","brand":"DexyPlay","type":"Оффер","code":"DX84MKQ","planned":false,"setup":true},{"id":"FB-108","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-04","brand":"Fire Seven","type":"Оффер","code":"F7L52WX","planned":false,"setup":true},{"id":"FB-109","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-04","brand":"Storm Rush","type":"Оффер","code":"SR96PLD","planned":false,"setup":true},{"id":"FB-110","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-07","brand":"TAO Fortune","type":"Оффер","code":"TQ59HVR","planned":false,"setup":false},{"id":"FB-111","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-07","brand":"Vegas Way","type":"Оффер","code":"VW72LKD","planned":false,"setup":false},{"id":"FB-112","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-07","brand":"Fortune Wheelz","type":"Оффер","code":"FW86NPQ","planned":false,"setup":false},{"id":"FB-113","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-07","brand":"NoLimitCoins","type":"Оффер","code":"T84MXQL2","planned":false,"setup":true},{"id":"FB-114","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-07","brand":"DexyPlay","type":"Оффер","code":"DX63GNP","planned":false,"setup":true},{"id":"FB-115","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-07","brand":"Fire Seven","type":"Оффер","code":"F7W92LX","planned":false,"setup":true},{"id":"FB-116","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-07","brand":"TAO Fortune","type":"Оффер","code":"TAOCHART7","planned":false,"setup":true},{"id":"FB-117","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-07","brand":"Vegas Way","type":"Оффер","code":"ROOFCARD5","planned":false,"setup":true},{"id":"FB-118","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-07","brand":"Fortune Wheelz","type":"Оффер","code":"WEDGEHIT3","planned":false,"setup":true},{"id":"FB-119","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-07","brand":"NoLimitCoins","type":"Оффер","code":"BARKLID7","planned":false,"setup":true},{"id":"FB-120","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-07","brand":"Storm Rush","type":"Оффер","code":"SR47XQV","planned":false,"setup":true},{"id":"FB-121","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-08","brand":"TAO Fortune","type":"Бонус","code":"TQ47KMB","planned":false,"setup":true},{"id":"FB-122","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-08","brand":"Vegas Way","type":"Бонус","code":"VW62DRJ","planned":false,"setup":true},{"id":"FB-123","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-08","brand":"Fortune Wheelz","type":"Бонус","code":"FW93TLC","planned":false,"setup":true},{"id":"FB-124","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-08","brand":"NoLimitCoins","type":"Бонус","code":"NL84HRG","planned":false,"setup":true},{"id":"FB-125","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-09","brand":"TAO Fortune","type":"Оффер","code":"TQ47XBM","planned":false,"setup":true},{"id":"FB-126","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-09","brand":"Vegas Way","type":"Оффер","code":"VW63LDK","planned":false,"setup":true},{"id":"FB-127","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-09","brand":"Fortune Wheelz","type":"Оффер","code":"FW29TVP","planned":false,"setup":true},{"id":"FB-128","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-09","brand":"NoLimitCoins","type":"Оффер","code":"NL85JQR","planned":false,"setup":true},{"id":"FB-129","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-08","brand":"DexyPlay","type":"Бонус","code":"DX29HWL","planned":false,"setup":true},{"id":"FB-130","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-08","brand":"Fire Seven","type":"Бонус","code":"F7R56VP","planned":false,"setup":true},{"id":"FB-131","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-08","brand":"Storm Rush","type":"Бонус","code":"SR71MDK","planned":false,"setup":true},{"id":"FB-132","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-09","brand":"DexyPlay","type":"Оффер","code":"DX58RKT","planned":false,"setup":true},{"id":"FB-133","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-09","brand":"Fire Seven","type":"Оффер","code":"F7Q41MB","planned":false,"setup":true},{"id":"FB-134","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-09","brand":"Storm Rush","type":"Оффер","code":"SR26JWP","planned":false,"setup":true},{"id":"FB-135","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-10","brand":"TAO Fortune","type":"Бонус","code":"TQ58NRK","planned":false,"setup":true},{"id":"FB-136","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-10","brand":"Vegas Way","type":"Бонус","code":"VW47TGP","planned":false,"setup":true},{"id":"FB-137","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-10","brand":"Fortune Wheelz","type":"Бонус","code":"FW36QNB","planned":false,"setup":true},{"id":"FB-138","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-10","brand":"NoLimitCoins","type":"Бонус","code":"NL73VKT","planned":false,"setup":true},{"id":"FB-139","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-10","brand":"DexyPlay","type":"Бонус","code":"DX37PNQ","planned":false,"setup":true},{"id":"FB-140","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-10","brand":"Fire Seven","type":"Бонус","code":"F7V85TK","planned":false,"setup":true},{"id":"FB-141","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-10","brand":"Storm Rush","type":"Бонус","code":"SR14GXM","planned":false,"setup":true},{"id":"FB-142","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-11","brand":"TAO Fortune","type":"Оффер","code":"TQ47XBD","planned":false,"setup":true},{"id":"FB-143","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-11","brand":"Vegas Way","type":"Оффер","code":"VW83RQT","planned":false,"setup":true},{"id":"FB-144","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-11","brand":"Fortune Wheelz","type":"Оффер","code":"FW59TPV","planned":false,"setup":true},{"id":"FB-145","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-11","brand":"NoLimitCoins","type":"Оффер","code":"NL63WKP","planned":false,"setup":true},{"id":"FB-146","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-12","brand":"TAO Fortune","type":"Бонус","code":"TQ92LNR","planned":false,"setup":true},{"id":"FB-147","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-12","brand":"Vegas Way","type":"Бонус","code":"VW26NDL","planned":false,"setup":true},{"id":"FB-148","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-12","brand":"Fortune Wheelz","type":"Бонус","code":"FW14MQJ","planned":false,"setup":true},{"id":"FB-149","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-12","brand":"NoLimitCoins","type":"Бонус","code":"NL38QTM","planned":false,"setup":true},{"id":"FB-150","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-13","brand":"TAO Fortune","type":"Оффер","code":"TQ68VKM","planned":false,"setup":true},{"id":"FB-151","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-13","brand":"Vegas Way","type":"Оффер","code":"VW71KBX","planned":false,"setup":true},{"id":"FB-152","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-13","brand":"Fortune Wheelz","type":"Оффер","code":"FW87DZR","planned":false,"setup":true},{"id":"FB-153","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-13","brand":"NoLimitCoins","type":"Оффер","code":"NL95FVB","planned":false,"setup":true},{"id":"FB-154","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-11","brand":"DexyPlay","type":"Оффер","code":"DX62WRF","planned":false,"setup":true},{"id":"FB-155","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-11","brand":"Fire Seven","type":"Оффер","code":"F7T39QM","planned":false,"setup":true},{"id":"FB-156","channel":"FB","channelTitle":"ФБ","channelColor":"#1877f2","date":"2026-09-11","brand":"Storm Rush","type":"Оффер","code":"SR83HGT","planned":false,"setup":true},{"id":"DS-1","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-04","brand":"Storm Rush","type":"Оффер","code":"VXR7K2Q","planned":true,"setup":true},{"id":"DS-2","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-04","brand":"TAO Fortune","type":"Оффер","code":"KTP826R","planned":true,"setup":true},{"id":"DS-3","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-04","brand":"DexyPlay","type":"Оффер","code":"QZM4X91","planned":true,"setup":true},{"id":"DS-4","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-04","brand":"Scarlet Sands","type":"Оффер","code":"RXW319H","planned":true,"setup":true},{"id":"DS-5","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-04","brand":"Vegas Way","type":"Оффер","code":"JQP5031","planned":true,"setup":true},{"id":"DS-6","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-04","brand":"NoLimitCoins","type":"Оффер","code":"FLK7729","planned":true,"setup":true},{"id":"DS-7","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-04","brand":"Fire Seven","type":"Оффер","code":"NRT4820","planned":true,"setup":true},{"id":"DS-8","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-04","brand":"Fortune Wheelz","type":"Оффер","code":"WZQ1567","planned":true,"setup":true},{"id":"DS-9","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-05","brand":"Storm Rush","type":"Бонус","code":"TKV8204","planned":true,"setup":true},{"id":"DS-10","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-05","brand":"DexyPlay","type":"Бонус","code":"HZQ3391","planned":true,"setup":true},{"id":"DS-11","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-05","brand":"TAO Fortune","type":"Бонус","code":"MXP7053","planned":true,"setup":true},{"id":"DS-12","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-05","brand":"Scarlet Sands","type":"Бонус","code":"DWR2481","planned":true,"setup":true},{"id":"DS-13","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-05","brand":"Vegas Way","type":"Бонус","code":"PLJ6094","planned":true,"setup":true},{"id":"DS-14","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-05","brand":"NoLimitCoins","type":"Бонус","code":"CXT5127","planned":true,"setup":true},{"id":"DS-15","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-05","brand":"Fire Seven","type":"Бонус","code":"QNV8836","planned":true,"setup":true},{"id":"DS-16","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-05","brand":"Fortune Wheelz","type":"Бонус","code":"RYK4470","planned":true,"setup":true},{"id":"DS-17","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-06","brand":"Storm Rush","type":"Оффер","code":"GXP9315","planned":true,"setup":true},{"id":"DS-18","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-06","brand":"DexyPlay","type":"Оффер","code":"ZKT2867","planned":true,"setup":true},{"id":"DS-19","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-06","brand":"TAO Fortune","type":"Оффер","code":"VRQ4059","planned":true,"setup":true},{"id":"DS-20","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-06","brand":"Scarlet Sands","type":"Оффер","code":"NHW7723","planned":true,"setup":true},{"id":"DS-21","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-06","brand":"Vegas Way","type":"Оффер","code":"LTX8146","planned":true,"setup":true},{"id":"DS-22","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-06","brand":"NoLimitCoins","type":"Оффер","code":"BXQ5390","planned":true,"setup":true},{"id":"DS-23","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-06","brand":"Fire Seven","type":"Оффер","code":"KWZ2718","planned":true,"setup":true},{"id":"DS-24","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-06","brand":"Fortune Wheelz","type":"Оффер","code":"DQP6425","planned":true,"setup":true},{"id":"DS-25","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-06","brand":"Storm Rush","type":"Бонус","code":"SR39XQD","planned":true,"setup":true},{"id":"DS-26","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-06","brand":"DexyPlay","type":"Бонус","code":"DX27NHV","planned":true,"setup":true},{"id":"DS-27","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-06","brand":"TAO Fortune","type":"Бонус","code":"TA64PWM","planned":true,"setup":true},{"id":"DS-28","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-06","brand":"Scarlet Sands","type":"Бонус","code":"SS18KRB","planned":true,"setup":true},{"id":"DS-29","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-06","brand":"Vegas Way","type":"Бонус","code":"VW53DGN","planned":true,"setup":true},{"id":"DS-30","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-06","brand":"NoLimitCoins","type":"Бонус","code":"NL72VBF","planned":true,"setup":true},{"id":"DS-31","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-06","brand":"Fire Seven","type":"Бонус","code":"F7K46QZ","planned":true,"setup":true},{"id":"DS-32","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-06","brand":"Fortune Wheelz","type":"Бонус","code":"FW61MTX","planned":true,"setup":true},{"id":"DS-33","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-07","brand":"Storm Rush","type":"Оффер","code":"SR62BQZ","planned":true,"setup":true},{"id":"DS-34","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-07","brand":"DexyPlay","type":"Оффер","code":"DX83KFM","planned":true,"setup":true},{"id":"DS-35","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-07","brand":"TAO Fortune","type":"Оффер","code":"TA26VNQ","planned":true,"setup":true},{"id":"DS-36","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-07","brand":"Scarlet Sands","type":"Оффер","code":"SS59WPD","planned":true,"setup":true},{"id":"DS-37","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-07","brand":"Vegas Way","type":"Оффер","code":"VW38MKR","planned":true,"setup":true},{"id":"DS-38","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-07","brand":"NoLimitCoins","type":"Оффер","code":"NL71XCB","planned":true,"setup":true},{"id":"DS-39","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-07","brand":"Fire Seven","type":"Оффер","code":"F7D62VH","planned":true,"setup":true},{"id":"DS-40","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-07","brand":"Fortune Wheelz","type":"Оффер","code":"FW48JRT","planned":true,"setup":true},{"id":"DS-41","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-08","brand":"Storm Rush","type":"Бонус","code":"SR73GVP","planned":true,"setup":true},{"id":"DS-42","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-08","brand":"DexyPlay","type":"Бонус","code":"DX41WQT","planned":true,"setup":true},{"id":"DS-43","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-08","brand":"TAO Fortune","type":"Бонус","code":"TA85CJR","planned":true,"setup":true},{"id":"DS-44","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-08","brand":"Scarlet Sands","type":"Бонус","code":"SS27FMH","planned":true,"setup":true},{"id":"DS-45","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-08","brand":"Vegas Way","type":"Бонус","code":"VW69PLB","planned":true,"setup":true},{"id":"DS-46","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-08","brand":"NoLimitCoins","type":"Бонус","code":"NL34ZKD","planned":true,"setup":true},{"id":"DS-47","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-08","brand":"Fire Seven","type":"Бонус","code":"F7B58MW","planned":true,"setup":true},{"id":"DS-48","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-08","brand":"Fortune Wheelz","type":"Бонус","code":"FW76XRN","planned":true,"setup":true},{"id":"DS-49","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-09","brand":"Storm Rush","type":"Оффер","code":"SR29HFT","planned":true,"setup":true},{"id":"DS-50","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-09","brand":"DexyPlay","type":"Оффер","code":"DX57BGN","planned":true,"setup":true},{"id":"DS-51","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-09","brand":"TAO Fortune","type":"Оффер","code":"TA46QLW","planned":true,"setup":true},{"id":"DS-52","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-09","brand":"Scarlet Sands","type":"Оффер","code":"SS81VDR","planned":true,"setup":true},{"id":"DS-53","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-09","brand":"Vegas Way","type":"Оффер","code":"VW93TKM","planned":true,"setup":true},{"id":"DS-54","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-09","brand":"NoLimitCoins","type":"Оффер","code":"NL62JWS","planned":true,"setup":true},{"id":"DS-55","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-09","brand":"Fire Seven","type":"Оффер","code":"F7C74RP","planned":true,"setup":true},{"id":"DS-56","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-09","brand":"Fortune Wheelz","type":"Оффер","code":"FW51ZQV","planned":true,"setup":true},{"id":"DS-57","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-10","brand":"Storm Rush","type":"Оффер","code":"SR68LWK","planned":true,"setup":true},{"id":"DS-58","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-10","brand":"DexyPlay","type":"Оффер","code":"DX36PVQ","planned":true,"setup":true},{"id":"DS-59","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-10","brand":"TAO Fortune","type":"Оффер","code":"TA37RXB","planned":true,"setup":true},{"id":"DS-60","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-10","brand":"Scarlet Sands","type":"Оффер","code":"SS94KMT","planned":true,"setup":true},{"id":"DS-61","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-10","brand":"Vegas Way","type":"Оффер","code":"VW52XDF","planned":true,"setup":true},{"id":"DS-62","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-10","brand":"NoLimitCoins","type":"Оффер","code":"NL86WQJ","planned":true,"setup":true},{"id":"DS-63","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-10","brand":"Fire Seven","type":"Оффер","code":"F7N39TB","planned":true,"setup":true},{"id":"DS-64","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-10","brand":"Fortune Wheelz","type":"Оффер","code":"FW83DMQ","planned":true,"setup":true},{"id":"DS-65","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-11","brand":"Storm Rush","type":"Бонус","code":"SR91TDN","planned":true,"setup":true},{"id":"DS-66","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-11","brand":"DexyPlay","type":"Бонус","code":"DX64ZRM","planned":true,"setup":true},{"id":"DS-67","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-11","brand":"TAO Fortune","type":"Бонус","code":"TA58HKP","planned":true,"setup":true},{"id":"DS-68","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-11","brand":"Scarlet Sands","type":"Бонус","code":"SS47BQN","planned":true,"setup":true},{"id":"DS-69","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-11","brand":"Vegas Way","type":"Бонус","code":"VW26GTL","planned":true,"setup":true},{"id":"DS-70","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-11","brand":"NoLimitCoins","type":"Бонус","code":"NL93FKR","planned":true,"setup":true},{"id":"DS-71","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-11","brand":"Fire Seven","type":"Бонус","code":"F7T85QW","planned":true,"setup":true},{"id":"DS-72","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-11","brand":"Fortune Wheelz","type":"Бонус","code":"FW34BXP","planned":true,"setup":true},{"id":"DS-73","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-12","brand":"Storm Rush","type":"Оффер","code":"SR47GBQ","planned":true,"setup":true},{"id":"DS-74","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-12","brand":"DexyPlay","type":"Оффер","code":"DX82LNV","planned":true,"setup":true},{"id":"DS-75","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-12","brand":"TAO Fortune","type":"Оффер","code":"TA39WPC","planned":true,"setup":true},{"id":"DS-76","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-12","brand":"Scarlet Sands","type":"Оффер","code":"SS76DJT","planned":true,"setup":true},{"id":"DS-77","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-12","brand":"Vegas Way","type":"Оффер","code":"VW58NKX","planned":true,"setup":true},{"id":"DS-78","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-12","brand":"NoLimitCoins","type":"Оффер","code":"NL73XQV","planned":true,"setup":true},{"id":"DS-79","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-12","brand":"Fire Seven","type":"Оффер","code":"F7W63MK","planned":true,"setup":true},{"id":"DS-80","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-12","brand":"Fortune Wheelz","type":"Оффер","code":"FW72SDL","planned":true,"setup":true},{"id":"DS-81","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-13","brand":"Storm Rush","type":"Бонус","code":"SR21KVD","planned":true,"setup":true},{"id":"DS-82","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-13","brand":"DexyPlay","type":"Бонус","code":"DX58QMT","planned":true,"setup":true},{"id":"DS-83","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-13","brand":"TAO Fortune","type":"Бонус","code":"TA36LWB","planned":true,"setup":true},{"id":"DS-84","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-13","brand":"Scarlet Sands","type":"Бонус","code":"SS49PGN","planned":true,"setup":true},{"id":"DS-85","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-13","brand":"Vegas Way","type":"Бонус","code":"VW63ZTK","planned":true,"setup":true},{"id":"DS-86","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-13","brand":"NoLimitCoins","type":"Бонус","code":"NL27HBM","planned":true,"setup":true},{"id":"DS-87","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-13","brand":"Fire Seven","type":"Бонус","code":"F7Q54VD","planned":true,"setup":true},{"id":"DS-88","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-13","brand":"Fortune Wheelz","type":"Бонус","code":"FW39NLT","planned":true,"setup":true},{"id":"DS-89","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-14","brand":"Storm Rush","type":"Оффер","code":"SR76BJN","planned":true,"setup":true},{"id":"DS-90","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-14","brand":"DexyPlay","type":"Оффер","code":"DX32VKP","planned":true,"setup":true},{"id":"DS-91","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-14","brand":"TAO Fortune","type":"Оффер","code":"TA81QMD","planned":true,"setup":true},{"id":"DS-92","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-14","brand":"Scarlet Sands","type":"Оффер","code":"SS65WLT","planned":true,"setup":true},{"id":"DS-93","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-14","brand":"Vegas Way","type":"Оффер","code":"VW94HRB","planned":true,"setup":true},{"id":"DS-94","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-14","brand":"NoLimitCoins","type":"Оффер","code":"NL48TZG","planned":true,"setup":true},{"id":"DS-95","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-14","brand":"Fire Seven","type":"Оффер","code":"F7L27MK","planned":true,"setup":true},{"id":"DS-96","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-14","brand":"Fortune Wheelz","type":"Оффер","code":"FW53DQV","planned":true,"setup":true},{"id":"DS-97","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-15","brand":"Storm Rush","type":"Бонус","code":"SR58MTQ","planned":true,"setup":true},{"id":"DS-98","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-15","brand":"DexyPlay","type":"Бонус","code":"DX67LBW","planned":true,"setup":true},{"id":"DS-99","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-15","brand":"TAO Fortune","type":"Бонус","code":"TA24KPN","planned":true,"setup":true},{"id":"DS-100","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-15","brand":"Scarlet Sands","type":"Бонус","code":"SS93VDM","planned":true,"setup":true},{"id":"DS-101","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-15","brand":"Vegas Way","type":"Бонус","code":"VW71QLF","planned":true,"setup":true},{"id":"DS-102","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-15","brand":"NoLimitCoins","type":"Бонус","code":"NL36ZWT","planned":true,"setup":true},{"id":"DS-103","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-15","brand":"Fire Seven","type":"Бонус","code":"F7B92JD","planned":true,"setup":true},{"id":"DS-104","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-15","brand":"Fortune Wheelz","type":"Бонус","code":"FW85RKM","planned":true,"setup":true},{"id":"DS-105","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-16","brand":"Storm Rush","type":"Оффер","code":"SR43GVL","planned":true,"setup":true},{"id":"DS-106","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-16","brand":"DexyPlay","type":"Оффер","code":"DX95TMD","planned":true,"setup":true},{"id":"DS-107","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-16","brand":"TAO Fortune","type":"Оффер","code":"TA57BQJ","planned":true,"setup":true},{"id":"DS-108","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-16","brand":"Scarlet Sands","type":"Оффер","code":"SS28KWR","planned":true,"setup":true},{"id":"DS-109","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-16","brand":"Vegas Way","type":"Оффер","code":"VW82NDP","planned":true,"setup":true},{"id":"DS-110","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-16","brand":"NoLimitCoins","type":"Оффер","code":"NL64LQZ","planned":true,"setup":true},{"id":"DS-111","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-16","brand":"Fire Seven","type":"Оффер","code":"F7V38HT","planned":true,"setup":true},{"id":"DS-112","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-16","brand":"Fortune Wheelz","type":"Оффер","code":"FW47MJB","planned":true,"setup":true},{"id":"DS-113","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-17","brand":"Storm Rush","type":"Оффер","code":"SR64WNP","planned":true,"setup":true},{"id":"DS-114","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-17","brand":"DexyPlay","type":"Оффер","code":"DX41HQB","planned":true,"setup":true},{"id":"DS-115","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-17","brand":"TAO Fortune","type":"Оффер","code":"TA78VGK","planned":true,"setup":true},{"id":"DS-116","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-17","brand":"Scarlet Sands","type":"Оффер","code":"SS53TQM","planned":true,"setup":true},{"id":"DS-117","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-17","brand":"Vegas Way","type":"Оффер","code":"VW39KMB","planned":true,"setup":true},{"id":"DS-118","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-17","brand":"NoLimitCoins","type":"Оффер","code":"NL52BQX","planned":true,"setup":true},{"id":"DS-119","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-17","brand":"Fire Seven","type":"Оффер","code":"F7T61WZ","planned":true,"setup":true},{"id":"DS-120","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-17","brand":"Fortune Wheelz","type":"Оффер","code":"FW74LPC","planned":true,"setup":true},{"id":"DS-121","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-18","brand":"Storm Rush","type":"Бонус","code":"SR39TWB","planned":true,"setup":true},{"id":"DS-122","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-18","brand":"TAO Fortune","type":"Бонус","code":"TA85QNC","planned":true,"setup":true},{"id":"DS-123","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-18","brand":"DexyPlay","type":"Бонус","code":"DX27KVL","planned":true,"setup":true},{"id":"DS-124","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-18","brand":"Scarlet Sands","type":"Бонус","code":"SS61MJD","planned":true,"setup":true},{"id":"DS-125","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-18","brand":"Vegas Way","type":"Бонус","code":"VW48HQT","planned":true,"setup":true},{"id":"DS-126","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-18","brand":"NoLimitCoins","type":"Бонус","code":"NL73PWG","planned":true,"setup":true},{"id":"DS-127","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-18","brand":"Fire Seven","type":"Бонус","code":"F7K52VN","planned":true,"setup":true},{"id":"DS-128","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-18","brand":"Fortune Wheelz","type":"Бонус","code":"FW96BDL","planned":true,"setup":true},{"id":"DS-129","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-19","brand":"Storm Rush","type":"Оффер","code":"SR86WQL","planned":true,"setup":true},{"id":"DS-130","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-19","brand":"TAO Fortune","type":"Оффер","code":"TA94LDV","planned":true,"setup":true},{"id":"DS-131","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-19","brand":"DexyPlay","type":"Оффер","code":"DX73GNQ","planned":true,"setup":true},{"id":"DS-132","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-19","brand":"Scarlet Sands","type":"Оффер","code":"SS37KLB","planned":true,"setup":true},{"id":"DS-133","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-19","brand":"Vegas Way","type":"Оффер","code":"VW57DQJ","planned":true,"setup":true},{"id":"DS-134","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-19","brand":"NoLimitCoins","type":"Оффер","code":"NL45BTM","planned":true,"setup":true},{"id":"DS-135","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-19","brand":"Fire Seven","type":"Оффер","code":"F7W48QN","planned":true,"setup":true},{"id":"DS-136","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-19","brand":"Fortune Wheelz","type":"Оффер","code":"FW62JHT","planned":true,"setup":true},{"id":"DS-137","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-20","brand":"Storm Rush","type":"Бонус","code":"SR52QDN","planned":true,"setup":true},{"id":"DS-138","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-20","brand":"DexyPlay","type":"Бонус","code":"DX84WRV","planned":true,"setup":true},{"id":"DS-139","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-20","brand":"TAO Fortune","type":"Бонус","code":"TA93HWP","planned":true,"setup":true},{"id":"DS-140","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-20","brand":"Scarlet Sands","type":"Бонус","code":"SS46BVT","planned":true,"setup":true},{"id":"DS-141","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-20","brand":"Vegas Way","type":"Бонус","code":"VW86LQD","planned":true,"setup":true},{"id":"DS-142","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-20","brand":"NoLimitCoins","type":"Бонус","code":"NL92ZPG","planned":true,"setup":true},{"id":"DS-143","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-20","brand":"Fire Seven","type":"Бонус","code":"F7N26QVD","planned":true,"setup":true},{"id":"DS-144","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-20","brand":"Fortune Wheelz","type":"Бонус","code":"FW71XSD","planned":true,"setup":true},{"id":"DS-145","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-21","brand":"Storm Rush","type":"Оффер","code":"SR93PWN","planned":true,"setup":true},{"id":"DS-146","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-21","brand":"TAO Fortune","type":"Оффер","code":"TA37VQK","planned":true,"setup":true},{"id":"DS-147","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-21","brand":"DexyPlay","type":"Оффер","code":"DX59MRB","planned":true,"setup":true},{"id":"DS-148","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-21","brand":"Scarlet Sands","type":"Оффер","code":"SS82NKD","planned":true,"setup":true},{"id":"DS-149","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-21","brand":"Vegas Way","type":"Оффер","code":"VW45TGP","planned":true,"setup":true},{"id":"DS-150","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-21","brand":"NoLimitCoins","type":"Оффер","code":"NL79QJV","planned":true,"setup":true},{"id":"DS-151","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-21","brand":"Fire Seven","type":"Оффер","code":"F7X83LM","planned":true,"setup":true},{"id":"DS-152","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-21","brand":"Fortune Wheelz","type":"Оффер","code":"FW58DTR","planned":true,"setup":true},{"id":"DS-153","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-22","brand":"Storm Rush","type":"Бонус","code":"SR46NDQ","planned":true,"setup":true},{"id":"DS-154","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-22","brand":"TAO Fortune","type":"Бонус","code":"TA62WLD","planned":true,"setup":true},{"id":"DS-155","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-22","brand":"DexyPlay","type":"Бонус","code":"DX38KTV","planned":true,"setup":true},{"id":"DS-156","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-22","brand":"Scarlet Sands","type":"Бонус","code":"SS29HBQ","planned":true,"setup":true},{"id":"DS-157","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-22","brand":"Vegas Way","type":"Бонус","code":"VW83MQC","planned":true,"setup":true},{"id":"DS-158","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-22","brand":"NoLimitCoins","type":"Бонус","code":"NL54BXR","planned":true,"setup":true},{"id":"DS-159","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-22","brand":"Fire Seven","type":"Бонус","code":"F7D69ZP","planned":true,"setup":true},{"id":"DS-160","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-22","brand":"Fortune Wheelz","type":"Бонус","code":"FW35VNQ","planned":true,"setup":true},{"id":"DS-161","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-23","brand":"Storm Rush","type":"Оффер","code":"SR58QVT","planned":true,"setup":true},{"id":"DS-162","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-23","brand":"TAO Fortune","type":"Оффер","code":"TA49BNR","planned":true,"setup":true},{"id":"DS-163","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-23","brand":"DexyPlay","type":"Оффер","code":"DX63LCP","planned":true,"setup":true},{"id":"DS-164","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-23","brand":"Scarlet Sands","type":"Оффер","code":"SS35TWJ","planned":true,"setup":true},{"id":"DS-165","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-23","brand":"Vegas Way","type":"Оффер","code":"VW91KDF","planned":true,"setup":true},{"id":"DS-166","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-23","brand":"NoLimitCoins","type":"Оффер","code":"NL43RTC","planned":true,"setup":true},{"id":"DS-167","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-23","brand":"Fire Seven","type":"Оффер","code":"F7B47SQ","planned":true,"setup":true},{"id":"DS-168","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-23","brand":"Fortune Wheelz","type":"Оффер","code":"FW82HNL","planned":true,"setup":true},{"id":"DS-169","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-24","brand":"Storm Rush","type":"Оффер","code":"SR27KDX","planned":true,"setup":true},{"id":"DS-170","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-24","brand":"TAO Fortune","type":"Оффер","code":"TA61HWQ","planned":true,"setup":true},{"id":"DS-171","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-24","brand":"DexyPlay","type":"Оффер","code":"DX48RVN","planned":true,"setup":true},{"id":"DS-172","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-24","brand":"Scarlet Sands","type":"Оффер","code":"SS64PZM","planned":true,"setup":true},{"id":"DS-173","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-24","brand":"Vegas Way","type":"Оффер","code":"VW37BQN","planned":true,"setup":true},{"id":"DS-174","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-24","brand":"NoLimitCoins","type":"Оффер","code":"NL58KTP","planned":true,"setup":true},{"id":"DS-175","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-24","brand":"Fire Seven","type":"Оффер","code":"F7J39BW","planned":true,"setup":true},{"id":"DS-176","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-24","brand":"Fortune Wheelz","type":"Оффер","code":"FW28JRQ","planned":true,"setup":true},{"id":"DS-177","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-25","brand":"Storm Rush","type":"Бонус","code":"SR85NQD","planned":true,"setup":true},{"id":"DS-178","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-25","brand":"TAO Fortune","type":"Бонус","code":"TA29LDB","planned":true,"setup":true},{"id":"DS-179","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-25","brand":"DexyPlay","type":"Бонус","code":"DX29VBT","planned":true,"setup":true},{"id":"DS-180","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-25","brand":"Scarlet Sands","type":"Бонус","code":"SS58RQV","planned":true,"setup":true},{"id":"DS-181","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-25","brand":"Vegas Way","type":"Бонус","code":"VW51HDR","planned":true,"setup":true},{"id":"DS-182","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-25","brand":"NoLimitCoins","type":"Бонус","code":"NL65WDP","planned":true,"setup":true},{"id":"DS-183","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-25","brand":"Fire Seven","type":"Бонус","code":"F7R74MC","planned":true,"setup":true},{"id":"DS-184","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-25","brand":"Fortune Wheelz","type":"Бонус","code":"FW67NDB","planned":true,"setup":true},{"id":"DS-185","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-26","brand":"Storm Rush","type":"Оффер","code":"SR76QVN","planned":true,"setup":true},{"id":"DS-186","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-26","brand":"TAO Fortune","type":"Оффер","code":"TA53WQP","planned":true,"setup":true},{"id":"DS-187","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-26","brand":"DexyPlay","type":"Оффер","code":"DX72MQL","planned":true,"setup":true},{"id":"DS-188","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-26","brand":"Scarlet Sands","type":"Оффер","code":"SS41GVD","planned":true,"setup":true},{"id":"DS-189","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-26","brand":"Vegas Way","type":"Оффер","code":"VW64TQM","planned":true,"setup":true},{"id":"DS-190","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-26","brand":"NoLimitCoins","type":"Оффер","code":"NL57DQB","planned":true,"setup":true},{"id":"DS-191","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-26","brand":"Fire Seven","type":"Оффер","code":"F7G48WQ","planned":true,"setup":true},{"id":"DS-192","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-26","brand":"Fortune Wheelz","type":"Оффер","code":"FW36ZTP","planned":true,"setup":true},{"id":"DS-193","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-27","brand":"Storm Rush","type":"Бонус","code":"SR74MQD","planned":true,"setup":true},{"id":"DS-194","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-27","brand":"TAO Fortune","type":"Бонус","code":"TA36NVK","planned":true,"setup":true},{"id":"DS-195","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-27","brand":"DexyPlay","type":"Бонус","code":"DX51WGP","planned":true,"setup":true},{"id":"DS-196","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-27","brand":"Scarlet Sands","type":"Бонус","code":"SS73KDQ","planned":true,"setup":true},{"id":"DS-197","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-27","brand":"Vegas Way","type":"Бонус","code":"VW26XLB","planned":true,"setup":true},{"id":"DS-198","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-27","brand":"NoLimitCoins","type":"Бонус","code":"NL38HTM","planned":true,"setup":true},{"id":"DS-199","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-27","brand":"Fire Seven","type":"Бонус","code":"F7Q53BN","planned":true,"setup":true},{"id":"DS-200","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-27","brand":"Fortune Wheelz","type":"Бонус","code":"FW49DVT","planned":true,"setup":true},{"id":"DS-201","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-28","brand":"Storm Rush","type":"Оффер","code":"SR47TQD","planned":true,"setup":true},{"id":"DS-202","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-28","brand":"TAO Fortune","type":"Оффер","code":"TA29LPW","planned":true,"setup":true},{"id":"DS-203","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-28","brand":"NoLimitCoins","type":"Оффер","code":"NL74BZM","planned":true,"setup":true},{"id":"DS-204","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-28","brand":"DexyPlay","type":"Оффер","code":"DX63MVK","planned":true,"setup":true},{"id":"DS-205","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-28","brand":"Scarlet Sands","type":"Оффер","code":"SS85RNB","planned":true,"setup":true},{"id":"DS-206","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-28","brand":"Vegas Way","type":"Оффер","code":"VW36KTQ","planned":true,"setup":true},{"id":"DS-207","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-28","brand":"Fire Seven","type":"Оффер","code":"F7Q28VL","planned":true,"setup":true},{"id":"DS-208","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-28","brand":"Fortune Wheelz","type":"Оффер","code":"FW59HDT","planned":true,"setup":true},{"id":"DS-209","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-29","brand":"Storm Rush","type":"Бонус","code":"SR86WQT","planned":true,"setup":true},{"id":"DS-210","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-29","brand":"TAO Fortune","type":"Бонус","code":"TA53VMP","planned":true,"setup":true},{"id":"DS-211","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-29","brand":"DexyPlay","type":"Бонус","code":"DX47NKB","planned":true,"setup":true},{"id":"DS-212","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-29","brand":"Scarlet Sands","type":"Бонус","code":"SS29GTD","planned":true,"setup":true},{"id":"DS-213","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-29","brand":"Vegas Way","type":"Бонус","code":"VW64BLN","planned":true,"setup":true},{"id":"DS-214","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-29","brand":"NoLimitCoins","type":"Бонус","code":"NL58KVR","planned":true,"setup":true},{"id":"DS-215","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-29","brand":"Fire Seven","type":"Бонус","code":"F7M39QB","planned":true,"setup":true},{"id":"DS-216","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-29","brand":"Fortune Wheelz","type":"Бонус","code":"FW72DXL","planned":true,"setup":true},{"id":"DS-217","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-30","brand":"Storm Rush","type":"Оффер","code":"SR63JVM","planned":true,"setup":true},{"id":"DS-218","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-30","brand":"DexyPlay","type":"Оффер","code":"DX85QTP","planned":true,"setup":true},{"id":"DS-219","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-30","brand":"TAO Fortune","type":"Оффер","code":"TA74BKN","planned":true,"setup":true},{"id":"DS-220","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-30","brand":"Scarlet Sands","type":"Оффер","code":"SS36WLD","planned":true,"setup":true},{"id":"DS-221","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-30","brand":"Vegas Way","type":"Оффер","code":"VW92NRT","planned":true,"setup":true},{"id":"DS-222","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-30","brand":"NoLimitCoins","type":"Оффер","code":"NL27HBQ","planned":true,"setup":true},{"id":"DS-223","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-30","brand":"Fire Seven","type":"Оффер","code":"F7T64VC","planned":true,"setup":true},{"id":"DS-224","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-08-30","brand":"Fortune Wheelz","type":"Оффер","code":"FW48MZK","planned":true,"setup":true},{"id":"DS-225","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-07","brand":"Storm Rush","type":"Оффер","code":"SR7QK4TZ","planned":true,"setup":true},{"id":"DS-226","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-07","brand":"TAO Fortune","type":"Оффер","code":"TQ92XVD","planned":true,"setup":true},{"id":"DS-227","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-07","brand":"DexyPlay","type":"Оффер","code":"DX4QMV8","planned":true,"setup":true},{"id":"DS-228","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-07","brand":"Vegas Way","type":"Оффер","code":"VW4TQJ7","planned":true,"setup":true},{"id":"DS-229","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-07","brand":"Fire Seven","type":"Оффер","code":"F7KDQ83","planned":true,"setup":true},{"id":"DS-230","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-07","brand":"Fortune Wheelz","type":"Оффер","code":"FW6ZTP2","planned":true,"setup":true},{"id":"DS-231","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-07","brand":"NoLimitCoins","type":"Оффер","code":"NL9KVQ6","planned":true,"setup":true},{"id":"DS-232","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-08","brand":"Storm Rush","type":"Бонус","code":"SR4XQ7D","planned":true,"setup":true},{"id":"DS-233","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-08","brand":"DexyPlay","type":"Бонус","code":"DX8KTV3","planned":true,"setup":true},{"id":"DS-234","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-08","brand":"TAO Fortune","type":"Бонус","code":"TQ6WNJ2","planned":true,"setup":true},{"id":"DS-235","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-08","brand":"Scarlet Sands","type":"Бонус","code":"SC9PDX5","planned":true,"setup":true},{"id":"DS-236","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-08","brand":"Vegas Way","type":"Бонус","code":"VW3MQL8","planned":true,"setup":true},{"id":"DS-237","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-08","brand":"NoLimitCoins","type":"Бонус","code":"NL7BKZ4","planned":true,"setup":true},{"id":"DS-238","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-08","brand":"Fire Seven","type":"Бонус","code":"F7VQX26","planned":true,"setup":true},{"id":"DS-239","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-08","brand":"Fortune Wheelz","type":"Бонус","code":"FW5JTD9","planned":true,"setup":true},{"id":"DS-240","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-09","brand":"Storm Rush","type":"Оффер","code":"SR2VJH9","planned":true,"setup":true},{"id":"DS-241","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-09","brand":"TAO Fortune","type":"Оффер","code":"TQ7DKB4","planned":true,"setup":true},{"id":"DS-242","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-09","brand":"DexyPlay","type":"Оффер","code":"DX53RWN","planned":true,"setup":true},{"id":"DS-243","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-09","brand":"Scarlet Sands","type":"Оффер","code":"SC61MTV","planned":true,"setup":true},{"id":"DS-244","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-09","brand":"Vegas Way","type":"Оффер","code":"VW29HBL","planned":true,"setup":true},{"id":"DS-245","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-09","brand":"NoLimitCoins","type":"Оффер","code":"NL38GRZ","planned":true,"setup":true},{"id":"DS-246","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-09","brand":"Fire Seven","type":"Оффер","code":"F7M35CD","planned":true,"setup":true},{"id":"DS-247","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-09","brand":"Fortune Wheelz","type":"Оффер","code":"FW48XPD","planned":true,"setup":true},{"id":"DS-248","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-09","brand":"NoLimitCoins","type":"Оффер","code":"R73KMXN8","planned":false,"setup":true},{"id":"DS-249","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-10","brand":"Storm Rush","type":"Бонус","code":"SR4KQ7V","planned":true,"setup":true},{"id":"DS-250","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-10","brand":"TAO Fortune","type":"Бонус","code":"TF7NQZ4","planned":true,"setup":true},{"id":"DS-251","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-10","brand":"DexyPlay","type":"Бонус","code":"DX92MRT","planned":true,"setup":true},{"id":"DS-252","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-10","brand":"Scarlet Sands","type":"Бонус","code":"SS58KDR","planned":true,"setup":true},{"id":"DS-253","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-10","brand":"NoLimitCoins","type":"Бонус","code":"NL64XRW","planned":true,"setup":true},{"id":"DS-254","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-10","brand":"Vegas Way","type":"Бонус","code":"VW31LPQ","planned":true,"setup":true},{"id":"DS-255","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-10","brand":"Fire Seven","type":"Бонус","code":"FS7VQ29","planned":true,"setup":true},{"id":"DS-256","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-10","brand":"Fortune Wheelz","type":"Бонус","code":"FW85TMK","planned":true,"setup":true},{"id":"DS-257","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-11","brand":"Storm Rush","type":"Оффер","code":"SR47QXB","planned":true,"setup":true},{"id":"DS-258","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-11","brand":"TAO Fortune","type":"Оффер","code":"TF83MWK","planned":true,"setup":true},{"id":"DS-259","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-11","brand":"DexyPlay","type":"Оффер","code":"DX52HRV","planned":true,"setup":true},{"id":"DS-260","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-11","brand":"Scarlet Sands","type":"Оффер","code":"SS39KTP","planned":true,"setup":true},{"id":"DS-261","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-11","brand":"Vegas Way","type":"Оффер","code":"VW61LDQ","planned":true,"setup":true},{"id":"DS-262","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-11","brand":"NoLimitCoins","type":"Оффер","code":"NL74BGX","planned":true,"setup":true},{"id":"DS-263","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-11","brand":"Fire Seven","type":"Оффер","code":"FS28VJN","planned":true,"setup":true},{"id":"DS-264","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-11","brand":"Fortune Wheelz","type":"Оффер","code":"FW95TDR","planned":true,"setup":true},{"id":"DS-265","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-12","brand":"Storm Rush","type":"Бонус","code":"SR16FNZ","planned":true,"setup":true},{"id":"DS-266","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-12","brand":"TAO Fortune","type":"Бонус","code":"TF60PQJ","planned":true,"setup":true},{"id":"DS-267","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-12","brand":"DexyPlay","type":"Бонус","code":"DX83WQM","planned":true,"setup":true},{"id":"DS-268","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-12","brand":"Scarlet Sands","type":"Бонус","code":"SC47JBD","planned":true,"setup":true},{"id":"DS-269","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-12","brand":"Vegas Way","type":"Бонус","code":"VG29HKT","planned":true,"setup":true},{"id":"DS-270","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-12","brand":"NoLimitCoins","type":"Бонус","code":"NC38RVP","planned":true,"setup":true},{"id":"DS-271","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-12","brand":"Fire Seven","type":"Бонус","code":"FR91LSC","planned":true,"setup":true},{"id":"DS-272","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-12","brand":"Fortune Wheelz","type":"Бонус","code":"FZ54NDW","planned":true,"setup":true},{"id":"DS-273","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-13","brand":"Storm Rush","type":"Оффер","code":"SM72XKV","planned":true,"setup":true},{"id":"DS-274","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-13","brand":"Storm Rush","type":"Бонус","code":"SM40QBJ","planned":true,"setup":true},{"id":"DS-275","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-13","brand":"TAO Fortune","type":"Оффер","code":"TA65DWP","planned":true,"setup":true},{"id":"DS-276","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-13","brand":"TAO Fortune","type":"Бонус","code":"TA19FRC","planned":true,"setup":true},{"id":"DS-277","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-13","brand":"DexyPlay","type":"Оффер","code":"DP66MTK","planned":true,"setup":true},{"id":"DS-278","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-13","brand":"Scarlet Sands","type":"Оффер","code":"SD23PHL","planned":true,"setup":true},{"id":"DS-279","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-13","brand":"Vegas Way","type":"Оффер","code":"VS87GNR","planned":true,"setup":true},{"id":"DS-280","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-13","brand":"NoLimitCoins","type":"Оффер","code":"NB51KJD","planned":true,"setup":true},{"id":"DS-281","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-13","brand":"Fire Seven","type":"Оффер","code":"FN34TQZ","planned":true,"setup":true},{"id":"DS-282","channel":"DS","channelTitle":"Дискорд","channelColor":"#5865f2","date":"2026-09-13","brand":"Fortune Wheelz","type":"Оффер","code":"FL78VCM","planned":true,"setup":true},{"id":"BC-1","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-18","brand":"Storm Rush","type":"Оффер","code":"SR38KVQ","planned":true,"setup":true},{"id":"BC-2","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-18","brand":"TAO Fortune","type":"Оффер","code":"TA46NDL","planned":true,"setup":true},{"id":"BC-3","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-18","brand":"Scarlet Sands","type":"Оффер","code":"SS72WBK","planned":true,"setup":true},{"id":"BC-4","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-18","brand":"Vegas Way","type":"Оффер","code":"VW61PZM","planned":true,"setup":true},{"id":"BC-5","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-18","brand":"NoLimitCoins","type":"Оффер","code":"NL83RCT","planned":true,"setup":true},{"id":"BC-6","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-18","brand":"Fire Seven","type":"Оффер","code":"F7Q58MD","planned":true,"setup":true},{"id":"BC-7","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-18","brand":"Fortune Wheelz","type":"Оффер","code":"FW49TBN","planned":true,"setup":true},{"id":"BC-8","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-06","brand":"Scarlet Sands","type":"Оффер","code":"SC72VDN","planned":true,"setup":true},{"id":"BC-9","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-06","brand":"Vegas Way","type":"Оффер","code":"VW56PJT","planned":true,"setup":true},{"id":"BC-10","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-06","brand":"NoLimitCoins","type":"Оффер","code":"NL84RGM","planned":true,"setup":true},{"id":"BC-11","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-06","brand":"Fire Seven","type":"Оффер","code":"F7K47DP","planned":true,"setup":true},{"id":"BC-12","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-06","brand":"Fortune Wheelz","type":"Оффер","code":"FW95LTZ","planned":true,"setup":true},{"id":"BC-13","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-08","brand":"TAO Fortune","type":"Оффер","code":"TQ92NRF","planned":true,"setup":true},{"id":"BC-14","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-08","brand":"Scarlet Sands","type":"Оффер","code":"SC46HBQ","planned":true,"setup":true},{"id":"BC-15","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-08","brand":"Vegas Way","type":"Оффер","code":"VW73LDK","planned":true,"setup":true},{"id":"BC-16","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-08","brand":"NoLimitCoins","type":"Оффер","code":"NL29PWX","planned":true,"setup":true},{"id":"BC-17","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-08","brand":"Fire Seven","type":"Оффер","code":"F7B37MQ","planned":true,"setup":true},{"id":"BC-18","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-08","brand":"Fortune Wheelz","type":"Оффер","code":"FW64GZT","planned":true,"setup":true},{"id":"BC-19","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-11","brand":"Vegas Way","type":"Оффер","code":"VW47DPC","planned":true,"setup":true},{"id":"BC-20","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-11","brand":"NoLimitCoins","type":"Оффер","code":"NL62TKW","planned":true,"setup":true},{"id":"BC-21","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-11","brand":"Scarlet Sands","type":"Оффер","code":"SC38QVJ","planned":true,"setup":true},{"id":"BC-22","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-11","brand":"Fortune Wheelz","type":"Оффер","code":"FW29HLB","planned":true,"setup":true},{"id":"BC-23","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-11","brand":"TAO Fortune","type":"Оффер","code":"TQ84MZD","planned":true,"setup":true},{"id":"BC-24","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-11","brand":"Fire Seven","type":"Оффер","code":"F7R56XN","planned":true,"setup":true},{"id":"BC-25","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-11","brand":"Storm Rush","type":"Оффер","code":"SR54KQD","planned":true,"setup":true},{"id":"BC-26","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-13","brand":"Storm Rush","type":"Оффер","code":"SR73MQV","planned":true,"setup":true},{"id":"BC-27","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-13","brand":"DexyPlay","type":"Оффер","code":"DX45TQB","planned":true,"setup":true},{"id":"BC-28","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-13","brand":"TAO Fortune","type":"Оффер","code":"TA67VNK","planned":true,"setup":true},{"id":"BC-29","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-13","brand":"Scarlet Sands","type":"Оффер","code":"SC91KRT","planned":true,"setup":true},{"id":"BC-30","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-13","brand":"Vegas Way","type":"Оффер","code":"VW34LZP","planned":true,"setup":true},{"id":"BC-31","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-13","brand":"NoLimitCoins","type":"Оффер","code":"NL58HJQ","planned":true,"setup":true},{"id":"BC-32","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-13","brand":"Fire Seven","type":"Оффер","code":"F7D48LM","planned":true,"setup":true},{"id":"BC-33","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-13","brand":"Fortune Wheelz","type":"Оффер","code":"FW26PKD","planned":true,"setup":true},{"id":"BC-34","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-15","brand":"Storm Rush","type":"Оффер","code":"SR41DWP","planned":true,"setup":true},{"id":"BC-35","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-15","brand":"DexyPlay","type":"Оффер","code":"DX76KJV","planned":true,"setup":true},{"id":"BC-36","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-15","brand":"TAO Fortune","type":"Оффер","code":"TA92RBL","planned":true,"setup":true},{"id":"BC-37","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-15","brand":"Scarlet Sands","type":"Оффер","code":"SC64WNM","planned":true,"setup":true},{"id":"BC-38","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-15","brand":"Vegas Way","type":"Оффер","code":"VW87QTD","planned":true,"setup":true},{"id":"BC-39","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-15","brand":"NoLimitCoins","type":"Оффер","code":"NL29VKB","planned":true,"setup":true},{"id":"BC-40","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-15","brand":"Fire Seven","type":"Оффер","code":"F7M53XQ","planned":true,"setup":true},{"id":"BC-41","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-15","brand":"Fortune Wheelz","type":"Оффер","code":"FW68ZDR","planned":true,"setup":true},{"id":"BC-42","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-20","brand":"Storm Rush","type":"Оффер","code":"SR57VQD","planned":true,"setup":true},{"id":"BC-43","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-20","brand":"Scarlet Sands","type":"Оффер","code":"SC26PLD","planned":true,"setup":true},{"id":"BC-44","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-20","brand":"Vegas Way","type":"Оффер","code":"VW65NTQ","planned":true,"setup":true},{"id":"BC-45","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-20","brand":"NoLimitCoins","type":"Оффер","code":"NL37QWD","planned":true,"setup":true},{"id":"BC-46","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-20","brand":"Fire Seven","type":"Оффер","code":"F7P34QB","planned":true,"setup":true},{"id":"BC-47","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-20","brand":"Fortune Wheelz","type":"Оффер","code":"FW27BLK","planned":true,"setup":true},{"id":"BC-48","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-22","brand":"Storm Rush","type":"Оффер","code":"SR64ZHP","planned":true,"setup":true},{"id":"BC-49","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-22","brand":"DexyPlay","type":"Оффер","code":"DX37NQB","planned":true,"setup":true},{"id":"BC-50","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-22","brand":"TAO Fortune","type":"Оффер","code":"TA52WKD","planned":true,"setup":true},{"id":"BC-51","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-22","brand":"Scarlet Sands","type":"Оффер","code":"SC79BTM","planned":true,"setup":true},{"id":"BC-52","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-22","brand":"Vegas Way","type":"Оффер","code":"VW48GDL","planned":true,"setup":true},{"id":"BC-53","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-22","brand":"NoLimitCoins","type":"Оффер","code":"NL83VQC","planned":true,"setup":true},{"id":"BC-54","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-22","brand":"Fire Seven","type":"Оффер","code":"F7K29RT","planned":true,"setup":true},{"id":"BC-55","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-22","brand":"Fortune Wheelz","type":"Оффер","code":"FW93LMB","planned":true,"setup":true},{"id":"BC-56","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-25","brand":"Storm Rush","type":"Оффер","code":"SR62WQK","planned":true,"setup":true},{"id":"BC-57","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-25","brand":"TAO Fortune","type":"Оффер","code":"TA48NPD","planned":true,"setup":true},{"id":"BC-58","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-25","brand":"Scarlet Sands","type":"Оффер","code":"SC73MVQ","planned":true,"setup":true},{"id":"BC-59","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-25","brand":"Vegas Way","type":"Оффер","code":"VW29HTL","planned":true,"setup":true},{"id":"BC-60","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-25","brand":"NoLimitCoins","type":"Оффер","code":"NL46GXT","planned":true,"setup":true},{"id":"BC-61","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-25","brand":"Fire Seven","type":"Оффер","code":"F7Q86NV","planned":true,"setup":true},{"id":"BC-62","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-25","brand":"Fortune Wheelz","type":"Оффер","code":"FW53KDP","planned":true,"setup":true},{"id":"BC-63","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-27","brand":"Storm Rush","type":"Оффер","code":"SR83VQN","planned":true,"setup":true},{"id":"BC-64","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-27","brand":"TAO Fortune","type":"Оффер","code":"TA45BWD","planned":true,"setup":true},{"id":"BC-65","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-27","brand":"Scarlet Sands","type":"Оффер","code":"SC61MTK","planned":true,"setup":true},{"id":"BC-66","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-27","brand":"Vegas Way","type":"Оффер","code":"VW39LPB","planned":true,"setup":true},{"id":"BC-67","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-27","brand":"NoLimitCoins","type":"Оффер","code":"NL72KDW","planned":true,"setup":true},{"id":"BC-68","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-27","brand":"Fire Seven","type":"Оффер","code":"F7T86VC","planned":true,"setup":true},{"id":"BC-69","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-27","brand":"Fortune Wheelz","type":"Оффер","code":"FW51HQN","planned":true,"setup":true},{"id":"BC-70","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-29","brand":"Storm Rush","type":"Оффер","code":"SR29KDB","planned":true,"setup":true},{"id":"BC-71","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-29","brand":"TAO Fortune","type":"Оффер","code":"TA65WQM","planned":true,"setup":true},{"id":"BC-72","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-29","brand":"Scarlet Sands","type":"Оффер","code":"SC48TVN","planned":true,"setup":true},{"id":"BC-73","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-29","brand":"Vegas Way","type":"Оффер","code":"VW71GBD","planned":true,"setup":true},{"id":"BC-74","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-29","brand":"NoLimitCoins","type":"Оффер","code":"NL36PXT","planned":true,"setup":true},{"id":"BC-75","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-29","brand":"Fire Seven","type":"Оффер","code":"F7V52NK","planned":true,"setup":true},{"id":"BC-76","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-08-29","brand":"Fortune Wheelz","type":"Оффер","code":"FW83CMR","planned":true,"setup":true},{"id":"BC-77","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-09-01","brand":"Storm Rush","type":"Оффер","code":"SR47QBK","planned":true,"setup":true},{"id":"BC-78","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-09-01","brand":"TAO Fortune","type":"Оффер","code":"TA82NVD","planned":true,"setup":true},{"id":"BC-79","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-09-01","brand":"Scarlet Sands","type":"Оффер","code":"SS39KTP","planned":true,"setup":true},{"id":"BC-80","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-09-01","brand":"Vegas Way","type":"Оффер","code":"VW76LDC","planned":true,"setup":true},{"id":"BC-81","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-09-01","brand":"NoLimitCoins","type":"Оффер","code":"NL52BXH","planned":true,"setup":true},{"id":"BC-82","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-09-01","brand":"Fire Seven","type":"Оффер","code":"F7N63QM","planned":true,"setup":true},{"id":"BC-83","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-09-01","brand":"Fortune Wheelz","type":"Оффер","code":"FW94TZR","planned":true,"setup":true},{"id":"BC-84","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-09-03","brand":"Storm Rush","type":"Оффер","code":"SR47QXM","planned":true,"setup":true},{"id":"BC-85","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-09-03","brand":"TAO Fortune","type":"Оффер","code":"TF92RKD","planned":true,"setup":true},{"id":"BC-86","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-09-03","brand":"Scarlet Sands","type":"Оффер","code":"SS63VNQ","planned":true,"setup":true},{"id":"BC-87","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-09-03","brand":"Vegas Way","type":"Оффер","code":"VW18XTP","planned":true,"setup":true},{"id":"BC-88","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-09-03","brand":"NoLimitCoins","type":"Оффер","code":"NL74JQW","planned":true,"setup":true},{"id":"BC-89","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-09-03","brand":"Fire Seven","type":"Оффер","code":"F7Z29MK","planned":true,"setup":true},{"id":"BC-90","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-09-03","brand":"Fortune Wheelz","type":"Оффер","code":"FW56TQX","planned":true,"setup":true},{"id":"BC-91","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-09-05","brand":"Storm Rush","type":"Оффер","code":"SR7KDXM","planned":true,"setup":true},{"id":"BC-92","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-09-05","brand":"TAO Fortune","type":"Оффер","code":"TF3RQWZ","planned":true,"setup":true},{"id":"BC-93","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-09-05","brand":"Scarlet Sands","type":"Оффер","code":"SC9MXKD","planned":true,"setup":true},{"id":"BC-94","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-09-05","brand":"Vegas Way","type":"Оффер","code":"VW5QZKR","planned":true,"setup":true},{"id":"BC-95","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-09-05","brand":"NoLimitCoins","type":"Оффер","code":"NL8TXWQ","planned":true,"setup":true},{"id":"BC-96","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-09-05","brand":"Fire Seven","type":"Оффер","code":"F76QZXM","planned":true,"setup":true},{"id":"BC-97","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-09-05","brand":"Fortune Wheelz","type":"Оффер","code":"FW4WKXQ","planned":true,"setup":true},{"id":"BC-98","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-09-08","brand":"Storm Rush","type":"Оффер","code":"SR63TVQ","planned":true,"setup":true},{"id":"BC-99","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-09-08","brand":"TAO Fortune","type":"Оффер","code":"TF29MKD","planned":true,"setup":true},{"id":"BC-100","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-09-08","brand":"Scarlet Sands","type":"Оффер","code":"SS84HRJ","planned":true,"setup":true},{"id":"BC-101","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-09-08","brand":"Vegas Way","type":"Оффер","code":"VW51PZG","planned":true,"setup":true},{"id":"BC-102","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-09-08","brand":"NoLimitCoins","type":"Оффер","code":"NL76CQB","planned":true,"setup":true},{"id":"BC-103","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-09-08","brand":"Fire Seven","type":"Оффер","code":"FS38WLX","planned":true,"setup":true},{"id":"BC-104","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-09-08","brand":"Fortune Wheelz","type":"Оффер","code":"FW95NDT","planned":true,"setup":true},{"id":"BC-105","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-09-10","brand":"Storm Rush","type":"Оффер","code":"SR41GBX","planned":true,"setup":true},{"id":"BC-106","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-09-10","brand":"TAO Fortune","type":"Оффер","code":"TF63MZK","planned":true,"setup":true},{"id":"BC-107","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-09-10","brand":"Scarlet Sands","type":"Оффер","code":"SS27PLD","planned":true,"setup":true},{"id":"BC-108","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-09-10","brand":"Vegas Way","type":"Оффер","code":"VW95NRT","planned":true,"setup":true},{"id":"BC-109","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-09-10","brand":"NoLimitCoins","type":"Оффер","code":"NL38QVH","planned":true,"setup":true},{"id":"BC-110","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-09-10","brand":"Fire Seven","type":"Оффер","code":"FS72KDW","planned":true,"setup":true},{"id":"BC-111","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-09-10","brand":"Fortune Wheelz","type":"Оффер","code":"FW56JXB","planned":true,"setup":true},{"id":"BC-112","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-09-12","brand":"Storm Rush","type":"Оффер","code":"SR74MVQ","planned":true,"setup":true},{"id":"BC-113","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-09-12","brand":"TAO Fortune","type":"Оффер","code":"TA36XPL","planned":true,"setup":true},{"id":"BC-114","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-09-12","brand":"Scarlet Sands","type":"Оффер","code":"SC92FDR","planned":true,"setup":true},{"id":"BC-115","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-09-12","brand":"Vegas Way","type":"Оффер","code":"VW45KTB","planned":true,"setup":true},{"id":"BC-116","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-09-12","brand":"NoLimitCoins","type":"Оффер","code":"NL83QWH","planned":true,"setup":true},{"id":"BC-117","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-09-12","brand":"Fire Seven","type":"Оффер","code":"FS27LJP","planned":true,"setup":true},{"id":"BC-118","channel":"BC","channelTitle":"Бродкаст","channelColor":"#00a884","date":"2026-09-12","brand":"Fortune Wheelz","type":"Оффер","code":"FW61ZDN","planned":true,"setup":true},{"id":"AUTO-1","channel":"AUTO","channelTitle":"Автоматизация","channelColor":"#9b59b6","date":"10.09–23.09","brand":"Scarlet Sands","type":"0.5 СК","code":"7Z3TMB4M4","planned":true,"setup":true},{"id":"AUTO-2","channel":"AUTO","channelTitle":"Автоматизация","channelColor":"#9b59b6","date":"10.09–23.09","brand":"Scarlet Sands","type":"ФП","code":"2XV64DXSL","planned":true,"setup":true},{"id":"AUTO-3","channel":"AUTO","channelTitle":"Автоматизация","channelColor":"#9b59b6","date":"10.09–23.09","brand":"Scarlet Sands","type":"ФП","code":"98ZTZMX9Z","planned":true,"setup":true},{"id":"AUTO-4","channel":"AUTO","channelTitle":"Автоматизация","channelColor":"#9b59b6","date":"10.09–23.09","brand":"Scarlet Sands","type":"Дорогая автоматизация","code":"Z85LZG9V7","planned":true,"setup":true},{"id":"AUTO-5","channel":"AUTO","channelTitle":"Автоматизация","channelColor":"#9b59b6","date":"10.09–23.09","brand":"Scarlet Sands","type":"Дорогая автоматизация","code":"4WNGT45B8","planned":true,"setup":true},{"id":"AUTO-6","channel":"AUTO","channelTitle":"Автоматизация","channelColor":"#9b59b6","date":"10.09–23.09","brand":"Scarlet Sands","type":"Бомж авто","code":"7YK543NPG","planned":true,"setup":true},{"id":"AUTO-7","channel":"AUTO","channelTitle":"Автоматизация","channelColor":"#9b59b6","date":"10.09–23.09","brand":"Fortune Wheelz","type":"0.5 СК","code":"Y798YBL7Y","planned":true,"setup":true},{"id":"AUTO-8","channel":"AUTO","channelTitle":"Автоматизация","channelColor":"#9b59b6","date":"10.09–23.09","brand":"Fortune Wheelz","type":"ФП","code":"2RJX6F24D","planned":true,"setup":true},{"id":"AUTO-9","channel":"AUTO","channelTitle":"Автоматизация","channelColor":"#9b59b6","date":"10.09–23.09","brand":"Fortune Wheelz","type":"ФП","code":"C73L96CSZ","planned":true,"setup":true},{"id":"AUTO-10","channel":"AUTO","channelTitle":"Автоматизация","channelColor":"#9b59b6","date":"10.09–23.09","brand":"Fortune Wheelz","type":"Дорогая автоматизация","code":"F3BCJ58MP","planned":true,"setup":true},{"id":"AUTO-11","channel":"AUTO","channelTitle":"Автоматизация","channelColor":"#9b59b6","date":"10.09–23.09","brand":"Fortune Wheelz","type":"Дорогая автоматизация","code":"4SD48J9JC","planned":true,"setup":true},{"id":"AUTO-12","channel":"AUTO","channelTitle":"Автоматизация","channelColor":"#9b59b6","date":"10.09–23.09","brand":"Fortune Wheelz","type":"Бомж авто","code":"P4WL82WRV","planned":true,"setup":true},{"id":"AUTO-13","channel":"AUTO","channelTitle":"Автоматизация","channelColor":"#9b59b6","date":"10.09–23.09","brand":"NoLimitCoins","type":"0.5 СК","code":"K6X9YM3K4","planned":true,"setup":true},{"id":"AUTO-14","channel":"AUTO","channelTitle":"Автоматизация","channelColor":"#9b59b6","date":"10.09–23.09","brand":"NoLimitCoins","type":"ФП","code":"T3YZGJQ63","planned":true,"setup":true},{"id":"AUTO-15","channel":"AUTO","channelTitle":"Автоматизация","channelColor":"#9b59b6","date":"10.09–23.09","brand":"NoLimitCoins","type":"ФП","code":"N4X74WDK5","planned":true,"setup":true},{"id":"AUTO-16","channel":"AUTO","channelTitle":"Автоматизация","channelColor":"#9b59b6","date":"10.09–23.09","brand":"NoLimitCoins","type":"Дорогая автоматизация","code":"MJZ5GPC36","planned":true,"setup":true},{"id":"AUTO-17","channel":"AUTO","channelTitle":"Автоматизация","channelColor":"#9b59b6","date":"10.09–23.09","brand":"NoLimitCoins","type":"Дорогая автоматизация","code":"V58HDH89V","planned":true,"setup":true},{"id":"AUTO-18","channel":"AUTO","channelTitle":"Автоматизация","channelColor":"#9b59b6","date":"10.09–23.09","brand":"NoLimitCoins","type":"Бомж авто","code":"3S62M2PXP","planned":true,"setup":true},{"id":"AUTO-19","channel":"AUTO","channelTitle":"Автоматизация","channelColor":"#9b59b6","date":"10.09–23.09","brand":"Storm Rush","type":"0.5 СК","code":"F9WPVD95V","planned":true,"setup":true},{"id":"AUTO-20","channel":"AUTO","channelTitle":"Автоматизация","channelColor":"#9b59b6","date":"10.09–23.09","brand":"Storm Rush","type":"ФП","code":"X6D4V29LV","planned":true,"setup":true},{"id":"AUTO-21","channel":"AUTO","channelTitle":"Автоматизация","channelColor":"#9b59b6","date":"10.09–23.09","brand":"Storm Rush","type":"ФП","code":"TR6C58DWS","planned":true,"setup":true},{"id":"AUTO-22","channel":"AUTO","channelTitle":"Автоматизация","channelColor":"#9b59b6","date":"10.09–23.09","brand":"Storm Rush","type":"Дорогая автоматизация","code":"7TSKXC6D5","planned":true,"setup":true},{"id":"AUTO-23","channel":"AUTO","channelTitle":"Автоматизация","channelColor":"#9b59b6","date":"10.09–23.09","brand":"Storm Rush","type":"Дорогая автоматизация","code":"FVC9X94NF","planned":true,"setup":true},{"id":"AUTO-24","channel":"AUTO","channelTitle":"Автоматизация","channelColor":"#9b59b6","date":"10.09–23.09","brand":"Storm Rush","type":"Бомж авто","code":"857XNTFX2","planned":true,"setup":true},{"id":"AUTO-25","channel":"AUTO","channelTitle":"Автоматизация","channelColor":"#9b59b6","date":"10.09–23.09","brand":"TAO Fortune","type":"0.5 СК","code":"5P6CD5JWF","planned":true,"setup":true},{"id":"AUTO-26","channel":"AUTO","channelTitle":"Автоматизация","channelColor":"#9b59b6","date":"10.09–23.09","brand":"TAO Fortune","type":"ФП","code":"N73MRT37S","planned":true,"setup":true},{"id":"AUTO-27","channel":"AUTO","channelTitle":"Автоматизация","channelColor":"#9b59b6","date":"10.09–23.09","brand":"TAO Fortune","type":"ФП","code":"NGK598VKV","planned":true,"setup":true},{"id":"AUTO-28","channel":"AUTO","channelTitle":"Автоматизация","channelColor":"#9b59b6","date":"10.09–23.09","brand":"TAO Fortune","type":"Дорогая автоматизация","code":"B37WTD69S","planned":true,"setup":true},{"id":"AUTO-29","channel":"AUTO","channelTitle":"Автоматизация","channelColor":"#9b59b6","date":"10.09–23.09","brand":"TAO Fortune","type":"Дорогая автоматизация","code":"HQ8G8XV83","planned":true,"setup":true},{"id":"AUTO-30","channel":"AUTO","channelTitle":"Автоматизация","channelColor":"#9b59b6","date":"10.09–23.09","brand":"TAO Fortune","type":"Бомж авто","code":"M43LF7DNQ","planned":true,"setup":true},{"id":"AUTO-31","channel":"AUTO","channelTitle":"Автоматизация","channelColor":"#9b59b6","date":"10.09–23.09","brand":"Vegas Way","type":"0.5 СК","code":"98XGKN9JB","planned":true,"setup":true},{"id":"AUTO-32","channel":"AUTO","channelTitle":"Автоматизация","channelColor":"#9b59b6","date":"10.09–23.09","brand":"Vegas Way","type":"ФП","code":"KV638SKS5","planned":true,"setup":true},{"id":"AUTO-33","channel":"AUTO","channelTitle":"Автоматизация","channelColor":"#9b59b6","date":"10.09–23.09","brand":"Vegas Way","type":"ФП","code":"PKX62KH7L","planned":true,"setup":true},{"id":"AUTO-34","channel":"AUTO","channelTitle":"Автоматизация","channelColor":"#9b59b6","date":"10.09–23.09","brand":"Vegas Way","type":"Дорогая автоматизация","code":"RV4SF9RH5","planned":true,"setup":true},{"id":"AUTO-35","channel":"AUTO","channelTitle":"Автоматизация","channelColor":"#9b59b6","date":"10.09–23.09","brand":"Vegas Way","type":"Дорогая автоматизация","code":"R2JNQ9D8C","planned":true,"setup":true},{"id":"AUTO-36","channel":"AUTO","channelTitle":"Автоматизация","channelColor":"#9b59b6","date":"10.09–23.09","brand":"Vegas Way","type":"Бомж авто","code":"WZ9YS6T7G","planned":true,"setup":true},{"id":"AUTO-37","channel":"AUTO","channelTitle":"Автоматизация","channelColor":"#9b59b6","date":"10.09–23.09","brand":"DexyPlay","type":"0.5 СК","code":"ZP9MKQC89","planned":true,"setup":true},{"id":"AUTO-38","channel":"AUTO","channelTitle":"Автоматизация","channelColor":"#9b59b6","date":"10.09–23.09","brand":"DexyPlay","type":"ФП","code":"6QXRNFH42","planned":true,"setup":true},{"id":"AUTO-39","channel":"AUTO","channelTitle":"Автоматизация","channelColor":"#9b59b6","date":"10.09–23.09","brand":"DexyPlay","type":"ФП","code":"J69BYF42H","planned":true,"setup":true},{"id":"AUTO-40","channel":"AUTO","channelTitle":"Автоматизация","channelColor":"#9b59b6","date":"10.09–23.09","brand":"DexyPlay","type":"Дорогая автоматизация","code":"P98D7JNBZ","planned":true,"setup":true},{"id":"AUTO-41","channel":"AUTO","channelTitle":"Автоматизация","channelColor":"#9b59b6","date":"10.09–23.09","brand":"DexyPlay","type":"Дорогая автоматизация","code":"B8KC687JW","planned":true,"setup":true},{"id":"AUTO-42","channel":"AUTO","channelTitle":"Автоматизация","channelColor":"#9b59b6","date":"10.09–23.09","brand":"DexyPlay","type":"Бомж авто","code":"9Y4DZ53NW","planned":true,"setup":true},{"id":"AUTO-43","channel":"AUTO","channelTitle":"Автоматизация","channelColor":"#9b59b6","date":"10.09–23.09","brand":"Fire Seven","type":"0.5 СК","code":"Z6MVLC82B","planned":true,"setup":true},{"id":"AUTO-44","channel":"AUTO","channelTitle":"Автоматизация","channelColor":"#9b59b6","date":"10.09–23.09","brand":"Fire Seven","type":"ФП","code":"SV6Y8TY2V","planned":true,"setup":true},{"id":"AUTO-45","channel":"AUTO","channelTitle":"Автоматизация","channelColor":"#9b59b6","date":"10.09–23.09","brand":"Fire Seven","type":"ФП","code":"F3YTL4M53","planned":true,"setup":true},{"id":"AUTO-46","channel":"AUTO","channelTitle":"Автоматизация","channelColor":"#9b59b6","date":"10.09–23.09","brand":"Fire Seven","type":"Дорогая автоматизация","code":"43NP3KRXY","planned":true,"setup":true},{"id":"AUTO-47","channel":"AUTO","channelTitle":"Автоматизация","channelColor":"#9b59b6","date":"10.09–23.09","brand":"Fire Seven","type":"Дорогая автоматизация","code":"9T27KYRP6","planned":true,"setup":true},{"id":"AUTO-48","channel":"AUTO","channelTitle":"Автоматизация","channelColor":"#9b59b6","date":"10.09–23.09","brand":"Fire Seven","type":"Бомж авто","code":"W75C4WPQ6","planned":true,"setup":true},{"id":"AUTO-49","channel":"AUTO","channelTitle":"Автоматизация","channelColor":"#9b59b6","date":"10.09–23.09","brand":"Бренд","type":"Тип","code":"КОД","planned":true,"setup":false},{"id":"AUTO-50","channel":"AUTO","channelTitle":"Автоматизация","channelColor":"#9b59b6","date":"10.09–23.09","brand":"Scarlet Sands","type":"0.5 СК","code":"Z6QXWN3P8","planned":true,"setup":true},{"id":"AUTO-51","channel":"AUTO","channelTitle":"Автоматизация","channelColor":"#9b59b6","date":"10.09–23.09","brand":"Fortune Wheelz","type":"0.5 СК","code":"V4RXKM9T2","planned":true,"setup":true},{"id":"AUTO-52","channel":"AUTO","channelTitle":"Автоматизация","channelColor":"#9b59b6","date":"10.09–23.09","brand":"NoLimitCoins","type":"0.5 СК","code":"H8PXQY5W3","planned":true,"setup":true},{"id":"AUTO-53","channel":"AUTO","channelTitle":"Автоматизация","channelColor":"#9b59b6","date":"10.09–23.09","brand":"Storm Rush","type":"0.5 СК","code":"Z3MXTR7K6","planned":true,"setup":true},{"id":"AUTO-54","channel":"AUTO","channelTitle":"Автоматизация","channelColor":"#9b59b6","date":"10.09–23.09","brand":"TAO Fortune","type":"0.5 СК","code":"V9WXNP4Q5","planned":true,"setup":true},{"id":"AUTO-55","channel":"AUTO","channelTitle":"Автоматизация","channelColor":"#9b59b6","date":"10.09–23.09","brand":"Vegas Way","type":"0.5 СК","code":"H5TXKQ2M8","planned":true,"setup":true},{"id":"AUTO-56","channel":"AUTO","channelTitle":"Автоматизация","channelColor":"#9b59b6","date":"10.09–23.09","brand":"DexyPlay","type":"0.5 СК","code":"Z7RXPW6N4","planned":true,"setup":true},{"id":"AUTO-57","channel":"AUTO","channelTitle":"Автоматизация","channelColor":"#9b59b6","date":"10.09–23.09","brand":"Fire Seven","type":"0.5 СК","code":"V2QXMY8K7","planned":true,"setup":true}],"stats":{"total":613,"today":15,"unplanned":88,"unsetup":4,"todayDate":"2026-09-11"}};
 
 (function(){
-  var PROMO_QUEUE_KEY = 'dash_promo_queue_v1';
-  var DAY_LABELS = { offers: 'День офферов', bonus: 'День бонусов' };
-  var CHANNEL_LABELS = { facebook: 'Facebook', broadcast: 'Broadcast' };
-  var list = document.getElementById('queueList');
+  const SPREADSHEET_ID = '1K0oX336wfxNHCE163NnOj0L7EX5QZb6hpuQOvUP8RqE';
+  let STATE = {
+    data: window.__PROMO_DATA__,
+    channel: 'all',
+    dateFilter: 'all',
+    customDate: '',
+    statusFilter: 'all',
+    search: ''
+  };
 
-  function load(){
-    try{
-      var raw = localStorage.getItem(PROMO_QUEUE_KEY);
-      if(raw) return JSON.parse(raw);
-    }catch(e){}
-    return [];
+  const $ = s => document.querySelector(s);
+  const $$ = s => document.querySelectorAll(s);
+
+  // Theme switch
+  const themeBtn = $('#themeBtn');
+  const savedTheme = localStorage.getItem('dash_theme') || 'dark';
+  document.documentElement.dataset.theme = savedTheme;
+  themeBtn.onclick = () => {
+    const next = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light';
+    document.documentElement.dataset.theme = next;
+    localStorage.setItem('dash_theme', next);
+  };
+
+  function showToast(msg) {
+    const t = $('#toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(t._timer);
+    t._timer = setTimeout(() => t.classList.remove('show'), 2200);
   }
-  function save(items){
-    try{ localStorage.setItem(PROMO_QUEUE_KEY, JSON.stringify(items)); }catch(e){}
-  }
-  function formatTime(iso){
-    var d = new Date(iso);
-    return d.toLocaleString('ru-RU', { day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit' });
-  }
-  function render(){
-    var items = load();
-    list.innerHTML = '';
-    if(!items.length){
-      var hint = document.createElement('div');
-      hint.className = 'empty-hint';
-      hint.textContent = 'Очередь пуста — отправь текст со страницы Facebook или Broadcast.';
-      list.appendChild(hint);
-      return;
-    }
-    items.slice().reverse().forEach(function(item, revIdx){
-      var idx = items.length - 1 - revIdx;
-      var card = document.createElement('div');
-      card.className = 'queue-card';
-      var head = document.createElement('div');
-      head.className = 'q-head';
-      var title = document.createElement('span');
-      title.className = 'q-title';
-      title.textContent = item.project + ' ';
-      var day = document.createElement('span');
-      day.className = 'q-day';
-      var channelLabel = item.channel ? (CHANNEL_LABELS[item.channel] || item.channel) + ' · ' : '';
-      day.textContent = '· ' + channelLabel + (DAY_LABELS[item.day] || item.day);
-      title.appendChild(day);
-      var time = document.createElement('span');
-      time.className = 'q-time';
-      time.textContent = formatTime(item.ts);
-      head.appendChild(title);
-      head.appendChild(time);
-      var text = document.createElement('div');
-      text.className = 'q-text';
-      text.textContent = item.text;
-      var removeBtn = document.createElement('button');
-      removeBtn.type = 'button';
-      removeBtn.className = 'q-remove';
-      removeBtn.textContent = 'Убрать';
-      removeBtn.addEventListener('click', function(){
-        var current = load();
-        current.splice(idx, 1);
-        save(current);
-        render();
-      });
-      card.appendChild(head);
-      card.appendChild(text);
-      card.appendChild(removeBtn);
-      list.appendChild(card);
+
+  function copyCode(text) {
+    navigator.clipboard.writeText(text).then(() => {
+      showToast('Код ' + text + ' скопирован! 📋');
+    }).catch(() => {
+      showToast('Скопировано: ' + text);
     });
   }
-  render();
+
+  function renderTable() {
+    const d = STATE.data;
+    if (!d || !d.items) return;
+
+    const items = d.items.filter(item => {
+      if (STATE.channel !== 'all' && item.channel !== STATE.channel) return false;
+      if (STATE.dateFilter === 'today') {
+        if (item.date !== d.stats.todayDate) return false;
+      } else if (STATE.dateFilter === 'custom' && STATE.customDate) {
+        if (item.date !== STATE.customDate) return false;
+      }
+      if (STATE.statusFilter === 'unsettled') {
+        if (item.planned && item.setup) return false;
+      } else if (STATE.statusFilter === 'done') {
+        if (!item.planned || !item.setup) return false;
+      }
+      if (STATE.search) {
+        const q = STATE.search.toLowerCase();
+        const match = (item.brand && item.brand.toLowerCase().includes(q)) ||
+                      (item.code && item.code.toLowerCase().includes(q)) ||
+                      (item.type && item.type.toLowerCase().includes(q)) ||
+                      (item.channelTitle && item.channelTitle.toLowerCase().includes(q));
+        if (!match) return false;
+      }
+      return true;
+    });
+
+    $('#tableCount').textContent = 'Показано: ' + items.length + ' из ' + d.items.length + ' промокодов';
+
+    const tbody = $('#tblBody');
+    if (!items.length) {
+      tbody.innerHTML = '<tr><td colspan="7" class="empty-msg">Промокоды не найдены по выбранным фильтрам</td></tr>';
+      return;
+    }
+
+    let html = '';
+    for (const item of items.slice(0, 400)) {
+      const isOffer = item.type.toLowerCase().includes('оффер') || item.type.toLowerCase().includes('offer');
+      const isBonus = item.type.toLowerCase().includes('бонус') || item.type.toLowerCase().includes('bonus');
+      const typeCls = isOffer ? 'offer' : (isBonus ? 'bonus' : 'other');
+
+      html += '<tr>' +
+        '<td><span class="chan-badge" style="background:' + item.channelColor + '">' + item.channelTitle + '</span></td>' +
+        '<td>' + (item.date === d.stats.todayDate ? '<strong style="color:var(--brand);">' + item.date + ' (сегодня)</strong>' : item.date) + '</td>' +
+        '<td><strong>' + item.brand + '</strong></td>' +
+        '<td><span class="type-badge ' + typeCls + '">' + item.type + '</span></td>' +
+        '<td><button type="button" class="code-btn" data-code="' + item.code + '" title="Кликните, чтобы скопировать">' + item.code + ' 📋</button></td>' +
+        '<td>' + (item.planned ? '<span class="status-tag yes">✓ Да</span>' : '<span class="status-tag no">✗ Нет</span>') + '</td>' +
+        '<td>' + (item.setup ? '<span class="status-tag yes">✓ Засетаплено</span>' : '<span class="status-tag no">✗ Нет</span>') + '</td>' +
+      '</tr>';
+    }
+    tbody.innerHTML = html;
+
+    tbody.querySelectorAll('.code-btn').forEach(b => {
+      b.onclick = () => copyCode(b.dataset.code);
+    });
+  }
+
+  // Live fetch from Google Sheets via gviz API
+  async function fetchLiveGoogleSheets() {
+    const btn = $('#refreshBtn');
+    btn.classList.add('loading');
+    btn.textContent = '⏳ Загрузка...';
+
+    try {
+      const sheets = [
+        { name: 'ДИСКОРД', ch: 'DS', title: 'Дискорд (Discord)', color: '#5865f2' },
+        { name: 'БРОДКАСТ', ch: 'BC', title: 'Бродкаст (BotCake)', color: '#00a884' },
+        { name: 'ФБ', ch: 'FB', title: 'ФБ (Facebook)', color: '#1877f2' },
+        { name: 'АВТОМАТИЗАЦІЯ', ch: 'AUTO', title: 'Автоматизация', color: '#9b59b6' }
+      ];
+
+      const fetchSheetGviz = async (sName) => {
+        const url = 'https://docs.google.com/spreadsheets/d/' + SPREADSHEET_ID + '/gviz/tq?tqx=out:json&sheet=' + encodeURIComponent(sName);
+        const res = await fetch(url);
+        const txt = await res.text();
+        const jsonStr = txt.replace(/^[^{]*/, '').replace(/[^}]*$/, '');
+        return JSON.parse(jsonStr).table.rows || [];
+      };
+
+      const results = await Promise.all(sheets.map(s => fetchSheetGviz(s.name)));
+
+      const isDoneVal = v => {
+        if (!v) return false;
+        const str = String(v.v !== undefined ? v.v : v).toLowerCase();
+        return str === 'true' || str === '1';
+      };
+
+      let newItems = [];
+
+      // Parse DS, BC, FB
+      for (let i = 0; i < 3; i++) {
+        const s = sheets[i];
+        const rows = results[i];
+        rows.forEach((r, idx) => {
+          const c = r.c || [];
+          const code = c[3] ? String(c[3].v || '').trim().toUpperCase() : '';
+          if (!code) return;
+          newItems.push({
+            id: s.ch + '-' + (idx + 1),
+            channel: s.ch,
+            channelTitle: s.title,
+            channelColor: s.color,
+            date: c[0] ? String(c[0].f || c[0].v || '').trim() : '',
+            brand: c[1] ? String(c[1].v || '').trim() : '',
+            type: c[2] ? String(c[2].v || '').trim() : '',
+            code: code,
+            planned: isDoneVal(c[4]),
+            setup: isDoneVal(c[5])
+          });
+        });
+      }
+
+      // Parse AUTO
+      const autoRows = results[3];
+      let lastBrand = '';
+      autoRows.forEach((r, idx) => {
+        if (idx < 1) return; // skip header
+        const c = r.c || [];
+        const code = c[1] ? String(c[1].v || '').trim().toUpperCase() : '';
+        if (!code) return;
+        if (c[0] && c[0].v) lastBrand = String(c[0].v).trim();
+        newItems.push({
+          id: 'AUTO-' + (idx + 1),
+          channel: 'AUTO',
+          channelTitle: 'Автоматизация',
+          channelColor: '#9b59b6',
+          date: '10.09–23.09',
+          brand: (c[0] && c[0].v) ? String(c[0].v).trim() : lastBrand,
+          type: c[2] ? String(c[2].v || '').trim() : '',
+          code: code,
+          planned: true,
+          setup: isDoneVal(c[4])
+        });
+      });
+
+      const todayStr = STATE.data.stats.todayDate;
+      let todayCount = 0, unplannedCount = 0, unsetupCount = 0;
+      for (const item of newItems) {
+        if (item.date === todayStr) todayCount++;
+        if (!item.planned) unplannedCount++;
+        if (!item.setup) unsetupCount++;
+      }
+
+      STATE.data.items = newItems;
+      STATE.data.stats.total = newItems.length;
+      STATE.data.stats.today = todayCount;
+      STATE.data.stats.unplanned = unplannedCount;
+      STATE.data.stats.unsetup = unsetupCount;
+
+      $('#kpiTotal').textContent = newItems.length;
+      $('#kpiToday').textContent = todayCount;
+      $('#kpiUnplanned').textContent = unplannedCount;
+      $('#kpiUnsetup').textContent = unsetupCount;
+      $('#lastSync').textContent = 'Синхронизировано: ' + new Date().toLocaleTimeString('ru-RU');
+
+      renderTable();
+      showToast('Данные успешно обновлены из Google Sheets! 🔄');
+    } catch (e) {
+      console.error(e);
+      showToast('Ошибка загрузки: ' + e.message);
+    } finally {
+      btn.classList.remove('loading');
+      btn.textContent = '🔄 Обновить из Sheets';
+    }
+  }
+
+  // Event handlers
+  $('#refreshBtn').onclick = fetchLiveGoogleSheets;
+
+  $('#chanPills').querySelectorAll('button').forEach(btn => {
+    btn.onclick = () => {
+      $('#chanPills').querySelectorAll('button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      STATE.channel = btn.dataset.chan;
+      renderTable();
+    };
+  });
+
+  $('#datePills').querySelectorAll('button').forEach(btn => {
+    btn.onclick = () => {
+      $('#datePills').querySelectorAll('button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      STATE.dateFilter = btn.dataset.date;
+      renderTable();
+    };
+  });
+
+  $('#dateInp').onchange = (e) => {
+    if (e.target.value) {
+      $('#datePills').querySelectorAll('button').forEach(b => b.classList.remove('active'));
+      STATE.dateFilter = 'custom';
+      STATE.customDate = e.target.value;
+    } else {
+      STATE.dateFilter = 'all';
+    }
+    renderTable();
+  };
+
+  $('#statusPills').querySelectorAll('button').forEach(btn => {
+    btn.onclick = () => {
+      $('#statusPills').querySelectorAll('button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      STATE.statusFilter = btn.dataset.status;
+      renderTable();
+    };
+  });
+
+  $('#searchInp').oninput = (e) => {
+    STATE.search = e.target.value;
+    renderTable();
+  };
+
+  // Initial table render
+  renderTable();
 })();
 </script>
 </body>
