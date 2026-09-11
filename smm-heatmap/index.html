@@ -543,13 +543,13 @@ body { background-image: var(--bg-mesh); background-attachment: fixed; }
   // ---------- Рендер Чипсов Брендов ----------
   function renderChips() {
     var container = document.getElementById("brandChips");
-    var html = '<button class="chip' + (state.brand === "ALL" ? " active" : "") + '" onclick="window.selectBrand('ALL')">' +
+    var html = '<button class="chip' + (state.brand === "ALL" ? " active" : "") + '" data-brand="ALL">' +
       '<span class="dot" style="background:#00e5ff"></span>📦 Все бренды (8)</button>';
 
     BRAND_KEYS.forEach(function(code) {
       var cfg = BRAND_CONFIG[code];
       var isAct = state.brand === code;
-      html += '<button class="chip' + (isAct ? " active" : "") + '" onclick="window.selectBrand('' + code + '')">' +
+      html += '<button class="chip' + (isAct ? " active" : "") + '" data-brand="' + code + '">' +
         '<span class="dot" style="background:' + cfg.color + '"></span>' + cfg.emoji + ' ' + cfg.name + '</button>';
     });
     container.innerHTML = html;
@@ -629,26 +629,29 @@ body { background-image: var(--bg-mesh); background-attachment: fixed; }
     var sliceWeeks = WEEKS.slice(0, count).reverse();
     var labels = sliceWeeks.map(function(w){ return w.label; });
 
-    // Опции шкал и осей
-    var axisBase = {
-      x: { grid: { color: "rgba(255,255,255,0.05)" }, ticks: { color: "#8493b2", maxRotation: 0, font: { size: 11 } } },
-      y: {
-        beginAtZero: true, grid: { color: "rgba(255,255,255,0.06)" }, border: { display: false },
-        ticks: { color: "#8493b2", callback: function(v){ return kfmt(v); }, font: { size: 11 } }
-      }
-    };
-    var commonOpts = {
-      responsive: true, maintainAspectRatio: false,
-      interaction: { mode: "index", intersect: false },
-      plugins: {
-        legend: { labels: { color: "#a6b5d4", usePointStyle: true, boxWidth: 8, font: { size: 11, weight: 600 } } },
-        tooltip: {
-          backgroundColor: "rgba(7, 11, 20, 0.92)",
-          borderColor: "rgba(0, 229, 255, 0.35)", borderWidth: 1,
-          padding: 10, titleFont: { weight: 700 }, bodyFont: { size: 12 }
+    function getAxisBase() {
+      return {
+        x: { grid: { color: "rgba(255,255,255,0.05)" }, ticks: { color: "#8493b2", maxRotation: 0, font: { size: 11 } } },
+        y: {
+          beginAtZero: true, grid: { color: "rgba(255,255,255,0.06)" }, border: { display: false },
+          ticks: { color: "#8493b2", callback: function(v){ return kfmt(v); }, font: { size: 11 } }
         }
-      }
-    };
+      };
+    }
+    function getCommonOpts() {
+      return {
+        responsive: true, maintainAspectRatio: false,
+        interaction: { mode: "index", intersect: false },
+        plugins: {
+          legend: { labels: { color: "#a6b5d4", usePointStyle: true, boxWidth: 8, font: { size: 11, weight: 600 } } },
+          tooltip: {
+            backgroundColor: "rgba(7, 11, 20, 0.92)",
+            borderColor: "rgba(0, 229, 255, 0.35)", borderWidth: 1,
+            padding: 10, titleFont: { weight: 700 }, bodyFont: { size: 12 }
+          }
+        }
+      };
+    }
 
     // График 1: Охват брендов
     var ds1 = [];
@@ -679,7 +682,7 @@ body { background-image: var(--bg-mesh); background-attachment: fixed; }
         backgroundColor: curCfg.color + "25", fill: true, borderWidth: 2.5, pointRadius: 3, tension: 0.35
       });
     }
-    mountChart("chDynamics", { type: "line", data: { labels: labels, datasets: ds1 }, options: Object.assign({}, commonOpts, { scales: axisBase }) });
+    mountChart("chDynamics", { type: "line", data: { labels: labels, datasets: ds1 }, options: Object.assign({}, getCommonOpts(), { scales: getAxisBase() }) });
 
     // График 2: Охват и Взаимодействия (Combo)
     var reachData = [], interData = [];
@@ -694,10 +697,10 @@ body { background-image: var(--bg-mesh); background-attachment: fixed; }
     ];
     mountChart("chReachInter", {
       data: { labels: labels, datasets: ds2 },
-      options: Object.assign({}, commonOpts, {
+      options: Object.assign({}, getCommonOpts(), {
         scales: {
-          x: axisBase.x,
-          y: axisBase.y,
+          x: getAxisBase().x,
+          y: getAxisBase().y,
           y1: {
             position: "right", beginAtZero: true, grid: { display: false }, border: { display: false },
             ticks: { color: "#00f59b", callback: function(v){ return kfmt(v); }, font: { size: 11 } }
@@ -720,9 +723,9 @@ body { background-image: var(--bg-mesh); background-attachment: fixed; }
           borderWidth: 2.5, pointRadius: 3, pointHoverRadius: 6, tension: 0.35, fill: true
         }]
       },
-      options: Object.assign({}, commonOpts, {
+      options: Object.assign({}, getCommonOpts(), {
         scales: {
-          x: axisBase.x,
+          x: getAxisBase().x,
           y: {
             grid: { color: "rgba(255,255,255,0.06)" }, border: { display: false },
             ticks: { color: "#ffd600", callback: function(v){ return v + "%"; }, font: { size: 11 } }
@@ -744,9 +747,9 @@ body { background-image: var(--bg-mesh); background-attachment: fixed; }
     ];
     mountChart("chPosts", {
       data: { labels: labels, datasets: ds4 },
-      options: Object.assign({}, commonOpts, {
+      options: Object.assign({}, getCommonOpts(), {
         scales: {
-          x: axisBase.x,
+          x: getAxisBase().x,
           y: { beginAtZero: true, grid: { color: "rgba(255,255,255,0.06)" }, border: { display: false }, ticks: { color: "#8493b2", font: { size: 11 } } },
           y1: {
             position: "right", beginAtZero: true, grid: { display: false }, border: { display: false },
@@ -758,9 +761,21 @@ body { background-image: var(--bg-mesh); background-attachment: fixed; }
   }
 
   function mountChart(id, cfg) {
-    if (typeof Chart === "undefined") return;
-    if (charts[id]) charts[id].destroy();
-    charts[id] = new Chart(document.getElementById(id), cfg);
+    if (typeof Chart === "undefined") {
+      console.warn("Chart.js is not defined for " + id);
+      return;
+    }
+    var el = document.getElementById(id);
+    if (!el) return;
+    try {
+      if (charts[id]) {
+        charts[id].destroy();
+        charts[id] = null;
+      }
+      charts[id] = new Chart(el, cfg);
+    } catch (err) {
+      console.error("Error mounting chart " + id + ":", err);
+    }
   }
 
   // ---------- Таблица Сравнения Брендов ----------
@@ -1026,10 +1041,31 @@ body { background-image: var(--bg-mesh); background-attachment: fixed; }
     window.location.reload();
   });
 
+  // Делегированный клик на чипсы брендов
+  document.getElementById("brandChips").addEventListener("click", function(e) {
+    var btn = e.target.closest("[data-brand]");
+    if (btn) {
+      var b = btn.getAttribute("data-brand");
+      if (b) window.selectBrand(b);
+    }
+  });
+
+  // Поддержка хеша URL (#powerbi)
+  function handleHash() {
+    if (window.location.hash === "#powerbi") {
+      window.switchMainTab("powerbi");
+    } else if (window.location.hash === "#analytics") {
+      window.switchMainTab("analytics");
+    }
+  }
+  window.addEventListener("hashchange", handleHash);
+
   // Инициализация
   renderWeekSelect();
-  window.selectBrand("ALL");
+  state.brand = "ALL";
+  document.getElementById("scopePill").textContent = "Все 8 брендов";
   renderAll();
+  handleHash();
 
 })();
 </script>
