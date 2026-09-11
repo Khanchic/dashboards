@@ -94,6 +94,11 @@ body { background-image: var(--bg-mesh); background-attachment: fixed; }
 }
 .nav-tab.powerbi-glow:hover { background: rgba(255, 214, 0, 0.12); box-shadow: 0 0 16px rgba(255, 214, 0, 0.25); }
 .nav-tab.powerbi-glow.active { background: #ffd600; color: #070a13; font-weight: 800; border-color: #ffd600; }
+.nav-tab.discord-glow {
+  color: #a5b4fc; border-color: rgba(99, 102, 241, 0.3); background: rgba(99, 102, 241, 0.08);
+}
+.nav-tab.discord-glow:hover { background: rgba(99, 102, 241, 0.16); box-shadow: 0 0 16px rgba(99, 102, 241, 0.3); color: #fff; }
+.nav-tab.discord-glow.active { background: #5865f2; color: #fff; font-weight: 800; border-color: #5865f2; box-shadow: 0 0 20px rgba(88, 101, 242, 0.45); }
 
 /* ---- Чипсы проектов ---- */
 .chips-scroll { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; padding: 2px 0; }
@@ -287,6 +292,29 @@ body { background-image: var(--bg-mesh); background-attachment: fixed; }
   font-size: 12px; color: var(--muted); line-height: 1.45;
 }
 
+/* ---- Discord Planner Квадратное окно ---- */
+.discord-square-card {
+  max-width: 580px; width: 100%; margin: 0 auto;
+  background: var(--panel); border: 1px solid rgba(99, 102, 241, 0.3); border-radius: var(--radius-lg);
+  overflow: hidden; box-shadow: 0 16px 40px -8px rgba(0, 0, 0, 0.6), 0 0 30px rgba(88, 101, 242, 0.15); position: relative;
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+}
+.discord-bar {
+  display: flex; align-items: center; justify-content: space-between; padding: 12px 18px;
+  background: rgba(14, 18, 36, 0.95); border-bottom: 1px solid rgba(99, 102, 241, 0.25); flex-wrap: wrap; gap: 10px;
+}
+.discord-container {
+  width: 100%; height: 560px; aspect-ratio: 1 / 1; border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  overflow: hidden; position: relative; background: #070a13;
+}
+.discord-container:fullscreen {
+  height: 100vh !important; max-width: 100% !important; border-radius: 0;
+}
+.discord-container iframe { width: 100%; height: 100%; border: 0; display: block; }
+@media (max-width: 640px) {
+  .discord-container { height: 400px; aspect-ratio: auto; }
+}
+
 /* ---- Тултип ---- */
 .tip {
   position: fixed; z-index: 100; background: #070b14; border: 1px solid var(--brand);
@@ -341,7 +369,8 @@ body { background-image: var(--bg-mesh); background-attachment: fixed; }
   <nav class="nav-tabs">
     <a class="nav-tab active" id="tabAnalytics" onclick="switchMainTab('analytics')">📊 SMM Аналитика & Теплокарта</a>
     <a class="nav-tab powerbi-glow" id="tabPowerBI" onclick="switchMainTab('powerbi')">📈 Power BI Live</a>
-        <a href="../highrollers/" class="nav-tab">💎 Highrollers</a>
+    <a class="nav-tab discord-glow" id="tabDiscord" onclick="switchMainTab('discord')">🎮 Discord Planner</a>
+    <a href="../highrollers/" class="nav-tab">💎 Highrollers</a>
     <a href="../" class="nav-tab">🏠 Все дашборды</a>
   </nav>
 
@@ -481,6 +510,48 @@ body { background-image: var(--bg-mesh); background-attachment: fixed; }
       <div>
         <div class="tile-title">Полноэкранный режим</div>
         <div class="tile-desc">Кликните «Полный экран» в шапке баннера для детального анализа широких аналитических таблиц.</div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- Вкладка 3: Discord Planner (Квадратное окно) -->
+<main class="main-wrap hidden" id="viewDiscord">
+  <div class="discord-square-card">
+    <div class="discord-bar">
+      <div style="font-weight: 700; font-size: 14px; display: flex; align-items: center; gap: 8px;">
+        <span style="font-size: 18px;">🎮</span>
+        <span>Discord Planner</span>
+        <span class="badge-neon" style="background:#5865f2; color:#fff;">Live Web App</span>
+      </div>
+      <div style="display: flex; gap: 8px; align-items: center;">
+        <button class="ghost-btn sm" onclick="toggleDiscordFullscreen()" title="Развернуть во весь экран">⛶ Полный экран</button>
+        <a href="https://ds-frotn.onrender.com/" target="_blank" rel="noopener" class="ghost-btn sm">В отдельной вкладке ↗</a>
+      </div>
+    </div>
+    <div class="discord-container" id="discordWrap">
+      <iframe id="discordFrame"
+        title="Discord Planner"
+        src="https://ds-frotn.onrender.com/"
+        allowfullscreen="true"
+        loading="lazy">
+      </iframe>
+    </div>
+  </div>
+
+  <div class="powerbi-meta-row" style="max-width: 580px; margin: 14px auto 0;">
+    <div class="powerbi-meta-tile">
+      <span class="tile-icon">💬</span>
+      <div>
+        <div class="tile-title">Планирование веток и постов</div>
+        <div class="tile-desc">Интерактивное управление расписанием контента для серверов Discord.</div>
+      </div>
+    </div>
+    <div class="powerbi-meta-tile">
+      <span class="tile-icon">⛶</span>
+      <div>
+        <div class="tile-title">Полноэкранный режим</div>
+        <div class="tile-desc">Кликните «Полный экран» для удобной работы с таблицами и карточками квестов.</div>
       </div>
     </div>
   </div>
@@ -1041,11 +1112,27 @@ body { background-image: var(--bg-mesh); background-attachment: fixed; }
   window.switchMainTab = function(tabName) {
     state.mainTab = tabName;
     var isAnalytics = (tabName === "analytics");
+    var isPbi = (tabName === "powerbi");
+    var isDiscord = (tabName === "discord");
+
     document.getElementById("tabAnalytics").classList.toggle("active", isAnalytics);
-    document.getElementById("tabPowerBI").classList.toggle("active", !isAnalytics);
+    document.getElementById("tabPowerBI").classList.toggle("active", isPbi);
+    document.getElementById("tabDiscord").classList.toggle("active", isDiscord);
+
     document.getElementById("viewAnalytics").classList.toggle("hidden", !isAnalytics);
-    document.getElementById("viewPowerBI").classList.toggle("hidden", isAnalytics);
+    document.getElementById("viewPowerBI").classList.toggle("hidden", !isPbi);
+    document.getElementById("viewDiscord").classList.toggle("hidden", !isDiscord);
+
     document.getElementById("analyticsControls").classList.toggle("hidden", !isAnalytics);
+  };
+
+  window.toggleDiscordFullscreen = function() {
+    var wrap = document.getElementById("discordWrap");
+    if (!document.fullscreenElement) {
+      wrap.requestFullscreen().catch(function(){});
+    } else {
+      document.exitFullscreen();
+    }
   };
 
   window.togglePbiFullscreen = function() {
@@ -1097,10 +1184,12 @@ body { background-image: var(--bg-mesh); background-attachment: fixed; }
     }
   });
 
-  // Поддержка хеша URL (#powerbi)
+  // Поддержка хеша URL (#powerbi, #discord)
   function handleHash() {
     if (window.location.hash === "#powerbi") {
       window.switchMainTab("powerbi");
+    } else if (window.location.hash === "#discord") {
+      window.switchMainTab("discord");
     } else if (window.location.hash === "#analytics") {
       window.switchMainTab("analytics");
     }
