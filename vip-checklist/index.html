@@ -1,0 +1,629 @@
+<title>Чекліст VIP-менеджера NLC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@500;600;700;800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+
+<style>
+  :root {
+    --ground: #f6f5f2;
+    --surface: #ffffff;
+    --surface-2: #f1efe9;
+    --ink: #1c1a17;
+    --ink-2: #4a453d;
+    --muted: #6e685e;
+    --line: #e2ded4;
+    --line-2: #cdc7b9;
+    --accent: #c8891b;
+    --accent-soft: #f8ecd4;
+    --ok: #2f7d4f;
+    --ok-soft: #e4f0e7;
+    --warn: #a8701a;
+    --warn-soft: #fbeed6;
+    --stop: #a5342a;
+    --stop-soft: #f7e3e0;
+    --shadow: 0 1px 2px rgba(28, 26, 23, .06), 0 8px 24px -16px rgba(28, 26, 23, .18);
+
+    --step: clamp(.82rem, .8rem + .1vw, .88rem);
+    --body: clamp(.95rem, .92rem + .18vw, 1.02rem);
+    --h1: clamp(1.85rem, 1.5rem + 1.9vw, 2.9rem);
+    --h2: clamp(1.25rem, 1.1rem + .7vw, 1.55rem);
+    --h3: clamp(1.02rem, .98rem + .25vw, 1.14rem);
+
+    --sans: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+    --display: "Onest", "IBM Plex Sans", system-ui, sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #171614;
+      --surface: #201e1b;
+      --surface-2: #282520;
+      --ink: #f3f0e9;
+      --ink-2: #d5cfc3;
+      --muted: #9c9485;
+      --line: #322e29;
+      --line-2: #443f38;
+      --accent: #f7b32b;
+      --accent-soft: #382c14;
+      --ok: #6fcb92;
+      --ok-soft: #1b2d21;
+      --warn: #e0a54a;
+      --warn-soft: #33260f;
+      --stop: #f08a7c;
+      --stop-soft: #34201c;
+      --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 10px 28px -18px rgba(0, 0, 0, .7);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --ground: #171614;
+    --surface: #201e1b;
+    --surface-2: #282520;
+    --ink: #f3f0e9;
+    --ink-2: #d5cfc3;
+    --muted: #9c9485;
+    --line: #322e29;
+    --line-2: #443f38;
+    --accent: #f7b32b;
+    --accent-soft: #382c14;
+    --ok: #6fcb92;
+    --ok-soft: #1b2d21;
+    --warn: #e0a54a;
+    --warn-soft: #33260f;
+    --stop: #f08a7c;
+    --stop-soft: #34201c;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 10px 28px -18px rgba(0, 0, 0, .7);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: var(--body);
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 61rem;
+    margin: 0 auto;
+    padding: clamp(1.5rem, 1rem + 3vw, 3.5rem) clamp(1rem, .6rem + 2.4vw, 2.5rem) 5rem;
+  }
+
+  /* ---------- шапка ---------- */
+  .masthead { display: grid; gap: 1.4rem; padding-bottom: 1.6rem; border-bottom: 2px solid var(--ink); }
+  .eyebrow {
+    font-family: var(--mono); font-size: var(--step); letter-spacing: .1em;
+    text-transform: uppercase; color: var(--accent); margin: 0;
+  }
+  h1 {
+    font-family: var(--display); font-size: var(--h1); font-weight: 800;
+    letter-spacing: -.022em; line-height: 1.05; margin: 0; text-wrap: balance;
+  }
+  .lede { margin: 0; max-width: 48ch; color: var(--ink-2); }
+  .lede strong { color: var(--ink); font-weight: 600; }
+
+  .meta { display: flex; flex-wrap: wrap; gap: .5rem 1.6rem; font-size: var(--step); color: var(--muted); }
+  .meta b { color: var(--ink-2); font-weight: 500; }
+
+  /* ---------- прогрес ---------- */
+  .progress {
+    display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+    background: var(--surface); border: 1px solid var(--line); border-radius: 12px;
+    padding: .85rem 1.1rem; box-shadow: var(--shadow);
+  }
+  .progress-count { font-family: var(--mono); font-size: 1.05rem; font-variant-numeric: tabular-nums; color: var(--ink); }
+  .progress-count span { color: var(--muted); }
+  .bar { flex: 1 1 12rem; height: 7px; background: var(--surface-2); border-radius: 99px; overflow: hidden; }
+  .bar i { display: block; height: 100%; width: 0; background: var(--accent); border-radius: 99px; transition: width .28s ease; }
+  .reset {
+    font: inherit; font-size: var(--step); color: var(--muted); background: none;
+    border: 1px solid var(--line-2); border-radius: 8px; padding: .3rem .7rem; cursor: pointer;
+  }
+  .reset:hover { color: var(--ink); border-color: var(--ink-2); }
+  .reset:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  /* ---------- секції ---------- */
+  section { margin-top: 3.2rem; }
+  .sec-head { display: flex; align-items: baseline; gap: .8rem; margin-bottom: .3rem; }
+  .sec-num {
+    font-family: var(--mono); font-size: var(--step); color: var(--accent);
+    border: 1px solid var(--accent); border-radius: 6px; padding: .08rem .42rem; flex: none;
+  }
+  h2 {
+    font-family: var(--display); font-size: var(--h2); font-weight: 700;
+    letter-spacing: -.014em; margin: 0; text-wrap: balance;
+  }
+  .sec-note { margin: 0 0 1.4rem; color: var(--muted); font-size: var(--step); max-width: 64ch; }
+
+  /* ---------- крок з чекбоксом ---------- */
+  .steps { display: grid; gap: .6rem; }
+  .step {
+    display: grid; grid-template-columns: auto 1fr; gap: .1rem .85rem;
+    background: var(--surface); border: 1px solid var(--line); border-radius: 10px;
+    padding: .85rem 1rem; cursor: pointer; transition: border-color .15s ease, background .15s ease;
+  }
+  .step:hover { border-color: var(--line-2); }
+  .step:has(input:checked) { background: var(--surface-2); }
+  .step:has(input:checked) .step-title { color: var(--muted); text-decoration: line-through; text-decoration-color: var(--line-2); }
+  .step:focus-within { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .step input {
+    appearance: none; width: 1.15rem; height: 1.15rem; margin: .22rem 0 0;
+    border: 1.5px solid var(--line-2); border-radius: 5px; background: var(--surface);
+    cursor: pointer; flex: none; display: grid; place-content: center;
+  }
+  .step input:checked { background: var(--accent); border-color: var(--accent); }
+  .step input:checked::after {
+    content: ""; width: .58rem; height: .3rem;
+    border-left: 2px solid #17150f; border-bottom: 2px solid #17150f;
+    transform: rotate(-45deg) translate(1px, -1.5px);
+  }
+
+  .step-title { font-weight: 600; grid-column: 2; }
+  .step-body { grid-column: 2; color: var(--ink-2); font-size: calc(var(--body) - .04rem); }
+  .step-body p { margin: .3rem 0 0; }
+
+  /* ---------- дрібниці ---------- */
+  code {
+    font-family: var(--mono); font-size: .88em;
+    background: var(--surface-2); border: 1px solid var(--line);
+    border-radius: 5px; padding: .08em .34em; color: var(--ink);
+    white-space: nowrap;
+  }
+  a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+
+  .callout {
+    display: grid; grid-template-columns: auto 1fr; gap: .8rem;
+    border-radius: 10px; padding: .8rem 1rem; margin: 1rem 0 0;
+    font-size: calc(var(--body) - .04rem);
+    border: 1px solid var(--line);
+    background: var(--surface);
+  }
+  .callout .tag {
+    font-family: var(--mono); font-size: .72rem; letter-spacing: .08em;
+    text-transform: uppercase; padding-top: .2rem;
+  }
+  .callout p { margin: 0; }
+  .callout p + p { margin-top: .45rem; }
+  .callout.warn { background: var(--warn-soft); border-color: color-mix(in srgb, var(--warn) 30%, transparent); }
+  .callout.warn .tag { color: var(--warn); }
+  .callout.stop { background: var(--stop-soft); border-color: color-mix(in srgb, var(--stop) 30%, transparent); }
+  .callout.stop .tag { color: var(--stop); }
+  .callout.ok { background: var(--ok-soft); border-color: color-mix(in srgb, var(--ok) 30%, transparent); }
+  .callout.ok .tag { color: var(--ok); }
+
+  /* ---------- таблиця ---------- */
+  .table-scroll { overflow-x: auto; margin-top: 1rem; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+  table { border-collapse: collapse; width: 100%; min-width: 38rem; font-size: calc(var(--body) - .06rem); }
+  th, td { text-align: left; padding: .7rem .9rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+  thead th {
+    font-family: var(--mono); font-size: .74rem; letter-spacing: .07em; text-transform: uppercase;
+    color: var(--muted); font-weight: 500; background: var(--surface-2);
+  }
+  tbody tr:last-child td { border-bottom: 0; }
+  td b { font-weight: 600; }
+
+  .pill {
+    display: inline-block; font-family: var(--mono); font-size: .74rem;
+    padding: .1rem .45rem; border-radius: 99px; white-space: nowrap;
+  }
+  .pill.ok { background: var(--ok-soft); color: var(--ok); }
+  .pill.warn { background: var(--warn-soft); color: var(--warn); }
+  .pill.stop { background: var(--stop-soft); color: var(--stop); }
+  .pill.n { background: var(--surface-2); color: var(--muted); }
+
+  /* ---------- канали ---------- */
+  .chan-list { display: grid; gap: .45rem; margin-top: 1rem; }
+  .chan {
+    display: grid; grid-template-columns: minmax(10rem, auto) 1fr; gap: .2rem .9rem;
+    padding: .6rem .9rem; border: 1px solid var(--line); border-radius: 9px; background: var(--surface);
+    font-size: calc(var(--body) - .05rem);
+  }
+  .chan-name { font-family: var(--mono); color: var(--accent); font-size: .9em; }
+  .chan-what { color: var(--ink-2); }
+
+  /* ---------- потік воронки ---------- */
+  .flow { margin-top: 1rem; display: grid; gap: .4rem; }
+  .flow-row {
+    display: grid; grid-template-columns: 1.6rem 1fr; gap: .75rem;
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: 9px; padding: .65rem .9rem; font-size: calc(var(--body) - .05rem);
+  }
+  .flow-n {
+    font-family: var(--mono); font-size: .78rem; color: var(--accent);
+    padding-top: .18rem;
+  }
+  .flow-row b { font-weight: 600; }
+  .flow-row span { color: var(--ink-2); }
+
+  /* ---------- проблеми ---------- */
+  .fix { display: grid; gap: .55rem; margin-top: 1rem; }
+  .fix-item { border: 1px solid var(--line); border-left: 3px solid var(--line-2); border-radius: 8px; background: var(--surface); padding: .75rem .95rem; }
+  .fix-item h3 { font-family: var(--display); font-size: var(--h3); font-weight: 600; margin: 0 0 .2rem; }
+  .fix-item p { margin: 0; color: var(--ink-2); font-size: calc(var(--body) - .05rem); }
+  .fix-item.hot { border-left-color: var(--stop); }
+
+  footer {
+    margin-top: 3.5rem; padding-top: 1.3rem; border-top: 1px solid var(--line);
+    color: var(--muted); font-size: var(--step); display: grid; gap: .35rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+  @media print {
+    body { background: #fff; color: #000; }
+    .progress, .reset { display: none; }
+    .step, .chan, .fix-item, .table-scroll, .callout, .flow-row { break-inside: avoid; box-shadow: none; }
+    section { margin-top: 1.6rem; }
+  }
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <p class="eyebrow">NoLimitCoins · Discord · вересень 2026</p>
+    <h1>Чекліст VIP-менеджера</h1>
+    <p class="lede">Від налаштування акаунта до щоденної роботи з випами. Перші дві частини проходимо <strong>один раз</strong> і відмічаємо галочками, далі — довідник, до якого повертаємось.</p>
+    <div class="meta">
+      <span>Бот: <b>Tom from NoLimitCoins</b></span>
+      <span>Сервер: <b>No Limit Coins</b> · 37 тис. учасників</span>
+      <span>У вигрузці: <b>8 618</b> гравців, з них <b>73</b> віпи</span>
+    </div>
+    <div class="progress">
+      <span class="progress-count" id="count">0 <span>/ 0</span></span>
+      <span class="bar"><i id="bar"></i></span>
+      <button class="reset" id="reset" type="button">Скинути галочки</button>
+    </div>
+  </header>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">01</span><h2>Акаунт і доступи</h2></div>
+    <p class="sec-note">Робочий акаунт, окремий від особистого. Гравці його бачитимуть — тому нік це псевдонім, а не справжнє прізвище.</p>
+
+    <div class="steps">
+      <label class="step">
+        <input type="checkbox">
+        <span class="step-title">Акаунт на робочу пошту, нік — свій псевдонім</span>
+        <span class="step-body"><p>Чотири закріплені псевдоніми: <code>Xeno</code>, <code>Phoebe</code>, <code>Russel</code>, <code>Gabrielle</code>. Який твій — скаже адмін.</p>
+        <p>Справжнє імʼя в Discord не світимо: гравець бачить назву твого канала і твої повідомлення у ветці.</p></span>
+      </label>
+
+      <label class="step">
+        <input type="checkbox">
+        <span class="step-title">Увімкнути 2FA</span>
+        <span class="step-body"><p><code>Settings → My Account → Enable Two-Factor Auth</code>. Акаунт має доступ до даних гравців.</p></span>
+      </label>
+
+      <label class="step">
+        <input type="checkbox">
+        <span class="step-title">Надіслати адміну свій Discord ID</span>
+        <span class="step-body"><p><code>Settings → Advanced → Developer Mode</code>, далі правий клік на своєму аватарі → <code>Copy User ID</code>. Це 18–19 цифр, не секрет.</p>
+        <p>Без нього пінги по твоїх віпах ітимуть на всю команду, а не тобі особисто.</p></span>
+      </label>
+
+      <label class="step">
+        <input type="checkbox">
+        <span class="step-title">Перевірити, що є роль <code>VIP Team</code> і видно всі службові канали</span>
+        <span class="step-body"><p>Роль видає адмін. Вона ж відкриває доступ до команд бота. Не видно якогось канала або бот відповідає «Тільки для VIP-команди» — це права, пиши адміну.</p></span>
+      </label>
+
+      <label class="step">
+        <input type="checkbox">
+        <span class="step-title">Знайти закріплену <code>/panel</code> у <code>#vip-desk</code></span>
+        <span class="step-body"><p>П'ять кнопок: <b>Кому написати</b> · <b>Статистика</b> · <b>Найти игрока</b> · <b>Выгрузить CSV</b> · <b>Пересчитать тиры</b>. Кнопки не «прострочуються», користуватись може вся команда, відповідь бачить лише той, хто натиснув.</p></span>
+      </label>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">02</span><h2>Канали: що де лежить</h2></div>
+    <p class="sec-note">Усе наше — у категорії <code>VIP</code>. Решта сервера (37 тисяч людей) цих каналів не бачить.</p>
+
+    <div class="chan-list">
+      <div class="chan"><span class="chan-name">#vip-xeno</span><span class="chan-what">Канал менеджера: усередині приватні ветки його віпів, по одній на гравця. У кожного менеджера свій такий канал — <code>#vip-phoebe</code>, <code>#vip-russel</code>, <code>#vip-gabrielle</code>.</span></div>
+      <div class="chan"><span class="chan-name">#vip-desk</span><span class="chan-what">Службовий. Тут <code>/panel</code>, щоденний список «кому написати», звіти ресинку, пінги від віпів і внутрішні оголошення.</span></div>
+      <div class="chan"><span class="chan-name">#verify-queue</span><span class="chan-what">Черга заявок на картку з кнопками рішення.</span></div>
+      <div class="chan"><span class="chan-name">#rank-import</span><span class="chan-what">Куди заливається CSV-вигрузка з адмінки. Робить адмін раз на тиждень.</span></div>
+      <div class="chan"><span class="chan-name">#get-your-card</span><span class="chan-what">Вхід для гравця. <b>Закритий від усіх</b>, крім тих, кому бот видав роль <code>VIP Invited</code> — див. частину 03.</span></div>
+    </div>
+
+    <div class="callout stop">
+      <span class="tag">Ніколи</span>
+      <div>
+        <p>Не пиши у <b>своєму каналі менеджера</b> нічого внутрішнього — заміток про гравців, сум, домовленостей. Твої віпи мають доступ до цього канала (інакше вони не побачили б свої ветки) і <b>читають усе, що там написано</b>.</p>
+        <p>Внутрішнє — тільки в <code>#vip-desk</code>. Особисте з гравцем — у його ветці.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">03</span><h2>Як запросити віпа</h2></div>
+    <p class="sec-note">На сервері 37 тисяч людей, і майже всі — не депозитчики. Тому воронка закрита, і бачить її лише той, кого ми запросили <b>своїм</b> посиланням.</p>
+
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Посилання</th><th>Що станеться</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><b>Звичайний інвайт сервера</b><br><code>discord.gg/gJ7eDkyD2w</code></td>
+            <td>Людина заходить на сервер, роль <b>не</b> отримує, воронки <b>не бачить</b>. Так заходить уся публіка NLC.</td>
+          </tr>
+          <tr>
+            <td><b>Наше посилання</b><br>з команди <code>/invite</code></td>
+            <td>Бот пізнає свій код → видає роль <code>VIP Invited</code> → <code>#get-your-card</code> відкривається. У <code>#vip-desk</code> прилітає 🚪 повідомлення, що гравець зайшов.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout">
+      <span class="tag" style="color:var(--accent)">Команда</span>
+      <div>
+        <p><code>/invite</code> — персональне посилання на <b>один вхід</b>, безстрокове.</p>
+        <p><code>/invite uses:0 days:7</code> — спільне, без ліміту входів, живе тиждень. Для рассилки по базі.</p>
+        <p><code>/invite note:Mike, Diamond</code> — підпис, видно тільки команді: він прилітає в <code>#vip-desk</code>, коли по посиланню хтось зайшов.</p>
+      </div>
+    </div>
+
+    <div class="callout warn">
+      <span class="tag">Увага</span>
+      <div>
+        <p>Опції треба <b>вибрати кліком</b> зі списку, а не друкувати. Якщо натиснути Enter одразу, команда піде зі значеннями за замовчуванням — вийде одноразове посилання замість безлімітного.</p>
+        <p>Перевірка: у відповіді бота має бути <code>Входів: без лимита</code>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">04</span><h2>Шлях гравця</h2></div>
+    <p class="sec-note">Що бачить віп із того моменту, як зайшов по посиланню. Знати корисно: половина питань до менеджера — про цей шлях.</p>
+
+    <div class="flow">
+      <div class="flow-row"><span class="flow-n">1</span><span><b>Зайшов по посиланню</b> — бот видав роль, відкрився <code>#get-your-card</code>, у ЛС прилетіла плашка з кнопкою.</span></div>
+      <div class="flow-row"><span class="flow-n">2</span><span><b>Claim my card</b> → бот створює йому <b>приватну ветку</b> в каналі входу. Ветку гравець закрити не може, на відміну від ЛС.</span></div>
+      <div class="flow-row"><span class="flow-n">3</span><span><b>Форма з 4 полів:</b> Player ID, імʼя, email, коли приєднався.</span></div>
+      <div class="flow-row"><span class="flow-n">4</span><span><b>Одне питання</b> — «Choose your VIP style»: The Collector 🏆 · The Explorer 🌎 · The Competitor ⚡ · The High Roller 👑. Свій рівень гравець <b>не вказує</b> — ми беремо його з вигрузки.</span></div>
+      <div class="flow-row"><span class="flow-n">5</span><span><b>Заявка падає в <code>#verify-queue</code></b> — далі рішення за тобою, частина 05.</span></div>
+      <div class="flow-row"><span class="flow-n">6</span><span><b>Після підтвердження:</b> роль тира, картка та особиста ветка в каналі його менеджера.</span></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">05</span><h2>Розбір заявки</h2></div>
+    <p class="sec-note">Бот сам зіставляє дані гравця з вигрузкою і сам визначає тир. Руками тир не вибирають — твоє рішення тільки в тому, яку кнопку натиснути.</p>
+
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Кнопка</th><th>Коли</th><th>Що станеться</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><span class="pill ok">✅ Підтвердити як…</span></td>
+            <td>Гравця знайдено у вигрузці. <b>Звичайний випадок.</b></td>
+            <td>Тир з вигрузки, роль, картка. Якщо тир віповський — особиста ветка в каналі його менеджера.</td>
+          </tr>
+          <tr>
+            <td><span class="pill n">👤 Вибрати менеджера</span></td>
+            <td>Гравця <b>немає у вигрузці</b>, але він живий і має бути віпом.</td>
+            <td>Обираєш одного з чотирьох. Бот ставить віп-тир <code>GOLD</code> і створює ветку в каналі обраного. Ресинк потім підтягне реальний тир.</td>
+          </tr>
+          <tr>
+            <td><span class="pill n">🎴 Картка без віпа</span></td>
+            <td>Гравця немає у вигрузці і на віпа він не тягне.</td>
+            <td>Роль <code>BRONZE</code> і картка. Ні ветки, ні менеджера. Відмовляти таким не треба — вигрузка це лише депозитчики за 30 днів, звичайний гравець у ній не буває.</td>
+          </tr>
+          <tr>
+            <td><span class="pill warn">🔐 Запросити підтвердження</span></td>
+            <td>Дані схожі, але ти не впевнений, що це та сама людина.</td>
+            <td>Гравцю в ЛС код <code>VIP-A7K2P</code>. Він ставить його в <code>display name</code> на сайті, ти перевіряєш в адмінці й підтверджуєш.</td>
+          </tr>
+          <tr>
+            <td><span class="pill stop">❌ Відхилити</span></td>
+            <td>Дані не сходяться і код не допоміг.</td>
+            <td>Гравець отримує ввічливе «перевір Player ID та email і спробуй ще». <b>Причину, яку ти вписав, він не бачить.</b> Player ID звільняється — заявку можна подати заново.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout ok">
+      <span class="tag">Норма</span>
+      <div>
+        <p><b>«Збіглось полів: 2/3» і ❌ на email — це нормально.</b> Колонки email у вигрузці немає, тому третє поле не збігається ніколи. Плашка все одно зелена: порогом є два збіги.</p>
+        <p><code>Логін</code> у NLC — це цифри (<code>5531665</code>), а не нікнейм. Гравець не помилився.</p>
+      </div>
+    </div>
+
+    <div class="callout warn">
+      <span class="tag">Про гроші</span>
+      <div>
+        <p>Алерт <b>«⚠️ Спроба привʼязати вже зайнятий Player ID»</b> у <code>#verify-queue</code> означає, що хтось намагається привʼязатись до чужого акаунта. Бот заявку вже відбив — передай адміну, сам не розбирай.</p>
+        <p>Тир <code>DIAMOND</code> за налаштуваннями <b>вимагає</b> коду підтвердження навіть за повного збігу.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">06</span><h2>Щоденна робота</h2></div>
+    <p class="sec-note">Один захід на день: подивитись, кому написати, і розібрати чергу. Решта — реакція на пінги.</p>
+
+    <div class="steps">
+      <label class="step">
+        <input type="checkbox">
+        <span class="step-title">Ранок: <code>/desk</code> — кому написати сьогодні</span>
+        <span class="step-body"><p>Бот сам публікує цей список щодня о <b>10:00</b> у <code>#vip-desk</code>. Викликаєш сам — покаже <b>тільки твоїх</b> віпів.</p></span>
+      </label>
+      <label class="step">
+        <input type="checkbox">
+        <span class="step-title">Розібрати <code>#verify-queue</code> до кінця дня</span>
+        <span class="step-body"><p>Картка — перше враження гравця. Заявки не горять, але й лежати добу не мають.</p></span>
+      </label>
+      <label class="step">
+        <input type="checkbox">
+        <span class="step-title">Відповісти у ветках, де писав гравець</span>
+        <span class="step-body"><p>Бот пінгує тебе в ветці рядком <code>— new message above</code>, не частіше разу на 30 хвилин на гравця.</p></span>
+      </label>
+    </div>
+
+    <p class="sec-note" style="margin-top:1.6rem">Три секції <code>/desk</code> — і що з ними робити:</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Секція</th><th>Що означає</th><th>Дія</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><b>🆕 Нові віпи</b></td>
+            <td>Картку підтвердили, ти ще не написав ні разу.</td>
+            <td>Написати першим — сьогодні. Позначка <b>«гравець уже писав сам»</b> — найгірший варіант, він чекає.</td>
+          </tr>
+          <tr>
+            <td><b>🔇 Тишина 7+ днів</b></td>
+            <td>Останній твій контакт був тиждень і більше тому.</td>
+            <td>Привід: новий offer, промокод, турнір. Не «як справи».</td>
+          </tr>
+          <tr>
+            <td><b>💤 Не грає 5+ днів</b></td>
+            <td>Гравець не заходив на сайт.</td>
+            <td><span class="pill warn">завжди порожня</span> У вигрузці немає колонки <code>last_active</code>. Це відомо, не баг.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout">
+      <span class="tag" style="color:var(--accent)">Команди</span>
+      <div>
+        <p><code>/desk</code> кому написати · <code>/player &lt;ID або нік&gt;</code> картка гравця з дотиками · <code>/stats</code> стан воронки · <code>/invite</code> посилання · <code>/export</code> CSV · <code>/resync</code> перерахувати тири.</p>
+        <p>Усі закриті від гравців. Публічна одна: <code>/card</code> — нею гравець керує своєю карткою.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">07</span><h2>Ветка з віпом</h2></div>
+    <p class="sec-note">Ветка — весь канал спілкування з гравцем. Приватна: всередині тільки він і VIP-команда.</p>
+
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Що бачиш</th><th>Що це</th></tr></thead>
+        <tbody>
+          <tr><td><b>Картка + привітання</b></td><td>Закріплене перше повідомлення. Бот представляє тебе — згадує саме того менеджера, за ким гравець закріплений.</td></tr>
+          <tr><td><b>🎁 Welcome bonus + код</b></td><td>Якщо промокод заведений, він одразу в привітанні — гравець активує сам. Якщо кода немає, бот напише тобі в чергу <code>📌 Нарахувати нагороду</code>, і тоді це робиться руками в адмінці.</td></tr>
+          <tr><td><b>📝 Заявка від гравця</b></td><td>Натиснув <code>Quick request</code> і заповнив «тема + опис». Прилітає тобі в ЛС і в <code>#vip-desk</code>.</td></tr>
+          <tr><td><b><code>— new message above</code></b></td><td>Гравець написав сам. Відповідай просто текстом у ветці, ніяких команд не треба.</td></tr>
+          <tr><td><b>Ветка в архіві</b></td><td>Нормально: Discord архівує через тиждень тишини. Бот піднімає їх щодня о 06:00 і коли пише в неї.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="steps" style="margin-top:1.2rem">
+      <label class="step">
+        <input type="checkbox">
+        <span class="step-title">Не тиснути <code>📝 Quick request</code> самому</span>
+        <span class="step-body"><p>Це кнопка гравця. Натиснеш — бот попередить, а пінг прийде тобі ж.</p></span>
+      </label>
+      <label class="step">
+        <input type="checkbox">
+        <span class="step-title">Знати, як передати гравця іншому менеджеру</span>
+        <span class="step-body"><p><code>/player &lt;ID&gt;</code> → кнопка <b>👤 Сменить менеджера</b>.</p>
+        <p>Ветку Discord перенести не можна: переписка залишиться в архіві у старого менеджера, а в нового відкриється нова ветка з карткою. Гравець отримає посилання на неї.</p></span>
+      </label>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">08</span><h2>Якщо щось не так</h2></div>
+    <p class="sec-note">Спочатку подивитись тут. Потім до адміна — з тим, що саме натиснув і що побачив.</p>
+
+    <div class="fix">
+      <div class="fix-item hot">
+        <h3>Бот відповідає двічі на одне натискання</h3>
+        <p>Найважливіший симптом: десь піднявся другий інстанс бота. Нічого не роби далі, одразу до адміна — інакше дані розʼїдуться між двома базами.</p>
+      </div>
+      <div class="fix-item">
+        <h3>Гравець не бачить воронку</h3>
+        <p>Значить зайшов не по нашому посиланню, а по звичайному інвайту сервера — роль <code>VIP Invited</code> йому не видали. Дай йому посилання з <code>/invite</code>; щоб роль прилетіла, він має <b>вийти з сервера і зайти заново</b>.</p>
+      </div>
+      <div class="fix-item">
+        <h3>Гравець не бачить свою ветку</h3>
+        <p>Доступ до канала бот видає персонально, коли створює ветку. Перевір <code>/player &lt;ID&gt;</code> — чи є в нього ветка. Якщо є, а він не бачить, це права канала: до адміна.</p>
+      </div>
+      <div class="fix-item">
+        <h3>«Something broke on our side»</h3>
+        <p>Так гравець бачить будь-яку помилку бота. Попроси повторити через хвилину. Повторюється — до адміна, і скажи, яку кнопку тиснули.</p>
+      </div>
+      <div class="fix-item">
+        <h3>Гравець пише боту в ЛС</h3>
+        <p>Бот відповідає йому англійською «I don't read DMs» і дає кнопку в його ветку. Нічого робити не треба.</p>
+      </div>
+      <div class="fix-item">
+        <h3>У заявці немає зеленої кнопки</h3>
+        <p>Гравця немає у вигрузці — підтверджувати «як є» нічого. Або <code>👤 Вибрати менеджера</code>, або <code>🎴 Картка без віпа</code>, або <code>🔐 Запросити підтвердження</code>.</p>
+      </div>
+      <div class="fix-item">
+        <h3>Гравець пішов із сервера</h3>
+        <p>Бот сам прибирає ветки, знімає звʼязку й пише про це в <code>#vip-desk</code>. Робити нічого не треба. Якщо повернеться — заявку подає заново.</p>
+      </div>
+      <div class="fix-item">
+        <h3>Треба видалити картку</h3>
+        <p>Це <code>/unlink</code> — у два кроки, з показом того, що видалиться. Ветка не видаляється, а архівується: переписка залишається.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>Тири: <b>BRONZE</b> · <b>SILVER</b> — звичайні; <b>GOLD</b> · <b>DIAMOND</b> — віпи, у них є особиста ветка й менеджер.</span>
+    <span>Права, видалення карток, нарахування нагород, нові менеджери — <b>адмін сервера</b>.</span>
+  </footer>
+</div>
+
+<script>
+  (function () {
+    // v2 — структура чекліста змінилася повністю, старі відмітки не підходять
+    var KEY = 'nlc-vip-checklist-v2';
+    var boxes = Array.prototype.slice.call(document.querySelectorAll('.step input[type="checkbox"]'));
+    var countEl = document.getElementById('count');
+    var barEl = document.getElementById('bar');
+
+    boxes.forEach(function (b, i) { b.dataset.idx = String(i); });
+
+    function read() {
+      try {
+        var raw = localStorage.getItem(KEY);
+        return raw ? JSON.parse(raw) : {};
+      } catch (e) { return {}; }
+    }
+
+    function write(state) {
+      try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) { /* приватний режим */ }
+    }
+
+    function paint() {
+      var done = boxes.filter(function (b) { return b.checked; }).length;
+      countEl.innerHTML = done + ' <span>/ ' + boxes.length + '</span>';
+      barEl.style.width = boxes.length ? (done / boxes.length * 100) + '%' : '0%';
+    }
+
+    var state = read();
+    boxes.forEach(function (b) { if (state[b.dataset.idx]) b.checked = true; });
+    paint();
+
+    boxes.forEach(function (b) {
+      b.addEventListener('change', function () {
+        var s = read();
+        if (b.checked) s[b.dataset.idx] = 1; else delete s[b.dataset.idx];
+        write(s);
+        paint();
+      });
+    });
+
+    document.getElementById('reset').addEventListener('click', function () {
+      boxes.forEach(function (b) { b.checked = false; });
+      write({});
+      paint();
+    });
+  })();
+</script>
