@@ -56,7 +56,7 @@ body {
   background: rgba(7, 10, 15, 0.85);
   backdrop-filter: blur(16px);
   position: sticky;
-  top: 0;
+  top: 54px;
   z-index: 100;
   padding: 12px 24px;
 }
