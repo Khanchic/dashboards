@@ -204,6 +204,8 @@ table.team-table { width: 100%; border-collapse: collapse; background: var(--pan
 }
 .logs-btn:hover { border-color: var(--brand); color: #fff; }
 </style>
+  <link rel="stylesheet" href="./common/nav.css">
+  <script src="./common/nav.js" defer></script>
 </head>
 <body>
   <div class="shell">
@@ -218,17 +220,18 @@ table.team-table { width: 100%; border-collapse: collapse; background: var(--pan
     </header>
 
     <aside class="sidebar">
-      <nav>
+            <nav>
         <a href="/dashboards/" class="slink active">🏠 ГЛАВНАЯ</a>
         <a href="/dashboards/smm-heatmap/" class="slink slink-highlight">⚡ SMM ХИТМАП</a>
-        <a href="/dashboards/smm-heatmap/#powerbi" class="slink slink-highlight">📈 POWER BI LIVE</a>
-        <a href="/dashboards/smm-heatmap/#discord" class="slink slink-highlight" style="color:#a5b4fc; border-color:rgba(99,102,241,0.3);">🎮 DISCORD ПЛАННЕР</a>
-                <a href="/dashboards/reports/" class="slink">📋 ОТЧЁТЫ</a>
-        <a href="/dashboards/highrollers/" class="slink">💎 ХАЙРОЛЛЫ</a>
-        <a href="/dashboards/planning/" class="slink">📅 ПЛАНИРОВАНИЕ</a>
+        <a href="/dashboards/powerbi/" class="slink slink-highlight">📊 POWER BI LIVE</a>
         <a href="/dashboards/promo-codes/" class="slink">🏷️ ПРОМОКОДЫ</a>
+        <a href="/dashboards/chat-triage/" class="slink">💬 ЧАТ-ТРИАЖ</a>
+        <a href="/dashboards/highrollers/" class="slink">💎 ХАЙРОЛЛЫ</a>
+        <a href="/dashboards/tao-quest/" class="slink" style="color:#00e5ff;">🪐 КВЕСТ ТАО</a>
+        <a href="/dashboards/storm-quest/" class="slink" style="color:#00f59b;">⚡ КВЕСТ STORM</a>
+        <a href="/dashboards/reports/" class="slink">📋 ОТЧЁТЫ</a>
+        <a href="/dashboards/planning/" class="slink">📅 ПЛАНИРОВАНИЕ</a>
         <a href="/dashboards/poll-breakdown/" class="slink">📊 ОПРОС</a>
-        <a href="/dashboards/chat-triage/" class="slink">✅ ЧЕК-ЛИСТ ЧАТА</a>
         <a href="/dashboards/onboarding/" class="slink">🎓 ОНБОРДИНГ</a>
         <a href="http://0112-co-khanchych.tail650bfe.ts.net:8787/" class="slink" target="_blank" rel="noopener"
            title="Панель скилов на рабочем ноуте">🎛 ПАНЕЛЬ</a>
@@ -260,7 +263,7 @@ table.team-table { width: 100%; border-collapse: collapse; background: var(--pan
               </div>
             </a>
 
-            <a href="/dashboards/smm-heatmap/#powerbi" class="showcase-card" style="--card-accent: #ffd600;">
+            <a href="/dashboards/powerbi/" class="showcase-card" style="--card-accent: #ffd600;">
               <div class="sc-head">
                 <div class="sc-icon" style="color:#ffd600;">📈</div>
                 <span class="sc-badge" style="color:#ffd600; border-color:rgba(255,214,0,0.3); background:rgba(255,214,0,0.1);">Live Embed</span>
