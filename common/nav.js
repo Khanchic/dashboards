@@ -7,31 +7,41 @@
     if (document.getElementById('gnav-root')) return;
 
     const path = window.location.pathname.toLowerCase();
+    const hash = window.location.hash.toLowerCase();
     
     // Resolve base path
     let base = '/dashboards/';
     if (!path.includes('/dashboards/')) {
-      // Local or relative fallback
       const segments = path.split('/').filter(Boolean);
       base = segments.length > 1 ? '../' : './';
     }
 
     // Determine active tab key
     let activeKey = 'home';
-    if (path.includes('smm-heatmap')) activeKey = 'smm';
-    else if (path.includes('powerbi')) activeKey = 'powerbi';
-    else if (path.includes('promo-codes') || path.includes('promo-vipbonus')) activeKey = 'promo';
-    else if (path.includes('chat') || path.includes('chat-triage')) activeKey = 'chat';
-    else if (path.includes('highrollers') || path.includes('hr-offers')) activeKey = 'highrollers';
-    else if (path.includes('tao-quest')) activeKey = 'tao';
-    else if (path.includes('storm-quest')) activeKey = 'storm';
-    else if (path.includes('reports') || path.includes('poll-breakdown')) activeKey = 'reports';
-    else if (path.includes('onboarding')) activeKey = 'onboarding';
+    if (hash.includes('powerbi') || path.includes('powerbi')) {
+      activeKey = 'powerbi';
+    } else if (path.includes('smm-heatmap')) {
+      activeKey = 'smm';
+    } else if (path.includes('promo-codes') || path.includes('promo-vipbonus')) {
+      activeKey = 'promo';
+    } else if (path.includes('chat') || path.includes('chat-triage')) {
+      activeKey = 'chat';
+    } else if (path.includes('highrollers') || path.includes('hr-offers')) {
+      activeKey = 'highrollers';
+    } else if (path.includes('tao-quest')) {
+      activeKey = 'tao';
+    } else if (path.includes('storm-quest')) {
+      activeKey = 'storm';
+    } else if (path.includes('reports') || path.includes('poll-breakdown')) {
+      activeKey = 'reports';
+    } else if (path.includes('onboarding')) {
+      activeKey = 'onboarding';
+    }
 
     const tabs = [
       { key: 'home', title: 'Главная', icon: '🏠', href: `${base}` },
       { key: 'smm', title: 'SMM Хитмап', icon: '⚡', href: `${base}smm-heatmap/` },
-      { key: 'powerbi', title: 'Power BI', icon: '📊', href: `${base}powerbi/` },
+      { key: 'powerbi', title: 'Power BI Live', icon: '📊', href: `${base}powerbi/` },
       { key: 'promo', title: 'Промокоды', icon: '🏷️', href: `${base}promo-codes/` },
       { key: 'chat', title: 'Чат-триаж', icon: '💬', href: `${base}chat-triage/` },
       { key: 'highrollers', title: 'Хайроллы', icon: '💎', href: `${base}highrollers/` },
