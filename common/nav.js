@@ -1,14 +1,19 @@
 /**
  * Global Navigation Component — Khanchic Dashboards
- * Auto-injects responsive topbar navigation across all dashboard pages.
+ * Top bar is completely removed per user request ("нужно убрать все сверху").
+ * Navigation is accessible via a discreet floating button in the bottom right corner.
  */
 (function() {
-  function initGlobalNav() {
-    if (document.getElementById('gnav-root')) return;
+  function initNav() {
+    // 1. Completely remove any topbar if present in the DOM
+    const oldTop = document.getElementById('gnav-root') || document.querySelector('.gnav-topbar');
+    if (oldTop) oldTop.remove();
+
+    if (document.getElementById('gnav-fab-root')) return;
 
     const path = window.location.pathname.toLowerCase();
     const hash = window.location.hash.toLowerCase();
-    
+
     // Resolve base path
     let base = '/dashboards/';
     if (!path.includes('/dashboards/')) {
@@ -39,9 +44,9 @@
     }
 
     const tabs = [
-      { key: 'home', title: 'Главная', icon: '🏠', href: `${base}` },
-      { key: 'smm', title: 'SMM Хитмап', icon: '⚡', href: `${base}smm-heatmap/` },
+      { key: 'home', title: 'Главная (Хаб)', icon: '🏠', href: `${base}` },
       { key: 'powerbi', title: 'Power BI Live', icon: '📊', href: `${base}powerbi/` },
+      { key: 'smm', title: 'SMM Хитмап', icon: '⚡', href: `${base}smm-heatmap/` },
       { key: 'promo', title: 'Промокоды', icon: '🏷️', href: `${base}promo-codes/` },
       { key: 'chat', title: 'Чат-триаж', icon: '💬', href: `${base}chat-triage/` },
       { key: 'highrollers', title: 'Хайроллы', icon: '💎', href: `${base}highrollers/` },
@@ -51,78 +56,76 @@
       { key: 'onboarding', title: 'Онбординг', icon: '🎓', href: `${base}onboarding/` }
     ];
 
-    const topbar = document.createElement('header');
-    topbar.id = 'gnav-root';
-    topbar.className = 'gnav-topbar';
+    // Root wrapper
+    const root = document.createElement('div');
+    root.id = 'gnav-fab-root';
 
-    const inner = document.createElement('div');
-    inner.className = 'gnav-inner';
+    // Backdrop
+    const backdrop = document.createElement('div');
+    backdrop.className = 'gnav-drawer-backdrop';
 
-    // Left brand
-    const left = document.createElement('div');
-    left.className = 'gnav-left';
-    left.innerHTML = `
-      <a href="${base}" class="gnav-brand">
-        <span class="gnav-logo">⚡</span>
-        <span class="gnav-brand-text">Dashboards</span>
-        <span class="gnav-badge">USA2</span>
-      </a>
-    `;
-
-    // Center tabs
-    const nav = document.createElement('nav');
-    nav.className = 'gnav-tabs';
-    nav.setAttribute('role', 'tablist');
-
-    tabs.forEach(t => {
-      const a = document.createElement('a');
-      a.className = `gnav-tab ${t.key === activeKey ? 'active' : ''}`;
-      a.href = t.href;
-      a.innerHTML = `
-        <span class="gnav-tab-icon">${t.icon}</span>
-        <span class="gnav-tab-label">${t.title}</span>
-      `;
-      if (t.key === activeKey) {
-        a.setAttribute('aria-current', 'page');
-      }
-      nav.appendChild(a);
-    });
-
-    // Right status
-    const right = document.createElement('div');
-    right.className = 'gnav-right';
-    right.innerHTML = `
-      <div class="gnav-live-indicator" title="Все системы активны">
-        <span class="gnav-live-dot"></span>
-        <span>Live</span>
+    // Drawer
+    const drawer = document.createElement('div');
+    drawer.className = 'gnav-drawer';
+    drawer.innerHTML = `
+      <div class="gnav-drawer-header">
+        <div class="gnav-drawer-title">
+          <span>⚡</span>
+          <span>Навигация по разделам</span>
+        </div>
+        <button type="button" class="gnav-drawer-close" aria-label="Закрыть">✕</button>
+      </div>
+      <div class="gnav-drawer-list">
+        ${tabs.map(t => `
+          <a href="${t.href}" class="gnav-drawer-item ${t.key === activeKey ? 'active' : ''}">
+            <span style="font-size:16px;">${t.icon}</span>
+            <span>${t.title}</span>
+          </a>
+        `).join('')}
       </div>
     `;
 
-    inner.appendChild(left);
-    inner.appendChild(nav);
-    inner.appendChild(right);
-    topbar.appendChild(inner);
+    // Floating button (docked in bottom-right)
+    const fab = document.createElement('button');
+    fab.type = 'button';
+    fab.className = 'gnav-fab';
+    fab.innerHTML = `
+      <span class="gnav-fab-icon">⚡</span>
+      <span>Меню</span>
+    `;
 
-    // Insert at beginning of body or replace #global-nav placeholder
-    const existing = document.getElementById('global-nav');
-    if (existing) {
-      existing.replaceWith(topbar);
-    } else {
-      document.body.insertBefore(topbar, document.body.firstChild);
+    function toggleMenu(open) {
+      const isOpen = typeof open === 'boolean' ? open : !drawer.classList.contains('open');
+      drawer.classList.toggle('open', isOpen);
+      backdrop.classList.toggle('open', isOpen);
     }
 
-    // Auto-scroll active tab into view on small screens
-    const activeEl = nav.querySelector('.gnav-tab.active');
-    if (activeEl) {
-      setTimeout(() => {
-        activeEl.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-      }, 100);
+    fab.onclick = () => toggleMenu();
+    backdrop.onclick = () => toggleMenu(false);
+    drawer.querySelector('.gnav-drawer-close').onclick = () => toggleMenu(false);
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && drawer.classList.contains('open')) {
+        toggleMenu(false);
+      }
+    });
+
+    root.appendChild(backdrop);
+    root.appendChild(drawer);
+    root.appendChild(fab);
+    document.body.appendChild(root);
+
+    // If on SMM Heatmap and URL has #powerbi, activate powerbi tab automatically
+    if (path.includes('smm-heatmap') && hash.includes('powerbi')) {
+      if (typeof window.switchMainTab === 'function') {
+        window.switchMainTab('powerbi');
+      }
     }
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initGlobalNav);
+    document.addEventListener('DOMContentLoaded', initNav);
   } else {
-    initGlobalNav();
+    initNav();
   }
 })();
