@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Спіч · Співробітник, якого ми не наймали</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  /* Кольори — з колоди воркшопу, щоб спіч і слайди читались як одна робота */
+  :root {
+    --bg: #0d1020; --card: #151c30; --line: #2a3556;
+    --ink: #f1f5f9; --muted: #8c9ab5; --dim: #5b6886;
+    --orange: #e8845c; --coral: #f87171; --peri: #8b8fff; --green: #4ade80;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 19px/1.6 Arial, "Segoe UI", system-ui, sans-serif;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 40px 16px 80px; }
+  h1, h2, .num { font-family: Montserrat, Arial, sans-serif; }
+  h1 { font-size: 34px; line-height: 1.2; margin: 12px 0 8px; }
+  .chip {
+    display: inline-block; background: var(--orange); color: #0b1020;
+    font-weight: 700; font-size: 12px; letter-spacing: .04em;
+    padding: 4px 12px; border-radius: 999px;
+  }
+  .lead { color: var(--muted); font-size: 16px; margin: 0 0 28px; }
+  .lead a { color: var(--peri); }
+
+  nav {
+    position: sticky; top: 0; z-index: 2; background: var(--bg);
+    border-bottom: 1px solid var(--line); margin: 0 -16px 24px; padding: 10px 16px;
+    display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none;
+  }
+  nav::-webkit-scrollbar { display: none; }
+  nav a {
+    flex: none; color: var(--muted); text-decoration: none; font-size: 14px;
+    border: 1px solid var(--line); border-radius: 999px; padding: 4px 11px;
+  }
+  nav a:hover { color: var(--ink); border-color: var(--orange); }
+
+  section.slide {
+    background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+    padding: 20px 22px 8px; margin: 0 0 18px; scroll-margin-top: 64px;
+  }
+  .head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 6px; }
+  .num { color: var(--orange); font-size: 15px; font-weight: 800; }
+  h2 { font-size: 21px; line-height: 1.3; margin: 0; flex: 1; }
+  .time {
+    flex: none; color: var(--dim); font-size: 14px; font-variant-numeric: tabular-nums;
+    border: 1px solid var(--line); border-radius: 6px; padding: 1px 8px;
+  }
+  p { margin: 0 0 14px; }
+  b { color: var(--orange); }
+  .cue {
+    color: var(--muted); font-size: 15px; font-style: italic;
+    border-left: 3px solid var(--peri); padding-left: 10px;
+  }
+  .punch {
+    font-family: Montserrat, Arial, sans-serif; font-weight: 700;
+    font-size: 20px; line-height: 1.35; color: var(--ink);
+  }
+
+  .extra { margin-top: 36px; }
+  .extra h2 { font-size: 20px; margin: 0 0 12px; }
+  .qa { border-top: 1px solid var(--line); padding: 12px 0; }
+  .qa .q { font-weight: 700; margin-bottom: 4px; }
+  .qa .a { color: var(--muted); }
+  ul.check { padding-left: 20px; color: var(--muted); }
+  ul.check li { margin-bottom: 8px; }
+  code {
+    font: 14px/1.4 Consolas, monospace; background: #0b0e1a; color: var(--green);
+    padding: 2px 6px; border-radius: 4px; word-break: break-all;
+  }
+  .total { color: var(--dim); font-size: 14px; text-align: right; margin-top: 8px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <span class="chip">СПІЧ · AI В АНАЛІТИЦІ</span>
+  <h1>Співробітник, якого ми не наймали</h1>
+  <p class="lead">
+    Виступ після Дмитра · ≈ 10 хвилин · час біля слайда — орієнтир.<br>
+    Не вчи дослівно: тримай думку кожного абзацу, слова підберуться самі.
+  </p>
+
+  <nav>
+    <a href="#s1">01</a><a href="#s2">02</a><a href="#s3">03</a><a href="#s4">04</a>
+    <a href="#s5">05</a><a href="#s6">06</a><a href="#s7">07</a><a href="#s8">08</a>
+    <a href="#s9">09</a><a href="#qa">Питання</a><a href="#check">Перед виступом</a>
+  </nav>
+
+  <section class="slide" id="s1">
+    <div class="head"><span class="num">01</span><h2>Титул</h2><span class="time">0:30</span></div>
+    <p>Всім привіт. Моя частина називається «Співробітник, якого ми не наймали».</p>
+    <p>Наприкінці я покажу, звідки він узявся і скільки він працює на нас щомісяця.
+       А поки — два кейси. Один повертає час, другий змінив продукт.</p>
+  </section>
+
+  <section class="slide" id="s2">
+    <div class="head"><span class="num">02</span><h2>Про мене</h2><span class="time">0:30</span></div>
+    <p>Коротко про мене. Я Олександр, SMM і промо-операції по США.
+       На мені вісім брендів: промо, офери і щотижнева звітність — тобто рахую, що купують,
+       за якою ціною і скільки це приносить.</p>
+    <p class="cue">на фото</p>
+    <p>А це моя команда. Голем, панда, желе — і ШІ, який тут не влазить у кадр.</p>
+  </section>
+
+  <section class="slide" id="s3">
+    <div class="head"><span class="num">03</span><h2>А тепер про гроші</h2><span class="time">0:30</span></div>
+    <p>Дмитро показав, з чого все це збирається: контекст, скіли, MCP, памʼять.
+       Він про контент і залученість. Я — про гроші й продукт.</p>
+    <p class="cue">одна фраза — і одразу далі</p>
+  </section>
+
+  <section class="slide" id="s4">
+    <div class="head"><span class="num">04</span><h2>Кейс 01 · Звіт є, а даних не дістати</h2><span class="time">1:15</span></div>
+    <p>Перший кейс. У нас є звіт у Power BI по оферах — усе, що купили, по кожному бренду.
+       Звіт є. А даних з нього не дістати.</p>
+    <p>Power BI не дає вивантаження. Матриця віртуалізована: поки не прокрутиш рядок, його
+       ніби не існує. Тому цифри переписувались руками. По одній.</p>
+    <p class="cue">показати на смугу внизу</p>
+    <p>Важлива тут не цифра в таблиці, а оце простирадло рядків. Його переписували руками —
+       щодня по 40 хвилин і ще година в понеділок на зведення.</p>
+    <p class="punch">5 годин 40 хвилин на тиждень. Просто на те, щоб перенести цифри з одного місця в інше.</p>
+  </section>
+
+  <section class="slide" id="s5">
+    <div class="head"><span class="num">05</span><h2>Рішення · скіл powerbi-weekly</h2><span class="time">1:15</span></div>
+    <p>Тепер це робить скіл. ШІ сам виставляє слайсери, сам прокручує матрицю до кінця
+       і за один прохід знімає чотири зрізи. Нічого не переписується руками.</p>
+    <p>На виході — не скріншот у Slack, який протухає за два дні, а дашборд: відкрив,
+       перемкнув тиждень, подивився тренд по брендах.</p>
+    <p>Було 5 годин 40 хвилин. Стало <b>30 хвилин</b> — прогін і аналіз.
+       Це <b>приблизно три робочі дні щомісяця</b>, які повернулись.</p>
+    <p class="cue">граблі</p>
+    <p>І чесно про граблі. Одного разу 11 днів лягли у звіт як один тиждень.
+       ШІ бере те, що стоїть у фільтрі, а не те, що ти мав на увазі. Тому перевіряти за ним
+       треба, особливо на старті.</p>
+  </section>
+
+  <section class="slide" id="s6">
+    <div class="head"><span class="num">06</span><h2>Кейс 02 · Скільки має коштувати офер у чаті?</h2><span class="time">1:15</span></div>
+    <p>Другий кейс — і він для мене цікавіший. Питання просте: скільки має коштувати офер у чаті?</p>
+    <p>Відповідь була: ніхто не знав. Ціна стояла та сама щодня, «бо так було».
+       А помилка тут дорога в обидва боки: задешево — недобираємо, задорого — не купують.</p>
+    <p>Чому ніхто не перевіряв? Бо щоб порівняти ціни, треба тижні даних по кожній точці.
+       А поки зведеш руками — місяць минув, і рішення вже запізнилось.</p>
+    <p class="cue">не розкривати відповідь тут — одразу на наступний слайд</p>
+  </section>
+
+  <section class="slide" id="s7">
+    <div class="head"><span class="num">07</span><h2>Відповідь · Кожному дню — своя ціна</h2><span class="time">1:30</span></div>
+    <p>Тому я зробив просто: кожному дню тижня — своя ціна. Місяць тесту, 21 офер, 252 покупки.</p>
+    <p>І ось тут два кейси сходяться. Дані для тесту щотижня збирав той самий скіл із
+       першого кейсу. Без нього такий тест — це квартал ручного переписування. З ним — місяць.</p>
+    <p>Тепер результат. Здоровий глузд каже: дорожче — купують менше.
+       Дані сказали інше. Середні ціни провалились, а дорожча полиця купувалась частіше —
+       <b>у 1,7 раза більше покупок</b>, ніж на середніх.</p>
+    <p>Продукт узяв цей розбір за основу сітки оферів. Вона працює й досі.</p>
+    <p class="punch">У Дмитра метрика — зекономлений час. У мене — змінений продукт.</p>
+  </section>
+
+  <section class="slide" id="s8">
+    <div class="head"><span class="num">08</span><h2>Від курʼєра даних до кнопки</h2><span class="time">1:00</span></div>
+    <p class="cue">перехід від слайда Дмитра про Vercel</p>
+    <p>Дмитро показав, як віддати команді посилання на інструмент. Але є задачі, де посилання
+       мало: треба не подивитись, а запустити.</p>
+    <p>Я пройшов цей шлях так. Спочатку чат у браузері — я копіював дані туди й назад.
+       Я був курʼєром. Потім десктопна апка, потім Cursor — там ШІ вже сам читає файли й
+       запускає, і зʼявились скіли. Але запустити їх міг лише той, у кого все налаштоване.</p>
+    <p>Тому зараз — панель: ті самі скіли, але кнопками.</p>
+    <p class="punch">Автоматизація масштабується не скілами, а інтерфейсом до них.</p>
+  </section>
+
+  <section class="slide" id="s9">
+    <div class="head"><span class="num">09</span><h2>Разом</h2><span class="time">0:45</span></div>
+    <p>Разом. Чотири інструменти Дмитра — це приблизно 7 робочих днів на місяць.
+       Мій кейс — ще приблизно три. <b>Разом близько десяти робочих днів щомісяця.</b></p>
+    <p class="punch">Це місяць роботи однієї людини, яку ми не наймали.</p>
+    <p>Дякую. Питання?</p>
+  </section>
+  <p class="total">разом ≈ 9:00 + питання</p>
+
+  <div class="extra" id="qa">
+    <h2>Питання, які можуть прилетіти</h2>
+    <div class="qa"><div class="q">«А чому саме ця ціна?»</div>
+      <div class="a">Відповідати усно, цифри полиць тримати в голові. На слайдах ціни навмисно замилені: грошей у колоді не показуємо.</div></div>
+    <div class="qa"><div class="q">«Як піднята панель / звідки доступ?»</div>
+      <div class="a">«Локально, доступ закритий, можу показати окремо.» Не розповідати, які системи вона смикає.</div></div>
+    <div class="qa"><div class="q">«А можна мені такий скіл?»</div>
+      <div class="a">Так, у цьому і суть панелі: скіл запускає не лише той, хто його налаштував.</div></div>
+    <div class="qa"><div class="q">«ШІ не помиляється?»</div>
+      <div class="a">Помиляється — приклад із 11 днями на слайді 05. Тому перший час звіряю руками, а зрізи беруть рівно те, що стоїть у фільтрі.</div></div>
+  </div>
+
+  <div class="extra" id="check">
+    <h2>Перед виступом</h2>
+    <ul class="check">
+      <li>Панель на показ: <code>node panel/server.js</code> → <code>localhost:8787</code>, вкладка Power BI перша</li>
+      <li>Кнопку «Аналіз чату» на сцені <b>не тиснути</b> — живцем вона не гналась жодного разу</li>
+      <li>Звірити з Дмитром цифру ≈ 7 робочих днів — вона з його слайда 13</li>
+      <li>Після виступу прибрати фото з публічного репо:
+        <code>node automation/push-asset.js --delete workshop-assets/ws-crew.png</code></li>
+    </ul>
+  </div>
+</div>
+</body>
+</html>
