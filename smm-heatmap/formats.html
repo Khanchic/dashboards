@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="robots" content="noindex, nofollow" />
+<meta name="theme-color" content="#0b1020" />
+<title>SMM Форматы</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌡️</text></svg>" />
+<link rel="stylesheet" href="css/dash.css" />
+</head>
+<body>
+
+<div id="app" class="app">
+
+  <header class="topbar">
+    <div class="topbar-row">
+      <div class="brand"><a href="../" class="home" title="Все дашборды">←</a> 🌡️ <span>Форматы</span></div>
+      <div class="topbar-right">
+        <span id="meta" class="meta"></span>
+        <button id="refreshBtn" class="ghost-btn sm" title="Перечитать данные">⟳</button>
+      </div>
+    </div>
+
+    <nav class="tabs">
+      <a href="index.html">Статистика</a>
+      <a href="formats.html" class="active">Форматы</a>
+      <a href="powerbi.html">Power BI</a>
+      <a href="discord.html">Discord Planner</a>
+      <a href="../highrollers/" class="ext">Highrollers</a>
+    </nav>
+
+    <div class="topbar-row controls">
+      <span class="plat-badge" title="Instagram в лог пока не собирается">Facebook</span>
+      <select id="periodSel" class="side-select sm" title="Неделя, месяц или всё время"></select>
+      <select id="projSel" class="side-select sm"></select>
+      <select id="minSel" class="side-select sm" title="Не показывать форматы, по которым мало данных">
+        <option value="1">Все форматы</option>
+        <option value="3">от 3 постов</option>
+        <option value="5">от 5 постов</option>
+        <option value="10">от 10 постов</option>
+      </select>
+      <label class="daterange">
+        <span>с</span><input id="fromInp" type="date" class="side-select sm" />
+        <span>по</span><input id="toInp" type="date" class="side-select sm" />
+      </label>
+      <button id="resetBtn" class="ghost-btn sm">Сбросить</button>
+    </div>
+  </header>
+
+  <main class="main">
+    <section class="kpis" id="kpis"></section>
+
+    <section class="panel">
+      <div class="panel-title">💡 Выводы недели <span id="insWeek" class="panel-sub"></span></div>
+      <div id="insGrid" class="ins-grid"></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-title">🚀 Рекомендации к действию</div>
+      <ol id="recsList" class="recs"></ol>
+    </section>
+
+    <section class="panel">
+      <div class="panel-title">🏆 Рейтинг форматов <span id="ratingScope" class="panel-sub"></span></div>
+      <div class="table-wrap keep"><table id="ratingTable" class="cmp rank"></table></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-title">📊 ER по брендам <span class="panel-sub">взаимодействия ÷ охват · всегда по всем брендам</span></div>
+      <div class="table-wrap keep"><table id="erTable" class="cmp rank"></table></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-title">🌡️ Формат × бренд <span class="panel-sub">средние реакции на пост · одна шкала цвета на всех</span></div>
+      <div id="hmLegend" class="hm-legend"></div>
+      <div class="hm-wrap"><table id="heatmap" class="hm"></table></div>
+      <div class="hm-note">Пустая ячейка — бренд этот формат не публиковал. Это и есть неиспользованный резерв.</div>
+    </section>
+  </main>
+</div>
+
+<div id="tip" class="tip hidden"></div>
+<div id="toast" class="toast hidden"></div>
+
+<script src="js/brands.js"></script>
+<script src="js/api.js"></script>
+<script src="js/formats.js"></script>
+</body>
+</html>

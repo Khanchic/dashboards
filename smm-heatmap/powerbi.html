@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="robots" content="noindex, nofollow" />
+<meta name="theme-color" content="#0b1020" />
+<title>Power BI Live</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📈</text></svg>" />
+<link rel="stylesheet" href="css/dash.css" />
+</head>
+<body>
+
+<div id="app" class="app">
+  <header class="topbar">
+    <div class="topbar-row">
+      <div class="brand"><a href="../" class="home" title="Все дашборды">←</a> 📈 <span>Power BI</span></div>
+    </div>
+    <nav class="tabs">
+      <a href="index.html">Статистика</a>
+      <a href="formats.html">Форматы</a>
+      <a href="powerbi.html" class="active">Power BI</a>
+      <a href="discord.html">Discord Planner</a>
+      <a href="../highrollers/" class="ext">Highrollers</a>
+    </nav>
+  </header>
+
+  <main class="main report-main">
+    <section class="panel">
+      <div class="frame-bar">
+        <div class="panel-title" style="margin:0">⚡ Автоматический анализ недели <span class="panel-sub">выгрузка Offers &amp; Payouts через локальную Панель</span></div>
+        <span id="pbiStatus" class="status-pill">Проверяю Панель…</span>
+      </div>
+      <div class="run-row">
+        <select id="pbiWeek" class="side-select sm" title="Отчётная неделя"></select>
+        <button id="pbiRun" class="primary-btn sm">⚡ Снять и проанализировать неделю</button>
+        <button id="pbiCheck" class="ghost-btn sm" title="Проверить связь с Панелью">⟳</button>
+        <a href="http://localhost:8787" target="_blank" rel="noopener" class="ghost-btn sm" style="text-decoration:none">Открыть Панель ↗</a>
+      </div>
+      <div id="pbiLog" class="run-log hidden"></div>
+    </section>
+
+    <section>
+      <div class="frame-bar">
+        <div class="panel-title" style="margin:0">📊 USA Offer Monitoring</div>
+        <div class="acts">
+          <button id="pbiFull" class="ghost-btn sm">⛶ Полный экран</button>
+          <a class="ghost-btn sm" target="_blank" rel="noopener" href="https://app.powerbi.com/reportEmbed?reportId=6705e06d-cf36-47e5-ace3-0400e15b2ce2&autoAuth=true&ctid=1f6b8b60-80b4-4d1e-aef7-deeffe0879c1">В отдельной вкладке ↗</a>
+        </div>
+      </div>
+      <div class="frame-wrap" id="pbiWrap">
+        <iframe title="USA Offer Monitoring" allowfullscreen loading="lazy"
+          src="https://app.powerbi.com/reportEmbed?reportId=6705e06d-cf36-47e5-ace3-0400e15b2ce2&autoAuth=true&ctid=1f6b8b60-80b4-4d1e-aef7-deeffe0879c1"></iframe>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script src="js/powerbi.js"></script>
+</body>
+</html>

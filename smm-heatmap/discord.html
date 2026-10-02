@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="robots" content="noindex, nofollow" />
+<meta name="theme-color" content="#0b1020" />
+<title>Discord Planner</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎮</text></svg>" />
+<link rel="stylesheet" href="css/dash.css" />
+</head>
+<body>
+
+<div id="app" class="app">
+  <header class="topbar">
+    <div class="topbar-row">
+      <div class="brand"><a href="../" class="home" title="Все дашборды">←</a> 🎮 <span>Discord Planner</span></div>
+    </div>
+    <nav class="tabs">
+      <a href="index.html">Статистика</a>
+      <a href="formats.html">Форматы</a>
+      <a href="powerbi.html">Power BI</a>
+      <a href="discord.html" class="active">Discord Planner</a>
+      <a href="../highrollers/" class="ext">Highrollers</a>
+    </nav>
+  </header>
+
+  <main class="main report-main">
+    <section>
+      <div class="frame-bar">
+        <div class="panel-title" style="margin:0">Планирование веток и постов Discord</div>
+        <div class="acts">
+          <button id="dsFull" class="ghost-btn sm">⛶ Полный экран</button>
+          <a class="ghost-btn sm" target="_blank" rel="noopener" href="https://ds-frotn.onrender.com/">В отдельной вкладке ↗</a>
+        </div>
+      </div>
+      <div class="frame-wrap square" id="dsWrap">
+        <iframe title="Discord Planner" allowfullscreen loading="lazy" src="https://ds-frotn.onrender.com/"></iframe>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+  document.getElementById("dsFull").addEventListener("click", function () {
+    var w = document.getElementById("dsWrap");
+    if (document.fullscreenElement) document.exitFullscreen(); else w.requestFullscreen().catch(function () {});
+  });
+</script>
+</body>
+</html>
