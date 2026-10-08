@@ -43,13 +43,16 @@
       activeKey = 'onboarding';
     } else if (path.includes('vegas-ds')) {
       activeKey = 'gallery';
+    } else if (path.includes('storm-ds')) {
+      activeKey = 'gallery-storm';
     }
 
     const tabs = [
       { key: 'home', title: 'Главная (Хаб)', icon: '🏠', href: `${base}` },
       { key: 'powerbi', title: 'Power BI Live', icon: '📊', href: `${base}powerbi/` },
       { key: 'smm', title: 'SMM Хитмап', icon: '⚡', href: `${base}smm-heatmap/` },
-      { key: 'gallery', title: 'Галерея апрува', icon: '🖼', href: `${base}vegas-ds/` },
+      { key: 'gallery', title: 'Галерея Vegas', icon: '🖼', href: `${base}vegas-ds/` },
+      { key: 'gallery-storm', title: 'Галерея Storm', icon: '🖼', href: `${base}storm-ds/` },
       { key: 'promo', title: 'Промокоды', icon: '🏷️', href: `${base}promo-codes/` },
       { key: 'chat', title: 'Чат-триаж', icon: '💬', href: `${base}chat-triage/` },
       { key: 'highrollers', title: 'Хайроллы', icon: '💎', href: `${base}highrollers/` },
