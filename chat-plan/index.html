@@ -1,0 +1,558 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="stylesheet" href="../common/nav.css">
+</head>
+<body>
+<title>План чатов</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+/* Лента дней сверху вниз; в дне — сетка карточек «канал · бренд». Палитра хаба: ночной синий + циан. */
+:root {
+  --bg: #070a13;
+  --panel: #0e1526;
+  --panel-2: #121b30;
+  --line: rgba(255,255,255,.08);
+  --line-strong: rgba(255,255,255,.16);
+  --fg: #f0f4fc;
+  --dim: #8f9dbb;
+  --faint: #66748f;
+  --brand: #00e5ff;
+  --brand-soft: rgba(0,229,255,.12);
+  --ok: #2fd59a;   --ok-soft: rgba(47,213,154,.12);
+  --warn: #ffc53d; --warn-soft: rgba(255,197,61,.13);
+  --bad: #ff6b7a;  --bad-soft: rgba(255,107,122,.13);
+  --c-ds: #8f86ff; --c-fbch: #4c9bff; --c-page: #2fd59a; --c-feat: #ffb347; --c-bc: #ff7ad9;
+  --c-offer: #00e5ff; --c-code: #ffc53d; --c-event: #b49cff;
+  --font: 'Plus Jakarta Sans', -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, Consolas, monospace;
+  --r: 12px;
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --bg: #f3f6fb; --panel: #ffffff; --panel-2: #eef2f8; --line: rgba(10,25,60,.10); --line-strong: rgba(10,25,60,.2);
+    --fg: #0d1830; --dim: #4a5874; --faint: #7c879d; --brand: #0090a8; --brand-soft: rgba(0,144,168,.10);
+    --ok: #12825c; --ok-soft: rgba(18,130,92,.10); --warn: #9a6400; --warn-soft: rgba(196,128,0,.12); --bad: #c42c3d; --bad-soft: rgba(196,44,61,.10);
+    --c-ds: #5b4fe0; --c-fbch: #1f6fd6; --c-page: #12825c; --c-feat: #b86b00; --c-bc: #b8329a;
+    --c-offer: #0090a8; --c-code: #9a6400; --c-event: #6b4fd0;
+    color-scheme: light;
+  }
+}
+:root[data-theme="light"] {
+  --bg: #f3f6fb; --panel: #ffffff; --panel-2: #eef2f8; --line: rgba(10,25,60,.10); --line-strong: rgba(10,25,60,.2);
+  --fg: #0d1830; --dim: #4a5874; --faint: #7c879d; --brand: #0090a8; --brand-soft: rgba(0,144,168,.10);
+  --ok: #12825c; --ok-soft: rgba(18,130,92,.10); --warn: #9a6400; --warn-soft: rgba(196,128,0,.12); --bad: #c42c3d; --bad-soft: rgba(196,44,61,.10);
+  --c-ds: #5b4fe0; --c-fbch: #1f6fd6; --c-page: #12825c; --c-feat: #b86b00; --c-bc: #b8329a;
+  --c-offer: #0090a8; --c-code: #9a6400; --c-event: #6b4fd0;
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 14px/1.45 var(--font); -webkit-font-smoothing: antialiased; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+button, input, select { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+.gutter { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.inner { max-width: 1180px; margin: 0 auto; }
+
+/* ---- gate ---- */
+.gate { min-height: 80vh; display: grid; place-items: center; padding-block: 40px; }
+.gate form { width: min(360px, 100%); display: flex; flex-direction: column; gap: 12px; background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); padding: 24px; }
+.gate h1 { margin: 0; font-size: 20px; font-weight: 800; }
+.gate p { margin: 0; color: var(--dim); font-size: 13px; }
+.gate input { background: var(--panel-2); border: 1px solid var(--line-strong); border-radius: 9px; padding: 11px 12px; }
+.gate .err { color: var(--bad); font-size: 13px; min-height: 1.2em; }
+
+/* ---- header ---- */
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: color-mix(in srgb, var(--bg) 92%, transparent); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+.top .inner { display: flex; flex-direction: column; gap: 10px; padding-block: 12px; }
+.row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.title { font-size: 19px; font-weight: 800; letter-spacing: -.01em; margin: 0; }
+.switch { display: inline-flex; border: 1px solid var(--line-strong); border-radius: 9px; overflow: hidden; }
+.switch a { padding: 6px 12px; font-size: 13px; font-weight: 700; color: var(--dim); text-decoration: none; }
+.switch a.on { background: var(--brand-soft); color: var(--brand); }
+.spacer { flex: 1; }
+.meta { color: var(--faint); font-size: 12px; }
+.btn { background: var(--panel); border: 1px solid var(--line-strong); border-radius: 9px; padding: 7px 12px; font-size: 13px; font-weight: 700; }
+.btn:hover { border-color: var(--brand); }
+.btn.primary { background: var(--brand); border-color: var(--brand); color: var(--bg); }
+.chips { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
+.chips::-webkit-scrollbar { display: none; }
+.chip { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; background: var(--panel); border: 1px solid var(--line); border-radius: 99px; padding: 5px 11px; font-size: 12.5px; font-weight: 700; color: var(--dim); }
+.chip img { width: 14px; height: 14px; border-radius: 3px; }
+.chip.on { color: var(--fg); border-color: var(--brand); background: var(--brand-soft); }
+.seg { display: inline-flex; background: var(--panel); border: 1px solid var(--line); border-radius: 9px; padding: 2px; }
+.seg button { border: 0; background: none; padding: 5px 10px; border-radius: 7px; font-size: 12.5px; font-weight: 700; color: var(--dim); display: inline-flex; align-items: center; gap: 6px; }
+.seg button.on { background: var(--panel-2); color: var(--fg); box-shadow: inset 0 0 0 1px var(--line-strong); }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--c, var(--faint)); flex: none; }
+select, input[type=search] { background: var(--panel); border: 1px solid var(--line); border-radius: 9px; padding: 6px 10px; font-size: 13px; }
+input[type=search] { min-width: 0; flex: 1 1 200px; max-width: 320px; }
+.toggle { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--dim); }
+
+/* ---- summary ---- */
+.summary { display: flex; gap: 8px; flex-wrap: wrap; padding-block: 16px 4px; }
+.sum { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 8px 12px; display: flex; flex-direction: column; gap: 2px; min-width: 132px; }
+.sum b { font-size: 12px; color: var(--dim); font-weight: 700; display: flex; align-items: center; gap: 6px; }
+.sum span { font-size: 13px; font-variant-numeric: tabular-nums; }
+.sum .issues { color: var(--warn); }
+.sum .clean { color: var(--ok); }
+
+/* ---- days ---- */
+main { padding-block: 8px 120px; }
+.day { margin-top: 22px; scroll-margin-top: 170px; }
+.day-head { display: flex; align-items: baseline; gap: 10px; padding-bottom: 8px; border-bottom: 1px solid var(--line); margin-bottom: 12px; }
+.day-date { font-size: 22px; font-weight: 800; font-variant-numeric: tabular-nums; letter-spacing: -.01em; }
+.day-wd { color: var(--dim); font-weight: 700; text-transform: uppercase; font-size: 12px; letter-spacing: .08em; }
+.day.today .day-date { color: var(--brand); }
+.badge { font-size: 11px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; padding: 2px 8px; border-radius: 99px; background: var(--brand-soft); color: var(--brand); }
+.day-count { margin-left: auto; color: var(--faint); font-size: 12px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(340px, 100%), 1fr)); gap: 12px; align-items: start; }
+.empty { color: var(--faint); padding: 40px 0; text-align: center; }
+
+/* ---- card ---- */
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); padding: 12px 14px; display: flex; flex-direction: column; gap: 8px; min-width: 0; border-top: 3px solid var(--c, var(--line)); }
+.card.problem { box-shadow: inset 0 0 0 1px var(--warn-soft); }
+.c-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.ch { font-size: 12px; font-weight: 800; color: var(--c); letter-spacing: .02em; }
+.bname { font-weight: 700; font-size: 13px; }
+.kind { font-size: 11.5px; font-weight: 700; color: var(--dim); background: var(--panel-2); border-radius: 6px; padding: 1px 7px; }
+.time { font-family: var(--mono); font-size: 12px; color: var(--dim); }
+.code { margin-left: auto; font-family: var(--mono); font-weight: 700; font-size: 13px; letter-spacing: .03em; background: var(--panel-2); border: 1px dashed var(--line-strong); border-radius: 7px; padding: 3px 8px; }
+.code:hover { border-color: var(--brand); color: var(--brand); }
+.pills { display: flex; gap: 6px; flex-wrap: wrap; font-size: 11.5px; }
+.pill { border-radius: 99px; padding: 1px 8px; font-weight: 700; background: var(--panel-2); color: var(--dim); }
+.pill.ok { background: var(--ok-soft); color: var(--ok); }
+.pill.warn { background: var(--warn-soft); color: var(--warn); }
+.pill.bad { background: var(--bad-soft); color: var(--bad); }
+.topic { color: var(--dim); font-size: 12.5px; }
+.post { margin: 0; white-space: pre-wrap; word-break: break-word; font: 13px/1.5 var(--font); background: var(--panel-2); border-radius: 9px; padding: 10px 12px; max-height: 11.5em; overflow: hidden; position: relative; }
+.post.open { max-height: none; }
+.acts { display: flex; gap: 6px; flex-wrap: wrap; }
+.acts .btn { padding: 5px 10px; font-size: 12px; }
+.note { font-size: 12px; color: var(--warn); }
+.secret { font-size: 12px; color: var(--dim); }
+.secret summary { cursor: pointer; font-weight: 700; }
+
+/* chat */
+.bsec { display: flex; flex-direction: column; gap: 10px; }
+.bsec-title { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 14px; }
+.bsec-title img { width: 16px; height: 16px; border-radius: 3px; }
+.hw { background: linear-gradient(90deg, var(--warn-soft), transparent); border: 1px solid var(--warn-soft); border-radius: var(--r); padding: 10px 14px; margin-bottom: 12px; display: flex; flex-direction: column; gap: 3px; }
+.hw b { font-size: 14px; }
+.hw span { font-size: 12.5px; color: var(--dim); }
+.offer-line { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.price { font-weight: 800; font-size: 16px; font-variant-numeric: tabular-nums; }
+.pack { font-family: var(--mono); font-size: 12px; color: var(--dim); }
+.pbi { font-family: var(--mono); font-size: 11.5px; color: var(--faint); word-break: break-all; }
+.codes { display: grid; grid-template-columns: auto 1fr auto auto; gap: 4px 10px; align-items: center; font-size: 12.5px; }
+.codes .code { margin-left: 0; justify-self: start; font-size: 12px; padding: 1px 7px; }
+.codes .n { font-variant-numeric: tabular-nums; color: var(--dim); text-align: right; }
+.ev { display: flex; flex-direction: column; gap: 3px; padding-top: 8px; border-top: 1px solid var(--line); }
+.ev:first-of-type { border-top: 0; padding-top: 0; }
+.ev-name { font-weight: 600; font-size: 13px; }
+.ev-sub { font-size: 12px; color: var(--dim); }
+
+.toast { position: fixed; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); background: var(--fg); color: var(--bg); font-weight: 700; font-size: 13px; padding: 9px 16px; border-radius: 99px; z-index: 50; }
+@media (max-width: 560px) {
+  .title { font-size: 17px; }
+  .day-date { font-size: 19px; }
+  .codes { grid-template-columns: auto 1fr auto; }
+  .codes .act { display: none; }
+}
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+</style>
+
+<div id="gate" class="gate gutter" hidden>
+  <form id="gateForm">
+    <h1>План чатов</h1>
+    <p>Введи ключ доступа. Браузер его запомнит.</p>
+    <input id="gateKey" type="password" autocomplete="current-password" placeholder="Ключ доступа">
+    <button class="btn primary" type="submit">Открыть</button>
+    <div id="gateErr" class="err"></div>
+  </form>
+</div>
+
+<div id="app" hidden>
+  <header class="top gutter">
+    <div class="inner">
+      <div class="row">
+        <h1 class="title" id="pageTitle">План чатов</h1>
+        <nav class="switch" aria-label="Раздел">
+          <a id="lnkSmm" href="../plan/">SMM</a>
+          <a id="lnkChat" href="../chat-plan/">Онлайн-чаты</a>
+        </nav>
+        <span class="spacer"></span>
+        <span class="meta" id="updated"></span>
+        <button class="btn" id="todayBtn" type="button">Сегодня</button>
+      </div>
+      <div class="chips" id="brandChips"></div>
+      <div class="row">
+        <div class="seg" id="kindSeg"></div>
+        <select id="weekSel" aria-label="Неделя"></select>
+        <input id="search" type="search" placeholder="Поиск: код, текст, механика">
+        <label class="toggle"><input type="checkbox" id="onlyIssues"> Только проблемы</label>
+        <div class="seg" id="langSeg" hidden><button data-v="en" class="on" type="button">EN</button><button data-v="ru" type="button">RU</button></div>
+      </div>
+    </div>
+  </header>
+  <div class="gutter"><div class="inner">
+    <div class="summary" id="summary"></div>
+    <main id="days"></main>
+  </div></div>
+</div>
+<div id="toast" class="toast" hidden></div>
+
+<script>
+(function () {
+  "use strict";
+  var PAGE = "chat";
+  var EMBED = null;
+  var DATA_URL = "../plan/data.enc.json";
+  var LS = { key: "planhub.key", week: "planhub.week." + PAGE, brand: "planhub.brand." + PAGE };
+
+  var SMM_CH = {
+    ds:   { name: "Discord", c: "--c-ds" },
+    fbch: { name: "FB-канал", c: "--c-fbch" },
+    page: { name: "FB-страница", c: "--c-page" },
+    bc:   { name: "Бродкаст", c: "--c-bc" }
+  };
+  var CHAT_KIND = {
+    offer: { name: "Офферы", c: "--c-offer" },
+    code:  { name: "Промокоды", c: "--c-code" },
+    event: { name: "Активности", c: "--c-event" }
+  };
+  var CHAT_BRANDS = ["Scarlet Sands", "NoLimitCoins", "Fortune Wheelz"];
+  var WD = ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"];
+
+  var $ = function (id) { return document.getElementById(id); };
+  var D = null;
+  var st = { brand: "all", kind: "all", week: "", q: "", issues: false, lang: "en" };
+
+  function lsGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+  function lsSet(k, v) { try { if (v == null) localStorage.removeItem(k); else localStorage.setItem(k, v); } catch (e) {} }
+  function esc(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  function toast(msg) {
+    var t = $("toast"); t.textContent = msg; t.hidden = false;
+    clearTimeout(toast._t); toast._t = setTimeout(function () { t.hidden = true; }, 1800);
+  }
+  function copy(text, what) {
+    function fallback() {
+      var ta = document.createElement("textarea"); ta.value = text; ta.style.cssText = "position:fixed;opacity:0;top:0";
+      document.body.appendChild(ta); ta.select(); var ok = false;
+      try { ok = document.execCommand("copy"); } catch (e) {}
+      document.body.removeChild(ta); toast(ok ? "Скопировано: " + what : "Не удалось скопировать");
+    }
+    if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(function () { toast("Скопировано: " + what); }, fallback);
+    else fallback();
+  }
+  function color(v) { return "var(" + v + ")"; }
+  function favicon(b) {
+    var s = D.sites && D.sites[b];
+    return s ? '<img src="https://www.google.com/s2/favicons?domain=' + s + '&sz=32" alt="" loading="lazy" onerror="this.remove()">' : "";
+  }
+
+  // ---------- даты ----------
+  function parse(k) { var p = k.split("-"); return new Date(Date.UTC(+p[0], +p[1] - 1, +p[2], 12)); }
+  function key(d) { return d.toISOString().slice(0, 10); }
+  function monday(k) { var d = parse(k); var wd = (d.getUTCDay() + 6) % 7; d.setUTCDate(d.getUTCDate() - wd); return key(d); }
+  function plus(k, n) { var d = parse(k); d.setUTCDate(d.getUTCDate() + n); return key(d); }
+  function ddmm(k) { return k.slice(8, 10) + "." + k.slice(5, 7); }
+  function wd(k) { return WD[parse(k).getUTCDay()]; }
+
+  // ---------- расшифровка ----------
+  function b64(s) { var bin = atob(s), u = new Uint8Array(bin.length); for (var i = 0; i < bin.length; i++) u[i] = bin.charCodeAt(i); return u; }
+  function decrypt(enc, pass) {
+    var subtle = crypto.subtle;
+    return subtle.importKey("raw", new TextEncoder().encode(pass), "PBKDF2", false, ["deriveKey"])
+      .then(function (base) {
+        return subtle.deriveKey({ name: "PBKDF2", salt: b64(enc.salt), iterations: enc.iter, hash: "SHA-256" }, base,
+          { name: "AES-GCM", length: 256 }, false, ["decrypt"]);
+      })
+      .then(function (k) { return subtle.decrypt({ name: "AES-GCM", iv: b64(enc.iv) }, k, b64(enc.ct)); })
+      .then(function (buf) { return JSON.parse(new TextDecoder().decode(buf)); });
+  }
+  function load(pass) {
+    return fetch(DATA_URL + "?t=" + Date.now(), { cache: "no-store" })
+      .then(function (r) { if (!r.ok) throw new Error("Не удалось загрузить данные: HTTP " + r.status); return r.json(); })
+      .then(function (enc) { return decrypt(enc, pass).catch(function () { throw new Error("Ключ не подходит"); }); });
+  }
+  function showGate(err) {
+    $("app").hidden = true; $("gate").hidden = false; $("gateErr").textContent = err || ""; $("gateKey").focus();
+  }
+  $("gateForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var v = $("gateKey").value.trim(); if (!v) return;
+    $("gateErr").textContent = "Открываю…";
+    load(v).then(function (d) { lsSet(LS.key, v); start(d); }, function (er) { $("gateErr").textContent = er.message; });
+  });
+
+  // ---------- модель ----------
+  function smmIssues(it) {
+    if (it.date < D.today) return [];
+    var out = [];
+    if (it.setup === false) out.push("код не в админке");
+    if ((it.ch === "ds" || it.ch === "bc") && it.planned === false && !it.queued) out.push("не запланирован");
+    if (!it.en && !it.ru) out.push("нет текста");
+    return out;
+  }
+  function chatIssues(it) {
+    if (it.date < D.today) return [];
+    if ((it.kind === "offer" || it.kind === "code") && it.setup === false) return ["не засетаплено"];
+    return [];
+  }
+  function hay(it) {
+    return [it.code, it.en, it.ru, it.kind, it.title, it.type, it.name, it.message, it.display, it.pbi, it.slot, it.brand, it.answer]
+      .join(" ").toLowerCase();
+  }
+  function pool() {
+    var arr = PAGE === "smm" ? D.smm : D.chat.filter(function (x) { return x.kind !== "halloween"; });
+    var from = st.week || D.from, to = st.week ? plus(st.week, 6) : D.to;
+    var q = st.q.toLowerCase();
+    var issuesOf = PAGE === "smm" ? smmIssues : chatIssues;
+    return arr.filter(function (it) {
+      if (it.date < from || it.date > to) return false;
+      if (st.brand !== "all" && it.brand !== st.brand) return false;
+      var k = PAGE === "smm" ? it.ch : it.kind;
+      if (st.kind !== "all" && k !== st.kind) return false;
+      if (q && hay(it).indexOf(q) < 0) return false;
+      if (st.issues && !issuesOf(it).length) return false;
+      return true;
+    });
+  }
+  var BR_ORDER = {};
+  function brandIdx(b) { return BR_ORDER[b] == null ? 99 : BR_ORDER[b]; }
+
+  // ---------- шапка ----------
+  function buildHeader() {
+    var smm = PAGE === "smm";
+    $("lnkSmm").className = smm ? "on" : ""; $("lnkChat").className = smm ? "" : "on";
+    var brands = smm ? D.brands : CHAT_BRANDS;
+    brands.forEach(function (b, i) { BR_ORDER[b] = i; });
+    $("brandChips").innerHTML = ['<button class="chip" data-b="all" type="button">Все бренды</button>']
+      .concat(brands.map(function (b) { return '<button class="chip" data-b="' + esc(b) + '" type="button">' + favicon(b) + esc(b) + "</button>"; })).join("");
+    var kinds = smm ? SMM_CH : CHAT_KIND;
+    $("kindSeg").innerHTML = '<button data-v="all" type="button">Всё</button>' + Object.keys(kinds).map(function (k) {
+      return '<button data-v="' + k + '" type="button"><i class="dot" style="--c:' + color(kinds[k].c) + '"></i>' + kinds[k].name + "</button>";
+    }).join("");
+    $("langSeg").hidden = !smm;
+    var weeks = [], w = monday(D.from);
+    while (w <= D.to) { weeks.push(w); w = plus(w, 7); }
+    var cur = monday(D.today);
+    $("weekSel").innerHTML = weeks.map(function (m) {
+      var lbl = ddmm(m) + "–" + ddmm(plus(m, 6)) + (m === cur ? " · эта неделя" : m === plus(cur, 7) ? " · следующая" : "");
+      return '<option value="' + m + '">' + lbl + "</option>";
+    }).join("") + '<option value="">Все дни</option>';
+    var savedW = lsGet(LS.week);
+    st.week = savedW != null && (savedW === "" || weeks.indexOf(savedW) >= 0) ? savedW : cur;
+    $("weekSel").value = st.week;
+    var savedB = lsGet(LS.brand);
+    if (savedB && (savedB === "all" || brands.indexOf(savedB) >= 0)) st.brand = savedB;
+    var dt = new Date(D.generatedAt);
+    $("updated").textContent = "данные на " + dt.toLocaleString("ru-RU", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" });
+    syncControls();
+  }
+  function syncControls() {
+    Array.prototype.forEach.call($("brandChips").children, function (b) { b.classList.toggle("on", b.dataset.b === st.brand); });
+    Array.prototype.forEach.call($("kindSeg").children, function (b) { b.classList.toggle("on", b.dataset.v === st.kind); });
+    Array.prototype.forEach.call($("langSeg").children, function (b) { b.classList.toggle("on", b.dataset.v === st.lang); });
+  }
+
+  // ---------- сводка ----------
+  function summary(list) {
+    var smm = PAGE === "smm", kinds = smm ? SMM_CH : CHAT_KIND, issuesOf = smm ? smmIssues : chatIssues;
+    $("summary").innerHTML = Object.keys(kinds).map(function (k) {
+      var items = list.filter(function (it) { return (smm ? it.ch : it.kind) === k; });
+      if (!items.length) return "";
+      var bad = items.filter(function (it) { return issuesOf(it).length; }).length;
+      return '<div class="sum"><b><i class="dot" style="--c:' + color(kinds[k].c) + '"></i>' + kinds[k].name + "</b><span>" +
+        items.length + " шт · " + (bad ? '<em class="issues">' + bad + " с проблемой</em>" : '<em class="clean">всё ок</em>') + "</span></div>";
+    }).join("");
+  }
+
+  // ---------- SMM карточка ----------
+  function pillsSmm(it) {
+    var p = [];
+    if (it.setup === true) p.push('<span class="pill ok">код в админке</span>');
+    else if (it.setup === false) p.push('<span class="pill bad">код не в админке</span>');
+    if (it.queued) p.push('<span class="pill ok">в очереди Planner</span>');
+    else if (it.planned === true) p.push('<span class="pill ok">запланирован</span>');
+    else if (it.planned === false && (it.ch === "ds" || it.ch === "bc") && it.date >= D.today) p.push('<span class="pill warn">не запланирован</span>');
+    if (it.posted === true) p.push('<span class="pill ok">вышел</span>');
+    if (it.status) p.push('<span class="pill">' + esc(it.status) + "</span>");
+    if (it.act) p.push('<span class="pill">' + esc(it.act) + " акт.</span>");
+    if (it.valid) p.push('<span class="pill">' + esc(it.valid) + "</span>");
+    return p.join("");
+  }
+  function cardSmm(it, showBrand) {
+    var meta = SMM_CH[it.ch];
+    var cvar = it.ch === "page" && it.sub === "feature" ? "--c-feat" : meta.c;
+    var chName = it.ch === "page" ? (it.sub === "feature" ? "FB-страница · фича" : "FB-страница · конкурс") : meta.name;
+    var text = st.lang === "ru" ? (it.ru || it.en) : (it.en || it.ru);
+    var issues = smmIssues(it);
+    var id = "t" + Math.random().toString(36).slice(2, 8);
+    return '<article class="card' + (issues.length ? " problem" : "") + '" style="--c:' + color(cvar) + '">' +
+      '<div class="c-head"><span class="ch">' + chName + "</span>" +
+        (showBrand ? '<span class="bname">' + esc(it.brand) + "</span>" : "") +
+        (it.kind ? '<span class="kind">' + esc(it.kind) + "</span>" : "") +
+        (it.time ? '<span class="time" title="Время выхода, Киев">' + esc(it.time) + "</span>" : "") +
+        (it.code ? '<button class="code" type="button" data-copy="' + esc(it.code) + '" data-what="код" title="Скопировать код">' + esc(it.code) + "</button>" : "") +
+      "</div>" +
+      '<div class="pills">' + pillsSmm(it) + "</div>" +
+      (it.title ? '<div class="topic">' + esc(it.title) + "</div>" : "") +
+      (it.answer && it.answer !== "—" ? '<details class="secret"><summary>Ответ</summary>' + esc(it.answer) + "</details>" : "") +
+      (text ? '<pre class="post" id="' + id + '">' + esc(text) + "</pre>" +
+        '<div class="acts"><button class="btn" type="button" data-copy-el="' + id + '" data-what="текст">Копировать текст</button>' +
+        '<button class="btn" type="button" data-expand="' + id + '">Весь текст</button>' +
+        (it.en && it.ru ? '<button class="btn" type="button" data-alt="' + id + '" data-en="' + esc(it.en) + '" data-ru="' + esc(it.ru) + '" data-show="' + (st.lang === "ru" && it.ru ? "ru" : "en") + '">' + (st.lang === "ru" ? "EN" : "RU") + "</button>" : "") +
+        "</div>" : "") +
+      (it.file || it.video ? '<div class="topic">🖼 ' + esc(it.video || it.file) + "</div>" : "") +
+      (it.note ? '<div class="note">' + esc(it.note) + "</div>" : "") +
+    "</article>";
+  }
+  var CH_ORDER = { ds: 0, fbch: 1, page: 2, bc: 3 };
+
+  // ---------- Чат: блок бренда за день ----------
+  function bsecChat(brand, items, showBrand) {
+    var offers = items.filter(function (x) { return x.kind === "offer"; });
+    var codes = items.filter(function (x) { return x.kind === "code"; });
+    var events = items.filter(function (x) { return x.kind === "event"; });
+    var html = "";
+    if (offers.length) {
+      html += '<article class="card" style="--c:var(--c-offer)"><div class="c-head"><span class="ch">Офферы</span>' + (showBrand ? '<span class="bname">' + esc(brand) + "</span>" : "") + "</div>" +
+        offers.map(function (o) {
+          var pack = [o.sc && o.sc + " SC", o.fp && o.fp + " FP", o.gk && o.gk + " GK"].filter(Boolean).join(" · ");
+          return '<div class="ev"><div class="offer-line"><span class="price">' + esc(o.price) + "</span>" +
+            '<span class="ev-name">' + esc(o.display ? o.display.replace(/\s*[·—-]\s*\$[\d.,]+$/, "") : o.slot) + "</span>" +
+            (o.setup ? '<span class="pill ok">засетаплено</span>' : o.date >= D.today ? '<span class="pill warn">не засетаплено</span>' : '<span class="pill">не отмечено</span>') + "</div>" +
+            '<div class="pack">' + esc(pack) + (o.id ? " · пакет " + esc(o.id) : "") + "</div>" +
+            (o.display && o.slot ? '<div class="ev-sub">' + esc(o.slot) + "</div>" : "") +
+            '<div class="pbi">' + esc(o.pbi) + "</div></div>";
+        }).join("") + "</article>";
+    }
+    if (codes.length) {
+      html += '<article class="card" style="--c:var(--c-code)"><div class="c-head"><span class="ch">Промокоды чата</span>' + (showBrand ? '<span class="bname">' + esc(brand) + "</span>" : "") + "</div>" +
+        '<div class="codes">' + codes.map(function (c) {
+          return "<span>" + esc(c.slot) + '</span><button class="code" type="button" data-copy="' + esc(c.code) + '" data-what="код">' + esc(c.code) + "</button>" +
+            '<span class="n act">×' + esc(c.act) + "</span>" +
+            (c.setup ? '<span class="pill ok">в админке</span>' : '<span class="pill ' + (c.date >= D.today ? "bad" : "") + '">нет</span>');
+        }).join("") + "</div></article>";
+    }
+    if (events.length) {
+      html += '<article class="card" style="--c:var(--c-event)"><div class="c-head"><span class="ch">Активности</span>' + (showBrand ? '<span class="bname">' + esc(brand) + "</span>" : "") + "</div>" +
+        events.map(function (e) {
+          var when = e.start && e.end && e.start !== e.end ? e.start + " → " + e.end : "";
+          var sub = [e.message, e.placement, when].filter(Boolean).join(" · ");
+          var stCls = /done|scheduled|готов/i.test(e.status) ? "ok" : "";
+          return '<div class="ev"><div class="offer-line"><span class="kind">' + esc(e.type) + '</span><span class="ev-name">' + esc(e.name) + "</span></div>" +
+            (sub ? '<div class="ev-sub">' + esc(sub) + "</div>" : "") +
+            '<div class="pills">' + (e.status ? '<span class="pill ' + stCls + '">' + esc(e.status) + "</span>" : "") + (e.owner ? '<span class="pill">' + esc(e.owner) + "</span>" : "") + "</div>" +
+            (e.answer ? '<details class="secret"><summary>Ответ (не постить)</summary>' + esc(e.answer) + "</details>" : "") +
+            (e.notes ? '<div class="ev-sub">' + esc(e.notes) + "</div>" : "") + "</div>";
+        }).join("") + "</article>";
+    }
+    return html;
+  }
+
+  // ---------- рендер ----------
+  function render() {
+    var list = pool();
+    summary(list);
+    var byDay = {};
+    list.forEach(function (it) { (byDay[it.date] = byDay[it.date] || []).push(it); });
+    var days = Object.keys(byDay).sort();
+    var showBrand = st.brand === "all";
+    if (!days.length) { $("days").innerHTML = '<div class="empty">' + (st.issues ? "Проблем нет — на выбранные дни всё на месте." : "На эти дни в таблицах ничего нет.") + "</div>"; return; }
+    $("days").innerHTML = days.map(function (k) {
+      var items = byDay[k], body;
+      if (PAGE === "smm") {
+        items.sort(function (a, b) { return brandIdx(a.brand) - brandIdx(b.brand) || CH_ORDER[a.ch] - CH_ORDER[b.ch] || String(a.time).localeCompare(String(b.time)); });
+        body = '<div class="grid">' + items.map(function (it) { return cardSmm(it, showBrand); }).join("") + "</div>";
+      } else {
+        var hw = D.chat.filter(function (x) { return x.kind === "halloween" && x.date === k; })[0];
+        var byB = {};
+        items.forEach(function (it) { (byB[it.brand] = byB[it.brand] || []).push(it); });
+        body = (hw && st.kind !== "offer" && st.kind !== "code" ? '<div class="hw"><b>🎃 Haunted Week · ' + esc(hw.name) + "</b><span>" + esc(hw.mechanic) + "</span><span>Призы на бренд: " + esc(hw.prizes) + "</span></div>" : "") +
+          '<div class="grid">' + Object.keys(byB).sort(function (a, b) { return brandIdx(a) - brandIdx(b); }).map(function (b) {
+            return showBrand ? '<div class="bsec"><div class="bsec-title">' + favicon(b) + esc(b) + "</div>" + bsecChat(b, byB[b], false) + "</div>" : bsecChat(b, byB[b], false);
+          }).join("") + "</div>";
+      }
+      var isToday = k === D.today;
+      return '<section class="day' + (isToday ? " today" : "") + '" id="d' + k + '"><div class="day-head"><span class="day-date">' + ddmm(k) + '</span><span class="day-wd">' + wd(k) + "</span>" +
+        (isToday ? '<span class="badge">сегодня</span>' : "") + '<span class="day-count">' + items.length + "</span></div>" + body + "</section>";
+    }).join("");
+  }
+  function scrollToday() {
+    var el = $("d" + D.today);
+    if (!el) return false;
+    var bar = document.querySelector(".top");
+    window.scrollTo({ top: el.getBoundingClientRect().top + window.pageYOffset - (bar ? bar.offsetHeight : 0) - 10 });
+    return true;
+  }
+
+  // ---------- события ----------
+  function wire() {
+    $("brandChips").addEventListener("click", function (e) {
+      var b = e.target.closest("[data-b]"); if (!b) return;
+      st.brand = b.dataset.b; lsSet(LS.brand, st.brand); syncControls(); render();
+    });
+    $("kindSeg").addEventListener("click", function (e) {
+      var b = e.target.closest("[data-v]"); if (!b) return;
+      st.kind = b.dataset.v; syncControls(); render();
+    });
+    $("langSeg").addEventListener("click", function (e) {
+      var b = e.target.closest("[data-v]"); if (!b) return;
+      st.lang = b.dataset.v; syncControls(); render();
+    });
+    $("weekSel").addEventListener("change", function () { st.week = this.value; lsSet(LS.week, st.week); render(); });
+    var qt;
+    $("search").addEventListener("input", function () { var v = this.value; clearTimeout(qt); qt = setTimeout(function () { st.q = v.trim(); render(); }, 180); });
+    $("onlyIssues").addEventListener("change", function () { st.issues = this.checked; render(); });
+    $("todayBtn").addEventListener("click", function () {
+      var cur = monday(D.today);
+      if (st.week && st.week !== cur) { st.week = cur; $("weekSel").value = cur; lsSet(LS.week, cur); render(); }
+      if (!scrollToday()) toast("На сегодня в выборке ничего нет");
+    });
+    $("days").addEventListener("click", function (e) {
+      var c = e.target.closest("[data-copy]");
+      if (c) { copy(c.dataset.copy, c.dataset.what); return; }
+      var ce = e.target.closest("[data-copy-el]");
+      if (ce) { copy($(ce.dataset.copyEl).textContent, ce.dataset.what); return; }
+      var ex = e.target.closest("[data-expand]");
+      if (ex) { var p = $(ex.dataset.expand); p.classList.toggle("open"); ex.textContent = p.classList.contains("open") ? "Свернуть" : "Весь текст"; return; }
+      var alt = e.target.closest("[data-alt]");
+      if (alt) {
+        var show = alt.dataset.show === "ru" ? "en" : "ru";
+        $(alt.dataset.alt).textContent = show === "ru" ? alt.dataset.ru : alt.dataset.en;
+        alt.dataset.show = show; alt.textContent = show === "ru" ? "EN" : "RU";
+      }
+    });
+  }
+
+  function start(d) {
+    D = d;
+    $("gate").hidden = true; $("app").hidden = false;
+    buildHeader(); wire(); render();
+    if (st.week === monday(D.today)) scrollToday();
+  }
+
+  // ---------- старт ----------
+  if (EMBED) { start(EMBED); return; }
+  var m = location.hash.match(/key=([^&]+)/);
+  if (m) { lsSet(LS.key, decodeURIComponent(m[1])); history.replaceState(null, "", location.pathname); }
+  var saved = lsGet(LS.key) || (m && decodeURIComponent(m[1]));
+  if (!saved) { showGate(); return; }
+  load(saved).then(start, function (er) { lsSet(LS.key, null); showGate(er.message); });
+})();
+</script>
+
+<script src="../common/nav.js" defer></script>
+</body>
+</html>
