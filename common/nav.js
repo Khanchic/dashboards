@@ -25,6 +25,8 @@
     let activeKey = 'home';
     if (path.includes('chat-plan')) {
       activeKey = 'chat-plan';
+    } else if (path.includes('haunted-week')) {
+      activeKey = 'haunted-week';
     } else if (path.includes('/plan/')) {
       activeKey = 'plan';
     } else if (hash.includes('powerbi') || path.includes('powerbi')) {
@@ -55,6 +57,7 @@
       { key: 'home', title: 'Главная (Хаб)', icon: '🏠', href: `${base}` },
       { key: 'plan', title: 'План SMM', icon: '🗓️', href: `${base}plan/` },
       { key: 'chat-plan', title: 'План чатов', icon: '💬', href: `${base}chat-plan/` },
+      { key: 'haunted-week', title: 'Haunted Week · саппорт', icon: '🎃', href: `${base}haunted-week/` },
       { key: 'powerbi', title: 'Power BI Live', icon: '📊', href: `${base}powerbi/` },
       { key: 'smm', title: 'SMM Хитмап', icon: '⚡', href: `${base}smm-heatmap/` },
       { key: 'gallery', title: 'Галерея Vegas', icon: '🖼', href: `${base}vegas-ds/` },
