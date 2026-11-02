@@ -1,0 +1,507 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<title>Build Your Wheel</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,600;0,800;1,800;1,900&family=Manrope:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: a game-show stage in black gloss. Bulb rails split the page like a marquee;
+   the wheel is the host, so it sits in the hero and again as the working mock-up. */
+:root{
+  --black:#040806; --gloss:#0a120e; --gloss-2:#0f1b15; --gloss-3:#16261e;
+  --ink:#f2f0e4; --mute:#9db3a7; --dim:#5f7a6c;
+  --emerald:#22d47a; --emerald-deep:#0b6a3c; --gold:#f5cb55; --gold-deep:#b9862a; --bulb:#fff0b8;
+  --line:rgba(245,203,85,.16); --line-strong:rgba(245,203,85,.45);
+  --f-display:"Exo 2","Arial Black",system-ui,sans-serif;
+  --f-body:"Manrope","Segoe UI",system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--black);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--black)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.wrap{max-width:1100px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.col{max-width:760px}
+
+.rail{height:22px;background:
+  radial-gradient(circle at 11px 11px,var(--bulb) 0 3.5px,rgba(255,220,120,.35) 4.5px 6px,transparent 7px) 0 0/22px 22px repeat-x,
+  linear-gradient(180deg,#1a1408,#0b0a05);
+  border-block:1px solid rgba(245,203,85,.35)}
+.rail.chase{animation:chase 1.2s steps(2) infinite}
+@keyframes chase{to{background-position:22px 0,0 0}}
+
+.hero{position:relative;overflow:hidden;background:radial-gradient(ellipse 70% 90% at 75% 55%,rgba(34,212,122,.16),transparent 60%),var(--black)}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;align-items:center;padding-block:40px 44px}
+.logo{width:150px;height:auto;display:block;margin-bottom:22px}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--emerald)}
+h1{font-family:var(--f-display);font-style:italic;font-weight:900;font-size:clamp(46px,7.6vw,92px);line-height:.92;letter-spacing:-.01em;margin:12px 0 18px;text-transform:uppercase;
+  background:linear-gradient(180deg,#fff3c4 0%,var(--gold) 45%,var(--gold-deep) 100%);-webkit-background-clip:text;background-clip:text;color:transparent;text-wrap:balance}
+.slogan{font-size:clamp(18px,2.1vw,22px);font-weight:600;margin:0 0 22px;max-width:28ch}
+.meta{display:flex;flex-wrap:wrap;gap:8px 22px;font-family:var(--f-mono);font-size:13px;color:var(--mute)}
+.meta b{color:var(--ink);font-weight:600}
+.hero-art{position:relative;margin:0}
+.hero-art img{width:100%;height:auto;display:block;-webkit-mask-image:radial-gradient(ellipse 60% 62% at 50% 50%,#000 62%,transparent 100%);mask-image:radial-gradient(ellipse 60% 62% at 50% 50%,#000 62%,transparent 100%)}
+.hero-art figcaption{position:absolute;right:0;bottom:-4px;font-family:var(--f-mono);font-size:11px;color:var(--dim)}
+
+section{padding-block:56px}
+.label{font-family:var(--f-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--emerald);margin-bottom:8px}
+h2{font-family:var(--f-display);font-style:italic;font-weight:800;font-size:clamp(28px,3.8vw,40px);line-height:1.05;margin:0 0 18px;color:var(--gold);text-transform:uppercase;text-wrap:balance}
+h3{font-family:var(--f-display);font-weight:800;font-size:19px;margin:28px 0 10px;color:var(--ink)}
+p{margin:0 0 14px}
+.lead{font-size:19px;line-height:1.55}
+.note{font-size:14px;color:var(--mute)}
+ul.plain{margin:0;padding-left:20px}
+ul.plain li{margin-bottom:8px}
+.chip{display:inline-block;font-family:var(--f-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;border-radius:2px;border:1px solid var(--line-strong);color:var(--gold);vertical-align:middle}
+.sw{display:inline-block;width:12px;height:12px;border-radius:2px;vertical-align:-1px;margin-right:6px;border:1px solid rgba(255,255,255,.2)}
+.sw.t0{background:#0d1712}.sw.t1{background:linear-gradient(135deg,#3cf093,#0b6a3c)}.sw.t2{background:linear-gradient(135deg,#f4f7f8,#8b989e)}.sw.t3{background:linear-gradient(135deg,#ffe98f,#b9862a)}
+
+.steps{list-style:none;margin:0;padding:0;counter-reset:s}
+.steps li{counter-increment:s;display:grid;grid-template-columns:44px minmax(0,1fr);gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}
+.steps li::before{content:counter(s);font-family:var(--f-display);font-style:italic;font-weight:900;font-size:24px;line-height:1;color:var(--emerald)}
+
+.tbl{overflow-x:auto;margin:8px 0}
+table{border-collapse:collapse;width:100%;font-size:14.5px;min-width:580px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--f-mono);font-weight:600;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}
+td.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.total td{color:var(--gold);font-weight:700;border-bottom:0}
+tr.day td{font-family:var(--f-display);font-style:italic;font-weight:800;color:var(--gold);font-size:16px;background:var(--gloss);border-bottom:1px solid var(--line-strong)}
+tr.peak td{background:rgba(245,203,85,.07)}
+
+.stage{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:0;background:radial-gradient(circle at 30% 45%,rgba(34,212,122,.12),transparent 55%),var(--gloss);border:1px solid var(--line-strong);border-radius:4px;overflow:hidden}
+.wheel-box{padding:20px;display:flex;align-items:center;justify-content:center;min-width:0}
+#wheel{width:100%;max-width:470px;height:auto;display:block}
+#rotor{transform-origin:220px 220px;transition:transform 5.2s cubic-bezier(.12,.75,.12,1)}
+.ctrl{padding:22px;border-left:1px solid var(--line);display:flex;flex-direction:column;gap:14px;background:linear-gradient(180deg,var(--gloss-2),var(--gloss))}
+.night{font-family:var(--f-display);font-style:italic;font-weight:800;font-size:24px;color:var(--ink);line-height:1.1}
+.night small{display:block;font-family:var(--f-mono);font-style:normal;font-weight:400;font-size:12px;color:var(--mute);margin-top:4px;letter-spacing:.06em}
+.doorcard{border:1px solid rgba(34,212,122,.45);border-radius:3px 3px 0 0;background:linear-gradient(180deg,#13241b,#0a140f);padding:14px;display:grid;gap:10px}
+.doorcard .task{font-size:14px;color:var(--mute)}
+.doorcard .task b{color:var(--ink)}
+.outcomes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.oc{font:700 12.5px/1.25 var(--f-body);color:var(--ink);background:var(--gloss);border:1px solid var(--line-strong);border-radius:3px;padding:9px 6px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center}
+.oc:hover{background:rgba(245,203,85,.08)}
+.oc[aria-pressed="true"]{border-color:var(--gold);color:var(--gold);background:rgba(245,203,85,.1)}
+.oc:disabled{cursor:default;opacity:.55}
+.oc[aria-pressed="true"]:disabled{opacity:1}
+.btn{font:700 14px/1.2 var(--f-body);border-radius:3px;padding:11px 14px;cursor:pointer;border:1px solid var(--line-strong);background:transparent;color:var(--ink)}
+.btn:hover{background:rgba(245,203,85,.08)}
+.btn:disabled{color:var(--dim);border-color:var(--gloss-3);cursor:default;background:transparent}
+.btn.spin{background:linear-gradient(180deg,#ffe58a,var(--gold-deep));color:#1c1404;border-color:var(--gold);font-family:var(--f-display);font-style:italic;font-weight:900;font-size:18px;text-transform:uppercase;letter-spacing:.02em}
+.btn.spin:disabled{background:var(--gloss-3);color:var(--dim);border-color:var(--gloss-3)}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.row .btn{flex:1 1 auto}
+.result{font-size:14px;background:rgba(34,212,122,.08);border:1px solid rgba(34,212,122,.35);border-radius:3px;padding:10px 12px;min-height:3em}
+.result b{color:var(--gold)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12.5px;color:var(--mute)}
+
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px}
+.post{background:#0d1511;border:1px solid var(--line);border-left:3px solid var(--emerald);padding:18px 20px;white-space:pre-wrap;font-size:15px;line-height:1.55;max-width:680px}
+.post .who{display:block;font-weight:700;color:var(--emerald);margin-bottom:6px;white-space:normal}
+.planb{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+.planb div{background:var(--gloss);padding:16px;min-width:0}
+.planb h3{margin:0 0 8px;font-size:16px;color:var(--gold)}
+.planb p{font-size:14.5px;margin:0}
+footer{padding-block:24px 40px;font-size:13px;color:var(--dim)}
+
+@media (max-width:860px){
+  .hero .wrap,.stage,.two,.planb{grid-template-columns:1fr}
+  .ctrl{border-left:0;border-top:1px solid var(--line)}
+}
+@media (prefers-reduced-motion:reduce){.rail.chase{animation:none}#rotor{transition:none}}
+</style>
+
+<div class="rail chase" aria-hidden="true"></div>
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <img class="logo" src="assets/fwl-logo.png" alt="Fortune Wheelz" width="213" height="120">
+      <div class="eyebrow">Fortune Wheelz · Christmas 2026 · концепт ивента</div>
+      <h1>Build Your Wheel</h1>
+      <p class="slogan">12 doors on Christmas Day. One spin the day after.</p>
+      <div class="meta">
+        <span>Двери <b>25.12, 09:00–20:00 ET</b></span>
+        <span>Спин <b>26.12</b></span>
+        <span>Регистрация с <b>14.12</b></span>
+        <span>Ведёт бренд: <b>Степан</b></span>
+      </div>
+    </div>
+    <figure class="hero-art">
+      <img src="assets/fwl-wheel.jpg" alt="Изумрудно-золотое колесо с лампочками по ободу" width="1000" height="609">
+      <figcaption>кадр из графики FWL, рождественский набор генерируем отдельно</figcaption>
+    </figure>
+  </div>
+</header>
+<div class="rail" aria-hidden="true"></div>
+
+<main>
+<section><div class="wrap"><div class="col">
+  <div class="label">Идея</div>
+  <h2>Колесо и есть ведущий</h2>
+  <p class="lead">Формат 1+1. В Рождество, 25.12, с 09:00 до 20:00 ET каждый час открывается новая дверь с заданием. 12 дверей дают 12 сегментов личного колеса, и то, как решена дверь, задаёт уровень сегмента: базовый, серебро или золото. 26.12 каждый один раз крутит колесо, которое собрал.</p>
+  <p>Лидербордов и гонки за места нет: каждый собирает своё колесо, и приз зависит только от собственных сегментов. Двери по часам дают повод заглядывать в канал весь праздничный день, а спин на следующее утро возвращает игрока ещё раз.</p>
+  <p class="note">Почему FWL: у бренда нет маскота, зато в названии есть колесо. Формат дверей уже обкатан в Halloween Doors, игроки его знают. Визуально отстраиваемся от Fire Seven: у них бархат и VIP-клуб, у нас чёрный глянец, лампочки по ободу и само колесо в центре кадра.</p>
+</div></div></section>
+
+<div class="rail" aria-hidden="true"></div>
+
+<section id="wheel-demo"><div class="wrap">
+  <div class="label">Мини-макет</div>
+  <h2>Собери и крути</h2>
+  <p class="col note">Работает в браузере без сервера. Каждый час открывается одна дверь: выберите, как вы её прошли, и сегмент этого часа получит свой уровень. «Следующий час» переходит дальше; если дверь не открыть, сегмент останется тёмным. После 12-й двери наступает 26.12 и открывается спин. «Как средний игрок» заполняет колесо разом.</p>
+  <div class="stage">
+    <div class="wheel-box">
+      <svg id="wheel" viewBox="0 0 440 440" role="img" aria-label="Личное колесо из 12 сегментов, по одному на каждый час 25 декабря">
+        <defs>
+          <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#43f39a"/><stop offset="1" stop-color="#0a5f35"/></linearGradient>
+          <linearGradient id="g2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f6f9fa"/><stop offset="1" stop-color="#7f8d93"/></linearGradient>
+          <linearGradient id="g3" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff0a6"/><stop offset=".55" stop-color="#f1c04a"/><stop offset="1" stop-color="#a8761f"/></linearGradient>
+          <radialGradient id="hub" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="#7dffbd"/><stop offset=".45" stop-color="#16b763"/><stop offset="1" stop-color="#05371e"/></radialGradient>
+          <linearGradient id="rim" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe58a"/><stop offset="1" stop-color="#8f6418"/></linearGradient>
+        </defs>
+        <circle cx="220" cy="220" r="214" fill="#0b0a05" stroke="url(#rim)" stroke-width="10"/>
+        <g id="bulbs"></g>
+        <g id="rotor"><g id="segs"></g>
+          <circle cx="220" cy="220" r="46" fill="#0b0a05" stroke="url(#rim)" stroke-width="6"/>
+          <circle cx="220" cy="220" r="30" fill="url(#hub)"/>
+        </g>
+        <path d="M220 44 L206 12 L234 12 Z" fill="#16b763" stroke="#ffe58a" stroke-width="3" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div class="ctrl">
+      <div class="night" id="nightLabel">Дверь 1 из 12<small id="nightSub">25.12 · 09:00 ET</small></div>
+      <div class="doorcard">
+        <div class="task" id="taskText">Задание: <b>выбор на картинке</b></div>
+        <div class="outcomes">
+          <button type="button" class="oc" id="o3" aria-pressed="false"><i class="sw t3"></i>С первой попытки в окне 2 ч</button>
+          <button type="button" class="oc" id="o2" aria-pressed="false"><i class="sw t2"></i>Позже или со 2-й попытки</button>
+          <button type="button" class="oc" id="o1" aria-pressed="false"><i class="sw t1"></i>Открыл, но не решил</button>
+        </div>
+      </div>
+      <div class="row">
+        <button type="button" class="btn" id="next">Следующий час →</button>
+        <button type="button" class="btn" id="auto">Как средний игрок</button>
+      </div>
+      <div class="row">
+        <button type="button" class="btn" id="polish">Полировка 26.12</button>
+        <button type="button" class="btn" id="friend">+1 шаг за друга</button>
+      </div>
+      <button type="button" class="btn spin" id="spin" disabled>Spin my wheel</button>
+      <div class="result" id="result" role="status" aria-live="polite">Дверь 09:00 открыта. Как вы её прошли?</div>
+      <div class="legend"><span><i class="sw t0"></i>тёмный</span><span><i class="sw t1"></i>базовый</span><span><i class="sw t2"></i>серебро</span><span><i class="sw t3"></i>золото</span><span>★ Christmas Star</span></div>
+    </div>
+  </div>
+</div></section>
+
+<div class="rail" aria-hidden="true"></div>
+
+<section><div class="wrap"><div class="col">
+  <div class="label">Путь игрока</div>
+  <h2>Два дня</h2>
+  <ol class="steps">
+    <li><span><b>С 14.12</b> попап на fortunewheelz.com («Your Christmas wheel is waiting») и бродкаст ведут прямо в <b>#wheel-workshop</b>. Канал добавлен в Onboarding Default Channels, иначе новички его не увидят (урок запуска Halloween Doors).</span></li>
+    <li><span>Жмёт <b>Build my wheel</b>: бот показывает пустое колесо из 12 сегментов и сразу просит player ID. Привязка автоматическая, игрок получает роль Door Alerts для пингов. Всё это до праздника, поэтому 25-го никто не теряет время на регистрацию.</span></li>
+    <li><span><b>25.12, 09:00–20:00 ET</b>: каждый час открывается дверь, бот пингует роль. Одно задание на дверь (картинка, загадка или «запомни и повтори»), у каждого 2 варианта, две попытки.</span></li>
+    <li><span>Уровень сегмента: <b>золото</b>, если решил с первой попытки в течение 2 часов после открытия; <b>серебро</b>, если позже (до 23:59 ET) или со второй попытки; <b>базовый</b>, если открыл, но не решил. Не открыл совсем: сегмент тёмный. Окно 2 часа, а не секунды, так что флаги скорости не нужны.</span></li>
+    <li><span><b>Друг</b>, который впервые привязал FWL-аккаунт и решил хотя бы одну дверь, даёт +1 шаг любому сегменту (максимум 2).</span></li>
+    <li><span><b>26.12, 10:00 ET</b>: одна дверь-полировка (опция) поднимает самый слабый сегмент на шаг, затем кнопка <b>Spin my wheel</b>. Один спин, результат считает сервер, код приходит в ЛС сразу. Крутить можно до 23:59 ET.</span></li>
+  </ol>
+</div></div></section>
+
+<section><div class="wrap">
+  <div class="label">Таймлайн</div>
+  <h2>По часам</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>Время ET</th><th>Киев</th><th>Что происходит</th></tr></thead>
+    <tbody>
+      <tr><td class="num">14.12</td><td class="num"></td><td>Тизер и регистрация: попап на сайте, Build my wheel, привязка</td></tr>
+      <tr><td class="num">18.12</td><td class="num"></td><td>Полная репетиция на тест-стенде (см. ниже)</td></tr>
+      <tr><td class="num">18–20.12</td><td class="num"></td><td>Анонс: Discord, FB, бродкаст</td></tr>
+      <tr><td class="num">24.12</td><td class="num">до 18:00</td><td>Переключение на прод одним деплоем, импорт кодов, <span class="chip">/pool stock</span></td></tr>
+      <tr class="day"><td colspan="3">25.12 · Рождество · 12 дверей</td></tr>
+      <tr><td class="num">09:00</td><td class="num">16:00</td><td>Дверь 1, картинка. Бродкаст «doors are open»</td></tr>
+      <tr><td class="num">10:00</td><td class="num">17:00</td><td>Дверь 2, загадка</td></tr>
+      <tr><td class="num">11:00</td><td class="num">18:00</td><td>Дверь 3, memory</td></tr>
+      <tr><td class="num">12:00</td><td class="num">19:00</td><td>Дверь 4, картинка</td></tr>
+      <tr><td class="num">13:00</td><td class="num">20:00</td><td>Дверь 5, загадка</td></tr>
+      <tr><td class="num">14:00</td><td class="num">21:00</td><td>Дверь 6, memory. Пост «половина колеса»</td></tr>
+      <tr><td class="num">15:00</td><td class="num">22:00</td><td>Дверь 7, картинка</td></tr>
+      <tr><td class="num">16:00</td><td class="num">23:00</td><td>Дверь 8, загадка</td></tr>
+      <tr><td class="num">17:00</td><td class="num">00:00</td><td>Дверь 9, memory</td></tr>
+      <tr><td class="num">18:00</td><td class="num">01:00</td><td>Дверь 10, картинка</td></tr>
+      <tr><td class="num">19:00</td><td class="num">02:00</td><td>Дверь 11, загадка</td></tr>
+      <tr class="peak"><td class="num">20:00</td><td class="num">03:00</td><td>Дверь 12 ★ Christmas Star, memory. Последний пинг</td></tr>
+      <tr><td class="num">23:59</td><td class="num">06:59</td><td>Двери закрываются, колёса замораживаются, автоматический /export</td></tr>
+      <tr class="day"><td colspan="3">26.12 · спин</td></tr>
+      <tr class="peak"><td class="num">10:00</td><td class="num">17:00</td><td>Полировка и спин открыты, бродкаст «spin your wheel»</td></tr>
+      <tr><td class="num">18:00</td><td class="num">01:00</td><td>Напоминание тем, кто ещё не крутил</td></tr>
+      <tr><td class="num">23:59</td><td class="num">06:59</td><td>Спин закрыт. Коды ★ после ручной проверки до 29.12</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">В декабре сдвиг ET → Киев ровно +7 часов, перевода часов нет. Расписание дверей задаётся списком времён открытия, как <span class="chip">NIGHT_ENDS</span> в Halloween Doors.</p>
+</div></section>
+
+<div class="rail" aria-hidden="true"></div>
+
+<section><div class="wrap">
+  <div class="label">Призы <span class="chip">предложение</span></div>
+  <h2>Что лежит на сегментах</h2>
+  <p class="col note">Валюты FWL: FC (Fortune Coins, sweeps), FP (Free Plays), GC. Не SC. Стоимость по сетке Halloween Doors: 1 FC ≈ $1, 1 FP ≈ $0.20. Приз = сегмент, на котором остановилась стрелка; шанс каждого сегмента 1/12.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Уровень сегмента</th><th>Как получить</th><th>Приз</th><th>≈ $</th><th>Кодов в пуле</th></tr></thead>
+    <tbody>
+      <tr><td><i class="sw t0"></i>Тёмный</td><td>дверь не открыта</td><td>2 000 GC</td><td class="num">0</td><td class="num">40</td></tr>
+      <tr><td><i class="sw t1"></i>Базовый</td><td>открыл, не решил</td><td>10 000 GC + 1 FP</td><td class="num">0.2</td><td class="num">50</td></tr>
+      <tr><td><i class="sw t2"></i>Серебро</td><td>решил позже или со 2-й попытки</td><td>25 000 GC + 3 FP</td><td class="num">0.6</td><td class="num">70</td></tr>
+      <tr><td><i class="sw t3"></i>Золото</td><td>решил с 1-й попытки в окне 2 ч</td><td>50 000 GC + 1 FC + 5 FP</td><td class="num">2</td><td class="num">80</td></tr>
+      <tr><td><i class="sw t3"></i>★ Christmas Star, золото</td><td>дверь 12 (20:00 ET) на золото</td><td>100 000 GC + 3 FC + 5 FP</td><td class="num">4</td><td class="num">10</td></tr>
+      <tr><td>Обод сервера</td><td>1 000 золотых сегментов у всех вместе</td><td>+10 000 GC к спину каждого</td><td class="num">≈0</td><td class="num">общий код</td></tr>
+      <tr class="total"><td>Итого</td><td colspan="2">~180 спинов × ~$1 в среднем</td><td class="num">≈ 200</td><td>потолок $400</td></tr>
+    </tbody>
+  </table></div>
+  <ul class="plain note" style="margin-top:12px">
+    <li>Одно колесо и один спин на привязанный player ID и на Discord-аккаунт. Максимум на человека $4 (★-золото), полностью золотое колесо в среднем даёт ~$2.20.</li>
+    <li>Худший случай, если все 180 соберут 12 золотых: ≈ $390, отсюда потолок $400. Пул кодов по уровням с запасом, бот пишет в деск при остатке &lt; 5.</li>
+    <li>Для сравнения Halloween Doors: 7 ночей, 100 пакетов, $300.</li>
+  </ul>
+</div></section>
+
+<section><div class="wrap"><div class="two">
+  <div>
+    <div class="label">Техника</div>
+    <h2>Механика бренда</h2>
+    <p class="note">Общий слой (логин, привязка, коды из xlsx, Claim, бот, анти-абуз, export) строится один раз на базе Witching Hours и здесь не считается. Ниже только то, что нужно именно колесу.</p>
+    <h3>Берём из Halloween Doors</h3>
+    <ul class="plain">
+      <li>Двери трёх типов (choice / text / memory), варианты, попытки, мягкая проверка загадок, сборка картинок-заданий из спрайтов (build_art.js).</li>
+    </ul>
+    <h3>Пишем</h3>
+    <ul class="plain">
+      <li>Расписание 12 дверей по часам и расчёт уровня по окну и попыткам.</li>
+      <li>Леджер сегментов: дверь → уровень 0–3, заморозка в 23:59 ET.</li>
+      <li>Рендер личного колеса в PNG (SVG → PNG) для My wheel и короткая анимация спина.</li>
+      <li>Спин: серверный рандом, лог, код по уровню сегмента, повторный клик ничего не крутит.</li>
+      <li>Полировка, бонус за друга, общий счётчик обода.</li>
+    </ul>
+    <p><b>4 дня разработки + 1 день QA</b> (репетиция отдельно, см. ниже).</p>
+  </div>
+  <div>
+    <div class="label">Люди</div>
+    <h2>Кто что делает</h2>
+    <ul class="plain">
+      <li><b>Степан</b> (ведёт FWL с 01.11): коды в админке по 5 уровням, анонс, попап, проверка ★-золота.</li>
+      <li><b>Мы</b>: механика, 12 заданий × 2 варианта + задание полировки, промпты графики.</li>
+      <li><b>Арт</b> во Flow без персонажей: аватар-колесо, баннер мастерской, анонс, витрина призов + 8 зимних спрайтов (шар, колокольчик, подарок, снежинка, звезда, свеча, бант, изумруд) для 4 картинок-заданий.</li>
+      <li><b>Дежурный</b>: один человек 25.12 16:00–04:00 и 26.12 17:00–20:00 по Киеву.</li>
+      <li><b>Александр</b>: бюджет и ОК на деплой в прод.</li>
+    </ul>
+    <h3>Промо</h3>
+    <ul class="plain">
+      <li><b>Попап на сайте</b> как главный канал: с 14.12 «Your Christmas wheel is waiting», кнопка сразу в #wheel-workshop.</li>
+      <li><b>Бродкаст</b>: 18.12 анонс, 25.12 09:00 ET «doors are open», 26.12 10:00 ET «spin your wheel».</li>
+      <li><b>Discord</b>: анонс, пинг Door Alerts каждый час, закреп с ободом.</li>
+      <li><b>FB</b>: картинка «моё колесо» для шаринга, ссылка в Discord.</li>
+      <li><b>Новые</b>: +1 шаг за друга с новым аккаунтом.</li>
+    </ul>
+  </div>
+</div></div></section>
+
+<div class="rail" aria-hidden="true"></div>
+
+<section><div class="wrap"><div class="col">
+  <div class="label">Репетиция</div>
+  <h2>Прогон за неделю</h2>
+  <ol class="steps">
+    <li><span><b>18.12</b>, тест-стенд (закрытая категория на FWL, отдельная тестовая база). Сжатое время: час = 5 минут, весь день 25.12 за час, спин 26.12 следом.</span></li>
+    <li><span>Играют Степан, дежурный и 3–5 тестеров с реальными Discord-аккаунтами без прав стаффа: регистрация с нуля, все 12 дверей, обе попытки, опоздание на золото, друг, полировка, спин.</span></li>
+    <li><span>Проверяем: двери открываются по ET, уровни считаются верно, колесо рисуется, спин выдаёт код нужного уровня из тестового пула, /export совпадает с тем, что видят игроки.</span></li>
+    <li><span>Нагрузка: 50 одновременных нажатий в момент открытия двери, ответы бота укладываются в лимиты Discord.</span></li>
+    <li><span>Учения План Б: роняем сервис посреди дня и восстанавливаем, раздаём один код вручную по export.</span></li>
+    <li><span><b>24.12</b>: удаляем тестовые сообщения, переключаем на прод одним деплоем, импорт боевых кодов, проверка остатков. Всё только с ОК Александра.</span></li>
+  </ol>
+</div></div></section>
+
+<section><div class="wrap">
+  <div class="label">План Б</div>
+  <h2>Если упало в день ивента</h2>
+  <div class="planb">
+    <div><h3>Бот упал 25.12 меньше чем на час</h3><p>Дежурный перезапускает сервис или откатывает на последний рабочий коммит. Двери живут по часам, поэтому после рестарта открыты все, что должны. Окно золота продлевается на длительность простоя.</p></div>
+    <div><h3>Бот лежит больше 2 часов</h3><p>Пост в Discord и на FB: все двери 25.12 открыты до 26.12 12:00 ET, окно золота до конца дня. Спин сдвигается на 26.12 14:00 ET.</p></div>
+    <div><h3>Спин 26.12 не работает</h3><p>Колёса заморожены и выгружены в 23:59 25.12. Спин переносим на 27.12; если не чиним, крутим скриптом по export с опубликованным seed, коды Степан раздаёт вручную через Claim и ЛС.</p></div>
+    <div><h3>Кончились коды уровня</h3><p>Бот резервирует приз и пишет в деск при остатке &lt; 5. Степан догружает пул, код уходит игроку сам после импорта.</p></div>
+    <div><h3>Discord лежит</h3><p>Попап на сайте и FB-пост с новым временем. Двери и спин продлеваем на время простоя.</p></div>
+    <div><h3>Кто решает</h3><p>Дежурный сам делает рестарт и откат. Перенос сроков согласует с Александром; если его нет на связи, правило выше: продлеваем на время простоя.</p></div>
+  </div>
+</div></section>
+
+<section><div class="wrap"><div class="col">
+  <div class="label">Анти-абуз и уроки Halloween</div>
+  <h2>Что учли</h2>
+  <ul class="plain">
+    <li><b>Один игрок забрал 11 из 12 мест.</b> Мест нет: у каждого своё колесо, один спин, один код с FC на человека.</li>
+    <li><b>119 человек не нажали Join.</b> Скрытых шагов нет: Build my wheel сразу ведёт в привязку, регистрация до праздника, вместо отказов бот подсказывает, что сделать.</li>
+    <li><b>Строгие флаги скорости.</b> Окно золота 2 часа, секунды не важны, флагов скорости нет. От копирования ответов спасают 2 варианта на дверь.</li>
+    <li><b>Трафик.</b> Попап на сайте, а не FB; бонус за друга только с новым player ID.</li>
+    <li><b>Ручной аппрув.</b> Привязка и выдача автоматические; 25.12 и 26.12 выходные в Украине, руками проверяем только ★-золото.</li>
+    <li><b>Деплой.</b> Репетиция 18.12, переключение на прод одним деплоем 24.12 и только с ОК Александра.</li>
+  </ul>
+</div></div></section>
+
+<section><div class="wrap">
+  <div class="label">KPI-цели</div>
+  <h2>На что целимся</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>Метрика</th><th>Цель</th><th>Как считаем</th></tr></thead>
+    <tbody>
+      <tr><td>Зарегистрировали колесо до 25.12</td><td class="num">250</td><td>Build my wheel + привязка</td></tr>
+      <tr><td>Удержание внутри дня</td><td class="num">50%</td><td>доля начавших, у кого ≥ 8 непустых сегментов</td></tr>
+      <tr><td>Вернулись 26.12</td><td class="num">180</td><td>крутили колесо</td></tr>
+      <tr><td>Новые в Discord</td><td class="num">+60</td><td>впервые привязали FWL-аккаунт</td></tr>
+      <tr><td>Выданные коды</td><td class="num">~180</td><td>один код на спин</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">Цели, не факты. Сверяем с выгрузкой Halloween Doors (/export) до утверждения.</p>
+</div></section>
+
+<section><div class="wrap"><div class="col">
+  <div class="label">Риски и вопросы к Александру</div>
+  <h2>Нужно решить</h2>
+  <ol class="steps">
+    <li><span><b>Бюджет</b> ≈ $200, потолок $400. Ок?</span></li>
+    <li><span><b>Окно дверей</b> 09:00–20:00 ET = 16:00–03:00 по Киеву. Кто дежурит ночью 25.12? Или сдвигаем на 08:00–19:00 ET?</span></li>
+    <li><span><b>Окно золота 2 часа</b> заставляет заходить весь праздничный день. Ок, или золото за первую попытку в любое время до 23:59?</span></li>
+    <li><span><b>Полировка 26.12</b>: оставляем как второй шанс или 26-го только спин?</span></li>
+    <li><span><b>Бот</b>: механика живёт в общем боте или в отдельном (переименованный «Halloween Event Bot»)?</span></li>
+    <li><span><b>Один код = весь пакет</b> (GC + FC + FP) в админке FWL, или по два кода?</span></li>
+    <li><span><b>Риск</b>: кто не зарегистрировался до 25-го, теряет часть дверей. Бродкаст 24.12 всем подписчикам «завтра в 09:00 ET».</span></li>
+  </ol>
+</div></div></section>
+
+<div class="rail" aria-hidden="true"></div>
+
+<section><div class="wrap">
+  <div class="label">Анонс для Discord</div>
+  <h2>Пример поста</h2>
+  <div class="post"><span class="who">Fortune Wheelz · #announcements · 18.12</span>This Christmas, the wheel is yours.
+
+On Dec 25, a new door opens in #wheel-workshop every hour, from 9 AM to 8 PM ET. Twelve doors, twelve segments on your own wheel.
+
+Solve a door on your first try within two hours and its segment turns gold. Solve it later and it turns silver. The 8 PM door is the Christmas Star ★, the biggest segment on the wheel.
+
+On Dec 26, you spin your wheel once. What you built is what you can win: Fortune Coins, Free Plays and Gold Coins.
+
+Tap "Build my wheel" in #wheel-workshop now and link your account, so you're ready when the first door opens.
+
+No purchase necessary. 21+. Void where prohibited. Fortune Wheelz Terms and Conditions apply.</div>
+</div></section>
+</main>
+
+<footer><div class="wrap">Концепт для обсуждения · Christmas 2026 · Fortune Wheelz · бренд ведёт Степан · призы помечены как предложение</div></footer>
+
+<script>
+(function(){
+  const NS="http://www.w3.org/2000/svg",C=220,R=196;
+  const HOURS=["09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00"];
+  const TYPES=["выбор на картинке","загадка","запомни и повтори"];
+  const STAR=11;
+  const FILL=["#0d1712","url(#g1)","url(#g2)","url(#g3)"];
+  const TIER=["тёмный","базовый","серебро","золото"];
+  const PRIZE=["2 000 GC","10 000 GC + 1 FP","25 000 GC + 3 FP","50 000 GC + 1 FC + 5 FP"];
+  const STAR_GOLD="100 000 GC + 3 FC + 5 FP";
+  const $=id=>document.getElementById(id);
+  const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let st,rot=0;
+  function fresh(){return{hour:0,tiers:Array(12).fill(0),picked:0,polished:false,friends:0,spun:false,spinning:false,over:false}}
+  function pt(a,r){const t=(a-90)*Math.PI/180;return[C+r*Math.cos(t),C+r*Math.sin(t)]}
+  function txt(x,y,ang,attrs,content,id){const t=document.createElementNS(NS,"text");t.setAttribute("x",x.toFixed(1));t.setAttribute("y",y.toFixed(1));t.setAttribute("text-anchor","middle");t.setAttribute("dominant-baseline","middle");t.setAttribute("transform",`rotate(${ang} ${x.toFixed(1)} ${y.toFixed(1)})`);for(const k in attrs)t.setAttribute(k,attrs[k]);t.setAttribute("id",id);t.textContent=content;return t}
+  function build(){
+    const g=$("segs");g.innerHTML="";
+    for(let i=0;i<12;i++){
+      const [x0,y0]=pt(i*30-15,R),[x1,y1]=pt(i*30+15,R);
+      const p=document.createElementNS(NS,"path");
+      p.setAttribute("d",`M${C} ${C} L${x0.toFixed(1)} ${y0.toFixed(1)} A${R} ${R} 0 0 1 ${x1.toFixed(1)} ${y1.toFixed(1)} Z`);
+      p.setAttribute("id","s"+i);g.appendChild(p);
+      const [tx,ty]=pt(i*30,R-34);
+      g.appendChild(txt(tx,ty,i*30,{"font-family":"Exo 2, Arial Black, sans-serif","font-style":"italic","font-weight":"900","font-size":"22"},(i+1)+(i===STAR?"★":""),"t"+i));
+      const [dx,dy]=pt(i*30,R-64);
+      g.appendChild(txt(dx,dy,i*30,{"font-family":"IBM Plex Mono, monospace","font-size":"10"},HOURS[i],"dt"+i));
+    }
+    const b=$("bulbs");
+    for(let i=0;i<36;i++){const [x,y]=pt(i*10,214);const c=document.createElementNS(NS,"circle");c.setAttribute("cx",x.toFixed(1));c.setAttribute("cy",y.toFixed(1));c.setAttribute("r","4.2");c.setAttribute("fill","#fff0b8");c.setAttribute("class","bulb");b.appendChild(c)}
+  }
+  function paint(){
+    for(let i=0;i<12;i++){
+      const t=st.tiers[i],cur=i===st.hour&&!st.over,past=i<=st.hour||st.over;
+      $("s"+i).setAttribute("fill",FILL[t]);
+      $("s"+i).setAttribute("stroke",cur?"#22d47a":"#d9a83a");$("s"+i).setAttribute("stroke-width",cur?"4":"2");
+      const ink=t===0?(past?"#3c5a4b":"#24382e"):(t===1?"#03210f":"#2a1c03");
+      $("t"+i).setAttribute("fill",t===0&&i===STAR?"#b9862a":ink);$("dt"+i).setAttribute("fill",ink);
+    }
+    if(st.over){$("nightLabel").firstChild.textContent="26.12 · колесо собрано";$("nightSub").textContent="двери закрыты в 23:59 ET 25.12 · один спин";$("taskText").innerHTML="Двери закрыты. Остались полировка и спин."}
+    else{$("nightLabel").firstChild.textContent="Дверь "+(st.hour+1)+" из 12";$("nightSub").textContent="25.12 · "+HOURS[st.hour]+" ET"+(st.hour===STAR?" · ★ Christmas Star":"");$("taskText").innerHTML="Задание: <b>"+TYPES[st.hour%3]+"</b>"}
+    for(const k of [1,2,3]){const o=$("o"+k);o.setAttribute("aria-pressed",String(!st.over&&st.picked===k));o.disabled=st.over||st.picked>0}
+    $("next").disabled=st.over;$("auto").disabled=st.over;
+    $("polish").disabled=!st.over||st.polished||st.spun||st.tiers.every(t=>t===3);
+    $("friend").disabled=st.friends>=2||st.spun||!st.tiers.some((t,i)=>t<3&&(i<=st.hour||st.over));
+    $("spin").disabled=!st.over||st.spinning;
+    $("spin").textContent=st.spun?"Собрать заново":"Spin my wheel";
+  }
+  function say(h){$("result").innerHTML=h}
+  function pick(k){
+    if(st.over||st.picked)return;st.picked=k;st.tiers[st.hour]=Math.max(st.tiers[st.hour],k);
+    say(`Сегмент ${HOURS[st.hour]}: <b>${TIER[st.tiers[st.hour]]}</b>.`+(st.tiers[st.hour]===3&&st.hour===STAR?` На ★ это ${STAR_GOLD}.`:""));paint()
+  }
+  function next(){
+    const was=st.tiers[st.hour];
+    if(st.hour>=11){st.over=true;say("Наступило 26.12, 10:00 ET. Колесо собрано: можно отполировать один сегмент и крутить.")}
+    else{st.hour++;st.picked=0;say((was===0?`Дверь ${HOURS[st.hour-1]} пропущена, сегмент тёмный. `:"")+`Открыта дверь ${HOURS[st.hour]}.`)}
+    paint()
+  }
+  function auto(){
+    const w=[.1,.12,.33,.45];
+    for(let i=st.hour;i<12;i++){if(i===st.hour&&st.picked)continue;let r=Math.random(),t=0,acc=0;for(;t<3;t++){acc+=w[t];if(r<acc)break}st.tiers[i]=t}
+    st.hour=11;st.over=true;
+    say("Заполнено как у среднего игрока: около половины дверей в золото, пара пропусков. Наступило 26.12.");paint()
+  }
+  function polish(){
+    if(!st.over||st.polished)return;let i=-1;
+    st.tiers.forEach((t,j)=>{if(t<3&&(i<0||t<st.tiers[i]))i=j});if(i<0)return;
+    st.polished=true;st.tiers[i]++;say(`Полировка: сегмент ${HOURS[i]} поднят до <b>${TIER[st.tiers[i]]}</b>.`);paint()
+  }
+  function friend(){
+    const lim=st.over?12:st.hour+1;let best=-1;
+    for(let i=0;i<lim;i++){if(st.tiers[i]<3&&(best<0||st.tiers[i]<st.tiers[best]))best=i}
+    if(best<0)return;st.friends++;st.tiers[best]++;
+    say(`Друг привязал новый аккаунт: сегмент ${HOURS[best]} поднят до <b>${TIER[st.tiers[best]]}</b> (${st.friends}/2).`);paint()
+  }
+  function spin(){
+    if(!st.over||st.spun)return;st.spun=true;st.spinning=true;paint();
+    const k=Math.floor(Math.random()*12),jit=(Math.random()*20-10);
+    rot+=360*6+(360-((rot%360)+k*30)%360)+jit;
+    $("rotor").style.transform=`rotate(${rot}deg)`;
+    say("Крутится…");
+    setTimeout(()=>{const t=st.tiers[k];const prize=t===3&&k===STAR?STAR_GOLD:PRIZE[t];
+      st.spinning=false;paint();
+      say(`Стрелка: сегмент ${HOURS[k]} · <b>${TIER[t]}${k===STAR?" ★":""}</b>. Код в ЛС: <b>${prize}</b>.`)},reduce?50:5300)
+  }
+  function reset(){st=fresh();rot=0;$("rotor").style.transition="none";$("rotor").style.transform="rotate(0deg)";void $("rotor").getBoundingClientRect();$("rotor").style.transition="";paint();say("Дверь 09:00 открыта. Как вы её прошли?")}
+  for(const k of [1,2,3])$("o"+k).onclick=()=>pick(k);
+  $("next").onclick=next;$("auto").onclick=auto;$("polish").onclick=polish;$("friend").onclick=friend;
+  $("spin").onclick=()=>{if(st.spun){reset()}else spin()};
+  build();st=fresh();paint();
+  if(!reduce){let on=0;setInterval(()=>{on^=1;document.querySelectorAll(".bulb").forEach((b,i)=>b.setAttribute("opacity",(i%2===on)?"1":".35"))},450)}
+})();
+</script>
+
+<a href="../" style="position:fixed;z-index:9999;left:max(12px,env(safe-area-inset-left,0px));bottom:calc(12px + env(safe-area-inset-bottom,0px));padding:8px 14px;border-radius:999px;background:rgba(11,16,32,.82);color:#E8EEFA;font:600 13px/1 system-ui,sans-serif;text-decoration:none;backdrop-filter:blur(6px);border:1px solid rgba(232,238,250,.18)">&larr; &#1042;&#1089;&#1077; &#1080;&#1074;&#1077;&#1085;&#1090;&#1099;</a>
+</body>
+</html>

@@ -1,0 +1,874 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Coiny's Gift Exchange</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,800;1,900&display=swap">
+<style>
+/* Layout: one dark night scroll, gold ∞ as the only warm light; neon ribbons (brand tracers) carry the festive layer. Single committed dark look. */
+:root{
+  --ink:#0C0D13; --night:#12142B; --deep:#0A1666; --panel:#161936; --line:#2A2F5E;
+  --gold:#FDC010; --gold-2:#F0A00F; --gold-3:#D36400;
+  --blue:#00B4EB; --pink:#EB1F6A; --violet:#621B99; --violet-2:#8B3BD1;
+  --text:#F2F1FA; --muted:#A3A6C6; --dim:#6E7299;
+  --f:"Work Sans", "Helvetica Neue", Arial, sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+img{max-width:100%}
+[hidden]{display:none!important}
+body{background:var(--ink);color:var(--text);font-family:var(--f);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1160px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{margin:0;text-wrap:balance;line-height:1.05}
+p{margin:0}
+a{color:var(--gold)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--blue)}
+.gold-text{background:linear-gradient(180deg,#FFE27A 0%,var(--gold) 45%,var(--gold-3) 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+section{padding-block:72px;border-top:1px solid var(--line)}
+section > .wrap > header{display:grid;gap:10px;margin-bottom:32px;max-width:760px}
+h2{font-size:clamp(28px,4vw,44px);font-weight:900;letter-spacing:-.02em}
+.lead{color:var(--muted);font-size:18px;max-width:64ch}
+.num{font-variant-numeric:tabular-nums}
+
+/* HERO */
+.hero{position:relative;overflow:hidden;background:radial-gradient(120% 80% at 80% 30%,#1B2C9E 0%,var(--deep) 35%,var(--ink) 75%)}
+.hero-bg{position:absolute;inset:0 0 0 38%;background:url(assets/bg-gift.jpg) 65% 50%/cover no-repeat;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 30%);mask-image:linear-gradient(90deg,transparent 0,#000 30%);opacity:.9}
+#ribbons{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.hero .wrap{position:relative;padding-block:40px 64px;display:grid;gap:28px}
+.hero-top{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.hero-top img{height:34px;width:auto}
+.hero-top .who{font-size:13px;color:var(--muted)}
+.hero h1{font-size:clamp(46px,8.4vw,104px);font-weight:900;font-style:italic;letter-spacing:-.035em;max-width:9.5ch;text-shadow:0 0 40px rgba(253,192,16,.25)}
+.hero .slogan{font-size:clamp(20px,2.4vw,28px);font-weight:600;max-width:24ch}
+.hero .slogan b{color:var(--gold);font-weight:800}
+.dates{display:flex;flex-wrap:wrap;gap:10px 22px;font-size:15px;color:var(--muted)}
+.dates b{color:var(--text);font-weight:700}
+.hero-facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);max-width:760px;margin-top:8px}
+.hero-facts div{background:rgba(12,13,19,.82);padding:14px 16px;display:grid;gap:2px}
+.hero-facts b{font-size:26px;font-weight:900;color:var(--gold)}
+.hero-facts span{font-size:13px;color:var(--muted)}
+
+/* IDEA */
+.idea{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:48px;align-items:center}
+.idea-text{display:grid;gap:18px}
+.idea-text p{font-size:18px;max-width:60ch}
+.idea-text p.muted{color:var(--muted);font-size:16px}
+.coiny-frame{position:relative;justify-self:center;width:min(380px,100%);aspect-ratio:800/821;max-width:100%;border-radius:190px 190px 14px 14px;overflow:hidden;border:2px solid var(--gold);box-shadow:0 0 0 6px var(--ink),0 0 0 7px rgba(0,180,235,.6),0 0 60px rgba(98,27,153,.6)}
+.coiny-frame img{display:block;width:100%;height:100%;object-fit:cover}
+.coiny-frame figcaption{position:absolute;left:0;right:0;bottom:0;padding:28px 14px 12px;background:linear-gradient(transparent,rgba(12,13,19,.92));font-size:13px;color:var(--muted)}
+.why{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:8px}
+.why div{border-left:2px solid var(--gold);padding-left:14px;font-size:15px;color:var(--muted)}
+.why b{display:block;color:var(--text);font-size:16px;margin-bottom:2px}
+
+/* PATH */
+.steps{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;counter-reset:s}
+.steps li{position:relative;padding:22px 18px 22px 0;border-top:2px solid var(--line);display:grid;gap:8px;align-content:start}
+.steps li::before{counter-increment:s;content:counter(s);font-size:44px;font-weight:900;font-style:italic;line-height:1;color:var(--gold)}
+.steps li::after{content:"";position:absolute;top:-2px;left:0;width:40px;height:2px;background:var(--gold)}
+.steps h3{font-size:18px;font-weight:800}
+.steps p{font-size:14.5px;color:var(--muted)}
+
+/* SCORING */
+.rules-t{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-bottom:28px}
+.rules-t div{background:var(--night);padding:16px;display:grid;gap:4px;align-content:start}
+.rules-t b{font-size:30px;font-weight:900;color:var(--gold);line-height:1}
+.rules-t h3{font-size:16px;font-weight:800}
+.rules-t p{font-size:14px;color:var(--muted)}
+.rules-t .safe{color:var(--blue);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.rules-t .weak{color:var(--pink);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+
+/* MOCKUP */
+.mock{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:24px;align-items:start}
+.pane{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:20px;display:grid;gap:16px;min-width:0}
+.pane-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.pane-head h3{font-size:20px;font-weight:800}
+.day-pill{font-size:13px;font-weight:700;color:var(--ink);background:var(--gold);padding:4px 10px;border-radius:20px}
+.cubes{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.cube{width:46px;height:46px;position:relative;border-radius:8px;display:grid;place-items:center;font-weight:900;font-size:22px;color:#fff;background:linear-gradient(145deg,#3FD2FF,#0A62C9);box-shadow:0 0 18px rgba(0,180,235,.55),inset 0 2px 0 rgba(255,255,255,.4);transition:transform .3s,opacity .3s}
+.cube::before{content:"";position:absolute;inset:0;margin:auto;width:100%;height:6px;background:rgba(255,255,255,.55)}
+.cube::after{content:"";position:absolute;inset:0;margin:auto;width:6px;height:100%;background:rgba(255,255,255,.55)}
+.cube span{position:relative;z-index:1;color:var(--gold);text-shadow:0 1px 2px rgba(0,0,0,.6)}
+.cube.m{background:linear-gradient(145deg,#FFE27A,#D38A00);box-shadow:0 0 18px rgba(253,192,16,.6),inset 0 2px 0 rgba(255,255,255,.5)}
+.cube.m span{color:#5A2A00;text-shadow:none}
+.cube.used{opacity:.18;transform:scale(.8);box-shadow:none}
+.cubes .hint{font-size:13px;color:var(--muted)}
+.players{display:grid;gap:6px}
+.pl{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;gap:10px;padding:8px 10px;border:1px solid var(--line);border-radius:7px;background:rgba(12,13,19,.5)}
+.pl .h{font-weight:700;font-size:15px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pl .h small{display:block;font-weight:500;font-size:12px;color:var(--dim)}
+.pl.match{border-color:var(--gold);background:linear-gradient(90deg,rgba(253,192,16,.12),transparent)}
+.pl .badge{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--gold)}
+.pl .pair{font-size:12px;color:var(--dim)}
+button{font-family:var(--f);cursor:pointer}
+.send{border:0;border-radius:6px;padding:8px 12px;font-weight:800;font-size:13px;background:var(--gold);color:var(--ink)}
+.send:hover{background:#FFD54A}
+.send:disabled{background:#2A2E52;color:var(--dim);cursor:not-allowed}
+.ctrl{display:flex;gap:10px;flex-wrap:wrap}
+.ghost{border:1px solid var(--blue);background:transparent;color:var(--text);border-radius:6px;padding:9px 14px;font-weight:700;font-size:14px}
+.ghost:hover{background:rgba(0,180,235,.12)}
+.ghost:disabled{opacity:.4;cursor:not-allowed}
+.score{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.score div{background:var(--ink);padding:10px 12px;display:grid}
+.score b{font-size:26px;font-weight:900}
+.score span{font-size:12px;color:var(--muted)}
+.tiers{position:relative;height:10px;background:#20244A;border-radius:6px}
+.tiers i{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,var(--blue),var(--gold));border-radius:6px;transition:width .4s}
+.tiers em{position:absolute;top:14px;transform:translateX(-50%);font-style:normal;font-size:11px;color:var(--muted);white-space:nowrap}
+.tiers em::before{content:"";position:absolute;left:50%;top:-14px;width:2px;height:10px;background:var(--ink)}
+.log{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:4px;font-size:13px;color:var(--muted);min-height:110px}
+.log li b{color:var(--text)}
+.log li .p{color:var(--gold);font-weight:800}
+.log li .z{color:var(--dim)}
+.tree-wrap{position:relative;border-radius:10px;overflow:hidden;background:radial-gradient(70% 60% at 50% 40%,#16207A 0%,var(--ink) 80%);border:1px solid var(--line)}
+#tree{display:block;width:100%;height:420px}
+.tree-meta{position:absolute;left:14px;right:14px;bottom:12px;display:grid;gap:6px}
+.tree-meta .row{display:flex;justify-content:space-between;gap:10px;font-size:13px;color:var(--muted)}
+.tree-meta .row b{color:var(--text)}
+.lv{position:relative;height:6px;background:#20244A;border-radius:4px}
+.lv i{position:absolute;inset:0 auto 0 0;background:var(--gold);border-radius:4px;transition:width .5s}
+.note{font-size:13px;color:var(--muted);border-left:2px solid var(--pink);padding-left:10px}
+.ok{font-size:13px;padding:8px 10px;border-radius:6px;background:rgba(0,180,235,.08);border:1px solid rgba(0,180,235,.35);color:#BDEBFA}
+
+/* RING */
+.ring{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:24px;align-items:center;margin-top:24px}
+.ring label{font-weight:700;font-size:15px;display:flex;justify-content:space-between}
+.ring input[type=range]{width:100%;accent-color:var(--gold)}
+.bars{display:grid;gap:10px}
+.bar{display:grid;grid-template-columns:220px minmax(0,1fr) 54px;gap:10px;align-items:center;font-size:13px;color:var(--muted)}
+.bar .t{height:16px;background:#20244A;border-radius:3px;position:relative;overflow:hidden}
+.bar .t i{position:absolute;inset:0 auto 0 0;border-radius:3px;transition:width .35s}
+.bar .t u{position:absolute;top:0;bottom:0;width:2px;background:var(--text);opacity:.5}
+.bar b{color:var(--text);text-align:right}
+
+/* HOURS */
+.pre{display:flex;flex-wrap:wrap;gap:8px 28px;margin-bottom:26px;font-size:14px;color:var(--muted)}
+.pre b{color:var(--text)}
+.days{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px}
+.day h3{font-size:22px;font-weight:900;margin-bottom:4px}
+.day .sub{font-size:14px;color:var(--muted);margin-bottom:14px}
+.hrs{list-style:none;margin:0;padding:0;display:grid}
+.hrs li{display:grid;grid-template-columns:64px minmax(0,1fr);gap:14px;padding:10px 0;border-top:1px solid var(--line)}
+.hrs time{font-weight:800;font-size:17px;color:var(--blue);font-variant-numeric:tabular-nums}
+.hrs li.peak time{color:var(--gold)}
+.hrs li.peak{border-top-color:var(--gold)}
+.hrs p{font-size:14.5px;color:var(--muted)}
+.hrs p b{color:var(--text)}
+.hrs small{display:block;font-size:12px;color:var(--dim)}
+
+/* TABLES */
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:8px}
+table{border-collapse:collapse;width:100%;min-width:640px;font-size:14.5px}
+th,td{padding:11px 14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;background:var(--night)}
+td.r,th.r{text-align:right}
+tbody tr:last-child td{border-bottom:0}
+tfoot td{font-weight:800;background:var(--night);color:var(--gold)}
+.limits{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:20px}
+.limits div{font-size:14.5px;color:var(--muted)}
+.limits b{display:block;color:var(--text);font-size:15px}
+
+/* TWO COLUMN LISTS */
+.cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px 48px}
+.cols h3{font-size:18px;font-weight:800;margin-bottom:10px;color:var(--gold)}
+.cols ul,.cols ol{margin:0;padding-left:18px;display:grid;gap:8px;color:var(--muted);font-size:15px}
+.cols b{color:var(--text)}
+.est{display:flex;gap:28px;flex-wrap:wrap;margin-bottom:28px}
+.est div{display:grid}
+.est b{font-size:44px;font-weight:900;color:var(--gold);line-height:1}
+.est span{font-size:13px;color:var(--muted)}
+
+/* PLAN B */
+.fail{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.fail div{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.6fr);gap:20px;background:var(--ink);padding:14px 16px}
+.fail h3{font-size:16px;font-weight:800;color:var(--pink)}
+.fail p{font-size:14.5px;color:var(--muted)}
+.fail p b{color:var(--text)}
+
+/* PROMO */
+.promo-band{background:url(assets/bg-reels.jpg) center/cover;border-radius:10px;padding:26px;margin-bottom:28px;position:relative;overflow:hidden}
+.promo-band::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(12,13,19,.92) 30%,rgba(12,13,19,.25))}
+.promo-band p{position:relative;font-size:20px;font-weight:700;max-width:36ch}
+.promo-band p b{color:var(--gold)}
+.timeline{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:18px}
+.timeline div{display:grid;gap:6px;align-content:start}
+.timeline .w{font-size:13px;font-weight:800;color:var(--blue);letter-spacing:.06em;text-transform:uppercase}
+.timeline h3{font-size:17px;font-weight:800}
+.timeline p{font-size:14px;color:var(--muted)}
+
+/* KPI */
+.kpi{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.kpi div{background:var(--ink);padding:18px;display:grid;gap:4px}
+.kpi b{font-size:34px;font-weight:900}
+.kpi span{font-size:13.5px;color:var(--muted)}
+
+/* QUESTIONS */
+.qs{counter-reset:q;list-style:none;padding:0;margin:0;display:grid;gap:12px}
+.qs li{counter-increment:q;display:grid;grid-template-columns:36px minmax(0,1fr);gap:10px;font-size:15.5px}
+.qs li::before{content:counter(q);font-weight:900;color:var(--gold);font-size:18px}
+.qs li b{color:var(--text)}
+.qs li span{color:var(--muted)}
+
+/* POST */
+.post{background:#313338;border-radius:8px;padding:18px 20px;display:grid;grid-template-columns:44px minmax(0,1fr);gap:14px;max-width:760px;font-family:"gg sans","Helvetica Neue",Arial,sans-serif;color:#DBDEE1;font-size:15px;line-height:1.5}
+.post .av{width:44px;height:44px;border-radius:50%;background:url(assets/coiny-gifts.jpg) 50% 22%/180% no-repeat}
+.post .nm{font-weight:700;color:#C9A3FF}
+.post .nm small{font-weight:500;color:#949BA4;font-size:12px;margin-left:6px}
+.post p{margin-top:8px}
+.post .em{background:#2B2D31;border-left:4px solid var(--gold);border-radius:4px;padding:12px 14px;margin-top:12px}
+.copy{margin-top:12px}
+
+footer{padding-block:40px;border-top:1px solid var(--line);color:var(--dim);font-size:13px}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center}
+footer img{height:22px;width:auto;opacity:.8}
+
+@media (max-width:960px){
+  .idea,.mock,.ring,.days{grid-template-columns:minmax(0,1fr)}
+  .steps{grid-template-columns:repeat(2,minmax(0,1fr));gap:0 18px}
+  .timeline{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .kpi{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .why,.limits,.rules-t{grid-template-columns:minmax(0,1fr)}
+  .hero-bg{inset:0;opacity:.35;-webkit-mask-image:none;mask-image:none}
+}
+@media (max-width:600px){
+  section{padding-block:52px}
+  .hero-facts{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .steps,.cols,.timeline{grid-template-columns:minmax(0,1fr)}
+  .bar{grid-template-columns:minmax(0,1fr) 54px}
+  .bar .t{grid-column:1/-1;grid-row:2}
+  .fail div{grid-template-columns:minmax(0,1fr);gap:4px}
+  #tree{height:360px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <canvas id="ribbons" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div class="hero-top">
+      <img src="assets/logo.png" alt="NoLimitCoins" width="700" height="152">
+      <span class="who">Концепт рождественского ивента · формат 1+1 · Discord и FB ведёт Ваня, онлайн-чат NLC — Александр</span>
+    </div>
+    <span class="eyebrow">Christmas 2026 · NoLimitCoins</span>
+    <h1 class="gold-text">Coiny's Gift Exchange</h1>
+    <p class="slogan">You can't keep them. <b>You can only give them.</b></p>
+    <div class="dates">
+      <span><b>14.12</b> регистрация, Gift Tag</span>
+      <span><b>Пт 25.12, 10:00–23:59 ET</b> дарим 5 кубов</span>
+      <span><b>Сб 26.12, 08:00–16:00 ET</b> ответный подарок и итог Infinity Tree</span>
+    </div>
+    <div class="hero-facts">
+      <div><b class="num">5</b><span>кубов ∞ каждому 25.12</span></div>
+      <div><b class="num">2</b><span>дня: Рождество и день после</span></div>
+      <div><b class="num">2 500</b><span>кубов до звезды на дереве</span></div>
+      <div><b class="num">≈380 SC</b><span>призовой бюджет, предложение</span></div>
+    </div>
+  </div>
+</div>
+
+<section id="idea">
+  <div class="wrap idea">
+    <div class="idea-text">
+      <span class="eyebrow">Идея</span>
+      <h2>Подарки, которые нельзя оставить себе</h2>
+      <p>В Рождество каждый игрок получает 5 подарочных кубов ∞. Открыть свой куб нельзя, его можно только отправить другому игроку. Два куба Coiny сам адресует случайным игрокам, три игрок дарит кому хочет. Каждый куб вешается на общее Infinity Tree.</p>
+      <p>26 декабря — день ответного подарка: на полученный куб можно ответить, и тот, кто подарил первым, получает очки. В 16:00 ET дерево подводит итог, и если комьюнити набрало 2 500 кубов, на верхушке загорается звезда.</p>
+      <p class="muted">Из всех праздничных ивентов брендов это единственный, где игроку выгодно звать других: подарок можно заранее отправить по ссылке человеку, которого ещё нет в ивенте. Механика сама приводит новых, а у Halloween новых было 9%.</p>
+      <div class="why">
+        <div><b>Кубы ∞ уже бренд</b>Coiny держит два подарочных куба со знаком ∞ на референсе, сундук-подарок с ∞ стоит на og-картинке сайта.</div>
+        <div><b>NoLimit = безлимит</b>Слоган сайта «Unlimited coins». Ивент о щедрости: даришь без счёта, а дерево растёт у всех.</div>
+        <div><b>Coiny, а не джинны</b>Лицо соцсетей NLC с 20.10. Джиннов NLC 3.0 в ивенте нет.</div>
+      </div>
+    </div>
+    <figure class="coiny-frame" style="margin:0">
+      <img src="assets/coiny-gifts.jpg" alt="Coiny в тёмных очках держит красный и синий подарочные кубы со знаком ∞" width="800" height="821">
+      <figcaption>Референс Coiny с кубами. Вырезки нет: для ивента нужен арт в зимнем свете (см. открытые вопросы)</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section id="path">
+  <div class="wrap">
+    <header>
+      <span class="eyebrow">Путь игрока</span>
+      <h2>От попапа до звезды на дереве</h2>
+    </header>
+    <ol class="steps">
+      <li><h3>Регистрируется заранее</h3><p>С 14.12 попап на nolimitcoins.com ведёт на страницу ивента. Вход через Discord сразу добавляет в сервер (scope guilds.join), отдельной кнопки Join нет. Игрок вводит NLC username и получает Gift Tag вида NLC-7QK2.</p></li>
+      <li><h3>Зовёт друзей до 25.12</h3><p>Делится ссылкой «Coiny has a gift for you». Если друг зарегистрировался до Рождества, оба получают +1 свободный куб (до 3 друзей).</p></li>
+      <li><h3>25.12 дарит 5 кубов</h3><p>С 10:00 ET на странице или командой /gift в Discord. 2 куба Coiny's Match уходят случайным игрокам, 3 свободных — кому хочет, но одному человеку только один куб. Неотправленные кубы тают в 23:59.</p></li>
+      <li><h3>26.12 отвечает</h3><p>С 08:00 ET на каждый полученный куб можно ответить. Ответ на Match-куб приносит дарителю +3. Кому ничего не пришло, тому Coiny дарит свой куб.</p></li>
+      <li><h3>16:00 ET — итог</h3><p>Дерево подводит итог, коды за пороги и звезду выдаются автоматически. В 16:30 розыгрыш Top Givers в Discord.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section id="scoring">
+  <div class="wrap">
+    <header>
+      <span class="eyebrow">Очки</span>
+      <h2>Больше всего стоит то, что нельзя накрутить</h2>
+      <p class="lead">При 5 кубах на человека правило «очки только за разных людей» уже не спасает: кольцо из 5 альтов с ним дошло бы до верхнего порога. Поэтому основные очки идут через случайные пары Coiny's Match и ответы от незнакомцев, а пары, которые игрок выбирает сам, стоят мало.</p>
+    </header>
+    <div class="rules-t">
+      <div><span class="safe">случайная пара</span><b class="num">+2</b><h3>Подарил Match-куб</h3><p>Coiny сам выбирает получателя среди активных игроков. 2 куба, до 4 очков.</p></div>
+      <div><span class="safe">случайная пара</span><b class="num">+3</b><h3>Тебе ответили на Match</h3><p>26.12 незнакомец ответил на твой Match-куб. До 6 очков. Ответившему +1, до 2 раз.</p></div>
+      <div><span class="weak">выбор игрока</span><b class="num">+1</b><h3>Свободный куб и полученный куб</h3><p>+1 за свободный куб новому человеку (до 3) и +1 за каждого нового отправителя (до 3). Ответ на свободный куб растит дерево, очков не даёт.</p></div>
+    </div>
+    <p class="lead">Максимум за ивент — 18 очков. Пороги: <b style="color:var(--text)">Ribbon 6 · Bow 10 · Star 14</b>. Кольцо из своих аккаунтов собирает до 6 очков: это Ribbon за 5 FP, а дальше нужны настоящие незнакомцы.</p>
+  </div>
+</section>
+
+<section id="mockup">
+  <div class="wrap">
+    <header>
+      <span class="eyebrow">Мини-макет · работает в браузере</span>
+      <h2>Подари кубы и проживи оба дня</h2>
+      <p class="lead">25.12: подари 5 кубов. Золотые — Coiny's Match, они уходят только отмеченным игрокам. Потом нажми «Ночь → 26.12»: придут чужие кубы и ответы. Ответь на подарки и нажми «Итог 16:00 ET». Данные выдуманные, очки считаются по правилам выше.</p>
+    </header>
+    <div class="mock">
+      <div class="pane">
+        <div class="pane-head">
+          <h3 id="paneTitle">Твои кубы</h3>
+          <span class="day-pill num" id="dayLbl">Пт 25.12 · 10:00 ET</span>
+        </div>
+        <div class="cubes" id="cubes"></div>
+        <div class="players" id="players"></div>
+        <div class="ctrl">
+          <button class="ghost" id="nextDay" type="button">Ночь → 26.12</button>
+          <button class="ghost" id="resetMock" type="button">Начать сначала</button>
+        </div>
+        <div id="hintBox"></div>
+      </div>
+      <div class="pane">
+        <div class="score">
+          <div><b class="num" id="pts">0</b><span>очков из 18</span></div>
+          <div><b class="num" id="uniqTo">0</b><span>подарено</span></div>
+          <div><b class="num" id="uniqFrom">0</b><span>получено</span></div>
+        </div>
+        <div>
+          <div class="tiers"><i id="tierBar"></i><em style="left:33.3%">Ribbon · 6</em><em style="left:55.5%">Bow · 10</em><em style="left:77.7%">Star · 14</em></div>
+          <ul class="log" id="log" aria-live="polite"></ul>
+        </div>
+        <div class="tree-wrap">
+          <canvas id="tree" aria-label="Infinity Tree: спираль из неоновых лент, кубы-игрушки загораются с каждым подарком"></canvas>
+          <div class="tree-meta">
+            <div class="row"><span>Infinity Tree, всё комьюнити</span><b class="num" id="comm">0</b></div>
+            <div class="lv" id="lvBar"><i></i></div>
+            <div class="row"><span id="lvTxt">росток</span><span id="youOn">твоих игрушек: 0</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ring">
+      <div class="pane">
+        <label for="ringN"><span>Кольцо из альтов</span><span class="num" id="ringNv">5</span></label>
+        <input type="range" id="ringN" min="2" max="12" value="5">
+        <p class="note">Один человек заводит N аккаунтов и гоняет все свободные кубы и ответы внутри своей группы. Справа — сколько очков получает каждый альт. Белая черта — порог Star (14).</p>
+      </div>
+      <div class="bars" id="bars"></div>
+    </div>
+  </div>
+</section>
+
+<section id="hours">
+  <div class="wrap">
+    <header>
+      <span class="eyebrow">Таймлайн по часам · ET</span>
+      <h2>Два дня, расписанные по часам</h2>
+      <p class="lead">25.12 и 26.12 в Украине выходные. Всё, что можно, делает сервис сам, дежурный один и только на окно финала 26.12, 15:30–17:30 ET (22:30–00:30 Киев).</p>
+    </header>
+    <div class="pre">
+      <span><b>14.12</b> регистрация и попап на сайте, Gift Tag, invite-ссылки</span>
+      <span><b>18.12</b> репетиция на тест-стенде</span>
+      <span><b>18–20.12</b> анонс в Discord, FB, онлайн-чате</span>
+      <span><b>24.12, 18:00</b> бродкаст «Завтра 5 кубов»</span>
+    </div>
+    <div class="days">
+      <div class="day">
+        <h3>Пт 25.12 · Christmas</h3>
+        <p class="sub">Дарение. Окно 10:00–23:59 ET</p>
+        <ol class="hrs">
+          <li class="peak"><time>10:00</time><p><b>Кубы приходят.</b> Каждому 5 (+ invite-кубы), Coiny назначает 2 Match. Попап на сайте и бродкаст «Your cubes are here».<small>17:00 Киев</small></p></li>
+          <li><time>12:00</time><p>Первый пост с живым счётчиком дерева в #infinity-tree.</p></li>
+          <li><time>14:00</time><p>Дроп в онлайн-чате NLC: слово на бонусный свободный куб, первые 100, один на аккаунт.</p></li>
+          <li><time>17:00</time><p><b>Уровень 1</b> дерева (1 000 кубов): всем +1 свободный куб. Пост в Discord.</p></li>
+          <li><time>20:00</time><p>Бродкаст «Cubes melt at midnight» тем, у кого остались кубы.</p></li>
+          <li class="peak"><time>23:59</time><p><b>Неотправленные кубы тают.</b> Приём подарков закрыт.</p></li>
+        </ol>
+      </div>
+      <div class="day">
+        <h3>Сб 26.12 · Return Gift</h3>
+        <p class="sub">Ответы и итог. Окно 08:00–16:00 ET</p>
+        <ol class="hrs">
+          <li><time>01:00</time><p>Ночной джоб: общий IP и устройства, замкнутые кластеры. Подозрительные связи замораживаются до утра.<small>08:00 Киев</small></p></li>
+          <li class="peak"><time>08:00</time><p><b>Открываются ответы.</b> На каждый полученный куб можно ответить. Кому ничего не пришло, получают куб от Coiny. Бродкаст «Someone gave you a gift».</p></li>
+          <li><time>12:00</time><p>Второй дроп в онлайн-чате: слово на +1 ответ сверх лимита.</p></li>
+          <li><time>15:00</time><p>Бродкаст «1 hour left», живой счётчик до звезды.</p></li>
+          <li class="peak"><time>16:00</time><p><b>Итог дерева.</b> Если 2 500, звезда горит. Коды за пороги и звезду уходят автоматически на страницу и в DM.<small>23:00 Киев</small></p></li>
+          <li><time>16:30</time><p>Розыгрыш Top Givers среди Star, пост в Discord. Ручная проверка 10 победителей до 28.12, коды забрать до 05.01.</p></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="prizes">
+  <div class="wrap">
+    <header>
+      <span class="eyebrow">Призы · предложение</span>
+      <h2>Кто сколько получает</h2>
+      <p class="lead">Расчёт на 400 участников. Цифры — предложение под согласование. Коды команда создаёт в админке NLC и импортирует xlsx, как в Halloween.</p>
+    </header>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>Награда</th><th>Условие</th><th>Приз</th><th class="r">Получат, оценка</th><th class="r">Итого</th></tr></thead>
+        <tbody>
+          <tr><td><b>Ribbon</b></td><td>6 очков</td><td>5 FP</td><td class="r num">280</td><td class="r num">1 400 FP</td></tr>
+          <tr><td><b>Bow</b></td><td>10 очков</td><td>0,5 SC</td><td class="r num">150</td><td class="r num">75 SC</td></tr>
+          <tr><td><b>Star</b></td><td>14 очков, NLC-аккаунт создан до 14.12 или прошёл KYC</td><td>2 SC</td><td class="r num">50</td><td class="r num">100 SC</td></tr>
+          <tr><td><b>Звезда дерева</b></td><td>2 500 кубов к 16:00 26.12, игрок подарил все свои кубы</td><td>0,5 SC</td><td class="r num">250</td><td class="r num">125 SC</td></tr>
+          <tr><td><b>Top Givers</b></td><td>розыгрыш среди Star, ручная проверка</td><td>5 SC × 10</td><td class="r num">10</td><td class="r num">50 SC</td></tr>
+        </tbody>
+        <tfoot><tr><td colspan="4">Итого, предложение</td><td class="r num">≈350 SC + 1 400 FP · лимит 380 SC</td></tr></tfoot>
+      </table>
+    </div>
+    <div class="limits">
+      <div><b>Один код каждого вида</b>Пороги не суммируются: выдаётся высший достигнутый. Top Givers — одно место на человека.</div>
+      <div><b>Потолок 7,5 SC на человека</b>Star + звезда + Top Givers. Это максимум одного NLC-аккаунта за ивент.</div>
+      <div><b>Почему розыгрыш, а не топ</b>Максимум 18 очков, наверху будет ничья десятков людей. Честнее разыграть среди Star, чем делить по секундам.</div>
+    </div>
+  </div>
+</section>
+
+<section id="tech">
+  <div class="wrap">
+    <header>
+      <span class="eyebrow">Техника</span>
+      <h2>Что пишем для NLC</h2>
+      <p class="lead">Общий слой строится один раз для всех брендов и в эту оценку не входит: Discord-логин с guilds.join, коды из xlsx, Claim prize, бот, export, общий анти-абуз (IP и устройства).</p>
+    </header>
+    <div class="est">
+      <div><b class="num">4</b><span>дня разработки механики NLC</span></div>
+      <div><b class="num">18.12</b><span>репетиция на тест-стенде</span></div>
+      <div><b class="num">14.12</b><span>регистрация открыта</span></div>
+    </div>
+    <div class="cols">
+      <div>
+        <h3>Механика бренда (оценка)</h3>
+        <ul>
+          <li><b>Gift ledger и очки</b>: Match / свободные кубы, лимит пары, ответы, пороги — 1,5 дня.</li>
+          <li><b>Coiny's Match</b>: назначение 2 случайных получателей среди зарегистрированных, ночной Coiny-куб — 0,5 дня.</li>
+          <li><b>Страница и /gift</b>: кубы, список, Infinity Tree на canvas, ответ на 26.12 — 1,5 дня.</li>
+          <li><b>Детектор кластеров и invite-кубы</b> — 0,5 дня поверх общего анти-абуза.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Нужно от людей</h3>
+        <ul>
+          <li><b>Коды</b>: 5 типов (таблица выше), создать в админке NLC до 15.12. Кто — Александр или админ NLC?</li>
+          <li><b>Арт</b>: Coiny без фона, зимний свет, 3 позы (дарит куб, держит стопку, у дерева). Flow или дизайнер, к 10.12.</li>
+          <li><b>Тексты</b>: Discord и FB пишет Ваня, онлайн-чат — Александр. Все посты дней 25–26 готовы и стоят в отложке до 22.12.</li>
+          <li><b>Аппрув</b>: деплой в прод только с ОК Александра. Дежурный на финал 26.12 — один человек.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Переиспользуем</h3>
+        <ul>
+          <li><b>Witching Hours engine</b>: сервис на Railway, лидерборд, бэкапы. 3D-зал и мини-игры не нужны.</li>
+          <li><b>Онлайн-чат NLC (kg-chats.com)</b>: канал двух дропов.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Юридически</h3>
+        <ul>
+          <li>Кубы ∞ — игровой предмет ивента, не валюта. SC между игроками не передаются, все призы платит бренд.</li>
+          <li>No purchase necessary: кубы бесплатные, очки не зависят от покупок. 21+, только USA, правила в #gift-rules.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="rehearsal">
+  <div class="wrap">
+    <header>
+      <span class="eyebrow">Репетиция · пт 18.12</span>
+      <h2>Полный прогон за неделю до Рождества</h2>
+      <p class="lead">Один день не прощает ошибок, поэтому оба дня ивента прогоняем на тест-стенде целиком. Ускоренные часы: 1 час ивента = 5 минут, весь сценарий за 2 часа.</p>
+    </header>
+    <div class="cols">
+      <div>
+        <h3>Что прогоняем</h3>
+        <ol>
+          <li>20 тестовых аккаунтов: стафф, 4 альта на одном устройстве (должны попасть в кластер), 2 новых аккаунта без NLC username (страница должна подсказать, а не дать 403).</li>
+          <li>Раздача кубов в 10:00, назначение Match, /gift и страница одновременно, лимит пары.</li>
+          <li>Уровень 1 дерева, дроп слова из онлайн-чата, таяние кубов в 23:59.</li>
+          <li>Ночной джоб, ответы 26.12, Coiny-куб тем, кому ничего не пришло.</li>
+          <li>Итог 16:00: коды из тестового xlsx уходят в DM, export сходится с леджером, розыгрыш.</li>
+        </ol>
+      </div>
+      <div>
+        <h3>Критерии go / no-go (21.12)</h3>
+        <ul>
+          <li>Ни одного 403 без подсказки, вход с первого раза у всех 20.</li>
+          <li>Кластер из 4 альтов пойман, очки за кольцо заморожены.</li>
+          <li>Все коды выданы автоматически, export совпадает с леджером до кода.</li>
+          <li>Сервис пережил рестарт посреди дня без потери кубов.</li>
+          <li>Посты плана Б готовы и лежат в стафф-канале.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="planb">
+  <div class="wrap">
+    <header>
+      <span class="eyebrow">План Б</span>
+      <h2>Если что-то упало в день ивента</h2>
+      <p class="lead">Страница и бот пишут в один леджер. Пока жив хотя бы один из них, ивент идёт. Тексты на все случаи заготовлены заранее, дежурному нужно только нажать «опубликовать».</p>
+    </header>
+    <div class="fail">
+      <div><h3>Упала страница</h3><p>Дарим через <b>/gift @user</b> в Discord, в бродкасте и на сайте меняем ссылку на канал. Дерево — картинкой раз в 2 часа из export.</p></div>
+      <div><h3>Упал бот</h3><p>Всё работает на странице, DM с кодами заменяются выдачей на странице. Пост в Discord: «Use the gift page today».</p></div>
+      <div><h3>Упало всё 25.12</h3><p>Окно дарения <b>продлеваем на 26.12 до 12:00 ET</b>, ответы сдвигаются до 20:00. Пост и бродкаст с новым временем из заготовки.</p></div>
+      <div><h3>Упало всё 26.12</h3><p>Итог считаем по ночному export: кубы 25.12 уже в бэкапе. Ответы засчитываем всем как «ответил», коды за пороги дежурный выдаёт из export массовым DM. Звезда — пост с картинкой дерева.</p></div>
+      <div><h3>Не импортировались коды</h3><p>Дежурный загружает запасной xlsx (готов с 15.12). Если и он не прошёл — коды выдаются 27.12 по export, игроки видят на странице «Your gift is on its way, by Dec 27».</p></div>
+      <div><h3>Атака альтов</h3><p>Ночной джоб замораживает кластер. Апелляция через онлайн-чат до 28.12, проверка до выплаты Star и Top Givers.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="promo">
+  <div class="wrap">
+    <header>
+      <span class="eyebrow">Промо</span>
+      <h2>Главный канал — сайт</h2>
+      <p class="lead">Кто не узнал до 25.12, пропустил: ивент длится сутки. В Halloween попап на сайте дал 1 251 переход, FB — 23, поэтому регистрацию несут попап и бродкаст.</p>
+    </header>
+    <div class="promo-band"><p>Invite-куб: друг регистрируется по ссылке <b>до 25.12</b>, Discord-логин сразу добавляет его в сервер. Оба получают <b>+1 свободный куб</b>.</p></div>
+    <div class="timeline">
+      <div><span class="w">14.12</span><h3>Попап и регистрация</h3><p>На главной nolimitcoins.com: «Claim your Gift Tag». Бродкаст всем активным за 30 дней.</p></div>
+      <div><span class="w">18–20.12</span><h3>Discord и FB</h3><p>Анонс голосом Coiny (Ваня), правила в #gift-rules, канал #infinity-tree.</p></div>
+      <div><span class="w">21–24.12</span><h3>Друзья</h3><p>Ежедневный пост «Who's on your list?»: invite-ссылки, счётчик зарегистрированных.</p></div>
+      <div><span class="w">25.12</span><h3>День дарения</h3><p>Попап «Your 5 cubes are here», бродкаст в 10:00 и 20:00, дроп в онлайн-чате.</p></div>
+      <div><span class="w">26.12</span><h3>Ответ и итог</h3><p>Бродкаст «Someone gave you a gift» в 08:00, пост со звездой в 16:00.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="abuse">
+  <div class="wrap">
+    <header>
+      <span class="eyebrow">Анти-абуз и уроки Halloween</span>
+      <h2>Главный риск — кольца мультиаккаунтов</h2>
+      <p class="lead">Если считать очки за каждый куб, альт из кольца за два дня набирает 25 очков, выше Star. Защита строится слоями: дешёвые очки за свой выбор, дорогие — только через случайные пары.</p>
+    </header>
+    <div class="cols">
+      <div>
+        <h3>Против колец</h3>
+        <ul>
+          <li><b>Вес очков у случайных пар.</b> 10 из 18 очков идут через Match и ответы незнакомцев. Кольцо собирает максимум 6, это Ribbon за 5 FP.</li>
+          <li><b>Лимит пары</b>: один куб в одну сторону за ивент. Ответ на свободный куб очков не даёт.</li>
+          <li><b>Общий IP или устройство = 0 очков</b> за подарки между этими аккаунтами (семья тоже, зато дерево растёт).</li>
+          <li><b>Match не выбирается.</b> Coiny назначает получателя из всех зарегистрированных до 25.12. Свой альт выпадает с вероятностью 1 к сотням.</li>
+          <li><b>Ночной кластер-джоб 26.12, 01:00</b>: группы, где больше 70% кубов ходит внутри и нет связей наружу. Их ответы не засчитываются, апелляция в онлайн-чате.</li>
+          <li><b>Допуск</b>: Discord-аккаунт старше 30 дней, привязан NLC username, один NLC-аккаунт на один Discord.</li>
+          <li><b>Star и Top Givers</b> только для NLC-аккаунта, созданного до 14.12 или с KYC. 10 победителей проверяются вручную.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Уроки Halloween</h3>
+        <ul>
+          <li><b>11 из 12 побед у одного.</b> Призы пороговые, топ-места разыгрываются, одно место на человека, потолок 7,5 SC.</li>
+          <li><b>119 не нажали Join.</b> Вход через Discord сразу добавляет в сервер. Если привязка не прошла, страница пишет, что сделать, вместо 403.</li>
+          <li><b>Строгие флаги скорости.</b> Скорость здесь не важна, флагов на скорость нет. Порог кластеров калибруем на репетиции.</li>
+          <li><b>Трафик и новые.</b> Попап и бродкаст — главный канал, invite-куб приводит людей, которых нет на сервере.</li>
+          <li><b>Ручной аппрув тормозит.</b> Пороги и звезда выдаются автоматически. Руками проверяем только 10 Top Givers.</li>
+          <li><b>Railway и прод.</b> Репетиция 18.12, прод только с ОК Александра, заморозка кода с 22.12.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="kpi">
+  <div class="wrap">
+    <header>
+      <span class="eyebrow">KPI · цели, не факты</span>
+      <h2>Что считаем успехом</h2>
+    </header>
+    <div class="kpi">
+      <div><b class="num">600</b><span>регистраций к 24.12</span></div>
+      <div><b class="num">400</b><span>подарили хотя бы 1 куб 25.12</span></div>
+      <div><b class="num">70%</b><span>из них подарили все 5</span></div>
+      <div><b class="num">50%</b><span>вернулись 26.12 и ответили</span></div>
+      <div><b class="num">+80</b><span>новых в Discord NLC по invite-кубу</span></div>
+      <div><b class="num">2 500</b><span>кубов на дереве, звезда горит</span></div>
+      <div><b class="num">≈730</b><span>выданных кодов</span></div>
+      <div><b class="num">&lt;5%</b><span>подарков заморожено как кольца</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="risks">
+  <div class="wrap">
+    <header>
+      <span class="eyebrow">Риски и открытые вопросы</span>
+      <h2>Нужно решение Александра</h2>
+    </header>
+    <ol class="qs">
+      <li><div><b>Привязка NLC-аккаунта.</b> <span>Есть ли API или выгрузка из админки, чтобы проверить username и дату создания аккаунта? Без неё Star и Top Givers проверяются вручную.</span></div></li>
+      <li><div><b>Арт Coiny.</b> <span>Вырезанного Coiny нет нигде. Делаем в Flow по референсу или просим дизайнера SMM? Нужен к 10.12.</span></div></li>
+      <li><div><b>Онлайн-чат kg-chats.</b> <span>Два дропа (25.12 14:00 и 26.12 12:00 ET) — можно ли постить через API, или нужен оператор в праздник?</span></div></li>
+      <li><div><b>Бюджет 380 SC + 1 400 FP</b> <span>и потолок 7,5 SC на человека — ок?</span></div></li>
+      <li><div><b>Дежурный на финал 26.12, 15:30–17:30 ET</b> <span>(22:30–00:30 Киев): Ваня? И кто запасной.</span></div></li>
+      <li><div><b>Discord старше 30 дней.</b> <span>Отсекает совсем новых, а invite-куб как раз их и зовёт. Оставляем для всех или только для Star?</span></div></li>
+      <li><div><b>Риск: мало регистраций.</b> <span>Если на 22.12 меньше 300, снижаем порог звезды до 1 500 и пишем об этом сразу. На 25.12 пороги не меняем.</span></div></li>
+    </ol>
+  </div>
+</section>
+
+<section id="post">
+  <div class="wrap">
+    <header>
+      <span class="eyebrow">Анонс в Discord · голос Coiny</span>
+      <h2>Пример поста</h2>
+    </header>
+    <div class="post">
+      <div class="av" role="img" aria-label="Аватар Coiny"></div>
+      <div id="postText">
+        <div class="nm">Coiny <small>Today at 6:00 PM</small></div>
+        <p>@everyone Coiny here. Sunglasses on. Gifts out.</p>
+        <p>On <b>Christmas Day</b> you get <b>5 Infinity Cubes</b>. You can't open them. You can only give them away. Two of them I address myself, to players you've never met. The other three are yours to give.</p>
+        <p>On <b>Dec 26</b> you can send a gift back. When a stranger thanks you for your cube, that's where the big points are.</p>
+        <div class="em">
+          <p style="margin:0"><b>Infinity Tree</b><br>Every cube lands on the tree. 2,500 cubes by Dec 26, 4 PM ET and the star lights up. Everyone who gave all their cubes gets paid.</p>
+        </div>
+        <p>Grab your Gift Tag now and bring a friend before Christmas. You both get an extra cube.</p>
+        <p style="color:#949BA4;font-size:13px">No purchase necessary. 21+. Full rules in #gift-rules.</p>
+      </div>
+    </div>
+    <button class="ghost copy" id="copyPost" type="button">Скопировать текст поста</button>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>NoLimitCoins · Christmas 25–26.12.2026 · концепт, все цифры — предложение</span>
+    <img src="assets/logo-mark.png" alt="" width="300" height="160">
+  </div>
+</footer>
+
+<script>
+(function(){
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------- hero ribbons: brand light tracers ---------- */
+const rc = document.getElementById('ribbons'), rx = rc.getContext('2d');
+let rt = 0;
+function sizeRib(){ const r = rc.getBoundingClientRect(), d = devicePixelRatio||1; rc.width = r.width*d; rc.height = r.height*d; rx.setTransform(d,0,0,d,0,0); }
+function drawRib(){
+  const w = rc.clientWidth, h = rc.clientHeight; rx.clearRect(0,0,w,h);
+  const cols = ['rgba(0,180,235,','rgba(139,59,209,','rgba(253,192,16,'];
+  for(let k=0;k<9;k++){
+    const c = cols[k%3], a = k%3===2 ? .35 : .5;
+    rx.beginPath();
+    for(let x=-20;x<=w+20;x+=12){
+      const y = h*.62 + Math.sin(x/w*3.2 + k*.18 + rt) * h*.16 + Math.cos(x/w*1.4 - rt*.6)*h*.08 + k*6 - 24;
+      x<0 ? rx.moveTo(x,y) : rx.lineTo(x,y);
+    }
+    rx.strokeStyle = c + a + ')'; rx.lineWidth = k%3===2 ? 1.2 : 1.6;
+    rx.shadowColor = c + '0.9)'; rx.shadowBlur = 8; rx.stroke();
+  }
+  rx.shadowBlur = 0;
+  for(let i=0;i<60;i++){
+    const x = (i*137.5 % w), y = ((i*89 + rt*40*(1+i%3)) % h);
+    rx.fillStyle = 'rgba(255,255,255,' + (.15 + (i%5)*.08) + ')';
+    rx.fillRect(x, y, 1.6, 1.6);
+  }
+}
+function loopRib(){ rt += .006; drawRib(); if(!reduce) requestAnimationFrame(loopRib); }
+sizeRib(); addEventListener('resize', ()=>{ sizeRib(); drawRib(); });
+loopRib();
+
+/* ---------- mockup: two days ---------- */
+const PEOPLE = [
+  ['@cosmic_kay','друг из Discord'],['@reel_rita','друг из FB'],['@nightowl77','незнакомец'],
+  ['@spin_sally','друг из онлайн-чата'],['@gus_goldrush','незнакомец'],['@mia_moon','пришла по твоему invite'],
+  ['@tex_seven','незнакомец'],['@lucky_lou','друг из Discord']
+];
+const MATCH = [2,4];          // Coiny's Match recipients for you
+const STAR = 2500;
+let S, treeBurst = 0;
+function reset(){
+  S = { phase:0, free:3, matchLeft:2, pts:0, sent:{}, recv:{}, replied:{}, log:[], community:640, mine:0, freePts:0, recvPts:0, thanksPts:0, replyPts:0 };
+  addLog('<b>25.12, 10:00</b>: у тебя 5 кубов. Match от Coiny: <b>'+PEOPLE[MATCH[0]][0]+'</b> и <b>'+PEOPLE[MATCH[1]][0]+'</b>.');
+  render();
+}
+function addLog(h){ S.log.unshift(h); S.log = S.log.slice(0,6); }
+function give(i){
+  if(S.sent[i]) return;
+  const isM = MATCH.includes(i);
+  if(isM){ if(!S.matchLeft) return; S.matchLeft--; S.pts += 2; S.sent[i]='m'; addLog('Match-куб → <b>'+PEOPLE[i][0]+'</b> <span class="p">+2</span>'); }
+  else { if(!S.free) return; S.free--; S.sent[i]='f'; const p = S.freePts<3 ? 1 : 0; S.freePts += p; S.pts += p; addLog('Свободный куб → <b>'+PEOPLE[i][0]+'</b> '+(p?'<span class="p">+1</span>':'<span class="z">+0, лимит 3</span>')); }
+  S.community++; S.mine++; treeBurst = 1; render();
+}
+function night(){
+  if(S.phase===0){
+    S.phase = 1;
+    // incoming cubes on 25.12
+    const inc = [[0,'f'],[6,'m'],[3,'f']];
+    inc.forEach(([i,k])=>{ S.recv[i]=k; const p = S.recvPts<3?1:0; S.recvPts+=p; S.pts+=p; addLog('<b>'+PEOPLE[i][0]+'</b> подарил тебе '+(k==='m'?'Match-куб':'куб')+' <span class="p">+'+p+'</span>'); });
+    // strangers thank you for Match cubes (first one replies)
+    const mSent = MATCH.filter(i=>S.sent[i]==='m');
+    if(mSent[0]!==undefined){ S.pts+=3; S.thanksPts+=3; addLog('<b>26.12</b>: '+PEOPLE[mSent[0]][0]+' ответил на твой Match <span class="p">+3</span>'); }
+    S.community = Math.max(S.community, 1980 + S.mine);
+    addLog('<b>26.12, 08:00</b>: ответы открыты. Ответь тем, кто подарил тебе.');
+  } else if(S.phase===1){
+    S.phase = 2;
+    const mSent = MATCH.filter(i=>S.sent[i]==='m');
+    if(mSent[1]!==undefined){ S.pts+=3; S.thanksPts+=3; addLog(PEOPLE[mSent[1]][0]+' тоже ответил на Match <span class="p">+3</span>'); }
+    S.community = Math.max(S.community + 520, STAR + 61);
+    const t = S.pts>=14?'Star · 2 SC':S.pts>=10?'Bow · 0,5 SC':S.pts>=6?'Ribbon · 5 FP':'порог не взят';
+    const all = !S.free && !S.matchLeft;
+    addLog('<b>16:00 ET</b>: звезда горит. Твой итог: <b>'+t+'</b>'+(all?', + 0,5 SC за звезду':'. За звезду нужно было подарить все кубы'));
+  }
+  treeBurst = 1; render();
+}
+function reply(i){
+  if(S.replied[i]) return;
+  S.replied[i] = true; S.community++; S.mine++;
+  if(S.recv[i]==='m' && S.replyPts<2){ S.replyPts++; S.pts++; addLog('Ответ на Match → <b>'+PEOPLE[i][0]+'</b>: тебе <span class="p">+1</span>, ему +3'); }
+  else addLog('Ответ → <b>'+PEOPLE[i][0]+'</b>: дерево +1 <span class="z">очков нет</span>');
+  treeBurst = 1; render();
+}
+function render(){
+  const lbl = ['Пт 25.12 · дарение','Сб 26.12 · ответный подарок','Сб 26.12 · 16:00 итог'][S.phase];
+  document.getElementById('dayLbl').textContent = lbl;
+  document.getElementById('paneTitle').textContent = S.phase===0 ? 'Твои кубы' : S.phase===1 ? 'Ответь тем, кто подарил' : 'Ивент завершён';
+  const cubesEl = document.getElementById('cubes'); cubesEl.innerHTML = '';
+  if(S.phase===0){
+    for(let k=0;k<2;k++) cubesEl.insertAdjacentHTML('beforeend','<div class="cube m'+(k>=S.matchLeft?' used':'')+'" aria-hidden="true"><span>∞</span></div>');
+    for(let k=0;k<3;k++) cubesEl.insertAdjacentHTML('beforeend','<div class="cube'+(k>=S.free?' used':'')+'" aria-hidden="true"><span>∞</span></div>');
+    cubesEl.insertAdjacentHTML('beforeend','<span class="hint">золотые — Match, синие — свободные. Тают в 23:59</span>');
+  }
+  const pl = document.getElementById('players'); pl.innerHTML = '';
+  PEOPLE.forEach((p,i)=>{
+    const isM = MATCH.includes(i);
+    if(S.phase>=1 && !S.recv[i]) return;
+    const row = document.createElement('div');
+    let label, btn, dis;
+    if(S.phase===0){
+      row.className = 'pl'+(isM?' match':'');
+      label = isM ? '<span class="badge">Coiny\'s Match</span>' : '<span class="pair">'+(S.sent[i]?'подарено':'свободный куб')+'</span>';
+      btn = S.sent[i] ? 'Готово' : 'Подарить';
+      dis = !!S.sent[i] || (isM ? !S.matchLeft : !S.free);
+    } else {
+      row.className = 'pl'+(S.recv[i]==='m'?' match':'');
+      label = '<span class="'+(S.recv[i]==='m'?'badge':'pair')+'">'+(S.recv[i]==='m'?'прислал Match':'прислал куб')+'</span>';
+      btn = S.replied[i] ? 'Ответил' : 'Ответить';
+      dis = !!S.replied[i] || S.phase===2;
+    }
+    row.innerHTML = '<span class="h">'+p[0]+'<small>'+p[1]+'</small></span>'+label+'<button class="send" type="button" id="b'+i+'">'+btn+'</button>';
+    const b = row.querySelector('button'); b.disabled = dis; b.onclick = ()=> S.phase===0 ? give(i) : reply(i);
+    pl.appendChild(row);
+  });
+  const nb = document.getElementById('nextDay');
+  nb.textContent = S.phase===0 ? 'Ночь → 26.12' : 'Итог 16:00 ET';
+  nb.disabled = S.phase===2;
+  document.getElementById('pts').textContent = S.pts;
+  document.getElementById('uniqTo').textContent = Object.keys(S.sent).length + Object.keys(S.replied).length;
+  document.getElementById('uniqFrom').textContent = Object.keys(S.recv).length;
+  document.getElementById('tierBar').style.width = Math.min(100, S.pts/18*100)+'%';
+  document.getElementById('log').innerHTML = S.log.map(l=>'<li>'+l+'</li>').join('');
+  document.getElementById('comm').textContent = S.community.toLocaleString('ru')+' / 2 500';
+  document.getElementById('lvTxt').textContent = S.community>=STAR?'звезда горит':S.community>=1000?'уровень 1 · +1 куб всем':'росток';
+  document.getElementById('youOn').textContent = 'твоих игрушек: '+S.mine;
+  document.querySelector('#lvBar i').style.width = Math.min(100,S.community/STAR*100)+'%';
+  const hb = document.getElementById('hintBox');
+  hb.innerHTML = S.phase===1 ? '<div class="ok">Ответ на Match-куб приносит незнакомцу +3, а тебе +1. Ответ другу растит дерево, но очков не даёт: так кольца из своих аккаунтов не зарабатывают на ответах.</div>' : '';
+}
+document.getElementById('nextDay').onclick = night;
+document.getElementById('resetMock').onclick = reset;
+
+/* ---------- Infinity Tree ---------- */
+const tc = document.getElementById('tree'), tx = tc.getContext('2d');
+let tt = 0;
+function sizeTree(){ const r = tc.getBoundingClientRect(), d = devicePixelRatio||1; tc.width = r.width*d; tc.height = r.height*d; tx.setTransform(d,0,0,d,0,0); }
+function drawTree(){
+  const w = tc.clientWidth, h = tc.clientHeight, cx = w/2, top = 46, H = h - 130, R = Math.min(w*.36, 170);
+  tx.clearRect(0,0,w,h);
+  const strands = [['0,180,235',0],['139,59,209',2.1],['253,192,16',4.2]];
+  const pts = [];
+  strands.forEach(([c,ph],si)=>{
+    let prev = null;
+    for(let s=0;s<=220;s++){
+      const t = s/220, ang = t*Math.PI*2*4.2 + ph + tt, r = t*R;
+      const x = cx + Math.cos(ang)*r, y = top + t*H, depth = (Math.sin(ang)+1)/2;
+      if(prev){ tx.beginPath(); tx.moveTo(prev[0],prev[1]); tx.lineTo(x,y); tx.strokeStyle = 'rgba('+c+','+(.15+depth*.75)+')'; tx.lineWidth = .8+depth*1.6; tx.shadowColor='rgba('+c+',.9)'; tx.shadowBlur = depth*10; tx.stroke(); }
+      prev = [x,y];
+      if(s%5===0 && s>8) pts.push([x,y,depth,si,t]);
+    }
+  });
+  tx.shadowBlur = 0;
+  const lit = Math.min(pts.length, Math.floor(S.community/STAR*pts.length));
+  pts.sort((a,b)=>a[4]-b[4]);
+  for(let i=0;i<lit;i++){
+    const [x,y,dp] = pts[i], mine = i >= lit - S.mine && S.mine>0;
+    const sz = (mine?5:3)+dp*2;
+    tx.save(); tx.translate(x,y); tx.rotate(Math.PI/4);
+    tx.fillStyle = mine ? 'rgba(253,192,16,'+(.6+dp*.4)+')' : (i%3===0?'rgba(235,31,106,':'rgba(120,210,255,')+(.3+dp*.6)+')';
+    if(mine){ tx.shadowColor='rgba(253,192,16,1)'; tx.shadowBlur=10+treeBurst*14; }
+    tx.fillRect(-sz/2,-sz/2,sz,sz); tx.restore();
+  }
+  const on = S.community>=STAR, a = on ? 1 : .28;
+  tx.save(); tx.translate(cx, top-14); tx.strokeStyle='rgba(253,192,16,'+a+')'; tx.lineWidth = 5; tx.shadowColor='rgba(253,192,16,'+(on?1:.3)+')'; tx.shadowBlur = on?24:4;
+  tx.beginPath();
+  for(let s=0;s<=100;s++){ const th = s/100*Math.PI*2, k = 22/(1+Math.sin(th)**2); const x = k*Math.cos(th), y = k*Math.sin(th)*Math.cos(th); s?tx.lineTo(x,y):tx.moveTo(x,y); }
+  tx.stroke(); tx.restore();
+  treeBurst *= .94;
+}
+function loopTree(){ if(!reduce) tt += .004; drawTree(); requestAnimationFrame(loopTree); }
+sizeTree(); addEventListener('resize', sizeTree);
+
+/* ---------- ring simulator ---------- */
+function ring(){
+  const n = +document.getElementById('ringN').value; document.getElementById('ringNv').textContent = n;
+  const naive = 5*2 + 5*1 + 5*2;                       // every cube, receive and reply counted
+  const inside = Math.min(n-1,3) + Math.min(n-1,3);    // free cubes + received, capped
+  const withMatch = inside + 4;                         // alt also sends its 2 Match cubes to real strangers
+  const rows = [
+    ['Очки за каждый куб (наивно)', naive, 'var(--pink)'],
+    ['Наши правила, кольцо внутри', inside, 'var(--gold)'],
+    ['+ свои 2 Match-куба незнакомцам', withMatch, 'var(--violet-2)'],
+    ['+ общий IP / устройство', 0, 'var(--blue)'],
+  ];
+  const max = 26, star = 14/max*100;
+  document.getElementById('bars').innerHTML = rows.map(r=>'<div class="bar"><span>'+r[0]+'</span><span class="t"><i style="width:'+Math.max(1,r[1]/max*100)+'%;background:'+r[2]+'"></i><u style="left:'+star+'%"></u></span><b class="num">'+r[1]+'</b></div>').join('') +
+    '<p class="note">Кольцо любого размера упирается в 6 очков, потому что свободных кубов 3 и засчитывается не больше 3 полученных. Даже отдав свои Match-кубы незнакомцам, альт остаётся на Bow (0,5 SC). До Star нужны ответы от случайных незнакомцев, их кольцо не контролирует.</p>';
+}
+document.getElementById('ringN').addEventListener('input', ring);
+
+/* ---------- copy post ---------- */
+document.getElementById('copyPost').onclick = function(){
+  const el = document.getElementById('postText'), txt = Array.from(el.querySelectorAll('p')).map(p=>p.innerText).join('\n\n');
+  const btn = this;
+  (navigator.clipboard ? navigator.clipboard.writeText(txt) : Promise.reject()).then(()=>{ btn.textContent='Скопировано'; }).catch(()=>{ const r=document.createRange(); r.selectNodeContents(el); const s=getSelection(); s.removeAllRanges(); s.addRange(r); btn.textContent='Текст выделен, нажми Ctrl+C'; });
+};
+
+reset(); ring(); loopTree();
+})();
+</script>
+
+<a href="../" style="position:fixed;z-index:9999;left:max(12px,env(safe-area-inset-left,0px));bottom:calc(12px + env(safe-area-inset-bottom,0px));padding:8px 14px;border-radius:999px;background:rgba(11,16,32,.82);color:#E8EEFA;font:600 13px/1 system-ui,sans-serif;text-decoration:none;backdrop-filter:blur(6px);border:1px solid rgba(232,238,250,.18)">&larr; &#1042;&#1089;&#1077; &#1080;&#1074;&#1077;&#1085;&#1090;&#1099;</a></body>
+</html>

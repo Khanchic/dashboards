@@ -1,0 +1,697 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<title>Countdown on the Strip</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,400;0,500;0,700;0,800;0,900;1,800;1,900&family=Yellowtail&display=swap">
+<style>
+/* Layout: афиша ночного шоу на Стрипе — вывеска с лампами в hero, дальше программа вечера по актам; один смелый элемент = маркиза с бегущими лампами */
+:root{
+  --night:#00131A;      /* фон бренда, тёмно-синий */
+  --night-2:#03202B;
+  --night-3:#06303F;
+  --red:#FF2B39;        /* неон красный */
+  --cyan:#01C9FF;       /* неон голубой */
+  --gold:#BCAA74;       /* холодное золото */
+  --gold-deep:#7B5F33;
+  --bulb:#FFDA0A;       /* лампы маркизы, кнопки */
+  --ink:#FFFFFF;
+  --ink-2:#B9CDD4;
+  --ink-3:#7F98A2;
+  --line:rgba(188,170,116,.28);
+  --f-display:"Raleway",system-ui,"Segoe UI",Arial,sans-serif;
+  --f-script:"Yellowtail","Brush Script MT",cursive;
+  --f-body:"Raleway",system-ui,"Segoe UI",Arial,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{background:var(--night)}
+body{background:var(--night);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:var(--cyan)}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0}
+p{margin:0}
+.wrap{max-width:1160px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.num{font-variant-numeric:tabular-nums}
+
+/* ---------- HERO ---------- */
+.hero{position:relative;overflow:hidden;background:var(--night) url(assets/bg-strip.jpg) center 62%/cover no-repeat;isolation:isolate}
+.hero::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,19,26,.55) 0%,rgba(0,19,26,.15) 40%,rgba(0,19,26,.7) 82%,var(--night) 100%);z-index:-1}
+.hero .wrap{position:relative;display:grid;grid-template-columns:minmax(120px,1fr) minmax(0,560px) minmax(120px,1fr);align-items:end;gap:8px;padding-block:28px 0}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-block:18px 0}
+.topbar img{height:46px;width:auto}
+.tag{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--ink-2)}
+.tag b{color:var(--gold)}
+.mascot{max-height:560px;width:auto;height:auto;justify-self:center;filter:drop-shadow(0 18px 30px rgba(0,0,0,.6))}
+.mascot.mag{justify-self:end;max-height:520px}
+.mascot.harl{justify-self:start}
+.marquee-col{padding-bottom:56px;display:grid;gap:18px;justify-items:center;text-align:center}
+.marquee{position:relative;padding:16px;border-radius:14px;
+  background:radial-gradient(circle,var(--bulb) 0 3.4px,rgba(255,218,10,.25) 4.4px,transparent 6px) 0 0/22px 22px,linear-gradient(180deg,#2a2210,#120e05);
+  box-shadow:0 0 0 2px var(--gold-deep),0 0 40px rgba(255,218,10,.25),0 20px 60px rgba(0,0,0,.6);
+  animation:chase 1.2s steps(2) infinite}
+@keyframes chase{to{background-position:11px 11px,0 0}}
+.marquee-in{background:linear-gradient(180deg,#041b24,#00131A);border-radius:6px;padding:22px 26px 20px;box-shadow:inset 0 0 0 1px var(--line)}
+.marquee .pre{font-family:var(--f-script);font-size:30px;color:var(--cyan);line-height:1;text-shadow:0 0 12px rgba(1,201,255,.8)}
+.marquee h1{font-weight:900;font-size:clamp(34px,6vw,62px);line-height:.95;letter-spacing:.01em;text-transform:uppercase;color:#fff;
+  text-shadow:0 0 2px #fff,0 0 14px var(--red),0 0 34px rgba(255,43,57,.8)}
+.marquee h1 em{font-style:italic;color:var(--red);text-shadow:0 0 10px rgba(255,43,57,.9)}
+.marquee .dates{margin-top:12px;font-weight:800;letter-spacing:.2em;font-size:13px;color:var(--gold);text-transform:uppercase}
+.slogan{font-weight:800;font-style:italic;font-size:clamp(17px,2.2vw,21px);line-height:1.35;max-width:30ch;text-shadow:0 2px 14px rgba(0,0,0,.9)}
+.countdown{display:flex;gap:10px;align-items:baseline;font-weight:800;color:var(--ink-2);font-size:13px;letter-spacing:.12em;text-transform:uppercase}
+.countdown span{color:#fff;font-size:20px;letter-spacing:.02em}
+@media (max-width:820px){
+  .hero .wrap{grid-template-columns:1fr 1fr;align-items:end}
+  .marquee-col{grid-column:1/-1;grid-row:1;padding-bottom:12px}
+  .mascot{max-height:300px}
+  .mascot.mag{justify-self:center}.mascot.harl{justify-self:center}
+}
+
+/* ---------- SECTIONS ---------- */
+section{padding-block:72px 8px}
+.act{display:flex;align-items:baseline;gap:14px;margin-bottom:22px;flex-wrap:wrap}
+.act .k{font-family:var(--f-script);color:var(--cyan);font-size:28px;line-height:1;text-shadow:0 0 10px rgba(1,201,255,.55)}
+.act h2{font-weight:900;font-size:clamp(26px,3.4vw,38px);text-transform:uppercase;letter-spacing:.02em;line-height:1.05}
+.lead{font-size:18px;max-width:66ch;color:var(--ink-2)}
+.lead strong{color:#fff}
+.two{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:40px;align-items:start}
+@media (max-width:820px){.two{grid-template-columns:1fr;gap:24px}}
+.why{border-left:2px solid var(--red);padding-left:18px;display:grid;gap:10px;color:var(--ink-2)}
+.why b{color:var(--gold);font-weight:800}
+
+/* ---------- STAGE (мини-макет) ---------- */
+.stage{position:relative;border-radius:18px;overflow:hidden;min-height:620px;background:#000 url(assets/bg-sky.jpg) center 30%/cover no-repeat;box-shadow:0 0 0 1px var(--line),0 30px 80px rgba(0,0,0,.5)}
+.stage::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,19,26,.1) 0%,rgba(0,19,26,0) 40%,rgba(0,19,26,.85) 72%,rgba(0,19,26,.97) 100%);pointer-events:none}
+#sky{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none}
+.hud{position:absolute;z-index:4;top:14px;left:14px;right:14px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.chip-pill{background:rgba(0,19,26,.78);border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:13px;font-weight:700;backdrop-filter:blur(6px)}
+.chip-pill b{color:var(--bulb)}
+.table{position:absolute;z-index:3;left:0;right:0;bottom:0;padding:0 max(16px,env(safe-area-inset-left,0px)) 20px;display:grid;gap:14px;justify-items:center}
+.modes{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
+.modes button,.lvl button{font:700 13px/1 var(--f-body);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2);background:rgba(0,19,26,.7);border:1px solid var(--line);border-radius:999px;padding:9px 14px;cursor:pointer}
+.modes button[aria-pressed="true"],.lvl button[aria-pressed="true"]{color:var(--night);background:var(--gold);border-color:var(--gold)}
+.lvl{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
+.felt{position:relative;width:min(100%,560px);height:240px}
+.felt::before{content:"";position:absolute;left:4%;right:4%;bottom:6px;height:38px;border-radius:50%;background:radial-gradient(ellipse at center,rgba(1,201,255,.32),rgba(1,201,255,0) 70%)}
+.item{position:absolute;bottom:20px;width:30%;height:150px;left:0;display:flex;align-items:flex-end;justify-content:center;transition:left var(--sw,320ms) cubic-bezier(.55,0,.35,1),transform var(--sw,320ms) ease;cursor:pointer;border:0;background:none;padding:0}
+.item:focus-visible{outline:2px solid var(--cyan);outline-offset:4px;border-radius:12px}
+.item.up{transform:translateY(-14px)}
+.item.down{transform:translateY(10px)}
+/* шляпа Мага */
+.hat{position:relative;width:100px;height:118px;transition:transform .35s ease}
+.hat .crown{position:absolute;left:14px;right:14px;top:0;bottom:16px;border-radius:8px 8px 4px 4px;background:linear-gradient(90deg,#08080b,#24232b 45%,#0b0b10);box-shadow:inset 0 2px 0 rgba(255,255,255,.08)}
+.hat .band{position:absolute;left:14px;right:14px;bottom:16px;height:18px;background:linear-gradient(90deg,#3b1a63,#6d3bb0,#3b1a63)}
+.hat .brim{position:absolute;left:0;right:0;bottom:6px;height:16px;border-radius:50%;background:linear-gradient(180deg,#2a2931,#060608)}
+.item.lift .hat{transform:translateY(-70px) rotate(-8deg)}
+.chip{position:absolute;bottom:22px;left:50%;width:58px;height:58px;margin-left:-29px;border-radius:50%;
+  background:radial-gradient(circle,#FF2B39 0 15px,#fff 15px 17px,#FF2B39 17px 21px,transparent 21px),
+  conic-gradient(#FF2B39 0 30deg,#fff 30deg 45deg,#FF2B39 45deg 75deg,#fff 75deg 90deg,#FF2B39 90deg 120deg,#fff 120deg 135deg,#FF2B39 135deg 165deg,#fff 165deg 180deg,#FF2B39 180deg 210deg,#fff 210deg 225deg,#FF2B39 225deg 255deg,#fff 255deg 270deg,#FF2B39 270deg 300deg,#fff 300deg 315deg,#FF2B39 315deg 345deg,#fff 345deg 360deg);
+  box-shadow:0 0 0 3px var(--gold),0 0 18px rgba(255,43,57,.6);opacity:0;transition:opacity .2s}
+.chip::after{content:"";position:absolute;inset:19px;background:var(--cyan);clip-path:polygon(50% 0,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0 50%,39% 39%)}
+.item.show-chip .chip{opacity:1}
+/* карта */
+.card{position:relative;width:92px;height:132px;perspective:600px}
+.card .f,.card .b{position:absolute;inset:0;border-radius:9px;backface-visibility:hidden;transition:transform .45s ease}
+.card .b{background:repeating-linear-gradient(45deg,#00131A 0 7px,#06303F 7px 14px);box-shadow:inset 0 0 0 4px #00131A,inset 0 0 0 6px var(--red),0 8px 18px rgba(0,0,0,.5)}
+.card .b::after{content:"";position:absolute;inset:38% 30%;background:var(--red);clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%);opacity:.9}
+.card .f{transform:rotateY(180deg);background:linear-gradient(160deg,#fff,#e9eef0);box-shadow:inset 0 0 0 3px var(--gold),0 8px 18px rgba(0,0,0,.5);display:grid;place-items:center}
+.card .f i{width:46px;height:46px;display:block;clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%);background:var(--red)}
+.card .f i.star{background:var(--cyan);clip-path:polygon(50% 0,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0 50%,39% 39%);width:64px;height:64px;filter:drop-shadow(0 0 6px rgba(1,201,255,.7))}
+.item.flip .card .b{transform:rotateY(180deg)}
+.item.flip .card .f{transform:rotateY(360deg)}
+.say{min-height:52px;max-width:520px;text-align:center;font-weight:700;font-size:16px;line-height:1.4;text-shadow:0 2px 10px #000}
+.say small{display:block;font-weight:500;color:var(--ink-2);font-size:13px}
+.btns{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.btn{font:800 14px/1 var(--f-body);letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:14px 22px;cursor:pointer;border:0}
+.btn.go{background:var(--bulb);color:#1d1600;box-shadow:0 0 22px rgba(255,218,10,.45)}
+.btn.ghost{background:transparent;color:#fff;box-shadow:inset 0 0 0 2px var(--cyan)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn:focus-visible,.modes button:focus-visible,.lvl button:focus-visible{outline:2px solid #fff;outline-offset:3px}
+.stage-note{margin-top:12px;color:var(--ink-3);font-size:13px}
+
+/* ---------- ШАГИ ---------- */
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border-top:1px solid var(--line)}
+.steps li{padding:20px 18px 22px 0;border-bottom:1px solid var(--line);display:grid;gap:6px;align-content:start}
+.steps li:not(:nth-child(4n)){border-right:1px solid var(--line);margin-right:0}
+.steps li:not(:nth-child(4n+1)){padding-left:18px}
+.steps .n{font-family:var(--f-script);font-size:30px;color:var(--red);line-height:1}
+.steps h3{font-size:16px;font-weight:800;text-transform:uppercase;letter-spacing:.04em}
+.steps p{color:var(--ink-2);font-size:15px}
+@media (max-width:900px){.steps{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .steps li{padding:18px 14px!important;border-right:0!important}
+  .steps li:nth-child(odd){border-right:1px solid var(--line)!important}}
+@media (max-width:520px){.steps{grid-template-columns:1fr}.steps li:nth-child(odd){border-right:0!important}}
+
+/* ---------- КАЛЕНДАРЬ ---------- */
+.dayh{font-size:14px;letter-spacing:.16em;text-transform:uppercase;font-weight:800;color:var(--gold);margin:22px 0 10px}
+.cal{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px}
+.night .d{font-variant-numeric:tabular-nums}
+.duo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:40px}
+@media (max-width:820px){.duo{grid-template-columns:1fr;gap:24px}}
+.duo h3{font-size:14px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--gold);margin-bottom:12px}
+.planb{list-style:none;margin:0;padding:0;display:grid;gap:0}
+.planb li{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:18px;padding:14px 0;border-bottom:1px solid var(--line)}
+.planb .if{font-weight:800;color:var(--red)}
+.planb p{color:var(--ink-2)}
+.planb p b{color:#fff}
+@media (max-width:640px){.planb li{grid-template-columns:1fr;gap:4px}}
+.night{background:linear-gradient(180deg,var(--night-2),var(--night));border:1px solid rgba(1,201,255,.16);border-radius:10px;padding:12px 11px 14px;display:grid;gap:6px;align-content:start}
+.night .d{font-weight:900;font-size:24px;line-height:1}
+.night .w{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);font-weight:700}
+.night .t{font-size:13px;font-weight:700;line-height:1.3}
+.night .x{font-size:12px;color:var(--ink-2);line-height:1.35}
+.night.peak{border-color:var(--red);box-shadow:0 0 0 1px var(--red),0 0 24px rgba(255,43,57,.25)}
+.night.peak .d{color:var(--red)}
+.night.nye{border-color:var(--bulb);box-shadow:0 0 0 1px var(--bulb),0 0 30px rgba(255,218,10,.25);background:linear-gradient(180deg,#1c1806,var(--night))}
+.night.nye .d{color:var(--bulb)}
+.night.after .d{color:var(--gold)}
+.pre-cal{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:14px;color:var(--ink-2);font-size:14px}
+.pre-cal b{color:#fff}
+
+/* ---------- ПРИЗЫ ---------- */
+.tbl-scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:640px;font-size:15px}
+th,td{text-align:left;padding:12px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);font-weight:800}
+td.r,th.r{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.total td{border-bottom:0;border-top:2px solid var(--gold);font-weight:800;color:#fff}
+.flag{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--night);background:var(--gold);border-radius:4px;padding:3px 7px;vertical-align:middle;margin-left:8px}
+.limits{margin-top:22px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.limits div{border-top:2px solid var(--cyan);padding-top:10px;color:var(--ink-2);font-size:15px}
+.limits b{display:block;color:#fff;font-size:15px;margin-bottom:4px}
+@media (max-width:820px){.limits{grid-template-columns:1fr}}
+
+/* ---------- ТЕХНИКА ---------- */
+.cols3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:30px}
+@media (max-width:900px){.cols3{grid-template-columns:1fr}}
+.col h3{font-size:14px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--gold);margin-bottom:10px}
+.col ul{margin:0;padding-left:18px;display:grid;gap:7px;color:var(--ink-2);font-size:15px}
+.col li::marker{color:var(--red)}
+.col li b{color:#fff}
+.est{margin-top:28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:2px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.est div{background:var(--night);padding:14px 14px 16px}
+.est .v{font-weight:900;font-size:26px;color:#fff;line-height:1.1}
+.est .l{font-size:13px;color:var(--ink-2)}
+.est .tot{background:linear-gradient(180deg,#1c1806,var(--night))}
+.est .tot .v{color:var(--bulb)}
+
+/* ---------- KPI ---------- */
+.kpi{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.kpi div{padding:18px 16px 20px;display:grid;gap:4px}
+.kpi div + div{border-left:1px solid var(--line)}
+.kpi .v{font-weight:900;font-size:clamp(28px,3.4vw,40px);line-height:1;color:var(--cyan);text-shadow:0 0 16px rgba(1,201,255,.45)}
+.kpi .l{color:var(--ink-2);font-size:14px}
+@media (max-width:820px){.kpi{grid-template-columns:1fr 1fr}.kpi div:nth-child(3){border-left:0}.kpi div:nth-child(n+3){border-top:1px solid var(--line)}}
+
+/* ---------- ПРОМО / АНТИ-АБУЗ / РИСКИ ---------- */
+.promo{list-style:none;margin:0;padding:0;display:grid;gap:0}
+.promo li{display:grid;grid-template-columns:120px minmax(0,1fr);gap:18px;padding:14px 0;border-bottom:1px solid var(--line)}
+.promo .when{font-weight:800;color:var(--gold);font-size:14px;letter-spacing:.06em;text-transform:uppercase}
+.promo .main{color:var(--bulb)}
+.promo p{color:var(--ink-2)}
+.promo p b{color:#fff}
+@media (max-width:560px){.promo li{grid-template-columns:1fr;gap:4px}}
+.checks{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.checks li{display:grid;grid-template-columns:28px minmax(0,1fr);gap:10px;color:var(--ink-2)}
+.checks li::before{content:"";width:16px;height:16px;margin-top:4px;background:var(--cyan);clip-path:polygon(50% 0,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0 50%,39% 39%)}
+.checks b{color:#fff}
+.qs{counter-reset:q;list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.qs li{counter-increment:q;display:grid;grid-template-columns:40px minmax(0,1fr);gap:10px;color:var(--ink-2)}
+.qs li::before{content:counter(q);font-weight:900;font-size:22px;color:var(--red);line-height:1.2}
+.qs b{color:#fff}
+
+/* ---------- ПОСТ ---------- */
+.post{max-width:620px;background:#313338;border-radius:10px;padding:16px 18px;font-family:"gg sans","Segoe UI",system-ui,sans-serif;color:#dbdee1;box-shadow:0 20px 50px rgba(0,0,0,.5)}
+.post .who{display:flex;gap:12px;align-items:center;margin-bottom:8px}
+.post .av{width:42px;height:42px;border-radius:50%;background:#0b2b36 url(assets/harlequin.png) 50% 6%/170% auto no-repeat;flex:none}
+.post .nm{font-weight:700;color:#00b7ff}
+.post .bot{font-size:10px;background:#5865f2;color:#fff;border-radius:3px;padding:1px 5px;margin-left:6px;font-weight:700}
+.post .tm{font-size:12px;color:#949ba4;margin-left:6px}
+.post p{margin:0 0 6px;font-size:15px;line-height:1.45}
+.post .cta{display:inline-block;margin-top:8px;background:#248046;color:#fff;border-radius:4px;padding:8px 14px;font-weight:600;font-size:14px}
+.copy{margin-top:10px;font:700 13px/1 var(--f-body);letter-spacing:.06em;text-transform:uppercase;background:none;color:var(--cyan);border:1px solid var(--cyan);border-radius:999px;padding:9px 14px;cursor:pointer}
+footer{padding-block:60px 50px;color:var(--ink-3);font-size:13px}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:20px}
+@media (prefers-reduced-motion:reduce){.marquee{animation:none}.item{transition:none}}
+</style>
+
+<header class="hero">
+  <div class="wrap topbar">
+    <img src="assets/logo.png" alt="Vegas Way" width="700" height="350">
+    <div class="tag">Концепт новогоднего ивента · <b>предложение</b> · ведёт Александр</div>
+  </div>
+  <div class="wrap">
+    <img class="mascot mag" src="assets/magician.png" alt="Маг Vegas Way с цилиндром и картами" width="358" height="900">
+    <div class="marquee-col">
+      <div class="marquee"><div class="marquee-in">
+        <div class="pre">New Year on Vegas Way</div>
+        <h1>Countdown <em>on&nbsp;the</em> Strip</h1>
+        <div class="dates num">Dec 31, 2026 · 6 PM – midnight · Encore Jan 1 · ET</div>
+      </div></div>
+      <p class="slogan">“A new trick every hour. A rocket with your name. One sky at midnight.”</p>
+      <div class="countdown" aria-live="off">До полуночи NYE <span class="num" id="cd">—</span></div>
+    </div>
+    <img class="mascot harl" src="assets/harlequin.png" alt="Арлекина Vegas Way со скипетром" width="600" height="900">
+  </div>
+</header>
+
+<main>
+<section class="wrap" id="idea">
+  <div class="act"><span class="k">the pitch</span><h2>Идея</h2></div>
+  <div class="two">
+    <p class="lead">Два дня: <strong>31 декабря и 1 января</strong>. Вечером 31-го с 18:00 ET Маг каждый час показывает на Стрипе новый фокус: напёрстки, угадай карту, исчезающая фишка. Заметил, где фишка, — <strong>Арлекина вручает тебе ракету-фейерверк с твоим ником</strong>, и она встаёт на твою стартовую площадку на 3D-бульваре. В полночь все ракеты всех игроков взлетают в общем live-салюте над Стрипом, и <strong>золотые ракеты в этом салюте и есть победители</strong>. 1 января идёт Encore: второй шанс для тех, кто не успел, и свой розыгрыш вечером.</p>
+    <div class="why">
+      <p><b>Почему Vegas Way.</b> У бренда два персонажа-шоумена, и механика раздаёт им роли: Маг отвечает за фокус, Арлекина за награду. Это шоу, а не конкурс на скорость.</p>
+      <p>Неон, фонтаны и прожекторы Стрипа плюс салют в полночь: новогодний слой ложится на мир бренда без Санты и ёлок.</p>
+      <p>3D-бульвар Вегаса уже есть в движке Witching Hours (<code>hallsets.js → vegasway</code>), ракеты рисуем поверх него.</p>
+    </div>
+  </div>
+</section>
+
+<section class="wrap" id="demo">
+  <div class="act"><span class="k">try it</span><h2>Потрогать механику</h2></div>
+  <p class="lead" style="margin-bottom:22px">Мини-макет одного фокуса. Смотри, под какой шляпой фишка (или где карта со звездой), жми «Фокус!», следи и выбирай. Угадал — ракета улетает в небо Стрипа. «Полночь» запускает общий салют: так выглядит финал NYE.</p>
+  <div class="stage" id="stage">
+    <canvas id="sky" aria-hidden="true"></canvas>
+    <div class="hud">
+      <div class="chip-pill">Твоих ракет: <b class="num" id="mine">0</b></div>
+      <div class="chip-pill">Ракет на Стрипе: <b class="num" id="all">1 284</b></div>
+    </div>
+    <div class="table">
+      <div class="modes" role="group" aria-label="Какой фокус">
+        <button type="button" id="m-hats" aria-pressed="true">Напёрстки</button>
+        <button type="button" id="m-cards" aria-pressed="false">Угадай карту</button>
+      </div>
+      <div class="felt" id="felt"></div>
+      <div class="say" id="say" aria-live="polite">Фишка под средней шляпой. Запомнил?<small>Демо без ограничений. В ивенте: 5 фокусов + Final Act, 2 попытки на фокус.</small></div>
+      <div class="lvl" role="group" aria-label="Сложность">
+        <button type="button" data-l="0" aria-pressed="true">Фокус 18:00</button>
+        <button type="button" data-l="1" aria-pressed="false">Фокус 21:00</button>
+        <button type="button" data-l="2" aria-pressed="false">Final Act 23:00</button>
+      </div>
+      <div class="btns">
+        <button type="button" class="btn go" id="go">Фокус!</button>
+        <button type="button" class="btn ghost" id="midnight">Полночь: салют</button>
+      </div>
+    </div>
+  </div>
+  <p class="stage-note">В проде это слой поверх 3D-бульвара: ракета стартует с твоей площадки у фонтанов, в полночь на экране все ракеты вечера, золотые подписаны ником победителя.</p>
+</section>
+
+<section class="wrap" id="path">
+  <div class="act"><span class="k">the show</span><h2>Путь игрока</h2></div>
+  <ol class="steps">
+    <li><span class="n">1</span><h3>Бронирует место</h3><p>С 14.12: попап на vegasway.com или бродкаст → «Save my spot on the Strip». Логин сразу, площадка с ником ждёт 31-го.</p></li>
+    <li><span class="n">2</span><h3>Один логин</h3><p>Discord-логин, ник в казино, галочка 21+. Бот сам добавляет на сервер и выдаёт роль. Отдельного Join нет.</p></li>
+    <li><span class="n">3</span><h3>31.12 с 18:00</h3><p>Каждый час открывается новый фокус, всего 5. Каждый открыт до 23:30, так что опоздавший успевает все. Две попытки, скорость не важна.</p></li>
+    <li><span class="n">4</span><h3>Ракета</h3><p>Решил фокус → Арлекина вручает ракету с ником. До 5 ракет за вечер, чистое решение даёт голубую звезду на ракете (косметика).</p></li>
+    <li><span class="n">5</span><h3>23:00 Final Act</h3><p>Фокус Арлекины, шестая ракета. В 23:30 фокусы закрываются, в 23:45 все собираются на Стрипе.</p></li>
+    <li><span class="n">6</span><h3>00:00 Grand Salute</h3><p>Взлетают все ракеты вечера. Каждая ракета = билет, золотые = призы, Claim prize в Discord сразу.</p></li>
+    <li><span class="n">7</span><h3>01.01 Encore</h3><p>12:00–20:00 ET: три фокуса для всех, кто не успел или хочет ещё шанс. Ракеты Encore идут в отдельный розыгрыш.</p></li>
+    <li><span class="n">8</span><h3>01.01 21:00</h3><p>Encore Salute и розыгрыш, Claim prize. Крупные призы проверяем 02.01, выдача до 05.01.</p></li>
+  </ol>
+</section>
+
+<section class="wrap" id="calendar">
+  <div class="act"><span class="k">two nights</span><h2>Расписание по часам</h2></div>
+  <div class="pre-cal"><span><b>14.12</b> тизер и регистрация «Save my spot»</span><span><b>18–20.12</b> анонс, попап на сайте</span><span><b>30.12</b> бродкаст-напоминание</span><span><b>31.12 17:00</b> @everyone в Discord</span></div>
+  <h3 class="dayh">Чт 31 декабря · ET</h3>
+  <div class="cal" id="cal1"></div>
+  <h3 class="dayh">Пт 1 января · ET</h3>
+  <div class="cal" id="cal2"></div>
+</section>
+
+<section class="wrap" id="prizes">
+  <div class="act"><span class="k">the payout</span><h2>Призы <span class="flag">предложение</span></h2></div>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>Когда</th><th>Уровень</th><th>Приз и кому</th><th class="r">SC</th><th class="r">FP</th><th class="r">GC</th></tr></thead>
+    <tbody>
+      <tr><td>31.12, весь вечер</td><td>Код Showtime, 2 FP</td><td>Каждому, кто решил хотя бы один фокус (лимит 300 активаций)</td><td class="r">—</td><td class="r">до 600</td><td class="r">—</td></tr>
+      <tr><td rowspan="3">00:00 Grand Salute<br><small style="color:var(--ink-3)">все ракеты 31.12</small></td><td>Headliner ×1</td><td>50 SC + 50 FP + 5M GC</td><td class="r">50</td><td class="r">50</td><td class="r">5M</td></tr>
+      <tr><td>Gold ×5</td><td>10 SC</td><td class="r">50</td><td class="r">—</td><td class="r">—</td></tr>
+      <tr><td>Gold ×20</td><td>3 SC + 1M GC</td><td class="r">60</td><td class="r">—</td><td class="r">20M</td></tr>
+      <tr><td rowspan="2">01.01 21:00 Encore<br><small style="color:var(--ink-3)">ракеты 01.01</small></td><td>Encore Star ×1</td><td>20 SC + 20 FP</td><td class="r">20</td><td class="r">20</td><td class="r">—</td></tr>
+      <tr><td>Gold ×10</td><td>3 SC</td><td class="r">30</td><td class="r">—</td><td class="r">—</td></tr>
+      <tr class="total"><td colspan="3">Итого бюджет (потолок)</td><td class="r">210</td><td class="r">до 670</td><td class="r">25M</td></tr>
+    </tbody>
+  </table></div>
+  <div class="limits">
+    <div><b>Билеты с потолком</b>31.12: до 6 ракет (5 фокусов + Final Act) и до 3 бонусных за друзей. 01.01: до 3 ракет Encore. Больше 9 билетов в одном розыгрыше не бывает.</div>
+    <div><b>Один приз на человека</b>На оба розыгрыша вместе. Победитель Grand Salute не участвует в Encore, его ракеты гаснут, приз переходит следующему.</div>
+    <div><b>Авто-выдача</b>01.01 выходной в Украине, поэтому мелкие коды выдаются через Claim автоматически. Руками проверяем только Headliner и Encore Star 02.01.</div>
+  </div>
+</section>
+
+<section class="wrap" id="tech">
+  <div class="act"><span class="k">backstage</span><h2>Техника</h2></div>
+  <div class="cols3">
+    <div class="col"><h3>Общий слой (не в оценке)</h3><ul>
+      <li>Строится один раз на базе Witching Hours для всех новогодних брендов: <b>Discord-логин + guilds.join</b>, коды из xlsx, Claim prize, бот, анти-абуз, export, /_diag.</li>
+      <li><b>3D-бульвар Vegas Way</b> (Three.js r147, bloom, отражения) уже есть в <code>hallsets.js</code>.</li>
+      <li>Тестовый стенд + DEV_LOGIN + QA-харнесс (E2E, телефон 390×844, fps).</li>
+    </ul></div>
+    <div class="col"><h3>Механика Vegas Way (в оценке)</h3><ul>
+      <li><b>3 фокуса</b> (напёрстки, карта, исчезающая фишка) + Final Act: клиент рисует, сервер хранит позицию и перестановки, у каждого игрока свои. Расписание открытия по часам ET.</li>
+      <li><b>Слой ракет</b>: площадка игрока + салют (instanced particles), на телефоне облегчённый 2D-режим.</li>
+      <li><b>Live-салют в 00:00</b>: все клиенты стартуют по серверным часам с одним seed; заранее отрендеренное видео как запасной вариант.</li>
+      <li><b>Два розыгрыша</b> (Grand Salute, Encore): seeded, с логом и опубликованным seed, лимиты из раздела «Призы».</li>
+      <li><b>Encore-режим</b> 01.01: три фокуса, отдельный пул ракет, малый салют в 21:00.</li>
+    </ul></div>
+    <div class="col"><h3>Что нужно от людей</h3><ul>
+      <li><b>Коды</b>: Александр создаёт в админке Vegas Way по 6 уровням до 20.12.</li>
+      <li><b>Арт</b>: Арлекина вручает ракету, Маг с тремя шляпами, ракета на площадке (Google Flow).</li>
+      <li><b>Тексты</b>: Official Rules с розыгрышем, посты, бродкаст.</li>
+      <li><b>Аппрув</b>: Александр (механика, бюджет, прод-деплой). Юр. проверка правил розыгрыша.</li>
+    </ul></div>
+  </div>
+  <div class="est">
+    <div><div class="v num">3</div><div class="l">дня: три фокуса + Final Act, серверная логика</div></div>
+    <div><div class="v num">2,5</div><div class="l">дня: ракеты, площадка, live-салют + видео-фолбэк</div></div>
+    <div><div class="v num">1</div><div class="l">день: два розыгрыша, лимиты, бонус за друзей</div></div>
+    <div><div class="v num">0,5</div><div class="l">дня: Encore-режим 01.01</div></div>
+    <div><div class="v num">1</div><div class="l">день: QA механики, телефоны</div></div>
+    <div class="tot"><div class="v num">≈ 8</div><div class="l">дней на механику бренда. Стенд к 18.12, репетиция 23–24.12, фриз 28.12</div></div>
+  </div>
+</section>
+
+<section class="wrap" id="promo">
+  <div class="act"><span class="k">spotlight</span><h2>Промо-план</h2></div>
+  <ul class="promo">
+    <li><span class="when">14.12</span><p><b>Тизер + регистрация</b> в Discord и FB: Маг тасует три шляпы, «Something’s going up at midnight. Save your spot.» Кто не узнал заранее, тот пропустил, поэтому регистрация открыта две недели.</p></li>
+    <li><span class="when main">18.12 · главный</span><p><b>Попап и баннер в лобби vegasway.com</b>: на Halloween попап дал 1251 переход против 23 из FB. Кнопка ведёт сразу на логин и бронь площадки.</p></li>
+    <li><span class="when">30.12 и 31.12</span><p><b>Messenger-бродкаст</b>: 30.12 «завтра в 6 PM ET», 31.12 в 17:55 «шоу через 5 минут», в 23:40 «на Стрип, салют через 20 минут». Заодно растут подписки на бродкаст, главная цель FB-страницы.</p></li>
+    <li><span class="when">31.12</span><p><b>Discord</b>: @everyone в 17:00, пост на каждый новый фокус, закреп с кнопкой «Get on the Strip».</p></li>
+    <li><span class="when">FB</span><p>Неделя до 31.12: картинка-напёрсток «где фишка? ответ в комментах» и ссылка на регистрацию. 01.01 пост про Encore. Голос Арлекины, коротко и без пафоса.</p></li>
+    <li><span class="when">Новые игроки</span><p><b>Bring a friend</b>: друг зарегистрировался по твоей ссылке до 31.12 и решил первый фокус → тебе +1 ракета (до 3). После полуночи каждый получает ссылку на ролик салюта со своей ракетой.</p></li>
+  </ul>
+</section>
+
+<section class="wrap" id="abuse">
+  <div class="act"><span class="k">house rules</span><h2>Анти-абуз и уроки Halloween</h2></div>
+  <div class="two">
+    <ul class="checks">
+      <li><span><b>Один игрок забрал 11 из 12 первых мест.</b> Здесь нет рейтинга по скорости: приз решает розыгрыш по ракетам, не больше 9 билетов в розыгрыше, один приз на человека за оба дня.</span></li>
+      <li><span><b>119 человек не нажали Join.</b> Join убран: логин сразу добавляет на сервер (guilds.join). Если что-то не так, показываем экран с понятным шагом, без голого 403.</span></li>
+      <li><span><b>Флаги «быстрее человека» мешали.</b> Время ответа не учитываем вообще. Флагаем только webdriver, параллельные сессии и мультиаккаунты.</span></li>
+      <li><span><b>Ручной аппрув тормозил.</b> Розыгрыши и Claim работают автоматически. Руками проверяем только Headliner и Encore Star.</span></li>
+    </ul>
+    <ul class="checks">
+      <li><span><b>Аккаунты:</b> Discord старше 30 дней, один ник казино на один Discord, на сервере ≥24 ч к моменту выдачи.</span></li>
+      <li><span><b>Скрипты-трекеры шляп:</b> ставка низкая (1 билет за фокус), перестановки у каждого свои. Если увидим бота, вводим «ложные» перестановки, которые не меняют ответ.</span></li>
+      <li><span><b>Деплой:</b> только через тестовый стенд и только с ОК Александра. Railway пропускает коммиты, поэтому после пуша сверяем версию в /_diag.</span></li>
+      <li><span><b>Локальные прогоны</b> без прод-токенов ботов (урок 27.10).</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="wrap" id="rehearsal">
+  <div class="act"><span class="k">dress rehearsal</span><h2>Репетиция</h2></div>
+  <div class="duo">
+    <div><h3>23–24.12 · полный прогон на тест-стенде</h3><ul class="checks">
+      <li><span><b>Весь вечер 31.12 сжат в 1 час</b> (DEMO-расписание): 5 фокусов по 8 минут, Final Act, салют в «полночь», Encore и розыгрыш.</span></li>
+      <li><span><b>25–30 тестеров</b> (команда + модераторы) с реальными Discord-аккаунтами: логин, guilds.join, Claim prize, коды из тестового xlsx.</span></li>
+      <li><span><b>Салют синхронно на 5 устройствах</b>, включая слабый Android и iPhone: старт в одну секунду, 2D-режим, fps.</span></li>
+      <li><span><b>Нагрузка:</b> 1 000 ракет и 300 одновременных клиентов скриптом, сервер и /_diag держат.</span></li>
+      <li><span><b>Учения План Б:</b> валим сервис посреди фокуса и перед полуночью, проверяем видео-фолбэк и ручную выдачу по export.</span></li>
+    </ul></div>
+    <div><h3>30.12 · сухой прогон на проде</h3><ul class="checks">
+      <li><span>14:00 ET: только аккаунты стаффа, один фокус, мини-салют, один Claim. После прогона база очищается.</span></li>
+      <li><span>Сверяем версию в /_diag (Railway пропускает коммиты), часовой пояс ET, расписание открытия фокусов.</span></li>
+      <li><span>Коды боевые загружены, бот видит каналы, у бота есть права Send + Manage + @everyone.</span></li>
+      <li><span>После 30.12 деплоев нет до 02.01, кроме фикса аварии с ОК Александра.</span></li>
+    </ul></div>
+  </div>
+</section>
+
+<section class="wrap" id="planb">
+  <div class="act"><span class="k">if the lights go out</span><h2>План Б</h2></div>
+  <ul class="planb">
+    <li><span class="if">Сервис упал во время фокусов 31.12</span><p>Дежурный ставит пост-статус в Discord. Все фокусы продлеваются до 23:45, ракеты, решённые до падения, есть в SQLite. Если лежим больше часа, Encore 01.01 становится полноценным вторым вечером с тем же призовым фондом.</p></li>
+    <li><span class="if">Live-салют не стартовал в 00:00</span><p>Розыгрыш идёт на сервере независимо от салюта. Бот публикует заранее отрендеренное видео салюта и список золотых ракет. Страница сама переключается на видео, если клиент не получил сигнал в течение 10 секунд.</p></li>
+    <li><span class="if">Сервер лежит в полночь</span><p>Розыгрыш запускаем скриптом по последнему бэкапу (бэкап каждые 15 минут с 18:00) с опубликованным seed. Пост «салют в 00:00, победители в 00:30» вместо live.</p></li>
+    <li><span class="if">Бот упал</span><p>Страница работает без бота. Коды победителей выгружаем через export и раздаём в DM руками 02.01, сообщения в Discord постит дежурный вручную.</p></li>
+    <li><span class="if">Discord-логин не работает</span><p>Страница показывает экран «Discord тормозит, фокусы продлены». Уже залогиненные играют дальше, в крайнем случае всё переносится в Encore.</p></li>
+  </ul>
+  <p class="stage-note">Дежурный: один человек на окна 31.12 23:00–00:30 ET и 01.01 20:30–21:30 ET. Шпаргалка с командами /wh-export и ссылкой на видео лежит в закрепе staff-канала.</p>
+</section>
+
+<section class="wrap" id="kpi">
+  <div class="act"><span class="k">targets</span><h2>KPI-цели</h2></div>
+  <div class="kpi">
+    <div><span class="v num">300</span><span class="l">регистраций до 31.12, из них 220 запускают хотя бы одну ракету</span></div>
+    <div><span class="v num">150</span><span class="l">онлайн на Стрипе в 00:00, на live-салюте</span></div>
+    <div><span class="v num">+120</span><span class="l">новых на Discord-сервере (на Halloween новых было 9%, цель 30%+)</span></div>
+    <div><span class="v num">60</span><span class="l">игроков в Encore 01.01, которых не было 31-го. Кодов: 37 по розыгрышам + до 300 Showtime</span></div>
+  </div>
+  <p class="stage-note">Это цели для обсуждения, не прогноз. Базу возьмём из выгрузки Witching Hours по Vegas Way.</p>
+</section>
+
+<section class="wrap" id="risks">
+  <div class="act"><span class="k">open mic</span><h2>Риски и вопросы к Александру</h2></div>
+  <ol class="qs">
+    <li><span><b>Бюджет:</b> 210 SC + до 670 FP + 25M GC на два дня. Ок, или поднять Headliner до 100 SC, раз ивент короткий?</span></li>
+    <li><span><b>Дежурный:</b> полночь ET = 07:00 по Киеву 1 января, выходной. Кто дежурит 31.12 23:00–00:30 ET (06:00–07:30 Киев) и 01.01 20:30–21:30 ET?</span></li>
+    <li><span><b>Encore:</b> открыт всем или только тем, у кого 0 ракет за 31.12? Сейчас всем, но победители Grand Salute исключены.</span></li>
+    <li><span><b>Розыгрыш в sweepstakes:</b> нужен ли юристу отдельный текст правил для двух розыгрышей (бесплатное участие, шансы, AMOE)?</span></li>
+    <li><span><b>Телефоны:</b> 3D-салют с 1000+ ракетами тяжёлый. Ок, если на слабых телефонах будет 2D-версия?</span></li>
+    <li><span><b>Messenger-бродкаст:</b> напоминания ставим руками в Meta или есть инструмент для отложенной отправки?</span></li>
+    <li><span><b>Discord-приложение для логина:</b> делаем отдельное «Vegas Way» вместо общего с Fire Seven, как было на Halloween?</span></li>
+  </ol>
+</section>
+
+<section class="wrap" id="post">
+  <div class="act"><span class="k">on air</span><h2>Анонс-пост для Discord</h2></div>
+  <div class="post" id="post-box">
+    <div class="who"><span class="av" aria-hidden="true"></span><div><span class="nm">Harlequin</span><span class="bot">APP</span><span class="tm">Today at 6:00 PM</span></div></div>
+    <div id="post-text">
+      <p><b>OKAY STRIP PEOPLE 🎆</b></p>
+      <p>New Year’s Eve, 6 PM ET. The Magician does a new trick every hour. Spot where the chip went and I hand you a rocket with your name on it.</p>
+      <p>At midnight we launch every single rocket over the Strip. The gold ones win. Missed the party? Encore on Jan 1, noon ET.</p>
+      <p>Save your spot now so your rocket’s ready. Don’t be late, he hates that. 😏</p>
+    </div>
+    <span class="cta">Get on the Strip</span>
+  </div>
+  <button type="button" class="copy" id="copy-post">Скопировать текст</button>
+</section>
+</main>
+
+<footer><div class="wrap"><span>Vegas Way · New Year 2026/27 · концепт для обсуждения, все цифры = предложение</span><span>Время везде ET (New York)</span></div></footer>
+
+<script>
+(function(){
+  // ---- обратный отсчёт до полуночи NYE ET (UTC-5) ----
+  var target = Date.UTC(2027,0,1,5,0,0);
+  var cd = document.getElementById('cd');
+  function tick(){
+    var s = Math.max(0, Math.floor((target - Date.now())/1000));
+    var d = Math.floor(s/86400), h = Math.floor(s%86400/3600), m = Math.floor(s%3600/60);
+    cd.textContent = d + 'д ' + String(h).padStart(2,'0') + 'ч ' + String(m).padStart(2,'0') + 'м';
+  }
+  tick(); setInterval(tick, 30000);
+
+  // ---- календарь ----
+  var day1 = [
+    ['18:00','фокус 1','Напёрстки, 3 шляпы','Стрип открыт. Все фокусы открыты до 23:30',''],
+    ['19:00','фокус 2','Угадай карту, 3 карты','',''],
+    ['20:00','фокус 3','Исчезающая фишка','Стопка из 4 фишек',''],
+    ['21:00','фокус 4','Напёрстки, 4 шляпы','Быстрее',''],
+    ['22:00','фокус 5','Угадай карту, 5 карт','',''],
+    ['23:00','Final Act','Фокус Арлекины','Шестая ракета','peak'],
+    ['23:30','стоп','Фокусы закрыты','Пул ракет зафиксирован, розыгрыш готов',''],
+    ['23:45','сбор','Все на Стрипе','Бродкаст и @here',''],
+    ['00:00','полночь','Grand Salute','Взлетают все ракеты, золотые = победители, Claim сразу','nye']
+  ];
+  var day2 = [
+    ['12:00','Encore','Три фокуса для всех','Второй шанс, ракеты в отдельный пул','peak'],
+    ['20:00','стоп','Encore закрыт','',''],
+    ['21:00','салют','Encore Salute + розыгрыш','Encore Star и 10 золотых, Claim','nye'],
+    ['02.01','проверка','Крупные призы','Headliner и Encore Star вручную. Выдача до 05.01','after']
+  ];
+  function fill(id, arr){
+    var cal = document.getElementById(id);
+    arr.forEach(function(n){
+      var el = document.createElement('div');
+      el.className = 'night ' + n[4];
+      el.innerHTML = '<span class="w">' + n[1] + '</span><span class="d">' + n[0] + '</span><span class="t">' + n[2] + '</span>' + (n[3]?'<span class="x">' + n[3] + '</span>':'');
+      cal.appendChild(el);
+    });
+  }
+  fill('cal1', day1); fill('cal2', day2);
+
+  // ---- копирование поста ----
+  document.getElementById('copy-post').addEventListener('click', function(){
+    var t = Array.prototype.map.call(document.querySelectorAll('#post-text p'), function(p){return p.textContent;}).join('\n\n') + '\n\n👉 Get on the Strip';
+    var b = this;
+    (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(function(){ b.textContent = 'Скопировано'; }, function(){
+      var r = document.createRange(); r.selectNodeContents(document.getElementById('post-text')); var s = getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent = 'Выделено, жми Ctrl+C';
+    });
+  });
+
+  // ---- салют ----
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var cv = document.getElementById('sky'), ctx = cv.getContext('2d'), stage = document.getElementById('stage');
+  var W = 0, H = 0, DPR = Math.min(2, window.devicePixelRatio || 1);
+  function size(){ var r = stage.getBoundingClientRect(); W = r.width; H = r.height; cv.width = W*DPR; cv.height = H*DPR; ctx.setTransform(DPR,0,0,DPR,0,0); }
+  size(); if (window.ResizeObserver) new ResizeObserver(size).observe(stage); else addEventListener('resize', size);
+  var rockets = [], parts = [], labels = [], running = false;
+  var COLORS = { red:['#FF2B39','#ff6a73','#ffffff'], cyan:['#01C9FF','#7fe4ff','#ffffff'], gold:['#FFDA0A','#BCAA74','#fff3b0'] };
+  function launch(x, kind, label, delay){
+    rockets.push({ x:x, y:H*0.62, vx:(Math.random()-.5)*0.6, vy:-(7.5+Math.random()*2.2), ty:H*(0.12+Math.random()*0.26), kind:kind, label:label, wait:delay||0, trail:[] });
+    if (!running){ running = true; requestAnimationFrame(frame); }
+  }
+  function burst(r){
+    var pal = COLORS[r.kind], n = r.kind==='gold' ? (reduce?50:120) : (reduce?30:70);
+    for (var i=0;i<n;i++){
+      var a = Math.random()*Math.PI*2, sp = (r.kind==='gold'?1.2:1) * (1.2+Math.random()*3.6);
+      parts.push({ x:r.x, y:r.y, px:r.x, py:r.y, vx:Math.cos(a)*sp, vy:Math.sin(a)*sp, life:1, decay:0.008+Math.random()*0.012, c:pal[i%pal.length], g:r.kind==='gold' });
+    }
+    if (r.label) labels.push({ x:r.x, y:r.y-12, t:r.label, life:1, gold:r.kind==='gold' });
+  }
+  function frame(){
+    ctx.clearRect(0,0,W,H);
+    ctx.globalCompositeOperation = 'lighter';
+    for (var i=rockets.length-1;i>=0;i--){
+      var r = rockets[i];
+      if (r.wait > 0){ r.wait--; continue; }
+      r.trail.push([r.x,r.y]); if (r.trail.length>10) r.trail.shift();
+      r.x += r.vx; r.y += r.vy; r.vy *= 0.985;
+      ctx.strokeStyle = r.kind==='gold' ? 'rgba(255,218,10,.9)' : (r.kind==='red' ? 'rgba(255,43,57,.85)' : 'rgba(1,201,255,.85)');
+      ctx.lineWidth = 2.2; ctx.beginPath();
+      for (var j=0;j<r.trail.length;j++){ var p = r.trail[j]; j ? ctx.lineTo(p[0],p[1]) : ctx.moveTo(p[0],p[1]); }
+      ctx.stroke();
+      ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(r.x,r.y,2.4,0,7); ctx.fill();
+      if (r.y <= r.ty || r.vy > -1.2){ burst(r); rockets.splice(i,1); }
+    }
+    for (var k=parts.length-1;k>=0;k--){
+      var q = parts[k];
+      q.px = q.x; q.py = q.y; q.vx *= 0.975; q.vy = q.vy*0.975 + 0.045; q.x += q.vx; q.y += q.vy; q.life -= q.decay;
+      if (q.life <= 0){ parts.splice(k,1); continue; }
+      var al = q.g ? q.life*(0.6+0.4*Math.random()) : q.life;
+      ctx.strokeStyle = q.c; ctx.globalAlpha = Math.max(0,al); ctx.lineWidth = q.g ? 2.2 : 1.8;
+      ctx.beginPath(); ctx.moveTo(q.px,q.py); ctx.lineTo(q.x,q.y); ctx.stroke();
+    }
+    ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over';
+    for (var m=labels.length-1;m>=0;m--){
+      var L = labels[m]; L.life -= 0.006; L.y -= 0.15;
+      if (L.life<=0){ labels.splice(m,1); continue; }
+      ctx.globalAlpha = Math.min(1, L.life*1.6);
+      ctx.font = '800 14px Raleway, system-ui, sans-serif'; ctx.textAlign = 'center';
+      ctx.fillStyle = 'rgba(0,19,26,.75)'; var tw = ctx.measureText(L.t).width + 18;
+      ctx.fillRect(L.x - tw/2, L.y - 16, tw, 24);
+      ctx.fillStyle = L.gold ? '#FFDA0A' : '#ffffff'; ctx.fillText(L.t, L.x, L.y + 1);
+    }
+    ctx.globalAlpha = 1;
+    if (rockets.length || parts.length || labels.length) requestAnimationFrame(frame); else { running = false; ctx.clearRect(0,0,W,H); }
+  }
+
+  // ---- фокус ----
+  var felt = document.getElementById('felt'), say = document.getElementById('say'), go = document.getElementById('go');
+  var mode = 'hats', level = 0, items = [], slotOf = [], prize = 1, phase = 'idle', mine = 0, allN = 1284;
+  var LV = [ {swaps:5, ms:430}, {swaps:8, ms:320}, {swaps:12, ms:230} ];
+  var nick = ['you','@lucky_ace','@neonmira','@sevenstack','@dealer_dan','@bluejoker','@chipqueen','@rollingray','@vlas','@midnightkay'];
+  function slotLeft(s){ return (s*35) + '%'; }
+  function build(){
+    felt.innerHTML = ''; items = []; slotOf = [];
+    for (var i=0;i<3;i++){
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'item'; b.dataset.i = i;
+      b.setAttribute('aria-label', (mode==='hats'?'Шляпа ':'Карта ') + (i+1));
+      b.innerHTML = mode==='hats'
+        ? '<span class="chip"></span><span class="hat"><span class="crown"></span><span class="band"></span><span class="brim"></span></span>'
+        : '<span class="card"><span class="b"></span><span class="f"><i class="' + (i===prize?'star':'') + '"></i></span></span>';
+      b.style.left = slotLeft(i); slotOf[i] = i;
+      b.addEventListener('click', pick);
+      felt.appendChild(b); items.push(b);
+    }
+    reveal(true);
+  }
+  function reveal(on){
+    items.forEach(function(b,i){
+      if (mode==='hats'){ b.classList.toggle('show-chip', on && i===prize); b.classList.toggle('lift', on && i===prize); }
+      else b.classList.toggle('flip', on);
+    });
+  }
+  function setSay(main, sub){ say.innerHTML = main + (sub ? '<small>' + sub + '</small>' : ''); }
+  function intro(){
+    phase = 'idle'; prize = Math.floor(Math.random()*3); build();
+    setSay(mode==='hats' ? 'Фишка под шляпой, которая поднята. Запомнил?' : 'Карта с голубой звездой — твоя цель. Запомнил?', 'Жми «Фокус!», Маг начнёт тасовать.');
+    go.disabled = false;
+  }
+  function wait(ms){ return new Promise(function(r){ setTimeout(r, reduce ? Math.min(ms,120) : ms); }); }
+  function shuffle(){
+    if (phase === 'done') { go.textContent = 'Фокус!'; intro(); return; }
+    if (phase !== 'idle') return;
+    phase = 'shuffle'; go.disabled = true; setSay('Следи…', '');
+    reveal(false);
+    var cfg = LV[level];
+    felt.style.setProperty('--sw', cfg.ms + 'ms');
+    var seq = wait(450);
+    for (var n=0;n<cfg.swaps;n++){
+      seq = seq.then(function(){
+        var a = Math.floor(Math.random()*3), b = (a + 1 + Math.floor(Math.random()*2)) % 3;
+        var ia = slotOf.indexOf(a), ib = slotOf.indexOf(b);
+        slotOf[ia] = b; slotOf[ib] = a;
+        items[ia].style.left = slotLeft(b); items[ib].style.left = slotLeft(a);
+        items[ia].classList.add('up'); items[ib].classList.add('down');
+        return wait(cfg.ms + 40).then(function(){ items[ia].classList.remove('up'); items[ib].classList.remove('down'); });
+      });
+    }
+    seq.then(function(){ phase = 'pick'; setSay('Где фишка?', 'Нажми на ' + (mode==='hats'?'шляпу':'карту') + '.'); });
+  }
+  function pick(e){
+    if (phase !== 'pick') return;
+    phase = 'done';
+    var i = +e.currentTarget.dataset.i, ok = i === prize;
+    if (mode==='hats'){ items[i].classList.add('lift'); items[i].classList.toggle('show-chip', ok); setTimeout(function(){ items[prize].classList.add('show-chip','lift'); }, 500); }
+    else { items[i].classList.add('flip'); setTimeout(function(){ items[prize].classList.add('flip'); }, 500); }
+    var r = felt.getBoundingClientRect(), s = stage.getBoundingClientRect();
+    var x = r.left - s.left + r.width * (slotOf[i]*0.35 + 0.15);
+    if (ok){
+      mine++; allN++;
+      document.getElementById('mine').textContent = mine;
+      document.getElementById('all').textContent = allN.toLocaleString('ru-RU');
+      setSay('Есть! Арлекина вручает тебе ракету №' + mine + '.', 'В ивенте она встанет на твою площадку и полетит в полночь NYE.');
+      setTimeout(function(){ launch(x, mine % 2 ? 'cyan' : 'red', 'you · #' + mine); }, 350);
+    } else {
+      setSay('Маг оказался быстрее.', 'В ивенте есть вторая попытка. Тут жми «Фокус!» ещё раз.');
+    }
+    go.disabled = false; go.textContent = 'Ещё фокус';
+  }
+  go.addEventListener('click', shuffle);
+  document.getElementById('midnight').addEventListener('click', function(){
+    var total = reduce ? 18 : 46, golds = [7, 15, 24, 33, 41];
+    for (var i=0;i<total;i++){
+      var gold = golds.indexOf(i) > -1;
+      var kind = gold ? 'gold' : (i%2 ? 'red' : 'cyan');
+      launch(W*(0.08 + Math.random()*0.84), kind, gold ? nick[1 + (i % 9)] : (i===3 && mine ? 'you' : ''), Math.floor(i*7 + Math.random()*10));
+    }
+    setSay('00:00:00 ET. Все ракеты вечера над Стрипом.', 'Золотые подписаны ником, это победители Grand Salute.');
+  });
+  function setMode(m){
+    if (phase === 'shuffle') return;
+    mode = m;
+    document.getElementById('m-hats').setAttribute('aria-pressed', m==='hats');
+    document.getElementById('m-cards').setAttribute('aria-pressed', m==='cards');
+    go.textContent = 'Фокус!'; intro();
+  }
+  document.getElementById('m-hats').addEventListener('click', function(){ setMode('hats'); });
+  document.getElementById('m-cards').addEventListener('click', function(){ setMode('cards'); });
+  Array.prototype.forEach.call(document.querySelectorAll('.lvl button'), function(b){
+    b.addEventListener('click', function(){
+      level = +b.dataset.l;
+      Array.prototype.forEach.call(document.querySelectorAll('.lvl button'), function(x){ x.setAttribute('aria-pressed', x===b); });
+    });
+  });
+  intro();
+  setTimeout(function(){ launch(W*0.3,'red',''); launch(W*0.7,'cyan','',25); }, 600);
+})();
+</script>
+
+<a href="../" style="position:fixed;z-index:9999;left:max(12px,env(safe-area-inset-left,0px));bottom:calc(12px + env(safe-area-inset-bottom,0px));padding:8px 14px;border-radius:999px;background:rgba(11,16,32,.82);color:#E8EEFA;font:600 13px/1 system-ui,sans-serif;text-decoration:none;backdrop-filter:blur(6px);border:1px solid rgba(232,238,250,.18)">&larr; &#1042;&#1089;&#1077; &#1080;&#1074;&#1077;&#1085;&#1090;&#1099;</a>
+</body>
+</html>

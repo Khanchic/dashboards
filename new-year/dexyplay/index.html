@@ -1,0 +1,739 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<title>Dexy's Year-End Bracket</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,300;0,400;0,600;0,800;0,900;1,800;1,900&family=Bitcount+Single&display=swap">
+<style>
+/* Layout: экран стрима Dexy — оверлей с LIVE-плашкой и чатом в hero, заголовки как lower-thirds, сетка-брекет на всю ширину как главный объект страницы */
+:root{
+  --bg:#0C0713;        /* фон бренда */
+  --bg-2:#160C24;
+  --bg-3:#21123A;
+  --purple:#7645BA;
+  --pink:#F939E3;
+  --yellow:#FFE733;
+  --green:#33FF8F;
+  --ink:#FFFFFF;
+  --ink-2:#C9BCDD;
+  --ink-3:#8E7FA8;
+  --line:rgba(118,69,186,.45);
+  --f-display:"Kanit",system-ui,"Segoe UI",Arial,sans-serif;
+  --f-body:"Kanit",system-ui,"Segoe UI",Arial,sans-serif;
+  --f-timer:"Bitcount Single","Courier New",ui-monospace,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{background:var(--bg)}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-weight:300;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3{font-family:var(--f-display);margin:0;text-wrap:balance}
+p{margin:0}
+b,strong{font-weight:600}
+.wrap{max-width:1200px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.t{font-family:var(--f-timer);font-variant-numeric:tabular-nums}
+.num{font-variant-numeric:tabular-nums}
+
+/* ---------- HERO = экран стрима ---------- */
+.hero{position:relative;overflow:hidden;background:
+  radial-gradient(60% 70% at 78% 30%,rgba(249,57,227,.28),transparent 70%),
+  radial-gradient(50% 60% at 10% 10%,rgba(118,69,186,.45),transparent 70%),var(--bg)}
+.hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:300px;background:url(assets/bg-city.jpg) 30% center/cover no-repeat;opacity:.55;-webkit-mask:linear-gradient(180deg,transparent,#000 60%);mask:linear-gradient(180deg,transparent,#000 60%);z-index:0}
+.bar{position:relative;z-index:3;display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding-block:16px}
+.bar img{height:44px;width:auto}
+.live{display:inline-flex;align-items:center;gap:8px;background:var(--pink);color:#fff;font-weight:800;font-size:13px;letter-spacing:.08em;padding:4px 10px;clip-path:polygon(6px 0,100% 0,calc(100% - 6px) 100%,0 100%)}
+.live::before{content:"";width:8px;height:8px;border-radius:50%;background:#fff;animation:blink 1s steps(2) infinite}
+@keyframes blink{50%{opacity:.2}}
+.bar .meta{font-size:13px;color:var(--ink-2);margin-left:auto}
+.bar .meta b{color:var(--yellow)}
+.screen{position:relative;z-index:2;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr) 250px;gap:20px;align-items:end;padding-block:10px 0}
+.title{padding-bottom:70px;display:grid;gap:18px}
+.title h1{font-weight:900;font-style:italic;text-transform:uppercase;font-size:clamp(46px,7.4vw,104px);line-height:.86;letter-spacing:-.01em}
+.title h1 span{display:block}
+.title h1 .hl{color:var(--bg);background:var(--yellow);padding:0 .12em;justify-self:start;width:max-content;max-width:100%;transform:skewX(-6deg);box-shadow:8px 8px 0 var(--pink)}
+.title h1 .pk{color:var(--pink);text-shadow:0 0 30px rgba(249,57,227,.5)}
+.slogan{font-weight:600;font-size:clamp(18px,2.2vw,24px);line-height:1.3;max-width:28ch}
+.slogan em{font-style:normal;color:var(--yellow)}
+.timer{display:flex;gap:16px;align-items:end;flex-wrap:wrap}
+.timer .cell{display:grid;gap:2px}
+.timer .t{font-size:clamp(30px,4vw,44px);line-height:1;color:var(--green);text-shadow:0 0 14px rgba(51,255,143,.5)}
+.timer small{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
+.timer .lbl{font-size:13px;color:var(--ink-2);max-width:14ch;line-height:1.3;padding-bottom:4px}
+.dexy{align-self:end;justify-self:center;max-height:560px;width:auto;height:auto;filter:drop-shadow(0 0 40px rgba(249,57,227,.35))}
+.chat{align-self:stretch;margin-bottom:40px;background:rgba(12,7,19,.82);border:1px solid var(--line);display:flex;flex-direction:column;min-height:0;max-height:520px;backdrop-filter:blur(8px)}
+.chat h3{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--ink-3);padding:10px 12px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between}
+.chat ul{list-style:none;margin:0;padding:10px 12px;display:flex;flex-direction:column;justify-content:flex-end;gap:7px;flex:1;overflow:hidden;font-size:13.5px;line-height:1.35}
+.chat li b{font-weight:600}
+.chat .u1{color:var(--yellow)}.chat .u2{color:var(--green)}.chat .u3{color:var(--pink)}.chat .u4{color:#9f7bf0}
+.chat .dx{background:rgba(249,57,227,.14);margin:0 -12px;padding:4px 12px;border-left:3px solid var(--pink)}
+@media (max-width:1000px){
+  .screen{grid-template-columns:minmax(0,1fr) minmax(0,.8fr)}
+  .chat{display:none}
+}
+@media (max-width:640px){
+  .screen{grid-template-columns:1fr}
+  .title{padding-bottom:10px}
+  .dexy{max-height:380px}
+  .bar .meta{margin-left:0}
+}
+
+/* ---------- lower-third заголовки ---------- */
+section{padding-block:76px 6px}
+.lt{display:flex;flex-direction:column;align-items:flex-start;gap:4px;margin-bottom:26px}
+.lt h2{font-weight:900;font-style:italic;text-transform:uppercase;font-size:clamp(24px,3.2vw,36px);line-height:1;background:var(--pink);color:#fff;padding:8px 22px 8px 14px;clip-path:polygon(0 0,100% 0,calc(100% - 14px) 100%,0 100%)}
+.lt .sub{font-weight:600;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--bg);background:var(--yellow);padding:3px 18px 3px 14px;clip-path:polygon(0 0,100% 0,calc(100% - 10px) 100%,0 100%);margin-left:14px}
+.lead{font-size:18px;max-width:64ch;color:var(--ink-2)}
+.lead strong{color:#fff}
+.split{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:44px;align-items:start}
+@media (max-width:860px){.split{grid-template-columns:1fr;gap:26px}}
+.why{display:grid;gap:12px;color:var(--ink-2)}
+.why p{padding-left:16px;border-left:3px solid var(--purple)}
+.why b{color:var(--yellow)}
+
+/* ---------- BRACKET ---------- */
+.bk-tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
+.btn{font:800 14px/1 var(--f-display);font-style:italic;text-transform:uppercase;letter-spacing:.04em;border:0;cursor:pointer;padding:13px 20px;clip-path:polygon(8px 0,100% 0,calc(100% - 8px) 100%,0 100%)}
+.btn.y{background:var(--yellow);color:var(--bg)}
+.btn.p{background:var(--pink);color:#fff}
+.btn.o{background:var(--bg-3);color:#fff;box-shadow:inset 0 0 0 2px var(--purple)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn:focus-visible,.slot:focus-visible,.chipbtn:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+.bk-status{font-size:14px;color:var(--ink-2)}
+.bk-status b{color:var(--yellow)}
+.bk-scroll{overflow-x:auto;padding-bottom:10px;border:1px solid var(--line);background:linear-gradient(180deg,var(--bg-2),var(--bg))}
+.bk{display:grid;grid-template-columns:repeat(4,minmax(190px,1fr)) minmax(170px,.9fr);gap:22px;min-width:1060px;padding:18px}
+.col{display:flex;flex-direction:column;justify-content:space-around;gap:10px}
+.col h4{margin:0 0 4px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
+.colwrap{display:grid;grid-template-rows:auto 1fr}
+.match{display:grid;gap:2px;position:relative}
+.slot{display:flex;align-items:center;gap:8px;width:100%;text-align:left;background:var(--bg-3);color:#fff;border:0;padding:7px 9px;font:400 14px/1.2 var(--f-body);cursor:pointer;min-height:34px}
+.slot .sd{font-family:var(--f-timer);font-size:12px;color:var(--ink-3);width:18px;flex:none}
+.slot .nm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.slot .pc{font-family:var(--f-timer);font-size:12px;color:var(--ink-2)}
+.slot.empty{color:var(--ink-3);cursor:default;font-style:italic}
+.slot.pick{background:var(--purple);box-shadow:inset 3px 0 0 var(--yellow)}
+.slot.win{background:#1f3a2b;box-shadow:inset 3px 0 0 var(--green)}
+.slot.lose{opacity:.55}
+.match .mark{position:absolute;right:-18px;top:50%;transform:translateY(-50%);font-weight:800;font-size:15px}
+.mark.ok{color:var(--green)}.mark.no{color:var(--pink)}
+.champ{display:flex;flex-direction:column;justify-content:center;gap:10px;text-align:center;align-items:center}
+.crown{width:64px;height:40px;background:var(--yellow);clip-path:polygon(0 100%,0 20%,25% 60%,50% 0,75% 60%,100% 20%,100% 100%);filter:drop-shadow(0 0 10px rgba(255,231,51,.6))}
+.champ .cn{font-weight:900;font-style:italic;font-size:22px;line-height:1.1;text-transform:uppercase}
+.champ small{color:var(--ink-3);font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+.score{display:none;margin-top:14px;padding:14px 16px;background:var(--bg-3);border-left:4px solid var(--green);gap:6px}
+.score.on{display:grid}
+.score .big{font-family:var(--f-timer);font-size:34px;color:var(--green);line-height:1}
+.bk-note{margin-top:10px;color:var(--ink-3);font-size:13px}
+
+/* ---------- CARD GENERATOR ---------- */
+.gen{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,420px);gap:36px;align-items:start}
+@media (max-width:860px){.gen{grid-template-columns:1fr}}
+.form{display:grid;gap:18px}
+.field{display:grid;gap:6px}
+.field label,.field .lab{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
+input[type=text],select{font:400 16px/1.2 var(--f-body);background:var(--bg-3);color:#fff;border:1px solid var(--line);padding:11px 12px;width:100%;border-radius:0}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chipbtn{font:400 14px/1 var(--f-body);background:transparent;color:var(--ink-2);border:1px solid var(--line);padding:8px 12px;cursor:pointer}
+.chipbtn[aria-pressed="true"]{background:var(--pink);border-color:var(--pink);color:#fff}
+.tpl{display:flex;gap:8px;flex-wrap:wrap}
+.tpl .chipbtn[aria-pressed="true"]{background:var(--yellow);border-color:var(--yellow);color:var(--bg)}
+#card{width:100%;max-width:420px;aspect-ratio:4/5;height:auto;display:block;box-shadow:0 0 0 1px var(--line),14px 14px 0 var(--purple)}
+.gen-note{margin-top:22px;color:var(--ink-3);font-size:13px;max-width:420px}
+
+/* ---------- SCHEDULE ---------- */
+.sched{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.sched li{display:grid;grid-template-columns:96px 110px minmax(0,1fr) 120px;gap:16px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.sched .d{font-family:var(--f-timer);font-size:22px;line-height:1}
+.sched .wd{font-size:12px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.12em;display:block;font-family:var(--f-body)}
+.sched .tm{font-family:var(--f-timer);color:var(--ink-2);font-size:15px}
+.sched .what b{color:#fff}
+.sched .what{color:var(--ink-2)}
+.tagx{justify-self:end;font-weight:800;font-style:italic;font-size:12px;letter-spacing:.06em;text-transform:uppercase;padding:4px 10px;clip-path:polygon(5px 0,100% 0,calc(100% - 5px) 100%,0 100%)}
+.tg-pred{background:var(--yellow);color:var(--bg)}
+.tg-vote{background:var(--purple);color:#fff}
+.tg-res{background:var(--green);color:var(--bg)}
+.tg-peak{background:var(--pink);color:#fff}
+.sched li.peak{background:linear-gradient(90deg,rgba(249,57,227,.16),transparent 70%)}
+.sched li.peak .d{color:var(--pink)}
+.sched.planb li{grid-template-columns:minmax(0,260px) minmax(0,1fr)}
+.sched.planb li .what:first-child b{color:var(--pink)}
+@media (max-width:700px){.sched.planb li{grid-template-columns:1fr}}
+@media (max-width:700px){.sched li{grid-template-columns:70px minmax(0,1fr);gap:4px 12px}.sched .tm{grid-column:2}.sched .what{grid-column:1/-1}.sched .tagx{grid-column:1/-1;justify-self:start}.sched .d{grid-row:span 2}}
+.pre-s{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:16px;color:var(--ink-2);font-size:14px}
+.pre-s b{color:var(--yellow)}
+
+/* ---------- PRIZES ---------- */
+.tbl-scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:680px;font-size:15px}
+th,td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
+td.r,th.r{text-align:right;white-space:nowrap;font-family:var(--f-timer)}
+td .tier{font-weight:800;font-style:italic;text-transform:uppercase;color:var(--yellow)}
+td small{color:var(--ink-3)}
+tr.total td{border-top:3px solid var(--pink);border-bottom:0;font-weight:600;color:#fff}
+.offer{display:inline-block;margin-left:10px;font-size:12px;vertical-align:middle;background:var(--yellow);color:var(--bg);padding:2px 8px;font-style:normal;letter-spacing:.1em;clip-path:none}
+.rules3{margin-top:24px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.rules3 div{background:var(--bg-2);padding:14px 16px 16px;color:var(--ink-2);font-size:15px;box-shadow:inset 0 3px 0 var(--purple)}
+.rules3 b{display:block;color:#fff;margin-bottom:4px}
+@media (max-width:860px){.rules3{grid-template-columns:1fr}}
+
+/* ---------- TECH ---------- */
+.tech{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:30px}
+@media (max-width:900px){.tech{grid-template-columns:1fr}}
+.tech h3{font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--pink);margin-bottom:10px}
+.tech ul{margin:0;padding-left:18px;display:grid;gap:7px;color:var(--ink-2);font-size:15px}
+.tech li::marker{color:var(--yellow)}
+.tech li b{color:#fff}
+.days{margin-top:30px;display:grid;gap:8px;max-width:820px}
+.day-row{display:grid;grid-template-columns:minmax(0,260px) minmax(0,1fr) 44px;gap:12px;align-items:center;font-size:14px;color:var(--ink-2)}
+.day-row .barx{height:14px;background:var(--bg-3);position:relative}
+.day-row .barx i{position:absolute;left:0;top:0;bottom:0;background:var(--purple)}
+.day-row .v{font-family:var(--f-timer);color:#fff;text-align:right}
+.day-row.tot{color:#fff;font-weight:600;border-top:1px solid var(--line);padding-top:8px}
+.day-row.tot .barx i{background:var(--yellow)}
+@media (max-width:560px){.day-row{grid-template-columns:minmax(0,1fr) 44px}.day-row .barx{grid-column:1/-1;grid-row:2}}
+
+/* ---------- PROMO / GOALS / RISKS ---------- */
+.promo{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2px;background:var(--line);border:1px solid var(--line)}
+.promo div{background:var(--bg);padding:16px 16px 18px;display:grid;gap:6px;align-content:start}
+.promo .when{font-family:var(--f-timer);color:var(--yellow);font-size:15px}
+.promo h3{font-size:17px;font-weight:600}
+.promo p{color:var(--ink-2);font-size:15px}
+.promo .main{background:linear-gradient(180deg,rgba(249,57,227,.2),var(--bg))}
+.promo .main .when{color:var(--pink)}
+@media (max-width:860px){.promo{grid-template-columns:1fr}}
+.goals{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.goal{background:var(--bg-2);padding:14px 16px 16px;display:grid;gap:8px}
+.goal .gl{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
+.goal .gv{font-family:var(--f-timer);font-size:36px;line-height:1;color:var(--yellow)}
+.goal .gt{height:6px;background:var(--bg-3);position:relative;overflow:hidden}
+.goal .gt::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,var(--pink) 0 10px,transparent 10px 16px);opacity:.35}
+.goal p{color:var(--ink-2);font-size:14px}
+@media (max-width:900px){.goals{grid-template-columns:1fr 1fr}}
+@media (max-width:480px){.goals{grid-template-columns:1fr}}
+.abuse{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.abuse li{display:grid;grid-template-columns:22px minmax(0,1fr);gap:10px;color:var(--ink-2)}
+.abuse li::before{content:"";width:12px;height:12px;margin-top:7px;background:var(--green);clip-path:polygon(30% 0,100% 0,70% 100%,0 100%)}
+.abuse b{color:#fff}
+.qs{list-style:none;margin:0;padding:0;counter-reset:q;display:grid;gap:14px}
+.qs li{counter-increment:q;display:grid;grid-template-columns:44px minmax(0,1fr);gap:10px;color:var(--ink-2)}
+.qs li::before{content:counter(q,decimal-leading-zero);font-family:var(--f-timer);font-size:20px;color:var(--pink);line-height:1.4}
+.qs b{color:#fff}
+.handover{display:flex;gap:16px;align-items:center;flex-wrap:wrap;background:var(--bg-2);border:1px dashed var(--yellow);padding:14px 16px;margin-bottom:22px;color:var(--ink-2)}
+.handover b{color:var(--yellow)}
+
+/* ---------- POST ---------- */
+.postwrap{display:grid;grid-template-columns:minmax(0,620px) minmax(0,1fr);gap:30px;align-items:end}
+@media (max-width:860px){.postwrap{grid-template-columns:1fr}.postwrap img{display:none}}
+.post{background:#313338;border-radius:10px;padding:16px 18px;font-family:"gg sans","Segoe UI",system-ui,sans-serif;color:#dbdee1;box-shadow:0 20px 50px rgba(0,0,0,.5)}
+.post .who{display:flex;gap:12px;align-items:center;margin-bottom:8px}
+.post .av{width:42px;height:42px;border-radius:50%;background:#2a1640 url(assets/dexy-full.png) 52% 4%/260% auto no-repeat;flex:none}
+.post .nm{font-weight:700;color:#f47fff}
+.post .bot{font-size:10px;background:#5865f2;color:#fff;border-radius:3px;padding:1px 5px;margin-left:6px;font-weight:700}
+.post .tm{font-size:12px;color:#949ba4;margin-left:6px}
+.post p{margin:0 0 6px;font-size:15px;line-height:1.45}
+.post .cta{display:inline-block;margin-top:8px;background:#248046;color:#fff;border-radius:4px;padding:8px 14px;font-weight:600;font-size:14px}
+.postwrap img{max-height:420px;width:auto;height:auto;justify-self:start}
+.copy{margin-top:12px}
+footer{padding-block:60px 50px;color:var(--ink-3);font-size:13px}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:20px}
+@media (prefers-reduced-motion:reduce){.live::before{animation:none}}
+</style>
+
+<header class="hero">
+  <div class="wrap bar">
+    <img src="assets/logo.png" alt="DexyPlay" width="640" height="255">
+    <span class="live">LIVE · NYE BRACKET · 31.12–01.01</span>
+    <span class="meta">Концепт новогоднего ивента · <b>предложение</b> · ведёт Александр, скоро <b>Степан</b></span>
+  </div>
+  <div class="wrap screen">
+    <div class="title">
+      <h1><span>Dexy’s</span><span class="pk">Year-End</span><span class="hl">Bracket</span></h1>
+      <p class="slogan">“16 picks. 4 rounds on New Year’s Eve. <em>One crown at midnight.</em>”</p>
+      <div class="timer">
+        <div class="cell"><span class="t" id="td">00</span><small>дней</small></div>
+        <div class="cell"><span class="t" id="th">00</span><small>часов</small></div>
+        <div class="cell"><span class="t" id="tm">00</span><small>минут</small></div>
+        <span class="lbl">до коронации, 01.01.2027 00:00 ET</span>
+      </div>
+    </div>
+    <img class="dexy" src="assets/dexy-megaphone.png" alt="Dexy с розовым мегафоном" width="520" height="696">
+    <aside class="chat" aria-label="Пример чата во время раунда">
+      <h3><span>Stream chat</span><span>пример</span></h3>
+      <ul>
+        <li><b class="u1">neonfox</b> Dexy Wheel takes it all, calling it now</li>
+        <li><b class="u2">reelqueen</b> nah 3 Witches got the votes</li>
+        <li><b class="u4">kaypls</b> my bracket is already cooked 💀</li>
+        <li><b class="u3">pinksmoke</b> made my card, who’s my twin</li>
+        <li class="dx"><b class="u3">Dexy</b> brackets lock at noon ET. no takebacks 😤</li>
+        <li><b class="u1">neonfox</b> locked. 16 for 16 or bust</li>
+      </ul>
+    </aside>
+  </div>
+</header>
+
+<main>
+<section class="wrap" id="idea">
+  <div class="lt"><h2>Идея</h2><span class="sub">what’s the show</span></div>
+  <div class="split">
+    <p class="lead">Два дня: <strong>31 декабря и 1 января</strong>. Dexy собирает <strong>сетку из 16 игр и моментов 2026</strong> на DexyPlay. До 12:00 ET 31-го каждый игрок заполняет <strong>всю сетку сразу</strong>: кто дойдёт до финала и кто станет чемпионом. Потом весь день 31-го идут раунды голосования, примерно каждые 3 часа, и в полночь Dexy коронует победителя в стрим-посте. 1 января итоги, призы самым точным и карточка <strong>«My 2026 with Dexy»</strong> с твоим счётом для шеринга.</p>
+    <div class="why">
+      <p><b>Почему DexyPlay.</b> Dexy стримерша, а сетки, голосования и «зовём чат решать» — родной формат стримов. Механика звучит её голосом, а не голосом казино.</p>
+      <p><b>Почему прогнозы.</b> Голосовать может любой, а очки дают только за точность. Сетка заполнена утром, и весь вечер игрок возвращается посмотреть, живы ли его пики.</p>
+      <p><b>Почему карточка.</b> Это повод поделиться ссылкой вне Discord. Через неё приходят новые игроки, на Halloween новых было всего 9%.</p>
+    </div>
+  </div>
+</section>
+
+<section class="wrap" id="bracket">
+  <div class="lt"><h2>Потрогать сетку</h2><span class="sub">click to predict</span></div>
+  <p class="lead" style="margin-bottom:18px">Кликай по названию, чтобы провести его в следующий раунд, и так до чемпиона. Потом «Запустить голосование»: макет разыграет голоса комьюнити и посчитает очки (1 / 2 / 4 / 8 за раунд, максимум 32). Названия — пример, реальный список собирает команда.</p>
+  <div class="bk-tools">
+    <button type="button" class="btn y" id="auto">Заполнить за меня</button>
+    <button type="button" class="btn p" id="run" disabled>Запустить голосование</button>
+    <button type="button" class="btn o" id="reset">Сбросить</button>
+    <span class="bk-status" id="bkst">Прогноз: <b class="num">0 / 15</b> пар</span>
+  </div>
+  <div class="bk-scroll"><div class="bk" id="bk"></div></div>
+  <div class="score" id="score" aria-live="polite"></div>
+  <p class="bk-note">В проде: вся сетка закрывается 31.12 в 12:00 ET, до первого голосования. Голоса скрыты до конца раунда, бонус +1 за верный прогноз, который выбрали меньше 35% игроков. Тайбрейк: сколько всего голосов наберёт финал.</p>
+</section>
+
+<section class="wrap" id="card-gen">
+  <div class="lt"><h2>My 2026 with Dexy</h2><span class="sub">card generator</span></div>
+  <div class="gen">
+    <div class="form">
+      <p class="lead">Карточка для шеринга: ник, игра года, чемпион из твоей сетки, три слова про твой год. До 31.12 есть версия «my pick» без счёта, она зовёт друзей заполнить сетку. 1 января выходит финальная версия с очками. Карточка ведёт по реф-ссылке, каждый друг с заполненной сеткой даёт билет в Crew Raffle.</p>
+      <div class="field"><label for="nick">Ник</label><input type="text" id="nick" value="neonfox" maxlength="16" autocomplete="off"></div>
+      <div class="field"><label for="goty">Игра года</label><select id="goty"></select></div>
+      <div class="field"><span class="lab">Мой 2026 в трёх словах (до 3)</span><div class="chips" id="words"></div></div>
+      <div class="field"><span class="lab">Шаблон</span><div class="tpl" id="tpl"></div></div>
+    </div>
+    <div>
+      <canvas id="card" width="1080" height="1350" aria-label="Превью карточки My 2026 with Dexy"></canvas>
+      <p class="gen-note">Превью 1080×1350 (формат FB и Discord). В проде под ним кнопки «Сохранить» и «Поделиться», а на сервере рендерится OG-картинка для ссылки. Маскот на карточке — Dexy в полный рост, без надписей на реквизите.</p>
+    </div>
+  </div>
+</section>
+
+<section class="wrap" id="path">
+  <div class="lt"><h2>Путь игрока</h2><span class="sub">from popup to crown</span></div>
+  <ul class="abuse">
+    <li><span><b>С 14.12 заходит</b> из попапа на dexyplay.com, бродкаста или чужой карточки → страница сетки. Кто не зарегистрировался заранее, может успеть до 12:00 ET 31-го.</span></li>
+    <li><span><b>Один логин:</b> Discord + ник в казино + 21+. Бот сразу добавляет на сервер (guilds.join), отдельного Join нет.</span></li>
+    <li><span><b>Заполняет всю сетку</b> (15 пар) до 31.12 12:00 ET, в том числе чемпиона (Called It) и тайбрейк. Пока сетка открыта, её можно менять.</span></li>
+    <li><span><b>31.12 голосует</b> в каждом раунде: 1/8 в 12:00, 1/4 в 15:00, 1/2 в 18:00, финал в 21:00. Один голос на пару, на странице или кнопкой в Discord.</span></li>
+    <li><span><b>Между раундами</b> смотрит, живы ли его пики, и таблицу прогнозистов в закрепе Discord.</span></li>
+    <li><span><b>23:30 ET</b> Dexy выходит в стрим-пост, в 00:00 коронует чемпиона. <b>01.01</b> итоги, Claim prize, финальная карточка со счётом. Выдача до 05.01.</span></li>
+  </ul>
+</section>
+
+<section class="wrap" id="schedule">
+  <div class="lt"><h2>Расписание по часам</h2><span class="sub">31.12 – 01.01 · ET</span></div>
+  <div class="pre-s"><span><b>14.12</b> регистрация, раскрываем 16 участников по 2–3 в день</span><span><b>18.12</b> сетка открыта для прогнозов, попап на сайте</span><span><b>30.12</b> бродкаст «сетка закрывается завтра в полдень»</span></div>
+  <ul class="sched" id="sched"></ul>
+</section>
+
+<section class="wrap" id="prizes">
+  <div class="lt"><h2>Призы <span class="offer">предложение</span></h2><span class="sub">SC · FP · GC</span></div>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>Когда</th><th>Уровень</th><th>Кому и что</th><th class="r">SC</th><th class="r">FP</th><th class="r">GC</th></tr></thead>
+    <tbody>
+      <tr><td>01.01 10:00</td><td><span class="tier">Sharp Eye</span></td><td>Набрал 12+ очков из 32 → общий код 3 FP <small>(лимит 200)</small></td><td class="r">—</td><td class="r">≤600</td><td class="r">—</td></tr>
+      <tr><td>01.01 10:00</td><td><span class="tier">Called It</span></td><td>Угадал чемпиона в сетке → розыгрыш 5 × 10 SC</td><td class="r">50</td><td class="r">—</td><td class="r">—</td></tr>
+      <tr><td rowspan="4">01.01 10:00</td><td><span class="tier">Top Predictor #1</span></td><td>50 SC + 5M GC</td><td class="r">50</td><td class="r">—</td><td class="r">5M</td></tr>
+      <tr><td><span class="tier">#2</span></td><td>25 SC</td><td class="r">25</td><td class="r">—</td><td class="r">—</td></tr>
+      <tr><td><span class="tier">#3</span></td><td>15 SC</td><td class="r">15</td><td class="r">—</td><td class="r">—</td></tr>
+      <tr><td><span class="tier">#4–10</span></td><td>5 SC × 7</td><td class="r">35</td><td class="r">—</td><td class="r">—</td></tr>
+      <tr><td>01.01 10:00</td><td><span class="tier">Every Vote</span></td><td>Голосовал во всех 4 раундах 31.12 → розыгрыш 10 × 3 SC</td><td class="r">30</td><td class="r">—</td><td class="r">—</td></tr>
+      <tr><td>01.01 10:00</td><td><span class="tier">Crew Raffle</span></td><td>Билет за каждого друга с заполненной сеткой (до 5) → 5 × 5 SC</td><td class="r">25</td><td class="r">—</td><td class="r">—</td></tr>
+      <tr><td>01.01 весь день</td><td><span class="tier">Card Day</span></td><td>Сделал финальную карточку со счётом → 100K GC <small>(лимит 300)</small></td><td class="r">—</td><td class="r">—</td><td class="r">30M</td></tr>
+      <tr class="total"><td colspan="3">Итого бюджет (потолок)</td><td class="r">230</td><td class="r">≤600</td><td class="r">35M</td></tr>
+    </tbody>
+  </table></div>
+  <div class="rules3">
+    <div><b>Один топ-приз</b>Из Top Predictor каждый получает один приз. Остальные места сдвигаются.</div>
+    <div><b>Один выигрыш в розыгрышах</b>Called It, Every Vote и Crew Raffle: один выигрыш на человека на все три, повтор → перетягиваем.</div>
+    <div><b>Тайбрейк без скорости</b>Ничья по очкам → кто ближе угадал общее число голосов в финале, потом кто больше угадал в поздних раундах. Время клика не важно. Коды выдаются автоматически: 01.01 выходной в Украине, руками проверяем только топ-3 02.01.</div>
+  </div>
+</section>
+
+<section class="wrap" id="tech">
+  <div class="lt"><h2>Техника</h2><span class="sub">new page + bot</span></div>
+  <div class="tech">
+    <div><h3>Общий слой (не в оценке)</h3><ul>
+      <li>Строится один раз на базе Witching Hours для всех новогодних брендов: <b>Discord-логин + guilds.join</b>, коды из xlsx, Claim prize, бот бренда DexyPlay (уже создан на Halloween), анти-абуз, export, бэкапы, /_diag.</li>
+      <li>Тестовый стенд с DEV_LOGIN и быстрым расписанием, QA-харнесс (E2E, телефон).</li>
+    </ul></div>
+    <div><h3>Механика DexyPlay (в оценке)</h3><ul>
+      <li><b>Страница сетки</b>: заполнение всей сетки, тайбрейк, живой статус пиков, таблица прогнозистов. 3D не нужен.</li>
+      <li><b>Движок раундов</b>: замок сетки в 12:00 ET, 4 окна голосования по ~3 часа, подсчёт очков, бонус за меньшинство.</li>
+      <li><b>Голосование</b> на странице + посты раундов ботом с кнопками, авто-пост коронации (2 заготовки под двух финалистов).</li>
+      <li><b>Генератор карточки</b>: canvas 1080×1350, 3 шаблона, версии «my pick» и «final», ссылка /c/:id с OG-картинкой и реф-кодом.</li>
+    </ul></div>
+    <div><h3>Что нужно от людей</h3><ul>
+      <li><b>Список 16</b> из реальных игр и моментов года + посев. До 10.12.</li>
+      <li><b>Коды</b> по 8 уровням, создаются в админке DexyPlay до 20.12.</li>
+      <li><b>Арт</b>: Dexy с короной для коронации (два варианта под двух финалистов), обложки раундов (Flow).</li>
+      <li><b>Аппрув</b>: Александр сейчас, владелец после передачи — Степан. Прод-деплой только с ОК.</li>
+    </ul></div>
+  </div>
+  <div class="days" id="days"></div>
+</section>
+
+<section class="wrap" id="promo">
+  <div class="lt"><h2>Промо-план</h2><span class="sub">how we fill the chat</span></div>
+  <div class="promo">
+    <div><span class="when">14–20.12</span><h3>Регистрация + reveal</h3><p>С 14.12 регистрация обязательна: кто не узнал заранее, тот пропустил. В Discord и FB раскрываем участников сетки по 2–3 в день, «who wins?» в комментах разогревает.</p></div>
+    <div class="main"><span class="when">18.12 · главный канал</span><h3>Попап и баннер на сайте</h3><p>На Halloween попап дал 1251 переход против 23 из FB. Кнопка ведёт сразу на логин и заполнение сетки.</p></div>
+    <div><span class="when">30.12 и 31.12</span><h3>Бродкаст</h3><p>30.12 «сетка закрывается завтра в полдень», 31.12 в 11:00 «последний час», в 23:20 «коронация через 40 минут».</p></div>
+    <div><span class="when">31.12</span><h3>Discord</h3><p>@everyone в 11:00, пост каждого раунда с кнопками голосования, итоги раунда, закреп с топом прогнозистов.</p></div>
+    <div><span class="when">31.12 и 01.01</span><h3>FB</h3><p>31.12 пост на каждый раунд от Dexy, 01.01 чемпион и лучшие карточки игроков (с их согласия).</p></div>
+    <div><span class="when">новые игроки</span><h3>Карточка + Crew Raffle</h3><p>Версия «my pick» с реф-ссылкой до 31.12: друг заполнил сетку → билет в Crew Raffle. Заполнить сетку — простой первый шаг для новичка.</p></div>
+  </div>
+</section>
+
+<section class="wrap" id="abuse">
+  <div class="lt"><h2>Анти-абуз и уроки Halloween</h2><span class="sub">fair play</span></div>
+  <div class="split">
+    <ul class="abuse">
+      <li><span><b>Один игрок забрал 11 из 12 мест.</b> Здесь нет конкурса на скорость. Очки дают за прогноз, у всех одинаковое число пар, тайбрейк без времени, один топ-приз на человека.</span></li>
+      <li><span><b>119 человек не нажали Join.</b> Вход на сервер прямо при логине. Если человек не на сервере, показываем понятный экран с кнопкой.</span></li>
+      <li><span><b>Слишком строгие speed-флаги.</b> Скорость не учитывается вообще.</span></li>
+      <li><span><b>Ручной аппрув.</b> Очки и коды начисляются автоматически, руками проверяем только топ-3 прогнозистов 02.01.</span></li>
+    </ul>
+    <ul class="abuse">
+      <li><span><b>Накрутка голосов твинками</b>, чтобы сбылся свой прогноз: голосуют только аккаунты Discord старше 30 дней, на сервере больше 24 ч до 31.12 12:00 ET, с уникальным ником в казино. Голоса скрыты до конца раунда.</span></li>
+      <li><span><b>Сговор группы.</b> Бонус за верный прогноз меньшинства, а не большинства, поэтому договорённость «все голосуем за X» почти ничего не даёт.</span></li>
+      <li><span><b>Аномалии:</b> всплеск новых аккаунтов с одинаковыми голосами → флаг, голоса раунда пересчитываются без них.</span></li>
+      <li><span><b>Ничья в паре</b> решается голосом Dexy (заранее в правилах), без переголосования.</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="wrap" id="rehearsal">
+  <div class="lt"><h2>Репетиция</h2><span class="sub">dry run before the drop</span></div>
+  <div class="split">
+    <ul class="abuse">
+      <li><span><b>23–24.12, тест-стенд, весь день 31.12 за 1 час:</b> сетка закрывается, 4 раунда по 12 минут, коронация, итоги 01.01, Claim prize, финальная карточка.</span></li>
+      <li><span><b>20+ тестеров</b> с реальными Discord-аккаунтами заполняют сетки, голосуют на странице и кнопками в Discord, проверяем, что голоса не дублируются.</span></li>
+      <li><span><b>Подсчёт очков</b> сверяем с ручной таблицей на 10 сетках, включая бонус меньшинства и тайбрейк.</span></li>
+      <li><span><b>Карточки:</b> OG-превью ссылки в Discord и FB, реф-билеты засчитываются.</span></li>
+      <li><span><b>Учения План Б:</b> валим сервис посреди раунда и бота перед коронацией.</span></li>
+    </ul>
+    <ul class="abuse">
+      <li><span><b>30.12, сухой прогон на проде:</b> только аккаунты стаффа, один короткий раунд и пост коронации в тестовый канал, после прогона база очищается.</span></li>
+      <li><span>Проверяем часовой пояс ET у замка сетки и окон, версию в /_diag (Railway пропускает коммиты), боевые коды загружены.</span></li>
+      <li><span>Обе заготовки коронации (под каждого финалиста) готовы к 31.12 18:00, когда известна финальная пара.</span></li>
+      <li><span>После 30.12 деплоев нет до 02.01, кроме фикса аварии с ОК ответственного.</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="wrap" id="planb">
+  <div class="lt"><h2>План Б</h2><span class="sub">if the stream drops</span></div>
+  <ul class="sched planb">
+    <li><span class="what"><b>Сервис упал во время раунда</b></span><span class="what">Голоса кнопками в Discord продолжают копиться в боте, раунд продлевается на время простоя. В расписании есть запас по 30 минут между раундами. Если лежим больше 2 часов, 1/2 и финал объединяются в одно окно 21:00–23:30.</span></li>
+    <li><span class="what"><b>Бот упал</b></span><span class="what">Страница работает без бота. Итоги раундов и коронацию дежурный постит вручную, арт уже готов. Коды раздаём по export в DM 02.01.</span></li>
+    <li><span class="what"><b>Всё лежит в полночь</b></span><span class="what">Чемпион определяется по голосам, сохранённым до сбоя, ничья решается голосом Dexy по правилам. Пост-заглушка «Dexy crowns the champ at noon ET», коронация и итоги переезжают на 01.01 12:00.</span></li>
+    <li><span class="what"><b>Discord-логин не работает утром 31.12</b></span><span class="what">Замок сетки сдвигается на время сбоя (по правилам до 2 часов), все окна раундов сдвигаются следом.</span></li>
+  </ul>
+  <p class="bk-note">Дежурный: один человек 31.12 21:00–00:30 ET. Дневные раунды бот ведёт сам, статус видно в /_diag.</p>
+</section>
+
+<section class="wrap" id="kpi">
+  <div class="lt"><h2>Цели</h2><span class="sub">stream goals, не факты</span></div>
+  <div class="goals">
+    <div class="goal"><span class="gl">сетки</span><span class="gv">250</span><div class="gt"></div><p>заполненных сеток к 31.12 12:00 ET</p></div>
+    <div class="goal"><span class="gl">весь вечер</span><span class="gv">60%</span><div class="gt"></div><p>голосуют во всех 4 раундах 31.12</p></div>
+    <div class="goal"><span class="gl">новые в Discord</span><span class="gv">+100</span><div class="gt"></div><p>цель 30%+ новых против 9% на Halloween</p></div>
+    <div class="goal"><span class="gl">карточки и коды</span><span class="gv">200</span><div class="gt"></div><p>финальных карточек 01.01, из них 60 расшарено. ~250 кодов выдано</p></div>
+  </div>
+</section>
+
+<section class="wrap" id="risks">
+  <div class="lt"><h2>Риски и вопросы</h2><span class="sub">для Александра</span></div>
+  <div class="handover"><b>Передача бренда.</b> DexyPlay скоро переходит Степану. Регистрация открывается 14.12, ивент 31.12–01.01. Кто принимает решения по ивенту и кто дежурит в полночь, Александр или Степан?</div>
+  <ol class="qs">
+    <li><span><b>Список 16:</b> только игры лобби или смесь с моментами года (Witching Hours, Dexy Wheel)? Кто собирает до 10.12?</span></li>
+    <li><span><b>Бюджет:</b> 230 SC + до 600 FP + 35M GC на два дня. Ок, или поднять Top Predictor #1, раз ивент короткий?</span></li>
+    <li><span><b>Дежурный:</b> полночь ET = 07:00 по Киеву 1 января, выходной. Кто дежурит 31.12 21:00–00:30 ET (04:00–07:30 Киев)? Раунды днём 31.12 бот ведёт сам.</span></li>
+    <li><span><b>Окна по 3 часа:</b> 1/8 стартует в 12:00 ET (19:00 Киев). Ок, или сдвинуть всё на час позже, чтобы финал закрывался ближе к полуночи?</span></li>
+    <li><span><b>Голосование:</b> кнопками прямо в Discord или только на странице? В Discord проще, на странице легче ловить твинков.</span></li>
+    <li><span><b>Коронация:</b> статичный арт или короткое видео с голосом Dexy (ElevenLabs)? Голоса Dexy пока нет.</span></li>
+    <li><span><b>Маскоты с надписями:</b> на mascot-3 буквы SC/GC на монетах, на мегафоне и пистолете надпись DexyPlay. Для карточки и коронации берём Dexy без реквизита с текстом, мегафон оставляем только в hero. Ок?</span></li>
+    <li><span><b>Правила:</b> прогнозы с призами нужно отдельно описать в Official Rules как skill-конкурс. Юрист смотрит?</span></li>
+  </ol>
+</section>
+
+<section class="wrap" id="post">
+  <div class="lt"><h2>Анонс в Discord</h2><span class="sub">Dexy’s voice</span></div>
+  <div class="postwrap">
+    <div>
+      <div class="post">
+        <div class="who"><span class="av" aria-hidden="true"></span><div><span class="nm">Dexy</span><span class="bot">APP</span><span class="tm">Today at 7:00 PM</span></div></div>
+        <div id="post-text">
+          <p><b>chat. CHAT. 📣</b></p>
+          <p>I put 16 of our 2026 favorites in one bracket. On New Year’s Eve you vote, they fight, one gets crowned at midnight.</p>
+          <p>Fill your whole bracket before noon ET on Dec 31. Every pick that comes true = points. Most points takes the prizes on Jan 1.</p>
+          <p>Brackets are open now, no takebacks after noon. Make your “My 2026 with Dexy” card while you’re there, I wanna see them 👀</p>
+        </div>
+        <span class="cta">Open the Bracket</span>
+      </div>
+      <button type="button" class="btn o copy" id="copy-post">Скопировать текст</button>
+    </div>
+    <img src="assets/dexy-suit.png" alt="Dexy в чёрном костюме" width="600" height="900">
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap"><span>DexyPlay · New Year 2026/27 · концепт для обсуждения, все цифры = предложение</span><span>Время везде ET (New York)</span></div></footer>
+
+<script>
+(function(){
+  // ---------- таймер ----------
+  var target = Date.UTC(2027,0,1,5,0,0);
+  function tick(){
+    var s = Math.max(0, Math.floor((target - Date.now())/1000));
+    document.getElementById('td').textContent = String(Math.floor(s/86400)).padStart(2,'0');
+    document.getElementById('th').textContent = String(Math.floor(s%86400/3600)).padStart(2,'0');
+    document.getElementById('tm').textContent = String(Math.floor(s%3600/60)).padStart(2,'0');
+  }
+  tick(); setInterval(tick, 20000);
+
+  // ---------- участники (пример) ----------
+  var E = ['Dexy Wheel','Lucky Streak','3 Witches: Bonus Combo','Witching Hours','Neon Drift','Coffee Break Bonus','Graffiti Gold','Pink Comet','Midnight Megaways','Turbo Reels','Daily Login Streak','Chat Raffle Night','Referral Rush','Golden Spin Friday','First Stream Post','Night Drive Spins'];
+  var SEED_ORDER = [0,15,7,8,4,11,3,12,2,13,5,10,6,9,1,14]; // 1-16, 8-9, 5-12, 4-13, 3-14, 6-11, 7-10, 2-15
+  var R1 = SEED_ORDER.slice();
+  var ROUNDS = ['1/8','1/4','1/2','Финал'], PTS = [1,2,4,8];
+  var picks = [[null,null,null,null,null,null,null,null],[null,null,null,null],[null,null],[null]];
+  var actual = null, actualPct = null;
+
+  function entrants(r, m, src){ // кто стоит в паре m раунда r
+    if (r === 0) return [R1[m*2], R1[m*2+1]];
+    var p = src[r-1]; return [p[m*2], p[m*2+1]];
+  }
+  function countPicks(){ var n=0; picks.forEach(function(r){ r.forEach(function(x){ if (x!==null) n++; }); }); return n; }
+  function clearDown(r, m){
+    var prev = picks[r][m];
+    for (var rr=r+1, mm=m; rr<4; rr++){ mm = Math.floor(mm/2); if (picks[rr][mm] === prev && prev !== null) picks[rr][mm] = null; }
+  }
+  function render(){
+    var bk = document.getElementById('bk'); bk.innerHTML = '';
+    var src = actual || picks;
+    for (var r=0;r<4;r++){
+      var cw = document.createElement('div'); cw.className = 'colwrap';
+      cw.innerHTML = '<h4>' + ROUNDS[r] + ' · ' + PTS[r] + ' очк.</h4>';
+      var col = document.createElement('div'); col.className = 'col';
+      var nm = picks[r].length;
+      for (var m=0;m<nm;m++){
+        var pair = entrants(r, m, src), box = document.createElement('div'); box.className = 'match';
+        pair.forEach(function(e, k){
+          var b = document.createElement('button'); b.type = 'button'; b.className = 'slot';
+          if (e === null || e === undefined){ b.className += ' empty'; b.disabled = true; b.innerHTML = '<span class="sd"></span><span class="nm">ждёт победителя</span>'; }
+          else {
+            var cls = '';
+            if (actual){ cls = actual[r][m] === e ? ' win' : ' lose'; }
+            else if (picks[r][m] === e) cls = ' pick';
+            b.className += cls;
+            var pct = actual ? '<span class="pc">' + actualPct[r][m][k] + '%</span>' : '';
+            b.innerHTML = '<span class="sd">' + (e+1) + '</span><span class="nm">' + E[e] + '</span>' + pct;
+            b.setAttribute('aria-pressed', picks[r][m] === e);
+            (function(rr, mm, ee){ b.addEventListener('click', function(){ choose(rr, mm, ee); }); })(r, m, e);
+            if (actual) b.disabled = true;
+          }
+          box.appendChild(b);
+        });
+        if (actual && picks[r][m] !== null){
+          var mk = document.createElement('span'); var ok = picks[r][m] === actual[r][m];
+          mk.className = 'mark ' + (ok ? 'ok' : 'no'); mk.textContent = ok ? '✓' : '✗';
+          mk.setAttribute('aria-label', ok ? 'прогноз верный' : 'прогноз мимо');
+          box.appendChild(mk);
+        }
+        col.appendChild(box);
+      }
+      cw.appendChild(col); bk.appendChild(cw);
+    }
+    var ch = document.createElement('div'); ch.className = 'champ';
+    var champ = (actual ? actual[3][0] : picks[3][0]);
+    ch.innerHTML = '<div class="crown" aria-hidden="true"></div><small>' + (actual ? 'Чемпион 2026' : 'Твой чемпион') + '</small><div class="cn">' + (champ !== null ? E[champ] : '—') + '</div>';
+    bk.appendChild(ch);
+    var n = countPicks();
+    document.getElementById('bkst').innerHTML = actual ? 'Голосование прошло. <b>Смотри ✓ и ✗</b>' : 'Прогноз: <b class="num">' + n + ' / 15</b> пар';
+    document.getElementById('run').disabled = !!actual || n < 15;
+    document.getElementById('auto').disabled = !!actual;
+    syncCard();
+  }
+  function choose(r, m, e){
+    if (actual) return;
+    if (picks[r][m] !== e){ clearDown(r, m); picks[r][m] = e; }
+    render();
+  }
+  function rnd(a, b){ // шанс победы зависит от посева
+    var w = 0.5 + (b - a) * 0.025; return Math.random() < Math.min(.85, Math.max(.15, w));
+  }
+  document.getElementById('auto').addEventListener('click', function(){
+    for (var r=0;r<4;r++) for (var m=0;m<picks[r].length;m++){
+      var pr = entrants(r, m, picks); picks[r][m] = rnd(pr[0], pr[1]) ? pr[0] : pr[1];
+    }
+    render();
+  });
+  document.getElementById('run').addEventListener('click', function(){
+    actual = [[],[],[],[]]; actualPct = [[],[],[],[]];
+    for (var r=0;r<4;r++) for (var m=0;m<picks[r].length;m++){
+      var pr = entrants(r, m, actual), w = rnd(pr[0], pr[1]) ? 0 : 1;
+      var p = 51 + Math.floor(Math.random()*24);
+      actual[r][m] = pr[w]; actualPct[r][m] = w === 0 ? [p, 100-p] : [100-p, p];
+    }
+    var tot = 0, by = [];
+    for (var r2=0;r2<4;r2++){ var c=0; for (var m2=0;m2<picks[r2].length;m2++) if (picks[r2][m2] === actual[r2][m2]) c++; by.push(c); tot += c*PTS[r2]; }
+    var sc = document.getElementById('score'); sc.className = 'score on';
+    sc.innerHTML = '<span class="big">' + tot + ' / 32</span><span>1/8: ' + by[0] + ' из 8 · 1/4: ' + by[1] + ' из 4 · 1/2: ' + by[2] + ' из 2 · финал: ' + (by[3] ? 'угадан' : 'мимо') + '</span><span style="color:var(--ink-3);font-size:14px">' + (tot >= 12 ? 'Sharp Eye: код 3 FP открыт. ' : '') + (picks[3][0] === actual[3][0] ? 'Чемпион угадан: билет в Called It.' : 'Чемпион не угадан, но очки за раунды остаются.') + '</span>';
+    lastScore = tot;
+    render();
+  });
+  document.getElementById('reset').addEventListener('click', function(){
+    picks = [[null,null,null,null,null,null,null,null],[null,null,null,null],[null,null],[null]];
+    actual = null; actualPct = null; lastScore = null;
+    document.getElementById('score').className = 'score';
+    render();
+  });
+
+  // ---------- расписание ----------
+  var S = [
+    ['31','чт','до 12:00','<b>Сетка закрывается.</b> Последний час заполнить все 15 пар, чемпиона и тайбрейк.','pred','Прогноз'],
+    ['31','чт','12:00–14:30','<b>Голосование 1/8</b>, 8 пар. Пост Dexy с кнопками в Discord.','vote','Голос'],
+    ['31','чт','15:00','<b>Итоги 1/8</b> + старт голосования 1/4 (до 17:30).','res','Итоги'],
+    ['31','чт','18:00','<b>Итоги 1/4</b> + старт голосования 1/2 (до 20:30). Готовим обе заготовки коронации.','res','Итоги'],
+    ['31','чт','21:00','<b>Итоги 1/2</b> + голосование финала (до 23:30).','vote','Финал'],
+    ['31','чт','23:30','<b>Финал закрыт.</b> Dexy выходит в стрим-пост.','peak','NYE'],
+    ['01','пт','00:00','<b>Коронация.</b> Бот публикует заготовку под победителя, чемпион сетки.','peak','Полночь'],
+    ['01','пт','10:00','<b>Итоги:</b> очки, топ прогнозистов, розыгрыши, Claim prize в Discord.','res','Итоги'],
+    ['01','пт','весь день','<b>Card Day:</b> финальная карточка «My 2026 with Dexy» со счётом, 100K GC за карточку.','pred','Карточки'],
+    ['02','сб','днём','<b>Проверка топ-3</b> вручную. Выдача всех призов до 05.01.','res','Выдача']
+  ];
+  var sc = document.getElementById('sched');
+  S.forEach(function(s){
+    var li = document.createElement('li'); if (s[4]==='peak') li.className = 'peak';
+    li.innerHTML = '<span class="d">' + s[0] + '<span class="wd">' + s[1] + (s[0]==='31'?' · дек':' · янв') + '</span></span><span class="tm">' + s[2] + '</span><span class="what">' + s[3] + '</span><span class="tagx tg-' + s[4] + '">' + s[5] + '</span>';
+    sc.appendChild(li);
+  });
+
+  // ---------- дни разработки ----------
+  var D = [['Страница сетки, заполнение, статус пиков',2.5],['Движок раундов, замок, очки, тайбрейк',1.5],['Голосование + посты раундов и коронации',1.5],['Генератор карточки + OG + рефы',2],['QA механики, телефоны',1]];
+  var dd = document.getElementById('days'), total = D.reduce(function(a,b){ return a + b[1]; }, 0);
+  D.concat([['Итого на механику бренда, стенд к 18.12', total]]).forEach(function(d, i){
+    var row = document.createElement('div'); row.className = 'day-row' + (i === D.length ? ' tot' : '');
+    row.innerHTML = '<span>' + d[0] + '</span><span class="barx"><i style="width:' + (d[1]/total*100) + '%"></i></span><span class="v">' + String(d[1]).replace('.', ',') + '</span>';
+    dd.appendChild(row);
+  });
+
+  // ---------- карточка ----------
+  var WORDS = ['late-night spins','coffee & reels','chat legend','bonus hunter','never missed a daily','lucky streak','Halloween survivor','big dreamer'];
+  var TPL = [{id:'haze',n:'Purple Haze',a:'#7645BA',b:'#0C0713',c:'#F939E3',hl:'#FFE733'},{id:'smoke',n:'Pink Smoke',a:'#F939E3',b:'#2A0B34',c:'#7645BA',hl:'#FFE733'},{id:'tape',n:'Yellow Tape',a:'#FFE733',b:'#0C0713',c:'#7645BA',hl:'#F939E3'}];
+  var sel = ['coffee & reels','chat legend','late-night spins'], tpl = TPL[0], lastScore = null;
+  var goty = document.getElementById('goty');
+  E.forEach(function(e, i){ var o = document.createElement('option'); o.value = i; o.textContent = e; goty.appendChild(o); });
+  goty.value = '5';
+  var wbox = document.getElementById('words');
+  WORDS.forEach(function(w){
+    var b = document.createElement('button'); b.type = 'button'; b.className = 'chipbtn'; b.textContent = w;
+    b.setAttribute('aria-pressed', sel.indexOf(w) > -1);
+    b.addEventListener('click', function(){
+      var i = sel.indexOf(w);
+      if (i > -1) sel.splice(i,1); else { if (sel.length >= 3) sel.shift(); sel.push(w); }
+      Array.prototype.forEach.call(wbox.children, function(x){ x.setAttribute('aria-pressed', sel.indexOf(x.textContent) > -1); });
+      draw();
+    });
+    wbox.appendChild(b);
+  });
+  var tbox = document.getElementById('tpl');
+  TPL.forEach(function(t){
+    var b = document.createElement('button'); b.type = 'button'; b.className = 'chipbtn'; b.textContent = t.n;
+    b.setAttribute('aria-pressed', t === tpl);
+    b.addEventListener('click', function(){ tpl = t; Array.prototype.forEach.call(tbox.children, function(x, i){ x.setAttribute('aria-pressed', TPL[i] === tpl); }); draw(); });
+    tbox.appendChild(b);
+  });
+  document.getElementById('nick').addEventListener('input', draw);
+  goty.addEventListener('change', draw);
+
+  var imgDexy = new Image(), imgLogo = new Image(), loaded = 0;
+  imgDexy.onload = imgLogo.onload = function(){ loaded++; draw(); };
+  imgDexy.src = 'assets/dexy-full.png'; imgLogo.src = 'assets/logo.png';
+  var cv = document.getElementById('card'), cx = cv.getContext('2d');
+  function syncCard(){ if (cx) draw(); }
+  function skewBox(x, y, w, h, col){ cx.fillStyle = col; cx.beginPath(); cx.moveTo(x+14,y); cx.lineTo(x+w,y); cx.lineTo(x+w-14,y+h); cx.lineTo(x,y+h); cx.closePath(); cx.fill(); }
+  function draw(){
+    var W = 1080, H = 1350;
+    var g = cx.createLinearGradient(0,0,W,H); g.addColorStop(0, tpl.a); g.addColorStop(.55, tpl.b); g.addColorStop(1, tpl.b);
+    cx.fillStyle = g; cx.fillRect(0,0,W,H);
+    // дым
+    var rg = cx.createRadialGradient(860,420,40,860,420,560); rg.addColorStop(0, tpl.c + 'aa'); rg.addColorStop(1, tpl.c + '00');
+    cx.fillStyle = rg; cx.fillRect(0,0,W,H);
+    // точечная сетка
+    cx.fillStyle = 'rgba(255,255,255,.07)';
+    for (var y=20;y<H;y+=26) for (var x=20;x<W;x+=26) cx.fillRect(x,y,3,3);
+    if (imgDexy.complete && imgDexy.naturalWidth){ var dh = 1080, dw = dh * imgDexy.naturalWidth / imgDexy.naturalHeight; cx.drawImage(imgDexy, W - dw + 120, H - dh - 40, dw, dh); }
+    if (imgLogo.complete && imgLogo.naturalWidth){ cx.drawImage(imgLogo, 64, 60, 300, 300 * imgLogo.naturalHeight / imgLogo.naturalWidth); }
+    var dark = tpl.id === 'tape';
+    // заголовок
+    cx.textBaseline = 'alphabetic';
+    cx.font = 'italic 900 112px Kanit, sans-serif'; cx.fillStyle = dark ? '#0C0713' : '#ffffff';
+    cx.fillText('MY 2026', 64, 300);
+    skewBox(56, 326, 560, 110, tpl.hl);
+    cx.fillStyle = '#0C0713'; cx.fillText('W/ DEXY', 76, 418);
+    // ник
+    var nick = (document.getElementById('nick').value || 'player').trim().slice(0,16);
+    cx.font = '800 64px Kanit, sans-serif'; cx.fillStyle = dark ? '#0C0713' : '#ffffff';
+    cx.fillText('@' + nick, 64, 540);
+    // строки
+    var champ = picks[3][0] !== null ? E[picks[3][0]] : 'pick one in the bracket';
+    var rows = [['GAME OF THE YEAR', E[+goty.value]], ['MY CHAMPION', champ], ['BRACKET SCORE', lastScore !== null ? lastScore + ' / 32 pts' : 'round 1 pending']];
+    var yy = 640;
+    rows.forEach(function(r){
+      cx.font = '600 26px Kanit, sans-serif'; cx.fillStyle = dark ? '#3a2160' : tpl.hl; cx.fillText(r[0], 64, yy);
+      cx.font = '400 46px Kanit, sans-serif'; cx.fillStyle = dark ? '#0C0713' : '#ffffff';
+      var t = r[1]; while (cx.measureText(t).width > 600 && t.length > 4) t = t.slice(0,-2);
+      if (t !== r[1]) t = t.trim() + '…';
+      cx.fillText(t, 64, yy + 52); yy += 128;
+    });
+    // три слова
+    var xx = 64; yy = 1060;
+    cx.font = '600 32px Kanit, sans-serif';
+    sel.forEach(function(w, i){
+      var tw = cx.measureText(w).width + 44;
+      if (xx + tw > 700){ xx = 64; yy += 70; }
+      skewBox(xx, yy, tw, 54, i === 0 ? '#F939E3' : (dark ? '#0C0713' : 'rgba(255,255,255,.14)'));
+      cx.fillStyle = '#ffffff'; cx.fillText(w, xx + 22, yy + 38); xx += tw + 12;
+    });
+    // футер
+    cx.fillStyle = 'rgba(12,7,19,.85)'; cx.fillRect(0, H - 76, W, 76);
+    cx.font = '600 28px Kanit, sans-serif'; cx.fillStyle = '#FFE733'; cx.fillText("DEXY'S YEAR-END BRACKET", 64, H - 28);
+    cx.font = '400 22px Kanit, sans-serif'; cx.fillStyle = '#C9BCDD'; cx.textAlign = 'right';
+    cx.fillText('dexyplay.com · 21+ · no purchase necessary', W - 48, H - 30); cx.textAlign = 'left';
+  }
+  var ready = document.fonts && document.fonts.load ? Promise.all([document.fonts.load('italic 900 40px Kanit'), document.fonts.load('600 20px Kanit'), document.fonts.load('400 20px Kanit')]) : Promise.resolve();
+  ready.then(draw, draw);
+
+  // ---------- копия поста ----------
+  document.getElementById('copy-post').addEventListener('click', function(){
+    var t = Array.prototype.map.call(document.querySelectorAll('#post-text p'), function(p){ return p.textContent; }).join('\n\n') + '\n\n👉 Open the Bracket';
+    var b = this;
+    (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(function(){ b.textContent = 'Скопировано'; }, function(){
+      var r = document.createRange(); r.selectNodeContents(document.getElementById('post-text')); var s = getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent = 'Выделено, жми Ctrl+C';
+    });
+  });
+
+  render();
+})();
+</script>
+
+<a href="../" style="position:fixed;z-index:9999;left:max(12px,env(safe-area-inset-left,0px));bottom:calc(12px + env(safe-area-inset-bottom,0px));padding:8px 14px;border-radius:999px;background:rgba(11,16,32,.82);color:#E8EEFA;font:600 13px/1 system-ui,sans-serif;text-decoration:none;backdrop-filter:blur(6px);border:1px solid rgba(232,238,250,.18)">&larr; &#1042;&#1089;&#1077; &#1080;&#1074;&#1077;&#1085;&#1090;&#1099;</a>
+</body>
+</html>

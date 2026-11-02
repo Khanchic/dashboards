@@ -1,0 +1,686 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<title>The Great Winter Migration</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Smooch+Sans:wght@500;600;800&family=Work+Sans:wght@400;500;700&display=swap">
+<style>
+/* Layout: праздничный пропуск Safari Club — жёлтая шапка сайта Jumanza, живописная саванна, фиолетовые плашки DS с зелёным свечением, альбом карточек как главный объект */
+:root{
+  --bg:#100128; --bg-2:#200250; --bg-3:#340381; --purple:#5C05E5; --purple-2:#7724FA;
+  --yellow:#F1D627; --yellow-2:#F7E887; --green:#49F623; --green-hi:#71F854; --green-lo:#2FDC09; --glow:#00EE3B;
+  --gold:#F5B54E; --wood:#512410; --pink:#FF2172; --mint:#0FE58B;
+  --text:#F9F5FF; --muted:#BFB0E0; --line:rgba(249,245,255,.12);
+  --display:"Smooch Sans","Arial Narrow","Roboto Condensed",sans-serif;
+  --body:"Work Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font:16px/1.55 var(--body)}
+h1,h2,h3{font-family:var(--display);font-weight:800;text-transform:uppercase;line-height:.9;letter-spacing:.01em;margin:0;text-wrap:balance}
+p{margin:0}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+:focus-visible{outline:3px solid var(--yellow);outline-offset:3px}
+.btn{font:800 22px/1 var(--display);text-transform:uppercase;letter-spacing:.02em;color:var(--bg);background:linear-gradient(180deg,var(--green-hi),var(--green-lo));border:0;border-radius:8px;padding:12px 20px 11px;cursor:pointer;box-shadow:0 4px 0 #1f9a05;display:inline-flex;align-items:center;gap:10px}
+.btn:active{transform:translateY(2px);box-shadow:0 2px 0 #1f9a05}
+.btn.white{background:var(--text);box-shadow:0 4px 0 #a99bc9}
+.btn.ghost{background:transparent;color:var(--text);box-shadow:none;border:1.5px solid var(--line)}
+.btn[disabled]{opacity:.45;cursor:default}
+
+/* шапка сайта */
+.topbar{background:var(--yellow);color:var(--bg)}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:8px}
+.topbar img{height:44px;width:auto;display:block}
+.topbar span{font:800 18px/1 var(--display);text-transform:uppercase;letter-spacing:.04em}
+
+/* hero */
+.hero{position:relative;overflow:hidden;background:var(--bg) url(assets/bg-kilimanjaro.jpg) center 30%/cover no-repeat;min-height:520px;display:flex;align-items:flex-end}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(16,1,40,.55),rgba(16,1,40,.1) 35%,rgba(16,1,40,.86) 82%,var(--bg))}
+#fw{position:absolute;inset:0;width:100%;height:100%;z-index:1}
+.hero .wrap{position:relative;z-index:2;width:100%;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:20px;align-items:end;padding-block:80px 40px}
+.kick{display:inline-block;font:800 17px/1 var(--display);letter-spacing:.08em;text-transform:uppercase;color:var(--bg);background:var(--yellow);padding:7px 10px 5px;border-radius:4px}
+.hero h1{font-size:clamp(64px,10vw,132px);color:var(--yellow);margin:16px 0 10px;text-shadow:0 4px 0 var(--wood),0 10px 30px rgba(0,0,0,.5)}
+.hero h1 small{display:block;font-size:.42em;color:var(--text);letter-spacing:.04em;text-shadow:0 2px 0 rgba(0,0,0,.5)}
+.slogan{font:600 clamp(24px,2.6vw,32px)/1.05 var(--display);text-transform:uppercase;color:var(--text);max-width:24ch}
+.slogan b{color:var(--green)}
+.hero-dates{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.hero-dates span{background:rgba(92,5,229,.82);border:1px solid rgba(249,245,255,.18);border-radius:8px;padding:8px 12px;font-size:14px}
+.hero-dates b{font:800 22px/1 var(--display);color:var(--yellow);margin-right:6px}
+.hero-lion{justify-self:end;width:100%;max-width:420px;filter:sepia(.5) saturate(1.6) brightness(1.08) drop-shadow(0 0 30px rgba(245,181,78,.55)) drop-shadow(0 20px 30px rgba(0,0,0,.6))}
+
+/* секции */
+section{padding-block:68px}
+section.alt{background:var(--bg-2)}
+.hd{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:10px 30px;margin-bottom:30px}
+.hd h2{font-size:clamp(44px,6vw,72px);color:var(--yellow)}
+.hd p{max-width:58ch;color:var(--muted)}
+.lede{font-size:clamp(18px,2vw,21px);line-height:1.5;max-width:62ch}
+.lede b{color:var(--yellow)}
+.split{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:44px;align-items:start}
+.why{display:grid;gap:14px}
+.why div{display:grid;grid-template-columns:56px 1fr;gap:14px;align-items:center;font-size:15px}
+.why img{width:56px;height:56px;object-fit:contain}
+.owner{margin-top:18px;font-size:14px;color:var(--muted)}
+.owner b{color:var(--text)}
+.dep{margin-top:26px;border:2px dashed var(--yellow);border-radius:16px;padding:16px 18px;font-size:15px;background:rgba(241,214,39,.06)}
+.dep h3{font-size:26px;color:var(--yellow);margin-bottom:6px}
+
+/* охота */
+.hunt-wrap{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:22px;align-items:start}
+.stage{position:relative;aspect-ratio:16/9;max-width:100%;border-radius:16px;overflow:hidden;background:#d9a85a url(assets/bg-hunt.jpg) center/cover;cursor:none;user-select:none;-webkit-user-select:none;touch-action:manipulation;box-shadow:0 -24px 160px -70px var(--glow)}
+.stage.night{background-color:#1a0838}
+.stage .tint{position:absolute;inset:0;background:linear-gradient(180deg,rgba(30,6,80,.85),rgba(16,1,40,.55) 55%,rgba(16,1,40,.4));opacity:0;transition:opacity .6s;pointer-events:none}
+.stage.night .tint{opacity:1}
+#sfw{position:absolute;inset:0;width:100%;height:60%;pointer-events:none}
+.ent{position:absolute;will-change:transform;pointer-events:none}
+.ent img,.ent svg{display:block;width:100%;height:auto}
+.ent.flip img{transform:scaleX(-1)}
+.ent.golden img{filter:sepia(1) saturate(3.2) hue-rotate(-8deg) brightness(1.25) drop-shadow(0 0 14px #ffd54a)}
+.bushfg{position:absolute;bottom:-6%;pointer-events:none;width:30%}
+.vf{position:absolute;width:17%;aspect-ratio:1;transform:translate(-50%,-50%);pointer-events:none;border-radius:50%;box-shadow:0 0 0 2000px rgba(16,1,40,.22);transition:box-shadow .2s}
+.vf::before,.vf::after{content:"";position:absolute;inset:0;border:2px solid rgba(249,245,255,.9);border-radius:50%}
+.vf::after{inset:44%;border-radius:0;border:0;background:linear-gradient(var(--text),var(--text)) center/100% 2px no-repeat,linear-gradient(var(--text),var(--text)) center/2px 100% no-repeat}
+.flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none}
+.flash.go{animation:fl .35s ease-out}
+@keyframes fl{0%{opacity:.85}100%{opacity:0}}
+.hud{position:absolute;left:12px;right:12px;top:10px;display:flex;justify-content:space-between;gap:8px;pointer-events:none;font:800 20px/1 var(--display);text-transform:uppercase}
+.hud span{background:rgba(16,1,40,.72);border-radius:8px;padding:7px 10px 5px;display:flex;gap:6px;align-items:center}
+.hud img{width:18px;height:18px}
+.toast{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);background:var(--purple);border-radius:999px;padding:8px 16px 6px;font:800 20px/1 var(--display);text-transform:uppercase;white-space:nowrap;opacity:0;transition:opacity .2s;pointer-events:none;max-width:92%;overflow:hidden;text-overflow:ellipsis}
+.toast.on{opacity:1}
+.start{position:absolute;inset:0;display:grid;place-items:center;background:rgba(16,1,40,.55);cursor:default;z-index:5}
+.start-card{text-align:center;display:grid;gap:12px;justify-items:center;padding:16px}
+.start-card h3{font-size:clamp(30px,4vw,44px);color:var(--yellow)}
+.start-card p{max-width:40ch;font-size:15px}
+.controls{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;align-items:center}
+.controls .note{font-size:13px;color:var(--muted);flex:1 1 220px}
+
+/* альбом */
+.album{background:linear-gradient(180deg,var(--purple),#4a04b8);border-radius:16px;padding:16px;box-shadow:0 -24px 204px -70px var(--glow)}
+.album h3{font-size:30px;color:var(--text);display:flex;justify-content:space-between;align-items:baseline}
+.album h3 small{font:500 13px/1 var(--body);text-transform:none;color:var(--yellow-2)}
+.set{margin-top:12px}
+.set-h{display:flex;justify-content:space-between;align-items:baseline;font:800 17px/1 var(--display);text-transform:uppercase;letter-spacing:.03em;color:var(--yellow);margin-bottom:6px}
+.set-h em{font:500 11px/1 var(--body);font-style:normal;color:var(--text);opacity:.8;text-transform:none}
+.set.complete .set-h em{color:var(--green);opacity:1;font-weight:700}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.card{aspect-ratio:3/4;border-radius:8px;background:rgba(16,1,40,.45);border:1.5px solid rgba(249,245,255,.14);display:grid;grid-template-rows:1fr auto;overflow:hidden;position:relative}
+.card .pic{display:grid;place-items:center;padding:6px;min-height:0}
+.card .pic img,.card .pic svg{max-width:100%;max-height:100%;object-fit:contain}
+.card .nm{font:700 9.5px/1.15 var(--body);text-align:center;padding:4px 3px 5px;background:rgba(16,1,40,.5)}
+.card.locked .pic{opacity:.35;font:800 26px/1 var(--display);color:var(--muted)}
+.card.locked .nm{color:var(--muted)}
+.card.got{background:linear-gradient(180deg,#f3dfa9,#d9a85a);border-color:var(--yellow)}
+.card.got .nm{background:var(--wood);color:var(--yellow)}
+.card.new{animation:pop .5s cubic-bezier(.2,1.6,.4,1)}
+@keyframes pop{0%{transform:scale(.6) rotate(-6deg)}100%{transform:none}}
+.goldslot{margin-top:12px;display:grid;grid-template-columns:64px 1fr;gap:12px;align-items:center;border:1.5px dashed var(--gold);border-radius:12px;padding:8px 10px;font-size:13px}
+.goldslot .pic{width:64px;height:64px;border-radius:8px;background:rgba(16,1,40,.5);display:grid;place-items:center;overflow:hidden}
+.goldslot .pic img{width:100%;filter:brightness(0) opacity(.4)}
+.goldslot.got{border-style:solid;background:rgba(245,181,78,.15)}
+.goldslot.got .pic img{filter:sepia(1) saturate(3) brightness(1.2)}
+.goldslot b{color:var(--gold);font:800 18px/1 var(--display);text-transform:uppercase;display:block;margin-bottom:2px}
+
+/* модалка DS */
+.modal-bg{position:fixed;inset:0;background:rgba(8,10,12,.72);display:grid;place-items:center;z-index:50;padding:16px}
+.modal{position:relative;width:min(380px,100%);background:linear-gradient(180deg,var(--purple),var(--purple-2));border-radius:16px;padding:22px 20px 14px;text-align:center;box-shadow:0 -24px 204px -70px var(--glow);overflow:hidden}
+.modal .x{position:absolute;right:10px;top:8px;background:none;border:0;color:var(--text);font:800 26px/1 var(--display);cursor:pointer;padding:6px}
+.modal img.icon{width:120px;height:auto;margin:0 auto 8px;display:block}
+.modal h3{font-size:36px;color:var(--text)}
+.modal p{font-size:15px;margin:8px 0 14px}
+.modal .row{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;background:rgba(16,1,40,.35);border-radius:12px;padding:10px;margin-bottom:14px;font:800 22px/1 var(--display)}
+.modal .row span{display:flex;align-items:center;gap:6px}
+.modal .row img{width:24px;height:24px}
+.modal .btn{width:100%;justify-content:center}
+.modal .close{display:block;margin:10px auto 0;background:none;border:0;color:var(--text);font:800 18px/1 var(--display);text-transform:uppercase;cursor:pointer;padding:6px}
+.confetti{position:absolute;inset:0;pointer-events:none}
+
+/* путь */
+.steps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;counter-reset:s}
+.step{counter-increment:s;background:var(--bg);border-radius:16px;padding:16px;border:1px solid var(--line)}
+.step::before{content:counter(s);font:800 54px/.8 var(--display);color:var(--green);display:block;margin-bottom:10px}
+.step h3{font-size:26px;color:var(--yellow);margin-bottom:6px}
+.step p{font-size:14.5px}
+
+/* календарь */
+.cal{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px}
+.day{border-radius:12px;background:var(--bg-2);padding:12px 12px 14px;border:1px solid var(--line);min-width:0}
+.day .d{font:800 34px/.85 var(--display);color:var(--text)}
+.day .d small{font-size:.5em;color:var(--muted);margin-left:4px}
+.day .sp{font:800 19px/1 var(--display);text-transform:uppercase;color:var(--yellow);margin:8px 0 4px}
+.day .set-tag{display:inline-block;font:700 10px/1 var(--body);text-transform:uppercase;letter-spacing:.06em;padding:4px 6px;border-radius:4px;background:var(--bg-3)}
+.day p{font-size:13px;margin-top:6px;color:var(--muted)}
+.day.peak{background:linear-gradient(180deg,#3c0a8d,var(--bg-2));border-color:var(--yellow)}
+.day.peak .d{color:var(--yellow)}
+.day.fin{background:linear-gradient(180deg,#4b3410,var(--bg-2));border-color:var(--gold)}
+.day.fin .d{color:var(--gold)}
+.tl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.tl-day{background:var(--bg);border-radius:16px;padding:18px 18px 8px;border-top:4px solid var(--green)}
+.tl-day.gold{border-top-color:var(--gold)}
+.tl-day h3{font-size:30px;color:var(--yellow);margin-bottom:8px}
+.tl-day.gold h3{color:var(--gold)}
+.tl-day ol{list-style:none;margin:0;padding:0}
+.tl-day li{display:grid;grid-template-columns:88px minmax(0,1fr);gap:12px;padding:10px 0;border-bottom:1px solid var(--line);font-size:14.5px}
+.tl-day li:last-child{border-bottom:0}
+.tl-day time{font:800 26px/.9 var(--display);color:var(--text);font-variant-numeric:tabular-nums}
+.tl-day time small{display:block;font:500 11px/1.2 var(--body);color:var(--muted);margin-top:4px}
+.tl-day li b{display:block;font:800 19px/1 var(--display);text-transform:uppercase;margin-bottom:3px}
+.tl-day li.sky b{color:#8fd3ff}.tl-day li.herd b{color:var(--yellow)}.tl-day li.lion b{color:var(--gold)}.tl-day li.ops b{color:var(--green)}
+.rh{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.rh li{display:grid;grid-template-columns:110px minmax(0,1fr);gap:16px;padding:14px 16px;border-radius:12px;background:var(--bg-2);font-size:15px}
+.rh li span:first-child{font:800 22px/1 var(--display);text-transform:uppercase;color:var(--green)}
+.box.alarm{border-left:4px solid var(--pink)}
+.box.alarm h3{color:var(--pink)}
+
+/* таблицы */
+.tbl{overflow-x:auto;border-radius:16px;background:var(--bg)}
+table{border-collapse:collapse;width:100%;min-width:660px;font-size:15px}
+th,td{padding:12px 14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{font:800 17px/1 var(--display);text-transform:uppercase;letter-spacing:.04em;color:var(--yellow);background:var(--bg-3)}
+td.n{white-space:nowrap;font-weight:700;font-variant-numeric:tabular-nums}
+tfoot td{background:var(--bg-3);font-weight:700}
+.prop{display:inline-block;font:800 15px/1 var(--display);text-transform:uppercase;letter-spacing:.06em;background:var(--pink);color:var(--text);padding:5px 8px 3px;border-radius:4px;vertical-align:middle}
+.limits{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:16px}
+.limits div{background:var(--bg-3);border-radius:12px;padding:14px;font-size:14.5px}
+.limits b{display:block;font:800 21px/1 var(--display);text-transform:uppercase;color:var(--green);margin-bottom:6px}
+
+/* общие блоки */
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.box{background:var(--bg-2);border-radius:16px;padding:18px}
+section.alt .box{background:var(--bg)}
+.box h3{font-size:28px;color:var(--yellow);margin-bottom:10px}
+.box ul{margin:0;padding-left:18px;display:grid;gap:7px;font-size:15px}
+.box.fb{border:2px solid var(--pink)}
+.box.fb h3{color:var(--pink)}
+.days{display:flex;flex-wrap:wrap;gap:12px;margin-top:16px}
+.days div{flex:1 1 170px;border-radius:12px;padding:14px;background:var(--bg-3)}
+.days b{display:block;font:800 46px/.85 var(--display);color:var(--green)}
+.days span{font-size:13.5px}
+.kpi{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.kpi div{border-radius:16px;padding:18px;background:var(--bg-2);border-bottom:4px solid var(--green)}
+.kpi b{display:block;font:800 clamp(46px,5vw,64px)/.85 var(--display);color:var(--yellow);font-variant-numeric:tabular-nums}
+.kpi span{display:block;font-size:14px;margin-top:8px}
+.lessons{display:grid;gap:8px}
+.lesson{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:20px;padding:14px 16px;border-radius:12px;background:var(--bg-2);font-size:15px}
+.lesson span:first-child{color:var(--muted)}
+.lesson span:first-child b{display:block;font:800 18px/1 var(--display);text-transform:uppercase;color:var(--pink);margin-bottom:4px}
+.q{margin:0;padding-left:22px;display:grid;gap:9px;font-size:15.5px}
+.q li::marker{font:800 18px var(--display);color:var(--green)}
+
+/* пост */
+.post{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:26px;align-items:center}
+.dc{background:#1e1f2a;border-radius:8px;padding:16px 18px;font-size:15px;line-height:1.5;color:#e3e5ea;border:1px solid rgba(255,255,255,.06)}
+.dc .who{display:flex;gap:10px;align-items:center;margin-bottom:10px}
+.dc .who i{width:38px;height:38px;border-radius:50%;background:var(--yellow) url(assets/lion-roar.png) 70% 8%/220% no-repeat;flex:none}
+.dc .who b{color:var(--yellow)}
+.dc .who small{color:#8b8f99;font-size:12px;margin-left:6px}
+.dc p+p{margin-top:10px}
+.post .art{position:relative}
+.post .art img{display:block;width:100%;height:auto}
+footer{padding-block:28px 44px;color:var(--muted);font-size:13px;border-top:1px solid var(--line)}
+
+@media (max-width:1000px){
+  .hunt-wrap{grid-template-columns:1fr}
+  .steps{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .cal{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .kpi{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:720px){
+  .hero{min-height:0}
+  .hero .wrap{grid-template-columns:1fr;padding-block:48px 28px}
+  .hero-lion{max-width:240px;justify-self:center}
+  .split,.grid3,.grid2,.post,.limits,.tl{grid-template-columns:1fr}
+  .rh li{grid-template-columns:1fr;gap:4px}
+  .tl-day li{grid-template-columns:72px minmax(0,1fr)}
+  .steps{grid-template-columns:1fr}
+  .cal{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .lesson{grid-template-columns:1fr;gap:4px}
+  .topbar span{display:none}
+  section{padding-block:50px}
+  .hud{font-size:16px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div class="topbar"><div class="wrap"><img src="assets/logo.png" alt="Jumanza" width="700" height="176"><span>Safari Club · Season concept</span></div></div>
+
+<header class="hero">
+  <canvas id="fw" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div>
+      <span class="kick">Рождество 1+1 в Safari Club · предложение</span>
+      <h1>The Great Winter Migration<small>25–26 Dec · Jumanza</small></h1>
+      <p class="slogan">Six travelers on Christmas Day. <b>The Golden Lion the day after.</b></p>
+      <div class="hero-dates">
+        <span><b>25.12</b>День миграции, весь день ET</span>
+        <span><b>26.12 · 14:00</b>Час Золотого льва, ET</span>
+        <span><b>07.12</b>go / no-go по MVP</span>
+      </div>
+    </div>
+    <img class="hero-lion" src="assets/lion-roar.png" alt="Лев Jumanza в золотом свете" width="600" height="661">
+  </div>
+</header>
+
+<main>
+<section id="idea">
+  <div class="wrap">
+    <div class="hd"><h2>Идея</h2><p>Формат 1+1: Рождество и день после. Праздничный слой поверх фотоохоты Safari Club, а не отдельная игра.</p></div>
+    <div class="split">
+      <div>
+        <p class="lede">В декабре в саванну правда прилетают гости с севера: белые аисты, ласточки, амурские кобчики. А стада гну и зебр уходят на южные пастбища. <b>25 декабря, в День миграции</b>, в фотоохоте Safari Club появляются <b>6 мигрирующих видов</b>. Снимок кладёт карточку в <b>праздничный альбом</b>, сет из трёх даёт Jumz и промокод. <b>26 декабря</b> на один час открывается <b>Час Золотого льва</b>: шанс встретить его в объективе в тысячи раз выше обычного.</p>
+        <p class="owner">Ведёт бренд: <b>Александр</b>. Ивент живёт в категории 🐾 Safari Club в Discord Jumanza.</p>
+        <div class="dep">
+          <h3>Только если MVP Safari Club готов. Решение 07.12</h3>
+          Сейчас в <code>safari-club/app/</code> готовы только конфиг, правила и схема БД. Логина, серверной охоты, зоопарка и деплоя ещё нет, арт pack-1 в работе. Критерии go на <b>07.12</b>: MVP в проде хотя бы по ссылке с Discord-логином (Activity не обязательна), охота и зоопарк считаются на сервере, к 18.12 можно провести репетицию. Не готов → <b>Jumanza пропускает Рождество</b>. Бот-фолбэк не делаем: альбом через бота занял бы около 3 дней поверх ещё не задеплоенного Flash Drop bot и повторил бы механику CoinsMania.
+        </div>
+      </div>
+      <div class="why">
+        <div><img src="assets/badge-elephant.png" alt="" width="260" height="264"><span>Бренд и так про сафари и Африку, а у Safari Club уже есть фотоохота с альбомом («Already in your album»). Ивент просто наполняет его.</span></div>
+        <div><img src="assets/badge-lion.png" alt="" width="260" height="264"><span>Золотой лев уже придуман: шанс 0,00003% за спавн, не покупается, сразу в зоопарк. На 26.12 даём ему один час славы.</span></div>
+        <div><img src="assets/token-paw.png" alt="" width="200" height="200"><span>Часть наград идёт в Jumz, валюте игры. Ивент прогревает экономику зоопарка сразу после запуска.</span></div>
+        <div><img src="assets/badge-buffalo.png" alt="" width="260" height="264"><span>Никакой другой бренд не делает коллекцию. Тут нет скорости и топа, есть альбом, который хочется закрыть.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="hunt" class="alt">
+  <div class="wrap">
+    <div class="hd"><h2>Мини-фотоохота</h2><p>Демо одного раунда: 8 кадров, 40 секунд. Наведи видоискатель на животное и нажми. Зебра и аисты — мигранты Дня миграции, бегемот — местный житель, он даёт только Jumz.</p></div>
+    <div class="hunt-wrap">
+      <div>
+        <div class="stage" id="stage" aria-label="Фотоохота, демо">
+          <div class="tint"></div>
+          <canvas id="sfw" aria-hidden="true"></canvas>
+          <div id="ents"></div>
+          <img class="bushfg" src="assets/bush.png" alt="" style="left:-6%" width="420" height="268">
+          <img class="bushfg" src="assets/bush.png" alt="" style="right:-8%;transform:scaleX(-1);width:26%" width="420" height="268">
+          <div class="vf" id="vf" hidden></div>
+          <div class="flash" id="flash"></div>
+          <div class="hud"><span id="hShots">Кадры 8</span><span id="hTime">0:40</span><span><img src="assets/token-paw.png" alt="" width="200" height="200"><b id="hJ">0</b></span></div>
+          <div class="toast" id="toast" aria-live="polite"></div>
+          <div class="start" id="startScr">
+            <div class="start-card">
+              <h3 id="startTitle">Раунд 1 из 3</h3>
+              <p id="startText">25.12, День миграции: в саванне зебры, над ней пролетают белые аисты. Каждый вид в раунде засчитывается один раз.</p>
+              <button class="btn" id="startBtn" type="button">Начать охоту</button>
+            </div>
+          </div>
+        </div>
+        <div class="controls">
+          <button class="btn white" id="lionBtn" type="button" aria-pressed="false">Час Золотого льва</button>
+          <span class="note" id="lionNote">Переключает сцену на Час льва 26.12: сумерки, салют над саванной, лев выходит часто. В боевой версии шанс 1 к 400 за спавн, только этот час.</span>
+        </div>
+      </div>
+      <aside class="album" aria-label="Праздничный альбом">
+        <h3>Migration Album <small id="albCount">0 / 6</small></h3>
+        <div id="sets"></div>
+        <div class="goldslot" id="goldSlot"><div class="pic"><img src="assets/lion-roar.png" alt="" width="600" height="661"></div><div><b>Рождественский Золотой лев</b>Вне сетов. Ловится только в Час льва 26.12 и сразу живёт в твоём зоопарке.</div></div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section id="path">
+  <div class="wrap">
+    <div class="hd"><h2>Путь игрока</h2><p>Вход тот же, что у Safari Club: Activity в Discord или ссылка с Discord-логином. Отдельной регистрации на ивент нет.</p></div>
+    <div class="steps">
+      <div class="step"><h3>Field pass</h3><p>С 14.12 попап на сайте ведёт в игру. Discord-логин с guilds.join сам добавляет на сервер. Кто вошёл до 24.12, получает +1 раунд в День миграции.</p></div>
+      <div class="step"><h3>25.12</h3><p>4 раунда фотоохоты вместо 3 (с Field pass 5). В саванне 6 мигрантов. В 12:00, 16:00 и 20:00 ET пролёт стай: птиц в 3 раза больше.</p></div>
+      <div class="step"><h3>Альбом</h3><p>Первый снимок вида кладёт карточку. Повторный даёт только Jumz. Карточки не продаются и не передаются.</p></div>
+      <div class="step"><h3>Сеты</h3><p>2 сета по 3 вида. Сет закрыт → 300 Jumz и промокод в ЛС от бота, автоматически.</p></div>
+      <div class="step"><h3>26.12</h3><p>14:00–15:00 ET Час Золотого льва: раунд для всех, полный альбом даёт второй. 6 из 6 → билет в розыгрыш в 15:30 ET.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="calendar" class="alt">
+  <div class="wrap">
+    <div class="hd"><h2>Таймлайн по часам</h2><p>Время ET, рядом Киев. 25.12 в Украине выходной: всё по расписанию, коды уходят сами. Дежурный нужен только на Час льва 26.12.</p></div>
+    <div class="tl">
+      <div class="tl-day"><h3>Пт 25.12 · День миграции</h3><ol id="tl1"></ol></div>
+      <div class="tl-day gold"><h3>Сб 26.12 · Час Золотого льва</h3><ol id="tl2"></ol></div>
+    </div>
+  </div>
+</section>
+
+<section id="prizes">
+  <div class="wrap">
+    <div class="hd"><h2>Призы <span class="prop">предложение</span></h2><p>Всё гарантированное раздаётся за сеты, без топов. Крупное разыгрывается между закрывшими альбом.</p></div>
+    <div class="tbl"><table>
+      <thead><tr><th>Уровень</th><th>Как получить</th><th>Награда</th><th>Кодов (оценка / потолок)</th></tr></thead>
+      <tbody>
+        <tr><td>Сет закрыт</td><td>3 вида одного сета 25.12, за каждый из 2 сетов</td><td class="n">300 Jumz + 2 FP + 25K GC</td><td class="n">~250 / 300</td></tr>
+        <tr><td>Альбом 6/6</td><td>Все 6 видов до 23:59 ET 25.12</td><td class="n">Билет в розыгрыш + 2-й раунд в Час льва</td><td class="n">—</td></tr>
+        <tr><td>Золотой лев</td><td>Пойман в Час льва 26.12, 1 на человека</td><td class="n">Лев в зоопарк + 5 SC + 5 FP + 100K GC</td><td class="n">~15 / 20</td></tr>
+        <tr><td>Розыгрыш, 1 место</td><td>Среди закрывших альбом, 26.12 15:30 ET</td><td class="n">25 SC + 25 FP + 2.5M GC</td><td class="n">1</td></tr>
+        <tr><td>Розыгрыш, 2 место</td><td>Тот же розыгрыш</td><td class="n">10 SC + 10 FP + 1M GC</td><td class="n">2</td></tr>
+        <tr><td>Розыгрыш, 3 место</td><td>Тот же розыгрыш</td><td class="n">5 SC + 5 FP + 500K GC</td><td class="n">3</td></tr>
+      </tbody>
+      <tfoot><tr><td colspan="2">Бюджет при ~250 игроках · в скобках потолок пулов</td><td class="n">≈ 135 SC · 635 FP · 14M GC<br>(≤ 160 SC · 760 FP · 15.5M GC)</td><td class="n">~270 / 326</td></tr></tfoot>
+    </table></div>
+    <div class="limits">
+      <div><b>Один крупный на человека</b>Поймавший льва может выиграть розыгрыш, но только одно место розыгрыша. Место переходит дальше.</div>
+      <div><b>Пулы с потолком</b>Пул кода кончился → игрок получает Jumz и отметку в альбоме. Сверх потолка бюджет не растёт.</div>
+      <div><b>Jumz без лимита</b>Jumz не стоит денег и идёт в зоопарк. Им можно щедро платить за повторы и местных зверей.</div>
+    </div>
+  </div>
+</section>
+
+<section id="tech" class="alt">
+  <div class="wrap">
+    <div class="hd"><h2>Техника</h2><p>Общий слой (логин с guilds.join, коды из xlsx, Claim prize, бот, анти-абуз, export) строится один раз для всех брендов. MVP Safari Club — отдельный проект. Ниже только механика ивента.</p></div>
+    <div class="grid3">
+      <div class="box"><h3>Берём готовое</h3><ul><li>Safari Club MVP: охота с проверкой на сервере, зоопарк, ledger, анти-альт</li><li>Правила в shared/rules.js: раунды, список видов раунда, «Already in your album»</li><li>Golden Lion уже в правилах, меняем только шанс на час</li><li>Общий слой: выдача кодов в ЛС, потолки пулов, /export</li></ul></div>
+      <div class="box"><h3>Пишем для Jumanza</h3><ul><li>6 видов-мигрантов с окном 25.12 и пролётами стай по часам</li><li>Доп. раунды: 4 на 25.12, +1 за Field pass, лев-раунд(ы) 26.12</li><li>Альбом, 2 сета, хук на выдачу кода</li><li>Окно Часа льва по ET, шанс 1/400, лимит 1 на человека, список для розыгрыша</li><li>Баннер ивента на экране Safari Club</li></ul></div>
+      <div class="box"><h3>Нужно от людей</h3><ul><li>Александр: ОК на виды и бюджет до 20.11, решение go/no-go 07.12</li><li>Арт в стиле B: гну, газель, аист, ласточка, кобчик + золотой лев (pack-1)</li><li>Коды в админке Jumanza по таблице, до 14.12</li><li>Дежурный на Час льва 26.12</li><li>Правила: No purchase necessary, 21+, US</li></ul></div>
+    </div>
+    <div class="days">
+      <div><b>3</b><span>дня на механику ивента поверх готового MVP</span></div>
+      <div><b>1,5</b><span>дня на арт: 5 видов во Flow + рамка карточки</span></div>
+      <div><b>07.12</b><span>go / no-go по MVP</span></div>
+      <div><b>18.12</b><span>генеральная репетиция</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="rehearsal">
+  <div class="wrap">
+    <div class="hd"><h2>Репетиция</h2><p>Один день не прощает ошибок. Оба дня прогоняем на тестовом стенде за неделю, со сжатым временем.</p></div>
+    <ol class="rh">
+      <li><span>до 11.12</span><span>Механика на стенде с подменой даты. Плейтест на 5 людях: калибруем частоту мигрантов (сет за 2 раунда реален) и анти-чит по живым данным.</span></li>
+      <li><span>Пт 18.12</span><span>Генеральный прогон: День миграции сжат в 1 час (пролёты раз в 15 минут), Час льва в 10 минут с шансом 1/40. 6–8 тестеров в Activity и по ссылке. Проверяем доп. раунды, альбом, выдачу кодов, потолки пулов, лимит на льва, /export, скрипт розыгрыша. Нагрузка: 300 одновременных игроков скриптом.</span></li>
+      <li><span>Сб 19.12</span><span>Чиним найденное. Прогоняем План Б: роняем сервис посреди раунда и проверяем, что раунд и альбом не теряются.</span></li>
+      <li><span>Пн 21.12</span><span>Код заморожен, деплой в прод с ОК Александра, коды загружены, окна выставлены по ET.</span></li>
+      <li><span>Чт 24.12</span><span>Смоук на проде тестовым аккаунтом. Бродкаст «Tomorrow the herds arrive».</span></li>
+    </ol>
+  </div>
+</section>
+
+<section id="planb" class="alt">
+  <div class="wrap">
+    <div class="hd"><h2>План Б</h2><p>Что делаем, если что-то падает в день ивента. Посты для каждого случая пишем заранее.</p></div>
+    <div class="grid2">
+      <div class="box alarm"><h3>Safari Club упал 25.12</h3><ul><li>Короткий сбой: раунд, прерванный падением, возвращается игроку</li><li>Дольше часа: День миграции продлеваем до 26.12 13:00 ET, до Часа льва</li><li>Дольше 6 часов: весь ивент сдвигаем на 26–27.12, пост готов</li></ul></div>
+      <div class="box alarm"><h3>Сбой в Час льва 26.12</h3><ul><li>Пойманные львы уже в базе и не теряются</li><li>Час повторяем 27.12 в 14:00 ET для всех, кто не успел сыграть</li><li>Розыгрыш по /export, дежурный проводит его вручную</li></ul></div>
+      <div class="box alarm"><h3>Activity не открывается</h3><ul><li>Пост со ссылкой на веб-версию: тот же аккаунт, тот же альбом</li><li>Баннер на сайте ведёт сразу на ссылку</li></ul></div>
+      <div class="box alarm"><h3>Коды не дошли</h3><ul><li>/export → список «кому что», дежурный рассылает 27–28.12</li><li>Пост «codes are on the way, nothing is lost»</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section id="promo">
+  <div class="wrap">
+    <div class="hd"><h2>Промо</h2><p>Главный канал — попап и баннер на сайте, как показал Halloween. Ивент длится 2 дня: кто не узнал заранее, тот пропустил.</p></div>
+    <div class="grid2">
+      <div class="box"><h3>План</h3><ul>
+        <li><b>14.12 Field pass:</b> попап и баннер на сайте ведут в Safari Club. Вошёл до 24.12 → +1 раунд в День миграции. Тизер: силуэты стаи, «Something is flying south».</li>
+        <li><b>18–20.12 анонс:</b> бродкаст, пост в Discord и FB.</li>
+        <li><b>24.12:</b> бродкаст и ЛС «Tomorrow the herds arrive».</li>
+        <li><b>25.12:</b> ЛС от бота перед каждым пролётом стай (12:00, 16:00, 20:00 ET).</li>
+        <li><b>26.12:</b> утром бродкаст, в 13:45 ET отсчёт к Часу льва в Discord и на сайте.</li>
+      </ul></div>
+      <div class="box"><h3>Как приводим новых</h3><ul>
+        <li><b>Вход прямо с сайта:</b> попап → игра → логин сам добавляет в Discord.</li>
+        <li><b>Проводник:</b> друг зашёл по твоей ссылке до 24.12 → у вас обоих +300 Jumz, когда он сделает первый снимок 25.12. До 3 друзей, только аккаунты старше 30 дней.</li>
+        <li><b>Час льва открыт всем:</b> даже кто пропустил 25.12, может прийти 26.12 за львом.</li>
+      </ul></div>
+    </div>
+  </div>
+</section>
+
+<section id="lessons" class="alt">
+  <div class="wrap">
+    <div class="hd"><h2>Анти-абуз и уроки Halloween</h2></div>
+    <div class="lessons">
+      <div class="lesson"><span><b>Один забрал 11 из 12 мест</b>Одинаковые конкурсы и скорость</span><span>Топов нет. Всё за сеты, крупное в розыгрыше, одно место розыгрыша на человека, лев 1 на человека.</span></div>
+      <div class="lesson"><span><b>119 не нажали Join</b>Скрытый шаг</span><span>guilds.join при логине. Если не вышло, игра говорит, что делать, без голой 403.</span></div>
+      <div class="lesson"><span><b>Флаги били по своим</b>Слишком строгий анти-чит</span><span>Очки считает сервер по seed и действиям клиента (так уже задумано в MVP). Пороги «нечеловеческой» скорости калибруем на плейтесте.</span></div>
+      <div class="lesson"><span><b>9% новых</b>Слабое привлечение</span><span>Вход с сайта и Проводник за Jumz, а не за коды. Альтам фармить нечего.</span></div>
+      <div class="lesson"><span><b>Ручной аппрув тормозил</b>Стафф — узкое место</span><span>Коды за сеты и льва уходят ботом сами. 25.12 в Украине выходной, руками только розыгрыш 26.12.</span></div>
+      <div class="lesson"><span><b>Один день</b>Второго шанса нет</span><span>Репетиция 18.12, План Б с продлением окна, раунд при сбое возвращается игроку.</span></div>
+      <div class="lesson"><span><b>Альты</b>Новая точка абуза</span><span>Карточки не передаются, коды только аккаунтам старше 30 дней, анти-альт и ledger из MVP.</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="kpi">
+  <div class="wrap">
+    <div class="hd"><h2>Цели</h2><p>Ориентиры, не факты. Базу сверить с активностью Discord Jumanza в ноябре.</p></div>
+    <div class="kpi">
+      <div><b>400</b><span>Field pass: вошли в Safari Club до 24.12</span></div>
+      <div><b>250</b><span>сделали хотя бы 1 снимок 25.12</span></div>
+      <div><b>60%</b><span>вернулись 26.12 на Час льва</span></div>
+      <div><b>+80</b><span>новых в Discord, ~270 кодов, 30% закрыли альбом</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="risks" class="alt">
+  <div class="wrap">
+    <div class="hd"><h2>Риски и вопросы</h2></div>
+    <div class="grid2">
+      <div class="box"><h3>Риски</h3><ul>
+        <li><b>MVP не успевает.</b> Главный риск. Решение 07.12; no-go → Jumanza пропускает Рождество, арт и механика не пропадают.</li>
+        <li><b>Activity не верифицирована.</b> Не блокер: тот же код работает по ссылке с Discord-логином.</li>
+        <li><b>Арт 5 видов.</b> Птицы в полёте для Flow новые. Закладываем 1,5 дня и реролл.</li>
+        <li><b>Свежий сервис в праздник.</b> MVP выходит за 1–2 недели до ивента. Поэтому репетиция с нагрузкой и План Б обязательны.</li>
+        <li><b>Юридическое.</b> Розыгрыш = sweepstakes: правила, бесплатный вход, без покупки.</li>
+      </ul></div>
+      <div class="box"><h3>Вопросы к Александру</h3><ol class="q">
+        <li>Критерии go на 07.12 (MVP в проде по ссылке, охота и зоопарк на сервере, репетиция 18.12 возможна) ок? Решаешь ты?</li>
+        <li>Если no-go: переносим «Migration» стартовым ивентом Safari Club на январь, или просто откладываем?</li>
+        <li>Бюджет ≈ 135 SC (потолок 160) ок?</li>
+        <li>Час льва 26.12 в 14:00–15:00 ET (21:00 Киев) или ближе к вечеру США, 20:00 ET (03:00 Киев)?</li>
+        <li>Пойманный 26.12 лев остаётся в зоопарке навсегда, как обычный Golden Lion?</li>
+        <li>Jumz-иконка: берём бронзовую монету с лапой из стиль-теста?</li>
+        <li>6 видов ок, или взять часть животных из pack-1, чтобы рисовать меньше?</li>
+      </ol></div>
+    </div>
+  </div>
+</section>
+
+<section id="post">
+  <div class="wrap">
+    <div class="hd"><h2>Анонс в Discord</h2><p>Голосом льва Jumanza. Публикация 18.12 в #announcements и в Safari Club.</p></div>
+    <div class="post">
+      <div class="dc">
+        <div class="who"><i aria-hidden="true"></i><div><b>Jumanza</b><small>#announcements</small></div></div>
+        <div id="postText">
+<p>Roar. That's lion for "charge your camera" 📸</p>
+<p>Something is flying south. On <b>Christmas Day</b>, six winter travelers arrive in the Safari Club savanna: storks from the north, herds on the move, a few birds I can never catch myself. You get an extra round that day, two if you log in before Dec 24.</p>
+<p>Snap each one in the Photo Hunt to fill your <b>Migration Album</b>. Finish a set of three and you get <b>300 Jumz plus a promo code</b>, straight to your DMs.</p>
+<p>And on <b>December 26, from 2 to 3 PM ET</b>, I'll be out there myself. Golden. Rare. Faster than you think. Catch me and I move into your zoo for good.</p>
+<p>Full album = a ticket to the draw at 3:30 PM ET. See you in the grass.</p>
+<p><small>No purchase necessary. 21+. US only. Full rules in #safari-club.</small></p>
+        </div>
+      </div>
+      <div class="art"><img src="assets/safari-4x4.png" alt="Сафари-внедорожник Safari Club" width="600" height="330"></div>
+    </div>
+  </div>
+</section>
+</main>
+<footer><div class="wrap">Концепт для Александра · Рождество 25–26.12.2026, формат 1+1 · Jumanza · все цифры — предложение · 02.11.2026</div></footer>
+
+<div id="modalRoot"></div>
+
+<script>
+(()=>{
+const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const $=id=>document.getElementById(id);
+
+/* ---------- салют (hero и ночная сцена) ---------- */
+function fireworks(cv,density){
+  const cx=cv.getContext('2d');let W=0,H=0,parts=[],on=true;
+  const cols=['#F1D627','#49F623','#FF2172','#F9F5FF','#F5B54E','#0FE58B'];
+  function size(){const r=cv.getBoundingClientRect(),d=devicePixelRatio||1;W=r.width;H=r.height;cv.width=W*d;cv.height=H*d;cx.setTransform(d,0,0,d,0,0)}
+  function burst(){const x=W*(.15+Math.random()*.7),y=H*(.12+Math.random()*.4),c=cols[Math.random()*cols.length|0],n=34;
+    for(let i=0;i<n;i++){const a=i/n*Math.PI*2,s=1.2+Math.random()*1.8;parts.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s,l:1,c})}}
+  let last=0;
+  function tick(t){if(!on){cx.clearRect(0,0,W,H);return}
+    cx.clearRect(0,0,W,H);
+    if(t-last>density){burst();last=t}
+    parts=parts.filter(p=>p.l>0);
+    for(const p of parts){p.x+=p.vx;p.y+=p.vy;p.vy+=.025;p.vx*=.985;p.l-=.012;cx.globalAlpha=Math.max(p.l,0);cx.fillStyle=p.c;cx.fillRect(p.x,p.y,2.2,2.2)}
+    cx.globalAlpha=1;requestAnimationFrame(tick)}
+  size();addEventListener('resize',size);
+  return{start(){on=true;size();if(RM){burst();for(let k=0;k<40;k++)parts.forEach(p=>{p.x+=p.vx;p.y+=p.vy});tickStatic()}else requestAnimationFrame(tick)},stop(){on=false}};
+  function tickStatic(){cx.clearRect(0,0,W,H);for(const p of parts){cx.fillStyle=p.c;cx.fillRect(p.x,p.y,2.2,2.2)}}
+}
+fireworks($('fw'),1300).start();
+const stageFW=fireworks($('sfw'),700);stageFW.stop();
+
+/* ---------- виды и сеты ---------- */
+const STORK=`<svg viewBox="0 0 140 70" aria-hidden="true"><path d="M8 38 Q30 30 56 34 Q78 36 100 31 L132 27 L104 37 Q80 44 56 42 Q32 44 8 38Z" fill="#F9F5FF" stroke="#2a1a10" stroke-width="2"/><path d="M48 34 Q36 10 8 4 Q40 6 70 33Z" fill="#F9F5FF" stroke="#2a1a10" stroke-width="2"/><path d="M8 4 Q22 6 30 12 L20 14Z" fill="#1b1b1b"/><path d="M58 40 Q50 60 26 68 Q52 64 74 40Z" fill="#F9F5FF" stroke="#2a1a10" stroke-width="2"/><path d="M26 68 Q36 66 44 60 L36 58Z" fill="#1b1b1b"/><path d="M104 31 L138 26" stroke="#E2401B" stroke-width="4" stroke-linecap="round"/><path d="M8 38 L-4 44" stroke="#E2401B" stroke-width="3"/></svg>`;
+const SETS=[
+  {id:'herd',name:'Great Migration',reward:'300 Jumz + 2 FP + 25K GC',sp:[['zebra','Plains Zebra','частый'],['wildebeest','Blue Wildebeest','частый'],['gazelle','Thomson\'s Gazelle','редкий']]},
+  {id:'sky',name:'Northern Guests',reward:'300 Jumz + 2 FP + 25K GC',sp:[['stork','White Stork','в пролёт'],['swallow','Barn Swallow','в пролёт'],['falcon','Amur Falcon','редкий']]}
+];
+const ART={zebra:'<img src="assets/zebra.png" alt="" width="520" height="474">',stork:STORK,
+  elephant:'<img src="assets/badge-elephant.png" alt="" width="260" height="264">',buffalo:'<img src="assets/badge-buffalo.png" alt="" width="260" height="264">'};
+const album=new Set(); let gotLion=false;
+function renderAlbum(newId){
+  $('sets').innerHTML=SETS.map(s=>{const done=s.sp.every(([k])=>album.has(k));
+    return `<div class="set ${done?'complete':''}"><div class="set-h">${s.name}<em>${done?'Сет закрыт ✓':s.reward}</em></div><div class="cards">${
+      s.sp.map(([k,n,d])=>album.has(k)?`<div class="card got ${k===newId?'new':''}"><div class="pic">${ART[k]||''}</div><div class="nm">${n}</div></div>`
+        :`<div class="card locked"><div class="pic">?</div><div class="nm">${n}<br>${d}</div></div>`).join('')}</div></div>`}).join('');
+  $('albCount').textContent=`${album.size} / 6`;
+  $('goldSlot').classList.toggle('got',gotLion);
+}
+renderAlbum();
+
+/* ---------- охота ---------- */
+const stage=$('stage'),ents=$('ents'),vf=$('vf');
+const TYPES={
+  zebra:{w:16,y:[58,66],speed:[5.5,8],html:'<img src="assets/zebra.png" alt="" width="520" height="474">',album:true,name:'Plains Zebra',pts:60},
+  hippo:{w:15,y:[66,72],speed:[3.5,5],html:'<img src="assets/hippo.png" alt="" width="520" height="308">',album:false,name:'Hippo',pts:40},
+  stork:{w:7,y:[12,30],speed:[9,12],html:STORK,album:true,name:'White Stork',pts:90,flock:3},
+  lion:{w:19,y:[54,60],speed:[11,14],html:'<img src="assets/lion-roar.png" alt="" width="600" height="661">',album:false,name:'Golden Lion',pts:5000,golden:true}
+};
+let G=null, night=false, raf=0;
+function rnd(a,b){return a+Math.random()*(b-a)}
+function spawn(type,dx=0,dy=0){
+  const T=TYPES[type],dir=type==='stork'?1:(Math.random()<.5?1:-1);
+  const el=document.createElement('div');el.className='ent'+(dir<0?' flip':'')+(T.golden?' golden':'');
+  el.style.width=T.w+'%';el.innerHTML=T.html;
+  if(type==='stork')el.style.animation='none';
+  const y=rnd(...T.y)+dy;el.style.top=y+'%';el.style.zIndex=Math.round(y);
+  const x0=dir>0?-T.w-dx:100+dx;el.style.left='0';el.style.transform=`translateX(${x0*stage.clientWidth/100}px)`;
+  ents.appendChild(el);
+  G.ents.push({el,type,dir,x:x0,v:rnd(...T.speed),w:T.w});
+}
+function spawnTick(){
+  if(night&&Math.random()<.35)return spawn('lion');
+  const r=Math.random();
+  if(r<.45)spawn('zebra');else if(r<.7)spawn('hippo');else{for(let i=0;i<TYPES.stork.flock;i++)spawn('stork',i*8,(i%2)*5)}
+}
+function toast(msg){const t=$('toast');t.innerHTML=msg;t.classList.add('on');clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.remove('on'),1500)}
+function hud(){$('hShots').textContent='Кадры '+G.shots;const s=Math.max(0,Math.ceil(G.time));$('hTime').textContent='0:'+String(s).padStart(2,'0');$('hJ').textContent=G.j}
+function loop(t){
+  if(!G||!G.on)return;
+  const dt=Math.min(.05,(t-(G.t||t))/1000);G.t=t;G.time-=dt;G.next-=dt;
+  if(G.next<=0){spawnTick();G.next=rnd(1.3,2.2)}
+  for(const e of G.ents){e.x+=e.dir*e.v*dt;e.el.style.transform=`translateX(${e.x*stage.clientWidth/100}px)`;e.el.style.left='0'}
+  G.ents=G.ents.filter(e=>{const out=e.x<-e.w-30||e.x>130;if(out)e.el.remove();return !out});
+  hud();
+  if(G.time<=0||G.shots<=0){endRound();return}
+  raf=requestAnimationFrame(loop);
+}
+let round=1;
+function startRound(){
+  ents.innerHTML='';G={on:true,ents:[],shots:8,time:40,next:.2,j:0,seen:new Set(),newCards:[],t:0};
+  $('startScr').hidden=true;vf.hidden=false;hud();spawn('zebra');raf=requestAnimationFrame(loop);
+}
+function endRound(){
+  G.on=false;cancelAnimationFrame(raf);vf.hidden=true;
+  const nc=G.newCards;
+  showModal({icon:'assets/token-paw.png',title:'Раунд окончен',
+    text:nc.length?`Новые карточки: ${nc.join(', ')}.`:'Новых карточек нет, но Jumz твои.',
+    row:`<span><img src="assets/token-paw.png" alt="">+${G.j} Jumz</span>`,cta:round<3?'Следующий раунд':'Ещё раз (демо)'});
+  round=round<3?round+1:1;
+  $('startTitle').textContent=`Раунд ${round} из 3`;$('startScr').hidden=false;
+}
+function shoot(px,py){
+  if(!G||!G.on)return;
+  G.shots--;const f=$('flash');f.classList.remove('go');void f.offsetWidth;f.classList.add('go');
+  const sr=stage.getBoundingClientRect(),R=sr.width*.085+10;let best=null,bd=1e9;
+  for(const e of G.ents){const b=e.el.getBoundingClientRect();const cx=b.left+b.width/2,cy=b.top+b.height/2;const d=Math.hypot(cx-px,cy-py);
+    if(d<R+b.width*.25&&d<bd){bd=d;best=e}}
+  if(!best){toast('Мимо, только трава');hud();return}
+  const T=TYPES[best.type];
+  if(best.type==='lion'){
+    if(!gotLion){gotLion=true;renderAlbum();G.j+=T.pts;hud();best.el.remove();G.ents=G.ents.filter(x=>x!==best);
+      G.on=false;cancelAnimationFrame(raf);
+      showModal({icon:'assets/lion-roar.png',golden:true,title:'Golden Lion!',text:'Рождественский Золотой лев переезжает в твой зоопарк. Код придёт в ЛС от бота.',
+        row:`<span><img src="assets/coin-sc.png" alt="">5 SC</span><span><img src="assets/coin-fp.png" alt="">5 FP</span><span><img src="assets/coin-gc.png" alt="">100K GC</span>`,cta:'В зоопарк',resume:true});return}
+    toast('Лев уже в зоопарке: 1 на человека');hud();return}
+  const center=bd<R*.5;const pts=Math.round(T.pts*(center?1.5:1));
+  if(G.seen.has(best.type)){toast(`${T.name}: уже в альбоме этого раунда, +0`);hud();return}
+  G.seen.add(best.type);G.j+=pts;
+  if(T.album&&!album.has(best.type)){album.add(best.type);G.newCards.push(T.name);renderAlbum(best.type);toast(`Новая карточка: ${T.name}! +${pts}`)}
+  else if(T.album)toast(`${T.name}: карточка уже есть, +${pts} Jumz`);
+  else toast(`${T.name}: местный житель, не мигрант. +${pts} Jumz`);
+  hud();
+}
+stage.addEventListener('pointermove',e=>{const r=stage.getBoundingClientRect();vf.style.left=(e.clientX-r.left)+'px';vf.style.top=(e.clientY-r.top)+'px'});
+stage.addEventListener('pointerdown',e=>{if(e.target.closest('.start'))return;const r=stage.getBoundingClientRect();vf.style.left=(e.clientX-r.left)+'px';vf.style.top=(e.clientY-r.top)+'px';shoot(e.clientX,e.clientY)});
+$('startBtn').addEventListener('click',startRound);
+$('lionBtn').addEventListener('click',e=>{
+  night=!night;stage.classList.toggle('night',night);e.currentTarget.setAttribute('aria-pressed',night);
+  e.currentTarget.textContent=night?'Вернуть день':'Час Золотого льва';
+  $('startText').textContent=night?'26.12, 14:00 ET. Над саванной салют, Золотой лев выходит на охоту. Поймать можно один раз.':'25.12, День миграции: в саванне зебры, над ней пролетают белые аисты. Каждый вид в раунде засчитывается один раз.';
+  night?stageFW.start():stageFW.stop();
+});
+
+/* ---------- модалка в стиле DS ---------- */
+function showModal({icon,title,text,row,cta,golden,resume}){
+  const root=$('modalRoot');
+  root.innerHTML=`<div class="modal-bg"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="mT"><canvas class="confetti" id="conf"></canvas>
+    <button class="x" type="button" aria-label="Закрыть">✕</button>
+    <img class="icon" src="${icon}" alt="" style="${golden?'filter:sepia(1) saturate(3) brightness(1.2) drop-shadow(0 0 16px #ffd54a)':''}">
+    <h3 id="mT">${title}</h3><p>${text}</p><div class="row">${row}</div>
+    <button class="btn" type="button" id="mOk">${cta}</button><button class="close" type="button">Close</button></div></div>`;
+  const close=()=>{root.innerHTML='';if(resume&&G){G.on=true;G.t=0;vf.hidden=false;raf=requestAnimationFrame(loop)}};
+  root.querySelectorAll('.x,.close,#mOk').forEach(b=>b.addEventListener('click',close));
+  $('mOk').focus();
+  const cv=$('conf'),c=cv.getContext('2d');const r=cv.getBoundingClientRect();cv.width=r.width;cv.height=r.height;
+  const cols=['#58C7F3','#FF2172','#D400FF','#7724FA','#49F623','#FF9900','#F1D627'];
+  const bits=Array.from({length:70},()=>({x:Math.random()<.5?Math.random()*60:r.width-Math.random()*60,y:-Math.random()*r.height,v:1+Math.random()*2,a:Math.random()*6,c:cols[Math.random()*7|0]}));
+  (function fall(){if(!document.body.contains(cv))return;c.clearRect(0,0,r.width,r.height);
+    for(const b of bits){b.y+=b.v;b.a+=.08;if(b.y>r.height)b.y=-10;c.save();c.translate(b.x,b.y);c.rotate(b.a);c.fillStyle=b.c;c.fillRect(-3,-1.5,6,3);c.restore()}
+    if(!RM)requestAnimationFrame(fall)})();
+}
+
+/* ---------- таймлайн по часам: [ET, Киев, тип, заголовок, текст] ---------- */
+const TL1=[
+ ['00:00','07:00','herd','Стада пришли','6 мигрантов в саванне, 4 раунда (с Field pass 5). Альбом открыт.'],
+ ['10:00','17:00','ops','Бродкаст','«The herds are here», баннер на сайте.'],
+ ['12:00','19:00','sky','Пролёт стай · 1','30 минут: аисты и ласточки ×3. ЛС от бота за 10 минут.'],
+ ['16:00','23:00','sky','Пролёт стай · 2','Амурский кобчик тоже чаще.'],
+ ['20:00','03:00','sky','Пролёт стай · 3','Последний шанс на птиц.'],
+ ['23:59','06:59','ops','Альбом закрыт','Список 6/6 фиксируется для розыгрыша.']
+];
+const TL2=[
+ ['10:00','17:00','ops','Бродкаст','«The Golden Lion hunts at 2 PM ET».'],
+ ['13:45','20:45','ops','Отсчёт','Пост в Discord и баннер на сайте.'],
+ ['14:00','21:00','lion','Час Золотого льва','Лев-раунд для всех, полный альбом даёт второй. Шанс 1/400 за спавн.'],
+ ['15:00','22:00','lion','Час закрыт','Пойманные львы уже в зоопарках, коды ушли сами.'],
+ ['15:30','22:30','ops','Розыгрыш','Среди 6/6, пост в Discord, дежурный проверяет.'],
+ ['до 05.01','','ops','Выдача','Ручная проверка только розыгрыша.']
+];
+const tl=a=>a.map(([et,kv,c,h,p])=>`<li class="${c}"><time>${et}${kv?`<small>Киев ${kv}</small>`:''}</time><div><b>${h}</b>${p}</div></li>`).join('');
+$('tl1').innerHTML=tl(TL1);$('tl2').innerHTML=tl(TL2);
+})();
+</script>
+
+<a href="../" style="position:fixed;z-index:9999;left:max(12px,env(safe-area-inset-left,0px));bottom:calc(12px + env(safe-area-inset-bottom,0px));padding:8px 14px;border-radius:999px;background:rgba(11,16,32,.82);color:#E8EEFA;font:600 13px/1 system-ui,sans-serif;text-decoration:none;backdrop-filter:blur(6px);border:1px solid rgba(232,238,250,.18)">&larr; &#1042;&#1089;&#1077; &#1080;&#1074;&#1077;&#1085;&#1090;&#1099;</a>
+</body>
+</html>

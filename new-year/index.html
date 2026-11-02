@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<title>New Year Lineup 2026/27</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz:wght@400;600;700&family=Onest:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: зимняя «доска сезона» — календарь 21.12→01.01 как главный визуал, под ним 10 карточек-билетов и общие правила. Одна тёмная тема намеренно (ночь NYE). */
+:root{
+  --night:#0B1020; --night-2:#121933; --frost:#E8EEFA; --frost-dim:#9AA6C4; --rule:#26304F;
+  --ice:#9FD8FF; --gold:#F2C35B; --nye:#F2C35B;
+  --f-display:"Yanone Kaffeesatz","Arial Narrow",sans-serif; --f-body:"Onest",system-ui,sans-serif; --f-mono:"JetBrains Mono",ui-monospace,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--night);color:var(--frost);font-family:var(--f-body);font-size:15px;line-height:1.55}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+canvas#snow{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;opacity:.55;z-index:0}
+main{position:relative;z-index:1}
+header.top{padding-block:48px 24px}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ice)}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(52px,9vw,112px);line-height:.88;margin:10px 0 14px;letter-spacing:.01em;text-wrap:balance}
+h1 span{color:var(--gold)}
+.lede{max-width:66ch;color:var(--frost-dim);font-size:17px}
+.lede b{color:var(--frost);font-weight:600}
+.facts{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:22px;font-family:var(--f-mono);font-size:13px;color:var(--frost-dim)}
+.facts b{color:var(--frost);font-weight:600}
+h2{font-family:var(--f-display);font-weight:600;font-size:40px;line-height:1;margin:0 0 6px;letter-spacing:.02em}
+.sub{color:var(--frost-dim);margin:0 0 18px;max-width:70ch}
+section{padding-block:30px}
+
+/* календарь */
+.cal-scroll{overflow-x:auto;border:1px solid var(--rule);border-radius:6px;background:color-mix(in srgb,var(--night-2) 85%,transparent)}
+.cal{display:grid;grid-template-columns:150px repeat(9,minmax(64px,1fr));min-width:760px;font-size:13px}
+.cal .hd{font-family:var(--f-mono);font-size:11px;color:var(--frost-dim);padding:10px 4px;text-align:center;border-bottom:1px solid var(--rule)}
+.cal .hd b{display:block;color:var(--frost);font-size:14px}
+.cal .hd.peak{color:var(--gold)} .cal .hd.peak b{color:var(--gold)}
+.cal .name{padding:9px 12px;border-bottom:1px solid var(--rule);font-weight:600;white-space:nowrap;display:flex;align-items:center;gap:8px}
+.cal .name i{width:9px;height:9px;border-radius:50%;flex:none}
+.cal .cell{border-bottom:1px solid var(--rule);border-left:1px solid color-mix(in srgb,var(--rule) 60%,transparent);position:relative}
+.cal .cell.peak{background:color-mix(in srgb,var(--gold) 7%,transparent)}
+.bar{position:absolute;top:9px;bottom:9px;border-radius:3px;display:flex;align-items:center;padding:0 8px;font-size:11.5px;font-weight:600;color:#0B1020;white-space:nowrap;overflow:hidden;z-index:1}
+.bar .fin{margin-left:auto;font-family:var(--f-mono);font-size:10px;opacity:.75}
+
+/* билеты брендов */
+.tickets{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px}
+.ticket{position:relative;display:grid;grid-template-rows:auto 1fr auto;background:var(--night-2);border:1px solid var(--rule);border-radius:8px;overflow:hidden;min-width:0}
+.ticket::before{content:"";position:absolute;inset:0 auto 0 0;width:4px;background:var(--c)}
+.t-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 18px 10px 22px;border-bottom:1px dashed var(--rule)}
+.t-head img{height:30px;width:auto;max-width:150px;object-fit:contain}
+.t-head .wordmark{font-family:var(--f-display);font-size:26px;font-weight:700;color:var(--c);letter-spacing:.03em}
+.t-head .who{font-family:var(--f-mono);font-size:11px;color:var(--frost-dim);text-align:right}
+.t-body{padding:12px 18px 14px 22px;display:grid;gap:8px;align-content:start}
+.t-body h3{font-family:var(--f-display);font-size:32px;line-height:1;margin:0;font-weight:700;color:var(--frost)}
+.t-body .cls{font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--c)}
+.t-body p{margin:0;color:var(--frost-dim);font-size:14px}
+.t-meta{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--rule)}
+.t-meta div{padding:9px 10px 10px 22px;font-size:12px;color:var(--frost-dim);min-width:0}
+.t-meta div+div{border-left:1px solid var(--rule);padding-left:12px}
+.t-meta b{display:block;color:var(--frost);font-size:13px;font-weight:600;overflow-wrap:anywhere}
+.t-link{display:flex;justify-content:space-between;align-items:center;padding:11px 18px 12px 22px;border-top:1px solid var(--rule);font-weight:600;font-size:14px;color:var(--frost);text-decoration:none;background:color-mix(in srgb,var(--c) 10%,transparent)}
+.t-link:hover,.t-link:focus-visible{background:color-mix(in srgb,var(--c) 22%,transparent);outline:none}
+.t-link span{font-family:var(--f-mono);font-size:12px;color:var(--c)}
+.t-link.pending{color:var(--frost-dim);pointer-events:none}
+
+/* матрица */
+.mx-scroll{overflow-x:auto;border:1px solid var(--rule);border-radius:6px}
+table{border-collapse:collapse;width:100%;min-width:760px;font-size:13px}
+th,td{padding:9px 10px;border-bottom:1px solid var(--rule);text-align:left;vertical-align:top}
+th{font-family:var(--f-mono);font-size:11px;font-weight:600;color:var(--frost-dim);text-transform:uppercase;letter-spacing:.06em;background:var(--night-2)}
+td.c{text-align:center;color:var(--frost-dim)}
+td.c.on{color:var(--night);font-weight:700}
+td.c.on span{display:inline-block;min-width:22px;padding:1px 6px;border-radius:3px;background:var(--c)}
+
+/* правила */
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:0;border-top:1px solid var(--rule)}
+.rule{padding:16px 18px 16px 0;border-bottom:1px solid var(--rule);display:grid;grid-template-columns:44px 1fr;gap:6px}
+.rule .n{font-family:var(--f-display);font-size:34px;color:var(--ice);line-height:1}
+.rule h4{margin:0 0 4px;font-size:15px}
+.rule p{margin:0;color:var(--frost-dim);font-size:14px}
+.rule p b{color:var(--frost)}
+
+.plan{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.step{border:1px solid var(--rule);border-radius:6px;padding:14px 16px;background:var(--night-2)}
+.step .d{font-family:var(--f-mono);font-size:12px;color:var(--gold)}
+.step h4{margin:4px 0 6px;font-size:15px}
+.step p{margin:0;color:var(--frost-dim);font-size:13.5px}
+ol.asks{margin:0;padding-left:22px;display:grid;gap:8px;max-width:80ch}
+ol.asks li{color:var(--frost-dim)} ol.asks b{color:var(--frost)}
+footer{padding-block:30px 60px;color:var(--frost-dim);font-size:13px;font-family:var(--f-mono)}
+a{color:var(--ice)}
+@media (max-width:520px){.t-meta{grid-template-columns:1fr 1fr}.t-meta div:nth-child(3){grid-column:1/-1;border-left:0;padding-left:22px;border-top:1px solid var(--rule)}}
+@media (prefers-reduced-motion:reduce){canvas#snow{display:none}}
+</style>
+
+<canvas id="snow" aria-hidden="true"></canvas>
+<main>
+<div class="wrap">
+  <header class="top">
+    <div class="eyebrow">Рождество 25–26.12 · Новый год 31.12–01.01 · время ET</div>
+    <h1>9 брендов.<br><span>9 разных</span> праздничных ивентов.</h1>
+    <p class="lede">На Halloween у нас был один движок и одинаковые конкурсы на шесть брендов. Сейчас делаем наоборот: <b>у каждого бренда своя механика</b> из его мира. Формат короткий: <b>день праздника и один день после</b>. Пять брендов играют на Рождество, четыре — на Новый год. Общий слой (логин, коды, Claim, бот, анти-абуз) строим один раз на базе Witching Hours.</p>
+    <div class="facts">
+      <div>Регистрация <b>с 14.12</b></div><div>Репетиции <b>до 18.12 / 24.12</b></div><div>Рождество <b>25–26.12</b></div><div>Новый год <b>31.12–01.01</b></div><div>Призы до <b>05.01</b></div>
+    </div>
+  </header>
+
+  <section id="calendar">
+    <h2>Календарь сезона</h2>
+    <p class="sub">У каждого бренда два дня: в первый день основная механика, во второй финал, второй шанс или выдача. Нагрузка на команду делится на два окна, и в каждом идёт не больше пяти ивентов.</p>
+    <div class="cal-scroll"><div class="cal" id="cal"></div></div>
+  </section>
+
+  <section id="lineup">
+    <h2>Концепты по брендам</h2>
+    <p class="sub">В каждой карточке ссылка на страницу бренда: механика, путь игрока, призы, интерактивный макет, техника, промо, риски. «Разработка» — дни только на механику бренда, общий слой (≈10 дней) считается один раз отдельно.</p>
+    <div class="tickets" id="tickets"></div>
+  </section>
+
+  <section id="unique">
+    <h2>Проверка уникальности</h2>
+    <p class="sub">У каждого бренда своя основная механика (цветная ячейка). Серые точки — второстепенные элементы, которые встречаются у нескольких брендов, но ни у кого не главные.</p>
+    <div class="mx-scroll"><table id="mx"></table></div>
+  </section>
+
+  <section id="rules">
+    <h2>Общие правила из уроков Halloween</h2>
+    <p class="sub">Это правила для всех 10 ивентов, они уже заложены в концепты.</p>
+    <div class="rules">
+      <div class="rule"><div class="n">1</div><div><h4>Лимит призов на человека</h4><p>В Halloween один игрок взял 11 из 12 первых мест. Теперь в T&amp;C до старта: <b>один топ-приз на человека в день</b>, место уходит следующему. Механики разные, поэтому кросс-брендовый свип сам по себе маловероятен.</p></div></div>
+      <div class="rule"><div class="n">2</div><div><h4>Регистрация без скрытых шагов</h4><p>119 человек вошли на сайт, но не нажали Join и не смогли играть. Регистрация теперь <b>внутри основного флоу</b>, вместо ошибки показываем экран «шаг 1» с прямой ссылкой.</p></div></div>
+      <div class="rule"><div class="n">3</div><div><h4>Анти-чит по плейтесту</h4><p>Флаг «быстрее человека» ловил обычных игроков. Пороги <b>калибруем на тест-стенде</b> под каждую механику, один флаг = заметка, а не бан.</p></div></div>
+      <div class="rule"><div class="n">4</div><div><h4>Главный канал — попап на сайте</h4><p>1251 переход с попапа против 23 с FB, и только 9% участников были новыми для сервера. В каждом концепте есть <b>попап, бродкаст и механика, которая приводит новых</b>.</p></div></div>
+      <div class="rule"><div class="n">5</div><div><h4>Авто-аппрув по умолчанию</h4><p>Ручная проверка заявок тормозила старт. Стафф проверяет <b>только крупные призы</b> на выдаче.</p></div></div>
+      <div class="rule"><div class="n">6</div><div><h4>Тест-стенд и деплой</h4><p>Сначала тест-сервис с быстрым расписанием, в прод только с ОК Александра. Railway пропускает коммиты, после деплоя проверяем версию.</p></div></div>
+      <div class="rule"><div class="n">7</div><div><h4>Репетиция и план Б</h4><p>В однодневном ивенте нет права на сбой. За неделю до окна бренда — <b>полный прогон на тест-стенде</b> по реальному расписанию. На случай падения сервиса или бота у каждого бренда заранее готов план Б: пост вместо live-момента, ручная выдача по export.</p></div></div>
+      <div class="rule"><div class="n">8</div><div><h4>Праздники = выходные</h4><p>25.12 и 01.01 в Украине выходные. <b>Коды выдаются автоматически</b>, вручную проверяем только крупные призы, на окно финала дежурит один человек.</p></div></div>
+    </div>
+  </section>
+
+  <section id="plan">
+    <h2>План производства</h2>
+    <p class="sub">Сроки общие для всех брендов. Детали и оценка в днях есть на странице каждого бренда.</p>
+    <div class="plan">
+      <div class="step"><div class="d">до 09.11</div><h4>Выбор и правки</h4><p>Александр утверждает концепты, призовые бюджеты и кто ведёт каждый бренд.</p></div>
+      <div class="step"><div class="d">10.11 – 20.11</div><h4>Общий слой</h4><p>Один раз на базе Witching Hours: логин Discord с автодобавлением в сервер, коды из xlsx, Claim prize, бот, анти-абуз, export, тест-стенд.</p></div>
+      <div class="step"><div class="d">21.11 – 11.12</div><h4>Механики брендов</h4><p>Сначала рождественские (NLC, Storm, FWL, SCS, Jumanza), потом новогодние. Параллельно арт в Flow и тексты заданий.</p></div>
+      <div class="step"><div class="d">14.12 – 24.12</div><h4>Регистрация и репетиции</h4><p>Попапы на сайтах, бродкаст, Discord, FB. Полный прогон рождественских брендов до 18.12, новогодних до 24.12.</p></div>
+      <div class="step"><div class="d">25.12 – 05.01</div><h4>Два окна и выдача</h4><p>Рождество 25–26.12, Новый год 31.12–01.01. Выдача кодов до 05.01, затем общий отчёт.</p></div>
+    </div>
+  </section>
+
+  <section id="asks">
+    <h2>Что нужно решить</h2>
+    <ol class="asks" id="asks">
+      <li><b>Согласование с владельцами.</b> NLC Discord ведёт Ваня, FWL — Степан, DexyPlay скоро переходит Степану. Нужно их согласие или передача концепта.</li>
+      <li><b>Призовые бюджеты (предложения, после перехода на 2 дня).</b> Fire Seven ≈256 SC + 1 750 FP (потолок 531 SC) · Vegas 210 SC + до 670 FP · Dexy 230 SC + до 600 FP · NLC ≈350 SC + 1 400 FP · CoinsMania ≈325 SC + 500 FP · SCS ≈140 SC + 680 FP · Jumanza ≈135 SC + 635 FP · Storm ≈28 SC + 1 000 FP + Bolts · FWL ≈$200 (потолок $400). Итого около 1 700 SC на все бренды против 3–4 тыс. в 12-дневной версии.</li>
+      <li><b>Ночь по Киеву.</b> Полночь ET — это 07:00 по Киеву, вечер 31.12 ET — ночь 01.01 у нас. Нужны дежурные на ночные окна или сдвиг расписаний на более ранние часы ET.</li>
+      <li><b>Один промокод на пакет?</b> Можно ли в один код положить SC/FC + FP + GC, или на человека нужно 2–3 кода. От этого зависит объём кодов в админках.</li>
+      <li><b>Jumanza.</b> Участвует, только если MVP Safari Club готов. Решение go/no-go 07.12.</li>
+      <li><b>Юрист.</b> Розыгрыши (Vegas, Fire Seven) и конкурс прогнозов (Dexy) нужно проверить по правилам sweepstakes: бесплатное участие (AMOE), skill-конкурс.</li>
+      <li><b>Дежурства.</b> 25.12 днём (пять рождественских ивентов) и 31.12 с 23:30 до 00:30 ET (салют, сейф, коронация в полночь). Кто онлайн?</li>
+    </ol>
+  </section>
+
+  <footer>Источник: new-year-2026/BRIEF.md · концепты подготовлены 02.11.2026 · все цифры призов и сроков — предложения</footer>
+</div>
+</main>
+
+<script>
+const DAYS=["24","25","26","27","28","29","30","31","01"];
+const DOW=["чт","пт","сб","вс","пн","вт","ср","чт","пт"];
+const PEAK=new Set([1,2,7,8]);
+// from/to — индексы в DAYS (0 = 24.12, 8 = 01.01)
+const EVENTS=[
+ {slug:"fireseven",brand:"Fire Seven",c:"#D39045",name:"The Seven Seals Gala",cls:"Закрытый клуб + общий сейф",idea:"7 конвертов вечером 31.12, по одному в час с 17:00 ET. Собрал все семь печатей 777 — получил билет на Midnight Gala. В полночь золотой андроид открывает сейф, и чем больше гостей пришло, тем выше уровень для всех. 1 января выдача и розыгрыш.",from:7,to:8,fin:"01.01",base:"WH engine + загадки FWL Doors",days:"≈5.5",owner:"Александр",url:"fireseven/"},
+ {slug:"vegasway",brand:"Vegas Way",c:"#01C9FF",name:"Countdown on the Strip",cls:"Фокусы на внимательность + общий салют",idea:"Вечером 31.12 Маг показывает фокусы: напёрстки, угадай карту, исчезающая фишка. Разгадал — Арлекина запускает твою ракету. В полночь все ракеты взлетают в общем салюте над Стрипом, золотые выигрывают. 1 января Encore для тех, кто не успел.",from:7,to:8,fin:"01.01",base:"Witching Hours engine (3D)",days:"≈8",owner:"Александр",url:"vegasway/"},
+ {slug:"stormrush",brand:"Storm Rush",c:"#00CC7E",name:"Winter Storm Showdown",cls:"Командная война",idea:"25.12 выбираешь Team Golem или Team Sparky, миссии весь день заряжают шкалу команды. 26.12 реванш, итог битвы и MVP каждой команды.",from:1,to:2,fin:"26.12",base:"Модуль Rewards Rush bot",days:"≈7",owner:"Александр",url:"stormrush/"},
+ {slug:"scarletsands",brand:"Scarlet Sands",c:"#FF2058",name:"The North Star Expedition",cls:"Квест по карте",idea:"25.12 шесть подсказок из дневника исследовательницы, раз в два часа: азимут, созвездие, шифр. Ставишь пин и получаешь штамп. Кот прячет бонусы в чате Watchers. 26.12 финальная загадка оазиса.",from:1,to:2,fin:"26.12",base:"WH engine без 3D + карта + Watchers",days:"4–5",owner:"Александр",url:"scarletsands/"},
+ {slug:"dexyplay",brand:"DexyPlay",c:"#F939E3",name:"Dexy's Year-End Bracket",cls:"Прогнозы + голосование",idea:"31.12 игрок сразу прогнозирует всю сетку из 16 игр и моментов 2026. Раунды голосования примерно каждые три часа, в полночь Dexy коронует победителя. 1 января итоги и карточки «My 2026 with Dexy».",from:7,to:8,fin:"01.01",base:"Скелет WH + страница сетки",days:"≈8.5",owner:"Александр → Степан",url:"dexyplay/"},
+ {slug:"nolimitcoins",brand:"NoLimitCoins",c:"#FDC010",name:"Coiny's Gift Exchange",cls:"Обмен подарками",idea:"25.12 у каждого пять подарочных кубов ∞, дарить их можно только другим игрокам. Подарки растят общее Infinity Tree, кольца мультиаккаунтов отсекаются. 26.12 ответный подарок и итог дерева.",from:1,to:2,fin:"26.12",base:"WH engine без 3D + онлайн-чат",days:"4",owner:"Ваня / Александр (чат)",url:"nolimitcoins/"},
+ {slug:"fortunewheelz",brand:"Fortune Wheelz",c:"#22C27A",name:"Build Your Wheel",cls:"Сборка личного колеса",idea:"25.12 двенадцать дверей открываются по одной в час. Каждое решённое задание улучшает сегмент твоего личного колеса: базовый, серебро, золото. 26.12 каждый один раз крутит своё колесо.",from:1,to:2,fin:"26.12",base:"FWL Doors bot (форк)",days:"4 + 1 QA",owner:"Степан",url:"fortunewheelz/"},
+ {slug:"coinsmania",brand:"CoinsMania",c:"#6F7BFF",name:"Piggy Bank Countdown",cls:"Копилка со сложным процентом",idea:"Весь вечер 31.12 Flash Drop бросает монеты в личную копилку, процент начисляется каждый час. 1 января Hammer Day: разбиваешь копилку и получаешь приз уровня по балансу.",from:7,to:8,fin:"01.01",base:"Flash Drop bot + страница",days:"3",owner:"Александр",url:"coinsmania/"},
+ {slug:"jumanza",brand:"Jumanza",c:"#F1D627",name:"The Great Winter Migration",cls:"Сезонный альбом в игре",idea:"25.12 День миграции в фотоохоте Safari Club: зимние мигрирующие виды и праздничный альбом. 26.12 Час Золотого льва. Только если MVP Safari Club готов, решение 07.12.",from:1,to:2,fin:"26.12",base:"Safari Club (только если MVP готов)",days:"3 поверх MVP",owner:"Александр",url:"jumanza/"}
+];
+const LOGOS={fireseven:1,vegasway:1,stormrush:1,scarletsands:1,dexyplay:1,nolimitcoins:1,jumanza:1,taofortune:1,fortunewheelz:1,coinsmania:1};
+LOGOS.taofortune=LOGOS.fortunewheelz=LOGOS.coinsmania=1;
+
+// календарь
+const cal=document.getElementById("cal");
+let h='<div class="hd"></div>'+DAYS.map((d,i)=>`<div class="hd${PEAK.has(i)?" peak":""}"><b>${d}</b>${DOW[i]}</div>`).join("");
+EVENTS.forEach(e=>{
+  h+=`<div class="name"><i style="background:${e.c}"></i>${e.brand}</div>`;
+  DAYS.forEach((d,i)=>{
+    let bar="";
+    if(i===e.from){const span=e.to-e.from+1;bar=`<div class="bar" style="background:${e.c};left:3px;width:calc(${span*100}% + ${span-1}px - 6px)">${e.name}<span class="fin">${e.fin}</span></div>`}
+    h+=`<div class="cell${PEAK.has(i)?" peak":""}">${bar}</div>`;
+  });
+});
+cal.innerHTML=h;
+
+// билеты
+document.getElementById("tickets").innerHTML=EVENTS.map(e=>`
+<article class="ticket" style="--c:${e.c}">
+  <div class="t-head">${LOGOS[e.slug]?`<img src="assets/logo-${e.slug}.png" alt="${e.brand}">`:`<span class="wordmark">${e.brand}</span>`}<div class="who">ведёт<br>${e.owner}</div></div>
+  <div class="t-body"><div class="cls">${e.cls}</div><h3>${e.name}</h3><p>${e.idea}</p></div>
+  <div>
+    <div class="t-meta"><div>Даты<b>${DAYS[e.from]}.${e.from<8?"12":"01"} – ${DAYS[e.to]}.${e.to<8?"12":"01"}</b></div><div>База<b>${e.base}</b></div><div>Разработка<b>${e.days}</b></div></div>
+    <a class="t-link" href="${e.url}" >Открыть концепт <span>→</span></a>
+  </div>
+</article>`).join("");
+
+// матрица уникальности
+const COLS=["Головоломка/квест","Мини-игры на навык","Прогнозы","Команды","Социальное дарение","Копилка/накопление","Коллекция","Сборка к финалу","Общая цель комьюнити"];
+const MAIN={fireseven:8,vegasway:1,stormrush:3,scarletsands:0,dexyplay:2,nolimitcoins:4,fortunewheelz:7,coinsmania:5,jumanza:6};
+const SEC={fireseven:[0,6],vegasway:[8],stormrush:[8],scarletsands:[6],dexyplay:[],nolimitcoins:[8],fortunewheelz:[1],coinsmania:[],jumanza:[1]};
+let t="<thead><tr><th>Бренд</th>"+COLS.map(c=>`<th>${c}</th>`).join("")+"</tr></thead><tbody>";
+EVENTS.forEach(e=>{t+=`<tr style="--c:${e.c}"><td><b>${e.brand}</b></td>`+COLS.map((c,i)=>MAIN[e.slug]===i?`<td class="c on"><span>★</span></td>`:(SEC[e.slug]||[]).includes(i)?`<td class="c">·</td>`:`<td class="c"></td>`).join("")+"</tr>"});
+document.getElementById("mx").innerHTML=t+"</tbody>";
+
+// снег
+(function(){const cv=document.getElementById("snow");if(!cv||matchMedia("(prefers-reduced-motion: reduce)").matches)return;const x=cv.getContext("2d");let W,H,f=[];
+function rs(){W=cv.width=innerWidth;H=cv.height=innerHeight;f=Array.from({length:Math.round(W/14)},()=>({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.6+.4,s:Math.random()*.5+.2,d:Math.random()*Math.PI*2}))}
+rs();addEventListener("resize",rs);
+(function loop(){x.clearRect(0,0,W,H);x.fillStyle="#E8EEFA";f.forEach(p=>{p.y+=p.s;p.d+=.01;p.x+=Math.sin(p.d)*.3;if(p.y>H){p.y=-4;p.x=Math.random()*W}x.beginPath();x.arc(p.x,p.y,p.r,0,7);x.fill()});requestAnimationFrame(loop)})()})();
+</script>
+
+</body>
+</html>
