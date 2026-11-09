@@ -1,0 +1,737 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>body{margin:0}[hidden]{display:none!important}</style>
+<title>Halloween Doors: підсумки</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Manrope:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: fixed 1600×900 stage scaled into the viewport, player controls under it.
+   One committed look from the event art: black marble, gold door frames, emerald mist, pumpkin glow. */
+:root {
+  --void: #050706;
+  --panel: #0d1512;
+  --panel-2: #142019;
+  --line: #22352d;
+  --ivory: #efe6d2;
+  --mist: #8fa598;
+  --gold: #d6b25e;
+  --gold-hi: #f3dc95;
+  --gold-rgb: 214 178 94;
+  --emerald: #2ad18c;
+  --emerald-rgb: 42 209 140;
+  --pumpkin: #ff8a2b;
+  --pumpkin-rgb: 255 138 43;
+  --ember: #e2543e;
+  --ember-rgb: 226 84 62;
+  --f-display: "Playfair Display", Georgia, "Times New Roman", serif;
+  --f-body: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme: dark;
+}
+html, body { height: 100%; }
+body {
+  background: var(--void); color: var(--ivory); font-family: var(--f-body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 20px;
+}
+.player { max-width: 1440px; margin-inline: auto; display: flex; flex-direction: column; gap: 14px; }
+.player:fullscreen { max-width: none; padding: 16px; background: var(--void); justify-content: center; }
+.viewport {
+  position: relative; width: min(100%, calc((100vh - 170px) * 16 / 9)); aspect-ratio: 16 / 9; max-width: 100%;
+  margin-inline: auto; overflow: hidden; border-radius: 14px; border: 1px solid var(--line); background: var(--void);
+}
+.player:fullscreen .viewport { width: min(100%, calc((100vh - 110px) * 16 / 9)); }
+.stage {
+  position: absolute; left: 0; top: 0; width: 1600px; height: 900px; transform-origin: 0 0;
+  background:
+    radial-gradient(1300px 420px at 50% 112%, rgb(var(--emerald-rgb) / .16), transparent 70%),
+    radial-gradient(700px 420px at 100% -5%, rgb(var(--gold-rgb) / .07), transparent 70%),
+    var(--void);
+  font-size: 26px; line-height: 1.4;
+}
+/* gold door-frame hairline around every slide */
+.stage::after {
+  content: ""; position: absolute; inset: 22px; border: 1px solid rgb(var(--gold-rgb) / .26); border-radius: 12px; pointer-events: none; z-index: 2;
+}
+
+/* ---------- slides ---------- */
+.slide {
+  position: absolute; inset: 0; padding: 76px 112px 110px; display: flex; flex-direction: column; gap: 32px;
+  opacity: 0; visibility: hidden; transform: translateY(14px);
+  transition: opacity .55s ease, transform .55s ease, visibility 0s linear .55s;
+}
+.slide.active { opacity: 1; visibility: visible; transform: none; transition: opacity .55s ease, transform .55s ease; }
+.head { display: flex; flex-direction: column; gap: 12px; }
+.eyebrow { font: 600 17px var(--f-body); letter-spacing: .24em; text-transform: uppercase; color: var(--emerald); }
+h2 { margin: 0; font-family: var(--f-display); font-weight: 500; font-size: 48px; line-height: 1.14; max-width: 1320px; text-wrap: balance; }
+.gold {
+  background: linear-gradient(180deg, var(--gold-hi), var(--gold) 70%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.foot {
+  position: absolute; left: 112px; right: 112px; bottom: 44px; display: flex; justify-content: space-between; align-items: center;
+  font: 600 14px var(--f-body); letter-spacing: .2em; color: var(--mist); text-transform: uppercase;
+}
+.foot i { font-style: normal; color: var(--gold); margin-inline: 10px; }
+.body { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 24px; }
+.muted { color: var(--mist); }
+.num { font-family: var(--f-display); font-weight: 700; font-variant-numeric: lining-nums tabular-nums; letter-spacing: -.01em; }
+
+[data-at] { transition: opacity .6s ease, transform .6s ease; }
+[data-at].pending { opacity: 0; transform: translateY(10px); }
+svg [data-at].pending { transform: none; }
+
+/* cover */
+.slide.cover { padding: 0; }
+.cover-bg { position: absolute; inset: 0; background: url(img/banner-doors.jpg) center / cover no-repeat; }
+.cover-bg::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, var(--void) 0 30%, rgb(5 7 6 / .86) 46%, rgb(5 7 6 / .2) 78%, rgb(5 7 6 / .35)); }
+.cover-text { position: relative; height: 100%; padding: 96px 112px; display: flex; flex-direction: column; justify-content: center; gap: 26px; max-width: 900px; }
+.cover h1 { margin: 0; font-family: var(--f-display); font-weight: 700; font-size: 118px; line-height: .98; letter-spacing: .01em; text-transform: uppercase; }
+.divider { display: flex; align-items: center; gap: 14px; width: 420px; color: var(--emerald); font-size: 18px; }
+.divider::before, .divider::after { content: ""; flex: 1; height: 1px; background: rgb(var(--gold-rgb) / .7); }
+.cover .lede { margin: 0; font: italic 400 34px var(--f-display); color: var(--ivory); }
+.chips { display: flex; flex-wrap: wrap; gap: 10px; max-width: 760px; }
+.chip { font: 500 18px var(--f-body); padding: 7px 16px; border-radius: 999px; border: 1px solid rgb(var(--gold-rgb) / .35); color: var(--ivory); background: rgb(5 7 6 / .5); }
+.hosts { display: flex; gap: 22px; font-size: 21px; color: var(--mist); }
+.hosts span { display: inline-flex; align-items: center; gap: 10px; }
+.hosts b { width: 12px; height: 12px; border-radius: 50%; }
+.start {
+  align-self: flex-start; display: inline-flex; align-items: center; gap: 18px; margin-top: 4px;
+  font: 700 26px var(--f-body); color: #1a1205; background: linear-gradient(180deg, var(--gold-hi), var(--gold)); border: 0; border-radius: 999px;
+  padding: 20px 36px 20px 26px; cursor: pointer; transition: transform .2s ease, box-shadow .2s ease;
+}
+.start:hover { transform: translateY(-2px); box-shadow: 0 10px 40px -8px rgb(var(--gold-rgb) / .6); }
+.start:focus-visible { outline: 3px solid var(--ivory); outline-offset: 4px; }
+.start svg { width: 30px; height: 30px; }
+.start small { font: 500 20px var(--f-body); opacity: .7; }
+.is-playing .start, .was-started .start { visibility: hidden; }
+
+/* tiles */
+.tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.tile { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 28px 30px; display: flex; flex-direction: column; gap: 10px; }
+.tile .num { font-size: 70px; line-height: 1; }
+.tile p { margin: 0; font-size: 23px; color: var(--mist); }
+.good { color: var(--emerald); } .bad { color: var(--ember); } .warm { color: var(--pumpkin); } .au { color: var(--gold-hi); }
+
+/* charts */
+svg text { fill: var(--ivory); font-family: var(--f-body); }
+svg .t-mist { fill: var(--mist); }
+.chart { width: 100%; height: auto; display: block; }
+
+/* nights */
+.nights { display: grid; grid-template-columns: repeat(7, 1fr); gap: 16px; align-items: end; flex: 1; }
+.night { display: flex; flex-direction: column; gap: 10px; }
+.night .bar-wrap { height: 210px; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 8px; }
+.night .bar { width: 64%; border-radius: 10px 10px 4px 4px; background: linear-gradient(180deg, var(--gold-hi), rgb(var(--gold-rgb) / .55)); }
+.night.dim .bar { background: linear-gradient(180deg, rgb(var(--gold-rgb) / .6), rgb(var(--gold-rgb) / .25)); }
+.night .val { font: 700 38px var(--f-display); line-height: 1; }
+.night img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 10px; border: 1px solid rgb(var(--gold-rgb) / .4); display: block; }
+.night .nm { font: 600 15px var(--f-body); letter-spacing: .14em; text-transform: uppercase; color: var(--emerald); }
+.night .tt { font-size: 18px; line-height: 1.25; min-height: 46px; }
+.night .pk { font-size: 18px; color: var(--mist); }
+.night .pk b { color: var(--pumpkin); font-weight: 700; }
+
+/* doors grid */
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+.heat { display: grid; grid-template-columns: 120px repeat(3, 1fr); grid-auto-rows: 54px; gap: 6px; position: relative; }
+.heat .hd { align-self: end; padding-bottom: 4px; text-align: center; font: 600 15px var(--f-body); letter-spacing: .14em; text-transform: uppercase; color: var(--mist); }
+.heat .rw { align-self: center; font-size: 21px; }
+.heat .cell { border-radius: 9px; display: flex; align-items: baseline; justify-content: center; gap: 8px; padding-top: 11px; font: 700 24px var(--f-display); font-variant-numeric: lining-nums tabular-nums; }
+.heat .cell small { font: 500 15px var(--f-body); opacity: .75; }
+.heat .ring { border: 3px solid var(--ember); border-radius: 12px; margin: -4px; pointer-events: none; }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 24px 28px; display: flex; flex-direction: column; gap: 10px; }
+.card h3 { margin: 0; font: 600 16px var(--f-body); letter-spacing: .16em; text-transform: uppercase; color: var(--mist); }
+.card p { margin: 0; font-size: 23px; }
+.card .num { font-size: 50px; line-height: 1.05; }
+.hbar { display: grid; grid-template-columns: 150px 1fr; align-items: center; gap: 16px; font-size: 21px; }
+.hbar .track { height: 28px; position: relative; }
+.hbar .fill { height: 100%; border-radius: 6px; background: var(--emerald); }
+.hbar .val { position: absolute; top: 50%; transform: translateY(-50%); font: 700 22px var(--f-display); white-space: nowrap; }
+.hbar .val small { font: 500 16px var(--f-body); color: var(--mist); margin-left: 6px; }
+
+/* economy */
+.big-stat .num { font-size: 190px; line-height: .9; color: var(--pumpkin); text-shadow: 0 0 60px rgb(var(--pumpkin-rgb) / .35); }
+.big-stat p { margin: 16px 0 0; font-size: 28px; max-width: 520px; }
+.banner { border-radius: 14px; padding: 18px 26px; background: rgb(var(--gold-rgb) / .1); border: 1px solid rgb(var(--gold-rgb) / .45); font-size: 25px; }
+.banner b { color: var(--gold-hi); font-weight: 700; }
+.banner.red { background: rgb(var(--ember-rgb) / .1); border-color: rgb(var(--ember-rgb) / .5); }
+.banner.red b { color: var(--ember); }
+
+/* linking */
+.flow { display: flex; align-items: center; gap: 18px; }
+.flow .step { display: flex; flex-direction: column; }
+.flow .step .num { font-size: 56px; line-height: 1; }
+.flow .step span { font-size: 19px; color: var(--mist); }
+.flow .arr { color: var(--gold); font-size: 30px; }
+.stack { display: flex; height: 40px; border-radius: 8px; overflow: hidden; gap: 3px; }
+.stack div { display: grid; place-items: center; font: 700 20px var(--f-display); color: var(--void); }
+.keys { display: flex; gap: 22px; font-size: 19px; color: var(--mist); flex-wrap: wrap; }
+.keys span { display: inline-flex; align-items: center; gap: 8px; }
+.keys b { width: 14px; height: 14px; border-radius: 4px; }
+
+/* worked / mistakes */
+.grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.mist-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.card.red { border-color: rgb(var(--ember-rgb) / .55); background: linear-gradient(rgb(var(--ember-rgb) / .1), rgb(var(--ember-rgb) / .03)); }
+.card.amber { border-color: rgb(var(--pumpkin-rgb) / .4); }
+.card .fix { font-size: 20px; color: var(--mist); }
+.card .fix b { color: var(--emerald); font-weight: 700; }
+.pills { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.pill { font-size: 19px; padding: 8px 16px; border-radius: 999px; background: var(--panel-2); color: var(--ivory); border: 1px solid var(--line); }
+.pill.tag { background: none; border: 0; color: var(--mist); font-size: 17px; padding-inline: 4px; letter-spacing: .1em; text-transform: uppercase; }
+
+/* ready */
+.tbl { width: 100%; border-collapse: collapse; font-size: 21px; }
+.tbl th { text-align: left; font: 600 15px var(--f-body); letter-spacing: .16em; text-transform: uppercase; color: var(--mist); padding: 0 18px 12px; }
+.tbl td { padding: 11px 18px; border-top: 1px solid var(--line); vertical-align: top; }
+.tbl td:last-child { width: 30%; color: var(--mist); transition: background .6s ease, color .6s ease; }
+.slide.hl-change .tbl td:last-child { background: rgb(var(--gold-rgb) / .1); color: var(--gold-hi); }
+
+/* next */
+.decide { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+.decide .card { padding: 30px 32px; gap: 14px; }
+.decide .card p.big { font-family: var(--f-display); font-weight: 500; font-size: 33px; line-height: 1.22; }
+.closing { font-size: 25px; display: flex; justify-content: space-between; align-items: baseline; gap: 24px; }
+
+/* ---------- player chrome ---------- */
+.subs {
+  position: absolute; left: 50%; bottom: 7%; transform: translateX(-50%); width: min(86%, 1100px); z-index: 3;
+  text-align: center; font-size: clamp(14px, 1.55vw, 23px); line-height: 1.4; color: var(--ivory);
+  background: rgb(5 7 6 / .9); border: 1px solid rgb(var(--gold-rgb) / .35); border-radius: 12px; padding: .55em 1em;
+  backdrop-filter: blur(6px); transition: opacity .3s ease; text-wrap: balance;
+}
+.subs:empty { opacity: 0; pointer-events: none; }
+.subs .who { font: 700 .7em var(--f-body); letter-spacing: .14em; text-transform: uppercase; margin-right: .6em; }
+.who-s { color: var(--gold-hi); } .who-a { color: var(--emerald); }
+.controls { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; width: min(100%, calc((100vh - 170px) * 16 / 9)); margin-inline: auto; }
+.player:fullscreen .controls { width: min(100%, calc((100vh - 110px) * 16 / 9)); }
+.btn {
+  display: inline-grid; place-items: center; width: 44px; height: 44px; border-radius: 12px; border: 1px solid var(--line);
+  background: var(--panel); color: var(--ivory); cursor: pointer; flex: none; font: 700 14px var(--f-body);
+}
+.btn:hover { background: var(--panel-2); }
+.btn:focus-visible, .seg:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.btn svg { width: 20px; height: 20px; }
+.btn.play { width: 52px; height: 52px; border-radius: 50%; background: linear-gradient(180deg, var(--gold-hi), var(--gold)); color: #1a1205; border: 0; }
+.btn.play:hover { filter: brightness(1.08); }
+.btn[aria-pressed="false"] { color: var(--mist); }
+.segs { flex: 1 1 220px; min-width: 0; display: flex; gap: 5px; }
+.seg { flex: 1; height: 26px; border: 0; padding: 10px 0; background: none; cursor: pointer; }
+.seg span { display: block; height: 6px; border-radius: 3px; background: var(--line); overflow: hidden; }
+.seg span i { display: block; height: 100%; width: 0; background: var(--gold); }
+.seg.done span i { width: 100%; background: var(--mist); }
+.count { font: 600 15px var(--f-body); color: var(--mist); min-width: 58px; text-align: right; font-variant-numeric: tabular-nums; }
+.speakers { display: flex; gap: 6px; font: 700 13px var(--f-body); letter-spacing: .1em; text-transform: uppercase; }
+.speakers span { display: inline-flex; align-items: center; gap: 7px; padding: 6px 10px; border-radius: 999px; color: var(--mist); border: 1px solid transparent; transition: color .25s ease, border-color .25s ease; }
+.speakers b { width: 8px; height: 8px; border-radius: 50%; background: currentColor; opacity: .5; }
+.speakers span.on { border-color: var(--line); }
+.speakers span.on.who-s { color: var(--gold-hi); } .speakers span.on.who-a { color: var(--emerald); }
+.speakers span.on b { opacity: 1; animation: talk .9s ease-in-out infinite alternate; }
+@keyframes talk { from { transform: scale(.7); } to { transform: scale(1.35); } }
+.hint { text-align: center; font-size: 13px; color: var(--mist); }
+.hint kbd { font-family: var(--f-body); font-size: 12px; border: 1px solid var(--line); border-radius: 5px; padding: 1px 6px; }
+
+@media (max-width: 700px) {
+  .subs { position: static; transform: none; width: auto; background: var(--panel); font-size: 15px; }
+  .viewport-wrap { display: flex; flex-direction: column; gap: 10px; }
+  .hint, .speakers { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .slide, .slide.active, [data-at] { transition: none !important; }
+  .speakers span.on b { animation: none; }
+}
+</style>
+
+<main class="player" id="player">
+  <div class="viewport-wrap">
+    <div class="viewport" id="viewport">
+      <div class="stage" id="stage">
+
+        <!-- 1 cover -->
+        <section class="slide cover" data-id="cover" aria-label="Обкладинка">
+          <div class="cover-bg" aria-hidden="true"></div>
+          <div class="cover-text">
+            <div class="eyebrow">Fortune Wheelz · Discord</div>
+            <h1 class="gold">Halloween<br>Doors</h1>
+            <div class="divider" aria-hidden="true">◆</div>
+            <p class="lede">Підсумки івенту · 26 жовтня — 5 листопада 2026</p>
+            <div class="chips">
+              <span class="chip">7 ночей</span><span class="chip">3 двері щоночі</span>
+              <span class="chip">1 гарбуз за ніч</span><span class="chip">Treat Vault: гарбузи → промокоди</span>
+            </div>
+            <div class="hosts"><span><b style="background:var(--gold-hi)"></b>Соломія</span><span><b style="background:var(--emerald)"></b>Алекс</span></div>
+            <button class="start" id="start" type="button">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.4-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5Z"/></svg>
+              Дивитися з озвученням <small id="total"></small>
+            </button>
+          </div>
+        </section>
+
+        <!-- 2 summary -->
+        <section class="slide" data-id="summary" aria-label="Коротко">
+          <div class="head"><div class="eyebrow">Коротко</div>
+            <h2>Гра спрацювала, а <span class="gold">гарбузи й коди</span> застрягли між прив'язкою та обміном</h2></div>
+          <div class="body">
+            <div class="tiles">
+              <div class="tile" data-at="0"><span class="num au">207</span><p>людей прийшли до бота</p></div>
+              <div class="tile" data-at="0"><span class="num warm">145</span><p>гарбузів знайшли за 7 ночей</p></div>
+              <div class="tile" data-at="1"><span class="num good">79%</span><p>ігрових вечорів закінчились гарбузом</p></div>
+              <div class="tile" data-at="2"><span class="num bad">77</span><p>гарбузів так і не обміняли</p></div>
+              <div class="tile" data-at="2"><span class="num bad">49 з 140</span><p>промокодів використано</p></div>
+              <div class="tile" data-at="3"><span class="num bad">7,7 год</span><p>медіана розгляду заявки на прив'язку</p></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3 chronicle -->
+        <section class="slide" data-id="chronicle" aria-label="Хроніка">
+          <div class="head"><div class="eyebrow">Хроніка · 22 жовтня — 9 листопада</div>
+            <h2>Збої на старті й у фіналі, посередині все йшло саме</h2></div>
+          <div class="body" id="chronicle"></div>
+        </section>
+
+        <!-- 4 nights -->
+        <section class="slide" data-id="nights" aria-label="Ночі">
+          <div class="head"><div class="eyebrow">Ночі · скільки людей грали</div>
+            <h2>Пік на другу ніч, далі втратили більше половини гравців</h2></div>
+          <div class="body">
+            <div class="nights" id="nights" data-at="0"></div>
+            <div class="card" data-at="2" style="flex-direction:row;align-items:baseline;gap:22px">
+              <h3>Нових гравців за добу</h3><p><span class="num warm" style="font-size:40px">35 → 3</span> &nbsp;з 28 жовтня до 5 листопада</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 5 doors -->
+        <section class="slide" data-id="doors" aria-label="Двері">
+          <div class="head"><div class="eyebrow">Двері · розгадали / відкрили</div>
+            <h2>Загадки найпопулярніші, пам'ять найважча</h2></div>
+          <div class="body split">
+            <div class="heat" id="heat" data-at="0"></div>
+            <div style="display:flex;flex-direction:column;gap:20px">
+              <div class="card" data-at="0">
+                <h3>Частка розгаданих за тип дверей</h3>
+                <div class="hbar"><span>Загадка</span><div class="track"><div class="fill" style="width:67%"></div><span class="val" style="left:calc(67% + 12px)">67%<small>70 / 104</small></span></div></div>
+                <div class="hbar" data-at="1"><span>Картинка</span><div class="track"><div class="fill" style="width:62%;background:var(--gold)"></div><span class="val" style="left:calc(62% + 12px)">62%<small>42 / 68</small></span></div></div>
+                <div class="hbar" data-at="1"><span>Пам'ять</span><div class="track"><div class="fill" style="width:56%;background:var(--pumpkin)"></div><span class="val" style="left:calc(56% + 12px)">56%<small>33 / 59</small></span></div></div>
+              </div>
+              <div class="card" data-at="2"><h3>Відсіювали найбільше</h3><p>Картинка на Гелловін: 1 з 4 · пам'ять у ночі 4 і 5: 1 з 3 і 3 з 9 · дзеркало в ночі 3: 6 з 13</p></div>
+              <div class="card" data-at="3"><p><span class="num warm" style="font-size:40px">46</span> &nbsp;разів двері відкрили й закрили без відповіді</p></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 6 economy -->
+        <section class="slide" data-id="economy" aria-label="Економіка">
+          <div class="head"><div class="eyebrow">Treat Vault · гарбузи й промокоди</div>
+            <h2>Брали найдешевший приз одразу, до дорогих не дійшов ніхто</h2></div>
+          <div class="body">
+            <div style="display:grid;grid-template-columns:460px 1fr;gap:48px;align-items:start">
+              <div class="big-stat" data-at="0">
+                <div class="num">77</div>
+                <p>гарбузів лишилися на руках, коли Treat Vault закрився. Обміняли 70.</p>
+              </div>
+              <div id="tiers" data-at="1"></div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+              <div class="banner" data-at="3"><b>6 FC з 180</b> у пулі дісталися гравцям</div>
+              <div class="banner" data-at="4"><b>Висновок:</b> швидкий дешевий приз + одна велика ціль</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 7 linking -->
+        <section class="slide" data-id="linking" aria-label="Прив'язка">
+          <div class="head"><div class="eyebrow">Прив'язка акаунтів · ручна перевірка</div>
+            <h2>Найвужче місце: кожну заявку стафф перевіряв руками</h2></div>
+          <div class="body split">
+            <div style="display:flex;flex-direction:column;gap:22px">
+              <div class="flow" data-at="1">
+                <div class="step"><span class="num au">207</span><span>прийшли до бота</span></div><span class="arr">→</span>
+                <div class="step"><span class="num au">103</span><span>подали заявку</span></div><span class="arr">→</span>
+                <div class="step"><span class="num good">64</span><span>прив'язали акаунт</span></div>
+              </div>
+              <div class="card" data-at="1">
+                <h3>120 заявок</h3>
+                <div class="stack"><div style="flex:64;background:var(--emerald)">64</div><div style="flex:44;background:var(--ember)">44</div><div style="flex:12;background:var(--mist)">12</div></div>
+                <div class="keys"><span><b style="background:var(--emerald)"></b>підтвердили</span><span><b style="background:var(--ember)"></b>відхилили</span><span><b style="background:var(--mist)"></b>без відповіді</span></div>
+              </div>
+              <div class="card" data-at="2">
+                <h3>Причини відмов</h3>
+                <p><span class="num bad" style="font-size:40px">41 з 44</span> &nbsp;такого player ID немає</p>
+                <p class="muted" style="font-size:20px">ще 3 — кілька акаунтів в одного гравця</p>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:22px">
+              <div class="card" data-at="3">
+                <h3>Скільки чекали відповіді · 108 заявок</h3>
+                <div id="wait"></div>
+                <p class="muted" style="font-size:20px">Усі розібрала одна людина. Бот 27 разів нагадував про заявки, що чекають понад добу.</p>
+              </div>
+              <div class="banner red" data-at="4"><b>8 гравців</b> віддали гарбузи, а коду не отримали</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 8 worked -->
+        <section class="slide" data-id="worked" aria-label="Що спрацювало">
+          <div class="head"><div class="eyebrow">Що спрацювало</div>
+            <h2>Це беремо в наступний івент як є</h2></div>
+          <div class="body grid3">
+            <div class="card" data-at="1"><h3>Механіка</h3><span class="num au">3 · 1 · 1</span><p class="muted">троє дверей, одна спроба, один гарбуз за ніч; усе на кнопках</p></div>
+            <div class="card" data-at="2"><h3>М'які відповіді</h3><span class="num good">67%</span><p class="muted">загадок розгадано: артиклі, зайві слова й одна помилка не рахуються</p></div>
+            <div class="card" data-at="3"><h3>Автоматика</h3><span class="num au">7 ночей</span><p class="muted">панелі, пінг ролі й Treat Vault оновлювались самі</p></div>
+            <div class="card" data-at="3"><h3>Графік</h3><span class="num au">1 змінна</span><p class="muted">зміну ночі перенесли на 12:00 за Києвом без правок у коді</p></div>
+            <div class="card" data-at="4"><h3>Зведення</h3><span class="num au">10 ранків</span><p class="muted">стафф щодня о 09:00 бачив ночі, заявки й залишок кодів</p></div>
+            <div class="card" data-at="4"><h3>Дозаливка</h3><span class="num good">+40 кодів</span><p class="muted">однією командою /pool import за кілька хвилин</p></div>
+          </div>
+        </section>
+
+        <!-- 9 mistakes -->
+        <section class="slide" data-id="mistakes" aria-label="Розбір помилок">
+          <div class="head"><div class="eyebrow">Розбір помилок · за ціною</div>
+            <h2>Найдорожче коштували прив'язка й сітка призів</h2></div>
+          <div class="body">
+            <div class="mist-grid">
+              <div class="card red" data-at="1"><h3>Ручна прив'язка без підказки</h3>
+                <p><span class="num bad" style="font-size:40px">41 з 44</span> &nbsp;відмов через неправильний ID</p>
+                <p class="fix"><b>→</b> перевірка тільки перед призом і підказка, де знайти ID</p></div>
+              <div class="card red" data-at="2"><h3>Сім рівнів призів</h3>
+                <p><span class="num bad" style="font-size:40px">77 з 145</span> &nbsp;гарбузів не обміняли</p>
+                <p class="fix"><b>→</b> три рівні й бонус за всі ночі</p></div>
+            </div>
+            <div class="grid3" data-at="3">
+              <div class="card amber"><h3>Утримання</h3><p>40 → 17 гравців за ніч</p><p class="fix"><b>→</b> пости посеред тижня</p></div>
+              <div class="card amber"><h3>Пізній старт</h3><p>7+ год ночі 1 без каналів</p><p class="fix"><b>→</b> канали й Onboarding до старту</p></div>
+              <div class="card amber"><h3>Модерація</h3><p>1 людина на всі заявки</p><p class="fix"><b>→</b> двоє модераторів і відповідь до 6 год</p></div>
+            </div>
+            <div class="pills" data-at="4">
+              <span class="pill tag">Процес</span>
+              <span class="pill">збій Railway перед стартом</span><span class="pill">найдешевший приз закінчився</span>
+              <span class="pill">без нагадування перед закриттям обміну</span><span class="pill">бот працював ще 4 дні</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- 10 ready -->
+        <section class="slide" data-id="ready" aria-label="Що готово">
+          <div class="head"><div class="eyebrow">Що вже готово</div>
+            <h2>Бот готовий: під нову тему міняються завдання й ціни, а не код</h2></div>
+          <div class="body" data-at="1">
+            <table class="tbl">
+              <thead><tr><th>Що є</th><th>Змінюється під новий івент</th></tr></thead>
+              <tbody>
+                <tr><td>Двері з трьома типами завдань: картинка, загадка, пам'ять; одна спроба, м'яка перевірка відповідей</td><td>Завдання й картинки</td></tr>
+                <tr><td>Treat Vault: обмін на коди, резерв до прив'язки, повернення гарбузів при відмові</td><td>Ціни й рівні призів</td></tr>
+                <tr><td>Прив'язка акаунта, картки ✅/❌ для стаффу, нагадування про старі заявки</td><td>Форма й правила перевірки</td></tr>
+                <tr><td>Розклад ночей однією змінною, автоматичні панелі й пінг ролі</td><td>Дати</td></tr>
+                <tr><td>Ранкові зведення, дашборд кожні 30 хв, вивантаження в Excel, заливка кодів з Excel</td><td>—</td></tr>
+                <tr><td>79 автотестів, тестовий режим, захист від тестів на бойовому сервері</td><td>—</td></tr>
+                <tr><td>Арт: 7 нічних банерів, банери дверей і призів, 14 картинок-завдань</td><td>Тема</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- 11 next -->
+        <section class="slide" data-id="next" aria-label="До наступного івенту">
+          <div class="head"><div class="eyebrow">До наступного івенту</div>
+            <h2>Дві речі вирішуємо, перш ніж призначати дату</h2></div>
+          <div class="body">
+            <div class="decide">
+              <div class="card" data-at="1"><h3>Рішення 1 · прив'язка</h3><p class="big">Перевіряти акаунт тільки перед призом, у формі показати, де знайти player ID</p></div>
+              <div class="card" data-at="2"><h3>Рішення 2 · призи</h3><p class="big">Три рівні замість семи, більше дешевих кодів, бонус за всі ночі</p></div>
+            </div>
+            <div class="decide" data-at="3">
+              <div class="card"><h3>Утримання</h3><p>Пост посеред тижня і нагадування за добу до закриття обміну</p></div>
+              <div class="card"><h3>Старт і фініш</h3><p>Канали відкриті до першої ночі, дата вимкнення бота в плані</p></div>
+            </div>
+            <div class="banner red" data-at="4"><b>Зараз:</b> 8 гравців чекають свої коди, їх треба видати вручну</div>
+          </div>
+        </section>
+
+      </div>
+      <div class="subs" id="subs" aria-live="polite"></div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button class="btn" id="prev" type="button" aria-label="Попередній слайд"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <button class="btn play" id="play" type="button" aria-label="Дивитися з озвученням"></button>
+    <button class="btn" id="next" type="button" aria-label="Наступний слайд"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
+    <div class="segs" id="segs"></div>
+    <span class="count" id="count"></span>
+    <div class="speakers" id="speakers"><span class="who-s" data-who="s"><b></b>Соломія</span><span class="who-a" data-who="a"><b></b>Алекс</span></div>
+    <button class="btn" id="cc" type="button" aria-pressed="true" aria-label="Субтитри">CC</button>
+    <button class="btn" id="fs" type="button" aria-label="На весь екран"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+  </div>
+  <p class="hint"><kbd>Пробіл</kbd> пауза · <kbd>←</kbd> <kbd>→</kbd> слайди · <kbd>C</kbd> субтитри · <kbd>F</kbd> на весь екран</p>
+</main>
+
+<script>
+const N = [{"id": "cover", "lines": [{"who": "s", "show": "Привіт! Це підсумки івенту Halloween Doors у Discord Fortune Wheelz. Я Соломія.", "src": "audio/cover-0.mp3", "dur": 7.37}, {"who": "a", "show": "А я Алекс. Сім ночей, щоночі троє дверей із завданнями. Розгадав одні — отримав гарбуз.", "src": "audio/cover-1.mp3", "dur": 6.56}, {"who": "s", "show": "А гарбузи гравці міняли на промокоди в Treat Vault. Розкажемо, що вийшло, де застрягли і що міняємо.", "src": "audio/cover-2.mp3", "dur": 7.79}]}, {"id": "summary", "lines": [{"who": "a", "show": "Коротко: до бота прийшли 207 людей, і за тиждень вони знайшли 145 гарбузів.", "src": "audio/summary-0.mp3", "dur": 7.79}, {"who": "s", "show": "Сама гра спрацювала: чотири вечори з п'яти гравець ішов із гарбузом.", "src": "audio/summary-1.mp3", "dur": 5.96}, {"who": "a", "show": "Але 77 гарбузів так і не обміняли. А з 140 промокодів використали тільки 49.", "src": "audio/summary-2.mp3", "dur": 8.41}, {"who": "s", "show": "І вузьке місце — ручна прив'язка акаунтів: заявку розглядали в середньому майже вісім годин.", "src": "audio/summary-3.mp3", "dur": 7.5}]}, {"id": "chronicle", "lines": [{"who": "s", "show": "Подивимось, як ішов тиждень.", "src": "audio/chronicle-0.mp3", "dur": 2.14}, {"who": "a", "show": "Перший удар — ще до старту: Railway лежав два дні, і фінальну версію бота задеплоїли на добу пізніше.", "src": "audio/chronicle-1.mp3", "dur": 8.1}, {"who": "s", "show": "У день старту перша ніч ішла вже з шостої ранку, а канали відкрили тільки по обіді. І гравці їх не бачили, поки канали не додали в Onboarding.", "src": "audio/chronicle-2.mp3", "dur": 10.14}, {"who": "a", "show": "Далі рішення по ходу: зміну ночі перенесли на полудень за Києвом, а коли закінчився найдешевший приз, дозалили 40 кодів.", "src": "audio/chronicle-3.mp3", "dur": 9.59}, {"who": "s", "show": "А з 31 жовтня заявки на прив'язку п'ять днів ніхто не розбирав, черга дійшла до 25.", "src": "audio/chronicle-4.mp3", "dur": 8.0}, {"who": "a", "show": "Treat Vault закрився 5 листопада, а бота вимкнули 9-го. Ще чотири дні він приймав заявки, на які ніхто не відповідав.", "src": "audio/chronicle-5.mp3", "dur": 10.43}]}, {"id": "nights", "lines": [{"who": "a", "show": "Тепер по ночах. Пік — друга ніч, 40 гравців.", "src": "audio/nights-0.mp3", "dur": 3.61}, {"who": "s", "show": "Далі спад: до п'ятої ночі лишилося 17. Гелловін додав трохи, 20 гравців, і так дійшли до фіналу.", "src": "audio/nights-1.mp3", "dur": 8.57}, {"who": "a", "show": "За тиждень ми втратили більше половини активних гравців. Новачків теж ставало менше: з 35 за добу до трьох.", "src": "audio/nights-2.mp3", "dur": 8.83}]}, {"id": "doors", "lines": [{"who": "s", "show": "Що з дверима. Найпопулярніші — загадки: їх відкривали найчастіше, 104 рази, і розгадували дві третини.", "src": "audio/doors-0.mp3", "dur": 9.25}, {"who": "a", "show": "Картинки розгадували в 62% випадків, а найважчою виявилась гра на пам'ять — 56%.", "src": "audio/doors-1.mp3", "dur": 7.97}, {"who": "s", "show": "Найбільше відсіювали четверо дверей. Наприклад, картинку на Гелловін із чотирьох спроб розгадав лише один гравець.", "src": "audio/doors-2.mp3", "dur": 8.15}, {"who": "a", "show": "Загалом складність нормальна. Але 46 разів двері відкрили й закрили, так і не відповівши.", "src": "audio/doors-3.mp3", "dur": 7.26}]}, {"id": "economy", "lines": [{"who": "a", "show": "Тепер економіка. Обміняли 70 гарбузів, а 77 лишилися на руках, коли Treat Vault закрився.", "src": "audio/economy-0.mp3", "dur": 8.15}, {"who": "s", "show": "Майже всі брали найдешевший приз одразу: 35 обмінів із 49 — це пакет за один гарбуз.", "src": "audio/economy-1.mp3", "dur": 8.34}, {"who": "a", "show": "Він і закінчився першим, на четвертий день. А призи за шість і сім гарбузів не взяв ніхто.", "src": "audio/economy-2.mp3", "dur": 7.55}, {"who": "s", "show": "Тож із 180 FC у пулі гравцям дісталось лише 6.", "src": "audio/economy-3.mp3", "dur": 4.76}, {"who": "a", "show": "Висновок: сім рівнів — забагато. Гравцю потрібен швидкий дешевий приз і одна зрозуміла велика ціль.", "src": "audio/economy-4.mp3", "dur": 8.0}]}, {"id": "linking", "lines": [{"who": "s", "show": "Найболючіше — прив'язка акаунтів. Без неї код не видається, а кожну заявку стафф перевіряв вручну.", "src": "audio/linking-0.mp3", "dur": 8.62}, {"who": "a", "show": "120 заявок від 103 людей. Підтвердили 64, відхилили 44, а 12 так і лишилися без відповіді.", "src": "audio/linking-1.mp3", "dur": 10.66}, {"who": "s", "show": "41 відмова з 44 — та сама: такого player ID немає. Гравці не розуміли, який номер вписувати.", "src": "audio/linking-2.mp3", "dur": 10.66}, {"who": "a", "show": "Усі заявки розбирала одна людина. Медіана — майже вісім годин, 16 заявок чекали понад добу, найдовша — чотири дні.", "src": "audio/linking-3.mp3", "dur": 11.08}, {"who": "s", "show": "І через це восьмеро гравців віддали гарбузи, а коду так і не отримали.", "src": "audio/linking-4.mp3", "dur": 5.83}]}, {"id": "worked", "lines": [{"who": "a", "show": "Що спрацювало і що лишаємо.", "src": "audio/worked-0.mp3", "dur": 2.35}, {"who": "s", "show": "Механіка: троє дверей, одна спроба, один гарбуз за ніч. Усе на кнопках, жодної команди для гравця.", "src": "audio/worked-1.mp3", "dur": 7.37}, {"who": "a", "show": "М'яка перевірка відповідей: артиклі, зайві слова й одна помилка в слові не рахуються як промах.", "src": "audio/worked-2.mp3", "dur": 6.9}, {"who": "s", "show": "Ночі перемикались самі, а час зміни ночі ми переставили однією змінною, без правок у коді.", "src": "audio/worked-3.mp3", "dur": 8.47}, {"who": "a", "show": "І стафф щоранку отримував зведення, а коди дозаливали однією командою за кілька хвилин.", "src": "audio/worked-4.mp3", "dur": 6.98}]}, {"id": "mistakes", "lines": [{"who": "s", "show": "Тепер помилки, від найдорожчих.", "src": "audio/mistakes-0.mp3", "dur": 2.85}, {"who": "a", "show": "Перша — ручна прив'язка без підказки, де взяти ID. Вона забрала найбільше часу стаффу й затримала призи.", "src": "audio/mistakes-1.mp3", "dur": 7.73}, {"who": "s", "show": "Друга — економіка призів: сім рівнів, дешевий закінчився, дорогі не знадобились, а половина гарбузів згоріла.", "src": "audio/mistakes-2.mp3", "dur": 9.04}, {"who": "a", "show": "Далі утримання: з сорока гравців до сімнадцяти. І пізній старт: перша ніч понад сім годин ішла із закритими каналами.", "src": "audio/mistakes-3.mp3", "dur": 9.17}, {"who": "s", "show": "Решта — процес: збій Railway перед стартом, порожній дешевий приз, жодного нагадування перед закриттям обміну і бот, що працював ще чотири дні.", "src": "audio/mistakes-4.mp3", "dur": 11.63}]}, {"id": "ready", "lines": [{"who": "a", "show": "Добра новина: бот готовий до наступного разу.", "src": "audio/ready-0.mp3", "dur": 3.37}, {"who": "s", "show": "Двері з трьома типами завдань, обмін гарбузів на коди, прив'язка, картки для стаффу, зведення, вивантаження і 79 автотестів.", "src": "audio/ready-1.mp3", "dur": 10.37}, {"who": "a", "show": "Під нову тему міняються завдання, картинки й ціни, а не код.", "src": "audio/ready-2.mp3", "dur": 4.65}]}, {"id": "next", "lines": [{"who": "s", "show": "І що вирішуємо до наступного івенту.", "src": "audio/next-0.mp3", "dur": 2.72}, {"who": "a", "show": "Перше — прив'язка: перевіряти акаунт тільки перед видачею призу, а у формі показати, де знайти player ID.", "src": "audio/next-1.mp3", "dur": 8.52}, {"who": "s", "show": "Друге — призи: три рівні замість семи, більше дешевих кодів і бонус тим, хто пройде всі ночі.", "src": "audio/next-2.mp3", "dur": 6.85}, {"who": "a", "show": "Плюс нагадування посеред тижня і за добу до закриття обміну, відкриті канали до старту першої ночі й дата вимкнення бота в плані.", "src": "audio/next-3.mp3", "dur": 9.9}, {"who": "s", "show": "І одне завдання вже зараз: восьмеро гравців чекають свої коди, їх треба видати вручну. Дякуємо, що дивилися!", "src": "audio/next-4.mp3", "dur": 8.52}, {"who": "a", "show": "До зустрічі на наступному івенті!", "src": "audio/next-5.mp3", "dur": 3.03}]}];
+const WHO = {"s": "Соломія", "a": "Алекс"};
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* ---------- chronicle ---------- */
+(() => {
+  const nights = [['26.10', 1, 33], ['27.10', 2, 40], ['28.10', 3, 28], ['29.10', 4, 26], ['30.10', 5, 17], ['31.10', 6, 20], ['01.11', 7, 19]];
+  // [day, kind, lane, line 1, line 2, reveal step, anchor]
+  const events = [
+    ['22.10', 'bad', 0, 'Railway лежить,', 'деплой на добу пізніше', 1, 'start'],
+    ['26.10', 'bad', 1, 'Ніч 1 з 06:00,', 'канали — по обіді', 2, 'middle'],
+    ['27.10', 'fix', 0, 'Зміна ночі', 'о 12:00 за Києвом', 3, 'middle'],
+    ['28.10', 'good', 1, 'Ранкові зведення', 'для стаффу', 3, 'middle'],
+    ['30.10', 'fix', 0, 'Дешевий приз 0,', 'дозалили 40 кодів', 3, 'middle'],
+    ['31.10', 'bad', 1, 'Заявки 5 днів', 'без розбору', 4, 'middle'],
+    ['05.11', 'bad', 0, 'Treat Vault закрито,', '77 гарбузів на руках', 5, 'middle'],
+    ['09.11', 'bad', 1, 'Бот вимкнено', 'на 4 дні пізніше', 5, 'end']];
+  const days = ['22.10', '23.10', '26.10', '27.10', '28.10', '29.10', '30.10', '31.10', '01.11', '02.11', '05.11', '09.11'];
+  const W = 1376, dw = W / days.length, X = d => days.indexOf(d) * dw + dw / 2, base = 236, bh = v => v / 40 * 150;
+  const col = k => k === 'bad' ? 'var(--ember)' : k === 'good' ? 'var(--emerald)' : 'var(--gold-hi)';
+  const lane = l => l === 0 ? 336 : 436;
+  let s = `<svg class="chart" viewBox="0 0 ${W} 560" aria-label="Хроніка івенту по днях">`;
+  s += `<line x1="0" x2="${W}" y1="${base}" y2="${base}" stroke="var(--line)" stroke-width="2"/>`;
+  days.forEach(d => s += `<text x="${X(d)}" y="${base + 32}" text-anchor="middle" class="t-mist" font-size="18">${d}</text>`);
+  s += `<g data-at="0">`;
+  nights.forEach(([d, n, v]) => {
+    const x = X(d), h = bh(v);
+    s += `<rect x="${x - 34}" y="${base - h}" width="68" height="${h}" rx="7" fill="var(--gold)" fill-opacity="${n === 2 ? 1 : .5}"/>`;
+    s += `<text x="${x}" y="${base - h - 12}" text-anchor="middle" font-size="26" font-weight="700">${v}</text>`;
+    s += `<text x="${x}" y="${base - h - 44}" text-anchor="middle" class="t-mist" font-size="17">Ніч ${n}</text>`;
+  });
+  s += `</g>`;
+  events.forEach(([d, kind, l, a, b, at, anchor]) => {
+    const x = X(d), y = lane(l), tx = anchor === 'start' ? x - 10 : anchor === 'end' ? x + 10 : x;
+    s += `<g data-at="${at}"><line x1="${x}" x2="${x}" y1="${base + 46}" y2="${y - 12}" stroke="${col(kind)}" stroke-opacity=".5" stroke-width="2"/>`;
+    s += `<circle cx="${x}" cy="${y}" r="9" fill="${col(kind)}"/>`;
+    s += `<text x="${tx}" y="${y + 36}" text-anchor="${anchor}" font-size="20">${esc(a)}</text>`;
+    s += `<text x="${tx}" y="${y + 60}" text-anchor="${anchor}" font-size="19" class="t-mist">${esc(b)}</text></g>`;
+  });
+  [['var(--ember)', 'збій'], ['var(--gold-hi)', 'рішення по ходу'], ['var(--emerald)', 'спрацювало']].reduce((x, [c, t]) => {
+    s += `<circle cx="${x + 8}" cy="548" r="7" fill="${c}"/><text x="${x + 24}" y="554" font-size="18" class="t-mist">${t}</text>`;
+    return x + 40 + t.length * 10.5;
+  }, 0);
+  s += `<text x="${W}" y="554" text-anchor="end" font-size="18" class="t-mist">стовпчики — скільки людей грали за ніч</text></svg>`;
+  $('#chronicle').innerHTML = s;
+})();
+
+/* ---------- nights ---------- */
+(() => {
+  const rows = [[1, 'The Ghost Walks', 33, 28], [2, 'Wings in the Dark', 40, 28], [3, "The Count's Mirror", 28, 21], [4, 'Black Cat Crossing', 26, 21],
+    [5, "The Witch's Brew", 17, 13], [6, 'Halloween: The Skeleton Key', 20, 18], [7, 'The Last Door', 19, 16]];
+  $('#nights').innerHTML = rows.map(([n, t, p, f]) => `<div class="night${n === 2 ? '' : ' dim'}">
+    <div class="bar-wrap"><span class="val">${p}</span><div class="bar" style="height:${p / 40 * 160}px"></div></div>
+    <img src="img/night-${n}.jpg" alt="Ніч ${n}: ${esc(t)}">
+    <span class="nm">Ніч ${n}</span><span class="tt">${esc(t)}</span><span class="pk">гарбузів: <b>${f}</b></span></div>`).join('');
+})();
+
+/* ---------- doors heat ---------- */
+(() => {
+  const d = [[[12, 15], [10, 16], [6, 8]], [[10, 15], [12, 24], [6, 11]], [[6, 13], [8, 12], [7, 12]], [[6, 8], [14, 20], [1, 3]],
+    [[3, 5], [7, 9], [3, 9]], [[1, 4], [10, 12], [7, 9]], [[4, 8], [9, 11], [3, 7]]];
+  const hard = [[3, 1], [4, 3], [5, 3], [6, 1]];
+  let h = `<div></div>` + ['Картинка', 'Загадка', "Пам'ять"].map(t => `<div class="hd">${t}</div>`).join('');
+  d.forEach((row, i) => {
+    h += `<div class="rw" style="grid-row:${i + 2};grid-column:1">Ніч ${i + 1}</div>`;
+    row.forEach(([sv, op], j) => {
+      const r = sv / op, a = .08 + r * .62;
+      h += `<div class="cell" style="grid-row:${i + 2};grid-column:${j + 2};background:rgb(var(--emerald-rgb) / ${a.toFixed(2)});color:${a > .5 ? 'var(--void)' : 'var(--ivory)'}" title="Ніч ${i + 1}: розгадали ${sv} з ${op}">${Math.round(r * 100)}%<small>${sv}/${op}</small></div>`;
+    });
+  });
+  hard.forEach(([n, c]) => h += `<div class="ring" data-at="2" style="grid-row:${n + 1};grid-column:${c + 1}"></div>`);
+  $('#heat').innerHTML = h;
+})();
+
+/* ---------- economy tiers ---------- */
+(() => {
+  // [price in pumpkins, label, issued, stuck in reserve, left in pool]
+  const rows = [[1, '10K GC + 3 FP', 31, 4, 30], [2, '25K GC + 5 FP', 7, 3, 10], [3, '50K GC + 1 FC + 5 FP', 1, 1, 13], [4, '75K GC + 2 FC + 5 FP', 1, 0, 9],
+    [5, '100K GC + 3 FC + 10 FP', 1, 0, 9], [6, '150K GC + 5 FC + 10 FP', 0, 0, 15], [7, '250K GC + 8 FC + 10 FP', 0, 0, 5]];
+  const x0 = 344, span = 546, rh = 52, y0 = 8, px = v => v / 65 * span;
+  let s = `<svg class="chart" viewBox="0 0 1000 ${y0 + rows.length * rh + 46}" aria-label="Промокоди за рівнями: видано, у резерві, не використано">`;
+  rows.forEach(([p, l, iss, st, left], i) => {
+    const y = y0 + i * rh;
+    s += `<text x="16" y="${y + 22}" font-size="20" font-weight="700" fill="var(--pumpkin)">${p} 🎃</text>`;
+    s += `<text x="74" y="${y + 22}" font-size="18">${l}</text>`;
+    let x = x0;
+    [[iss, 'var(--gold)'], [st, 'var(--pumpkin)'], [left, 'var(--line)']].forEach(([v, c]) => {
+      if (!v) return;
+      s += `<rect x="${x}" y="${y + 4}" width="${px(v) - 2}" height="26" rx="4" fill="${c}"/>`;
+      x += px(v);
+    });
+    s += `<text x="${x + 12}" y="${y + 23}" font-size="18" class="t-mist">${iss + st} з ${iss + st + left}</text>`;
+  });
+  s += `<g data-at="2"><rect x="2" y="${y0 + 5 * rh - 6}" width="996" height="${2 * rh}" rx="10" fill="none" stroke="var(--ember)" stroke-width="2.5"/>`;
+  s += `<text x="984" y="${y0 + 6 * rh + 22}" text-anchor="end" font-size="18" fill="var(--ember)">не взяв ніхто</text></g>`;
+  const ly = y0 + rows.length * rh + 28;
+  [['var(--gold)', 'видано'], ['var(--pumpkin)', 'застрягли в резерві'], ['var(--line)', 'не використано']].reduce((x, [c, t]) => {
+    s += `<rect x="${x}" y="${ly - 13}" width="16" height="16" rx="4" fill="${c}"/><text x="${x + 24}" y="${ly}" font-size="18" class="t-mist">${t}</text>`;
+    return x + 50 + t.length * 10;
+  }, x0);
+  $('#tiers').innerHTML = s + '</svg>';
+})();
+
+/* ---------- linking wait ---------- */
+(() => {
+  const b = [['до 1 год', 15, 'var(--emerald)'], ['1–6 год', 31, 'var(--gold)'], ['6–24 год', 46, 'var(--pumpkin)'], ['понад добу', 16, 'var(--ember)']];
+  const W = 620, bw = 110, gap = (W - b.length * bw) / (b.length - 1), H = 230, base = 190, sc = v => v / 46 * 150;
+  let s = `<svg class="chart" viewBox="0 0 ${W} ${H}" aria-label="Час до відповіді на заявку">`;
+  b.forEach(([t, v, c], i) => {
+    const x = i * (bw + gap), h = sc(v);
+    s += `<rect x="${x}" y="${base - h}" width="${bw}" height="${h}" rx="7" fill="${c}"/>`;
+    s += `<text x="${x + bw / 2}" y="${base - h - 10}" text-anchor="middle" font-size="26" font-weight="700">${v}</text>`;
+    s += `<text x="${x + bw / 2}" y="${base + 28}" text-anchor="middle" font-size="18" class="t-mist">${t}</text>`;
+  });
+  $('#wait').innerHTML = s + '</svg>';
+})();
+
+/* ---------- player ---------- */
+const slides = [...document.querySelectorAll('.slide')];
+const byId = Object.fromEntries(N.map(s => [s.id, s]));
+const lines = i => (byId[(slides[i] || {dataset: {}}).dataset.id] || {lines: []}).lines;
+const total = i => lines(i).reduce((a, l) => a + l.dur, 0);
+const stage = $('#stage'), viewport = $('#viewport'), subs = $('#subs'), playBtn = $('#play');
+const speakers = [...document.querySelectorAll('#speakers span')];
+const audio = new Audio(); audio.preload = 'auto';
+const pre = new Audio(); pre.preload = 'auto';
+let cur = 0, li = -1, playing = false, timer = 0, subsOn = true;
+
+const ICON_PLAY = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.4-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5Z"/></svg>';
+const ICON_PAUSE = '<svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4.5" height="16" rx="1.2"/><rect x="13.5" y="4" width="4.5" height="16" rx="1.2"/></svg>';
+
+const mins = N.reduce((a, s) => a + s.lines.reduce((b, l) => b + l.dur, 0), 0) / 60;
+$('#total').textContent = mins ? `· ${Math.round(mins)} хв` : '';
+
+function fit() { stage.style.transform = `scale(${viewport.clientWidth / 1600})`; }
+new ResizeObserver(fit).observe(viewport); fit();
+
+$('#segs').innerHTML = slides.map((sl, i) => `<button class="seg" type="button" aria-label="Слайд ${i + 1}: ${esc(sl.getAttribute('aria-label'))}"><span><i></i></span></button>`).join('');
+const segs = [...document.querySelectorAll('.seg')];
+segs.forEach((b, i) => b.addEventListener('click', () => go(i)));
+slides.forEach((sl, i) => { if (i) sl.insertAdjacentHTML('beforeend', `<div class="foot"><span>Fortune Wheelz<i>◆</i>Halloween Doors · підсумки</span><span>${i + 1} / ${slides.length}</span></div>`); });
+
+function setStep(i, step) {
+  const sl = slides[i];
+  sl.dataset.step = step;
+  sl.querySelectorAll('[data-at]').forEach(el => el.classList.toggle('pending', +el.dataset.at > step));
+  sl.classList.toggle('hl-change', sl.dataset.id === 'ready' && step >= 2 && step < 99);
+}
+
+function show(i) {
+  slides.forEach((s, j) => s.classList.toggle('active', j === i));
+  segs.forEach((s, j) => { s.classList.toggle('done', j < i); s.querySelector('i').style.width = j < i ? '100%' : '0'; });
+  $('#count').textContent = `${i + 1} / ${slides.length}`;
+  try { history.replaceState(null, '', `#slide-${i + 1}`); } catch (e) {}
+}
+
+function setPlaying(p) {
+  playing = p;
+  document.body.classList.toggle('is-playing', p);
+  playBtn.innerHTML = p ? ICON_PAUSE : ICON_PLAY;
+  playBtn.setAttribute('aria-label', p ? 'Пауза' : 'Дивитися з озвученням');
+  if (!p) talking(null);
+}
+
+function talking(who) { speakers.forEach(s => s.classList.toggle('on', s.dataset.who === who)); }
+
+function sub(line) {
+  if (!line || !subsOn) { subs.textContent = ''; return; }
+  subs.innerHTML = `<span class="who who-${line.who}">${esc(WHO[line.who] || '')}</span>${esc(line.show)}`;
+}
+
+function playLine() {
+  const L = lines(cur);
+  if (!L.length) { setStep(cur, 99); timer = setTimeout(advance, 4000); return; }
+  const line = L[li];
+  setStep(cur, li);
+  sub(line); talking(line.who);
+  audio.src = line.src;
+  audio.play().catch(() => setPlaying(false));
+  const nx = L[li + 1] || lines(cur + 1)[0];
+  if (nx) pre.src = nx.src;
+}
+
+function advance() {
+  if (!playing) return;
+  li++;
+  if (li < lines(cur).length) return playLine();
+  if (cur < slides.length - 1) return go(cur + 1);
+  finish();
+}
+
+audio.addEventListener('ended', () => {
+  if (!playing) return;
+  talking(null);
+  const last = li >= lines(cur).length - 1;
+  timer = setTimeout(advance, last ? 900 : 300);
+});
+
+function finish() { setPlaying(false); li = -1; sub(null); setStep(cur, 99); }
+
+function go(i) {
+  i = Math.max(0, Math.min(slides.length - 1, i));
+  clearTimeout(timer); audio.pause();
+  cur = i; show(i);
+  if (playing) { li = 0; playLine(); }
+  else { li = -1; sub(null); setStep(i, 99); }
+}
+
+function toggle() {
+  clearTimeout(timer);
+  if (playing) { setPlaying(false); audio.pause(); return; }
+  document.body.classList.add('was-started');
+  setPlaying(true);
+  if (li < 0) { li = 0; playLine(); }
+  else if (audio.ended || !audio.src) advance();
+  else { const line = lines(cur)[li]; sub(line); talking(line.who); audio.play().catch(() => setPlaying(false)); }
+}
+
+(function tick() {
+  if (playing && li >= 0) {
+    const L = lines(cur), t = total(cur);
+    const done = L.slice(0, li).reduce((a, l) => a + l.dur, 0) + (audio.currentTime || 0);
+    if (t) segs[cur].querySelector('i').style.width = Math.min(100, done / t * 100) + '%';
+  }
+  requestAnimationFrame(tick);
+})();
+
+$('#start').addEventListener('click', () => { go(0); toggle(); });
+playBtn.addEventListener('click', toggle);
+$('#prev').addEventListener('click', () => go(cur - 1));
+$('#next').addEventListener('click', () => go(cur + 1));
+$('#cc').addEventListener('click', () => {
+  subsOn = !subsOn; $('#cc').setAttribute('aria-pressed', subsOn);
+  sub(playing && li >= 0 ? lines(cur)[li] : null);
+});
+$('#fs').addEventListener('click', () => {
+  const p = $('#player');
+  try {
+    if (document.fullscreenElement) document.exitFullscreen();
+    else if (p.requestFullscreen) p.requestFullscreen().catch(() => {});
+  } catch (e) {}
+});
+document.addEventListener('keydown', e => {
+  if (e.target.closest('button') && (e.key === ' ' || e.key === 'Enter')) return;
+  if (e.key === ' ' || e.key === 'k') { e.preventDefault(); toggle(); }
+  else if (e.key === 'ArrowRight' || e.key === 'PageDown') go(cur + 1);
+  else if (e.key === 'ArrowLeft' || e.key === 'PageUp') go(cur - 1);
+  else if (e.key === 'c' || e.key === 'с') $('#cc').click();
+  else if (e.key === 'f' || e.key === 'а') $('#fs').click();
+});
+window.addEventListener('hashchange', () => {
+  const m = location.hash.match(/^#slide-(\d+)$/);
+  if (m && +m[1] - 1 !== cur) go(+m[1] - 1);
+});
+
+setPlaying(false);
+const m0 = location.hash.match(/^#slide-(\d+)$/);
+go(m0 ? +m0[1] - 1 : 0);
+</script>
+
+</html>
