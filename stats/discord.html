@@ -1,0 +1,451 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Discord: офферы и рост</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+<style>
+:root {
+  color-scheme: dark;
+  --color-bg: #070a13;
+  --color-fg: #f0f4fc;
+  --color-fg-muted: #8f9cba;
+  --color-panel: rgba(14, 20, 36, 0.78);
+  --color-border-line: rgba(255, 255, 255, 0.09);
+  --color-ok: #00f59b;
+  --color-bad: #ff5c7a;
+  --cds-border: rgba(255, 255, 255, 0.16);
+  --cds-text-secondary: #8f9cba;
+  --cds-chart-grid: rgba(255, 255, 255, 0.07);
+  --cds-surface-popover: #111a2e;
+  --cds-shadow-popover: 0 8px 24px rgba(0, 0, 0, 0.5);
+  --cds-radius: 12px;
+  --cds-gap-xs: 4px; --cds-gap-sm: 8px; --cds-gap-md: 14px; --cds-gap-xl: 36px;
+  --cds-pad-xs: 4px; --cds-pad-sm: 8px; --cds-pad-md: 14px; --cds-pad-lg: 20px;
+  --cds-font-size-caption: 12.5px; --cds-font-size-body: 14px; --cds-font-size-heading: 16px; --cds-font-size-title: 30px;
+  --cds-font-weight-medium: 600;
+  --cds-dur-slow: .3s;
+  --font-anthropic-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-anthropic-serif: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--color-bg); color: var(--color-fg); font-family: var(--font-anthropic-sans); font-size: 14px; line-height: 1.45; -webkit-font-smoothing: antialiased; }
+body { padding: 28px 24px 80px; }
+.dx { max-width: 1120px; margin: 0 auto; }
+@media (max-width: 600px) { body { padding: 20px 16px 60px; } }
+table { border-collapse: collapse; }
+td { padding: var(--cds-pad-xs) var(--cds-pad-sm); border-bottom: 1px solid var(--color-border-line); text-align: right; white-space: nowrap; }
+td:first-child, th:first-child { text-align: left; }
+ul { margin: 0; padding-left: 1.2em; } li { margin: .3em 0; line-height: 1.5; }
+a { color: #00e5ff; }
+.muted { color: var(--color-fg-muted); }
+.dx-fail { color: var(--color-bad); font-size: var(--cds-font-size-caption); }
+</style>
+</head>
+<body>
+<style>
+  .dx { display: flex; flex-direction: column; gap: var(--cds-gap-xl); font-family: var(--font-anthropic-sans); }
+  .dx-head { display: flex; flex-direction: column; gap: var(--cds-gap-sm); max-width: 62rem; }
+  .dx-title { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); margin: 0; text-wrap: balance; }
+  .dx-lede { margin: 0; font-size: var(--cds-font-size-body); line-height: 1.55; max-width: 70ch; }
+  .dx .dx-lede b, .dx .dx-tile b { font-weight: 600; font-variant-numeric: tabular-nums; }
+  .dx-period { margin: 0; color: var(--color-fg-muted); font-size: var(--cds-font-size-caption); letter-spacing: .02em; }
+  .dx-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr)); gap: var(--cds-gap-md); }
+  .dx-tile { background: var(--color-panel); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); padding: var(--cds-pad-md) var(--cds-pad-lg); display: flex; flex-direction: column; gap: var(--cds-gap-xs); min-width: 0; }
+  .dx-tile-label { margin: 0; color: var(--color-fg-muted); font-size: var(--cds-font-size-caption); }
+  .dx-big { margin: 0; font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); font-variant-numeric: tabular-nums; line-height: 1.15; }
+  .dx-tile-note { margin: 0; color: var(--color-fg-muted); font-size: var(--cds-font-size-caption); line-height: 1.45; }
+  .dx-section { display: flex; flex-direction: column; gap: var(--cds-gap-md); }
+  .dx-h2 { margin: 0; font-size: var(--cds-font-size-heading); font-weight: var(--cds-font-weight-medium); }
+  .dx-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr)); gap: var(--cds-gap-md); }
+  .dx-card { background: var(--color-panel); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); padding: var(--cds-pad-lg); display: flex; flex-direction: column; gap: var(--cds-gap-sm); min-width: 0; }
+  .dx-h3 { margin: 0; font-size: var(--cds-font-size-heading); font-weight: var(--cds-font-weight-medium); }
+  .dx-note { margin: 0; color: var(--color-fg-muted); font-size: var(--cds-font-size-caption); line-height: 1.5; max-width: 72ch; }
+  .dx-chart { position: relative; min-height: 240px; }
+  .dx-chart.small { min-height: 150px; }
+  .dx-legend { display: flex; flex-wrap: wrap; gap: var(--cds-gap-md); font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+  .dx-legend span { display: inline-flex; align-items: center; gap: var(--cds-gap-xs); }
+  .dx-sw { width: .625rem; height: .625rem; border-radius: 2px; display: inline-block; }
+  .dx-tip { position: absolute; pointer-events: none; background: var(--cds-surface-popover); border: 1px solid var(--cds-border); border-radius: var(--cds-radius); box-shadow: var(--cds-shadow-popover); padding: var(--cds-pad-xs) var(--cds-pad-sm); font-size: var(--cds-font-size-caption); font-variant-numeric: tabular-nums; white-space: nowrap; z-index: 2; }
+  .dx-tip .d { color: var(--cds-text-secondary); }
+  .dx-tablewrap { overflow-x: auto; }
+  .dx-tablewrap.tall { max-height: 30rem; overflow: auto; }
+  .dx-table { width: 100%; border-collapse: collapse; font-size: var(--cds-font-size-body); font-variant-numeric: tabular-nums; }
+  .dx-table th { text-align: right; font-weight: var(--cds-font-weight-medium); color: var(--color-fg-muted); font-size: var(--cds-font-size-caption); padding: var(--cds-pad-xs) var(--cds-pad-sm); border-bottom: 1px solid var(--color-border-line); background: var(--color-panel); position: sticky; top: 0; vertical-align: bottom; }
+  .dx-table td { text-align: right; padding: var(--cds-pad-xs) var(--cds-pad-sm); border-bottom: 1px solid var(--color-border-line); white-space: nowrap; }
+  .dx-table th:first-child, .dx-table td:first-child { text-align: left; }
+  .dx-table td.muted { color: var(--color-fg-muted); }
+  .dx-table td.strong { font-weight: 600; }
+  .dx-list { margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: var(--cds-gap-xs); line-height: 1.55; max-width: 75ch; }
+  .dx-fail { display: flex; align-items: center; justify-content: center; gap: var(--cds-gap-xs); color: var(--color-fg-muted); font-size: var(--cds-font-size-caption); min-height: inherit; }
+  .dx-fail::before { content: ""; width: .375rem; height: .375rem; border-radius: 50%; background: var(--color-bad); }
+  [data-dash-source-state=empty] { color: transparent; }
+  [data-dash-source-state=refreshing] { opacity: .5; transition: opacity var(--cds-dur-slow); }
+</style>
+
+<div class="dx">
+  <header class="dx-head" id="top">
+    <h1 class="dx-title">Discord: офферы и рост</h1>
+    <p class="dx-period">15 мая – 1 ноября 2026 · USA Offer Monitoring + участники серверов</p>
+    <p class="dx-lede">Discord-офферы принесли <b data-draw="tot" data-source="totals" data-field="deposit_usd" data-fmt="money">—</b> депозитов, и за 7 дней после покупки игроки вынесли <b data-draw="tot" data-source="totals" data-field="out_7d_share" data-fmt="pct">—</b> этих денег. За это же время на серверы пришли и остались <b data-draw="tot" data-source="totals" data-field="joined_discord" data-fmt="int">—</b> человек.</p>
+  </header>
+
+  <section class="dx-tiles" id="kpi" aria-label="Итоги за период">
+    <div class="dx-tile">
+      <p class="dx-tile-label">Продано офферов</p>
+      <p class="dx-big" data-draw="tot" data-source="totals" data-field="offers_sold" data-fmt="int">—</p>
+      <p class="dx-tile-note"><b data-draw="tot" data-source="totals" data-field="buyers" data-fmt="int">—</b> уникальных покупателей</p>
+    </div>
+    <div class="dx-tile">
+      <p class="dx-tile-label">Депозит с офферов</p>
+      <p class="dx-big" data-draw="tot" data-source="totals" data-field="deposit_usd" data-fmt="money">—</p>
+      <p class="dx-tile-note">сумма покупок офферов SMM_Discord</p>
+    </div>
+    <div class="dx-tile">
+      <p class="dx-tile-label">Inout за 7 дней</p>
+      <p class="dx-big" data-draw="tot" data-source="totals" data-field="inout_7d_usd" data-fmt="money">—</p>
+      <p class="dx-tile-note">вынесли <b data-draw="tot" data-source="totals" data-field="out_7d_usd" data-fmt="money">—</b> · за 24 ч <b data-draw="tot" data-source="totals" data-field="out_24h_usd" data-fmt="money">—</b></p>
+    </div>
+    <div class="dx-tile">
+      <p class="dx-tile-label">Купили что-то ещё</p>
+      <p class="dx-big" data-draw="tot" data-source="totals" data-field="rebuy_share" data-fmt="pct">—</p>
+      <p class="dx-tile-note">покупателей сделали следующий депозит</p>
+    </div>
+    <div class="dx-tile">
+      <p class="dx-tile-label">FTD с Discord</p>
+      <p class="dx-big" data-draw="tot" data-source="totals" data-field="ftd" data-fmt="int">—</p>
+      <p class="dx-tile-note">первый депозит после DS-кода, с 01.06</p>
+    </div>
+    <div class="dx-tile">
+      <p class="dx-tile-label">Реактивации 7д</p>
+      <p class="dx-big" data-draw="tot" data-source="totals" data-field="reactivated_7d" data-fmt="int">—</p>
+      <p class="dx-tile-note">0д <b data-draw="tot" data-source="totals" data-field="reactivated_0d" data-fmt="int">—</b> · 1д <b data-draw="tot" data-source="totals" data-field="reactivated_1d" data-fmt="int">—</b> · 14д <b data-draw="tot" data-source="totals" data-field="reactivated_14d" data-fmt="int">—</b></p>
+    </div>
+    <div class="dx-tile">
+      <p class="dx-tile-label">Пришли в Discord</p>
+      <p class="dx-big" data-draw="tot" data-source="totals" data-field="joined_discord" data-fmt="int">—</p>
+      <p class="dx-tile-note">было <b data-draw="tot" data-source="totals" data-field="members_before" data-fmt="int">—</b> · сейчас <b data-draw="tot" data-source="totals" data-field="members_now" data-fmt="int">—</b></p>
+    </div>
+  </section>
+
+  <section class="dx-section" id="weeks">
+    <h2 class="dx-h2">По неделям</h2>
+    <div class="dx-card">
+      <h3 class="dx-h3">Депозит с Discord-офферов</h3>
+      <p class="dx-note">С июля дешёвые офферы сменила сетка подороже с бонусом: покупок стало меньше, чек вырос.</p>
+      <div class="dx-chart" data-draw="wkDep" data-source="weekly"></div>
+    </div>
+    <div class="dx-grid">
+      <div class="dx-card">
+        <h3 class="dx-h3">Пришли в Discord</h3>
+        <p class="dx-note">Новые участники, которые до сих пор на серверах.</p>
+        <div class="dx-chart small" data-draw="wkJoin" data-source="weekly"></div>
+      </div>
+      <div class="dx-card">
+        <h3 class="dx-h3">FTD после DS-кода</h3>
+        <p class="dx-note">Данные по кодам есть с 1 июня.</p>
+        <div class="dx-chart small" data-draw="wkFtd" data-source="weekly"></div>
+      </div>
+      <div class="dx-card">
+        <h3 class="dx-h3">Реактивации 7д</h3>
+        <p class="dx-note">Вернулись после 7+ дней без активности и активировали DS-код.</p>
+        <div class="dx-chart small" data-draw="wkReact" data-source="weekly"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="dx-section" id="months">
+    <h2 class="dx-h2">По месяцам</h2>
+    <div class="dx-card">
+      <h3 class="dx-h3">Сколько пришло и сколько вынесли</h3>
+      <p class="dx-note">Депозит с офферов и выводы этих игроков за 7 дней после покупки. Разница между ними и есть inout.</p>
+      <div class="dx-legend"><span><i class="dx-sw" data-sw="0"></i>Депозит</span><span><i class="dx-sw" data-sw="1"></i>Вынесли за 7 дней</span></div>
+      <div class="dx-chart" data-draw="moInout" data-source="monthly"></div>
+    </div>
+    <div class="dx-card">
+      <h3 class="dx-h3">Все метрики по месяцам</h3>
+      <p class="dx-note">Октябрь включает 1 ноября. Покупатели по месяцам не складываются в итог: один игрок мог покупать в разные месяцы.</p>
+      <div class="dx-tablewrap">
+        <table class="dx-table" data-source="monthly" data-row-key="month">
+          <thead><tr>
+            <th data-field="label">Месяц</th>
+            <th data-field="joined_discord">Пришли в DS</th>
+            <th data-field="offers_sold">Покупок</th>
+            <th data-field="buyers">Покупателей</th>
+            <th data-field="deposit_usd">Депозит</th>
+            <th data-field="out_7d_usd">Вынесли 7д</th>
+            <th data-field="out_7d_share">% вынесли</th>
+            <th data-field="inout_7d_usd">Inout 7д</th>
+            <th data-field="inout_24h_usd">Inout 24ч</th>
+            <th data-field="ftd">FTD</th>
+            <th data-field="reactivated_0d">Реакт. 0д</th>
+            <th data-field="reactivated_7d">Реакт. 7д</th>
+            <th data-field="reactivated_14d">Реакт. 14д</th>
+          </tr></thead>
+          <tbody data-draw="moTable"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="dx-section" id="offers">
+    <h2 class="dx-h2">Discord-офферы</h2>
+    <div class="dx-card">
+      <h3 class="dx-h3">Какие офферы покупали и сколько с них вынесли</h3>
+      <p class="dx-note">Отсортировано по депозиту. «Купили ещё» — доля покупателей оффера, которые потом сделали любой следующий депозит.</p>
+      <div class="dx-tablewrap tall">
+        <table class="dx-table" data-source="offers" data-row-key="offer">
+          <thead><tr>
+            <th data-field="offer">Оффер</th>
+            <th data-field="months">Когда</th>
+            <th data-field="buyers">Покупателей</th>
+            <th data-field="offers_sold">Покупок</th>
+            <th data-field="deposit_usd">Депозит</th>
+            <th data-field="out_7d_usd">Вынесли 7д</th>
+            <th data-field="out_7d_share">% вынесли</th>
+            <th data-field="inout_7d_usd">Inout 7д</th>
+            <th data-field="rebuy_share">Купили ещё</th>
+          </tr></thead>
+          <tbody data-draw="offTable"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="dx-section" id="servers">
+    <h2 class="dx-h2">Серверы</h2>
+    <div class="dx-card">
+      <h3 class="dx-h3">Участники по серверам</h3>
+      <p class="dx-note">«Было» — минимум на 14 мая: кто был тогда и ушёл позже, сюда не попал. Сервера TAO Fortune в данных нет.</p>
+      <div class="dx-tablewrap">
+        <table class="dx-table" data-source="servers" data-row-key="server">
+          <thead><tr>
+            <th data-field="server">Сервер</th>
+            <th data-field="members_before">Было на 14.05</th>
+            <th data-field="joined_discord">Пришли за период</th>
+            <th data-field="members_now">Сейчас</th>
+          </tr></thead>
+          <tbody data-draw="srvTable"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="dx-section" id="method">
+    <h2 class="dx-h2">Как считали</h2>
+    <div class="dx-card">
+      <ul class="dx-list">
+        <li>Покупки и депозит взяты из Power BI USA Offer Monitoring, вкладка Offers, Offer Type = SMM. Discord — это офферы с префиксом SMM_Discord_.</li>
+        <li>Вынесли и inout взяты с вкладки Deposit Number (Financial Impact Metrics). Это выводы игроков за 24 часа и за 7 дней после покупки оффера, inout = депозит минус выводы.</li>
+        <li>FTD и реактивации взяты с вкладки PromoCode, тег DS. Они считаются по активации любого DS-кода, включая бонус-дни, а не только по покупке оффера. За май данных по кодам в отчёте нет.</li>
+        <li>Какие именно офферы покупали следующими, Power BI полностью не показывает: матрица переходов обрезает список следующих офферов. Поэтому здесь только доля покупателей, которые сделали следующий депозит.</li>
+        <li>Участники взяты из списков участников серверов через бота, по дате входа, тихоокеанское время. Учтены только те, кто сейчас на сервере.</li>
+      </ul>
+    </div>
+  </section>
+</div>
+
+<script type="application/json" id="dash-data">{"totals":"period,joined_discord,members_before,members_now,offers_sold,buyers,deposit_usd,out_7d_usd,inout_7d_usd,out_7d_share,out_24h_usd,inout_24h_usd,ftd,reactivated_0d,reactivated_1d,reactivated_7d,reactivated_14d,rebuy_share\r\n15.05–01.11.2026,197213,93715,291121,17854,9152,294671,144690,152885,0.4862,128788,168788,1979,6939,3915,2586,1958,0.7615\r\n","weekly":"week,dates,week_start,offers_sold,deposit_usd,buyers,ftd,reactivated_7d,joined_discord\r\nW20,15.05–17.05,2026-05-15,405,3353,368,,,6303\r\nW21,18.05–24.05,2026-05-18,1422,10785,1245,,,18189\r\nW22,25.05–31.05,2026-05-25,1462,11320,1219,,,12631\r\nW23,01.06–07.06,2026-06-01,1360,9707,1109,157,319,13056\r\nW24,08.06–14.06,2026-06-08,1242,8536,990,138,267,11644\r\nW25,15.06–21.06,2026-06-15,1199,8911,906,146,250,10613\r\nW26,22.06–28.06,2026-06-22,1456,11404,1085,160,329,9778\r\nW27,29.06–05.07,2026-06-29,517,8547,403,82,111,7948\r\nW28,06.07–12.07,2026-07-06,520,13320,342,94,135,8650\r\nW29,13.07–19.07,2026-07-13,626,16270,419,87,110,8290\r\nW30,20.07–26.07,2026-07-20,586,15280,376,79,71,7459\r\nW31,27.07–02.08,2026-07-27,727,19717,450,96,93,7180\r\nW32,03.08–09.08,2026-08-03,655,17509,399,60,81,5709\r\nW33,10.08–16.08,2026-08-10,674,18449,431,59,65,4587\r\nW34,17.08–23.08,2026-08-17,655,17759,424,72,69,4586\r\nW35,24.08–30.08,2026-08-24,606,14650,415,72,77,5403\r\nW36,31.08–06.09,2026-08-31,693,16618,446,77,90,4598\r\nW37,07.09–13.09,2026-09-07,759,19294,494,73,98,3927\r\nW38,14.09–20.09,2026-09-14,566,14575,396,68,69,3378\r\nW39,21.09–27.09,2026-09-21,275,6149,195,64,83,3032\r\nW40,28.09–04.10,2026-09-28,385,8374,320,102,163,14162\r\nW41,05.10–11.10,2026-10-05,398,9099,303,88,158,9933\r\nW42,12.10–18.10,2026-10-12,354,7698,269,69,109,5436\r\nW43,19.10–25.10,2026-10-19,147,3380,133,57,75,5027\r\nW44,26.10–01.11,2026-10-26,189,4375,168,84,113,5694\r\n","monthly":"month,label,joined_discord,offers_sold,buyers,deposit_usd,out_7d_usd,inout_7d_usd,out_7d_share,out_24h_usd,inout_24h_usd,ftd,reactivated_0d,reactivated_7d,reactivated_14d\r\n2026-05,Май (с 15.05),37123,3289,2574,25457,15862,10543,0.6007,9662,16743,,,,\r\n2026-06,Июнь,47690,5477,3455,40264,20529,21682,0.4863,17958,24254,621,2703,1108,809\r\n2026-07,Июль,34969,2535,1169,65612,32316,33306,0.4925,31561,34061,393,1457,475,346\r\n2026-08,Август,23094,2886,1235,76392,30375,46017,0.3976,27499,48893,295,1067,308,222\r\n2026-09,Сентябрь,20406,2353,1225,57412,34051,23360,0.5931,32451,24960,316,1191,381,286\r\n2026-10,Октябрь (+01.11),33931,1314,907,29534,11557,17977,0.3913,9657,19877,354,1574,544,406\r\n","offers":"offer,offer_full,months,buyers,offers_sold,deposit_usd,out_7d_usd,inout_7d_usd,out_7d_share,rebuy_share\r\n\"19,99_20% (19.99$)\",\"SMM_Discord_19,99_20% (19.99 $)\",июл–ноя,906,3195,63868,22676,41192,0.355,0.8444\r\n\"39,99_20% (39.99$)\",\"SMM_Discord_39,99_20% (39.99 $)\",июл–ноя,354,1485,59385,29403,29982,0.4951,0.9407\r\n\"19,99_40% (19.99$)\",\"SMM_Discord_19,99_40% (19.99 $)\",июл–ноя,934,1567,31324,11078,20246,0.3537,0.697\r\n\"59,99_20% (59.99$)\",\"SMM_Discord_59,99_20% (59.99 $)\",июл–ноя,85,444,26636,17597,9039,0.6606,0.9647\r\n\"9,99 (9.99$)\",\"SMM_Discord_9,99 (9.99 $)\",май–июл,1402,2087,20849,10714,10135,0.5139,0.8267\r\n\"9,99_100% (9.99$)\",\"SMM_Discord_9,99_100% (9.99 $)\",июл–ноя,851,1400,13986,4994,8992,0.3571,0.5018\r\n\"4,99 (4.99$)\",\"SMM_Discord_4,99 (4.99 $)\",май–июл,1734,2690,13423,6081,7342,0.453,0.7336\r\n\"5,99 (5.99$)\",\"SMM_Discord_5,99 (5.99 $)\",май–июл,1243,1857,11123,7608,3515,0.684,0.7796\r\n\"39,99_15% (39.99$)\",\"SMM_Discord_39,99_15% (39.99 $)\",июл–окт,36,268,10717,5790,4927,0.5403,1.0\r\n\"29,99_40% (29.99$)\",\"SMM_Discord_29,99_40% (29.99 $)\",июл–окт,127,238,7138,5515,1623,0.7726,0.7874\r\n\"49,99_10% (49.99$)\",\"SMM_Discord_49,99_10% (49.99 $)\",июл–окт,59,117,5849,5062,787,0.8654,1.0\r\n\"12,99 (12.99$)\",\"SMM_Discord_12,99 (12.99 $)\",май–июл,81,323,4196,2585,1611,0.6161,0.9136\r\n9.99 (9.99$),SMM_Discord_9.99 (9.99 $),май–июн,330,404,4036,3812,3131,0.549,0.828\r\n4.99 (4.99$),SMM_Discord_4.99 (4.99 $),май–июл,373,732,3653,2400,1253,0.657,0.7855\r\n\"59,99_18% (59.99$)\",\"SMM_Discord_59,99_18% (59.99 $)\",июл–окт,11,59,3539,3293,246,0.9305,1.0\r\n\"39,99 (39.99$)\",\"SMM_Discord_39,99 (39.99 $)\",май–июн,24,64,2559,1275,1284,0.4982,0.9167\r\n\"29,99 (29.99$)\",\"SMM_Discord_29,99 (29.99 $)\",май–июн,71,83,2489,367,2122,0.1474,0.9296\r\n\"49,99_30% (49.99$)\",\"SMM_Discord_49,99_30% (49.99 $)\",июл–окт,18,39,1950,1100,850,0.5641,0.9444\r\n\"6,99 (6.99$)\",\"SMM_Discord_6,99 (6.99 $)\",май–июл,189,252,1761,750,1011,0.4259,0.7566\r\n5.99 (5.99$),SMM_Discord_5.99 (5.99 $),май–июл,133,293,1755,800,955,0.4558,0.6917\r\n\"14,99_60% (14.99$)\",\"SMM_Discord_14,99_60% (14.99 $)\",авг–окт,73,109,1634,801,833,0.4902,0.726\r\n\"9,99_100% (19.99$)\",\"SMM_Discord_9,99_100% (19.99 $)\",июл–окт,55,73,1459,200,1259,0.1371,0.6364\r\n\"29,99_37% (29.99$)\",\"SMM_Discord_29,99_37% (29.99 $)\",июл–окт,14,25,750,690,60,0.92,0.7857\r\n\"9,99_90% (9.99$)\",\"SMM_Discord_9,99_90% (9.99 $)\",авг–окт,44,44,440,100,340,0.2273,0.5227\r\n\"24,99_60% (24.99$)\",\"SMM_Discord_24,99_60% (24.99 $)\",сен,1,2,50,0,50,0.0,1.0\r\n\"39,99_15%_inout>=-10_avgDep>20\u003c=40_7days-_v3 (39.99$)\",\"SMM_Discord_39,99_15%_inout>=-10_avgDep>20\u003c=40_7days-_v3 (39.99 $)\",ноя,1,1,40,0,40,0.0,1.0\r\n\"19,99_20%_inout>=-10_avgDep\u003c=20_7days-_v3 (19.99$)\",\"SMM_Discord_19,99_20%_inout>=-10_avgDep\u003c=20_7days-_v3 (19.99 $)\",ноя,1,1,20,0,20,0.0,1.0\r\n\"19,99_30%_inout>=-10_avgDep\u003c=20_14days+_30days-_v3 (19.99$)\",\"SMM_Discord_19,99_30%_inout>=-10_avgDep\u003c=20_14days+_30days-_v3 (19.99 $)\",ноя,1,1,20,0,20,0.0,0.0\r\n\"14,99_49%_inout>=-10_avgDep\u003c=20_30days+_v3 (14.99$)\",\"SMM_Discord_14,99_49%_inout>=-10_avgDep\u003c=20_30days+_v3 (14.99 $)\",ноя,1,1,15,0,15,0.0,0.0\r\n","servers":"server,members_before,joined_discord,members_now\r\nFire Seven,20229,51555,71823\r\nVegas Way,16547,33678,50257\r\nNoLimitCoins,15854,28180,44052\r\nStorm Rush,13208,23076,36324\r\nScarlet Sands,13988,21335,35356\r\nFortune Wheelz,10239,20379,30639\r\nDexyPlay,3650,19010,22670\r\n"}</script>
+
+<script>
+(function () {
+  const raw = JSON.parse(document.getElementById('dash-data').textContent);
+  const store = {};
+  for (const k of Object.keys(raw)) store[k] = { status: 'ok', data: d3.csvParse(raw[k]) };
+  const draws = [];
+  function run(name, fn) {
+    document.querySelectorAll('[data-draw="' + name + '"]').forEach((el) => {
+      try { fn(el); } catch (e) { console.error(name, e); }
+    });
+  }
+  window.dash = {
+    colors: ["#00e5ff","#ffb000","#00f59b","#ff5c7a","#b18cff","#ff8a3d","#7aa2ff","#e6e6e6"],
+    data: (s) => store[s] || { status: 'error', data: [] },
+    draw: (name, fn) => { draws.push([name, fn]); run(name, fn); },
+  };
+  let t = null, lastW = window.innerWidth;
+  window.addEventListener('resize', () => {
+    if (window.innerWidth === lastW) return;
+    lastW = window.innerWidth;
+    clearTimeout(t);
+    t = setTimeout(() => draws.forEach(([n, f]) => run(n, f)), 150);
+  });
+})();
+</script>
+<script>
+  const sp = (s) => s.replace(/,/g, ' ');
+  const FMT = {
+    int: (v) => sp(d3.format(',')(Math.round(v))),
+    money: (v) => '$' + sp(d3.format(',')(Math.round(v))),
+    pct: (v) => d3.format('.0%')(v),
+    short: (v) => v >= 1000 ? sp(d3.format(',')(Math.round(v / 1000))) + 'k' : String(Math.round(v)),
+  };
+  const toNum = (v) => (v === '' || v == null) ? null : Number(v);
+  const ruMon = ['янв', 'фев', 'мар', 'апр', 'май', 'июн', 'июл', 'авг', 'сен', 'окт', 'ноя', 'дек'];
+
+  document.querySelectorAll('[data-sw]').forEach((s) => { s.style.background = dash.colors[Number(s.dataset.sw)]; });
+
+  const failLine = (el) => { const d = document.createElement('div'); d.className = 'dx-fail'; d.textContent = 'Failed to load'; el.replaceChildren(d); };
+
+  dash.draw('tot', (el) => {
+    const t = dash.data('totals');
+    if (t.status !== 'ok' || !t.data[0]) { el.textContent = '—'; return; }
+    const v = toNum(t.data[0][el.dataset.field]);
+    el.textContent = v == null ? '—' : FMT[el.dataset.fmt || 'int'](v);
+  });
+
+  function makeTip(el) { const tip = document.createElement('div'); tip.className = 'dx-tip'; tip.hidden = true; el.appendChild(tip); return tip; }
+  function showTip(el, tip, W, px, py, head, lines) {
+    tip.replaceChildren();
+    const d = document.createElement('div'); d.className = 'd'; d.textContent = head; tip.appendChild(d);
+    for (const [sw, text] of lines) {
+      const row = document.createElement('div');
+      if (sw) { const s = document.createElement('span'); s.className = 'dx-sw'; s.style.background = sw; s.style.marginRight = '6px'; row.appendChild(s); }
+      row.appendChild(document.createTextNode(text));
+      tip.appendChild(row);
+    }
+    tip.hidden = false;
+    const sx = px * el.clientWidth / W;
+    tip.style.left = Math.max(0, Math.min(el.clientWidth - tip.offsetWidth, sx + 12)) + 'px';
+    tip.style.top = Math.max(0, py - tip.offsetHeight - 8) + 'px';
+  }
+
+  // bar chart over weekly rows
+  function barChart(el, o) {
+    const g = dash.data(o.source);
+    el.replaceChildren();
+    if (g.status === 'error') return failLine(el);
+    if (g.status !== 'ok') return;
+    const rows = g.data;
+    const W = Math.max(260, el.clientWidth || 600), H = o.height;
+    const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`).attr('height', H);
+    const vals = rows.map((r) => toNum(r[o.field])).filter((v) => v != null);
+    const y = d3.scaleLinear([0, d3.max(vals) || 1], [H - 22, 8]).nice();
+    const ticks = y.ticks(o.yTicks || 4);
+    const probe = svg.append('text').attr('font-size', 12);
+    let ml = 0; for (const t of ticks) { probe.text(o.axis(t)); ml = Math.max(ml, probe.node().getComputedTextLength()); }
+    probe.remove(); ml += 8;
+    const x = d3.scaleBand(rows.map((r) => r.week), [ml, W - 2]).padding(0.22);
+    svg.append('g').selectAll('line').data(ticks).join('line')
+      .attr('x1', ml).attr('x2', W - 2).attr('y1', y).attr('y2', y).attr('stroke', 'var(--cds-chart-grid)');
+    svg.append('g').selectAll('text').data(ticks).join('text')
+      .attr('x', ml - 6).attr('y', (d) => y(d) + 4).attr('text-anchor', 'end').attr('font-size', 12)
+      .attr('fill', 'var(--color-fg-muted)').text(o.axis);
+    const every = Math.max(1, Math.ceil(rows.length / Math.max(1, Math.floor((W - ml) / 44))));
+    svg.append('g').selectAll('text').data(rows.filter((_, i) => i % every === 0)).join('text')
+      .attr('x', (r) => x(r.week) + x.bandwidth() / 2).attr('y', H - 5).attr('text-anchor', 'middle').attr('font-size', 12)
+      .attr('fill', 'var(--color-fg-muted)').text((r) => r.week);
+    const bw = Math.min(32, x.bandwidth());
+    const off = (x.bandwidth() - bw) / 2;
+    const color = dash.colors[o.color || 0];
+    const bars = svg.append('g').selectAll('rect').data(rows.filter((r) => toNum(r[o.field]) != null)).join('rect')
+      .attr('x', (r) => x(r.week) + off).attr('width', bw)
+      .attr('y', (r) => y(toNum(r[o.field]))).attr('height', (r) => Math.max(0, y(0) - y(toNum(r[o.field]))))
+      .attr('rx', 3).attr('fill', color);
+    const tip = makeTip(el);
+    svg.append('g').selectAll('rect').data(rows).join('rect')
+      .attr('x', (r) => x(r.week)).attr('width', x.step()).attr('y', 0).attr('height', H - 22).attr('fill', 'transparent')
+      .on('pointermove', (ev, r) => {
+        const [px, py] = d3.pointer(ev, svg.node());
+        bars.attr('opacity', (b) => (b === r ? 1 : 0.55));
+        showTip(el, tip, W, px, py, `${r.week} · ${r.dates}`, o.tip(r).map((t, i) => [i === 0 ? color : null, t]));
+      })
+      .on('pointerleave', () => { tip.hidden = true; bars.attr('opacity', 1); });
+  }
+
+  dash.draw('wkDep', (el) => barChart(el, { source: 'weekly', field: 'deposit_usd', height: 240, axis: (v) => '$' + FMT.short(v), color: 0,
+    tip: (r) => [`Депозит: ${FMT.money(r.deposit_usd)}`, `Покупок: ${FMT.int(r.offers_sold)}`, `Покупателей: ${FMT.int(r.buyers)}`] }));
+  dash.draw('wkJoin', (el) => barChart(el, { source: 'weekly', field: 'joined_discord', height: 150, axis: FMT.short, color: 1, yTicks: 3,
+    tip: (r) => [`Пришли: ${FMT.int(r.joined_discord)}`] }));
+  dash.draw('wkFtd', (el) => barChart(el, { source: 'weekly', field: 'ftd', height: 150, axis: FMT.int, color: 2, yTicks: 3,
+    tip: (r) => [r.ftd === '' ? 'FTD: нет данных' : `FTD: ${FMT.int(r.ftd)}`] }));
+  dash.draw('wkReact', (el) => barChart(el, { source: 'weekly', field: 'reactivated_7d', height: 150, axis: FMT.int, color: 3, yTicks: 3,
+    tip: (r) => [r.reactivated_7d === '' ? 'Реактивации: нет данных' : `Реактивации 7д: ${FMT.int(r.reactivated_7d)}`] }));
+
+  dash.draw('moInout', (el) => {
+    const g = dash.data('monthly');
+    el.replaceChildren();
+    if (g.status === 'error') return failLine(el);
+    if (g.status !== 'ok') return;
+    const rows = g.data;
+    const keys = ['deposit_usd', 'out_7d_usd'];
+    const W = Math.max(260, el.clientWidth || 600), H = 240;
+    const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`).attr('height', H);
+    const y = d3.scaleLinear([0, d3.max(rows, (r) => Number(r.deposit_usd)) || 1], [H - 22, 8]).nice();
+    const ticks = y.ticks(4);
+    const probe = svg.append('text').attr('font-size', 12);
+    let ml = 0; for (const t of ticks) { probe.text('$' + FMT.short(t)); ml = Math.max(ml, probe.node().getComputedTextLength()); }
+    probe.remove(); ml += 8;
+    const x0 = d3.scaleBand(rows.map((r) => r.month), [ml, W - 2]).padding(0.25);
+    const x1 = d3.scaleBand(keys, [0, x0.bandwidth()]).padding(0.08);
+    svg.append('g').selectAll('line').data(ticks).join('line')
+      .attr('x1', ml).attr('x2', W - 2).attr('y1', y).attr('y2', y).attr('stroke', 'var(--cds-chart-grid)');
+    svg.append('g').selectAll('text').data(ticks).join('text')
+      .attr('x', ml - 6).attr('y', (d) => y(d) + 4).attr('text-anchor', 'end').attr('font-size', 12)
+      .attr('fill', 'var(--color-fg-muted)').text((d) => '$' + FMT.short(d));
+    svg.append('g').selectAll('text').data(rows).join('text')
+      .attr('x', (r) => x0(r.month) + x0.bandwidth() / 2).attr('y', H - 5).attr('text-anchor', 'middle').attr('font-size', 12)
+      .attr('fill', 'var(--color-fg-muted)').text((r) => ruMon[Number(r.month.slice(5)) - 1]);
+    const bw = Math.min(32, x1.bandwidth());
+    const gr = svg.append('g').selectAll('g').data(rows).join('g').attr('transform', (r) => `translate(${x0(r.month)},0)`);
+    gr.selectAll('rect').data((r) => keys.map((k, i) => ({ k, i, v: Number(r[k]) }))).join('rect')
+      .attr('x', (d) => x1(d.k) + (x1.bandwidth() - bw) / 2).attr('width', bw)
+      .attr('y', (d) => y(d.v)).attr('height', (d) => Math.max(0, y(0) - y(d.v))).attr('rx', 3)
+      .attr('fill', (d) => dash.colors[d.i]);
+    const tip = makeTip(el);
+    svg.append('g').selectAll('rect').data(rows).join('rect')
+      .attr('x', (r) => x0(r.month) - x0.step() * x0.paddingInner() / 2).attr('width', x0.step()).attr('y', 0).attr('height', H - 22).attr('fill', 'transparent')
+      .on('pointermove', (ev, r) => {
+        const [px, py] = d3.pointer(ev, svg.node());
+        gr.attr('opacity', (q) => (q === r ? 1 : 0.55));
+        showTip(el, tip, W, px, py, r.label, [
+          [dash.colors[0], `Депозит: ${FMT.money(r.deposit_usd)}`],
+          [dash.colors[1], `Вынесли за 7 дней: ${FMT.money(r.out_7d_usd)} (${FMT.pct(r.out_7d_share)})`],
+          [null, `Inout 7д: ${FMT.money(r.inout_7d_usd)}`],
+        ]);
+      })
+      .on('pointerleave', () => { tip.hidden = true; gr.attr('opacity', 1); });
+  });
+
+  function fillTable(tb, source, cols, keyCol, sortFn) {
+    const s = dash.data(source);
+    if (s.status !== 'ok') { tb.replaceChildren(); return; }
+    const rows = sortFn ? [...s.data].sort(sortFn) : s.data;
+    tb.replaceChildren(...rows.map((r) => {
+      const tr = document.createElement('tr');
+      tr.dataset.key = r[keyCol];
+      for (const [field, fmt, cls] of cols) {
+        const td = document.createElement('td');
+        const v = r[field];
+        if (!fmt) td.textContent = v;
+        else if (v === '' || v == null) { td.textContent = '—'; td.className = 'muted'; }
+        else td.textContent = FMT[fmt](Number(v));
+        if (cls && v !== '') td.className = cls;
+        tr.appendChild(td);
+      }
+      return tr;
+    }));
+  }
+
+  dash.draw('moTable', (tb) => fillTable(tb, 'monthly', [
+    ['label'], ['joined_discord', 'int'], ['offers_sold', 'int'], ['buyers', 'int'], ['deposit_usd', 'money', 'strong'],
+    ['out_7d_usd', 'money'], ['out_7d_share', 'pct'], ['inout_7d_usd', 'money'], ['inout_24h_usd', 'money'],
+    ['ftd', 'int'], ['reactivated_0d', 'int'], ['reactivated_7d', 'int'], ['reactivated_14d', 'int'],
+  ], 'month'));
+
+  dash.draw('offTable', (tb) => fillTable(tb, 'offers', [
+    ['offer'], ['months'], ['buyers', 'int'], ['offers_sold', 'int'], ['deposit_usd', 'money', 'strong'],
+    ['out_7d_usd', 'money'], ['out_7d_share', 'pct'], ['inout_7d_usd', 'money'], ['rebuy_share', 'pct'],
+  ], 'offer', (a, b) => Number(b.deposit_usd) - Number(a.deposit_usd)));
+
+  dash.draw('srvTable', (tb) => fillTable(tb, 'servers', [
+    ['server'], ['members_before', 'int'], ['joined_discord', 'int'], ['members_now', 'int', 'strong'],
+  ], 'server', (a, b) => Number(b.members_now) - Number(a.members_now)));
+</script>
+
+</body>
+</html>
