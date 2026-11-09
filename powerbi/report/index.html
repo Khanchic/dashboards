@@ -219,7 +219,6 @@ details.fold[open] .fold-hint::after { content: " ▲"; font-size: 9px; }
     <nav>
       <a href="/dashboards/" class="slink"><span class="slink-icon">🏠</span> ГЛАВНАЯ</a>
       <a href="/dashboards/reports/" class="slink active"><span class="slink-icon">📊</span> ОТЧЁТЫ</a>
-      <a href="/dashboards/planning/" class="slink"><span class="slink-icon">📅</span> ПЛАНИРОВАНИЕ</a>
       <a href="/dashboards/promo-codes/" class="slink"><span class="slink-icon">🏷️</span> ПРОМОКОДЫ</a>
     </nav>
   </aside>
@@ -316,7 +315,7 @@ render(DATA.weeks.some(w => w.week === asked) ? asked : DATA.weeks[DATA.weeks.le
           <div class="st-sub">использовано за неделю · сброс в понедельник</div>
         </div>
         <div class="status-tile countdown">
-          <div class="st-top"><span class="st-label">Обратный отсчёт</span><a class="logs-btn" href="/dashboards/logs/">Логи</a></div>
+          <div class="st-top"><span class="st-label">Обратный отсчёт</span></div>
           <span class="st-value" id="shell-countdown">10:00</span>
         </div>
       </div>
