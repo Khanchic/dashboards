@@ -29,6 +29,8 @@
       activeKey = 'haunted-week';
     } else if (path.includes('/plan/')) {
       activeKey = 'plan';
+    } else if (path.includes('/stats/')) {
+      activeKey = 'stats';
     } else if (hash.includes('powerbi') || path.includes('powerbi')) {
       activeKey = 'powerbi';
     } else if (path.includes('smm-heatmap')) {
@@ -59,6 +61,7 @@
       { key: 'chat-plan', title: 'План чатов', icon: '💬', href: `${base}chat-plan/` },
       { key: 'haunted-week', title: 'Haunted Week · саппорт', icon: '🎃', href: `${base}haunted-week/` },
       { key: 'powerbi', title: 'Power BI Live', icon: '📊', href: `${base}powerbi/` },
+      { key: 'stats', title: 'Статистика: DS · чаты · Хеллоуин', icon: '📈', href: `${base}stats/` },
       { key: 'smm', title: 'SMM Хитмап', icon: '⚡', href: `${base}smm-heatmap/` },
       { key: 'gallery', title: 'Галерея Vegas', icon: '🖼', href: `${base}vegas-ds/` },
       { key: 'gallery-storm', title: 'Галерея Storm', icon: '🖼', href: `${base}storm-ds/` },
