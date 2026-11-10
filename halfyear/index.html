@@ -1,0 +1,2008 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Итоги за полгода · SMM, Чаты, BotCake и Ивенты (Май – Ноябрь 2026)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800;900&family=Titan+One&family=Gochi+Hand&family=Kanit:wght@600;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --night:#0C091C;
+  --night-2:#140F2E;
+  --night-3:#1E1644;
+  --ink:#FFF8EA;
+  --ink-2:#C9C2E3;
+  --ink-3:#8E86B2;
+  --gold:#FFD27A;
+  --lamp:#FF9A3C;
+  --lav:#C9A8FF;
+  --mint:#3FD39A;
+  --rose:#FF6B7A;
+  --sky:#63B3FF;
+  --line:rgba(255,248,234,.12);
+  --f-display:"Titan One",Impact,sans-serif;
+  --f-body:"Nunito","Segoe UI",system-ui,sans-serif;
+  --f-hand:"Gochi Hand",cursive;
+  --f-kanit:"Kanit",sans-serif;
+  --mx:50%;
+  --my:220px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--night);color:var(--ink)}
+body{
+  margin:0;
+  font-family:var(--f-body);
+  font-size:16.5px;
+  line-height:1.55;
+  color:var(--ink);
+  background:#0A0718;
+  overflow-x:hidden;
+}
+h1,h2,h3,h4,p{margin:0}
+a{color:var(--gold);text-decoration:none}
+.wrap{width:min(1280px,calc(100% - 48px));margin-inline:auto}
+@media (max-width:640px){.wrap{width:calc(100% - 24px)}}
+.num{font-variant-numeric:tabular-nums}
+
+/* ==================== GLOBAL HERO ==================== */
+.hero{
+  position:relative;
+  padding:28px 0 70px;
+  border-bottom:1px solid var(--line);
+  background:
+    radial-gradient(380px 380px at var(--mx) var(--my),rgba(255,210,122,.22),rgba(255,154,60,.08) 45%,transparent 72%),
+    radial-gradient(1100px 540px at 50% 0%,rgba(65,42,138,.65),transparent 75%),
+    linear-gradient(180deg,#090616 0%,#110C29 50%,#0C091C 100%);
+}
+.topbar{
+  display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;
+  padding-bottom:18px;border-bottom:1px solid var(--line);
+  font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);
+}
+.tag{display:inline-flex;align-items:center;gap:8px;font-weight:800}
+.tag::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 12px var(--gold)}
+.tag b{color:#fff}
+.hero-in{
+  display:grid;justify-items:center;text-align:center;
+  padding-top:36px;gap:14px;
+}
+.pre{font-family:var(--f-hand);font-size:clamp(22px,2.6vw,32px);color:var(--gold);transform:rotate(-1deg)}
+.hero h1{
+  font-family:var(--f-display);font-weight:400;
+  font-size:clamp(34px,5.6vw,68px);line-height:1.02;letter-spacing:.01em;
+  color:#FFF6DE;
+  text-shadow:0 6px 0 #070512,0 14px 38px rgba(0,0,0,.7);
+  max-width:20ch;
+}
+.dates{font-weight:900;font-size:clamp(15px,1.7vw,19px);letter-spacing:.08em;text-transform:uppercase;color:var(--lamp)}
+.slogan{max-width:76ch;color:var(--ink-2);font-size:clamp(16px,1.65vw,19.5px);line-height:1.55}
+.slogan b{color:#fff}
+.brand-pill-bar{
+  display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:14px;max-width:980px;
+}
+.bpill{
+  display:inline-flex;align-items:center;gap:7px;
+  padding:6px 14px;border-radius:999px;font-size:13px;font-weight:800;
+  background:rgba(255,255,255,.05);border:1px solid var(--line);color:#fff;
+  transition:transform .15s ease,border-color .15s ease;
+}
+.bpill:hover{transform:translateY(-2px);border-color:var(--gold)}
+.bpill .dot{width:8px;height:8px;border-radius:50%}
+
+/* ==================== STICKY NAV ==================== */
+.snav{
+  position:sticky;top:0;z-index:60;
+  background:rgba(10,7,24,.92);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+}
+.snav-in{
+  display:flex;align-items:center;gap:6px;overflow-x:auto;
+  padding:10px 0;scrollbar-width:none;
+}
+.snav-in::-webkit-scrollbar{display:none}
+.snav a{
+  flex:0 0 auto;
+  display:inline-flex;align-items:center;gap:7px;
+  padding:7px 13px;border-radius:999px;
+  font-size:13px;font-weight:800;color:var(--ink-2);
+  border:1px solid transparent;
+  transition:all .16s ease;
+}
+.snav a:hover,.snav a.active{
+  color:#fff;background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.24);
+}
+.snav a .icon-tag{font-size:14px}
+
+/* ==================== ACT SECTIONS (BRAND-THEMED) ==================== */
+main section.act-sec{
+  padding-block:76px;
+  border-bottom:1px solid var(--line);
+  position:relative;
+}
+
+/* THEME 00: Overview Master VIP Hub */
+.theme-overview{
+  background:
+    radial-gradient(900px 500px at 85% 15%,rgba(201,168,255,.12),transparent 65%),
+    radial-gradient(800px 460px at 10% 80%,rgba(255,154,60,.10),transparent 65%),
+    linear-gradient(180deg,#0C091C 0%,#150F33 50%,#0C091C 100%);
+}
+
+/* THEME 01: Scarlet Sands & Desert Relics (Онлайн-чаты) */
+.theme-chat-scs{
+  background:
+    radial-gradient(950px 520px at 80% 10%,rgba(245,158,11,.16),transparent 65%),
+    radial-gradient(850px 480px at 15% 85%,rgba(220,38,38,.12),transparent 65%),
+    radial-gradient(600px 400px at 50% 50%,rgba(180,83,9,.08),transparent 70%),
+    linear-gradient(180deg,#140B05 0%,#24140A 50%,#120904 100%);
+  --act-gold:#FBBF24;
+  --act-lamp:#F59E0B;
+  --act-accent:#DC2626;
+  --act-panel:rgba(42,24,12,.74);
+  --act-border:rgba(245,158,11,.24);
+}
+
+/* THEME 02: Discord Blurple & Fire Seven Flame */
+.theme-ds{
+  background:
+    radial-gradient(920px 540px at 85% 15%,rgba(88,101,242,.22),transparent 65%),
+    radial-gradient(860px 480px at 12% 80%,rgba(239,68,68,.16),transparent 65%),
+    linear-gradient(180deg,#0B0D26 0%,#141740 50%,#0A0B22 100%);
+  --act-gold:#FBBF24;
+  --act-lamp:#5865F2;
+  --act-accent:#EF4444;
+  --act-panel:rgba(24,27,70,.72);
+  --act-border:rgba(88,101,242,.28);
+}
+
+/* THEME 03: Facebook Meta Blue & Vegas Way Penthouse */
+.theme-fb{
+  background:
+    radial-gradient(960px 520px at 85% 15%,rgba(24,119,242,.22),transparent 65%),
+    radial-gradient(860px 480px at 15% 85%,rgba(139,92,246,.16),transparent 65%),
+    linear-gradient(180deg,#071228 0%,#0C2046 50%,#061022 100%);
+  --act-gold:#FDE047;
+  --act-lamp:#38BDF8;
+  --act-accent:#1877F2;
+  --act-panel:rgba(14,35,74,.72);
+  --act-border:rgba(24,119,242,.28);
+}
+
+/* THEME 04: BotCake Broadcasts (Messenger Teal & Waves) */
+.theme-bcb{
+  background:
+    radial-gradient(920px 500px at 80% 20%,rgba(0,196,159,.20),transparent 65%),
+    radial-gradient(840px 460px at 15% 80%,rgba(2,132,199,.18),transparent 65%),
+    linear-gradient(180deg,#05171F 0%,#0A2A38 50%,#04131A 100%);
+  --act-gold:#38BDF8;
+  --act-lamp:#00C49F;
+  --act-accent:#0284C7;
+  --act-panel:rgba(11,46,60,.72);
+  --act-border:rgba(0,196,159,.28);
+}
+
+/* THEME 05: BotCake Automation (Cyber Neon Triggers) */
+.theme-bca{
+  background:
+    radial-gradient(940px 520px at 80% 15%,rgba(168,85,247,.22),transparent 65%),
+    radial-gradient(860px 480px at 15% 85%,rgba(236,72,153,.18),transparent 65%),
+    linear-gradient(180deg,#140722 0%,#260D3E 50%,#10051C 100%);
+  --act-gold:#F472B6;
+  --act-lamp:#A855F7;
+  --act-accent:#EC4899;
+  --act-panel:rgba(44,17,70,.74);
+  --act-border:rgba(168,85,247,.28);
+}
+
+/* THEME 06: The Witching Hours (Halloween Spooky Fog) */
+.theme-wh{
+  background:
+    radial-gradient(950px 540px at 80% 15%,rgba(249,115,22,.24),transparent 65%),
+    radial-gradient(860px 500px at 15% 80%,rgba(132,204,22,.18),transparent 65%),
+    radial-gradient(600px 400px at 50% 50%,rgba(124,58,237,.14),transparent 70%),
+    linear-gradient(180deg,#130722 0%,#240D3E 50%,#0E0519 100%);
+  --act-gold:#FACC15;
+  --act-lamp:#F97316;
+  --act-accent:#84CC16;
+  --act-panel:rgba(42,16,68,.76);
+  --act-border:rgba(249,115,22,.32);
+}
+
+/* THEME 07: FWL Halloween Doors (Emerald VIP + Glowing Pumpkin) */
+.theme-fwl{
+  background:
+    radial-gradient(950px 520px at 85% 15%,rgba(16,185,129,.24),transparent 65%),
+    radial-gradient(860px 480px at 15% 80%,rgba(234,88,12,.22),transparent 65%),
+    linear-gradient(180deg,#051A13 0%,#0A3426 50%,#04140E 100%);
+  --act-gold:#34D399;
+  --act-lamp:#10B981;
+  --act-accent:#EA580C;
+  --act-panel:rgba(12,54,39,.74);
+  --act-border:rgba(16,185,129,.32);
+}
+
+/* ==================== ACT HEADER STYLING ==================== */
+.act{
+  display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  margin-bottom:18px;padding-bottom:14px;border-bottom:2px solid var(--act-border, var(--line));
+}
+.act-left{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.act .k{
+  font-family:var(--f-hand);font-size:24px;color:var(--act-lamp, var(--lamp));
+}
+.act h2{
+  font-family:var(--f-display);font-weight:400;
+  font-size:clamp(26px,3.6vw,42px);line-height:1.06;color:#FFF6DE;
+}
+.act .period-badge{
+  font-size:13px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;
+  color:var(--ink-2);background:rgba(255,255,255,.05);border:1px solid var(--act-border, var(--line));
+  padding:6px 12px;border-radius:999px;
+}
+.lead{font-size:clamp(16.5px,1.65vw,19.5px);color:var(--ink);max-width:80ch;margin-bottom:24px}
+.lead strong,.lead b{color:var(--act-gold, var(--gold));font-weight:900}
+.subh{
+  font-size:14px;letter-spacing:.13em;text-transform:uppercase;font-weight:900;
+  color:var(--act-lamp, var(--lamp));margin:32px 0 12px;display:flex;align-items:center;gap:10px;
+}
+.subh::after{content:"";flex:1;height:1px;background:var(--act-border, var(--line))}
+.subnote{color:var(--ink-2);font-size:14.5px;margin:-6px 0 14px;max-width:80ch}
+
+/* ==================== KPI STRIPS ==================== */
+.kpi-strip{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));
+  gap:2px;background:var(--act-border, var(--line));border:1px solid var(--act-border, var(--line));
+  border-radius:16px;overflow:hidden;margin-bottom:24px;
+}
+.kpi-tile{
+  background:linear-gradient(180deg,var(--act-panel, rgba(36,28,84,.65)),rgba(12,9,28,.92));
+  padding:16px 18px 18px;display:flex;flex-direction:column;gap:5px;min-width:0;
+}
+.kpi-tile.featured{
+  background:linear-gradient(180deg,rgba(255,210,122,.18),var(--act-panel, rgba(36,28,84,.75)));
+  border-left:2px solid var(--act-gold, var(--gold));
+}
+.kpi-label{font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;font-weight:800;color:var(--ink-2)}
+.kpi-val{
+  font-family:var(--f-display);font-weight:400;
+  font-size:clamp(24px,2.7vw,34px);line-height:1.08;color:var(--act-gold, var(--gold));
+  font-variant-numeric:tabular-nums;
+}
+.kpi-val.mint{color:var(--mint)}
+.kpi-val.lav{color:var(--lav)}
+.kpi-val.white{color:#fff}
+.kpi-note{font-size:13px;color:var(--ink-2);line-height:1.4}
+.kpi-note b{color:#fff;font-weight:800}
+
+/* ==================== CARDS & GRIDS ==================== */
+.grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.grid-auto{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
+@media (max-width:920px){.grid-2,.grid-3{grid-template-columns:1fr}}
+
+.card{
+  background:var(--act-panel, rgba(26,20,64,.72));
+  border:1px solid var(--act-border, var(--line));
+  border-radius:16px;
+  padding:20px 22px;
+  display:flex;flex-direction:column;gap:10px;min-width:0;
+  box-shadow:0 12px 32px rgba(0,0,0,.28);
+  transition:transform .18s ease,border-color .18s ease;
+}
+.card:hover{border-color:var(--act-gold, var(--gold));transform:translateY(-2px)}
+.card.accent{
+  border-color:var(--act-border, var(--line));
+  background:linear-gradient(180deg,rgba(255,255,255,.05),var(--act-panel, rgba(26,20,64,.75)));
+}
+.card h3{
+  font-size:16px;font-weight:900;letter-spacing:.02em;color:#fff;
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+}
+.card .badge{
+  font-size:11.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;
+  padding:3px 9px;border-radius:999px;
+  background:rgba(255,255,255,.08);color:var(--act-gold, var(--gold));
+  border:1px solid var(--act-border, var(--line));
+}
+.card .big-stat{
+  font-family:var(--f-display);font-size:28px;color:var(--act-gold, var(--gold));line-height:1.1;
+}
+.card .meta{font-size:13.5px;color:var(--ink-2);line-height:1.45}
+.card .meta b{color:#fff}
+.stat-pair{display:flex;gap:24px;flex-wrap:wrap;margin:4px 0}
+.stat-pair div{display:flex;flex-direction:column;gap:2px}
+
+/* Individual Brand Cards (when rendering projects) */
+.brand-card{
+  border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:10px;
+  box-shadow:0 12px 30px rgba(0,0,0,.35);
+  position:relative;overflow:hidden;
+}
+.brand-card::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:4px;background:var(--b-color,#FFD27A);
+}
+.brand-card{color:var(--ink)}
+.brand-card h3{
+  font-size:17px;font-weight:900;letter-spacing:.02em;color:#FFF6DE;
+  display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;
+  text-shadow:0 0 14px var(--b-color,#FFD27A),0 2px 0 rgba(0,0,0,.45);
+}
+.brand-card .big-stat{
+  font-family:var(--f-display);font-size:30px;line-height:1.1;
+  text-shadow:0 0 22px rgba(0,0,0,.35);
+}
+.brand-card .meta{font-size:13.5px;color:var(--ink-2);line-height:1.45}
+.brand-card .meta b{color:#fff;font-weight:900}
+.brand-card .badge{
+  font-size:11.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;
+  padding:3px 9px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid;
+  text-shadow:none;
+}
+
+/* ==================== CHARTS ==================== */
+.chart-box{position:relative;width:100%;min-height:220px;user-select:none}
+.chart-box.small{min-height:150px}
+.chart-box.mini{min-height:96px}
+.legend{display:flex;flex-wrap:wrap;gap:16px;font-size:13px;color:var(--ink-2)}
+.legend span{display:inline-flex;align-items:center;gap:6px;font-weight:700}
+.sw{width:10px;height:10px;border-radius:3px;display:inline-block}
+.chart-tip{
+  position:absolute;pointer-events:none;z-index:30;
+  background:#0A0718;border:1px solid var(--act-gold, #FFD27A);border-radius:10px;
+  padding:8px 12px;font-size:12.5px;line-height:1.4;color:#fff;
+  box-shadow:0 10px 28px rgba(0,0,0,.65);white-space:nowrap;
+  font-variant-numeric:tabular-nums;
+}
+.chart-tip .t-head{color:var(--act-gold, #FFD27A);font-weight:900;margin-bottom:3px}
+
+/* ==================== TABLES ==================== */
+.tbl-scroll{
+  overflow-x:auto;border:1px solid var(--act-border, var(--line));
+  border-radius:14px;background:rgba(8,5,20,.72);
+}
+.tbl-scroll.tall{max-height:440px;overflow:auto}
+table.dt{border-collapse:collapse;width:100%;font-size:14.5px;font-variant-numeric:tabular-nums}
+table.dt th,table.dt td{padding:10px 13px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+table.dt th:first-child,table.dt td:first-child{text-align:left}
+table.dt th{
+  position:sticky;top:0;z-index:2;
+  background:rgba(18,12,38,.96);color:var(--act-lamp, var(--lamp));
+  font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;font-weight:900;
+  border-bottom:2px solid var(--act-border, var(--line));
+}
+table.dt{color:var(--ink)}
+table.dt td{color:var(--ink-2)}
+table.dt tr:last-child td{border-bottom:0}
+table.dt tr:hover td{background:rgba(255,255,255,.04)}
+table.dt td.strong{color:var(--act-gold, var(--gold));font-weight:900}
+table.dt td.good{color:var(--mint);font-weight:900}
+table.dt td.muted{color:var(--ink-3)}
+table.dt td:first-child{font-weight:800;color:#fff}
+
+/* ==================== CHECKLISTS & METHOD ==================== */
+.checks{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.checks li{display:grid;grid-template-columns:22px minmax(0,1fr);gap:10px;color:var(--ink-2);font-size:15px}
+.checks li::before{
+  content:"";width:10px;height:10px;margin-top:7px;border-radius:50%;
+  background:var(--act-gold, var(--gold));box-shadow:0 0 10px var(--act-gold, rgba(255,210,122,.6));
+}
+.checks b{color:#fff}
+
+details.method{
+  margin-top:22px;background:rgba(255,255,255,.03);border:1px solid var(--act-border, var(--line));
+  border-radius:12px;padding:12px 16px;
+}
+details.method summary{
+  cursor:pointer;font-weight:800;font-size:13.5px;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--ink-2);
+}
+details.method ul{margin:10px 0 0;padding-left:18px;color:var(--ink-2);font-size:14px;display:grid;gap:6px}
+
+footer{padding:48px 0 60px;color:var(--ink-3);font-size:13.5px}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:22px}
+</style>
+</head>
+<body>
+
+<!-- ==================== HERO ==================== -->
+<header class="hero" id="top">
+  <div class="wrap topbar">
+    <div class="tag">Half-Year Performance Report · <b>Май – Ноябрь 2026</b></div>
+    <div class="tag">Брендовый мульти-дашборд · <b>USA Offer Monitoring + CRM + Meta + Боты</b></div>
+  </div>
+  <div class="wrap hero-in">
+    <div class="pre">six months of brand worlds, growth, automation &amp; flagship events</div>
+    <h1>Итоги работы за полгода</h1>
+    <div class="dates num">15 мая – 1 ноября 2026 · 8 брендов · Онлайн-чаты · Discord · Facebook · BotCake · Ивенты</div>
+    <p class="slogan">
+      За полгода выстроена единая система контента, офферов, промокодов, рассылок, автоцепочек и игровых ивентов в фирменных стилях каждого бренда.
+      Суммарно офферы чатов, Discord, Facebook и BotCake принесли <b>$1 131 481 депозитов</b> (<b>53 656 покупок</b>),
+      промокоды дали <b>3 504 первых депозита (FTD)</b> и вернули <b>5 719 игроков (реактивации 7+ дней)</b>,
+      а аудитория комьюнити выросла до <b>291 121 участника в Discord</b> и <b>750 497 подписчиков в Facebook</b>.
+    </p>
+
+    <div class="brand-pill-bar">
+      <span class="bpill" style="border-color:rgba(239,68,68,.35)"><span class="dot" style="background:#EF4444"></span>🔥 Fire Seven</span>
+      <span class="bpill" style="border-color:rgba(217,70,239,.35)"><span class="dot" style="background:#D946EF"></span>🐷 CoinsMania</span>
+      <span class="bpill" style="border-color:rgba(16,185,129,.35)"><span class="dot" style="background:#10B981"></span>🦁 Jumanza</span>
+      <span class="bpill" style="border-color:rgba(139,92,246,.35)"><span class="dot" style="background:#8B5CF6"></span>🃏 Vegas Way</span>
+      <span class="bpill" style="border-color:rgba(6,182,212,.35)"><span class="dot" style="background:#06B6D4"></span>⚡ Storm Rush</span>
+      <span class="bpill" style="border-color:rgba(245,158,11,.35)"><span class="dot" style="background:#F59E0B"></span>🏜️ Scarlet Sands</span>
+      <span class="bpill" style="border-color:rgba(16,185,129,.35)"><span class="dot" style="background:#10B981"></span>🎡 Fortune Wheelz</span>
+      <span class="bpill" style="border-color:rgba(251,191,36,.35)"><span class="dot" style="background:#FBBF24"></span>🪙 NoLimitCoins</span>
+    </div>
+  </div>
+</header>
+
+<!-- ==================== STICKY NAV ==================== -->
+<nav class="snav" aria-label="Навигация по отчёту">
+  <div class="wrap snav-in">
+    <a href="#act-overview"><span class="icon-tag">🏛️</span> 00 Сводка</a>
+    <a href="#act-chat"><span class="icon-tag">🏜️</span> 01 Онлайн-чаты</a>
+    <a href="#act-ds"><span class="icon-tag">🔥</span> 02 Discord</a>
+    <a href="#act-fb"><span class="icon-tag">🃏</span> 03 Facebook</a>
+    <a href="#act-bcb"><span class="icon-tag">💬</span> 04 BotCake: Бродкасты</a>
+    <a href="#act-bca"><span class="icon-tag">⚡</span> 05 BotCake: Автоматизация</a>
+    <a href="#act-wh"><span class="icon-tag">🎃</span> 06 The Witching Hours</a>
+    <a href="#act-fwl"><span class="icon-tag">🎡</span> 07 FWL Halloween Doors</a>
+    <a href="#act-next"><span class="icon-tag">🧭</span> 08 Выводы и планы</a>
+  </div>
+</nav>
+
+<main>
+
+<!-- ==================== ACT 00: OVERVIEW ==================== -->
+<section class="wrap act-sec theme-overview" id="act-overview">
+  <div class="act">
+    <div class="act-left"><span class="k">act 00 · executive summary</span><h2>Все 7 направлений на одном экране</h2></div>
+    <span class="period-badge">Май – Ноябрь 2026</span>
+  </div>
+  <p class="lead">
+    Ниже — ключевые итоги полугодия. В меню сверху — переход к каждому разделу с графиками по неделям, разбивкой по проектам и сетками офферов.
+  </p>
+
+  <div class="kpi-strip">
+    <div class="kpi-tile featured">
+      <span class="kpi-label">Депозит со всех офферов</span>
+      <span class="kpi-val">$1 131 481</span>
+      <span class="kpi-note"><b>53 656</b> покупок офферов (Chat + DS + FB + BotCake)</span>
+    </div>
+    <div class="kpi-tile">
+      <span class="kpi-label">Discord-комьюнити</span>
+      <span class="kpi-val mint">+210% (×3,1)</span>
+      <span class="kpi-note"><b>+197 213</b> новых участников · сейчас <b>291 121</b></span>
+    </div>
+    <div class="kpi-tile">
+      <span class="kpi-label">Facebook-страницы</span>
+      <span class="kpi-val mint">+30% осн.</span>
+      <span class="kpi-note"><b>750 497</b> подписчиков · <b>55 889</b> на 2 новых с нуля · ER <b>11,8%</b></span>
+    </div>
+    <div class="kpi-tile">
+      <span class="kpi-label">Первые депозиты (FTD)</span>
+      <span class="kpi-val">3 504</span>
+      <span class="kpi-note">после активации промокодов DS, FB_C, FB_B, FB_A, CHAT</span>
+    </div>
+    <div class="kpi-tile">
+      <span class="kpi-label">Реактивации 7+ дней</span>
+      <span class="kpi-val lav">5 719</span>
+      <span class="kpi-note">вернулись после недели+ без активности по нашим кодам</span>
+    </div>
+    <div class="kpi-tile">
+      <span class="kpi-label">Хэллоуин-спецпроекты</span>
+      <span class="kpi-val white">3 ивента</span>
+      <span class="kpi-note">Witching Hours (6 брендов), FWL Doors (бот), Haunted Week (чаты)</span>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== ACT 01: ONLINE CHATS (SCARLET SANDS & ARTIFACTS THEME) ==================== -->
+<section class="wrap act-sec theme-chat-scs" id="act-chat">
+  <div class="act">
+    <div class="act-left">
+      <span class="k">act 01 · scarlet sands, fortune wheelz, nolimitcoins</span>
+      <h2>🏜️ Онлайн-чаты: сетка офферов и контент</h2>
+    </div>
+    <span class="period-badge">15 мая – 1 ноября 2026 · Desert &amp; Oasis Theme</span>
+  </div>
+  <p class="lead">
+    Для каждого онлайн-чата собрана своя сетка офферов под стиль и аудиторию бренда. Вместе они продали <b>7 111 офферов</b> на <b>$164 212</b>.
+    Контент и развлекательную часть чатов закрываю под ключ: квизы, опросы, батлы, попапы и сезонные ивенты.
+    После покупки в чате <b>86% покупателей</b> сделали ещё один депозит.
+  </p>
+
+  <div class="kpi-strip">
+    <div class="kpi-tile featured">
+      <span class="kpi-label">Продано офферов</span>
+      <span class="kpi-val">7 111</span>
+      <span class="kpi-note"><b>5 233</b> покупателей</span>
+    </div>
+    <div class="kpi-tile featured">
+      <span class="kpi-label">Депозит с офферов</span>
+      <span class="kpi-val">$164 212</span>
+      <span class="kpi-note">средний чек <b>$23.09</b></span>
+    </div>
+    <div class="kpi-tile">
+      <span class="kpi-label">Inout за 7 дней</span>
+      <span class="kpi-val mint">$86 936</span>
+      <span class="kpi-note">вынесли <b>$77 275</b> (47%) · за 24 ч <b>$68 109</b></span>
+    </div>
+    <div class="kpi-tile">
+      <span class="kpi-label">Купили что-то ещё</span>
+      <span class="kpi-val mint">86%</span>
+      <span class="kpi-note">покупателей сделали следующий депозит</span>
+    </div>
+    <div class="kpi-tile">
+      <span class="kpi-label">Активации чат-кодов</span>
+      <span class="kpi-val">37 995</span>
+      <span class="kpi-note"><b>9 385</b> игроков · теги CHAT, с 01.06</span>
+    </div>
+    <div class="kpi-tile">
+      <span class="kpi-label">FTD с чата</span>
+      <span class="kpi-val white">28</span>
+      <span class="kpi-note">первый депозит после чат-кода</span>
+    </div>
+    <div class="kpi-tile">
+      <span class="kpi-label">Реактивации 7д</span>
+      <span class="kpi-val lav">306</span>
+      <span class="kpi-note">0д <b>1 283</b> · 1д <b>722</b> · 14д <b>206</b></span>
+    </div>
+  </div>
+
+  <div class="subh">Сетка офферов в каждом чате брендов</div>
+  <p class="subnote">Под каждый чат собрана отдельная сетка: свои цены, пакеты и оффер дня под аудиторию бренда. Сетка обновляется каждую неделю, офферы заводятся в админку и показываются игрокам попапами и карточками прямо в чате.</p>
+  <div class="grid-3" id="chat-brand-cards"></div>
+
+  <div class="grid-2" style="margin-top:20px">
+    <div class="card accent">
+      <h3>Контент и развлечения — под ключ <span class="badge">Full Production</span></h3>
+      <p class="meta">Всю контентную и развлекательную часть чатов закрываю сам, от идеи до запуска:</p>
+      <ul class="checks">
+        <li><span><b>Ежедневные квизы, опросы и батлы:</b> тексты, обложки, расписание по времени США.</span></li>
+        <li><span><b>Попапы при входе и in-feed карточки с офферами:</b> графика, тексты и слоты показа.</span></li>
+        <li><span><b>Чат-промокоды на каждый день</b> и розыгрыши внутри чата.</span></li>
+        <li><span><b>Сезонные ивенты:</b> концепция, сценарий для ведущего, графика и коды.</span></li>
+      </ul>
+      <p class="meta" style="margin-top:6px">Чат-коды из квизов, конкурсов и дропов активировали <b>37 995 раз</b>, их забрали <b>9 385 игроков</b> (с 1 июня).</p>
+    </div>
+
+    <div class="card">
+      <h3>Haunted Week: Хэллоуин в чатах <span class="badge">26.10 – 01.11.2026</span></h3>
+      <p class="meta">Во всех трёх чатах прошла хеллоуинская неделя: ежедневный Witching Hour, Trick or Treat, Cursed Code и финал Halloween Night 31 октября со специальными хеллоуинскими офферами.</p>
+      <div class="kpi-strip" style="margin-bottom:0;margin-top:6px">
+        <div class="kpi-tile">
+          <span class="kpi-label">Офферов за неделю</span>
+          <span class="kpi-val">508</span>
+          <span class="kpi-note">на <b>$12 759</b> депозита</span>
+        </div>
+        <div class="kpi-tile">
+          <span class="kpi-label">Хеллоуин-коды</span>
+          <span class="kpi-val">453</span>
+          <span class="kpi-note">активаций · <b>222</b> игрока</span>
+        </div>
+        <div class="kpi-tile">
+          <span class="kpi-label">Реактивации 7д</span>
+          <span class="kpi-val lav">25</span>
+          <span class="kpi-note">из них <b>5</b> по HW · FTD <b>1</b></span>
+        </div>
+        <div class="kpi-tile">
+          <span class="kpi-label">Контент и графика</span>
+          <span class="kpi-val white">35 квизов</span>
+          <span class="kpi-note"><b>14</b> карточек · <b>58</b> кодов · <b>36</b> попапов · <b>18</b> баннеров</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="subh">Динамика онлайн-чатов по неделям</div>
+  <div class="card">
+    <h3>Депозит с чат-офферов по неделям <span class="badge">W20 – W44</span></h3>
+    <p class="meta">До сентября чат был только на Scarlet Sands. Рост с конца августа — запуск Fortune Wheelz, с конца сентября — NoLimitCoins.</p>
+    <div class="chart-box" id="chart-chat-wk-dep"></div>
+  </div>
+  <div class="grid-3" style="margin-top:18px">
+    <div class="card">
+      <h3>Активации чат-кодов</h3>
+      <p class="meta">Все теги CHAT, включая Хэллоуин (с 01.06).</p>
+      <div class="chart-box small" id="chart-chat-wk-acts"></div>
+    </div>
+    <div class="card">
+      <h3>FTD после чат-кода</h3>
+      <p class="meta">Первый депозит после активации кода из чата.</p>
+      <div class="chart-box small" id="chart-chat-wk-ftd"></div>
+    </div>
+    <div class="card">
+      <h3>Реактивации 7д</h3>
+      <p class="meta">Вернулись после 7+ дней без активности.</p>
+      <div class="chart-box small" id="chart-chat-wk-react"></div>
+    </div>
+  </div>
+
+  <div class="subh">По месяцам и брендам</div>
+  <div class="grid-2">
+    <div class="card">
+      <h3>Сколько пришло и сколько вынесли по месяцам</h3>
+      <div class="legend">
+        <span><i class="sw" style="background:#FBBF24"></i>Депозит</span>
+        <span><i class="sw" style="background:#DC2626"></i>Вынесли за 7 дней</span>
+      </div>
+      <div class="chart-box" id="chart-chat-mo-inout"></div>
+    </div>
+    <div class="card">
+      <h3>Чаты по брендам</h3>
+      <p class="meta">Scarlet Sands ведёт чат с мая, Fortune Wheelz — с августа, NoLimitCoins — с сентября. В октябре все три чата вышли на сопоставимый объём.</p>
+      <div class="tbl-scroll">
+        <table class="dt" id="tbl-chat-brands"></table>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ==================== ACT 02: DISCORD (FIRE SEVEN & MULTI-SERVER SHOWCASE) ==================== -->
+<section class="wrap act-sec theme-ds" id="act-ds">
+  <div class="act">
+    <div class="act-left">
+      <span class="k">act 02 · fire seven &amp; 7 brand servers</span>
+      <h2>🔥 Discord: взрывной рост и сетка офферов</h2>
+    </div>
+    <span class="period-badge">15 мая – 1 ноября 2026 · Fire Seven &amp; Servers</span>
+  </div>
+  <p class="lead">
+    За полгода аудитория Discord-серверов выросла в <b>3,1 раза (+210%)</b>: пришли и остались <b>197 213 новых участников</b> (с 93 715 до 291 121).
+    Под Discord собрана своя сетка офферов, которая принесла <b>$294 671 депозитов</b> (17 854 покупок).
+    DS-коды дали <b>1 979 первых депозитов (FTD)</b> и вернули <b>2 586 игроков</b>, которые не заходили неделю и больше.
+  </p>
+
+  <div class="kpi-strip">
+    <div class="kpi-tile featured">
+      <span class="kpi-label">Рост аудитории</span>
+      <span class="kpi-val mint">+210% (×3,1)</span>
+      <span class="kpi-note">было <b>93 715</b> → сейчас <b>291 121</b></span>
+    </div>
+    <div class="kpi-tile">
+      <span class="kpi-label">Новых участников</span>
+      <span class="kpi-val">197 213</span>
+      <span class="kpi-note">пришли за полгода и остались на серверах</span>
+    </div>
+    <div class="kpi-tile featured">
+      <span class="kpi-label">Депозит с офферов</span>
+      <span class="kpi-val">$294 671</span>
+      <span class="kpi-note">сумма покупок офферов сетки SMM_Discord</span>
+    </div>
+    <div class="kpi-tile">
+      <span class="kpi-label">Продано офферов</span>
+      <span class="kpi-val">17 854</span>
+      <span class="kpi-note"><b>9 152</b> покупателей</span>
+    </div>
+    <div class="kpi-tile">
+      <span class="kpi-label">FTD с Discord</span>
+      <span class="kpi-val mint">1 979</span>
+      <span class="kpi-note">первый депозит после DS-кода, с 01.06</span>
+    </div>
+    <div class="kpi-tile">
+      <span class="kpi-label">Реактивации 7д</span>
+      <span class="kpi-val lav">2 586</span>
+      <span class="kpi-note">0д <b>6 939</b> · 1д <b>3 915</b> · 14д <b>1 958</b></span>
+    </div>
+    <div class="kpi-tile">
+      <span class="kpi-label">Купили что-то ещё</span>
+      <span class="kpi-val mint">76%</span>
+      <span class="kpi-note">покупателей оффера сделали следующий депозит</span>
+    </div>
+  </div>
+
+  <div class="subh">Рост аудитории серверов</div>
+  <div class="grid-2">
+    <div class="card">
+      <h3>Участники серверов на конец месяца <span class="badge">93.7k → 291.1k</span></h3>
+      <p class="meta">Сумма по всем серверам: участники на 14 мая плюс все, кто пришёл с тех пор и остался.</p>
+      <div class="chart-box" id="chart-ds-members-curve"></div>
+    </div>
+    <div class="card">
+      <h3>Рост по серверам брендов <span class="badge">7 активных серверов</span></h3>
+      <p class="meta">«Было» — минимум на 14 мая. Новые участники по неделям и итоговая таблица по серверам.</p>
+      <div class="chart-box small" id="chart-ds-wk-join"></div>
+      <div class="tbl-scroll" style="margin-top:8px">
+        <table class="dt" id="tbl-ds-servers"></table>
+      </div>
+    </div>
+  </div>
+
+  <div class="subh">Сетка офферов Discord (v1 → v2 → v3)</div>
+  <div>
+    <div class="card accent">
+      <h3>Эволюция сетки под Discord-аудиторию <span class="badge">29 офферов</span></h3>
+      <p class="meta">Для Discord разработана отдельная сетка офферов, которая развивалась вместе с комьюнити:</p>
+      <ul class="checks">
+        <li><span><b>Май – Июнь (v1):</b> входные офферы за <b>$4.99–$12.99</b> для раскачки первой покупки в комьюнити.</span></li>
+        <li><span><b>Июль – Октябрь (v2):</b> переход на сетку <b>$9.99–$59.99 с бонусом 20–100% сверху</b> — покупок стало меньше, а средний чек и выручка кратно выросли (пик $76.4k в августе).</span></li>
+        <li><span><b>Ноябрь (v3):</b> персонализированная сетка, где оффер подбирается под поведение игрока — по его <b>inout</b> и <b>среднему депозиту</b>.</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="subh">Продажи Discord-офферов по проектам (Июль – Октябрь)</div>
+  <p class="subnote">Разбивка по проектам в выгрузке Power BI с 29 июня (карточки оформлены в фирменных цветах брендов).</p>
+  <div class="grid-auto" id="ds-proj-cards"></div>
+
+  <div class="subh">Деньги и коды по неделям и месяцам</div>
+  <div class="card">
+    <h3>Депозит с Discord-офферов по неделям</h3>
+    <p class="meta">С июля дешёвые офферы сменила сетка подороже с бонусом: чек и недельный депозит выросли в 2–3 раза.</p>
+    <div class="chart-box" id="chart-ds-wk-dep"></div>
+  </div>
+  <div class="grid-2" style="margin-top:18px">
+    <div class="card">
+      <h3>FTD после DS-кода по неделям</h3>
+      <div class="chart-box small" id="chart-ds-wk-ftd"></div>
+    </div>
+    <div class="card">
+      <h3>Реактивации 7д по неделям</h3>
+      <div class="chart-box small" id="chart-ds-wk-react"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== ACT 03: FACEBOOK (VEGAS WAY PENTHOUSE & META SKYLINE) ==================== -->
+<section class="wrap act-sec theme-fb" id="act-fb">
+  <div class="act">
+    <div class="act-left">
+      <span class="k">act 03 · vegas way penthouse &amp; 8 pages</span>
+      <h2>🃏 Facebook: страницы брендов и офферы</h2>
+    </div>
+    <span class="period-badge">25 мая – 1 ноября 2026 · Vegas Penthouse Style</span>
+  </div>
+  <p class="lead">
+    Шесть страниц, которые работали весь период, выросли с <b>534 634 до 694 608 подписчиков (+30%)</b>.
+    После сентябрьского бана Vegas Way и Scarlet Sands новые страницы подняты с нуля и уже собрали <b>55 889 подписчиков</b>.
+    Средний ER постов — <b>11,8%</b> при охвате <b>5,73 млн</b>. Офферы Facebook (<code>SMM_Channel_</code>) за июль–сентябрь продали <b>9 898 раз</b> на <b>$255 733</b>.
+  </p>
+
+  <div class="subh">Часть 1 · Статистика 8 страниц брендов (Meta Business Suite)</div>
+  <div class="kpi-strip">
+    <div class="kpi-tile featured">
+      <span class="kpi-label">Рост 6 осн. страниц</span>
+      <span class="kpi-val mint">+30%</span>
+      <span class="kpi-note"><b>534 634 → 694 608</b> подписчиков</span>
+    </div>
+    <div class="kpi-tile">
+      <span class="kpi-label">Новые страницы с нуля</span>
+      <span class="kpi-val">55 889</span>
+      <span class="kpi-note">Vegas Way (40 080) и Scarlet Sands (15 809) после бана</span>
+    </div>
+    <div class="kpi-tile">
+      <span class="kpi-label">Подписчиков сейчас</span>
+      <span class="kpi-val">750 497</span>
+      <span class="kpi-note"><b>+274 691</b> новых подписок нетто за период</span>
+    </div>
+    <div class="kpi-tile">
+      <span class="kpi-label">Средний ER постов</span>
+      <span class="kpi-val mint">11,8%</span>
+      <span class="kpi-note">взаимодействия / охват за период</span>
+    </div>
+    <div class="kpi-tile">
+      <span class="kpi-label">Охват постов</span>
+      <span class="kpi-val">5 725 141</span>
+      <span class="kpi-note"><b>677 364</b> взаимодействий</span>
+    </div>
+    <div class="kpi-tile">
+      <span class="kpi-label">Вышло постов</span>
+      <span class="kpi-val white">3 331</span>
+      <span class="kpi-note">на <b>8</b> страницах брендов</span>
+    </div>
+  </div>
+
+  <div class="grid-auto" id="fb-page-cards"></div>
+
+  <div class="grid-2" style="margin-top:18px">
+    <div class="card">
+      <h3>ER постов по неделям (все страницы)</h3>
+      <p class="meta">Взаимодействия, делённые на охват, сумма по всем страницам за неделю.</p>
+      <div class="chart-box" id="chart-fb-er"></div>
+    </div>
+    <div class="card">
+      <h3>Сводная таблица страниц за период</h3>
+      <div class="tbl-scroll">
+        <table class="dt" id="tbl-fb-pages"></table>
+      </div>
+    </div>
+  </div>
+
+  <div class="subh">Часть 2 · Офферы Facebook (SMM_Channel_ и коды FB_C · Июль – Сентябрь)</div>
+  <div class="kpi-strip">
+    <div class="kpi-tile featured">
+      <span class="kpi-label">Депозит с офферов FB</span>
+      <span class="kpi-val">$255 733</span>
+      <span class="kpi-note"><b>9 898</b> офферов продано (29.06–27.09)</span>
+    </div>
+    <div class="kpi-tile">
+      <span class="kpi-label">FTD (код FB_C)</span>
+      <span class="kpi-val mint">192</span>
+      <span class="kpi-note">первый депозит после кода из поста</span>
+    </div>
+    <div class="kpi-tile">
+      <span class="kpi-label">Реактивации 7д</span>
+      <span class="kpi-val lav">650</span>
+      <span class="kpi-note">вернулись после 7+ дней без активности</span>
+    </div>
+    <div class="kpi-tile">
+      <span class="kpi-label">Активации кодов FB_C</span>
+      <span class="kpi-val">57 044</span>
+      <span class="kpi-note">промокоды из постов страниц</span>
+    </div>
+  </div>
+
+  <div class="grid-auto" id="fb-offer-cards"></div>
+  <div class="tbl-scroll" style="margin-top:18px">
+    <table class="dt" id="tbl-fb-offers-monthly"></table>
+  </div>
+</section>
+
+<!-- ==================== ACT 04: BOTCAKE BROADCASTS ==================== -->
+<section class="wrap act-sec theme-bcb" id="act-bcb">
+  <div class="act">
+    <div class="act-left">
+      <span class="k">act 04 · messenger teal &amp; broadcast stories</span>
+      <h2>💬 BotCake: Бродкасты (Messenger-рассылки)</h2>
+    </div>
+    <span class="period-badge">29 июня – 1 ноября 2026 · 8 брендов · SMM_Broadcast_</span>
+  </div>
+  <p class="lead">
+    Бродкасты в BotCake — рассылки в Messenger по подписчикам страниц брендов: короткая история, бонус-код и оффер дня.
+    Тексты, промокоды и расписание по времени США готовятся каждую неделю. За период офферы бродкастов продали <b>4 235 раз</b> на <b>$113 737</b>,
+    а коды <code>FB_B</code> дали <b>254 первых депозита (FTD)</b> и вернули <b>551 игрока</b> (7+ дней).
+  </p>
+
+  <div class="kpi-strip">
+    <div class="kpi-tile featured">
+      <span class="kpi-label">Депозит с бродкастов</span>
+      <span class="kpi-val">$113 737</span>
+      <span class="kpi-note">офферы <b>SMM_Broadcast_</b></span>
+    </div>
+    <div class="kpi-tile">
+      <span class="kpi-label">Продано офферов</span>
+      <span class="kpi-val">4 235</span>
+      <span class="kpi-note">средний чек <b>$26.86</b></span>
+    </div>
+    <div class="kpi-tile">
+      <span class="kpi-label">FTD (код FB_B)</span>
+      <span class="kpi-val mint">254</span>
+      <span class="kpi-note">первый депозит после кода бродкаста</span>
+    </div>
+    <div class="kpi-tile">
+      <span class="kpi-label">Реактивации 7д</span>
+      <span class="kpi-val lav">551</span>
+      <span class="kpi-note">вернулись после 7+ дней без активности</span>
+    </div>
+    <div class="kpi-tile">
+      <span class="kpi-label">Активации кодов FB_B</span>
+      <span class="kpi-val">46 522</span>
+      <span class="kpi-note">с 13 июля по 8 брендам</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Депозит с офферов бродкастов по неделям <span class="badge">W27 – W44</span></h3>
+    <div class="chart-box" id="chart-bcb-wk-dep"></div>
+  </div>
+  <div class="grid-2" style="margin-top:18px">
+    <div class="card">
+      <h3>FTD после кода FB_B по неделям</h3>
+      <div class="chart-box small" id="chart-bcb-wk-ftd"></div>
+    </div>
+    <div class="card">
+      <h3>Реактивации 7д (FB_B) по неделям</h3>
+      <div class="chart-box small" id="chart-bcb-wk-react"></div>
+    </div>
+  </div>
+
+  <div class="subh">Продажи бродкастов по проектам и месяцам</div>
+  <div class="grid-auto" id="bcb-proj-cards"></div>
+</section>
+
+<!-- ==================== ACT 05: BOTCAKE AUTOMATION ==================== -->
+<section class="wrap act-sec theme-bca" id="act-bca">
+  <div class="act">
+    <div class="act-left">
+      <span class="k">act 05 · cyber neon &amp; trigger workflows</span>
+      <h2>⚡ BotCake: Автоматизация (Автоцепочки)</h2>
+    </div>
+    <span class="period-badge">29 июня – 1 ноября 2026 · 8 брендов · SMM_Automation_ · SMM_CheapAutomation_ · SMM_DailyPromoCode_</span>
+  </div>
+  <p class="lead">
+    Автоматизация в BotCake — автоцепочки, в которых игрок сам получает бонус-код и оффер по сценарию, без ручной рассылки.
+    Коды автоматизации многоразовые и заводятся пачкой на две недели. За период офферы автоматизации продали <b>14 558 раз</b> на <b>$303 128</b>,
+    а коды <code>FB_A</code> собрали <b>622 041 активацию</b>, дали <b>1 051 первый депозит (FTD)</b> и вернули <b>1 626 игроков</b> (7+ дней).
+  </p>
+
+  <div class="kpi-strip">
+    <div class="kpi-tile featured">
+      <span class="kpi-label">Депозит автоматизации</span>
+      <span class="kpi-val">$303 128</span>
+      <span class="kpi-note">DailyPromoCode <b>$171 980</b> · Automation <b>$77 695</b> · CheapAutomation <b>$53 453</b></span>
+    </div>
+    <div class="kpi-tile">
+      <span class="kpi-label">Продано офферов</span>
+      <span class="kpi-val">14 558</span>
+      <span class="kpi-note">средний чек <b>$20.82</b></span>
+    </div>
+    <div class="kpi-tile">
+      <span class="kpi-label">FTD (код FB_A)</span>
+      <span class="kpi-val mint">1 051</span>
+      <span class="kpi-note">первый депозит после кода автоцепочки</span>
+    </div>
+    <div class="kpi-tile">
+      <span class="kpi-label">Реактивации 7д</span>
+      <span class="kpi-val lav">1 626</span>
+      <span class="kpi-note">вернулись после 7+ дней без активности</span>
+    </div>
+    <div class="kpi-tile">
+      <span class="kpi-label">Активации кодов FB_A</span>
+      <span class="kpi-val">622 041</span>
+      <span class="kpi-note">многоразовые триггерные коды</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Депозит с офферов автоматизации по неделям <span class="badge">W27 – W44</span></h3>
+    <div class="chart-box" id="chart-bca-wk-dep"></div>
+  </div>
+  <div class="grid-2" style="margin-top:18px">
+    <div class="card">
+      <h3>FTD после кода FB_A по неделям</h3>
+      <div class="chart-box small" id="chart-bca-wk-ftd"></div>
+    </div>
+    <div class="card">
+      <h3>Реактивации 7д (FB_A) по неделям</h3>
+      <div class="chart-box small" id="chart-bca-wk-react"></div>
+    </div>
+  </div>
+
+  <div class="subh">Продажи автоматизации по проектам и месяцам</div>
+  <div class="grid-auto" id="bca-proj-cards"></div>
+</section>
+
+<!-- ==================== ACT 06: THE WITCHING HOURS ==================== -->
+<section class="wrap act-sec theme-wh" id="act-wh">
+  <div class="act">
+    <div class="act-left">
+      <span class="k">act 06 · spooky cross-brand discord event</span>
+      <h2>🎃 The Witching Hours: мультибрендовый ивент</h2>
+    </div>
+    <span class="period-badge">27 – 31 октября 2026 · 6 брендов в Discord</span>
+  </div>
+  <p class="lead">
+    За пять дней <b>6 брендов</b> (Fire Seven, Vegas Way, Scarlet Sands, Storm Rush, DexyPlay, NoLimitCoins) провели по <b>44 конкурса</b> на единой платформе.
+    В ивент пришли <b>1 263 игрока</b>, они доиграли <b>1 922 конкурса</b>, и <b>96% нажавших Start дошли до финала</b>. Разыграно <b>90 призов (912 SC)</b>.
+  </p>
+
+  <div class="kpi-strip">
+    <div class="kpi-tile featured">
+      <span class="kpi-label">Игроков в ивенте</span>
+      <span class="kpi-val">1 263</span>
+      <span class="kpi-note">уникальных участников (заявка или вход на платформу)</span>
+    </div>
+    <div class="kpi-tile featured">
+      <span class="kpi-label">Доиграно конкурсов</span>
+      <span class="kpi-val mint">1 922</span>
+      <span class="kpi-note">до конца дошли <b>96%</b> нажавших Start</span>
+    </div>
+    <div class="kpi-tile">
+      <span class="kpi-label">Призов разыграно</span>
+      <span class="kpi-val">90</span>
+      <span class="kpi-note"><b>912 SC</b> в призовом фонде</span>
+    </div>
+    <div class="kpi-tile">
+      <span class="kpi-label">Коды забрали сами</span>
+      <span class="kpi-val mint">97%</span>
+      <span class="kpi-note"><b>87 из 90</b> кодов через кнопку бота, без ручной выдачи</span>
+    </div>
+    <div class="kpi-tile">
+      <span class="kpi-label">Входов с попапа сайта</span>
+      <span class="kpi-val">1 251</span>
+      <span class="kpi-note">в <b>54 раза</b> больше, чем с поста в Facebook (23)</span>
+    </div>
+    <div class="kpi-tile">
+      <span class="kpi-label">Играли в 2+ брендах</span>
+      <span class="kpi-val lav">122</span>
+      <span class="kpi-note">игроков участвовали сразу на нескольких серверах</span>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>Попап на сайте казино — главный канал трафика <span class="badge">×54 к FB</span></h3>
+      <p class="meta">Входы в Discord по инвайт-ссылке из попапа на сайте бренда против переходов из Facebook.</p>
+      <div class="chart-box" id="chart-wh-popups"></div>
+    </div>
+    <div class="card">
+      <h3>Самые популярные мини-игры (14 механик)</h3>
+      <p class="meta">Сколько раз игроки нажали Start (сумма по всем брендам и запускам).</p>
+      <div class="chart-box" id="chart-wh-games"></div>
+    </div>
+  </div>
+
+  <div style="margin-top:18px">
+    <div class="card accent">
+      <h3>Что построено и готово к следующим запускам <span class="badge">Reusable Engine</span></h3>
+      <ul class="checks">
+        <li><span><b>Единая платформа конкурсов</b> на все бренды и собственный бот-ведущий в каждом из 6 Discord-серверов.</span></li>
+        <li><span><b>Библиотека из 14 мини-игр:</b> квизы, память, поиск предметов, слова, коды и финальный ритуал.</span></li>
+        <li><span><b>Автоподтверждение заявок:</b> игрок сразу получает ссылку на игру, верификация данных — только у победителей.</span></li>
+        <li><span><b>Античит и проверка победителей</b> по флагам скорости прохождения и аккаунта.</span></li>
+        <li><span><b>Автовыдача призов кнопкой в боте:</b> 87 из 90 кодов игроки забрали сами без участия модераторов.</span></li>
+        <li><span><b>Следующий мультибрендовый ивент</b> запускается сменой настроек и визуальной темы без новой разработки.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== ACT 07: FWL HALLOWEEN DOORS ==================== -->
+<section class="wrap act-sec theme-fwl" id="act-fwl">
+  <div class="act">
+    <div class="act-left">
+      <span class="k">act 07 · fortune wheelz discord bot</span>
+      <h2>🎡 Halloween Doors: результаты ивента Fortune Wheelz</h2>
+    </div>
+    <span class="period-badge">26 октября – 1 ноября 2026 · Emerald &amp; Jack-o'-Lantern</span>
+  </div>
+  <p class="lead">
+    Семь ночей по три двери с индивидуальными заданиями: за решённую дверь игрок получал тыкву и менял тыквы на промокоды в магазине бота (Treat Vault).
+    Двери открыли <b>113 игроков</b>, они решили <b>145 заданий</b>. Бот автоматически выдал <b>40 промокодов</b>, и <b>82,5% (33 кода)</b> из них игроки активировали в казино.
+  </p>
+
+  <div class="kpi-strip">
+    <div class="kpi-tile featured">
+      <span class="kpi-label">Открыли двери</span>
+      <span class="kpi-val">113</span>
+      <span class="kpi-note"><b>66,9%</b> из <b>169</b> игроков, записанных в боте</span>
+    </div>
+    <div class="kpi-tile featured">
+      <span class="kpi-label">Решено заданий (Тыкв)</span>
+      <span class="kpi-val mint">145</span>
+      <span class="kpi-note"><b>87</b> игроков нашли хотя бы одну тыкву</span>
+    </div>
+    <div class="kpi-tile">
+      <span class="kpi-label">Участий за 7 ночей</span>
+      <span class="kpi-val">183</span>
+      <span class="kpi-note"><b>37</b> игроков приходили на две ночи и больше</span>
+    </div>
+    <div class="kpi-tile">
+      <span class="kpi-label">Промокодов выдал бот</span>
+      <span class="kpi-val">40</span>
+      <span class="kpi-note"><b>26</b> игрокам · полностью автоматическая выдача</span>
+    </div>
+    <div class="kpi-tile">
+      <span class="kpi-label">Коды активировали в CRM</span>
+      <span class="kpi-val mint">82,5%</span>
+      <span class="kpi-note"><b>33</b> кода подтверждены по тегу <b>DS_H</b></span>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>Игроки и находки по ночам (Ночь 1 – Ночь 7)</h3>
+      <p class="meta">В каждую ночь тыкву находили от 70% до 90% игравших (Ночь 7* — на момент среза 02.11 11:46).</p>
+      <div class="legend">
+        <span><i class="sw" style="background:#34D399"></i>Играли</span>
+        <span><i class="sw" style="background:#EA580C"></i>Нашли тыкву</span>
+      </div>
+      <div class="chart-box" id="chart-fwl-nights"></div>
+    </div>
+
+    <div class="card">
+      <h3>Магазин призов (Treat Vault · 7 уровней)</h3>
+      <p class="meta">Активированные пакеты в сумме дали: <b>600 000 GC</b>, <b>6 FC</b> и <b>120 FP</b>.</p>
+      <div class="tbl-scroll">
+        <table class="dt" id="tbl-fwl-tiers"></table>
+      </div>
+    </div>
+  </div>
+
+  <div class="card accent" style="margin-top:18px">
+    <h3>Что построено для Fortune Wheelz <span class="badge">Custom Discord Bot</span></h3>
+    <ul class="checks">
+      <li><span><b>Собственный Discord-бот ивента:</b> интерактивная панель с дверями, магазин призов Treat Vault и стафф-деск в отдельных каналах.</span></li>
+      <li><span><b>7 ночей по 3 двери (21 задание):</b> найди лишнее, чья тень, посчитай, отражение, загадки и память — у разных игроков выпадают разные варианты, чтобы ответы не списывали из чата.</span></li>
+      <li><span><b>Вся графика ивента</b> и карточки заданий отрисованы в фирменном стиле Fortune Wheelz.</span></li>
+      <li><span><b>Автоматический магазин на 7 уровней призов:</b> бот сам резервирует и выдаёт промокод после привязки игрового аккаунта, а по роли Night Alerts зовёт игроков на открытие новой ночи.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ==================== ACT 08: LESSONS & NEXT HALF-YEAR ==================== -->
+<section class="wrap act-sec theme-overview" id="act-next">
+  <div class="act">
+    <div class="act-left"><span class="k">act 08 · lessons &amp; next half-year</span><h2>🧭 Что не получилось и что дальше</h2></div>
+    <span class="period-badge">Ноябрь 2026 – Апрель 2027</span>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>Что не получилось <span class="badge">Честно</span></h3>
+      <ul class="checks">
+        <li><span><b>С конца сентября просела монетизация SMM-офферов.</b> В августе — начале сентября все SMM-офферы давали $77–81k в неделю, в последние две недели октября — $10–11k. Сейчас фокус на сетке офферов v3 под каждый бренд.</span></li>
+        <li><span><b>Два бана FB-страниц за месяц</b> (Scarlet Sands и Vegas Way, сентябрь). Новые страницы подняли с нуля, но запасного плана и чеклиста против банов до этого не было.</span></li>
+        <li><span><b>Ивенты плохо удерживают на дистанции.</b> В Halloween Doors 76 из 113 игроков сыграли только одну ночь — нужны напоминания и промежуточный прогресс.</span></li>
+        <li><span><b>Нет единой линейки по каналам.</b> Реактивации и FTD считаются по тегам кодов, а охваты BotCake выгружены только по NoLimitCoins.</span></li>
+        <li><span><b>Операционка держится на одном человеке.</b> Runbooks и backup на регулярные процессы ещё не написаны.</span></li>
+      </ul>
+    </div>
+    <div class="card accent">
+      <h3>Запрос: менторство у продукт-менеджера <span class="badge">Growth</span></h3>
+      <p class="meta">За полгода я уже принимаю решения по офферам, сеткам и механикам, но без системной продуктовой базы. Хочу расти в продукт и прошу взять меня на менторство к продукт-менеджеру на время этого роадмапа.</p>
+      <ul class="checks">
+        <li><span><b>Продуктовые метрики</b> и экономика офферов — считать эффект, а не только депозит.</span></li>
+        <li><span><b>Дизайн экспериментов:</b> гипотеза, контрольная группа, критерий успеха.</span></li>
+        <li><span><b>Retention и когорты:</b> как каналы и механики влияют на возврат игроков через 7, 14 и 30 дней.</span></li>
+        <li><span><b>Воронка игрока:</b> от регистрации до повторного депозита — где SMM, чаты и офферы реально двигают конверсию.</span></li>
+        <li><span><b>Юнит-экономика:</b> payout, inout и маржа оффера — чтобы сетка зарабатывала, а не только продавала.</span></li>
+        <li><span><b>Защита решений:</b> как аргументировать изменения перед продуктом и командой на данных.</span></li>
+        <li><span><b>Формат:</b> 1:1 раз в две недели; каждый пункт роадмапа — гипотеза с метрикой, показываю ментору до запуска.</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="subh">Роадмап · Ноябрь 2026 – Апрель 2027</div>
+  <div class="grid-3">
+    <div class="card">
+      <h3>Ноябрь <span class="badge">Запуски</span></h3>
+      <ul class="checks">
+        <li><span><b>FB-страницы и Discord-серверы</b> CoinsMania и Jumanza.</span></li>
+        <li><span><b>X по всем проектам</b> — уже работает у Scarlet Sands и Fortune Wheelz.</span></li>
+        <li><span><b>Миссии в FB</b> — новый вид автоматизации для вовлечённости игроков.</span></li>
+        <li><span><b>Собственный бот</b> после теста на Storm Rush — на остальные проекты.</span></li>
+        <li><span><b>Thanksgiving и Black Friday</b> (26–30.11) — ивент-неделя с лучшими офферами во всех каналах.</span></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Декабрь <span class="badge">Праздники</span></h3>
+      <ul class="checks">
+        <li><span><b>Новогодние ивенты</b> в FB, Discord и X.</span></li>
+        <li><span><b>Адвент-календарь</b> 01–24.12 — каждый день новая механика и код.</span></li>
+        <li><span><b>Итоги миссий и бота:</b> что сработало, раскатываем дальше.</span></li>
+        <li><span><b>Discord Fire Seven, Scarlet Sands и DexyPlay</b> — передача Степану.</span></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Январь <span class="badge">Возврат</span></h3>
+      <ul class="checks">
+        <li><span><b>Автоматизация BotCake v2:</b> код как награда за действие, ниже лимит на игрока.</span></li>
+        <li><span><b>Возврат игроков после праздников:</b> бродкасты и миссии.</span></li>
+        <li><span><b>Разбор 31.01:</b> что не дало результата, дальше не масштабируем.</span></li>
+      </ul>
+    </div>
+    <div class="card" style="grid-column:1/-1">
+      <h3>Февраль – Апрель <span class="badge">Масштаб и сезон</span></h3>
+      <ul class="checks" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));column-gap:24px">
+        <li><span><b>Super Bowl</b> — прогноз-механики (счёт, Over/Under) в FB, Discord и X.</span></li>
+        <li><span><b>Valentine's Day</b> — парные офферы и механики «для двоих».</span></li>
+        <li><span><b>Сезон налоговых возвратов</b> — тест более дорогих пакетов в сетке офферов.</span></li>
+        <li><span><b>St. Patrick's Day</b> — ивент-неделя на тему удачи.</span></li>
+        <li><span><b>March Madness</b> — сетка-прогноз в Discord и BotCake.</span></li>
+        <li><span><b>Пасха</b> — «охота за яйцами» во всех каналах.</span></li>
+        <li><span><b>Весенний мультибрендовый ивент</b> на платформе Witching Hours — новая тема без новой разработки.</span></li>
+        <li><span><b>Миссии на всех проектах</b>, где сработали на Storm Rush и Vegas Way.</span></li>
+        <li><span><b>Свой бот на всех проектах</b> — полный цикл: задания, магазин призов, автовыдача кодов.</span></li>
+        <li><span><b>X как полноценный канал</b> — своя сетка офферов и свой тег кодов, как было с Discord.</span></li>
+        <li><span><b>CoinsMania и Jumanza</b> — выход на стабильный ритм: офферы, ивенты, промокоды.</span></li>
+        <li><span><b>Итоги полугодия</b> по метрикам и план на следующее.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Итоги за полгода (15 мая – 1 ноября 2026) · Собрано из 7 дашбордов без искажения исходных выгрузок</span>
+    <span>Бренды: Fire Seven · CoinsMania · Jumanza · Vegas Way · Storm Rush · Scarlet Sands · Fortune Wheelz · NoLimitCoins</span>
+  </div>
+</footer>
+
+<script>
+const D = {"chat":{"totals":{"period":"15.05–01.11.2026","brands":"3","offers_sold":"7111","buyers":"5233","deposit_usd":"164212","avg_check_usd":"23.09","out_7d_usd":"77275","inout_7d_usd":"86936","out_7d_share":"0.4706","out_24h_usd":"68109","inout_24h_usd":"96103","ftd":"28","reactivated_0d":"1283","reactivated_1d":"722","reactivated_7d":"306","reactivated_14d":"206","rebuy_share":"0.8621","code_activations":"37995","code_users":"9385"},"brands":[{"brand":"Scarlet Sands","since":"с мая","offers_in_grid":"76","offers_sold":"5005","buyers":"3317","deposit_usd":"103989","avg_check_usd":"20.78","out_7d_usd":"52422","inout_7d_usd":"51566","out_7d_share":"0.5041","deposit_oct_usd":"29312"},{"brand":"NoLimitCoins","since":"с сентября","offers_in_grid":"39","offers_sold":"862","buyers":"815","deposit_usd":"31386","avg_check_usd":"36.41","out_7d_usd":"15770","inout_7d_usd":"15616","out_7d_share":"0.5025","deposit_oct_usd":"24086"},{"brand":"Fortune Wheelz","since":"с августа","offers_in_grid":"82","offers_sold":"1244","buyers":"1101","deposit_usd":"28837","avg_check_usd":"23.18","out_7d_usd":"9083","inout_7d_usd":"19753","out_7d_share":"0.315","deposit_oct_usd":"16778"}],"monthly":[{"month":"2026-05","label":"Май (с 15.05)","code_activations":"","offers_sold":"517","buyers":"507","deposit_usd":"10478","out_7d_usd":"7917","inout_7d_usd":"2561","out_7d_share":"0.7556","out_24h_usd":"5292","inout_24h_usd":"5186","ftd":"","reactivated_0d":"","reactivated_7d":"","reactivated_14d":""},{"month":"2026-06","label":"Июнь","code_activations":"2128","offers_sold":"645","buyers":"502","deposit_usd":"11954","out_7d_usd":"5362","inout_7d_usd":"6591","out_7d_share":"0.4486","out_24h_usd":"5235","inout_24h_usd":"6719","ftd":"1","reactivated_0d":"128","reactivated_7d":"11","reactivated_14d":"8"},{"month":"2026-07","label":"Июль","code_activations":"3014","offers_sold":"749","buyers":"562","deposit_usd":"15124","out_7d_usd":"5148","inout_7d_usd":"9976","out_7d_share":"0.3404","out_24h_usd":"4288","inout_24h_usd":"10836","ftd":"4","reactivated_0d":"156","reactivated_7d":"25","reactivated_14d":"18"},{"month":"2026-08","label":"Август","code_activations":"5337","offers_sold":"905","buyers":"687","deposit_usd":"19136","out_7d_usd":"8021","inout_7d_usd":"11115","out_7d_share":"0.4192","out_24h_usd":"5741","inout_24h_usd":"13395","ftd":"9","reactivated_0d":"259","reactivated_7d":"47","reactivated_14d":"27"},{"month":"2026-09","label":"Сентябрь","code_activations":"12000","offers_sold":"1615","buyers":"1299","deposit_usd":"35544","out_7d_usd":"16903","inout_7d_usd":"18641","out_7d_share":"0.4756","out_24h_usd":"15215","inout_24h_usd":"20329","ftd":"5","reactivated_0d":"478","reactivated_7d":"98","reactivated_14d":"69"},{"month":"2026-10","label":"Октябрь (+01.11)","code_activations":"15516","offers_sold":"2680","buyers":"2500","deposit_usd":"71976","out_7d_usd":"33924","inout_7d_usd":"38052","out_7d_share":"0.4713","out_24h_usd":"32338","inout_24h_usd":"39638","ftd":"9","reactivated_0d":"707","reactivated_7d":"136","reactivated_14d":"88"}],"weekly":[{"week":"W20","dates":"15.05–17.05","week_start":"2026-05-15","offers_sold":"87","deposit_usd":"2220","buyers":"87","ftd":"","reactivated_7d":"","code_activations":""},{"week":"W21","dates":"18.05–24.05","week_start":"2026-05-18","offers_sold":"209","deposit_usd":"4185","buyers":"206","ftd":"","reactivated_7d":"","code_activations":""},{"week":"W22","dates":"25.05–31.05","week_start":"2026-05-25","offers_sold":"221","deposit_usd":"4075","buyers":"216","ftd":"","reactivated_7d":"","code_activations":""},{"week":"W23","dates":"01.06–07.06","week_start":"2026-06-01","offers_sold":"198","deposit_usd":"3925","buyers":"185","ftd":"0","reactivated_7d":"3","code_activations":"668"},{"week":"W24","dates":"08.06–14.06","week_start":"2026-06-08","offers_sold":"194","deposit_usd":"3805","buyers":"183","ftd":"0","reactivated_7d":"0","code_activations":"501"},{"week":"W25","dates":"15.06–21.06","week_start":"2026-06-15","offers_sold":"151","deposit_usd":"2580","buyers":"146","ftd":"1","reactivated_7d":"3","code_activations":"482"},{"week":"W26","dates":"22.06–28.06","week_start":"2026-06-22","offers_sold":"36","deposit_usd":"890","buyers":"35","ftd":"0","reactivated_7d":"2","code_activations":"208"},{"week":"W27","dates":"29.06–05.07","week_start":"2026-06-29","offers_sold":"178","deposit_usd":"3495","buyers":"163","ftd":"0","reactivated_7d":"10","code_activations":"831"},{"week":"W28","dates":"06.07–12.07","week_start":"2026-07-06","offers_sold":"165","deposit_usd":"3310","buyers":"159","ftd":"1","reactivated_7d":"8","code_activations":"973"},{"week":"W29","dates":"13.07–19.07","week_start":"2026-07-13","offers_sold":"169","deposit_usd":"3325","buyers":"162","ftd":"2","reactivated_7d":"4","code_activations":"674"},{"week":"W30","dates":"20.07–26.07","week_start":"2026-07-20","offers_sold":"151","deposit_usd":"3210","buyers":"146","ftd":"0","reactivated_7d":"0","code_activations":"1"},{"week":"W31","dates":"27.07–02.08","week_start":"2026-07-27","offers_sold":"200","deposit_usd":"4370","buyers":"188","ftd":"1","reactivated_7d":"8","code_activations":"991"},{"week":"W32","dates":"03.08–09.08","week_start":"2026-08-03","offers_sold":"238","deposit_usd":"4724","buyers":"222","ftd":"1","reactivated_7d":"7","code_activations":"1179"},{"week":"W33","dates":"10.08–16.08","week_start":"2026-08-10","offers_sold":"212","deposit_usd":"3894","buyers":"204","ftd":"2","reactivated_7d":"9","code_activations":"1110"},{"week":"W34","dates":"17.08–23.08","week_start":"2026-08-17","offers_sold":"166","deposit_usd":"3375","buyers":"162","ftd":"2","reactivated_7d":"7","code_activations":"941"},{"week":"W35","dates":"24.08–30.08","week_start":"2026-08-24","offers_sold":"175","deposit_usd":"4340","buyers":"169","ftd":"4","reactivated_7d":"18","code_activations":"1617"},{"week":"W36","dates":"31.08–06.09","week_start":"2026-08-31","offers_sold":"302","deposit_usd":"5985","buyers":"289","ftd":"1","reactivated_7d":"29","code_activations":"2842"},{"week":"W37","dates":"07.09–13.09","week_start":"2026-09-07","offers_sold":"316","deposit_usd":"7235","buyers":"301","ftd":"0","reactivated_7d":"20","code_activations":"2447"},{"week":"W38","dates":"14.09–20.09","week_start":"2026-09-14","offers_sold":"416","deposit_usd":"10570","buyers":"395","ftd":"2","reactivated_7d":"23","code_activations":"3037"},{"week":"W39","dates":"21.09–27.09","week_start":"2026-09-21","offers_sold":"397","deposit_usd":"8314","buyers":"379","ftd":"1","reactivated_7d":"29","code_activations":"2961"},{"week":"W40","dates":"28.09–04.10","week_start":"2026-09-28","offers_sold":"625","deposit_usd":"15478","buyers":"613","ftd":"2","reactivated_7d":"28","code_activations":"2914"},{"week":"W41","dates":"05.10–11.10","week_start":"2026-10-05","offers_sold":"628","deposit_usd":"15403","buyers":"610","ftd":"1","reactivated_7d":"32","code_activations":"3511"},{"week":"W42","dates":"12.10–18.10","week_start":"2026-10-12","offers_sold":"642","deposit_usd":"17749","buyers":"625","ftd":"5","reactivated_7d":"26","code_activations":"3085"},{"week":"W43","dates":"19.10–25.10","week_start":"2026-10-19","offers_sold":"527","deposit_usd":"15029","buyers":"511","ftd":"1","reactivated_7d":"35","code_activations":"4000"},{"week":"W44","dates":"26.10–01.11","week_start":"2026-10-26","offers_sold":"508","deposit_usd":"12759","buyers":"482","ftd":"1","reactivated_7d":"25","code_activations":"3020"}],"haunted":{"period":"26.10–01.11.2026","offers_sold":"508","deposit_usd":"12759","hw_activations":"453","hw_players":"222","hw_react7":"5","react7_all":"25","ftd_all":"1","quizzes_scs":"35","cards_scs":"14","hw_codes_scs":"58","packs_kg":"18","popups_kg":"36","banners_kg":"18"}},"ds":{"totals":{"period":"15.05–01.11.2026","joined_discord":"197213","members_before":"93715","members_now":"291121","offers_sold":"17854","buyers":"9152","deposit_usd":"294671","out_7d_usd":"144690","inout_7d_usd":"152885","out_7d_share":"0.4862","out_24h_usd":"128788","inout_24h_usd":"168788","ftd":"1979","reactivated_0d":"6939","reactivated_1d":"3915","reactivated_7d":"2586","reactivated_14d":"1958","rebuy_share":"0.7615"},"servers":[{"server":"Fire Seven","members_before":"20229","joined_discord":"51555","members_now":"71823"},{"server":"Vegas Way","members_before":"16547","joined_discord":"33678","members_now":"50257"},{"server":"NoLimitCoins","members_before":"15854","joined_discord":"28180","members_now":"44052"},{"server":"Storm Rush","members_before":"13208","joined_discord":"23076","members_now":"36324"},{"server":"Scarlet Sands","members_before":"13988","joined_discord":"21335","members_now":"35356"},{"server":"Fortune Wheelz","members_before":"10239","joined_discord":"20379","members_now":"30639"},{"server":"DexyPlay","members_before":"3650","joined_discord":"19010","members_now":"22670"}],"monthly":[{"month":"2026-05","label":"Май (с 15.05)","joined_discord":"37123","offers_sold":"3289","buyers":"2574","deposit_usd":"25457","out_7d_usd":"15862","inout_7d_usd":"10543","out_7d_share":"0.6007","out_24h_usd":"9662","inout_24h_usd":"16743","ftd":"","reactivated_0d":"","reactivated_7d":"","reactivated_14d":""},{"month":"2026-06","label":"Июнь","joined_discord":"47690","offers_sold":"5477","buyers":"3455","deposit_usd":"40264","out_7d_usd":"20529","inout_7d_usd":"21682","out_7d_share":"0.4863","out_24h_usd":"17958","inout_24h_usd":"24254","ftd":"621","reactivated_0d":"2703","reactivated_7d":"1108","reactivated_14d":"809"},{"month":"2026-07","label":"Июль","joined_discord":"34969","offers_sold":"2535","buyers":"1169","deposit_usd":"65612","out_7d_usd":"32316","inout_7d_usd":"33306","out_7d_share":"0.4925","out_24h_usd":"31561","inout_24h_usd":"34061","ftd":"393","reactivated_0d":"1457","reactivated_7d":"475","reactivated_14d":"346"},{"month":"2026-08","label":"Август","joined_discord":"23094","offers_sold":"2886","buyers":"1235","deposit_usd":"76392","out_7d_usd":"30375","inout_7d_usd":"46017","out_7d_share":"0.3976","out_24h_usd":"27499","inout_24h_usd":"48893","ftd":"295","reactivated_0d":"1067","reactivated_7d":"308","reactivated_14d":"222"},{"month":"2026-09","label":"Сентябрь","joined_discord":"20406","offers_sold":"2353","buyers":"1225","deposit_usd":"57412","out_7d_usd":"34051","inout_7d_usd":"23360","out_7d_share":"0.5931","out_24h_usd":"32451","inout_24h_usd":"24960","ftd":"316","reactivated_0d":"1191","reactivated_7d":"381","reactivated_14d":"286"},{"month":"2026-10","label":"Октябрь (+01.11)","joined_discord":"33931","offers_sold":"1314","buyers":"907","deposit_usd":"29534","out_7d_usd":"11557","inout_7d_usd":"17977","out_7d_share":"0.3913","out_24h_usd":"9657","inout_24h_usd":"19877","ftd":"354","reactivated_0d":"1574","reactivated_7d":"544","reactivated_14d":"406"}],"weekly":[{"week":"W20","dates":"15.05–17.05","week_start":"2026-05-15","offers_sold":"405","deposit_usd":"3353","buyers":"368","ftd":"","reactivated_7d":"","joined_discord":"6303"},{"week":"W21","dates":"18.05–24.05","week_start":"2026-05-18","offers_sold":"1422","deposit_usd":"10785","buyers":"1245","ftd":"","reactivated_7d":"","joined_discord":"18189"},{"week":"W22","dates":"25.05–31.05","week_start":"2026-05-25","offers_sold":"1462","deposit_usd":"11320","buyers":"1219","ftd":"","reactivated_7d":"","joined_discord":"12631"},{"week":"W23","dates":"01.06–07.06","week_start":"2026-06-01","offers_sold":"1360","deposit_usd":"9707","buyers":"1109","ftd":"157","reactivated_7d":"319","joined_discord":"13056"},{"week":"W24","dates":"08.06–14.06","week_start":"2026-06-08","offers_sold":"1242","deposit_usd":"8536","buyers":"990","ftd":"138","reactivated_7d":"267","joined_discord":"11644"},{"week":"W25","dates":"15.06–21.06","week_start":"2026-06-15","offers_sold":"1199","deposit_usd":"8911","buyers":"906","ftd":"146","reactivated_7d":"250","joined_discord":"10613"},{"week":"W26","dates":"22.06–28.06","week_start":"2026-06-22","offers_sold":"1456","deposit_usd":"11404","buyers":"1085","ftd":"160","reactivated_7d":"329","joined_discord":"9778"},{"week":"W27","dates":"29.06–05.07","week_start":"2026-06-29","offers_sold":"517","deposit_usd":"8547","buyers":"403","ftd":"82","reactivated_7d":"111","joined_discord":"7948"},{"week":"W28","dates":"06.07–12.07","week_start":"2026-07-06","offers_sold":"520","deposit_usd":"13320","buyers":"342","ftd":"94","reactivated_7d":"135","joined_discord":"8650"},{"week":"W29","dates":"13.07–19.07","week_start":"2026-07-13","offers_sold":"626","deposit_usd":"16270","buyers":"419","ftd":"87","reactivated_7d":"110","joined_discord":"8290"},{"week":"W30","dates":"20.07–26.07","week_start":"2026-07-20","offers_sold":"586","deposit_usd":"15280","buyers":"376","ftd":"79","reactivated_7d":"71","joined_discord":"7459"},{"week":"W31","dates":"27.07–02.08","week_start":"2026-07-27","offers_sold":"727","deposit_usd":"19717","buyers":"450","ftd":"96","reactivated_7d":"93","joined_discord":"7180"},{"week":"W32","dates":"03.08–09.08","week_start":"2026-08-03","offers_sold":"655","deposit_usd":"17509","buyers":"399","ftd":"60","reactivated_7d":"81","joined_discord":"5709"},{"week":"W33","dates":"10.08–16.08","week_start":"2026-08-10","offers_sold":"674","deposit_usd":"18449","buyers":"431","ftd":"59","reactivated_7d":"65","joined_discord":"4587"},{"week":"W34","dates":"17.08–23.08","week_start":"2026-08-17","offers_sold":"655","deposit_usd":"17759","buyers":"424","ftd":"72","reactivated_7d":"69","joined_discord":"4586"},{"week":"W35","dates":"24.08–30.08","week_start":"2026-08-24","offers_sold":"606","deposit_usd":"14650","buyers":"415","ftd":"72","reactivated_7d":"77","joined_discord":"5403"},{"week":"W36","dates":"31.08–06.09","week_start":"2026-08-31","offers_sold":"693","deposit_usd":"16618","buyers":"446","ftd":"77","reactivated_7d":"90","joined_discord":"4598"},{"week":"W37","dates":"07.09–13.09","week_start":"2026-09-07","offers_sold":"759","deposit_usd":"19294","buyers":"494","ftd":"73","reactivated_7d":"98","joined_discord":"3927"},{"week":"W38","dates":"14.09–20.09","week_start":"2026-09-14","offers_sold":"566","deposit_usd":"14575","buyers":"396","ftd":"68","reactivated_7d":"69","joined_discord":"3378"},{"week":"W39","dates":"21.09–27.09","week_start":"2026-09-21","offers_sold":"275","deposit_usd":"6149","buyers":"195","ftd":"64","reactivated_7d":"83","joined_discord":"3032"},{"week":"W40","dates":"28.09–04.10","week_start":"2026-09-28","offers_sold":"385","deposit_usd":"8374","buyers":"320","ftd":"102","reactivated_7d":"163","joined_discord":"14162"},{"week":"W41","dates":"05.10–11.10","week_start":"2026-10-05","offers_sold":"398","deposit_usd":"9099","buyers":"303","ftd":"88","reactivated_7d":"158","joined_discord":"9933"},{"week":"W42","dates":"12.10–18.10","week_start":"2026-10-12","offers_sold":"354","deposit_usd":"7698","buyers":"269","ftd":"69","reactivated_7d":"109","joined_discord":"5436"},{"week":"W43","dates":"19.10–25.10","week_start":"2026-10-19","offers_sold":"147","deposit_usd":"3380","buyers":"133","ftd":"57","reactivated_7d":"75","joined_discord":"5027"},{"week":"W44","dates":"26.10–01.11","week_start":"2026-10-26","offers_sold":"189","deposit_usd":"4375","buyers":"168","ftd":"84","reactivated_7d":"113","joined_discord":"5694"}],"offers":[{"offer":"19,99_20% (19.99 $)","months":"июл–ноя","offers_sold":"3195","deposit_usd":"63868","rebuy_share":"0.8444"},{"offer":"39,99_20% (39.99 $)","months":"июл–ноя","offers_sold":"1485","deposit_usd":"59385","rebuy_share":"0.9407"},{"offer":"19,99_40% (19.99 $)","months":"июл–ноя","offers_sold":"1567","deposit_usd":"31324","rebuy_share":"0.697"},{"offer":"59,99_20% (59.99 $)","months":"июл–ноя","offers_sold":"444","deposit_usd":"26636","rebuy_share":"0.9647"},{"offer":"9,99 (9.99 $)","months":"май–июл","offers_sold":"2087","deposit_usd":"20849","rebuy_share":"0.8267"},{"offer":"9,99_100% (9.99 $)","months":"июл–ноя","offers_sold":"1400","deposit_usd":"13986","rebuy_share":"0.5018"},{"offer":"4,99 (4.99 $)","months":"май–июл","offers_sold":"2690","deposit_usd":"13423","rebuy_share":"0.7336"},{"offer":"5,99 (5.99 $)","months":"май–июл","offers_sold":"1857","deposit_usd":"11123","rebuy_share":"0.7796"},{"offer":"39,99_15% (39.99 $)","months":"июл–окт","offers_sold":"268","deposit_usd":"10717","rebuy_share":"1.0"},{"offer":"29,99_40% (29.99 $)","months":"июл–окт","offers_sold":"238","deposit_usd":"7138","rebuy_share":"0.7874"},{"offer":"49,99_10% (49.99 $)","months":"июл–окт","offers_sold":"117","deposit_usd":"5849","rebuy_share":"1.0"},{"offer":"12,99 (12.99 $)","months":"май–июл","offers_sold":"323","deposit_usd":"4196","rebuy_share":"0.9136"},{"offer":"9.99 (9.99 $)","months":"май–июн","offers_sold":"404","deposit_usd":"4036","rebuy_share":"0.828"},{"offer":"4.99 (4.99 $)","months":"май–июл","offers_sold":"732","deposit_usd":"3653","rebuy_share":"0.7855"},{"offer":"59,99_18% (59.99 $)","months":"июл–окт","offers_sold":"59","deposit_usd":"3539","rebuy_share":"1.0"},{"offer":"39,99 (39.99 $)","months":"май–июн","offers_sold":"64","deposit_usd":"2559","rebuy_share":"0.9167"},{"offer":"29,99 (29.99 $)","months":"май–июн","offers_sold":"83","deposit_usd":"2489","rebuy_share":"0.9296"},{"offer":"49,99_30% (49.99 $)","months":"июл–окт","offers_sold":"39","deposit_usd":"1950","rebuy_share":"0.9444"},{"offer":"6,99 (6.99 $)","months":"май–июл","offers_sold":"252","deposit_usd":"1761","rebuy_share":"0.7566"},{"offer":"5.99 (5.99 $)","months":"май–июл","offers_sold":"293","deposit_usd":"1755","rebuy_share":"0.6917"},{"offer":"14,99_60% (14.99 $)","months":"авг–окт","offers_sold":"109","deposit_usd":"1634","rebuy_share":"0.726"},{"offer":"9,99_100% (19.99 $)","months":"июл–окт","offers_sold":"73","deposit_usd":"1459","rebuy_share":"0.6364"},{"offer":"29,99_37% (29.99 $)","months":"июл–окт","offers_sold":"25","deposit_usd":"750","rebuy_share":"0.7857"},{"offer":"9,99_90% (9.99 $)","months":"авг–окт","offers_sold":"44","deposit_usd":"440","rebuy_share":"0.5227"},{"offer":"24,99_60% (24.99 $)","months":"сен","offers_sold":"2","deposit_usd":"50","rebuy_share":"1.0"},{"offer":"39,99_15%_inout>=-10_avgDep>20<=40_7days-_v3 (39.99 $)","months":"ноя","offers_sold":"1","deposit_usd":"40","rebuy_share":"1.0"},{"offer":"19,99_20%_inout>=-10_avgDep<=20_7days-_v3 (19.99 $)","months":"ноя","offers_sold":"1","deposit_usd":"20","rebuy_share":"1.0"},{"offer":"19,99_30%_inout>=-10_avgDep<=20_14days+_30days-_v3 (19.99 $)","months":"ноя","offers_sold":"1","deposit_usd":"20","rebuy_share":"0.0"},{"offer":"14,99_49%_inout>=-10_avgDep<=20_30days+_v3 (14.99 $)","months":"ноя","offers_sold":"1","deposit_usd":"15","rebuy_share":"0.0"}],"proj_monthly":[{"project":"DexyPlay","month":"2026-07","month_label":"Июль","weeks":"29.06–02.08","offers_sold":"142","deposit_usd":"2970"},{"project":"DexyPlay","month":"2026-08","month_label":"Август","weeks":"03.08–30.08","offers_sold":"60","deposit_usd":"1920"},{"project":"DexyPlay","month":"2026-09","month_label":"Сентябрь","weeks":"31.08–27.09","offers_sold":"58","deposit_usd":"1460"},{"project":"DexyPlay","month":"2026-10","month_label":"Октябрь","weeks":"28.09–01.11","offers_sold":"73","deposit_usd":"1690"},{"project":"Fire Seven","month":"2026-07","month_label":"Июль","weeks":"29.06–02.08","offers_sold":"395","deposit_usd":"9901"},{"project":"Fire Seven","month":"2026-08","month_label":"Август","weeks":"03.08–30.08","offers_sold":"391","deposit_usd":"10270"},{"project":"Fire Seven","month":"2026-09","month_label":"Сентябрь","weeks":"31.08–27.09","offers_sold":"531","deposit_usd":"12359"},{"project":"Fire Seven","month":"2026-10","month_label":"Октябрь","weeks":"28.09–01.11","offers_sold":"633","deposit_usd":"14331"},{"project":"Fortune Wheelz","month":"2026-07","month_label":"Июль","weeks":"29.06–02.08","offers_sold":"365","deposit_usd":"8614"},{"project":"Fortune Wheelz","month":"2026-08","month_label":"Август","weeks":"03.08–30.08","offers_sold":"318","deposit_usd":"6640"},{"project":"Fortune Wheelz","month":"2026-09","month_label":"Сентябрь","weeks":"31.08–27.09","offers_sold":"250","deposit_usd":"5679"},{"project":"Fortune Wheelz","month":"2026-10","month_label":"Октябрь","weeks":"28.09–01.11","offers_sold":"138","deposit_usd":"2820"},{"project":"NoLimitCoins","month":"2026-07","month_label":"Июль","weeks":"29.06–02.08","offers_sold":"296","deposit_usd":"8311"},{"project":"NoLimitCoins","month":"2026-08","month_label":"Август","weeks":"03.08–30.08","offers_sold":"257","deposit_usd":"8110"},{"project":"NoLimitCoins","month":"2026-09","month_label":"Сентябрь","weeks":"31.08–27.09","offers_sold":"267","deposit_usd":"7150"},{"project":"NoLimitCoins","month":"2026-10","month_label":"Октябрь","weeks":"28.09–01.11","offers_sold":"161","deposit_usd":"2755"},{"project":"Scarlet Sands","month":"2026-07","month_label":"Июль","weeks":"29.06–02.08","offers_sold":"631","deposit_usd":"17231"},{"project":"Scarlet Sands","month":"2026-08","month_label":"Август","weeks":"03.08–30.08","offers_sold":"617","deposit_usd":"18257"},{"project":"Scarlet Sands","month":"2026-09","month_label":"Сентябрь","weeks":"31.08–27.09","offers_sold":"343","deposit_usd":"10579"},{"project":"Scarlet Sands","month":"2026-10","month_label":"Октябрь","weeks":"28.09–01.11","offers_sold":"207","deposit_usd":"5380"},{"project":"Storm Rush","month":"2026-07","month_label":"Июль","weeks":"29.06–02.08","offers_sold":"507","deposit_usd":"13442"},{"project":"Storm Rush","month":"2026-08","month_label":"Август","weeks":"03.08–30.08","offers_sold":"439","deposit_usd":"12540"},{"project":"Storm Rush","month":"2026-09","month_label":"Сентябрь","weeks":"31.08–27.09","offers_sold":"391","deposit_usd":"10100"},{"project":"Storm Rush","month":"2026-10","month_label":"Октябрь","weeks":"28.09–01.11","offers_sold":"120","deposit_usd":"2950"},{"project":"TAO Fortune","month":"2026-07","month_label":"Июль","weeks":"29.06–02.08","offers_sold":"227","deposit_usd":"3603"},{"project":"TAO Fortune","month":"2026-08","month_label":"Август","weeks":"03.08–30.08","offers_sold":"97","deposit_usd":"2270"},{"project":"TAO Fortune","month":"2026-09","month_label":"Сентябрь","weeks":"31.08–27.09","offers_sold":"151","deposit_usd":"3600"},{"project":"TAO Fortune","month":"2026-10","month_label":"Октябрь","weeks":"28.09–01.11","offers_sold":"49","deposit_usd":"1140"},{"project":"Vegas Way","month":"2026-07","month_label":"Июль","weeks":"29.06–02.08","offers_sold":"413","deposit_usd":"9062"},{"project":"Vegas Way","month":"2026-08","month_label":"Август","weeks":"03.08–30.08","offers_sold":"411","deposit_usd":"8360"},{"project":"Vegas Way","month":"2026-09","month_label":"Сентябрь","weeks":"31.08–27.09","offers_sold":"302","deposit_usd":"5709"},{"project":"Vegas Way","month":"2026-10","month_label":"Октябрь","weeks":"28.09–01.11","offers_sold":"92","deposit_usd":"1860"}],"proj_totals":[{"project":"Scarlet Sands","offers_sold":"1798","deposit_usd":"51447"},{"project":"Fire Seven","offers_sold":"1950","deposit_usd":"46861"},{"project":"Storm Rush","offers_sold":"1457","deposit_usd":"39032"},{"project":"NoLimitCoins","offers_sold":"981","deposit_usd":"26326"},{"project":"Vegas Way","offers_sold":"1218","deposit_usd":"24991"},{"project":"Fortune Wheelz","offers_sold":"1071","deposit_usd":"23753"},{"project":"TAO Fortune","offers_sold":"524","deposit_usd":"10613"},{"project":"DexyPlay","offers_sold":"333","deposit_usd":"8040"}]},"fb":{"totals":{"period":"25.05–01.11.2026","pages":"8","net_follows":"274691","reach":"5725141","interactions":"677364","posts":"3331","followers_now":"750497","er":"0.11831394196230276","new_pages_followers":"55889","main_pages":"6","main_start":"534634","main_now":"694608","main_growth":"0.2992215235095411","offers_period":"29.06–27.09.2026","offers_sold":"9898","offers_dep":"255733","code_activations":"57044","ftd":"192","reactivated_7d":"650"},"fb_weekly":[{"week":"2026-05-25","week_label":"25.05","followers":"675493","main_followers":"534634","new_followers":"","reach":"235413","interactions":"28864","er":"0.12261005127159502","net_follows":"14320","posts":"69"},{"week":"2026-06-01","week_label":"01.06","followers":"688941","main_followers":"543654","new_followers":"","reach":"273059","interactions":"36685","er":"0.13434825440655682","net_follows":"13448","posts":"113"},{"week":"2026-06-08","week_label":"08.06","followers":"703788","main_followers":"554103","new_followers":"","reach":"210009","interactions":"22944","er":"0.10925246060883105","net_follows":"14847","posts":"94"},{"week":"2026-06-15","week_label":"15.06","followers":"717958","main_followers":"564188","new_followers":"","reach":"339543","interactions":"28342","er":"0.08347101839825884","net_follows":"14170","posts":"159"},{"week":"2026-06-22","week_label":"22.06","followers":"731265","main_followers":"574110","new_followers":"","reach":"292360","interactions":"23895","er":"0.0817314270077986","net_follows":"13307","posts":"147"},{"week":"2026-06-29","week_label":"29.06","followers":"744979","main_followers":"583815","new_followers":"","reach":"331863","interactions":"27138","er":"0.08177470823803798","net_follows":"13714","posts":"163"},{"week":"2026-07-06","week_label":"06.07","followers":"760993","main_followers":"596239","new_followers":"","reach":"545595","interactions":"70465","er":"0.12915257654487303","net_follows":"16014","posts":"350"},{"week":"2026-07-13","week_label":"13.07","followers":"773715","main_followers":"606596","new_followers":"","reach":"305858","interactions":"38256","er":"0.12507765041293673","net_follows":"12722","posts":"155"},{"week":"2026-07-20","week_label":"20.07","followers":"789192","main_followers":"619215","new_followers":"","reach":"250692","interactions":"36018","er":"0.1436743095112728","net_follows":"15477","posts":"157"},{"week":"2026-07-27","week_label":"27.07","followers":"802782","main_followers":"630032","new_followers":"","reach":"234808","interactions":"28729","er":"0.12235102722224116","net_follows":"13590","posts":"161"},{"week":"2026-08-03","week_label":"03.08","followers":"813505","main_followers":"638364","new_followers":"","reach":"225162","interactions":"30061","er":"0.13350831845515673","net_follows":"10723","posts":"162"},{"week":"2026-08-10","week_label":"10.08","followers":"823028","main_followers":"645768","new_followers":"","reach":"259244","interactions":"34140","er":"0.1316906080757896","net_follows":"9523","posts":"165"},{"week":"2026-08-17","week_label":"17.08","followers":"835053","main_followers":"654532","new_followers":"","reach":"239509","interactions":"28994","er":"0.12105599372048649","net_follows":"12025","posts":"168"},{"week":"2026-08-24","week_label":"24.08","followers":"844401","main_followers":"661885","new_followers":"","reach":"275210","interactions":"30275","er":"0.11000690381890194","net_follows":"9348","posts":"168"},{"week":"2026-08-31","week_label":"31.08","followers":"851958","main_followers":"666693","new_followers":"","reach":"193686","interactions":"22980","er":"0.11864564294786407","net_follows":"7557","posts":"168"},{"week":"2026-09-07","week_label":"07.09","followers":"770103","main_followers":"670153","new_followers":"300","reach":"189234","interactions":"36244","er":"0.19153006330786224","net_follows":"3849","posts":"147"},{"week":"2026-09-14","week_label":"14.09","followers":"776598","main_followers":"673597","new_followers":"3338","reach":"195978","interactions":"22335","er":"0.11396687383277715","net_follows":"6495","posts":"140"},{"week":"2026-09-21","week_label":"21.09","followers":"693319","main_followers":"676871","new_followers":"16448","reach":"238175","interactions":"38967","er":"0.16360659179174977","net_follows":"16384","posts":"121"},{"week":"2026-09-28","week_label":"28.09","followers":"709407","main_followers":"680925","new_followers":"28482","reach":"159645","interactions":"15733","er":"0.09854990760750415","net_follows":"16088","posts":"96"},{"week":"2026-10-05","week_label":"05.10","followers":"722848","main_followers":"685467","new_followers":"37381","reach":"247693","interactions":"23596","er":"0.09526308777397827","net_follows":"13441","posts":"119"},{"week":"2026-10-12","week_label":"12.10","followers":"734420","main_followers":"689316","new_followers":"45104","reach":"182533","interactions":"19151","er":"0.10491801482471663","net_follows":"11572","posts":"132"},{"week":"2026-10-19","week_label":"19.10","followers":"743687","main_followers":"692106","new_followers":"51581","reach":"161849","interactions":"17252","er":"0.10659318253433755","net_follows":"9267","posts":"95"},{"week":"2026-10-26","week_label":"26.10","followers":"750497","main_followers":"694608","new_followers":"55889","reach":"138023","interactions":"16300","er":"0.11809625931909899","net_follows":"6810","posts":"82"}],"pages":[{"project":"Fortune Wheelz","kind":"main","page_note":"весь период","followers_start":"157830","followers_now":"182410","followers_added":"24580","followers_growth":"0.1557371855794209","net_follows":"26235","reach":"1040634","interactions":"114724","er":"0.11024433182079386","posts":"416"},{"project":"Fire Seven","kind":"main","page_note":"весь период","followers_start":"105825","followers_now":"149603","followers_added":"43778","followers_growth":"0.4136829671627687","net_follows":"47087","reach":"1032046","interactions":"116601","er":"0.11298042916691697","posts":"447"},{"project":"TAO Fortune","kind":"main","page_note":"весь период","followers_start":"79914","followers_now":"116783","followers_added":"36869","followers_growth":"0.4613584603448707","net_follows":"38112","reach":"683563","interactions":"74383","er":"0.1088165977386137","posts":"438"},{"project":"NoLimitCoins","kind":"main","page_note":"весь период","followers_start":"97495","followers_now":"116383","followers_added":"18888","followers_growth":"0.19373301194933074","net_follows":"20122","reach":"816468","interactions":"82636","er":"0.10121156003664565","posts":"408"},{"project":"Storm Rush","kind":"main","page_note":"весь период","followers_start":"75164","followers_now":"95515","followers_added":"20351","followers_growth":"0.2707546165717631","net_follows":"21470","reach":"561347","interactions":"63925","er":"0.1138778687692283","posts":"474"},{"project":"Vegas Way","kind":"new","page_note":"новая страница с 21.09","followers_start":"0","followers_now":"40080","followers_added":"40080","followers_growth":"","net_follows":"56608","reach":"832004","interactions":"117182","er":"0.14084307286984196","posts":"392"},{"project":"DexyPlay","kind":"main","page_note":"весь период","followers_start":"18406","followers_now":"33914","followers_added":"15508","followers_growth":"0.8425513419537107","net_follows":"16265","reach":"226350","interactions":"26677","er":"0.11785730064060083","posts":"440"},{"project":"Scarlet Sands","kind":"new","page_note":"новая страница с 07.09","followers_start":"0","followers_now":"15809","followers_added":"15809","followers_growth":"","net_follows":"48792","reach":"532729","interactions":"81236","er":"0.15249029056049135","posts":"316"}],"pages_weekly":[{"project":"Fortune Wheelz","week":"2026-05-25","week_label":"25.05","page":"main","followers":"157830","reach":"47959","interactions":"5076","net_follows":"1655","posts":"11"},{"project":"Fortune Wheelz","week":"2026-06-01","week_label":"01.06","page":"main","followers":"159274","reach":"62023","interactions":"7711","net_follows":"1444","posts":"19"},{"project":"Fortune Wheelz","week":"2026-06-08","week_label":"08.06","page":"main","followers":"160712","reach":"43357","interactions":"4946","net_follows":"1438","posts":"13"},{"project":"Fortune Wheelz","week":"2026-06-15","week_label":"15.06","page":"main","followers":"162224","reach":"80459","interactions":"5799","net_follows":"1512","posts":"25"},{"project":"Fortune Wheelz","week":"2026-06-22","week_label":"22.06","page":"main","followers":"163523","reach":"80241","interactions":"7225","net_follows":"1299","posts":"27"},{"project":"Fortune Wheelz","week":"2026-06-29","week_label":"29.06","page":"main","followers":"164625","reach":"85656","interactions":"7896","net_follows":"1102","posts":"28"},{"project":"Fortune Wheelz","week":"2026-07-06","week_label":"06.07","page":"main","followers":"165582","reach":"52342","interactions":"6748","net_follows":"957","posts":"18"},{"project":"Fortune Wheelz","week":"2026-07-13","week_label":"13.07","page":"main","followers":"166412","reach":"60590","interactions":"7878","net_follows":"830","posts":"17"},{"project":"Fortune Wheelz","week":"2026-07-20","week_label":"20.07","page":"main","followers":"168017","reach":"46074","interactions":"6545","net_follows":"1605","posts":"18"},{"project":"Fortune Wheelz","week":"2026-07-27","week_label":"27.07","page":"main","followers":"169409","reach":"36352","interactions":"4135","net_follows":"1392","posts":"18"},{"project":"Fortune Wheelz","week":"2026-08-03","week_label":"03.08","page":"main","followers":"170758","reach":"26257","interactions":"3715","net_follows":"1349","posts":"12"},{"project":"Fortune Wheelz","week":"2026-08-10","week_label":"10.08","page":"main","followers":"171696","reach":"39636","interactions":"4519","net_follows":"938","posts":"20"},{"project":"Fortune Wheelz","week":"2026-08-17","week_label":"17.08","page":"main","followers":"172939","reach":"42103","interactions":"5100","net_follows":"1243","posts":"21"},{"project":"Fortune Wheelz","week":"2026-08-24","week_label":"24.08","page":"main","followers":"173778","reach":"43538","interactions":"5066","net_follows":"839","posts":"20"},{"project":"Fortune Wheelz","week":"2026-08-31","week_label":"31.08","page":"main","followers":"174670","reach":"29797","interactions":"3493","net_follows":"892","posts":"21"},{"project":"Fortune Wheelz","week":"2026-09-07","week_label":"07.09","page":"main","followers":"175456","reach":"32914","interactions":"3594","net_follows":"786","posts":"21"},{"project":"Fortune Wheelz","week":"2026-09-14","week_label":"14.09","page":"main","followers":"176470","reach":"42991","interactions":"4554","net_follows":"1014","posts":"20"},{"project":"Fortune Wheelz","week":"2026-09-21","week_label":"21.09","page":"main","followers":"177410","reach":"42475","interactions":"4813","net_follows":"940","posts":"20"},{"project":"Fortune Wheelz","week":"2026-09-28","week_label":"28.09","page":"main","followers":"178455","reach":"28485","interactions":"2893","net_follows":"1045","posts":"15"},{"project":"Fortune Wheelz","week":"2026-10-05","week_label":"05.10","page":"main","followers":"179613","reach":"37897","interactions":"3808","net_follows":"1158","posts":"21"},{"project":"Fortune Wheelz","week":"2026-10-12","week_label":"12.10","page":"main","followers":"180724","reach":"31586","interactions":"3344","net_follows":"1111","posts":"13"},{"project":"Fortune Wheelz","week":"2026-10-19","week_label":"19.10","page":"main","followers":"181498","reach":"23078","interactions":"2577","net_follows":"774","posts":"9"},{"project":"Fortune Wheelz","week":"2026-10-26","week_label":"26.10","page":"main","followers":"182410","reach":"24824","interactions":"3289","net_follows":"912","posts":"9"},{"project":"Fire Seven","week":"2026-05-25","week_label":"25.05","page":"main","followers":"105825","reach":"34333","interactions":"4554","net_follows":"3309","posts":"7"},{"project":"Fire Seven","week":"2026-06-01","week_label":"01.06","page":"main","followers":"109116","reach":"37718","interactions":"4555","net_follows":"3291","posts":"12"},{"project":"Fire Seven","week":"2026-06-08","week_label":"08.06","page":"main","followers":"112774","reach":"28256","interactions":"3127","net_follows":"3658","posts":"9"},{"project":"Fire Seven","week":"2026-06-15","week_label":"15.06","page":"main","followers":"116515","reach":"50759","interactions":"4031","net_follows":"3741","posts":"16"},{"project":"Fire Seven","week":"2026-06-22","week_label":"22.06","page":"main","followers":"120127","reach":"43046","interactions":"3867","net_follows":"3612","posts":"15"},{"project":"Fire Seven","week":"2026-06-29","week_label":"29.06","page":"main","followers":"123834","reach":"59013","interactions":"4413","net_follows":"3707","posts":"19"},{"project":"Fire Seven","week":"2026-07-06","week_label":"06.07","page":"main","followers":"129195","reach":"140312","interactions":"19504","net_follows":"5361","posts":"61"},{"project":"Fire Seven","week":"2026-07-13","week_label":"13.07","page":"main","followers":"133288","reach":"56706","interactions":"6898","net_follows":"4093","posts":"18"},{"project":"Fire Seven","week":"2026-07-20","week_label":"20.07","page":"main","followers":"136136","reach":"54702","interactions":"8374","net_follows":"2848","posts":"18"},{"project":"Fire Seven","week":"2026-07-27","week_label":"27.07","page":"main","followers":"138995","reach":"52074","interactions":"6717","net_follows":"2859","posts":"20"},{"project":"Fire Seven","week":"2026-08-03","week_label":"03.08","page":"main","followers":"140964","reach":"43896","interactions":"5381","net_follows":"1969","posts":"21"},{"project":"Fire Seven","week":"2026-08-10","week_label":"10.08","page":"main","followers":"142559","reach":"41667","interactions":"4830","net_follows":"1595","posts":"19"},{"project":"Fire Seven","week":"2026-08-17","week_label":"17.08","page":"main","followers":"144069","reach":"37223","interactions":"4071","net_follows":"1510","posts":"20"},{"project":"Fire Seven","week":"2026-08-24","week_label":"24.08","page":"main","followers":"144939","reach":"50891","interactions":"5572","net_follows":"870","posts":"21"},{"project":"Fire Seven","week":"2026-08-31","week_label":"31.08","page":"main","followers":"145398","reach":"30789","interactions":"3198","net_follows":"459","posts":"21"},{"project":"Fire Seven","week":"2026-09-07","week_label":"07.09","page":"main","followers":"145746","reach":"31066","interactions":"3443","net_follows":"348","posts":"22"},{"project":"Fire Seven","week":"2026-09-14","week_label":"14.09","page":"main","followers":"146356","reach":"40535","interactions":"4298","net_follows":"610","posts":"21"},{"project":"Fire Seven","week":"2026-09-21","week_label":"21.09","page":"main","followers":"146964","reach":"49705","interactions":"4757","net_follows":"608","posts":"21"},{"project":"Fire Seven","week":"2026-09-28","week_label":"28.09","page":"main","followers":"147669","reach":"24668","interactions":"2520","net_follows":"705","posts":"15"},{"project":"Fire Seven","week":"2026-10-05","week_label":"05.10","page":"main","followers":"148341","reach":"37507","interactions":"3839","net_follows":"672","posts":"21"},{"project":"Fire Seven","week":"2026-10-12","week_label":"12.10","page":"main","followers":"148932","reach":"31984","interactions":"3138","net_follows":"591","posts":"21"},{"project":"Fire Seven","week":"2026-10-19","week_label":"19.10","page":"main","followers":"149286","reach":"27951","interactions":"2795","net_follows":"354","posts":"15"},{"project":"Fire Seven","week":"2026-10-26","week_label":"26.10","page":"main","followers":"149603","reach":"27245","interactions":"2719","net_follows":"317","posts":"14"},{"project":"Vegas Way","week":"2026-05-25","week_label":"25.05","page":"main","followers":"85599","reach":"39021","interactions":"5658","net_follows":"2464","posts":"9"},{"project":"Vegas Way","week":"2026-06-01","week_label":"01.06","page":"main","followers":"87577","reach":"42807","interactions":"7024","net_follows":"1978","posts":"14"},{"project":"Vegas Way","week":"2026-06-08","week_label":"08.06","page":"main","followers":"89517","reach":"34999","interactions":"3946","net_follows":"1940","posts":"14"},{"project":"Vegas Way","week":"2026-06-15","week_label":"15.06","page":"main","followers":"91273","reach":"53941","interactions":"5088","net_follows":"1756","posts":"20"},{"project":"Vegas Way","week":"2026-06-22","week_label":"22.06","page":"main","followers":"92768","reach":"39447","interactions":"3333","net_follows":"1495","posts":"18"},{"project":"Vegas Way","week":"2026-06-29","week_label":"29.06","page":"main","followers":"94459","reach":"43600","interactions":"3554","net_follows":"1691","posts":"20"},{"project":"Vegas Way","week":"2026-07-06","week_label":"06.07","page":"main","followers":"95283","reach":"76380","interactions":"10921","net_follows":"824","posts":"36"},{"project":"Vegas Way","week":"2026-07-13","week_label":"13.07","page":"main","followers":"95779","reach":"36264","interactions":"5184","net_follows":"496","posts":"19"},{"project":"Vegas Way","week":"2026-07-20","week_label":"20.07","page":"main","followers":"96313","reach":"27630","interactions":"4295","net_follows":"534","posts":"19"},{"project":"Vegas Way","week":"2026-07-27","week_label":"27.07","page":"main","followers":"97168","reach":"27111","interactions":"4022","net_follows":"855","posts":"21"},{"project":"Vegas Way","week":"2026-08-03","week_label":"03.08","page":"main","followers":"97789","reach":"29872","interactions":"4390","net_follows":"621","posts":"21"},{"project":"Vegas Way","week":"2026-08-10","week_label":"10.08","page":"main","followers":"98108","reach":"29137","interactions":"4036","net_follows":"319","posts":"21"},{"project":"Vegas Way","week":"2026-08-17","week_label":"17.08","page":"main","followers":"98660","reach":"26756","interactions":"3872","net_follows":"552","posts":"22"},{"project":"Vegas Way","week":"2026-08-24","week_label":"24.08","page":"main","followers":"98969","reach":"27396","interactions":"3813","net_follows":"309","posts":"21"},{"project":"Vegas Way","week":"2026-08-31","week_label":"31.08","page":"main","followers":"99370","reach":"18772","interactions":"2999","net_follows":"401","posts":"21"},{"project":"Vegas Way","week":"2026-09-07","week_label":"07.09","page":"main","followers":"99650","reach":"20389","interactions":"3194","net_follows":"280","posts":"21"},{"project":"Vegas Way","week":"2026-09-14","week_label":"14.09","page":"main","followers":"99663","reach":"23070","interactions":"3402","net_follows":"13","posts":"21"},{"project":"Vegas Way","week":"2026-09-21","week_label":"21.09","page":"new","followers":"10655","reach":"34072","interactions":"17597","net_follows":"10655","posts":"2"},{"project":"Vegas Way","week":"2026-09-28","week_label":"28.09","page":"new","followers":"20425","reach":"35431","interactions":"3906","net_follows":"9770","posts":"9"},{"project":"Vegas Way","week":"2026-10-05","week_label":"05.10","page":"new","followers":"27440","reach":"79056","interactions":"7483","net_follows":"7015","posts":"11"},{"project":"Vegas Way","week":"2026-10-12","week_label":"12.10","page":"new","followers":"33043","reach":"34808","interactions":"3636","net_follows":"5603","posts":"14"},{"project":"Vegas Way","week":"2026-10-19","week_label":"19.10","page":"new","followers":"37187","reach":"27416","interactions":"3007","net_follows":"4144","posts":"9"},{"project":"Vegas Way","week":"2026-10-26","week_label":"26.10","page":"new","followers":"40080","reach":"24629","interactions":"2822","net_follows":"2893","posts":"9"},{"project":"Storm Rush","week":"2026-05-25","week_label":"25.05","page":"main","followers":"75164","reach":"32003","interactions":"3236","net_follows":"1119","posts":"10"},{"project":"Storm Rush","week":"2026-06-01","week_label":"01.06","page":"main","followers":"76097","reach":"27437","interactions":"3827","net_follows":"933","posts":"13"},{"project":"Storm Rush","week":"2026-06-08","week_label":"08.06","page":"main","followers":"76999","reach":"24895","interactions":"2873","net_follows":"902","posts":"15"},{"project":"Storm Rush","week":"2026-06-15","week_label":"15.06","page":"main","followers":"77982","reach":"32929","interactions":"3060","net_follows":"983","posts":"21"},{"project":"Storm Rush","week":"2026-06-22","week_label":"22.06","page":"main","followers":"79186","reach":"25802","interactions":"2198","net_follows":"1204","posts":"18"},{"project":"Storm Rush","week":"2026-06-29","week_label":"29.06","page":"main","followers":"80161","reach":"29668","interactions":"2407","net_follows":"975","posts":"20"},{"project":"Storm Rush","week":"2026-07-06","week_label":"06.07","page":"main","followers":"81563","reach":"59849","interactions":"7873","net_follows":"1402","posts":"61"},{"project":"Storm Rush","week":"2026-07-13","week_label":"13.07","page":"main","followers":"83311","reach":"33362","interactions":"3815","net_follows":"1748","posts":"21"},{"project":"Storm Rush","week":"2026-07-20","week_label":"20.07","page":"main","followers":"86371","reach":"26421","interactions":"3904","net_follows":"3060","posts":"21"},{"project":"Storm Rush","week":"2026-07-27","week_label":"27.07","page":"main","followers":"88549","reach":"33461","interactions":"3959","net_follows":"2178","posts":"19"},{"project":"Storm Rush","week":"2026-08-03","week_label":"03.08","page":"main","followers":"89815","reach":"28369","interactions":"3594","net_follows":"1266","posts":"22"},{"project":"Storm Rush","week":"2026-08-10","week_label":"10.08","page":"main","followers":"91970","reach":"24188","interactions":"2617","net_follows":"2155","posts":"21"},{"project":"Storm Rush","week":"2026-08-17","week_label":"17.08","page":"main","followers":"93728","reach":"25246","interactions":"2887","net_follows":"1758","posts":"21"},{"project":"Storm Rush","week":"2026-08-24","week_label":"24.08","page":"main","followers":"94947","reach":"22403","interactions":"2418","net_follows":"1219","posts":"22"},{"project":"Storm Rush","week":"2026-08-31","week_label":"31.08","page":"main","followers":"95215","reach":"15981","interactions":"1803","net_follows":"268","posts":"21"},{"project":"Storm Rush","week":"2026-09-07","week_label":"07.09","page":"main","followers":"95304","reach":"13165","interactions":"1480","net_follows":"89","posts":"21"},{"project":"Storm Rush","week":"2026-09-14","week_label":"14.09","page":"main","followers":"95286","reach":"16188","interactions":"1501","net_follows":"-18","posts":"21"},{"project":"Storm Rush","week":"2026-09-21","week_label":"21.09","page":"main","followers":"95276","reach":"16530","interactions":"1492","net_follows":"-10","posts":"21"},{"project":"Storm Rush","week":"2026-09-28","week_label":"28.09","page":"main","followers":"95330","reach":"9757","interactions":"931","net_follows":"54","posts":"15"},{"project":"Storm Rush","week":"2026-10-05","week_label":"05.10","page":"main","followers":"95343","reach":"15683","interactions":"1286","net_follows":"13","posts":"21"},{"project":"Storm Rush","week":"2026-10-12","week_label":"12.10","page":"main","followers":"95385","reach":"21346","interactions":"2824","net_follows":"42","posts":"29"},{"project":"Storm Rush","week":"2026-10-19","week_label":"19.10","page":"main","followers":"95453","reach":"14055","interactions":"1845","net_follows":"68","posts":"12"},{"project":"Storm Rush","week":"2026-10-26","week_label":"26.10","page":"main","followers":"95515","reach":"12609","interactions":"2095","net_follows":"62","posts":"8"},{"project":"NoLimitCoins","week":"2026-05-25","week_label":"25.05","page":"main","followers":"97495","reach":"26942","interactions":"2820","net_follows":"1234","posts":"8"},{"project":"NoLimitCoins","week":"2026-06-01","week_label":"01.06","page":"main","followers":"98562","reach":"32372","interactions":"4001","net_follows":"1067","posts":"14"},{"project":"NoLimitCoins","week":"2026-06-08","week_label":"08.06","page":"main","followers":"99789","reach":"23386","interactions":"2496","net_follows":"1227","posts":"10"},{"project":"NoLimitCoins","week":"2026-06-15","week_label":"15.06","page":"main","followers":"100844","reach":"37392","interactions":"2975","net_follows":"1055","posts":"17"},{"project":"NoLimitCoins","week":"2026-06-22","week_label":"22.06","page":"main","followers":"101814","reach":"34088","interactions":"2397","net_follows":"970","posts":"18"},{"project":"NoLimitCoins","week":"2026-06-29","week_label":"29.06","page":"main","followers":"102826","reach":"39335","interactions":"2674","net_follows":"1012","posts":"20"},{"project":"NoLimitCoins","week":"2026-07-06","week_label":"06.07","page":"main","followers":"104180","reach":"80496","interactions":"9490","net_follows":"1354","posts":"38"},{"project":"NoLimitCoins","week":"2026-07-13","week_label":"13.07","page":"main","followers":"105045","reach":"38028","interactions":"4050","net_follows":"865","posts":"21"},{"project":"NoLimitCoins","week":"2026-07-20","week_label":"20.07","page":"main","followers":"106427","reach":"31833","interactions":"4038","net_follows":"1382","posts":"21"},{"project":"NoLimitCoins","week":"2026-07-27","week_label":"27.07","page":"main","followers":"107757","reach":"26791","interactions":"2937","net_follows":"1330","posts":"21"},{"project":"NoLimitCoins","week":"2026-08-03","week_label":"03.08","page":"main","followers":"108879","reach":"33583","interactions":"3818","net_follows":"1122","posts":"21"},{"project":"NoLimitCoins","week":"2026-08-10","week_label":"10.08","page":"main","followers":"109612","reach":"38804","interactions":"4638","net_follows":"733","posts":"21"},{"project":"NoLimitCoins","week":"2026-08-17","week_label":"17.08","page":"main","followers":"110366","reach":"40479","interactions":"3607","net_follows":"754","posts":"21"},{"project":"NoLimitCoins","week":"2026-08-24","week_label":"24.08","page":"main","followers":"111030","reach":"46930","interactions":"4043","net_follows":"664","posts":"21"},{"project":"NoLimitCoins","week":"2026-08-31","week_label":"31.08","page":"main","followers":"111653","reach":"32921","interactions":"3025","net_follows":"623","posts":"21"},{"project":"NoLimitCoins","week":"2026-09-07","week_label":"07.09","page":"main","followers":"112268","reach":"36266","interactions":"3601","net_follows":"615","posts":"18"},{"project":"NoLimitCoins","week":"2026-09-14","week_label":"14.09","page":"main","followers":"112861","reach":"31313","interactions":"3903","net_follows":"593","posts":"15"},{"project":"NoLimitCoins","week":"2026-09-21","week_label":"21.09","page":"main","followers":"113401","reach":"52469","interactions":"5277","net_follows":"540","posts":"15"},{"project":"NoLimitCoins","week":"2026-09-28","week_label":"28.09","page":"main","followers":"113986","reach":"34030","interactions":"2757","net_follows":"585","posts":"12"},{"project":"NoLimitCoins","week":"2026-10-05","week_label":"05.10","page":"main","followers":"114806","reach":"26410","interactions":"2682","net_follows":"820","posts":"14"},{"project":"NoLimitCoins","week":"2026-10-12","week_label":"12.10","page":"main","followers":"115328","reach":"17877","interactions":"2068","net_follows":"522","posts":"13"},{"project":"NoLimitCoins","week":"2026-10-19","week_label":"19.10","page":"main","followers":"115885","reach":"28067","interactions":"2775","net_follows":"557","posts":"14"},{"project":"NoLimitCoins","week":"2026-10-26","week_label":"26.10","page":"main","followers":"116383","reach":"26656","interactions":"2564","net_follows":"498","posts":"14"},{"project":"Scarlet Sands","week":"2026-05-25","week_label":"25.05","page":"main","followers":"55260","reach":"27694","interactions":"3855","net_follows":"2539","posts":"11"},{"project":"Scarlet Sands","week":"2026-06-01","week_label":"01.06","page":"main","followers":"57710","reach":"27868","interactions":"3989","net_follows":"2450","posts":"14"},{"project":"Scarlet Sands","week":"2026-06-08","week_label":"08.06","page":"main","followers":"60168","reach":"21467","interactions":"2063","net_follows":"2458","posts":"9"},{"project":"Scarlet Sands","week":"2026-06-15","week_label":"15.06","page":"main","followers":"62497","reach":"31925","interactions":"2916","net_follows":"2329","posts":"18"},{"project":"Scarlet Sands","week":"2026-06-22","week_label":"22.06","page":"main","followers":"64387","reach":"23669","interactions":"1908","net_follows":"1890","posts":"18"},{"project":"Scarlet Sands","week":"2026-06-29","week_label":"29.06","page":"main","followers":"66705","reach":"28466","interactions":"2702","net_follows":"2318","posts":"17"},{"project":"Scarlet Sands","week":"2026-07-06","week_label":"06.07","page":"main","followers":"69471","reach":"45945","interactions":"5451","net_follows":"2766","posts":"28"},{"project":"Scarlet Sands","week":"2026-07-13","week_label":"13.07","page":"main","followers":"71340","reach":"30823","interactions":"4172","net_follows":"1869","posts":"18"},{"project":"Scarlet Sands","week":"2026-07-20","week_label":"20.07","page":"main","followers":"73664","reach":"24309","interactions":"3370","net_follows":"2324","posts":"19"},{"project":"Scarlet Sands","week":"2026-07-27","week_label":"27.07","page":"main","followers":"75582","reach":"24103","interactions":"3164","net_follows":"1918","posts":"21"},{"project":"Scarlet Sands","week":"2026-08-03","week_label":"03.08","page":"main","followers":"77352","reach":"24414","interactions":"3234","net_follows":"1770","posts":"22"},{"project":"Scarlet Sands","week":"2026-08-10","week_label":"10.08","page":"main","followers":"79152","reach":"55243","interactions":"9523","net_follows":"1800","posts":"21"},{"project":"Scarlet Sands","week":"2026-08-17","week_label":"17.08","page":"main","followers":"81861","reach":"29882","interactions":"4660","net_follows":"2709","posts":"21"},{"project":"Scarlet Sands","week":"2026-08-24","week_label":"24.08","page":"main","followers":"83547","reach":"33187","interactions":"4332","net_follows":"1686","posts":"21"},{"project":"Scarlet Sands","week":"2026-08-31","week_label":"31.08","page":"main","followers":"85895","reach":"29706","interactions":"3885","net_follows":"2348","posts":"21"},{"project":"Scarlet Sands","week":"2026-09-07","week_label":"07.09","page":"new","followers":"300","reach":"20073","interactions":"16319","net_follows":"109","posts":"1"},{"project":"Scarlet Sands","week":"2026-09-14","week_label":"14.09","page":"new","followers":"3338","reach":"0","interactions":"0","net_follows":"3038","posts":"0"},{"project":"Scarlet Sands","week":"2026-09-21","week_label":"21.09","page":"new","followers":"5793","reach":"0","interactions":"0","net_follows":"2455","posts":"0"},{"project":"Scarlet Sands","week":"2026-09-28","week_label":"28.09","page":"new","followers":"8057","reach":"0","interactions":"0","net_follows":"2264","posts":"0"},{"project":"Scarlet Sands","week":"2026-10-05","week_label":"05.10","page":"new","followers":"9941","reach":"8389","interactions":"411","net_follows":"1884","posts":"3"},{"project":"Scarlet Sands","week":"2026-10-12","week_label":"12.10","page":"new","followers":"12061","reach":"7843","interactions":"713","net_follows":"2120","posts":"3"},{"project":"Scarlet Sands","week":"2026-10-19","week_label":"19.10","page":"new","followers":"14394","reach":"21519","interactions":"2342","net_follows":"2333","posts":"16"},{"project":"Scarlet Sands","week":"2026-10-26","week_label":"26.10","page":"new","followers":"15809","reach":"16204","interactions":"2227","net_follows":"1415","posts":"14"},{"project":"DexyPlay","week":"2026-05-25","week_label":"25.05","page":"main","followers":"18406","reach":"9510","interactions":"1007","net_follows":"757","posts":"7"},{"project":"DexyPlay","week":"2026-06-01","week_label":"01.06","page":"main","followers":"19536","reach":"13703","interactions":"1414","net_follows":"1130","posts":"13"},{"project":"DexyPlay","week":"2026-06-08","week_label":"08.06","page":"main","followers":"21325","reach":"12879","interactions":"1288","net_follows":"1789","posts":"13"},{"project":"DexyPlay","week":"2026-06-15","week_label":"15.06","page":"main","followers":"22746","reach":"15845","interactions":"1339","net_follows":"1421","posts":"21"},{"project":"DexyPlay","week":"2026-06-22","week_label":"22.06","page":"main","followers":"24214","reach":"18949","interactions":"1097","net_follows":"1468","posts":"18"},{"project":"DexyPlay","week":"2026-06-29","week_label":"29.06","page":"main","followers":"25864","reach":"14592","interactions":"1138","net_follows":"1650","posts":"20"},{"project":"DexyPlay","week":"2026-07-06","week_label":"06.07","page":"main","followers":"27481","reach":"23956","interactions":"2897","net_follows":"1617","posts":"49"},{"project":"DexyPlay","week":"2026-07-13","week_label":"13.07","page":"main","followers":"28137","reach":"10651","interactions":"1377","net_follows":"656","posts":"21"},{"project":"DexyPlay","week":"2026-07-20","week_label":"20.07","page":"main","followers":"28906","reach":"8162","interactions":"1482","net_follows":"769","posts":"20"},{"project":"DexyPlay","week":"2026-07-27","week_label":"27.07","page":"main","followers":"29510","reach":"6411","interactions":"899","net_follows":"604","posts":"20"},{"project":"DexyPlay","week":"2026-08-03","week_label":"03.08","page":"main","followers":"30285","reach":"9304","interactions":"1986","net_follows":"775","posts":"22"},{"project":"DexyPlay","week":"2026-08-10","week_label":"10.08","page":"main","followers":"30958","reach":"7672","interactions":"1303","net_follows":"673","posts":"21"},{"project":"DexyPlay","week":"2026-08-17","week_label":"17.08","page":"main","followers":"31470","reach":"6703","interactions":"1048","net_follows":"512","posts":"21"},{"project":"DexyPlay","week":"2026-08-24","week_label":"24.08","page":"main","followers":"31965","reach":"10441","interactions":"1309","net_follows":"495","posts":"21"},{"project":"DexyPlay","week":"2026-08-31","week_label":"31.08","page":"main","followers":"32398","reach":"6044","interactions":"841","net_follows":"433","posts":"21"},{"project":"DexyPlay","week":"2026-09-07","week_label":"07.09","page":"main","followers":"32761","reach":"7335","interactions":"1017","net_follows":"363","posts":"21"},{"project":"DexyPlay","week":"2026-09-14","week_label":"14.09","page":"main","followers":"32987","reach":"7788","interactions":"999","net_follows":"226","posts":"21"},{"project":"DexyPlay","week":"2026-09-21","week_label":"21.09","page":"main","followers":"33053","reach":"7522","interactions":"1178","net_follows":"66","posts":"21"},{"project":"DexyPlay","week":"2026-09-28","week_label":"28.09","page":"main","followers":"33117","reach":"4455","interactions":"526","net_follows":"64","posts":"15"},{"project":"DexyPlay","week":"2026-10-05","week_label":"05.10","page":"main","followers":"33283","reach":"3861","interactions":"440","net_follows":"166","posts":"7"},{"project":"DexyPlay","week":"2026-10-12","week_label":"12.10","page":"main","followers":"33539","reach":"6740","interactions":"707","net_follows":"256","posts":"18"},{"project":"DexyPlay","week":"2026-10-19","week_label":"19.10","page":"main","followers":"33784","reach":"7971","interactions":"801","net_follows":"245","posts":"15"},{"project":"DexyPlay","week":"2026-10-26","week_label":"26.10","page":"main","followers":"33914","reach":"5856","interactions":"584","net_follows":"130","posts":"14"},{"project":"TAO Fortune","week":"2026-05-25","week_label":"25.05","page":"main","followers":"79914","reach":"17951","interactions":"2658","net_follows":"1243","posts":"6"},{"project":"TAO Fortune","week":"2026-06-01","week_label":"01.06","page":"main","followers":"81069","reach":"29131","interactions":"4164","net_follows":"1155","posts":"14"},{"project":"TAO Fortune","week":"2026-06-08","week_label":"08.06","page":"main","followers":"82504","reach":"20770","interactions":"2205","net_follows":"1435","posts":"11"},{"project":"TAO Fortune","week":"2026-06-15","week_label":"15.06","page":"main","followers":"83877","reach":"36293","interactions":"3134","net_follows":"1373","posts":"21"},{"project":"TAO Fortune","week":"2026-06-22","week_label":"22.06","page":"main","followers":"85246","reach":"27118","interactions":"1870","net_follows":"1369","posts":"15"},{"project":"TAO Fortune","week":"2026-06-29","week_label":"29.06","page":"main","followers":"86505","reach":"31533","interactions":"2354","net_follows":"1259","posts":"19"},{"project":"TAO Fortune","week":"2026-07-06","week_label":"06.07","page":"main","followers":"88238","reach":"66315","interactions":"7581","net_follows":"1733","posts":"59"},{"project":"TAO Fortune","week":"2026-07-13","week_label":"13.07","page":"main","followers":"90403","reach":"39434","interactions":"4882","net_follows":"2165","posts":"20"},{"project":"TAO Fortune","week":"2026-07-20","week_label":"20.07","page":"main","followers":"93358","reach":"31561","interactions":"4010","net_follows":"2955","posts":"21"},{"project":"TAO Fortune","week":"2026-07-27","week_label":"27.07","page":"main","followers":"95812","reach":"28505","interactions":"2896","net_follows":"2454","posts":"21"},{"project":"TAO Fortune","week":"2026-08-03","week_label":"03.08","page":"main","followers":"97663","reach":"29467","interactions":"3943","net_follows":"1851","posts":"21"},{"project":"TAO Fortune","week":"2026-08-10","week_label":"10.08","page":"main","followers":"98973","reach":"22897","interactions":"2674","net_follows":"1310","posts":"21"},{"project":"TAO Fortune","week":"2026-08-17","week_label":"17.08","page":"main","followers":"101960","reach":"31117","interactions":"3749","net_follows":"2987","posts":"21"},{"project":"TAO Fortune","week":"2026-08-24","week_label":"24.08","page":"main","followers":"105226","reach":"40424","interactions":"3722","net_follows":"3266","posts":"21"},{"project":"TAO Fortune","week":"2026-08-31","week_label":"31.08","page":"main","followers":"107359","reach":"29676","interactions":"3736","net_follows":"2133","posts":"21"},{"project":"TAO Fortune","week":"2026-09-07","week_label":"07.09","page":"main","followers":"108618","reach":"28026","interactions":"3596","net_follows":"1259","posts":"22"},{"project":"TAO Fortune","week":"2026-09-14","week_label":"14.09","page":"main","followers":"109637","reach":"34093","interactions":"3678","net_follows":"1019","posts":"21"},{"project":"TAO Fortune","week":"2026-09-21","week_label":"21.09","page":"main","followers":"110767","reach":"35402","interactions":"3853","net_follows":"1130","posts":"21"},{"project":"TAO Fortune","week":"2026-09-28","week_label":"28.09","page":"main","followers":"112368","reach":"22819","interactions":"2200","net_follows":"1601","posts":"15"},{"project":"TAO Fortune","week":"2026-10-05","week_label":"05.10","page":"main","followers":"114081","reach":"38890","interactions":"3647","net_follows":"1713","posts":"21"},{"project":"TAO Fortune","week":"2026-10-12","week_label":"12.10","page":"main","followers":"115408","reach":"30349","interactions":"2721","net_follows":"1327","posts":"21"},{"project":"TAO Fortune","week":"2026-10-19","week_label":"19.10","page":"main","followers":"116200","reach":"11792","interactions":"1110","net_follows":"792","posts":"5"},{"project":"TAO Fortune","week":"2026-10-26","week_label":"26.10","page":"main","followers":"116783","reach":"0","interactions":"0","net_follows":"583","posts":"0"}],"offers_monthly":[{"month":"2026-07","label":"Июль","weeks":"29.06–02.08","offers_sold":"3730","deposit_usd":"92551","code_activations":"24136","ftd":"91","reactivated_7d":"307"},{"month":"2026-08","label":"Август","weeks":"03.08–30.08","offers_sold":"3563","deposit_usd":"93396","code_activations":"19007","ftd":"68","reactivated_7d":"188"},{"month":"2026-09","label":"Сентябрь","weeks":"31.08–27.09","offers_sold":"2605","deposit_usd":"69786","code_activations":"13901","ftd":"33","reactivated_7d":"155"}],"offers_proj_monthly":[{"project":"DexyPlay","month":"2026-07","month_label":"Июль","weeks":"29.06–02.08","offers_sold":"91","deposit_usd":"2130"},{"project":"DexyPlay","month":"2026-08","month_label":"Август","weeks":"03.08–30.08","offers_sold":"63","deposit_usd":"1360"},{"project":"DexyPlay","month":"2026-09","month_label":"Сентябрь","weeks":"31.08–27.09","offers_sold":"49","deposit_usd":"1040"},{"project":"Fire Seven","month":"2026-07","month_label":"Июль","weeks":"29.06–02.08","offers_sold":"461","deposit_usd":"13654"},{"project":"Fire Seven","month":"2026-08","month_label":"Август","weeks":"03.08–30.08","offers_sold":"517","deposit_usd":"15167"},{"project":"Fire Seven","month":"2026-09","month_label":"Сентябрь","weeks":"31.08–27.09","offers_sold":"388","deposit_usd":"11270"},{"project":"Fortune Wheelz","month":"2026-07","month_label":"Июль","weeks":"29.06–02.08","offers_sold":"681","deposit_usd":"19986"},{"project":"Fortune Wheelz","month":"2026-08","month_label":"Август","weeks":"03.08–30.08","offers_sold":"612","deposit_usd":"18286"},{"project":"Fortune Wheelz","month":"2026-09","month_label":"Сентябрь","weeks":"31.08–27.09","offers_sold":"441","deposit_usd":"13717"},{"project":"NoLimitCoins","month":"2026-07","month_label":"Июль","weeks":"29.06–02.08","offers_sold":"851","deposit_usd":"22986"},{"project":"NoLimitCoins","month":"2026-08","month_label":"Август","weeks":"03.08–30.08","offers_sold":"904","deposit_usd":"23891"},{"project":"NoLimitCoins","month":"2026-09","month_label":"Сентябрь","weeks":"31.08–27.09","offers_sold":"913","deposit_usd":"23481"},{"project":"Scarlet Sands","month":"2026-07","month_label":"Июль","weeks":"29.06–02.08","offers_sold":"3","deposit_usd":"45"},{"project":"Scarlet Sands","month":"2026-08","month_label":"Август","weeks":"03.08–30.08","offers_sold":"0","deposit_usd":"0"},{"project":"Scarlet Sands","month":"2026-09","month_label":"Сентябрь","weeks":"31.08–27.09","offers_sold":"0","deposit_usd":"0"},{"project":"Storm Rush","month":"2026-07","month_label":"Июль","weeks":"29.06–02.08","offers_sold":"616","deposit_usd":"16306"},{"project":"Storm Rush","month":"2026-08","month_label":"Август","weeks":"03.08–30.08","offers_sold":"667","deposit_usd":"18296"},{"project":"Storm Rush","month":"2026-09","month_label":"Сентябрь","weeks":"31.08–27.09","offers_sold":"410","deposit_usd":"10618"},{"project":"TAO Fortune","month":"2026-07","month_label":"Июль","weeks":"29.06–02.08","offers_sold":"276","deposit_usd":"6480"},{"project":"TAO Fortune","month":"2026-08","month_label":"Август","weeks":"03.08–30.08","offers_sold":"228","deposit_usd":"5699"},{"project":"TAO Fortune","month":"2026-09","month_label":"Сентябрь","weeks":"31.08–27.09","offers_sold":"152","deposit_usd":"4130"},{"project":"Vegas Way","month":"2026-07","month_label":"Июль","weeks":"29.06–02.08","offers_sold":"751","deposit_usd":"10964"},{"project":"Vegas Way","month":"2026-08","month_label":"Август","weeks":"03.08–30.08","offers_sold":"572","deposit_usd":"10697"},{"project":"Vegas Way","month":"2026-09","month_label":"Сентябрь","weeks":"31.08–27.09","offers_sold":"252","deposit_usd":"5530"}],"offers_proj_totals":[{"project":"NoLimitCoins","offers_sold":"2668","deposit_usd":"70358"},{"project":"Fortune Wheelz","offers_sold":"1734","deposit_usd":"51989"},{"project":"Storm Rush","offers_sold":"1693","deposit_usd":"45220"},{"project":"Fire Seven","offers_sold":"1366","deposit_usd":"40091"},{"project":"Vegas Way","offers_sold":"1575","deposit_usd":"27191"},{"project":"TAO Fortune","offers_sold":"656","deposit_usd":"16309"},{"project":"DexyPlay","offers_sold":"203","deposit_usd":"4530"},{"project":"Scarlet Sands","offers_sold":"3","deposit_usd":"45"}]},"bc":{"totals":{"period":"29.06–01.11.2026","bc_offers":"4235","bc_dep":"113737","auto_offers":"14558","auto_dep":"303128","offers_total":"18793","dep_total":"416865","fbb_acts":"46522","fbb_ftd":"254","fbb_react7":"551","fba_acts":"622041","fba_ftd":"1051","fba_react7":"1626","ftd_total":"1305","react7_total":"2177"},"weekly":[{"week":"W27","dates":"29.06–05.07","month":"2026-07","bc_offers":"29","bc_dep":"740","auto_offers":"412","auto_dep":"8125","dep_total":"8865","fbb_acts":"","fbb_ftd":"","fbb_react7":"","fba_acts":"47765","fba_ftd":"66","fba_react7":"105","ftd_total":"66","react7_total":"105"},{"week":"W28","dates":"06.07–12.07","month":"2026-07","bc_offers":"0","bc_dep":"0","auto_offers":"826","auto_dep":"16138","dep_total":"16138","fbb_acts":"","fbb_ftd":"","fbb_react7":"","fba_acts":"55810","fba_ftd":"95","fba_react7":"132","ftd_total":"95","react7_total":"132"},{"week":"W29","dates":"13.07–19.07","month":"2026-07","bc_offers":"117","bc_dep":"2740","auto_offers":"1096","auto_dep":"21243","dep_total":"23983","fbb_acts":"2773","fbb_ftd":"22","fbb_react7":"26","fba_acts":"89177","fba_ftd":"126","fba_react7":"137","ftd_total":"148","react7_total":"163"},{"week":"W30","dates":"20.07–26.07","month":"2026-07","bc_offers":"247","bc_dep":"6280","auto_offers":"1080","auto_dep":"22257","dep_total":"28537","fbb_acts":"3485","fbb_ftd":"19","fbb_react7":"28","fba_acts":"72290","fba_ftd":"91","fba_react7":"124","ftd_total":"110","react7_total":"152"},{"week":"W31","dates":"27.07–02.08","month":"2026-07","bc_offers":"336","bc_dep":"8470","auto_offers":"1173","auto_dep":"25427","dep_total":"33897","fbb_acts":"2979","fbb_ftd":"18","fbb_react7":"33","fba_acts":"37578","fba_ftd":"77","fba_react7":"129","ftd_total":"95","react7_total":"162"},{"week":"W32","dates":"03.08–09.08","month":"2026-08","bc_offers":"347","bc_dep":"9050","auto_offers":"1237","auto_dep":"26708","dep_total":"35758","fbb_acts":"2914","fbb_ftd":"22","fbb_react7":"33","fba_acts":"46981","fba_ftd":"69","fba_react7":"123","ftd_total":"91","react7_total":"156"},{"week":"W33","dates":"10.08–16.08","month":"2026-08","bc_offers":"358","bc_dep":"9689","auto_offers":"1310","auto_dep":"27333","dep_total":"37022","fbb_acts":"3590","fbb_ftd":"20","fbb_react7":"36","fba_acts":"33266","fba_ftd":"67","fba_react7":"89","ftd_total":"87","react7_total":"125"},{"week":"W34","dates":"17.08–23.08","month":"2026-08","bc_offers":"403","bc_dep":"11309","auto_offers":"1290","auto_dep":"27614","dep_total":"38923","fbb_acts":"3382","fbb_ftd":"15","fbb_react7":"28","fba_acts":"35159","fba_ftd":"74","fba_react7":"89","ftd_total":"89","react7_total":"117"},{"week":"W35","dates":"24.08–30.08","month":"2026-08","bc_offers":"367","bc_dep":"9805","auto_offers":"1114","auto_dep":"22985","dep_total":"32790","fbb_acts":"3428","fbb_ftd":"14","fbb_react7":"39","fba_acts":"31673","fba_ftd":"49","fba_react7":"97","ftd_total":"63","react7_total":"136"},{"week":"W36","dates":"31.08–06.09","month":"2026-09","bc_offers":"454","bc_dep":"12209","auto_offers":"1088","auto_dep":"24287","dep_total":"36496","fbb_acts":"3296","fbb_ftd":"19","fbb_react7":"62","fba_acts":"28329","fba_ftd":"54","fba_react7":"99","ftd_total":"73","react7_total":"161"},{"week":"W37","dates":"07.09–13.09","month":"2026-09","bc_offers":"393","bc_dep":"12035","auto_offers":"1319","auto_dep":"28556","dep_total":"40591","fbb_acts":"2385","fbb_ftd":"12","fbb_react7":"31","fba_acts":"19557","fba_ftd":"39","fba_react7":"74","ftd_total":"51","react7_total":"105"},{"week":"W38","dates":"14.09–20.09","month":"2026-09","bc_offers":"345","bc_dep":"10165","auto_offers":"1003","auto_dep":"20877","dep_total":"31042","fbb_acts":"2825","fbb_ftd":"10","fbb_react7":"39","fba_acts":"26030","fba_ftd":"52","fba_react7":"78","ftd_total":"62","react7_total":"117"},{"week":"W39","dates":"21.09–27.09","month":"2026-09","bc_offers":"133","bc_dep":"3110","auto_offers":"353","auto_dep":"6950","dep_total":"10060","fbb_acts":"2050","fbb_ftd":"15","fbb_react7":"22","fba_acts":"19325","fba_ftd":"54","fba_react7":"88","ftd_total":"69","react7_total":"110"},{"week":"W40","dates":"28.09–04.10","month":"2026-10","bc_offers":"178","bc_dep":"4420","auto_offers":"386","auto_dep":"7479","dep_total":"11899","fbb_acts":"2743","fbb_ftd":"17","fbb_react7":"38","fba_acts":"23559","fba_ftd":"49","fba_react7":"70","ftd_total":"66","react7_total":"108"},{"week":"W41","dates":"05.10–11.10","month":"2026-10","bc_offers":"188","bc_dep":"5205","auto_offers":"318","auto_dep":"5999","dep_total":"11204","fbb_acts":"2871","fbb_ftd":"17","fbb_react7":"37","fba_acts":"18700","fba_ftd":"32","fba_react7":"72","ftd_total":"49","react7_total":"109"},{"week":"W42","dates":"12.10–18.10","month":"2026-10","bc_offers":"166","bc_dep":"4175","auto_offers":"292","auto_dep":"5760","dep_total":"9935","fbb_acts":"2809","fbb_ftd":"15","fbb_react7":"38","fba_acts":"22632","fba_ftd":"30","fba_react7":"70","ftd_total":"45","react7_total":"108"},{"week":"W43","dates":"19.10–25.10","month":"2026-10","bc_offers":"81","bc_dep":"1905","auto_offers":"128","auto_dep":"2630","dep_total":"4535","fbb_acts":"2342","fbb_ftd":"7","fbb_react7":"23","fba_acts":"9897","fba_ftd":"17","fba_react7":"31","ftd_total":"24","react7_total":"54"},{"week":"W44","dates":"26.10–01.11","month":"2026-10","bc_offers":"93","bc_dep":"2430","auto_offers":"133","auto_dep":"2760","dep_total":"5190","fbb_acts":"2650","fbb_ftd":"12","fbb_react7":"38","fba_acts":"4313","fba_ftd":"10","fba_react7":"19","ftd_total":"22","react7_total":"57"}],"monthly":[{"month":"2026-07","label":"Июль","weeks":"29.06–02.08","bc_offers":"729","bc_dep":"18230","auto_offers":"4587","auto_dep":"93190","dep_total":"111420","ftd_total":"514","react7_total":"714","fbb_acts":"9237","fba_acts":"302620"},{"month":"2026-08","label":"Август","weeks":"03.08–30.08","bc_offers":"1475","bc_dep":"39853","auto_offers":"4951","auto_dep":"104640","dep_total":"144493","ftd_total":"330","react7_total":"534","fbb_acts":"13314","fba_acts":"147079"},{"month":"2026-09","label":"Сентябрь","weeks":"31.08–27.09","bc_offers":"1325","bc_dep":"37519","auto_offers":"3763","auto_dep":"80670","dep_total":"118189","ftd_total":"255","react7_total":"493","fbb_acts":"10556","fba_acts":"93241"},{"month":"2026-10","label":"Октябрь","weeks":"28.09–01.11","bc_offers":"706","bc_dep":"18135","auto_offers":"1257","auto_dep":"24628","dep_total":"42763","ftd_total":"206","react7_total":"436","fbb_acts":"13415","fba_acts":"79101"}],"proj_monthly":[{"project":"DexyPlay","month":"2026-07","month_label":"Июль","weeks":"29.06–02.08","bc_offers":"1","bc_dep":"30","auto_offers":"53","auto_dep":"640","offers_total":"54","dep_total":"670"},{"project":"DexyPlay","month":"2026-08","month_label":"Август","weeks":"03.08–30.08","bc_offers":"0","bc_dep":"0","auto_offers":"41","auto_dep":"490","offers_total":"41","dep_total":"490"},{"project":"DexyPlay","month":"2026-09","month_label":"Сентябрь","weeks":"31.08–27.09","bc_offers":"3","bc_dep":"60","auto_offers":"17","auto_dep":"210","offers_total":"20","dep_total":"270"},{"project":"DexyPlay","month":"2026-10","month_label":"Октябрь","weeks":"28.09–01.11","bc_offers":"3","bc_dep":"80","auto_offers":"4","auto_dep":"50","offers_total":"7","dep_total":"130"},{"project":"Fire Seven","month":"2026-07","month_label":"Июль","weeks":"29.06–02.08","bc_offers":"179","bc_dep":"4090","auto_offers":"1197","auto_dep":"22684","offers_total":"1376","dep_total":"26774"},{"project":"Fire Seven","month":"2026-08","month_label":"Август","weeks":"03.08–30.08","bc_offers":"295","bc_dep":"7770","auto_offers":"907","auto_dep":"17775","offers_total":"1202","dep_total":"25545"},{"project":"Fire Seven","month":"2026-09","month_label":"Сентябрь","weeks":"31.08–27.09","bc_offers":"304","bc_dep":"8250","auto_offers":"726","auto_dep":"15369","offers_total":"1030","dep_total":"23619"},{"project":"Fire Seven","month":"2026-10","month_label":"Октябрь","weeks":"28.09–01.11","bc_offers":"293","bc_dep":"7770","auto_offers":"631","auto_dep":"12438","offers_total":"924","dep_total":"20208"},{"project":"Fortune Wheelz","month":"2026-07","month_label":"Июль","weeks":"29.06–02.08","bc_offers":"153","bc_dep":"3760","auto_offers":"640","auto_dep":"16860","offers_total":"793","dep_total":"20620"},{"project":"Fortune Wheelz","month":"2026-08","month_label":"Август","weeks":"03.08–30.08","bc_offers":"384","bc_dep":"11088","auto_offers":"783","auto_dep":"19989","offers_total":"1167","dep_total":"31077"},{"project":"Fortune Wheelz","month":"2026-09","month_label":"Сентябрь","weeks":"31.08–27.09","bc_offers":"303","bc_dep":"9149","auto_offers":"609","auto_dep":"15459","offers_total":"912","dep_total":"24608"},{"project":"Fortune Wheelz","month":"2026-10","month_label":"Октябрь","weeks":"28.09–01.11","bc_offers":"129","bc_dep":"3440","auto_offers":"75","auto_dep":"1780","offers_total":"204","dep_total":"5220"},{"project":"NoLimitCoins","month":"2026-07","month_label":"Июль","weeks":"29.06–02.08","bc_offers":"186","bc_dep":"5090","auto_offers":"581","auto_dep":"12438","offers_total":"767","dep_total":"17528"},{"project":"NoLimitCoins","month":"2026-08","month_label":"Август","weeks":"03.08–30.08","bc_offers":"347","bc_dep":"9585","auto_offers":"671","auto_dep":"15357","offers_total":"1018","dep_total":"24942"},{"project":"NoLimitCoins","month":"2026-09","month_label":"Сентябрь","weeks":"31.08–27.09","bc_offers":"327","bc_dep":"8970","auto_offers":"515","auto_dep":"12128","offers_total":"842","dep_total":"21098"},{"project":"NoLimitCoins","month":"2026-10","month_label":"Октябрь","weeks":"28.09–01.11","bc_offers":"169","bc_dep":"3865","auto_offers":"124","auto_dep":"2010","offers_total":"293","dep_total":"5875"},{"project":"Scarlet Sands","month":"2026-07","month_label":"Июль","weeks":"29.06–02.08","bc_offers":"126","bc_dep":"3200","auto_offers":"799","auto_dep":"15216","offers_total":"925","dep_total":"18416"},{"project":"Scarlet Sands","month":"2026-08","month_label":"Август","weeks":"03.08–30.08","bc_offers":"207","bc_dep":"5480","auto_offers":"1115","auto_dep":"22923","offers_total":"1322","dep_total":"28403"},{"project":"Scarlet Sands","month":"2026-09","month_label":"Сентябрь","weeks":"31.08–27.09","bc_offers":"122","bc_dep":"4320","auto_offers":"858","auto_dep":"18505","offers_total":"980","dep_total":"22825"},{"project":"Scarlet Sands","month":"2026-10","month_label":"Октябрь","weeks":"28.09–01.11","bc_offers":"0","bc_dep":"0","auto_offers":"143","auto_dep":"3980","offers_total":"143","dep_total":"3980"},{"project":"Storm Rush","month":"2026-07","month_label":"Июль","weeks":"29.06–02.08","bc_offers":"2","bc_dep":"60","auto_offers":"623","auto_dep":"13734","offers_total":"625","dep_total":"13794"},{"project":"Storm Rush","month":"2026-08","month_label":"Август","weeks":"03.08–30.08","bc_offers":"69","bc_dep":"2040","auto_offers":"689","auto_dep":"15837","offers_total":"758","dep_total":"17877"},{"project":"Storm Rush","month":"2026-09","month_label":"Сентябрь","weeks":"31.08–27.09","bc_offers":"87","bc_dep":"2720","auto_offers":"442","auto_dep":"9069","offers_total":"529","dep_total":"11789"},{"project":"Storm Rush","month":"2026-10","month_label":"Октябрь","weeks":"28.09–01.11","bc_offers":"48","bc_dep":"1610","auto_offers":"126","auto_dep":"2130","offers_total":"174","dep_total":"3740"},{"project":"TAO Fortune","month":"2026-07","month_label":"Июль","weeks":"29.06–02.08","bc_offers":"1","bc_dep":"20","auto_offers":"274","auto_dep":"4360","offers_total":"275","dep_total":"4380"},{"project":"TAO Fortune","month":"2026-08","month_label":"Август","weeks":"03.08–30.08","bc_offers":"64","bc_dep":"1530","auto_offers":"329","auto_dep":"5170","offers_total":"393","dep_total":"6700"},{"project":"TAO Fortune","month":"2026-09","month_label":"Сентябрь","weeks":"31.08–27.09","bc_offers":"86","bc_dep":"1890","auto_offers":"297","auto_dep":"5050","offers_total":"383","dep_total":"6940"},{"project":"TAO Fortune","month":"2026-10","month_label":"Октябрь","weeks":"28.09–01.11","bc_offers":"64","bc_dep":"1370","auto_offers":"148","auto_dep":"2140","offers_total":"212","dep_total":"3510"},{"project":"Vegas Way","month":"2026-07","month_label":"Июль","weeks":"29.06–02.08","bc_offers":"81","bc_dep":"1980","auto_offers":"420","auto_dep":"7258","offers_total":"501","dep_total":"9238"},{"project":"Vegas Way","month":"2026-08","month_label":"Август","weeks":"03.08–30.08","bc_offers":"109","bc_dep":"2360","auto_offers":"416","auto_dep":"7099","offers_total":"525","dep_total":"9459"},{"project":"Vegas Way","month":"2026-09","month_label":"Сентябрь","weeks":"31.08–27.09","bc_offers":"93","bc_dep":"2160","auto_offers":"299","auto_dep":"4880","offers_total":"392","dep_total":"7040"},{"project":"Vegas Way","month":"2026-10","month_label":"Октябрь","weeks":"28.09–01.11","bc_offers":"0","bc_dep":"0","auto_offers":"6","auto_dep":"100","offers_total":"6","dep_total":"100"}],"proj_totals":[{"project":"Fire Seven","bc_offers":"1071","bc_dep":"27880","auto_offers":"3461","auto_dep":"68266","offers_total":"4532","dep_total":"96146"},{"project":"Fortune Wheelz","bc_offers":"969","bc_dep":"27437","auto_offers":"2107","auto_dep":"54088","offers_total":"3076","dep_total":"81525"},{"project":"Scarlet Sands","bc_offers":"455","bc_dep":"13000","auto_offers":"2915","auto_dep":"60624","offers_total":"3370","dep_total":"73624"},{"project":"NoLimitCoins","bc_offers":"1029","bc_dep":"27510","auto_offers":"1891","auto_dep":"41933","offers_total":"2920","dep_total":"69443"},{"project":"Storm Rush","bc_offers":"206","bc_dep":"6430","auto_offers":"1880","auto_dep":"40770","offers_total":"2086","dep_total":"47200"},{"project":"Vegas Way","bc_offers":"283","bc_dep":"6500","auto_offers":"1141","auto_dep":"19337","offers_total":"1424","dep_total":"25837"},{"project":"TAO Fortune","bc_offers":"215","bc_dep":"4810","auto_offers":"1048","auto_dep":"16720","offers_total":"1263","dep_total":"21530"},{"project":"DexyPlay","bc_offers":"7","bc_dep":"170","auto_offers":"115","auto_dep":"1390","offers_total":"122","dep_total":"1560"}]},"wh":{"totals":{"period":"27–31.10.2026","brands":"6","contests":"44","applied":"642","applied_sum":"867","logged_in":"951","viewed":"605","played":"296","finished":"277","won":"19","claimed":"18","multi_brand":"122","played_share":"0.4611","prizes":"90","prizes_claimed":"87","sc_total":"912","top1_prizes":"30","top1_sc":"505","top4_prizes":"59","popup_joins":"1251","fb_joins":"23","player_invites":"85","player_invite_joins":"0","new_members":"58","new_share":"0.0903"},"highlights":{"period":"27–31.10.2026","people_in_base":"1263","completed_plays":"1922","finish_rate":"0.9572","games":"14","codes_self_share":"0.9667","popup_vs_fb":"54","reminder_before":"26","reminder_after":"62","first_contest_players":"128"},"brands":[{"brand":"Fire Seven","applied":"202","viewed":"191","played":"87","played_share":"0.4307","finished":"81","won":"5","claimed":"5","popup_joins":"299","fb_joins":"2","new_members":"7"},{"brand":"Vegas Way","applied":"171","viewed":"160","played":"79","played_share":"0.462","finished":"74","won":"6","claimed":"6","popup_joins":"192","fb_joins":"13","new_members":"11"},{"brand":"Scarlet Sands","applied":"179","viewed":"163","played":"106","played_share":"0.5922","finished":"100","won":"7","claimed":"7","popup_joins":"295","fb_joins":"7","new_members":"17"},{"brand":"Storm Rush","applied":"106","viewed":"97","played":"58","played_share":"0.5472","finished":"54","won":"6","claimed":"6","popup_joins":"150","fb_joins":"1","new_members":"11"},{"brand":"DexyPlay","applied":"58","viewed":"61","played":"36","played_share":"0.6207","finished":"34","won":"6","claimed":"6","popup_joins":"243","fb_joins":"0","new_members":"10"},{"brand":"NoLimitCoins","applied":"151","viewed":"119","played":"62","played_share":"0.4106","finished":"57","won":"5","claimed":"4","popup_joins":"72","fb_joins":"0","new_members":"5"}],"games":[{"game":"Codebreaker","contests":"3","viewers":"236","started":"184","finished":"164","passed":"45","pass_rate":"0.2744","start_share":"0.7797"},{"game":"Potion Lab","contests":"3","viewers":"158","started":"128","finished":"118","passed":"47","pass_rate":"0.3983","start_share":"0.8101"},{"game":"Word Forge","contests":"5","viewers":"265","started":"218","finished":"216","passed":"115","pass_rate":"0.5324","start_share":"0.8226"},{"game":"Echo","contests":"3","viewers":"169","started":"123","finished":"122","passed":"92","pass_rate":"0.7541","start_share":"0.7278"},{"game":"Midnight Echo","contests":"2","viewers":"108","started":"86","finished":"86","passed":"65","pass_rate":"0.7558","start_share":"0.7963"},{"game":"The Séance","contests":"4","viewers":"241","started":"189","finished":"188","passed":"147","pass_rate":"0.7819","start_share":"0.7842"},{"game":"Nightmare Trivia","contests":"4","viewers":"252","started":"213","finished":"213","passed":"192","pass_rate":"0.9014","start_share":"0.8452"},{"game":"Trivia Rush","contests":"3","viewers":"169","started":"127","finished":"126","passed":"120","pass_rate":"0.9524","start_share":"0.7515"},{"game":"Hidden Relics","contests":"2","viewers":"132","started":"94","finished":"93","passed":"91","pass_rate":"0.9785","start_share":"0.7121"},{"game":"Haunted Manor","contests":"3","viewers":"166","started":"136","finished":"136","passed":"134","pass_rate":"0.9853","start_share":"0.8193"},{"game":"Memory Vault","contests":"4","viewers":"229","started":"172","finished":"171","passed":"170","pass_rate":"0.9942","start_share":"0.7511"},{"game":"Relic Restore","contests":"5","viewers":"232","started":"187","finished":"144","passed":"144","pass_rate":"1.0","start_share":"0.806"},{"game":"Masquerade","contests":"2","viewers":"134","started":"108","finished":"108","passed":"108","pass_rate":"1.0","start_share":"0.806"},{"game":"The Final Ritual","contests":"1","viewers":"68","started":"43","finished":"37","passed":"37","pass_rate":"1.0","start_share":"0.6324"}]},"fwl":{"totals":{"snapshot":"02.11.2026 11:46","records":"169","opened":"113","opened_share":"0.669","found_any":"87","pumpkins":"145","doors_opened":"231","doors_solved":"145","solved_share":"0.628","codes_issued":"40","code_players":"26","codes_activated":"33","activated_share":"0.825","returned_2plus":"37","returned_share":"0.327","participations":"183","gc_activated":"600000","fc_activated":"6","fp_activated":"120","nights":"7","doors_per_night":"3","tiers":"7"},"nights":[{"night":"1","label":"Ночь 1","played":"33","found":"28","found_share":"0.848","partial":""},{"night":"2","label":"Ночь 2","played":"40","found":"28","found_share":"0.700","partial":""},{"night":"3","label":"Ночь 3","played":"28","found":"21","found_share":"0.750","partial":""},{"night":"4","label":"Ночь 4","played":"26","found":"21","found_share":"0.808","partial":""},{"night":"5","label":"Ночь 5","played":"17","found":"13","found_share":"0.765","partial":""},{"night":"6","label":"Ночь 6","played":"20","found":"18","found_share":"0.900","partial":""},{"night":"7","label":"Ночь 7*","played":"19","found":"16","found_share":"0.842","partial":"yes"}],"tiers":[{"tier":"10 000 GC + 3 FP","price":"1","issued":"30","activated":"25"},{"tier":"25 000 GC + 5 FP","price":"2","issued":"7","activated":"5"},{"tier":"50 000 GC + 1 FC + 5 FP","price":"3","issued":"1","activated":"1"},{"tier":"75 000 GC + 2 FC + 5 FP","price":"4","issued":"1","activated":"1"},{"tier":"100 000 GC + 3 FC + 10 FP","price":"5","issued":"1","activated":"1"},{"tier":"150 000 GC + 5 FC + 10 FP","price":"6","issued":"0","activated":"0"},{"tier":"250 000 GC + 8 FC + 10 FP","price":"7","issued":"0","activated":"0"}]}};
+
+// Brand Theme Definitions
+const BRANDS = {
+  'Fire Seven': { emoji: '🔥', color: '#EF4444', sec: '#F59E0B', bg: 'rgba(239,68,68,0.12)', border: 'rgba(239,68,68,0.38)', tag: 'Emerald & Flame' },
+  'CoinsMania': { emoji: '🐷', color: '#D946EF', sec: '#F2B705', bg: 'rgba(217,70,239,0.12)', border: 'rgba(217,70,239,0.38)', tag: 'Stage Cloud' },
+  'Jumanza': { emoji: '🦁', color: '#10B981', sec: '#F59E0B', bg: 'rgba(16,185,129,0.12)', border: 'rgba(16,185,129,0.38)', tag: 'Safari Jungle' },
+  'Vegas Way': { emoji: '🃏', color: '#8B5CF6', sec: '#F59E0B', bg: 'rgba(139,92,246,0.14)', border: 'rgba(139,92,246,0.38)', tag: 'Penthouse Velvet' },
+  'Storm Rush': { emoji: '⚡', color: '#06B6D4', sec: '#3B82F6', bg: 'rgba(6,182,212,0.12)', border: 'rgba(6,182,212,0.38)', tag: 'Epic Storm' },
+  'Scarlet Sands': { emoji: '🏜️', color: '#F59E0B', sec: '#DC2626', bg: 'rgba(245,158,11,0.14)', border: 'rgba(245,158,11,0.38)', tag: 'Desert Relics' },
+  'Fortune Wheelz': { emoji: '🎡', color: '#10B981', sec: '#FBBF24', bg: 'rgba(16,185,129,0.14)', border: 'rgba(16,185,129,0.38)', tag: 'VIP Emerald Wheel' },
+  'NoLimitCoins': { emoji: '🪙', color: '#FBBF24', sec: '#16A34A', bg: 'rgba(251,191,36,0.12)', border: 'rgba(251,191,36,0.38)', tag: 'Jungle Canopy' },
+  'TAO Fortune': { emoji: '🎋', color: '#E11D48', sec: '#FBBF24', bg: 'rgba(225,29,72,0.12)', border: 'rgba(225,29,72,0.38)', tag: 'Eastern Fortune' },
+  'DexyPlay': { emoji: '💜', color: '#A855F7', sec: '#06B6D4', bg: 'rgba(168,85,247,0.12)', border: 'rgba(168,85,247,0.38)', tag: 'Neon Speed' }
+};
+
+function getBrand(name) {
+  return BRANDS[name] || { emoji: '🎲', color: '#FFD27A', sec: '#FF9A3C', bg: 'rgba(255,210,122,0.12)', border: 'rgba(255,210,122,0.32)', tag: name };
+}
+
+// Spotlight in Hero
+const heroEl = document.getElementById('top');
+heroEl.addEventListener('pointermove', (e) => {
+  const r = heroEl.getBoundingClientRect();
+  document.documentElement.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100).toFixed(1) + '%');
+  document.documentElement.style.setProperty('--my', (e.clientY - r.top).toFixed(0) + 'px');
+});
+
+// Formatting
+const sp = (n) => Math.round(Number(n) || 0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+const FMT = {
+  int: (v) => (v === '' || v == null || isNaN(Number(v))) ? '—' : sp(v),
+  money: (v) => (v === '' || v == null || isNaN(Number(v))) ? '—' : '$' + sp(v),
+  money2: (v) => (v === '' || v == null || isNaN(Number(v))) ? '—' : '$' + Number(v).toFixed(2),
+  pct: (v) => (v === '' || v == null || isNaN(Number(v))) ? '—' : Math.round(Number(v) * 100) + '%',
+  pct1: (v) => (v === '' || v == null || isNaN(Number(v))) ? '—' : (Number(v) * 100).toFixed(1).replace('.', ',') + '%',
+  pctplus: (v) => (v === '' || v == null || isNaN(Number(v))) ? 'с нуля' : '+' + Math.round(Number(v) * 100) + '%',
+  short: (v) => {
+    const n = Number(v) || 0;
+    return n >= 1000 ? sp(Math.round(n / 1000)) + 'k' : String(Math.round(n));
+  }
+};
+
+function makeTip(container) {
+  const t = document.createElement('div');
+  t.className = 'chart-tip';
+  t.hidden = true;
+  container.appendChild(t);
+  return t;
+}
+function showTip(container, tip, xRatio, py, head, lines) {
+  tip.innerHTML = '<div class="t-head">' + head + '</div>' + lines.map(l => '<div>' + l + '</div>').join('');
+  tip.hidden = false;
+  const cw = container.clientWidth || 600;
+  const px = xRatio * cw;
+  const left = Math.max(6, Math.min(cw - tip.offsetWidth - 6, px - tip.offsetWidth / 2));
+  const top = Math.max(6, py - tip.offsetHeight - 10);
+  tip.style.left = left + 'px';
+  tip.style.top = top + 'px';
+}
+
+// Bar Chart
+function renderBarChart(elId, rows, opts) {
+  const el = document.getElementById(elId);
+  if (!el || !rows || !rows.length) return;
+  el.innerHTML = '';
+  const W = Math.max(320, el.clientWidth || 640);
+  const H = opts.height || 220;
+  const ml = opts.ml || 48, mr = 10, mt = 14, mb = 24;
+  const plotW = W - ml - mr, plotH = H - mt - mb;
+
+  const vals = rows.map(r => r[opts.field] === '' || r[opts.field] == null ? null : Number(r[opts.field]));
+  const maxV = Math.max(...vals.filter(v => v != null), 1) * 1.08;
+  const ticks = [0, 0.25, 0.5, 0.75, 1].map(t => t * maxV);
+
+  const ns = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(ns, 'svg');
+  svg.setAttribute('width', '100%');
+  svg.setAttribute('height', H);
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+
+  ticks.forEach(tv => {
+    const y = mt + plotH - (tv / maxV) * plotH;
+    const line = document.createElementNS(ns, 'line');
+    line.setAttribute('x1', ml); line.setAttribute('x2', W - mr);
+    line.setAttribute('y1', y); line.setAttribute('y2', y);
+    line.setAttribute('stroke', 'rgba(255,248,234,0.10)');
+    svg.appendChild(line);
+
+    const txt = document.createElementNS(ns, 'text');
+    txt.setAttribute('x', ml - 6); txt.setAttribute('y', y + 4);
+    txt.setAttribute('text-anchor', 'end');
+    txt.setAttribute('font-size', '11');
+    txt.setAttribute('fill', '#8E86B2');
+    txt.textContent = opts.yFmt ? opts.yFmt(tv) : FMT.short(tv);
+    svg.appendChild(txt);
+  });
+
+  const step = plotW / rows.length;
+  const bw = Math.max(4, Math.min(28, step * 0.72));
+  const every = Math.max(1, Math.ceil(rows.length / Math.floor(plotW / 46)));
+  const color = opts.color || '#FFD27A';
+  const tip = makeTip(el);
+  const barEls = [];
+
+  rows.forEach((r, i) => {
+    const cx = ml + i * step + step / 2;
+    if (i % every === 0) {
+      const xl = document.createElementNS(ns, 'text');
+      xl.setAttribute('x', cx); xl.setAttribute('y', H - 6);
+      xl.setAttribute('text-anchor', 'middle');
+      xl.setAttribute('font-size', '11');
+      xl.setAttribute('fill', '#8E86B2');
+      xl.textContent = opts.xLabel ? opts.xLabel(r) : r.week;
+      svg.appendChild(xl);
+    }
+    const v = vals[i];
+    const rect = document.createElementNS(ns, 'rect');
+    if (v != null && v > 0) {
+      const bh = Math.max(2, (v / maxV) * plotH);
+      rect.setAttribute('x', cx - bw / 2);
+      rect.setAttribute('y', mt + plotH - bh);
+      rect.setAttribute('width', bw);
+      rect.setAttribute('height', bh);
+      rect.setAttribute('rx', '3');
+      rect.setAttribute('fill', color);
+      svg.appendChild(rect);
+    }
+    barEls.push(rect);
+
+    const hit = document.createElementNS(ns, 'rect');
+    hit.setAttribute('x', ml + i * step);
+    hit.setAttribute('y', mt);
+    hit.setAttribute('width', step);
+    hit.setAttribute('height', plotH);
+    hit.setAttribute('fill', 'transparent');
+    hit.addEventListener('pointermove', (ev) => {
+      barEls.forEach((b, bi) => b.setAttribute('opacity', bi === i ? '1' : '0.45'));
+      const box = el.getBoundingClientRect();
+      showTip(el, tip, cx / W, ev.clientY - box.top, opts.tipHead(r), opts.tipLines(r));
+    });
+    hit.addEventListener('pointerleave', () => {
+      tip.hidden = true;
+      barEls.forEach(b => b.setAttribute('opacity', '1'));
+    });
+    svg.appendChild(hit);
+  });
+
+  el.appendChild(svg);
+}
+
+// Grouped Bars
+function renderGroupedBars(elId, rows, opts) {
+  const el = document.getElementById(elId);
+  if (!el || !rows || !rows.length) return;
+  el.innerHTML = '';
+  const W = Math.max(320, el.clientWidth || 560);
+  const H = opts.height || 220;
+  const ml = opts.ml || 48, mr = 10, mt = 18, mb = 24;
+  const plotW = W - ml - mr, plotH = H - mt - mb;
+
+  const maxV = Math.max(...rows.map(r => Math.max(Number(r[opts.k1]) || 0, Number(r[opts.k2]) || 0)), 1) * 1.12;
+  const ticks = [0, 0.25, 0.5, 0.75, 1].map(t => t * maxV);
+  const ns = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(ns, 'svg');
+  svg.setAttribute('width', '100%'); svg.setAttribute('height', H);
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+
+  ticks.forEach(tv => {
+    const y = mt + plotH - (tv / maxV) * plotH;
+    const line = document.createElementNS(ns, 'line');
+    line.setAttribute('x1', ml); line.setAttribute('x2', W - mr);
+    line.setAttribute('y1', y); line.setAttribute('y2', y);
+    line.setAttribute('stroke', 'rgba(255,248,234,0.10)');
+    svg.appendChild(line);
+
+    const txt = document.createElementNS(ns, 'text');
+    txt.setAttribute('x', ml - 6); txt.setAttribute('y', y + 4);
+    txt.setAttribute('text-anchor', 'end'); txt.setAttribute('font-size', '11'); txt.setAttribute('fill', '#8E86B2');
+    txt.textContent = opts.yFmt ? opts.yFmt(tv) : FMT.short(tv);
+    svg.appendChild(txt);
+  });
+
+  const step = plotW / rows.length;
+  const bw = Math.max(6, Math.min(24, step * 0.34));
+  const tip = makeTip(el);
+  const groups = [];
+
+  rows.forEach((r, i) => {
+    const cx = ml + i * step + step / 2;
+    const xl = document.createElementNS(ns, 'text');
+    xl.setAttribute('x', cx); xl.setAttribute('y', H - 6);
+    xl.setAttribute('text-anchor', 'middle'); xl.setAttribute('font-size', '11'); xl.setAttribute('fill', '#8E86B2');
+    xl.textContent = opts.xLabel(r);
+    svg.appendChild(xl);
+
+    const g = document.createElementNS(ns, 'g');
+    const v1 = Number(r[opts.k1]) || 0, v2 = Number(r[opts.k2]) || 0;
+    const h1 = Math.max(2, (v1 / maxV) * plotH), h2 = Math.max(2, (v2 / maxV) * plotH);
+
+    const r1 = document.createElementNS(ns, 'rect');
+    r1.setAttribute('x', cx - bw - 2); r1.setAttribute('y', mt + plotH - h1);
+    r1.setAttribute('width', bw); r1.setAttribute('height', h1);
+    r1.setAttribute('rx', '3'); r1.setAttribute('fill', opts.c1 || '#FFD27A');
+
+    const r2 = document.createElementNS(ns, 'rect');
+    r2.setAttribute('x', cx + 2); r2.setAttribute('y', mt + plotH - h2);
+    r2.setAttribute('width', bw); r2.setAttribute('height', h2);
+    r2.setAttribute('rx', '3'); r2.setAttribute('fill', opts.c2 || '#C9A8FF');
+
+    g.append(r1, r2);
+    svg.appendChild(g);
+    groups.push(g);
+
+    const hit = document.createElementNS(ns, 'rect');
+    hit.setAttribute('x', ml + i * step); hit.setAttribute('y', mt);
+    hit.setAttribute('width', step); hit.setAttribute('height', plotH);
+    hit.setAttribute('fill', 'transparent');
+    hit.addEventListener('pointermove', (ev) => {
+      groups.forEach((gr, gi) => gr.setAttribute('opacity', gi === i ? '1' : '0.45'));
+      const box = el.getBoundingClientRect();
+      showTip(el, tip, cx / W, ev.clientY - box.top, opts.tipHead(r), opts.tipLines(r));
+    });
+    hit.addEventListener('pointerleave', () => {
+      tip.hidden = true;
+      groups.forEach(gr => gr.setAttribute('opacity', '1'));
+    });
+    svg.appendChild(hit);
+  });
+
+  el.appendChild(svg);
+}
+
+// Line Chart
+function renderLineChart(elId, rows, opts) {
+  const el = document.getElementById(elId);
+  if (!el || !rows || !rows.length) return;
+  el.innerHTML = '';
+  const W = Math.max(320, el.clientWidth || 560);
+  const H = opts.height || 220;
+  const ml = opts.ml || 48, mr = 18, mt = 18, mb = 24;
+  const plotW = W - ml - mr, plotH = H - mt - mb;
+
+  const vals = rows.map(r => Number(r[opts.field]) || 0);
+  const maxV = (Math.max(...vals, 0.1)) * 1.1;
+  const ticks = [0, 0.25, 0.5, 0.75, 1].map(t => t * maxV);
+
+  const ns = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(ns, 'svg');
+  svg.setAttribute('width', '100%'); svg.setAttribute('height', H);
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+
+  ticks.forEach(tv => {
+    const y = mt + plotH - (tv / maxV) * plotH;
+    const line = document.createElementNS(ns, 'line');
+    line.setAttribute('x1', ml); line.setAttribute('x2', W - mr);
+    line.setAttribute('y1', y); line.setAttribute('y2', y);
+    line.setAttribute('stroke', 'rgba(255,248,234,0.10)');
+    svg.appendChild(line);
+
+    const txt = document.createElementNS(ns, 'text');
+    txt.setAttribute('x', ml - 6); txt.setAttribute('y', y + 4);
+    txt.setAttribute('text-anchor', 'end'); txt.setAttribute('font-size', '11'); txt.setAttribute('fill', '#8E86B2');
+    txt.textContent = opts.yFmt ? opts.yFmt(tv) : FMT.short(tv);
+    svg.appendChild(txt);
+  });
+
+  const pts = rows.map((r, i) => {
+    const x = ml + (rows.length > 1 ? (i / (rows.length - 1)) * plotW : plotW / 2);
+    const y = mt + plotH - (vals[i] / maxV) * plotH;
+    return [x, y, r];
+  });
+
+  const color = opts.color || '#3FD39A';
+  const areaD = 'M' + pts[0][0] + ',' + (mt + plotH) + ' ' + pts.map(p => 'L' + p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' ') + ' L' + pts[pts.length - 1][0] + ',' + (mt + plotH) + ' Z';
+  const area = document.createElementNS(ns, 'path');
+  area.setAttribute('d', areaD); area.setAttribute('fill', color); area.setAttribute('opacity', '0.15');
+  svg.appendChild(area);
+
+  const lineD = pts.map((p, i) => (i === 0 ? 'M' : 'L') + p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' ');
+  const pathEl = document.createElementNS(ns, 'path');
+  pathEl.setAttribute('d', lineD); pathEl.setAttribute('fill', 'none');
+  pathEl.setAttribute('stroke', color); pathEl.setAttribute('stroke-width', '2.5');
+  svg.appendChild(pathEl);
+
+  const every = Math.max(1, Math.ceil(rows.length / Math.floor(plotW / 52)));
+  const tip = makeTip(el);
+  const step = rows.length > 1 ? plotW / (rows.length - 1) : plotW;
+
+  pts.forEach(([x, y, r], i) => {
+    if (i % every === 0 || i === rows.length - 1) {
+      const xl = document.createElementNS(ns, 'text');
+      xl.setAttribute('x', x); xl.setAttribute('y', H - 6);
+      xl.setAttribute('text-anchor', 'middle'); xl.setAttribute('font-size', '11'); xl.setAttribute('fill', '#8E86B2');
+      xl.textContent = opts.xLabel(r);
+      svg.appendChild(xl);
+    }
+    const dot = document.createElementNS(ns, 'circle');
+    dot.setAttribute('cx', x); dot.setAttribute('cy', y); dot.setAttribute('r', '3.5');
+    dot.setAttribute('fill', color);
+    svg.appendChild(dot);
+
+    const hit = document.createElementNS(ns, 'rect');
+    hit.setAttribute('x', x - step / 2); hit.setAttribute('y', mt);
+    hit.setAttribute('width', step); hit.setAttribute('height', plotH);
+    hit.setAttribute('fill', 'transparent');
+    hit.addEventListener('pointermove', (ev) => {
+      dot.setAttribute('r', '6');
+      const box = el.getBoundingClientRect();
+      showTip(el, tip, x / W, ev.clientY - box.top, opts.tipHead(r), opts.tipLines(r));
+    });
+    hit.addEventListener('pointerleave', () => {
+      dot.setAttribute('r', '3.5');
+      tip.hidden = true;
+    });
+    svg.appendChild(hit);
+  });
+
+  el.appendChild(svg);
+}
+
+// Horizontal Bars
+function renderHBars(elId, rows, opts) {
+  const el = document.getElementById(elId);
+  if (!el || !rows || !rows.length) return;
+  el.innerHTML = '';
+  const sorted = [...rows].sort((a, b) => Number(b[opts.field]) - Number(a[opts.field]));
+  const W = Math.max(320, el.clientWidth || 540);
+  const rowH = 28;
+  const H = sorted.length * rowH + 10;
+  const ml = opts.ml || 128, mr = 54;
+  const maxV = Math.max(...sorted.map(r => Number(r[opts.field]) || 0), 1);
+
+  const ns = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(ns, 'svg');
+  svg.setAttribute('width', '100%'); svg.setAttribute('height', H);
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  const tip = makeTip(el);
+
+  sorted.forEach((r, i) => {
+    const y = 6 + i * rowH;
+    const v = Number(r[opts.field]) || 0;
+    const bw = Math.max(3, (v / maxV) * (W - ml - mr));
+
+    const lbl = document.createElementNS(ns, 'text');
+    lbl.setAttribute('x', ml - 8); lbl.setAttribute('y', y + 15);
+    lbl.setAttribute('text-anchor', 'end'); lbl.setAttribute('font-size', '12'); lbl.setAttribute('fill', '#FFF8EA');
+    lbl.textContent = r[opts.labelKey];
+    svg.appendChild(lbl);
+
+    const bar = document.createElementNS(ns, 'rect');
+    bar.setAttribute('x', ml); bar.setAttribute('y', y + 2);
+    bar.setAttribute('width', bw); bar.setAttribute('height', rowH - 8);
+    bar.setAttribute('rx', '4'); bar.setAttribute('fill', opts.color || '#FFD27A');
+    svg.appendChild(bar);
+
+    const valTxt = document.createElementNS(ns, 'text');
+    valTxt.setAttribute('x', ml + bw + 6); valTxt.setAttribute('y', y + 15);
+    valTxt.setAttribute('font-size', '12'); valTxt.setAttribute('fill', '#C9C2E3');
+    valTxt.textContent = FMT.int(v);
+    svg.appendChild(valTxt);
+
+    const hit = document.createElementNS(ns, 'rect');
+    hit.setAttribute('x', 0); hit.setAttribute('y', y);
+    hit.setAttribute('width', W); hit.setAttribute('height', rowH);
+    hit.setAttribute('fill', 'transparent');
+    hit.addEventListener('pointermove', (ev) => {
+      const box = el.getBoundingClientRect();
+      showTip(el, tip, (ml + bw / 2) / W, ev.clientY - box.top, r[opts.labelKey], opts.tipLines(r));
+    });
+    hit.addEventListener('pointerleave', () => { tip.hidden = true; });
+    svg.appendChild(hit);
+  });
+
+  el.appendChild(svg);
+}
+
+// Mini Monthly Bars
+function renderMiniBars(container, rows, depField, offField, barColor) {
+  const W = 230, H = 86;
+  const ns = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(ns, 'svg');
+  svg.setAttribute('width', '100%'); svg.setAttribute('height', H);
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  const maxV = Math.max(...rows.map(r => Number(r[depField]) || 0), 1);
+  const step = W / Math.max(rows.length, 1);
+  const bw = Math.min(36, step * 0.68);
+  const monMap = { '07': 'июл', '08': 'авг', '09': 'сен', '10': 'окт' };
+
+  rows.forEach((r, i) => {
+    const cx = i * step + step / 2;
+    const v = Number(r[depField]) || 0;
+    const bh = Math.max(2, (v / maxV) * (H - 34));
+    const rect = document.createElementNS(ns, 'rect');
+    rect.setAttribute('x', cx - bw / 2); rect.setAttribute('y', H - 20 - bh);
+    rect.setAttribute('width', bw); rect.setAttribute('height', bh);
+    rect.setAttribute('rx', '3'); rect.setAttribute('fill', barColor || '#FFD27A');
+    svg.appendChild(rect);
+
+    const vt = document.createElementNS(ns, 'text');
+    vt.setAttribute('x', cx); vt.setAttribute('y', H - 24 - bh);
+    vt.setAttribute('text-anchor', 'middle'); vt.setAttribute('font-size', '10.5'); vt.setAttribute('fill', '#FFF8EA');
+    vt.textContent = '$' + FMT.short(v);
+    svg.appendChild(vt);
+
+    const mt = document.createElementNS(ns, 'text');
+    mt.setAttribute('x', cx); mt.setAttribute('y', H - 5);
+    mt.setAttribute('text-anchor', 'middle'); mt.setAttribute('font-size', '10.5'); mt.setAttribute('fill', '#8E86B2');
+    mt.textContent = monMap[r.month.slice(5)] || r.month;
+    svg.appendChild(mt);
+  });
+  container.appendChild(svg);
+}
+
+// Mini Sparkline
+function renderMiniSpark(container, rows, lineColor) {
+  if (!rows.length) return;
+  const W = 230, H = 86;
+  const ns = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(ns, 'svg');
+  svg.setAttribute('width', '100%'); svg.setAttribute('height', H);
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  const vals = rows.map(r => Number(r.followers) || 0);
+  const minV = Math.min(...vals), maxV = Math.max(...vals, minV + 1);
+  const pts = rows.map((r, i) => [
+    6 + (rows.length > 1 ? (i / (rows.length - 1)) * (W - 12) : (W - 12) / 2),
+    10 + (1 - (vals[i] - minV) / (maxV - minV)) * (H - 30)
+  ]);
+  const c = lineColor || '#3FD39A';
+  const areaD = 'M' + pts[0][0] + ',' + (H - 18) + ' ' + pts.map(p => 'L' + p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' ') + ' L' + pts[pts.length - 1][0] + ',' + (H - 18) + ' Z';
+  const area = document.createElementNS(ns, 'path');
+  area.setAttribute('d', areaD); area.setAttribute('fill', c); area.setAttribute('opacity', '0.18');
+  svg.appendChild(area);
+
+  const lineD = pts.map((p, i) => (i === 0 ? 'M' : 'L') + p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' ');
+  const path = document.createElementNS(ns, 'path');
+  path.setAttribute('d', lineD); path.setAttribute('fill', 'none'); path.setAttribute('stroke', c); path.setAttribute('stroke-width', '2');
+  svg.appendChild(path);
+
+  const t1 = document.createElementNS(ns, 'text');
+  t1.setAttribute('x', 4); t1.setAttribute('y', H - 4); t1.setAttribute('font-size', '10'); t1.setAttribute('fill', '#8E86B2');
+  t1.textContent = rows[0].week_label;
+  const t2 = document.createElementNS(ns, 'text');
+  t2.setAttribute('x', W - 4); t2.setAttribute('y', H - 4); t2.setAttribute('text-anchor', 'end'); t2.setAttribute('font-size', '10'); t2.setAttribute('fill', '#8E86B2');
+  t2.textContent = rows[rows.length - 1].week_label;
+  svg.append(t1, t2);
+  container.appendChild(svg);
+}
+
+// Table Builder
+function buildTable(tblId, headers, rows, cols) {
+  const tbl = document.getElementById(tblId);
+  if (!tbl) return;
+  tbl.innerHTML = '<thead><tr>' + headers.map(h => '<th>' + h + '</th>').join('') + '</tr></thead>';
+  const tb = document.createElement('tbody');
+  rows.forEach(r => {
+    const tr = document.createElement('tr');
+    cols.forEach(([field, fmt, cls, fn]) => {
+      const td = document.createElement('td');
+      const raw = fn ? fn(r) : r[field];
+      if (!fmt) td.textContent = raw;
+      else if (raw === '' || raw == null) { td.textContent = '—'; td.className = 'muted'; }
+      else { td.textContent = FMT[fmt](raw); if (cls) td.className = cls; }
+      tr.appendChild(td);
+    });
+    tb.appendChild(tr);
+  });
+  tbl.appendChild(tb);
+}
+
+// ==================== POPULATE ACT 01: CHAT BRANDS ====================
+const chatBrandWrap = document.getElementById('chat-brand-cards');
+[...D.chat.brands].sort((a, b) => Number(b.deposit_usd) - Number(a.deposit_usd)).forEach(b => {
+  const br = getBrand(b.brand);
+  const c = document.createElement('div');
+  c.className = 'brand-card';
+  c.style.background = br.bg;
+  c.style.border = '1px solid ' + br.border;
+  c.style.setProperty('--b-color', br.color);
+  c.innerHTML = `
+    <h3>${br.emoji} ${b.brand} <span class="badge" style="color:${br.color};border-color:${br.border}">${b.since} · ${b.offers_in_grid} офферов</span></h3>
+    <div class="stat-pair">
+      <div><span class="big-stat" style="color:${br.color}">${FMT.money(b.deposit_usd)}</span><span class="kpi-label">принесла сетка</span></div>
+      <div><span class="big-stat" style="color:#fff">${FMT.int(b.offers_sold)}</span><span class="kpi-label">офферов продано</span></div>
+    </div>
+    <p class="meta">В октябре: <b>${FMT.money(b.deposit_oct_usd)}</b> · Средний чек: <b>${FMT.money2(b.avg_check_usd)}</b> · Покупателей: <b>${FMT.int(b.buyers)}</b></p>
+  `;
+  chatBrandWrap.appendChild(c);
+});
+
+buildTable('tbl-chat-brands',
+  ['Бренд', 'Запуск', 'В сетке', 'Покупок', 'Депозит', 'Ср. чек', 'Inout 7д', 'Октябрь'],
+  D.chat.brands,
+  [['brand'], ['since'], ['offers_in_grid', 'int'], ['offers_sold', 'int'], ['deposit_usd', 'money', 'strong'], ['avg_check_usd', 'money2'], ['inout_7d_usd', 'money', 'good'], ['deposit_oct_usd', 'money']]
+);
+
+buildTable('tbl-chat-monthly',
+  ['Месяц', 'Активации кодов', 'Покупок', 'Покупателей', 'Депозит', 'Вынесли 7д', '% вынесли', 'Inout 7д', 'Inout 24ч', 'FTD', 'Реакт. 0д', 'Реакт. 7д', 'Реакт. 14д'],
+  D.chat.monthly,
+  [['label'], ['code_activations', 'int'], ['offers_sold', 'int'], ['buyers', 'int'], ['deposit_usd', 'money', 'strong'], ['out_7d_usd', 'money'], ['out_7d_share', 'pct'], ['inout_7d_usd', 'money', 'good'], ['inout_24h_usd', 'money'], ['ftd', 'int'], ['reactivated_0d', 'int'], ['reactivated_7d', 'int'], ['reactivated_14d', 'int']]
+);
+
+// ==================== POPULATE ACT 02: DISCORD SERVERS ====================
+const dsServersSorted = [...D.ds.servers].sort((a, b) => Number(b.members_now) - Number(a.members_now));
+buildTable('tbl-ds-servers',
+  ['Сервер', 'Было (14.05)', 'Пришли за период', 'Сейчас', 'Рост'],
+  dsServersSorted,
+  [['server'], ['members_before', 'int'], ['joined_discord', 'int'], ['members_now', 'int', 'strong'], ['growth', 'pctplus', 'good', r => Number(r.joined_discord) / Number(r.members_before)]]
+);
+
+buildTable('tbl-ds-offers',
+  ['Оффер сетки Discord', 'Месяцы', 'Покупок', 'Депозит', 'Купили ещё'],
+  [...D.ds.offers].sort((a, b) => Number(b.deposit_usd) - Number(a.deposit_usd)),
+  [['offer'], ['months'], ['offers_sold', 'int'], ['deposit_usd', 'money', 'strong'], ['rebuy_share', 'pct', 'good']]
+);
+
+const dsProjWrap = document.getElementById('ds-proj-cards');
+D.ds.proj_totals.forEach(p => {
+  const br = getBrand(p.project);
+  const c = document.createElement('div');
+  c.className = 'brand-card';
+  c.style.background = br.bg;
+  c.style.border = '1px solid ' + br.border;
+  c.style.setProperty('--b-color', br.color);
+  c.innerHTML = `
+    <h3>${br.emoji} ${p.project} <span class="badge" style="color:${br.color};border-color:${br.border}">${br.tag}</span></h3>
+    <div class="big-stat" style="color:${br.color}">${FMT.money(p.deposit_usd)}</div>
+    <p class="meta"><b>${FMT.int(p.offers_sold)}</b> офферов продано (июль–октябрь)</p>
+    <div class="chart-box mini"></div>
+  `;
+  dsProjWrap.appendChild(c);
+  renderMiniBars(c.querySelector('.chart-box'), D.ds.proj_monthly.filter(r => r.project === p.project), 'deposit_usd', 'offers_sold', br.color);
+});
+
+function buildWideProj(monthlyRows, depField, offField) {
+  const by = {};
+  monthlyRows.forEach(r => {
+    const p = by[r.project] || (by[r.project] = { project: r.project, dep: 0, off: 0 });
+    const mm = r.month.slice(5);
+    p['dep_' + mm] = Number(r[depField]);
+    p['off_' + mm] = Number(r[offField]);
+    p.dep += Number(r[depField]);
+    p.off += Number(r[offField]);
+  });
+  return Object.values(by).filter(p => p.off > 0).sort((a, b) => b.dep - a.dep);
+}
+
+buildTable('tbl-ds-proj-wide',
+  ['Проект', 'Июль ($)', 'Август ($)', 'Сентябрь ($)', 'Октябрь ($)', 'Депозит всего', 'Покупок июл', 'Авг', 'Сен', 'Окт', 'Покупок всего'],
+  buildWideProj(D.ds.proj_monthly, 'deposit_usd', 'offers_sold'),
+  [['project'], ['dep_07', 'money'], ['dep_08', 'money'], ['dep_09', 'money'], ['dep_10', 'money'], ['dep', 'money', 'strong'], ['off_07', 'int'], ['off_08', 'int'], ['off_09', 'int'], ['off_10', 'int'], ['off', 'int', 'strong']]
+);
+
+buildTable('tbl-ds-monthly',
+  ['Месяц', 'Пришли в DS', 'Покупок', 'Покупателей', 'Депозит с офферов', 'FTD (DS-код)', 'Реакт. 0д', 'Реакт. 7д', 'Реакт. 14д'],
+  D.ds.monthly,
+  [['label'], ['joined_discord', 'int', 'good'], ['offers_sold', 'int'], ['buyers', 'int'], ['deposit_usd', 'money', 'strong'], ['ftd', 'int'], ['reactivated_0d', 'int'], ['reactivated_7d', 'int'], ['reactivated_14d', 'int']]
+);
+
+// ==================== POPULATE ACT 03: FACEBOOK ====================
+const fbPageWrap = document.getElementById('fb-page-cards');
+D.fb.pages.forEach(p => {
+  const br = getBrand(p.project);
+  const c = document.createElement('div');
+  c.className = 'brand-card';
+  c.style.background = br.bg;
+  c.style.border = '1px solid ' + br.border;
+  c.style.setProperty('--b-color', br.color);
+  const badgeTxt = p.kind === 'new' ? 'С нуля' : FMT.pctplus(p.followers_growth);
+  c.innerHTML = `
+    <h3>${br.emoji} ${p.project} <span class="badge" style="color:${br.color};border-color:${br.border}">${badgeTxt}</span></h3>
+    <div class="big-stat" style="color:${br.color}">${FMT.int(p.followers_now)}</div>
+    <p class="meta">подписчиков · ${p.page_note} · ER <b>${FMT.pct1(p.er)}</b></p>
+    <div class="chart-box mini"></div>
+  `;
+  fbPageWrap.appendChild(c);
+  const series = D.fb.pages_weekly.filter(r => r.project === p.project && (p.kind === 'main' || r.page === 'new') && r.followers !== '');
+  renderMiniSpark(c.querySelector('.chart-box'), series, br.color);
+});
+
+buildTable('tbl-fb-pages',
+  ['Страница', 'Период', 'Подписчиков', 'Рост', 'Новых нетто', 'Охват', 'Взаимодействия', 'ER', 'Постов'],
+  D.fb.pages,
+  [['project'], ['page_note'], ['followers_now', 'int', 'strong'], ['followers_growth', 'pctplus', 'good'], ['net_follows', 'int'], ['reach', 'int'], ['interactions', 'int'], ['er', 'pct1'], ['posts', 'int']]
+);
+
+const fbOffWrap = document.getElementById('fb-offer-cards');
+D.fb.offers_proj_totals.filter(p => Number(p.offers_sold) >= 10).forEach(p => {
+  const br = getBrand(p.project);
+  const c = document.createElement('div');
+  c.className = 'brand-card';
+  c.style.background = br.bg;
+  c.style.border = '1px solid ' + br.border;
+  c.style.setProperty('--b-color', br.color);
+  c.innerHTML = `
+    <h3>${br.emoji} ${p.project}</h3>
+    <div class="big-stat" style="color:${br.color}">${FMT.money(p.deposit_usd)}</div>
+    <p class="meta"><b>${FMT.int(p.offers_sold)}</b> офферов продано (июл–сен)</p>
+    <div class="chart-box mini"></div>
+  `;
+  fbOffWrap.appendChild(c);
+  renderMiniBars(c.querySelector('.chart-box'), D.fb.offers_proj_monthly.filter(r => r.project === p.project), 'deposit_usd', 'offers_sold', br.color);
+});
+
+buildTable('tbl-fb-offers-monthly',
+  ['Месяц', 'Недели', 'Продано офферов', 'Депозит (SMM_Channel_)', 'Активации FB_C', 'FTD', 'Реактивации 7д'],
+  D.fb.offers_monthly,
+  [['label'], ['weeks'], ['offers_sold', 'int'], ['deposit_usd', 'money', 'strong'], ['code_activations', 'int'], ['ftd', 'int', 'good'], ['reactivated_7d', 'int']]
+);
+
+// ==================== POPULATE ACT 04 & 05: BOTCAKE ====================
+function populateBotCake(prefix, depCol, offCol, ftdCol, reactCol, actsCol) {
+  const wrap = document.getElementById(prefix + '-proj-cards');
+  [...D.bc.proj_totals].filter(p => Number(p[offCol]) > 0).sort((a, b) => Number(b[depCol]) - Number(a[depCol])).forEach(p => {
+    const br = getBrand(p.project);
+    const c = document.createElement('div');
+    c.className = 'brand-card';
+    c.style.background = br.bg;
+    c.style.border = '1px solid ' + br.border;
+    c.style.setProperty('--b-color', br.color);
+    c.innerHTML = `
+      <h3>${br.emoji} ${p.project}</h3>
+      <div class="big-stat" style="color:${br.color}">${FMT.money(p[depCol])}</div>
+      <p class="meta"><b>${FMT.int(p[offCol])}</b> офферов продано</p>
+      <div class="chart-box mini"></div>
+    `;
+    wrap.appendChild(c);
+    renderMiniBars(c.querySelector('.chart-box'), D.bc.proj_monthly.filter(r => r.project === p.project), depCol, offCol, br.color);
+  });
+
+  buildTable('tbl-' + prefix + '-proj',
+    ['Проект', 'Июл ($)', 'Авг ($)', 'Сен ($)', 'Окт ($)', 'Депозит всего', 'Покупок всего'],
+    buildWideProj(D.bc.proj_monthly, depCol, offCol),
+    [['project'], ['dep_07', 'money'], ['dep_08', 'money'], ['dep_09', 'money'], ['dep_10', 'money'], ['dep', 'money', 'strong'], ['off', 'int', 'strong']]
+  );
+
+  const fm = {};
+  D.bc.weekly.forEach(w => {
+    const m = fm[w.month] || (fm[w.month] = { ftd: 0, react7: 0 });
+    m.ftd += Number(w[ftdCol] || 0);
+    m.react7 += Number(w[reactCol] || 0);
+  });
+
+  buildTable('tbl-' + prefix + '-monthly',
+    ['Месяц', 'Недели', 'Покупок', 'Депозит', 'Активации кодов', 'FTD', 'Реакт. 7д'],
+    D.bc.monthly,
+    [['label'], ['weeks'], [offCol, 'int'], [depCol, 'money', 'strong'], [actsCol, 'int'], ['ftd', 'int', 'good', r => fm[r.month]?.ftd], ['react7', 'int', null, r => fm[r.month]?.react7]]
+  );
+}
+populateBotCake('bcb', 'bc_dep', 'bc_offers', 'fbb_ftd', 'fbb_react7', 'fbb_acts');
+populateBotCake('bca', 'auto_dep', 'auto_offers', 'fba_ftd', 'fba_react7', 'fba_acts');
+
+// ==================== POPULATE ACT 06 & 07: EVENTS ====================
+buildTable('tbl-wh-brands',
+  ['Бренд', 'Заявки', 'Сыграли', '% сыграли', 'Доиграли', 'Победители', 'Забрали код', 'С попапа', 'Новые в DS'],
+  [...D.wh.brands].sort((a, b) => Number(b.applied) - Number(a.applied)),
+  [['brand', null, null, r => getBrand(r.brand).emoji + ' ' + r.brand], ['applied', 'int'], ['played', 'int', 'strong'], ['played_share', 'pct'], ['finished', 'int'], ['won', 'int'], ['claimed', 'int', 'good'], ['popup_joins', 'int', 'strong'], ['new_members', 'int']]
+);
+
+buildTable('tbl-fwl-tiers',
+  ['Приз в магазине (Treat Vault)', 'Цена, тыкв', 'Выдал бот', 'Активировали в CRM'],
+  D.fwl.tiers,
+  [['tier'], ['price', 'int', null, r => '🎃 ' + r.price], ['issued', 'int'], ['activated', 'int', 'strong']]
+);
+
+// ==================== RENDER ALL CHARTS ====================
+function drawAllCharts() {
+  // Act 01: Chat (Desert Gold & Terracotta)
+  renderBarChart('chart-chat-wk-dep', D.chat.weekly, {
+    field: 'deposit_usd', height: 220, color: '#F59E0B', yFmt: v => '$' + FMT.short(v),
+    tipHead: r => r.week + ' · ' + r.dates,
+    tipLines: r => ['Депозит: ' + FMT.money(r.deposit_usd), 'Покупок: ' + FMT.int(r.offers_sold), 'Покупателей: ' + FMT.int(r.buyers)]
+  });
+  renderBarChart('chart-chat-wk-acts', D.chat.weekly, {
+    field: 'code_activations', height: 150, color: '#FBBF24',
+    tipHead: r => r.week + ' · ' + r.dates,
+    tipLines: r => ['Активации: ' + FMT.int(r.code_activations)]
+  });
+  renderBarChart('chart-chat-wk-ftd', D.chat.weekly, {
+    field: 'ftd', height: 150, color: '#10B981', yFmt: v => Math.round(v),
+    tipHead: r => r.week + ' · ' + r.dates,
+    tipLines: r => ['FTD: ' + FMT.int(r.ftd)]
+  });
+  renderBarChart('chart-chat-wk-react', D.chat.weekly, {
+    field: 'reactivated_7d', height: 150, color: '#DC2626', yFmt: v => Math.round(v),
+    tipHead: r => r.week + ' · ' + r.dates,
+    tipLines: r => ['Реактивации 7д: ' + FMT.int(r.reactivated_7d)]
+  });
+  renderGroupedBars('chart-chat-mo-inout', D.chat.monthly, {
+    k1: 'deposit_usd', k2: 'out_7d_usd', c1: '#FBBF24', c2: '#DC2626', height: 220,
+    yFmt: v => '$' + FMT.short(v),
+    xLabel: r => r.label.split(' ')[0],
+    tipHead: r => r.label,
+    tipLines: r => ['Депозит: ' + FMT.money(r.deposit_usd), 'Вынесли 7д: ' + FMT.money(r.out_7d_usd) + ' (' + FMT.pct(r.out_7d_share) + ')', 'Inout 7д: ' + FMT.money(r.inout_7d_usd)]
+  });
+
+  // Act 02: Discord (Flame & Neon)
+  let cum = Number(D.ds.totals.members_before);
+  const dsCurve = [{ label: '14 мая', members: cum, joined: 0 }];
+  D.ds.monthly.forEach(r => {
+    cum += Number(r.joined_discord);
+    dsCurve.push({ label: r.label.split(' ')[0], members: cum, joined: Number(r.joined_discord) });
+  });
+  renderLineChart('chart-ds-members-curve', dsCurve, {
+    field: 'members', height: 220, color: '#5865F2',
+    xLabel: r => r.label,
+    tipHead: r => r.label,
+    tipLines: r => ['Участников: ' + FMT.int(r.members), r.joined ? 'Пришли за месяц: +' + FMT.int(r.joined) : 'Старт периода']
+  });
+  renderBarChart('chart-ds-wk-join', D.ds.weekly, {
+    field: 'joined_discord', height: 145, color: '#3FD39A',
+    tipHead: r => r.week + ' · ' + r.dates,
+    tipLines: r => ['Новых участников: +' + FMT.int(r.joined_discord)]
+  });
+  renderBarChart('chart-ds-wk-dep', D.ds.weekly, {
+    field: 'deposit_usd', height: 220, color: '#EF4444', yFmt: v => '$' + FMT.short(v),
+    tipHead: r => r.week + ' · ' + r.dates,
+    tipLines: r => ['Депозит: ' + FMT.money(r.deposit_usd), 'Покупок: ' + FMT.int(r.offers_sold), 'Покупателей: ' + FMT.int(r.buyers)]
+  });
+  renderBarChart('chart-ds-wk-ftd', D.ds.weekly, {
+    field: 'ftd', height: 150, color: '#FBBF24',
+    tipHead: r => r.week + ' · ' + r.dates,
+    tipLines: r => ['FTD: ' + FMT.int(r.ftd)]
+  });
+  renderBarChart('chart-ds-wk-react', D.ds.weekly, {
+    field: 'reactivated_7d', height: 150, color: '#A855F7',
+    tipHead: r => r.week + ' · ' + r.dates,
+    tipLines: r => ['Реактивации 7д: ' + FMT.int(r.reactivated_7d)]
+  });
+
+  // Act 03: Facebook (Meta Blue & Vegas Penthouse)
+  renderLineChart('chart-fb-er', D.fb.fb_weekly, {
+    field: 'er', height: 220, color: '#1877F2',
+    yFmt: v => Math.round(v * 100) + '%',
+    xLabel: r => r.week_label,
+    tipHead: r => 'Неделя с ' + r.week_label,
+    tipLines: r => ['ER: ' + FMT.pct1(r.er), 'Охват: ' + FMT.int(r.reach), 'Взаимодействия: ' + FMT.int(r.interactions), 'Постов: ' + FMT.int(r.posts)]
+  });
+
+  // Act 04: BotCake Broadcasts (Teal)
+  renderBarChart('chart-bcb-wk-dep', D.bc.weekly, {
+    field: 'bc_dep', height: 220, color: '#00C49F', yFmt: v => '$' + FMT.short(v),
+    tipHead: r => r.week + ' · ' + r.dates,
+    tipLines: r => ['Депозит бродкастов: ' + FMT.money(r.bc_dep), 'Покупок: ' + FMT.int(r.bc_offers)]
+  });
+  renderBarChart('chart-bcb-wk-ftd', D.bc.weekly, {
+    field: 'fbb_ftd', height: 150, color: '#38BDF8', yFmt: v => Math.round(v),
+    tipHead: r => r.week + ' · ' + r.dates,
+    tipLines: r => ['FTD (FB_B): ' + FMT.int(r.fbb_ftd)]
+  });
+  renderBarChart('chart-bcb-wk-react', D.bc.weekly, {
+    field: 'fbb_react7', height: 150, color: '#FBBF24', yFmt: v => Math.round(v),
+    tipHead: r => r.week + ' · ' + r.dates,
+    tipLines: r => ['Реактивации 7д (FB_B): ' + FMT.int(r.fbb_react7)]
+  });
+
+  // Act 05: BotCake Automation (Neon Violet)
+  renderBarChart('chart-bca-wk-dep', D.bc.weekly, {
+    field: 'auto_dep', height: 220, color: '#EC4899', yFmt: v => '$' + FMT.short(v),
+    tipHead: r => r.week + ' · ' + r.dates,
+    tipLines: r => ['Депозит автоматизации: ' + FMT.money(r.auto_dep), 'Покупок: ' + FMT.int(r.auto_offers)]
+  });
+  renderBarChart('chart-bca-wk-ftd', D.bc.weekly, {
+    field: 'fba_ftd', height: 150, color: '#A855F7',
+    tipHead: r => r.week + ' · ' + r.dates,
+    tipLines: r => ['FTD (FB_A): ' + FMT.int(r.fba_ftd)]
+  });
+  renderBarChart('chart-bca-wk-react', D.bc.weekly, {
+    field: 'fba_react7', height: 150, color: '#22D3EE',
+    tipHead: r => r.week + ' · ' + r.dates,
+    tipLines: r => ['Реактивации 7д (FB_A): ' + FMT.int(r.fba_react7)]
+  });
+
+  // Act 06: Witching Hours (Pumpkin & Witch Purple)
+  renderHBars('chart-wh-popups', D.wh.brands, {
+    labelKey: 'brand', field: 'popup_joins', color: '#F97316', ml: 115,
+    tipLines: r => ['С попапа сайта: ' + FMT.int(r.popup_joins), 'С поста Facebook: ' + FMT.int(r.fb_joins)]
+  });
+  renderHBars('chart-wh-games', D.wh.games, {
+    labelKey: 'game', field: 'started', color: '#C084FC', ml: 135,
+    tipLines: r => ['Нажали Start: ' + FMT.int(r.started), 'Доиграли: ' + FMT.int(r.finished), 'Запусков: ' + FMT.int(r.contests)]
+  });
+
+  // Act 07: FWL Doors (Emerald & Pumpkin)
+  renderGroupedBars('chart-fwl-nights', D.fwl.nights, {
+    k1: 'played', k2: 'found', c1: '#10B981', c2: '#EA580C', height: 220, ml: 36,
+    yFmt: v => Math.round(v),
+    xLabel: r => r.label,
+    tipHead: r => r.label + (r.partial ? ' (на момент среза)' : ''),
+    tipLines: r => ['Играли: ' + FMT.int(r.played), 'Нашли тыкву: ' + FMT.int(r.found) + ' (' + FMT.pct1(r.found_share) + ')']
+  });
+}
+
+drawAllCharts();
+window.addEventListener('resize', () => {
+  clearTimeout(window._rz);
+  window._rz = setTimeout(drawAllCharts, 150);
+});
+</script>
+</body>
+</html>
