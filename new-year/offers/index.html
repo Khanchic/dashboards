@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<title>Holiday Offers 2026/27</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz:wght@400;600;700&family=Onest:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: та же «доска сезона», что и хаб: волны офферов как главный визуал, затем правило наград, форматы, бренды, данные. Одна тёмная тема намеренно. */
+:root{
+  --night:#0B1020; --night-2:#121933; --frost:#E8EEFA; --frost-dim:#9AA6C4; --rule:#26304F;
+  --ice:#9FD8FF; --gold:#F2C35B; --ok:#5BD69A; --warn:#FFB65C;
+  --f-display:"Yanone Kaffeesatz","Arial Narrow",sans-serif; --f-body:"Onest",system-ui,sans-serif; --f-mono:"JetBrains Mono",ui-monospace,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--night);color:var(--frost);font-family:var(--f-body);font-size:15px;line-height:1.55}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header.top{padding-block:48px 20px}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ice)}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(48px,8.5vw,104px);line-height:.9;margin:10px 0 14px;text-wrap:balance}
+h1 span{color:var(--gold)}
+.lede{max-width:68ch;color:var(--frost-dim);font-size:17px;margin:0}
+.lede b{color:var(--frost);font-weight:600}
+h2{font-family:var(--f-display);font-weight:600;font-size:40px;line-height:1;margin:0 0 6px;letter-spacing:.02em}
+h3{font-size:16px;margin:0 0 6px}
+.sub{color:var(--frost-dim);margin:0 0 18px;max-width:72ch}
+section{padding-block:28px}
+a{color:var(--ice)}
+.mono{font-family:var(--f-mono)}
+.tabnum{font-variant-numeric:tabular-nums}
+
+/* правило-плашка */
+.law{display:grid;grid-template-columns:auto 1fr;gap:14px 18px;align-items:start;border:1px solid color-mix(in srgb,var(--warn) 45%,var(--rule));background:color-mix(in srgb,var(--warn) 7%,var(--night-2));border-radius:8px;padding:16px 18px;margin-top:22px;max-width:900px}
+.law .tag{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--night);background:var(--warn);padding:3px 8px;border-radius:3px;white-space:nowrap}
+.law p{margin:0;color:var(--frost-dim)} .law b{color:var(--frost)}
+
+/* волны */
+.waves-scroll{overflow-x:auto;border:1px solid var(--rule);border-radius:6px;background:var(--night-2)}
+.waves{display:grid;grid-template-columns:repeat(6,minmax(170px,1fr));min-width:1020px}
+.wave{padding:14px 14px 16px;border-left:1px solid var(--rule);display:grid;gap:8px;align-content:start}
+.wave:first-child{border-left:0}
+.wave.peak{background:color-mix(in srgb,var(--gold) 8%,transparent)}
+.wave .d{font-family:var(--f-mono);font-size:12px;color:var(--gold)}
+.wave h3{font-family:var(--f-display);font-size:26px;font-weight:600;line-height:1;margin:0}
+.wave p{margin:0;font-size:13px;color:var(--frost-dim)}
+.wave ul{margin:0;padding-left:16px;font-size:13px;color:var(--frost);display:grid;gap:3px}
+.wave .who{font-family:var(--f-mono);font-size:11px;color:var(--ice)}
+
+/* бонус + оффер */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--rule);border-radius:8px;overflow:hidden}
+.split > div{padding:16px 18px}
+.split > div + div{border-left:1px solid var(--rule)}
+.split .k{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+.split .k.free{color:var(--ok)} .split .k.deal{color:var(--gold)}
+.split p{margin:6px 0 0;color:var(--frost-dim);font-size:14px}
+.tiers-scroll{overflow-x:auto;margin-top:14px;border:1px solid var(--rule);border-radius:6px}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th,td{padding:9px 12px;border-bottom:1px solid var(--rule);text-align:left;vertical-align:top}
+tr:last-child td{border-bottom:0}
+th{font-family:var(--f-mono);font-size:11px;font-weight:600;color:var(--frost-dim);text-transform:uppercase;letter-spacing:.06em;background:var(--night-2)}
+td.free{color:var(--ok)} td.deal{color:var(--gold)}
+.tiers{min-width:720px}
+
+/* форматы */
+.formats{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.fmt{border:1px solid var(--rule);border-radius:6px;padding:14px 16px;background:var(--night-2);display:grid;gap:6px;align-content:start;min-width:0}
+.fmt .n{font-family:var(--f-display);font-size:24px;font-weight:600;line-height:1}
+.fmt .meta{font-family:var(--f-mono);font-size:11.5px;color:var(--ice)}
+.fmt p{margin:0;font-size:13.5px;color:var(--frost-dim)}
+
+/* бренды */
+.brands{display:grid;gap:14px}
+.brand{display:grid;grid-template-columns:220px 1fr;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:var(--night-2);scroll-margin-top:16px}
+.brand .side{padding:16px 18px;border-right:1px solid var(--rule);background:color-mix(in srgb,var(--c) 9%,transparent);display:grid;gap:8px;align-content:start}
+.brand .side img{height:30px;width:auto;max-width:160px;object-fit:contain;justify-self:start}
+.brand .side .wm{font-family:var(--f-display);font-size:28px;font-weight:700;color:var(--c);line-height:1}
+.brand .side .win{font-family:var(--f-mono);font-size:11.5px;color:var(--frost-dim)}
+.brand .side .ev{font-weight:600;font-size:14px}
+.brand .side .data{font-family:var(--f-mono);font-size:11.5px;color:var(--frost-dim);line-height:1.5}
+.brand .side .data b{color:var(--frost)}
+.brand .main{padding:14px 18px 16px;display:grid;gap:12px;min-width:0}
+.brand .row{display:grid;grid-template-columns:150px 1fr;gap:10px}
+.brand .row .l{font-family:var(--f-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--c);padding-top:2px}
+.brand .row .v{font-size:14px;color:var(--frost-dim);min-width:0}
+.brand .row .v b{color:var(--frost);font-weight:600}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:12.5px;border:1px solid var(--rule);border-radius:999px;padding:3px 10px;color:var(--frost);white-space:nowrap}
+.chip i{font-style:normal;color:var(--frost-dim);font-family:var(--f-mono);font-size:11px;margin-left:5px}
+
+/* данные */
+.data-scroll{overflow-x:auto;border:1px solid var(--rule);border-radius:6px}
+.datat{min-width:860px}
+.datat td.num{text-align:right;font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.datat th.num{text-align:right}
+.note{border-left:3px solid var(--warn);padding:10px 14px;margin-top:14px;background:color-mix(in srgb,var(--warn) 6%,transparent);color:var(--frost-dim);font-size:14px;max-width:900px}
+.note b{color:var(--frost)}
+ol.asks{margin:0;padding-left:22px;display:grid;gap:8px;max-width:84ch}
+ol.asks li{color:var(--frost-dim)} ol.asks b{color:var(--frost)}
+footer{padding-block:30px 70px;color:var(--frost-dim);font-size:12.5px;font-family:var(--f-mono)}
+@media (max-width:720px){
+  .split{grid-template-columns:1fr}.split > div + div{border-left:0;border-top:1px solid var(--rule)}
+  .brand{grid-template-columns:1fr}.brand .side{border-right:0;border-bottom:1px solid var(--rule)}
+  .brand .row{grid-template-columns:1fr;gap:2px}
+  .law{grid-template-columns:1fr}
+}
+</style>
+
+<main>
+<div class="wrap">
+  <header class="top">
+    <div class="eyebrow">Новый год 2026/27 · офферы · 9 брендов</div>
+    <h1>Награды — это не только <span>бонусы.</span></h1>
+    <p class="lede">Ивенты приводят людей, офферы превращают их в депозиты. Ниже два слоя. <b>Сезонная сетка новогодних офферов</b> для всех брендов, с 14.12 по 03.01, на ценах, которые у нас уже продаются. И <b>награды ивентов в формате «бонус + персональный оффер»</b>: игрок получает бесплатный код и личное предложение с усиленным бонусом.</p>
+    <div class="law">
+      <span class="tag">Правило sweepstakes</span>
+      <p><b>Покупка не влияет на результат ивента.</b> Ни одна покупка не даёт ракет, печатей, билетов, сегментов или очков и не повышает шанс на приз. Ивенты проходятся бесплатно (No purchase necessary). Офферы идут <b>в ответ на участие</b>, а не вместо него. Иначе розыгрыши и конкурсы становятся платными, и это юридический риск для всех брендов.</p>
+    </div>
+  </header>
+
+  <section id="waves">
+    <h2>Сезонная сетка: шесть волн</h2>
+    <p class="sub">Общая для всех брендов. Внутри каждой волны бренд использует свою привычную лесенку цен и свои каналы (Discord, FB-канал, бродкаст, BotCake-автоматизации, онлайн-чат). Золотом отмечены окна ивентов.</p>
+    <div class="waves-scroll"><div class="waves">
+      <div class="wave"><div class="d">14.12 – 20.12</div><h3>Warm-up</h3><p>Открываем регистрацию на ивенты, офферы задают настроение.</p><ul><li>Holiday Daily Deal: обычные цены, новогодние названия и арт</li><li>«Save my spot»-бонус: оффер 9.99 +100% тем, кто записался на ивент</li></ul><div class="who">все 9</div></div>
+      <div class="wave"><div class="d">21.12 – 24.12</div><h3>Christmas Countdown</h3><p>Четыре дня до Рождества, растёт средний чек.</p><ul><li>Plus-ноги 59.99 с отдельной графикой</li><li>Stocking Stuffer 9.99 +100% для «дешёвых» автоматизаций</li><li>24.12 вечер: напоминание об ивенте + оффер</li></ul><div class="who">все 9</div></div>
+      <div class="wave peak"><div class="d">25.12 – 26.12</div><h3>Christmas</h3><p>Главный пик сезона: для США Рождество важнее Нового года, здесь самый большой вес промо и офферов.</p><ul><li>Восемь брендов в ивенте: награды «бонус + оффер» по уровням</li><li>Christmas Gift Box — флеш на 6 часов для тех, кто не играет, и для Vegas</li></ul><div class="who">ивент: все, кроме Vegas</div></div>
+      <div class="wave"><div class="d">27.12 – 30.12</div><h3>Last Deals of 2026</h3><p>Между праздниками: рождественские игроки ещё тёплые.</p><ul><li>Reload для тех, кто играл 25–26.12</li><li>Итоги рождественских ивентов + оффер-напоминание</li></ul><div class="who">все 9</div></div>
+      <div class="wave peak"><div class="d">31.12 – 01.01</div><h3>Countdown</h3><p>Один ивент — Vegas, у остальных только офферы вокруг полуночи и 1 января.</p><ul><li>Midnight Flash: 23:00 – 01:00 ET, один оффер, лимит 1</li><li>First Deal of 2027: 01.01 весь день</li><li>Vegas: оффер по цене уровня ракеты</li></ul><div class="who">ивент: Vegas · офферы: все 9</div></div>
+      <div class="wave"><div class="d">02.01 – 03.01</div><h3>New Year Reload</h3><p>Последний заход сезона, дальше обычная сетка.</p><ul><li>Reload +40% тем, кто купил в сезоне</li><li>Win-back тем, кто участвовал в ивенте, но не покупал</li></ul><div class="who">все 9</div></div>
+    </div></div>
+  </section>
+
+  <section id="rewards">
+    <h2>Награды ивентов: бонус + оффер</h2>
+    <p class="sub">Каждый уровень награды состоит из двух частей. Бесплатную часть оставляем, но делаем меньше. Деньги в ней экономим, а ценность для игрока держим через усиленный персональный оффер.</p>
+    <div class="split">
+      <div><div class="k free">Бонус · бесплатно</div><h3>Промокод, как сейчас</h3><p>GC / SC / FP (у FWL — FC). Выдаётся автоматически через Claim prize, его получает любой участник уровня. Это и есть приз ивента, без него нет «No purchase necessary».</p></div>
+      <div><div class="k deal">Оффер · персональный</div><h3>Пакет с усиленным бонусом</h3><p>Открывается только этому игроку, лимит 1, живёт 48–72 часа. Бонус выше обычной сетки (+40… +100% против привычных +20%). Тематическое название из мира бренда. Брать его не обязательно.</p></div>
+    </div>
+    <div class="tiers-scroll"><table class="tiers">
+      <thead><tr><th>Уровень в ивенте</th><th>Бонус (бесплатно)</th><th>Оффер (персонально, лимит 1)</th><th>Окно оффера</th></tr></thead>
+      <tbody>
+        <tr><td><b>Участник</b> — сделал хотя бы одно действие</td><td class="free">мелкий код: GC + 1–2 FP</td><td class="deal">Thank-you Deal 9.99 +100%</td><td>48 ч</td></tr>
+        <tr><td><b>Средний уровень</b> — порог бренда (печати, штампы, серебро, Silver)</td><td class="free">код: GC + FP + 0.5–1 SC</td><td class="deal">19.99 +40%</td><td>48 ч</td></tr>
+        <tr><td><b>Верхний уровень</b> — полный набор, золото, Gold/Diamond</td><td class="free">код уровня, как на странице бренда</td><td class="deal">39.99 +40% или 59.99 +50%</td><td>72 ч</td></tr>
+        <tr><td><b>Победители топа и розыгрышей</b></td><td class="free">приз целиком, без изменений</td><td class="deal">VIP-оффер 59.99 +50% + звонок/DM от команды</td><td>72 ч</td></tr>
+        <tr><td><b>Записался, но не пришёл</b></td><td class="free">—</td><td class="deal">Win-back 9.99 +100% (волна 02–03.01)</td><td>48 ч</td></tr>
+      </tbody>
+    </table></div>
+    <div class="note"><b>Как это сделать технически — главный открытый вопрос.</b> В админке оффер = доступность → пакет (+ FP). Для персональных офферов нужна доступность, видимая только списку player ID из export ивента. Если так нельзя, запасной путь: оффер открывается по промокоду, который бот выдаёт вместе с бонусом. Нужно проверить в админке до начала разработки.</div>
+  </section>
+
+  <section id="formats">
+    <h2>Каталог форматов</h2>
+    <p class="sub">Цены и бонусы привязаны к тому, что уже продаётся по данным Power BI (раздел ниже). Названия в админке строятся по текущей схеме <span class="mono">SMM_&lt;канал&gt;_&lt;цена&gt;_&lt;бонус&gt;%</span> с суффиксом <span class="mono">_NY26</span>, чтобы сезон отделялся в отчётах. Перед стартом нужно проверить, что парсер Power BI-скила понимает суффикс.</p>
+    <div class="formats">
+      <div class="fmt"><div class="n">Holiday Daily Deal</div><div class="meta">сетка бренда · 19.99 / 39.99 · +20%</div><p>Привычная дневная сетка, но с новогодним названием и артом. Так мы делали на Хэллоуин в чатах SCS, NLC и FWL: имена в админке прежние, меняется только визуал.</p></div>
+      <div class="fmt"><div class="n">Plus-нога</div><div class="meta">59.99 · +20…40% · своя графика</div><p>Второй, дорогой оффер дня в пиковые дни. У Fire Seven, NLC, SCS и FWL 59.99 уже даёт заметную долю выручки.</p></div>
+      <div class="fmt"><div class="n">Stocking Stuffer</div><div class="meta">9.99 · +100% · cheap automation</div><p>Точка входа для неплательщиков и «дешёвых» автоматизаций BotCake. Формат 9.99_100% уже встречается в выгрузке.</p></div>
+      <div class="fmt"><div class="n">Event Reward Deal</div><div class="meta">персональный · лимит 1 · 48–72 ч</div><p>Оффер-награда за уровень в ивенте (таблица выше). Название из мира бренда, у каждого бренда своё.</p></div>
+      <div class="fmt"><div class="n">Christmas Gift Box</div><div class="meta">25.12 · 6 ч · GC + SC + FP</div><p>Флеш для игроков, которые не участвуют в ивенте бренда: рождественский пик для всех.</p></div>
+      <div class="fmt"><div class="n">Midnight Flash</div><div class="meta">31.12 23:00 – 01.01 01:00 ET · лимит 1</div><p>Один оффер на два часа вокруг полуночи. Это 06:00–08:00 по Киеву: попапы и посты ставим заранее с автостартом.</p></div>
+      <div class="fmt"><div class="n">First Deal of 2027</div><div class="meta">01.01 · 19.99 / 39.99 · +40%</div><p>Первый депозит года. Выходит вместе с итогами новогодних ивентов.</p></div>
+      <div class="fmt"><div class="n">New Year Reload</div><div class="meta">02–03.01 · +40% · купившим в сезоне</div><p>Закрывает сезон. Отдельно идёт win-back для тех, кто был в ивенте, но ничего не покупал.</p></div>
+    </div>
+  </section>
+
+  <section id="brands">
+    <h2>По брендам</h2>
+    <p class="sub">Названия офферов на английском (для игроков), из мира каждого ивента. Цифры слева — продажи офферов за 8 недель из Power BI: SMM W37–W44, чат W36–W43.</p>
+    <div class="brands" id="brandlist"></div>
+  </section>
+
+  <section id="data">
+    <h2>Что говорят данные</h2>
+    <p class="sub">Сумма депозитов по SMM- и чат-офферам за последние 8 недель выгрузки. Источник: <span class="mono">powerbi-weekly/data/offers_weekly.csv</span> и <span class="mono">powerbi-chat/data/offers_weekly.csv</span>.</p>
+    <div class="data-scroll"><table class="datat">
+      <thead><tr><th>Бренд</th><th class="num">SMM, $ за 8 нед.</th><th>Топ-цены SMM (доля в $)</th><th>Топ-канал SMM</th><th class="num">Чат, $ за 8 нед.</th><th>Топ-цены чата</th></tr></thead>
+      <tbody id="datarows"></tbody>
+    </table></div>
+    <div class="note"><b>Проверить до планирования.</b> По выгрузке SMM-продажи с октября упали в 5–8 раз у всех брендов. Fire Seven: ≈$11–14.7 тыс. в неделю в W37–W42, затем ≈$1.9–2.0 тыс. в W43–W44. У FWL, SCS, Storm и Vegas падение видно уже с W39. Это может быть реальный провал, смена названий или фильтра Offer Type, или ошибка выгрузки. Пока это не выяснено, цифры выше — ориентир по структуре цен, а не прогноз выручки.</div>
+  </section>
+
+  <section id="asks">
+    <h2>Что нужно решить</h2>
+    <ol class="asks">
+      <li><b>Персональные офферы.</b> Можно ли в админке сделать доступность только для списка player ID? Если нельзя, подходит ли оффер по промокоду?</li>
+      <li><b>Потолок бонуса.</b> До скольких процентов продукт разрешает поднимать бонус в сезон: +40%, +50%, +100% на 9.99?</li>
+      <li><b>Кто утверждает сетку.</b> Чат-сетки FWL сейчас апрувит продукт. Нужен один владелец сезонной сетки на все бренды и дедлайн, например 07.12.</li>
+      <li><b>Падение SMM с октября.</b> Проверяем выгрузку Power BI до того, как закладывать цифры.</li>
+      <li><b>Black Friday 27.11 – Cyber Monday 30.11.</b> Это отдельная волна за две недели до сезона. Делаем её в той же логике или не трогаем?</li>
+      <li><b>CoinsMania и Jumanza.</b> Офферов в Power BI нет. Есть ли у них пресеты цен в кассе и каналы SMM-офферов?</li>
+      <li><b>Арт.</b> На сезон нужно около 6 тематических фонов на бренд (волны + Plus-ноги), это примерно 54 картинки. Делаем в Flow по брендовым ассетам или отдаём дизайнерам SMM?</li>
+    </ol>
+  </section>
+
+  <footer>Новый год 2026/27 · офферы · данные Power BI на 02.11.2026 · все цены, бонусы и названия — предложения</footer>
+</div>
+</main>
+
+<script>
+const BR=[
+ {slug:"fireseven",brand:"Fire Seven",c:"#D39045",win:"25.12 – 26.12",ev:"Crack the 777 Vault",
+  data:"SMM <b>$77.8k</b> · 19.99 38% · 39.99 26% · 59.99 15% · сильнее всего Discord",
+  reward:"По числу вскрытых замков, к бесплатному коду. 1–2 замка → 9.99 +100%. 3–6 замков → 19.99 +40%. Все 7 → <b>Vault Key Bundle</b> 39.99 +50%. Топ-3 → <b>Black Tie Case</b> 59.99 +50%.",
+  deals:[["Emerald Gift Box","19.99"],["Velvet Countdown Case","39.99"],["777 Midnight Vault","59.99"],["Butler's Champagne Tray","9.99"]],
+  ch:"Discord, FB-канал, Daily Promo Code, бродкаст. Plus-нога 59.99 обязательна: у F7 она даёт $12k за 8 недель."},
+ {slug:"vegasway",brand:"Vegas Way",c:"#01C9FF",win:"31.12 – 01.01",ev:"Countdown on the Strip",
+  data:"SMM <b>$14.3k</b> · 19.99 52% · 39.99 18% · 9.99 18% · сильнее всего Discord",
+  reward:"Отдельных ивентовых офферов нет: к ракете — <b>обычный SMM-оффер по цене уровня</b>, в текстах «a special offer». Искра и красная → 9.99, голубая → 19.99, золотая → 39.99. Плюс бонус уровня одним промокодом (SC + FP + GC).",
+  deals:[["Strip Lights Bundle","19.99"],["Midnight Marquee Pack","39.99"],["Harlequin's Firework Box","9.99"],["Grand Salute Vault","59.99"]],
+  ch:"Discord, FB-канал, Messenger-бродкаст (цель Vegas — подписки на бродкаст). Чек у Vegas низкий: упор на 9.99 и 19.99, 59.99 только в полночь."},
+ {slug:"stormrush",brand:"Storm Rush",c:"#00CC7E",win:"24.12 – 26.12",ev:"Light Up Christmas",
+  data:"SMM <b>$28.4k</b> · 39.99 35% · 19.99 33% · 9.99 12% · сильнее всего Discord",
+  reward:"Оффер один, по высшему уровню, 27.12, лимит 1, 72 ч. 1–3 дома → <b>Frozen Grid Battery</b> 9.99 +100%. 4–5 домов → <b>Spark Bundle</b> 19.99 +40%. Вся улица (6 домов) → <b>Golem's Battery Crate</b> 39.99 +50%. Ёлка → <b>Christmas Star Crate</b> 39.99 +75%.",
+  deals:[["Golem's Battery Crate","39.99"],["Spark Bundle","19.99"],["Frozen Grid Battery","9.99"],["Christmas Star Crate","39.99"]],
+  ch:"Discord, FB-канал, бродкаст. У Storm 39.99 — самая доходная цена, её ставим основной в Christmas-окне. Ивент не связан с #shop Rewards Rush: только коды, Bolts не начисляем."},
+ {slug:"scarletsands",brand:"Scarlet Sands",c:"#FF2058",win:"25.12 – 26.12",ev:"The North Star Expedition",
+  data:"SMM <b>$41.1k</b> · 19.99 35% · 59.99 23% · 39.99 22% · Чат <b>$38.9k</b> (Watchers)",
+  reward:"Оффер один по высшему уровню, 27.12 00:05 ET, лимит 1, 72 ч, одноразовым промокодом. 1–2 штампа → <b>Ginger Cat's Stash</b> 9.99 +100%. 3–5 → <b>Explorer's Supply Crate</b> 19.99 +40%. 6+ → <b>Star Map Chest</b> 39.99 +40%. Оазис или Golden Compass → <b>Oasis Treasure Chest</b> 59.99 +50%.",
+  deals:[["Scarlet Christmas Hoard","59.99"],["Christmas Caravan","39.99"],["North Star Gift","19.99"],["Sandy Stocking","9.99"]],
+  ch:"Christmas-first (в США Рождество важнее НГ): пик и Plus 59.99 на 21–26.12, НГ — Midnight Oasis 39.99 + First Sunrise 2027 19.99. Полная сетка 14.12–03.01 — страница SCS, Лист 06. Watchers-чат: дневная сетка с рождественскими названиями. SMM: Daily Promo Code и Discord дают больше всего."},
+ {slug:"dexyplay",brand:"DexyPlay",c:"#F939E3",win:"25.12 – 26.12",ev:"Dexy's Holiday Stream",
+  data:"SMM <b>$5.0k</b> · 19.99 52% · 39.99 33% · 9.99 8% · сильнее всего Discord",
+  reward:"Оффер один по высшему уровню, 27.12 00:05 ET. 2 стены → <b>Spray Can Pack</b> 9.99 +100%. 4 стены → <b>Neon Wall Bundle</b> 19.99 +40%. 6 стен → <b>Full City Crate</b> 39.99 +50%. Мурал → <b>Christmas Mural Drop</b> 39.99 +75%.",
+  deals:[["Neon Countdown Pack","19.99"],["Dexy's Year Recap Bundle","39.99"],["Midnight Stream Drop","9.99"]],
+  ch:"Discord и FB-канал. Объём у Dexy маленький: три цены без Plus-ноги, тестируем, на что отзовётся аудитория. Ведёт Степан после передачи."},
+ {slug:"nolimitcoins",brand:"NoLimitCoins",c:"#FDC010",win:"25.12 – 26.12",ev:"Coiny's Gift Exchange",
+  data:"SMM <b>$59.0k</b> · 19.99 38% · 39.99 24% · 59.99 18% · FB-канал 60% · Чат <b>$23.4k</b>: 49.99 / 69.99 / 59.99",
+  reward:"Подарил все 5 кубов → <b>Gift-Back Bundle</b> 19.99 +40%. Звезда на дереве (всем) → <b>Infinity Star Box</b> 9.99 +100%. Top Givers → <b>Coiny's Golden Cube</b> 59.99 +50%.",
+  deals:[["Infinity Gift Box","49.99"],["Coiny's Christmas Cube","69.99"],["Snowy Loot Cube","19.99"],["Endless Stocking","9.99"]],
+  ch:"FB-канал — главный канал NLC (60% SMM-выручки), Discord ведёт Ваня. В чате kg-chats берут дорогие пакеты: в сезон чат-сетка 49.99 + Plus 69.99."},
+ {slug:"fortunewheelz",brand:"Fortune Wheelz",c:"#22C27A",win:"25.12 – 26.12",ev:"Build Your Wheel",
+  data:"SMM <b>$36.8k</b> · 19.99 37% · 39.99 31% · 59.99 21% · Чат <b>$16.7k</b>: 29.99 лидер",
+  reward:"Открыл 6+ дверей → <b>Silver Segment Deal</b> 19.99 +40%. Колесо с 6+ золотыми → <b>Golden Wheel Bundle</b> 39.99 +50%. Christmas Star в золоте → <b>Star Segment Vault</b> 59.99 +50%.",
+  deals:[["Christmas Wheel Vault","29.99"],["Emerald Spin Stocking","19.99"],["Golden Segment Hoard","59.99"],["Lucky Bulb Box","9.99"]],
+  ch:"Валюта FC, не SC. kg-chats: 29.99 каждый день + Plus 59.99 в пиковые дни со своей графикой, как на Хэллоуин. Сетку чата апрувит продукт. Ведёт Степан."},
+ {slug:"coinsmania",brand:"CoinsMania",c:"#6F7BFF",win:"25.12 – 26.12",ev:"Piggy Bank Countdown",
+  data:"Офферов в Power BI <b>нет</b> за 8 недель",
+  reward:"Разбил копилку: Silver → <b>Silver Hammer Deal</b> 9.99 +100%. Gold → <b>Golden Piggy Bundle</b> 19.99 +40%. Diamond → <b>Diamond Vault Pack</b> 39.99 +50%. Важно: купить монеты в копилку нельзя, иначе это платный конкурс.",
+  deals:[["Piggy Countdown Pack","19.99"],["Hammer Time Bundle","9.99"]],
+  ch:"Первые офферы бренда: две цены, Discord + Flash Drop бот. Нужно проверить, есть ли пресеты цен в кассе CoinsMania."},
+ {slug:"jumanza",brand:"Jumanza",c:"#F1D627",win:"25.12 – 26.12",ev:"The Great Winter Migration",
+  data:"Бренда в Power BI <b>нет</b>",
+  reward:"Собрал сет альбома → <b>Migration Supply Pack</b> 9.99 +100%. Полный альбом 6/6 → <b>Safari Season Bundle</b> 19.99 +40%. Поймал Золотого льва → <b>Golden Lion Treasure</b> 39.99 +50%.",
+  deals:[["Winter Safari Pack","19.99"],["Herd of Gifts","9.99"]],
+  ch:"Только если Safari Club запускается (go/no-go 07.12). Jumz — игровая валюта, за деньги не продаётся."}
+];
+const LOGO={fireseven:1,vegasway:1,stormrush:1,scarletsands:1,dexyplay:1,nolimitcoins:1,fortunewheelz:1,coinsmania:1,jumanza:1};
+document.getElementById("brandlist").innerHTML=BR.map(b=>`
+<article class="brand" id="${b.slug}" style="--c:${b.c}">
+  <div class="side">
+    ${LOGO[b.slug]?`<img src="../assets/logo-${b.slug}.png" alt="${b.brand}">`:`<div class="wm">${b.brand}</div>`}
+    <div class="win">окно ивента ${b.win}</div>
+    <div class="ev"><a href="../${b.slug}/">${b.ev}</a></div>
+    <div class="data">${b.data}</div>
+  </div>
+  <div class="main">
+    <div class="row"><div class="l">Награды-офферы</div><div class="v">${b.reward}</div></div>
+    <div class="row"><div class="l">Holiday Deals</div><div class="v"><div class="chips">${b.deals.map(d=>`<span class="chip">${d[0]}<i>$${d[1]}</i></span>`).join("")}</div></div></div>
+    <div class="row"><div class="l">Каналы и цены</div><div class="v">${b.ch}</div></div>
+  </div>
+</article>`).join("");
+
+const DATA=[
+ ["Fire Seven","77 830","19.99 · 39.99 · 59.99","Discord","—","—"],
+ ["NoLimitCoins","58 958","19.99 · 39.99 · 59.99","FB-канал","23 399","49.99 · 69.99 · 59.99"],
+ ["Scarlet Sands","41 134","19.99 · 59.99 · 39.99","Daily Promo Code","38 892","19.99 · 39.99 · 29.99"],
+ ["Fortune Wheelz","36 788","19.99 · 39.99 · 59.99","FB-канал","16 730","29.99 · 9.99 · 19.99"],
+ ["Storm Rush","28 449","39.99 · 19.99 · 9.99","Discord","—","—"],
+ ["Vegas Way","14 250","19.99 · 39.99 · 9.99","Discord","—","—"],
+ ["DexyPlay","5 000","19.99 · 39.99 · 9.99","Discord","—","—"],
+ ["CoinsMania","0","—","—","—","—"],
+ ["Jumanza","нет в отчёте","—","—","—","—"]
+];
+document.getElementById("datarows").innerHTML=DATA.map(r=>`<tr><td><b>${r[0]}</b></td><td class="num">${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td><td class="num">${r[4]}</td><td>${r[5]}</td></tr>`).join("");
+</script>
+
+<nav style="position:fixed;z-index:9999;left:max(12px,env(safe-area-inset-left,0px));bottom:calc(12px + env(safe-area-inset-bottom,0px));display:flex;gap:8px;backdrop-filter:blur(6px)"><a href="../" style="padding:8px 14px;border-radius:999px;background:rgba(11,16,32,.82);color:#E8EEFA;font:600 13px/1 system-ui,sans-serif;text-decoration:none;border:1px solid rgba(232,238,250,.18)">&larr; &#1042;&#1089;&#1077; &#1080;&#1074;&#1077;&#1085;&#1090;&#1099;</a></nav>
+
+</body>
+</html>

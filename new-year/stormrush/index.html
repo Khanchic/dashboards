@@ -6,13 +6,13 @@
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
 </head>
 <body>
-<title>Winter Storm Showdown</title>
+<title>Light Up Christmas</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,300;0,400;0,500;0,700;1,600;1,800;1,900&display=swap">
 <style>
-/* Layout: a match broadcast. Full-bleed storm hero, slanted bands, cut-corner HUD panels, scoreboard numbers. Golem = green, Sparky = cyan, yellow only for Final Surge. Single dark world by design. */
+/* Light Up Christmas — Storm Rush. Dark storm world (brand neutral-5), wires = brand cyan, lit windows/bulbs = brand yellow, UI accents = brand green. Single dark world by design. */
 :root{
   --bg:#0C130F;          /* brand neutral-5 */
   --bg-2:#111C16;
@@ -25,6 +25,8 @@
   --golem:#41F999;       /* brand primary-50 */
   --sparky:#2EEAFF;      /* brand secondary-50 */
   --surge:#F5F100;       /* brand tertiary-60 */
+  --warm:#FFE38A;        /* lit window */
+  --snow:#E3ECE9;
   --line:rgba(65,249,153,.22);
   --font:"Kanit","Arial Narrow","Segoe UI",system-ui,sans-serif;
   --cut:polygon(0 0,calc(100% - 18px) 0,100% 18px,100% 100%,18px 100%,0 calc(100% - 18px));
@@ -39,133 +41,150 @@ h1,h2,h3{margin:0;line-height:.98;text-wrap:balance}
 p{margin:0}
 .k{font-style:italic;font-weight:800;text-transform:uppercase;letter-spacing:-.01em}
 .eyebrow{font-size:.78rem;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--golem)}
-.en{color:var(--sparky)}
 .g{color:var(--golem)} .s{color:var(--sparky)} .y{color:var(--surge)}
 
 /* ---------- HERO ---------- */
 .hero{position:relative;min-height:640px;display:grid;align-items:end;overflow:hidden;isolation:isolate}
-.hero>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 30%;z-index:-3}
-.hero::before{content:"";position:absolute;inset:0;z-index:-2;background:linear-gradient(180deg,rgba(12,19,15,.55) 0%,rgba(12,19,15,0) 28%,rgba(12,19,15,.2) 52%,rgba(12,19,15,.94) 86%,var(--bg) 100%)}
+.hero>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 30%;z-index:-3;filter:brightness(.62) saturate(.9)}
+.hero::before{content:"";position:absolute;inset:0;z-index:-2;background:linear-gradient(180deg,rgba(12,19,15,.6) 0%,rgba(12,19,15,.1) 30%,rgba(12,19,15,.3) 52%,rgba(12,19,15,.95) 86%,var(--bg) 100%)}
 #snow{position:absolute;inset:0;z-index:-1;pointer-events:none;width:100%;height:100%}
-.flash{position:absolute;inset:0;z-index:-1;background:radial-gradient(60% 50% at 60% 20%,rgba(46,234,255,.35),transparent 70%);opacity:0;animation:flash 9s infinite}
-@keyframes flash{0%,86%,100%{opacity:0}87%{opacity:.9}88%{opacity:.1}89.5%{opacity:.7}92%{opacity:0}}
 .topbar{position:absolute;top:0;left:0;right:0;z-index:2}
 .topbar .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px;padding-block:20px}
 .topbar img{height:34px;width:auto}
 .topbar .who{font-size:.78rem;color:var(--muted);text-align:right;line-height:1.4}
 .hero-in{padding-block:0 56px}
 .hero h1{font-size:clamp(3.1rem,10vw,8.4rem);line-height:.86;text-shadow:0 0 40px rgba(0,0,0,.6)}
-.hero h1 .l2{display:block;-webkit-text-stroke:2px var(--golem);color:transparent;text-shadow:none}
-.vs{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;margin-top:22px;font-size:clamp(1.1rem,2.6vw,1.7rem)}
-.vs .v{font-weight:300;font-style:italic;color:var(--faint);font-size:.8em}
-.slogan{margin-top:10px;font-size:clamp(1rem,2vw,1.25rem);color:var(--text);font-weight:400}
-.hud{display:flex;flex-wrap:wrap;gap:0;margin-top:30px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(12,19,15,.6);backdrop-filter:blur(4px)}
+.hero h1 .l2{display:block;color:var(--surge);text-shadow:0 0 28px rgba(245,241,0,.45),0 0 2px rgba(245,241,0,.9);animation:power 6s infinite}
+@keyframes power{0%,8%{opacity:.18;text-shadow:none}9%{opacity:1}10%{opacity:.3}12%,100%{opacity:1}}
+.slogan{margin-top:18px;font-size:clamp(1.05rem,2.2vw,1.4rem);color:var(--text);font-weight:400}
+.hud{display:flex;flex-wrap:wrap;margin-top:30px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(12,19,15,.6);backdrop-filter:blur(4px)}
 .hud div{padding:12px 22px 12px 0;margin-right:22px;border-right:1px solid var(--line);font-size:.86rem;color:var(--muted)}
 .hud div:last-child{border-right:0}
 .hud b{display:block;font-weight:600;font-style:italic;font-size:1.15rem;color:var(--text);font-variant-numeric:tabular-nums}
 @media (max-width:640px){.hero{min-height:600px}.hud div{padding-right:14px;margin-right:14px}}
 
-/* ---------- SLANT BANDS ---------- */
+/* ---------- BANDS ---------- */
 section{padding-block:clamp(56px,8vw,96px)}
 .band{background:var(--bg-2);clip-path:polygon(0 0,100% 40px,100% 100%,0 calc(100% - 40px));padding-block:clamp(90px,10vw,130px)}
 .sec-title{display:grid;gap:12px;margin-bottom:36px;max-width:820px}
 .sec-title h2{font-size:clamp(2.1rem,5.4vw,3.8rem)}
-.sec-title p{color:var(--muted);max-width:62ch}
+.sec-title p{color:var(--muted);max-width:66ch}
 
 /* ---------- IDEA ---------- */
-.idea{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:40px;align-items:start}
-.idea .lede{font-size:clamp(1.1rem,1.8vw,1.3rem);font-weight:300;color:var(--text)}
+.idea{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:40px;align-items:start}
+.idea .lede{font-size:clamp(1.1rem,1.8vw,1.3rem);font-weight:300}
 .idea .lede b{font-weight:500}
-.why{display:grid;gap:14px;padding:26px;background:var(--stone);clip-path:var(--cut)}
+.three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;margin-top:28px}
+.three div{background:var(--stone);padding:16px 16px 18px}
+.three b{display:block;font-size:1.6rem;font-weight:900;font-style:italic;text-transform:uppercase;line-height:1}
+.three span{font-size:.88rem;color:var(--muted)}
+.why{display:grid;gap:14px;padding:26px;background:var(--stone);clip-path:var(--cut);position:relative;overflow:hidden}
 .why h3{font-size:1rem;font-style:italic;font-weight:700;text-transform:uppercase;color:var(--golem);letter-spacing:.04em}
 .why p{color:var(--muted);font-size:.95rem}
+.why p b{color:var(--text);font-weight:500}
+.why img{width:100%;max-width:260px;height:auto;justify-self:center;margin:-6px 0 -26px}
 @media (max-width:860px){.idea{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:520px){.three{grid-template-columns:minmax(0,1fr)}}
 
-/* ---------- MOCKUP ---------- */
-.pick{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:18px;align-items:stretch}
-.team{position:relative;font:inherit;color:inherit;text-align:left;cursor:pointer;border:0;padding:22px 22px 0;background:var(--stone);clip-path:var(--cut);min-height:300px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px;align-items:end;overflow:hidden;transition:background .25s, transform .25s}
-.team:hover{transform:translateY(-3px)}
-.team:focus-visible{outline:3px solid var(--text);outline-offset:4px}
-.team .tx{align-self:start;display:grid;gap:8px;padding-bottom:22px}
-.team .nm{font-size:clamp(1.6rem,3.4vw,2.4rem)}
-.team .ds{font-size:.9rem;color:var(--muted)}
-.team img{width:100%;height:270px;object-fit:contain;object-position:bottom;align-self:end}
-.team.golem img{-webkit-mask-image:linear-gradient(270deg,transparent 0,#000 18%);mask-image:linear-gradient(270deg,transparent 0,#000 18%)}
-.team.golem .nm{color:var(--golem)} .team.sparky .nm{color:var(--sparky)}
-.team.golem.sel{background:linear-gradient(160deg,rgba(65,249,153,.28),var(--stone) 60%)}
-.team.sparky.sel{background:linear-gradient(160deg,rgba(46,234,255,.28),var(--stone) 60%)}
-.pick.locked .team:not(.sel){opacity:.35;cursor:default;transform:none}
-.pick.locked .team.sel{cursor:default}
-.badge{display:inline-block;font-size:.7rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;padding:4px 10px;background:var(--text);color:var(--bg);justify-self:start}
-.vsmark{align-self:center;font-size:2.4rem;color:var(--faint)}
-@media (max-width:760px){.pick{grid-template-columns:minmax(0,1fr)}.vsmark{justify-self:center;font-size:1.6rem}.team{min-height:240px}.team img{height:220px}}
-.pick-msg{margin-top:14px;min-height:1.6em;color:var(--muted);font-size:.95rem}
+/* ---------- STREET ---------- */
+.street{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px;align-items:end;padding:26px 14px 10px;background:linear-gradient(180deg,#07100c 0%,#0d1a14 70%,#132219 100%);clip-path:var(--cut);position:relative}
+.street::before{content:"";position:absolute;inset:0;background:radial-gradient(1px 1px at 12% 18%,#fff8 50%,transparent 51%),radial-gradient(1px 1px at 33% 9%,#fff6 50%,transparent 51%),radial-gradient(1.5px 1.5px at 58% 22%,#fff7 50%,transparent 51%),radial-gradient(1px 1px at 81% 12%,#fff6 50%,transparent 51%),radial-gradient(1px 1px at 92% 30%,#fff5 50%,transparent 51%);pointer-events:none}
+.house{font:inherit;color:inherit;border:0;background:transparent;cursor:pointer;padding:6px 2px 8px;display:grid;gap:2px;justify-items:center;text-align:center;position:relative;transition:background .2s}
+.house svg{width:100%;height:auto;display:block}
+.house .hl{font-size:.78rem;font-weight:600;font-style:italic;text-transform:uppercase;letter-spacing:.02em}
+.house .hs{font-size:.72rem;color:var(--faint);line-height:1.2}
+.house.cur{background:rgba(46,234,255,.08);box-shadow:inset 0 -3px 0 var(--sparky)}
+.house:hover{background:rgba(243,246,245,.04)}
+.house:focus-visible{outline:2px solid var(--text);outline-offset:2px}
+.house.locked{cursor:not-allowed}
+.house.locked svg{opacity:.45}
+.house .body{fill:#1A2620}.house .roof{fill:#26342c}.house .chim{fill:#2b3a32}.house .door{fill:#0b120e}
+.house .snow{fill:none;stroke:var(--snow);stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round}
+.house .ground{fill:var(--snow);opacity:.85}
+.house .wire{fill:none;stroke:#34433b;stroke-width:1}
+.house .win{fill:#0b110e}
+.house .bulb{fill:#2c3832}
+.house .tr{fill:#163322}.house .trunk{fill:#2b2a22}
+.house .star{fill:#3a4a42}
+.house.flick svg{animation:flick .5s steps(1,end)}
+@keyframes flick{0%{opacity:1}20%{opacity:.4}40%{opacity:1}60%{opacity:.5}80%{opacity:1}}
+.house.lit svg{filter:drop-shadow(0 0 12px rgba(245,241,0,.32))}
+.house.lit .win{fill:var(--warm)}
+.house.lit .tr{fill:#1c4630}
+.house.lit .star{fill:var(--surge)}
+.house.lit .bulb.c0{fill:var(--golem)}.house.lit .bulb.c1{fill:var(--sparky)}.house.lit .bulb.c2{fill:var(--surge)}
+.house.lit .bulb{animation:tw 1.8s infinite}
+.house.lit .hs{color:var(--surge)}
+@keyframes tw{0%,100%{opacity:1}50%{opacity:.35}}
+@media (max-width:760px){.street{grid-template-columns:repeat(4,minmax(0,1fr));padding-inline:8px}}
 
-.board{margin-top:36px;display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:22px}
-@media (max-width:960px){.board{grid-template-columns:minmax(0,1fr)}}
-.panel{background:var(--stone);clip-path:var(--cut);padding:24px}
+/* ---------- PUZZLE ---------- */
+.play{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:22px;margin-top:22px;align-items:start}
+@media (max-width:960px){.play{grid-template-columns:minmax(0,1fr)}}
+.panel{background:var(--stone);clip-path:var(--cut);padding:22px}
 .panel h3{font-size:1.05rem;font-style:italic;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
-.panel .sub{font-size:.86rem;color:var(--muted);margin-top:4px}
-.tug{margin-top:22px;display:grid;gap:16px}
-.meter{display:grid;grid-template-columns:86px minmax(0,1fr) 64px;gap:12px;align-items:center}
-.meter .who{font-weight:600;font-style:italic;text-transform:uppercase;font-size:.95rem}
-.meter .bar{height:22px;background:rgba(243,246,245,.08);position:relative;clip-path:polygon(0 0,100% 0,calc(100% - 10px) 100%,0 100%)}
-.meter .bar i{position:absolute;left:0;top:0;bottom:0;transition:width .6s cubic-bezier(.2,.8,.2,1)}
-.meter.golem .bar i{background:linear-gradient(90deg,var(--green),var(--golem));box-shadow:0 0 18px rgba(65,249,153,.6)}
-.meter.sparky .bar i{background:linear-gradient(90deg,#0aa6c2,var(--sparky));box-shadow:0 0 18px rgba(46,234,255,.6)}
-.meter .pct{font-weight:600;font-style:italic;font-variant-numeric:tabular-nums;text-align:right;font-size:1.1rem}
-.surge-on .meter .bar{outline:1px solid var(--surge)}
-.day-tag{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;align-items:baseline}
-.day-tag .d{font-size:1.9rem;font-weight:800;font-style:italic;font-variant-numeric:tabular-nums}
-.surge-chip{display:none;font-size:.78rem;font-weight:700;font-style:italic;letter-spacing:.08em;text-transform:uppercase;background:var(--surge);color:var(--bg);padding:3px 10px}
-.surge-on .surge-chip{display:inline-block}
-.missions{list-style:none;margin:20px 0 0;padding:0;display:grid;gap:8px}
-.mis{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center;padding:12px 14px;background:var(--stone-2)}
-.mis b{font-weight:500;display:block}
-.mis small{color:var(--muted);font-size:.82rem}
-.mis button,.act{font:inherit;font-weight:600;font-style:italic;text-transform:uppercase;font-size:.85rem;letter-spacing:.04em;border:0;cursor:pointer;padding:9px 14px;background:var(--green);color:var(--bg);clip-path:polygon(8px 0,100% 0,calc(100% - 8px) 100%,0 100%)}
-.mis button:disabled{background:rgba(243,246,245,.14);color:var(--muted);cursor:default}
-.mis button:focus-visible,.act:focus-visible{outline:2px solid var(--text);outline-offset:3px}
+.bhead{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 14px;align-items:baseline}
+.bhead .t{font-size:1.6rem;font-weight:800;font-style:italic;text-transform:uppercase;line-height:1}
+.bhead .m{font-size:.9rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.bhead .m b{color:var(--surge);font-weight:600}
+.grid{display:grid;margin:16px auto 0;width:min(100%, calc(var(--c) * 58px));touch-action:manipulation;user-select:none;-webkit-user-select:none;transition:box-shadow .6s}
+.grid.done{box-shadow:0 0 0 2px rgba(245,241,0,.5),0 0 40px rgba(245,241,0,.18)}
+.tile{aspect-ratio:1;border:0;padding:0;margin:0;background:#121c17;box-shadow:inset 0 0 0 1px rgba(243,246,245,.05);cursor:pointer;position:relative;display:block;-webkit-tap-highlight-color:transparent}
+.tile:hover{background:#17231d}
+.tile:focus-visible{outline:2px solid var(--text);outline-offset:-2px;z-index:2}
+.tile svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.tile .w{transition:transform .17s ease-out}
+.tile .w line{stroke:#3d4c44;stroke-width:15}
+.tile .w .hub{fill:#3d4c44}
+.tile.on .w line{stroke:var(--sparky)}
+.tile.on .w .hub{fill:var(--sparky)}
+.tile.on .w{filter:drop-shadow(0 0 3px rgba(46,234,255,.85))}
+.tile .gh{opacity:0;transition:opacity .2s}
+.tile .gh line{stroke:#fff;stroke-width:5;stroke-dasharray:7 6}
+.tile.peek .gh{opacity:.95}
+.tile.peek{background:#1d2c25}
+.tile .bl{fill:#27322c;stroke:#3d4c44;stroke-width:3}
+.tile .stp{fill:#27322c;stroke:#3d4c44;stroke-width:3;stroke-linejoin:round}
+.tile.on .bl,.tile.on .stp{fill:var(--surge);stroke:#fffbb8}
+.tile.on .ov{filter:drop-shadow(0 0 6px rgba(245,241,0,.9))}
+.tile .bat{fill:var(--green)}
+.tile .boltp{fill:var(--bg)}
+.tile.src .ov{filter:drop-shadow(0 0 5px rgba(0,204,126,.8))}
+.tile.lock{box-shadow:inset 0 0 0 3px #7d8c84;background:#26322c;cursor:default}
+.void{aspect-ratio:1}
+.grid.done .tile,.grid.off .tile{cursor:default}
+.status{margin-top:14px;min-height:1.6em;font-size:.95rem;text-align:center}
+.ctl{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px;justify-content:center}
+.act{font:inherit;font-weight:600;font-style:italic;text-transform:uppercase;font-size:.85rem;letter-spacing:.04em;border:0;cursor:pointer;padding:9px 14px;background:var(--green);color:var(--bg);clip-path:polygon(8px 0,100% 0,calc(100% - 8px) 100%,0 100%)}
 .act.ghost{background:transparent;color:var(--golem);box-shadow:inset 0 0 0 1px var(--golem);clip-path:none}
+.act.cy{background:var(--sparky)}
 .act:disabled{opacity:.4;cursor:default}
-.ctl{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px;align-items:center}
-.log{margin-top:14px;min-height:1.6em;font-size:.93rem;color:var(--text)}
-.wallet{display:flex;flex-wrap:wrap;gap:22px;margin-top:16px;font-size:.86rem;color:var(--muted)}
-.wallet b{display:block;font-size:1.3rem;font-weight:600;font-style:italic;color:var(--text);font-variant-numeric:tabular-nums}
+.act:focus-visible{outline:2px solid var(--text);outline-offset:3px}
+.side{display:grid;gap:16px}
+.helpers{display:grid;grid-template-columns:120px minmax(0,1fr);gap:14px;align-items:center}
+.helpers img{width:120px;height:150px;object-fit:contain;object-position:bottom}
+.helpers .hb{display:grid;gap:8px}
+.helpers .hb .act{text-align:left}
+.helpers small{font-size:.8rem;color:var(--muted);line-height:1.35}
+.clock{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.clock b{font-size:1.5rem;font-weight:800;font-style:italic;font-variant-numeric:tabular-nums}
+.tiers{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:4px}
+.tiers li{display:grid;grid-template-columns:28px minmax(0,1fr) auto;gap:10px;align-items:center;padding:9px 12px;background:var(--stone-2);font-size:.92rem}
+.tiers li i{width:22px;height:22px;border-radius:50%;background:#2f3d35;display:block;transition:background .3s,box-shadow .3s}
+.tiers li span{color:var(--muted)}
+.tiers li em{font-style:normal;font-weight:600;color:var(--faint);font-size:.85rem}
+.tiers li.got i{background:var(--surge);box-shadow:0 0 10px rgba(245,241,0,.7)}
+.tiers li.got span{color:var(--text)}
+.tiers li.got em{color:var(--surge)}
+.dm{display:grid;gap:6px;margin-top:12px}
+.dm .msg{background:#1e2421;border-left:3px solid var(--green);padding:9px 12px;font-size:.88rem;line-height:1.45}
+.dm .msg .who{font-size:.72rem;color:var(--faint);display:block;margin-bottom:2px}
+.dm .msg .who b{color:var(--text);font-weight:600}
+.dm .msg code{font-family:var(--font);font-weight:600;color:var(--surge);letter-spacing:.06em}
+.dm .empty{font-size:.88rem;color:var(--faint)}
+.mock-note{font-size:.86rem;color:var(--muted);margin-top:14px;max-width:80ch}
 
-.season{display:grid;gap:18px;align-content:start}
-.score{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:10px;text-align:center}
-.score .n{font-size:clamp(3rem,7vw,4.6rem);font-weight:900;font-style:italic;line-height:1;font-variant-numeric:tabular-nums}
-.score .t{font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
-.score .c{font-size:1.6rem;color:var(--faint);font-style:italic}
-.days{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:4px;align-items:end;height:150px;padding-top:10px}
-.dcol{display:grid;grid-template-rows:1fr auto;gap:6px;height:100%}
-.dcol .bars{display:flex;gap:2px;align-items:flex-end;height:100%}
-.dcol .bars i{flex:1;display:block;background:rgba(243,246,245,.08);min-height:2px;transition:height .5s}
-.dcol .bars i.g{background:var(--golem)} .dcol .bars i.s{background:var(--sparky)}
-.dcol .bars i.dim{opacity:.35}
-.dcol span{font-size:.66rem;text-align:center;color:var(--faint);font-variant-numeric:tabular-nums}
-.dcol.today span{color:var(--text);font-weight:600}
-.dcol.sx span{color:var(--surge)}
-.legend{font-size:.82rem;color:var(--muted)}
-
-/* ---------- CALENDAR ---------- */
-.cal{overflow-x:auto;padding-bottom:6px}
-.cal-row{display:grid;grid-template-columns:repeat(12,minmax(88px,1fr));gap:4px;min-width:1100px}
-.cday{background:var(--stone);padding:14px 12px;display:grid;gap:6px;align-content:start;min-height:200px}
-.cday .d{font-size:1.7rem;font-weight:800;font-style:italic;line-height:1;font-variant-numeric:tabular-nums}
-.cday .w{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
-.cday .m{font-size:.82rem;color:var(--muted);line-height:1.35}
-.cday.xmas{background:linear-gradient(180deg,rgba(65,249,153,.22),var(--stone) 70%)}
-.cday.nye{background:linear-gradient(180deg,rgba(245,241,0,.22),var(--stone) 70%)}
-.cday.nye .d{color:var(--surge)}
-.cday.fin{background:var(--text);color:var(--bg)}
-.cday.fin .w,.cday.fin .m{color:rgba(12,19,15,.72)}
-.pre{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:22px;font-size:.92rem;color:var(--muted)}
-.pre b{display:block;color:var(--text);font-weight:600;font-style:italic}
-@media (max-width:760px){.pre{grid-template-columns:minmax(0,1fr)}}
-
-/* ---------- MISSIONS / PATH ---------- */
+/* ---------- PATH / TABLES / TEXT ---------- */
 .steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px}
 .st{background:var(--stone);padding:22px 20px;display:grid;gap:10px;align-content:start}
 .st .n{font-size:3rem;font-weight:900;font-style:italic;line-height:.9;color:transparent;-webkit-text-stroke:1.5px var(--golem)}
@@ -173,10 +192,7 @@ section{padding-block:clamp(56px,8vw,96px)}
 .st p{color:var(--muted);font-size:.93rem}
 @media (max-width:900px){.steps{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
 @media (max-width:540px){.steps{grid-template-columns:minmax(0,1fr)}}
-.pts{margin-top:26px;overflow-x:auto}
-
-/* ---------- TABLES ---------- */
-table{width:100%;border-collapse:collapse;min-width:560px;font-variant-numeric:tabular-nums}
+table{width:100%;border-collapse:collapse;min-width:600px;font-variant-numeric:tabular-nums}
 th{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--golem);font-weight:500;text-align:left;padding:10px 12px;border-bottom:2px solid var(--green)}
 td{padding:12px;border-bottom:1px solid rgba(243,246,245,.08);font-size:.95rem;vertical-align:top}
 td:first-child{font-weight:600;font-style:italic}
@@ -184,13 +200,12 @@ td small{display:block;color:var(--faint);font-size:.8rem}
 .tw{overflow-x:auto}
 .prize-grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:28px;align-items:start}
 @media (max-width:900px){.prize-grid{grid-template-columns:minmax(0,1fr)}}
-.big{font-size:clamp(2.6rem,6vw,3.6rem);font-weight:900;font-style:italic;line-height:1;color:var(--golem)}
+.big{font-size:clamp(2.4rem,6vw,3.4rem);font-weight:900;font-style:italic;line-height:1;color:var(--golem)}
+.sub{font-size:.88rem;color:var(--muted)}
 .tag{display:inline-block;font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;border:1px solid var(--golem);color:var(--golem);padding:2px 8px;margin-left:8px;vertical-align:middle;font-style:normal;font-weight:500}
-
-/* ---------- TEXT GRIDS ---------- */
 .cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 40px}
-.cols.three{grid-template-columns:repeat(3,minmax(0,1fr))}
-@media (max-width:900px){.cols,.cols.three{grid-template-columns:minmax(0,1fr)}}
+.cols.three-c{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:900px){.cols,.cols.three-c{grid-template-columns:minmax(0,1fr)}}
 .blk h3{font-size:1.1rem;font-weight:700;font-style:italic;text-transform:uppercase;letter-spacing:.03em;margin-bottom:12px}
 .blk ul{list-style:none;margin:0;padding:0;display:grid;gap:9px}
 .blk li{position:relative;padding-left:20px;color:var(--muted);font-size:.95rem}
@@ -198,9 +213,28 @@ td small{display:block;color:var(--faint);font-size:.8rem}
 .blk li b{color:var(--text);font-weight:500}
 .est{display:grid;grid-template-columns:minmax(0,1fr) auto;font-size:.93rem}
 .est div{padding:9px 0;border-bottom:1px solid rgba(243,246,245,.08);color:var(--muted)}
-.est div:nth-child(even){text-align:right;color:var(--text);font-weight:600;font-style:italic;font-variant-numeric:tabular-nums}
+.est div:nth-child(even){text-align:right;color:var(--text);font-weight:600;font-style:italic;font-variant-numeric:tabular-nums;padding-left:12px}
 .est .tot{color:var(--golem)!important;font-weight:700!important;font-style:italic}
-.wide-img{width:100%;height:auto;display:block;clip-path:var(--cut)}
+.tl{overflow-x:auto;padding-bottom:6px}
+.tl-row{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(128px,1fr);gap:4px;min-width:860px}
+.tl-day{font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--golem);font-weight:500;margin:26px 0 10px}
+.cday{background:var(--stone);padding:14px 12px;display:grid;gap:6px;align-content:start;min-height:150px}
+.cday .d{font-size:1.25rem;font-weight:800;font-style:italic;line-height:1;font-variant-numeric:tabular-nums}
+.cday .kv{font-size:.72rem;color:var(--faint);font-variant-numeric:tabular-nums}
+.cday .m{font-size:.84rem;color:var(--muted);line-height:1.35}
+.cday.hot{background:linear-gradient(180deg,rgba(245,241,0,.18),var(--stone) 70%)}
+.cday.hot .d{color:var(--surge)}
+.cday.fin{background:var(--text);color:var(--bg)}
+.cday.fin .kv,.cday.fin .m{color:rgba(12,19,15,.72)}
+.pre{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;margin-top:22px;font-size:.92rem;color:var(--muted)}
+.pre b{display:block;color:var(--text);font-weight:600;font-style:italic}
+@media (max-width:860px){.pre{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+@media (max-width:520px){.pre{grid-template-columns:minmax(0,1fr)}}
+.planb{display:grid;gap:4px}
+.planb .row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.7fr);gap:20px;background:var(--stone);padding:16px 18px}
+.planb .row b{font-weight:700;font-style:italic;text-transform:uppercase;font-size:.95rem}
+.planb .row span{color:var(--muted);font-size:.95rem}
+@media (max-width:700px){.planb .row{grid-template-columns:minmax(0,1fr);gap:6px}}
 .kpi{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px}
 .kpi div{background:var(--stone);padding:20px}
 .kpi b{display:block;font-size:2.6rem;font-weight:900;font-style:italic;line-height:1;font-variant-numeric:tabular-nums}
@@ -215,53 +249,24 @@ td small{display:block;color:var(--faint);font-size:.8rem}
 @media (max-width:520px){.post{grid-template-columns:minmax(0,1fr)}}
 footer{padding-block:40px 60px;font-size:.82rem;color:var(--faint);display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;border-top:1px solid var(--line)}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
-/* ---------- 1+1 additions ---------- */
-.dtabs{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:18px}
-.dtab{font:inherit;font-weight:700;font-style:italic;text-transform:uppercase;font-size:.9rem;letter-spacing:.03em;border:0;padding:10px 16px;background:var(--stone-2);color:var(--muted);cursor:default}
-.dtab.on{background:var(--green);color:var(--bg)}
-.dtab.done{color:var(--text)}
-.hours{display:grid;gap:3px;align-items:end;height:150px;padding-top:10px}
-.hcol{display:grid;grid-template-rows:1fr auto;gap:6px;height:100%}
-.hcol .bars{display:flex;gap:1px;align-items:flex-end;height:100%}
-.hcol .bars i{flex:1;display:block;background:rgba(243,246,245,.08);min-height:2px;transition:height .4s}
-.hcol .bars i.g{background:var(--golem)} .hcol .bars i.s{background:var(--sparky)}
-.hcol.fut .bars i{background:rgba(243,246,245,.06)!important}
-.hcol span{font-size:.62rem;text-align:center;color:var(--faint);font-variant-numeric:tabular-nums}
-.hcol.now span{color:var(--text);font-weight:600}
-.hcol.sx span{color:var(--surge)}
-.res{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:4px}
-.res div{background:var(--stone-2);padding:12px 14px}
-.res b{display:block;font-weight:700;font-style:italic;text-transform:uppercase;font-size:.95rem}
-.res span{font-size:.84rem;color:var(--muted)}
-.clockbig{font-size:1.9rem;font-weight:800;font-style:italic;font-variant-numeric:tabular-nums}
-.tl{overflow-x:auto;padding-bottom:6px}
-.tl-row{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(104px,1fr);gap:4px;min-width:900px}
-.tl-day{font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--golem);font-weight:500;margin:26px 0 10px}
-.planb{display:grid;gap:4px}
-.planb .row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.7fr);gap:20px;background:var(--stone);padding:16px 18px}
-.planb .row b{font-weight:700;font-style:italic;text-transform:uppercase;font-size:.95rem}
-.planb .row span{color:var(--muted);font-size:.95rem}
-@media (max-width:700px){.planb .row{grid-template-columns:minmax(0,1fr);gap:6px}}
 </style>
 
 <header class="hero">
-  <img src="assets/hero-showdown.jpg" alt="Golem на каменной платформе вскидывает кулаки, Sparky летит к нему кометой сквозь грозовые облака" width="1400" height="781">
-  <div class="flash" aria-hidden="true"></div>
+  <img src="assets/hero-showdown.jpg" alt="Golem на каменной платформе среди грозовых облаков, Sparky летит к нему кометой" width="1400" height="781">
   <canvas id="snow" aria-hidden="true"></canvas>
   <div class="topbar"><div class="wrap">
     <img src="assets/logo.png" alt="Storm Rush" width="692" height="152">
-    <div class="who">Концепт рождественского ивента · формат 1+1<br>Ведёт бренд: Александр · 02.11.2026</div>
+    <div class="who">Концепт рождественского ивента · v2 · формат 1+1<br>Ведёт бренд: Александр · 11.11.2026</div>
   </div></div>
   <div class="wrap hero-in">
-    <div class="eyebrow">Christmas 2026 · Discord · Rewards Rush</div>
-    <h1 class="k" style="margin-top:14px">Winter Storm<span class="l2">Showdown</span></h1>
-    <div class="vs k"><span class="g">Team Golem</span><span class="v">vs</span><span class="s">Team Sparky</span></div>
-    <p class="slogan">Pick a side. Charge the storm.</p>
+    <div class="eyebrow">Christmas 2026 · Discord + страница ивента</div>
+    <h1 class="k" style="margin-top:14px">Light Up<span class="l2">Christmas</span></h1>
+    <p class="slogan">The storm took the lights. Bring them back.</p>
     <div class="hud">
-      <div><b>с 18.12</b>выбор стороны</div>
-      <div><b>25.12 · весь день</b>Battle</div>
-      <div><b>26.12 · 10:00–21:00 ET</b>Rematch</div>
-      <div><b class="y">26.12 · 20:00 ET · ×2</b>Final Surge, итог и MVP</div>
+      <div><b>с 18.12</b>тренировочный дом</div>
+      <div><b>24.12 · 12:00 ET</b>сочельник: твоя улица, 6 домов</div>
+      <div><b>25.12 · 00:00 ET</b>утро Рождества: ёлка на площади</div>
+      <div><b class="y">26.12 · 23:59 ET</b>свет гаснет, ивент закрыт</div>
     </div>
   </div>
 </header>
@@ -271,14 +276,21 @@ footer{padding-block:40px 60px;font-size:.82rem;color:var(--faint);display:flex;
     <div class="idea">
       <div>
         <div class="eyebrow">Идея</div>
-        <h2 class="k" style="font-size:clamp(2.1rem,5.4vw,3.8rem);margin-top:12px">Сервер делится на две команды. Навсегда.</h2>
-        <p class="lede" style="margin-top:20px">Заранее, с 18 декабря, игрок выбирает <b class="g">Team Golem</b> или <b class="s">Team Sparky</b> и уже не меняет сторону. <b>25.12 — Battle:</b> весь день миссии заряжают шкалу команды, в полночь ET команда с большим зарядом берёт первое очко. <b>26.12 — Rematch:</b> короткое окно с Final Surge ×2 в последний час, второе очко, итог и MVP каждой команды.</p>
+        <h2 class="k" style="font-size:clamp(2.1rem,5.4vw,3.8rem);margin-top:12px">Гроза выбила свет. Ты включаешь его обратно.</h2>
+        <p class="lede" style="margin-top:20px">В сочельник гроза обесточила рождественский городок. У каждого игрока <b>своя улица из шести тёмных домов</b>. В каждом доме провода перекручены: нажимаешь на кусок — он поворачивается. Когда ток от батареи Golem доходит до всех лампочек, <b>дом загорается гирляндой</b>. Задача — успеть до утра Рождества: 25.12 тем, кто зажёг 4 дома, открывается <b>большая ёлка на площади</b> с подарком под ней. 26.12 — день догнать.</p>
+        <div class="three">
+          <div><b class="g">Темно</b><span>дом без света, провода перекручены</span></div>
+          <div><b class="s">Крутишь</b><span>нажатие поворачивает кусок провода</span></div>
+          <div><b class="y">Светло</b><span>гирлянда, код в личку</span></div>
+        </div>
       </div>
       <div class="why">
-        <h3>Почему Storm Rush</h3>
-        <p>У бренда два героя с противоположными характерами: каменный Golem, медленный и надёжный, и Sparky, быстрый разряд. Их соперничество само просится в формат «выбери сторону».</p>
-        <p>Rewards Rush уже живёт на сервере (~34.5k участников): Bolts, streak, три игры в день, магазин кодов. Ивент надевается на привычный ежедневный ритуал, а не учит новому.</p>
-        <p>Это командный ивент: соревнуются стороны, а не игроки, поэтому один сильный игрок не может забрать всё.</p>
+        <h3>Почему так</h3>
+        <p><b>Понятно с одного скрина.</b> Тёмный дом и светлый дом рядом — правила не нужны. Это и пост в FB, и баннер попапа.</p>
+        <p><b>Это Storm Rush.</b> Гроза, молния, заряд: Sparky и есть ток, Golem держит батарею. Маскоты помогают, а не воюют друг с другом.</p>
+        <p><b>Не боится маленькой аудитории.</b> Нет команд, общих шкал и топа: приз зависит от твоей улицы. Ивент выглядит живым и при 20 игроках.</p>
+        <p><b>Ответ не списать.</b> Сетка генерируется своя у каждого игрока, скорость не решает ничего.</p>
+        <img src="assets/golem-battery.png" alt="Golem держит светящуюся батарею, рядом парит Sparky" width="1122" height="1402" loading="lazy">
       </div>
     </div>
   </section>
@@ -288,53 +300,47 @@ footer{padding-block:40px 60px;font-size:.82rem;color:var(--faint);display:flex;
 <section class="band" id="mock">
   <div class="wrap">
     <div class="sec-title">
-      <div class="eyebrow">Мини-макет · нажимай</div>
-      <h2 class="k">Выбери сторону и заряди шкалу</h2>
-      <p>Пример: Рождество, 25.12, 11:00 ET. Выбери команду, двигай время кнопкой «+1 час» и проходи миссии, когда они открываются. Игра дня доступна только в свой час, миссии шторма — до конца дня. Потом Rematch 26.12. Заряд — процент от максимума на одного игрока команды, поэтому численность стороны не решает. Остальная команда симулирована, твой вклад для наглядности показан крупнее, чем в жизни.</p>
+      <div class="eyebrow">Рабочий макет · играй</div>
+      <h2 class="k">Твоя улица</h2>
+      <p>Это настоящая головоломка, а не картинка. Нажимай на куски провода: каждый поворачивается на 90°. Ток идёт от батареи Golem (зелёная плитка) по соединённым проводам. Дом зажигается, когда горят все лампочки и нигде не торчит оборванный провод. Сетка новая при каждой загрузке — так же, как у каждого игрока своя.</p>
     </div>
 
-    <div class="pick" id="pick">
-      <button class="team golem" id="tGolem" type="button" aria-pressed="false">
-        <span class="tx"><span class="nm k">Team Golem</span><span class="ds">Камень не спешит. Камень доходит до конца.</span><span class="badge" id="bGolem" hidden>Твоя команда</span></span>
-        <img src="assets/golem.png" alt="Каменный Golem со светящимися глазами" width="395" height="886">
-      </button>
-      <div class="vsmark k" aria-hidden="true">vs</div>
-      <button class="team sparky" id="tSparky" type="button" aria-pressed="false">
-        <span class="tx"><span class="nm k">Team Sparky</span><span class="ds">Быстрее грома. Ярче всех.</span><span class="badge" id="bSparky" hidden>Твоя команда</span></span>
-        <img src="assets/sparky.png" alt="Sparky — облако-разряд с глазами-точками" width="700" height="700">
-      </button>
-    </div>
-    <p class="pick-msg" id="pickMsg" aria-live="polite">Сторону выбирают один раз. После выбора бот выдаёт роль команды, сменить её нельзя.</p>
+    <div class="street" id="street" role="group" aria-label="Улица: шесть домов и ёлка"></div>
 
-    <div class="board">
-      <div class="panel" id="today">
-        <div class="dtabs"><span class="dtab on" id="tab0">25.12 · Battle</span><span class="dtab" id="tab1">26.12 · Rematch</span></div>
-        <div class="day-tag"><div><div class="eyebrow">Сейчас, ET</div><div class="clockbig" id="clock">11:00</div></div><span class="surge-chip">Final Surge ×2</span></div>
-        <div class="tug">
-          <div class="meter golem"><span class="who g">Golem</span><span class="bar"><i id="mG"></i></span><span class="pct" id="pG">0%</span></div>
-          <div class="meter sparky"><span class="who s">Sparky</span><span class="bar"><i id="mS"></i></span><span class="pct" id="pS">0%</span></div>
-        </div>
-        <ul class="missions" id="missions"></ul>
+    <div class="play">
+      <div class="panel">
+        <div class="bhead"><span class="t" id="bTitle">Дом 1</span><span class="m" id="bMeta"></span></div>
+        <div class="grid" id="grid" role="grid" aria-label="Сетка проводов"></div>
+        <p class="status" id="status" aria-live="polite"></p>
         <div class="ctl">
-          <button class="act" id="tick" type="button">+1 час</button>
-          <button class="act" id="endDay" type="button">К концу дня</button>
-          <button class="act ghost" id="reset" type="button">Сначала</button>
+          <button class="act ghost" type="button" id="next" hidden>Следующий дом →</button>
+          <button class="act ghost" type="button" id="auto">Решить за меня · только в макете</button>
         </div>
-        <div class="log" id="log" aria-live="polite"></div>
-        <div class="wallet"><div><b id="wBolts">1 240</b>твои Bolts</div><div><b id="wPts">0</b>очки MVP</div><div><b id="wRec">0 / 5</b>Recruit</div></div>
       </div>
-      <div class="panel season">
-        <div><div class="eyebrow">Счёт · 2 очка</div><p class="sub">Battle 25.12 = 1 очко, Rematch 26.12 = 1 очко. При 1:1 побеждает сумма заряда за два дня — поэтому Final Surge ×2 решает почти всегда.</p></div>
-        <div class="score">
-          <div><div class="n g" id="sG">0</div><div class="t">Golem</div></div>
-          <div class="c">:</div>
-          <div><div class="n s" id="sS">0</div><div class="t">Sparky</div></div>
+
+      <div class="side">
+        <div class="panel">
+          <div class="clock"><div><div class="eyebrow">Сейчас, ET</div><b id="clock">24.12 · сочельник</b></div><button class="act" type="button" id="dayBtn">Утро Рождества →</button></div>
         </div>
-        <div class="res"><div><b>Battle · 25.12</b><span id="r0">идёт</span></div><div><b>Rematch · 26.12</b><span id="r1">завтра 10:00 ET</span></div></div>
-        <div class="hours" id="hours" aria-label="Заряд команд по часам"></div>
-        <p class="legend"><span class="g">■</span> Golem · <span class="s">■</span> Sparky · заряд на конец часа · <span class="y">жёлтый час</span> — Final Surge</p>
+        <div class="panel">
+          <h3>Помощники</h3>
+          <div class="helpers" style="margin-top:12px">
+            <img src="assets/golem-battery.png" alt="" width="1122" height="1402">
+            <div class="hb">
+              <button class="act" type="button" id="hG">Golem: плитка на место</button>
+              <button class="act cy" type="button" id="hS">Sparky: покажи путь</button>
+              <small>Golem ставит одну плитку правильно и держит её (2 раза на дом). Sparky на 1,5 секунды пробегает по проводу до тёмной лампочки (1 раз на дом). Подсказки бесплатные, на приз не влияют.</small>
+            </div>
+          </div>
+        </div>
+        <div class="panel">
+          <h3>Призы · Claim prize</h3>
+          <ul class="tiers" id="tiers"></ul>
+          <div class="dm" id="dm" aria-live="polite"><div class="empty">Сообщения бота появятся здесь.</div></div>
+        </div>
       </div>
     </div>
+    <p class="mock-note">В макете сочельник и Рождество переключаются кнопкой. В жизни дома открываются 24.12 в 12:00 ET, ёлка — утром Рождества, и всё доступно до 23:59 ET 26.12, так что занятый в праздник спокойно догоняет 26-го. Сообщения бота — на английском, как их увидят игроки. Коды в макете случайные.</p>
   </div>
 </section>
 
@@ -342,72 +348,86 @@ footer{padding-block:40px 60px;font-size:.82rem;color:var(--faint);display:flex;
   <section>
     <div class="sec-title">
       <div class="eyebrow">Путь игрока</div>
-      <h2 class="k">Сторона заранее, миссии в праздник</h2>
+      <h2 class="k">Один канал, одна кнопка, одна улица</h2>
     </div>
     <div class="steps">
-      <div class="st"><div class="n">1</div><h3>Попап → #showdown</h3><p>С 14.12 баннер на stormrush.com ведёт по инвайту прямо в канал ивента. С 18.12 там закреп с двумя кнопками: Team Golem и Team Sparky.</p></div>
-      <div class="st"><div class="n">2</div><h3>Выбор стороны до 25.12</h3><p>Одна кнопка — и роль команды с цветом ника. Нет привязки player ID — в том же ответе кнопка Link account: коды идут только на привязанный аккаунт. Опоздавшие выбирают сторону и в сами дни.</p></div>
-      <div class="st"><div class="n">3</div><h3>25.12 · Battle</h3><p>Дроп, три игры дня, три миссии шторма — по часам, до 23:59 ET. В полночь бот постит итог, начисляет Bolts, обновляет закреп со счётом.</p></div>
-      <div class="st"><div class="n">4</div><h3>26.12 · Rematch</h3><p>10:00–21:00 ET: дроп, игра 12 PM, миссия шторма, Final Surge ×2 в 20:00–21:00. В 21:30 итог, MVP, коды — в личку автоматически.</p></div>
-    </div>
-    <div class="pts tw">
-      <table>
-        <thead><tr><th>Миссия</th><th>Когда, ET</th><th>Заряд</th><th>Что уже есть в боте</th></tr></thead>
-        <tbody>
-          <tr><td>Claim your Bolts</td><td>25.12 весь день · 26.12 до 21:00</td><td>20</td><td>дроп, streak, заморозка — без изменений</td></tr>
-          <tr><td>Игра дня</td><td>25.12: 12 PM · 8 PM · 11 PM<br>26.12: 12 PM · 8 PM (×2)</td><td>15 за верный ответ<small>+10 в зачёт MVP за попадание в десятку</small></td><td>движок игр, 6 форматов, 50 Bolts первым десяти</td></tr>
-          <tr><td>Миссия шторма</td><td>25.12: 10:00 · 15:00 · 18:00<br>26.12: 15:00</td><td>до 20</td><td>новое: командный квиз, Gift Run (Recruit), «кто выиграет день»</td></tr>
-          <tr><td>Final Surge</td><td>26.12, 20:00–21:00</td><td>×2</td><td>новое: множитель и пост-сирена в 20:00</td></tr>
-        </tbody>
-      </table>
+      <div class="st"><div class="n">1</div><h3>Попап → #light-up</h3><p>С 14.12 баннер на stormrush.com («тёмный дом / светлый дом») ведёт по инвайту в канал ивента. В закрепе одна кнопка: Open my street.</p></div>
+      <div class="st"><div class="n">2</div><h3>Тренировочный дом с 18.12</h3><p>Логин через Discord один раз, маленькая сетка 3×4, без приза и без заявок. Игрок учится механике до праздника, а мы видим реальную долю прохождения до заморозки 22.12.</p></div>
+      <div class="st"><div class="n">3</div><h3>24.12 · сочельник · улица</h3><p>В 12:00 ET открываются все 6 домов сразу, от 4×4 до 6×7: «зажги свет до утра Рождества». Ни часов, ни окон: всё доступно до 23:59 ET 26.12. На каждом уровне бот пишет «приз готов» — забрать кнопкой Claim prize до 03.01.</p></div>
+      <div class="st"><div class="n">4</div><h3>25.12 · утро Рождества · ёлка</h3><p>4 дома зажжены → открывается ёлка на площади с подарком под ней, большая фигурная сетка. 26.12 — день догнать, в 23:59 ET свет гаснет. 27.12 утром — персональный оффер по высшему уровню.</p></div>
     </div>
   </section>
 
   <section style="padding-top:0">
     <div class="sec-title">
-      <div class="eyebrow">Таймлайн по часам</div>
-      <h2 class="k">Два дня, время ET</h2>
-      <p>В декабре ET = GMT-5 — это те же часы, по которым уже идут игры бота. Киев = ET + 7: полночь итога Battle — 07:00 утра 26.12 по Киеву, итог Rematch 21:30 ET — 04:30 27.12.</p>
+      <div class="eyebrow">Сложность · цель 60–85% прохождения</div>
+      <h2 class="k">Дом за домом сложнее</h2>
+      <p>Головоломка типа «Net»: провода образуют дерево от батареи, у любой сетки есть решение, засчитывается любое правильное. Время на дом — оценка, проверяем плейтестом 08–10.12 на стенде с подсчётом доли прохождения по домам.</p>
     </div>
-    <div class="tl-day">25.12 · пятница · Battle</div>
-    <div class="tl"><div class="tl-row" id="tl0"></div></div>
-    <div class="tl-day">26.12 · суббота · Rematch</div>
-    <div class="tl"><div class="tl-row" id="tl1"></div></div>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Дом</th><th>Сетка</th><th>Лампочек, примерно</th><th>Время, оценка</th><th>Открыт</th></tr></thead>
+        <tbody>
+          <tr><td>Тренировочный</td><td>3 × 4</td><td>4–6</td><td>&lt; 1 мин</td><td>18.12 – 26.12</td></tr>
+          <tr><td>Дом 1</td><td>4 × 4</td><td>5–8</td><td>~1 мин</td><td rowspan="6">24.12 12:00 – 26.12 23:59 ET</td></tr>
+          <tr><td>Дом 2</td><td>4 × 5</td><td>6–9</td><td>~1,5 мин</td></tr>
+          <tr><td>Дом 3</td><td>5 × 5</td><td>8–11</td><td>~2 мин</td></tr>
+          <tr><td>Дом 4</td><td>5 × 6</td><td>10–13</td><td>~3 мин</td></tr>
+          <tr><td>Дом 5</td><td>6 × 6</td><td>11–15</td><td>~4 мин</td></tr>
+          <tr><td>Дом 6</td><td>6 × 7</td><td>13–17</td><td>~5 мин</td></tr>
+          <tr><td>Ёлка</td><td>фигура, 46 клеток<small>звезда на макушке — последняя лампочка</small></td><td>15–19</td><td>~6–8 мин</td><td>25.12 00:00 – 26.12 23:59 ET, при 4+ домах</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="sub" style="margin-top:14px">Вся улица — около 20 минут за два дня, ёлка — ещё 8. <b style="color:var(--text);font-weight:500">Рычаги после плейтеста:</b> размер сетки, число подсказок, количество домов (6 → 5). Мобильный: сетка домов до 7 колонок, плитка не меньше 44 px на 390 px экрана; у ёлки 9 колонок — проверить на телефоне в плейтесте.</p>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="sec-title">
+      <div class="eyebrow">Таймлайн · ET, в скобках Киев</div>
+      <h2 class="k">Ни одного часового окна</h2>
+      <p>Всё по расписанию открывается и дальше доступно до конца ивента. Посты и личные напоминания бот шлёт сам, ночных дежурств нет.</p>
+    </div>
     <div class="pre">
-      <div><b>14.12 – 17.12</b>Тизер «Golem или Sparky?» — опрос в #polls, попап на сайте.</div>
-      <div><b>18.12</b>Репетиция на TEST STORM, анонс, открывается выбор стороны.</div>
-      <div><b>21.12 · 24.12</b>Go / no-go и заморозка деплоя · бродкаст «завтра Battle».</div>
+      <div><b>08 – 10.12</b>Плейтест на 3 коллегах, правим размеры сеток; 18–21.12 — данные тренировочного дома.</div>
+      <div><b>14.12</b>Попап и баннер на сайте, тизер в #special-updates.</div>
+      <div><b>18.12</b>Репетиция на TEST STORM, анонс, открыт тренировочный дом.</div>
+      <div><b>21.12 · 23.12</b>Go / no-go, с 22.12 заморозка · 23.12 бродкаст «завтра свет гаснет».</div>
     </div>
+    <div class="tl-day">24.12 · четверг · сочельник · улица</div>
+    <div class="tl"><div class="tl-row" id="tl0"></div></div>
+    <div class="tl-day">25.12 · пятница · Рождество · ёлка</div>
+    <div class="tl"><div class="tl-row" id="tl1"></div></div>
+    <div class="tl-day">26.12 · суббота · догнать · свет гаснет</div>
+    <div class="tl"><div class="tl-row" id="tl2"></div></div>
   </section>
 
   <section style="padding-top:0">
     <div class="sec-title">
       <div class="eyebrow">Призы <span class="tag">предложение</span></div>
-      <h2 class="k">Bolts за каждый день, коды — за итог</h2>
-      <p>Ежедневные награды — в Bolts, как всё в Rewards Rush: игрок тратит их в #shop. Промокоды — только за итог двух дней, MVP и рождественский дроп.</p>
+      <h2 class="k">Одна таблица: сколько домов горит</h2>
+      <p>Никакого розыгрыша и топа. Каждый уровень даётся один раз на человека: в момент достижения бот пишет «приз готов», код забирается кнопкой <b style="color:var(--text);font-weight:500">Claim prize</b>, как на Witching Hours. Оффер один, по высшему уровню, 27.12 — личным промокодом, который открывает оффер на сайте. Покупка не даёт ни домов, ни подсказок: к моменту оффера ивент уже закрыт. <b style="color:var(--text);font-weight:500">Ивент не связан с #shop Rewards Rush:</b> только коды, Bolts не начисляем, коды ивента в потолок магазина не входят.</p>
     </div>
     <div class="prize-grid">
       <div class="tw">
         <table>
-          <thead><tr><th>Награда</th><th>Кому</th><th>Что</th></tr></thead>
+          <thead><tr><th>Уровень</th><th>Сразу в личку</th><th>Оффер 27.12 · промокод · лимит 1 · 72 ч</th></tr></thead>
           <tbody>
-            <tr><td>Победа в дне</td><td>каждый активный игрок победившей команды<small>активный = хотя бы одна миссия в этот день</small></td><td>+150 Bolts</td></tr>
-            <tr><td>Поражение в дне</td><td>каждый активный игрок другой команды</td><td>+50 Bolts</td></tr>
-            <tr><td>Christmas Drop</td><td>10 случайных активных 25.12, обе команды</td><td>1 SC</td></tr>
-            <tr><td>Чемпион</td><td>команда-победитель, активные в оба дня</td><td>5 FP</td></tr>
-            <tr><td>Второе место</td><td>другая команда, активные в оба дня</td><td>+100 Bolts</td></tr>
-            <tr><td>MVP</td><td>1 на команду, больше всех очков MVP</td><td>5 SC</td></tr>
-            <tr><td>MVP runner-up</td><td>2-е и 3-е место в каждой команде</td><td>2 SC</td></tr>
-            <tr><td>Recruit</td><td>за друга, который пришёл на сервер и выбрал сторону (до 5)</td><td>+50 Bolts и +20 очков MVP</td></tr>
+            <tr><td>Тренировочный дом</td><td>без приза<small>тренировка и логин до праздника</small></td><td>—</td></tr>
+            <tr><td>1–3 дома</td><td>2 дома → код 1 FP</td><td>Frozen Grid Battery 9.99 · +100%</td></tr>
+            <tr><td>4–5 домов</td><td>код 2 FP<small>+ ёлка открывается утром Рождества</small></td><td>Spark Bundle 19.99 · +40%</td></tr>
+            <tr><td>Вся улица, 6 домов</td><td>код 5 FP<small>привычный номинал из #shop</small></td><td>Golem's Battery Crate 39.99 · +50%</td></tr>
+            <tr><td>Ёлка на площади</td><td>код 1 SC</td><td>Christmas Star Crate 39.99 · +75%</td></tr>
           </tbody>
         </table>
+        <p class="sub" style="margin-top:12px">39.99 у Storm — самая доходная цена (35% SMM-выручки), поэтому её получают два верхних уровня. Названия: «Team Golem Crate» и «Final Surge Vault» из сетки офферов привязаны к старому концепту — предлагаю заменить на Golem's Battery Crate и Christmas Star Crate (правка общего файла `offers` — через основной чат).</p>
       </div>
       <div class="panel">
-        <div class="eyebrow">Бюджет кодами</div>
-        <div class="big" style="margin-top:10px">≈ 28 SC</div>
-        <p class="sub" style="margin-top:10px">+ ≈ 1 000 FP. Расчёт на 400 игроков, активных в оба дня, 200 / 200: 1 000 FP чемпионам (200 × 5 FP), 18 SC на MVP и runner-up, 10 SC Christmas Drop.</p>
-        <p class="sub" style="margin-top:10px">Bolts — не коды, но превращаются в них в #shop. За два дня активный игрок получит 200–300 Bolts сверху — меньше недели обычного дохода, экономика магазина не плывёт.</p>
-        <p class="sub" style="margin-top:10px"><b style="color:var(--text);font-weight:500">Лимиты:</b> одна MVP-награда на человека; один Christmas Drop на человека; коды только на привязанный player ID; очки MVP за день не больше 150.</p>
+        <div class="eyebrow">Бюджет кодами · на 100 активных</div>
+        <div class="big" style="margin-top:10px">≈ 45 SC</div>
+        <p class="sub" style="margin-top:10px">+ ≈ 500 FP. Воронка-допущение: 100 зажгли хотя бы дом → 85 дошли до 2 → 70 до 4 → 55 до 6 → 45 зажгли ёлку. 85 × 1 FP + 70 × 2 FP + 55 × 5 FP + 45 × 1 SC. Прошедший всё получает 8 FP + 1 SC.</p>
+        <p class="sub" style="margin-top:10px"><b style="color:var(--text);font-weight:500">Player ID — только при первом Claim:</b> играть можно без заявки. Первый Claim просит player ID, Александр проверяет вручную, после одобрения приходят все накопленные коды, а следующие Claim — сразу. Claim открыт до 03.01 23:59 ET, так что разбирать очередь в сам праздник не обязательно.</p>
+        <p class="sub" style="margin-top:10px"><b style="color:var(--text);font-weight:500">Лимиты:</b> каждый уровень — один раз на человека; один Discord ↔ один player ID; код 1 SC — для аккаунтов на сервере до 14.12; пул кодов с запасом на 150 игроков.</p>
       </div>
     </div>
   </section>
@@ -417,62 +437,57 @@ footer{padding-block:40px 60px;font-size:.82rem;color:var(--faint);display:flex;
   <div class="wrap">
     <div class="sec-title">
       <div class="eyebrow">Техника</div>
-      <h2 class="k">Модуль поверх Rewards Rush, а не новый бот</h2>
-      <p>Для Storm Rush общий слой — это сам Rewards Rush: процесс на Railway, SQLite, привязка player ID, коды из xlsx, антифарм. Он уже работает и в оценку не входит. Считаем только механику команд.</p>
+      <h2 class="k">Страница на общем слое, отдельно от магазина</h2>
+      <p>Общий слой (Discord-логин с guilds.join, коды из xlsx, Claim prize с player ID, бот, export) строится один раз для всех брендов на базе Witching Hours и в оценку не входит. С Rewards Rush и его #shop ивент не связан: свои коды, своя база.</p>
     </div>
-    <div class="cols three">
+    <div class="cols three-c">
       <div class="blk">
-        <h3>Уже есть</h3>
+        <h3>Как устроено</h3>
         <ul>
-          <li><b>Дроп Bolts и streak</b> — первая миссия, без доработки.</li>
-          <li><b>Три игры в день</b>, 6 форматов — нужен только хук «ответил верно».</li>
-          <li><b>Привязка player ID</b>, антифарм по батчам, кап по player ID.</li>
-          <li><b>#shop, /pool import, /user</b>, ежедневные бэкапы.</li>
-          <li><b>Рендер картинок с текстом кодом</b> — для закрепа со счётом.</li>
-          <li><b>TEST_MODE и /debug</b> — для репетиции со сжатым временем.</li>
-        </ul>
-      </div>
-      <div class="blk">
-        <h3>Механика Storm Rush</h3>
-        <ul>
-          <li>Команды, роли, закреп выбора стороны в #showdown.</li>
-          <li>Журнал миссий, хуки дропа и игр, миссии шторма на движке игр.</li>
-          <li>Окна Battle / Rematch, Final Surge ×2, итоговые посты, выплаты Bolts.</li>
-          <li>Закреп-табло, обновление раз в час.</li>
-          <li>Recruit по инвайтам (guildMemberAdd).</li>
-          <li>MVP, коды итога, <b>/showdown status · export · adjust</b>.</li>
+          <li><b>Сетка генерируется на сервере</b> из seed = Discord ID + номер дома. Клиент получает только перекрученные плитки, решения у него нет.</li>
+          <li><b>Проверка на сервере:</b> клиент шлёт повороты, сервер сам считает ток. Засчитывается любое правильное решение.</li>
+          <li><b>Подсказки</b> тоже с сервера: одна плитка (Golem) или путь до одной лампочки (Sparky).</li>
+          <li><b>Прогресс в базе</b> после каждого поворота — закрыл вкладку, вернулся, всё на месте.</li>
+          <li><b>Show my street:</b> кнопка постит картинку твоей улицы в #light-up — живой канал без счётчиков.</li>
         </ul>
       </div>
       <div class="blk">
         <h3>Оценка механики, дни</h3>
         <div class="est">
-          <div>Команды, роли, выбор стороны</div><div>1</div>
-          <div>Журнал и хуки миссий + миссия шторма</div><div>2</div>
-          <div>Battle / Rematch, ×2, итоги, Bolts</div><div>1</div>
-          <div>Закреп-табло (рендер)</div><div>0.5</div>
-          <div>Recruit по инвайтам</div><div>1</div>
-          <div>MVP, коды итога, export</div><div>0.5</div>
-          <div>Тесты механики (selftest, interactions)</div><div>1</div>
-          <div class="tot">Итого, без общего слоя</div><div class="tot">≈ 7</div>
+          <div>Генератор + проверка сетки (общий код клиент/сервер)</div><div>0.5</div>
+          <div>Экран улицы и головоломки, мобильный</div><div>1.5</div>
+          <div>Ёлка (фигурная сетка), подсказки</div><div>0.5</div>
+          <div>Уровни, коды в личку, офферы 27.12</div><div>0.5</div>
+          <div>Show my street и итоговая мозаика (рендер)</div><div>0.5</div>
+          <div>Тесты + стенд плейтеста с долей прохождения</div><div>1</div>
+          <div class="tot">Итого, без общего слоя</div><div class="tot">≈ 4.5</div>
         </div>
+      </div>
+      <div class="blk">
+        <h3>Что нужно от людей</h3>
+        <ul>
+          <li><b>Арт (Flow):</b> ключ-арт «тёмный заснеженный городок, Golem с батареей, Sparky» для попапа и анонса; тот же кадр со светом — для итогового поста. Текст накладываем кодом.</li>
+          <li><b>Коды призов:</b> 1 FP × 150, 2 FP × 150, 5 FP × 120, 1 SC × 100, тег <b>DS_lightup</b> — отдельно от пула магазина.</li>
+          <li><b>Промокоды офферов:</b> Frozen Grid Battery × 60, Spark Bundle × 40, Golem's Battery Crate × 40, Christmas Star Crate × 80 — одноразовые.</li>
+          <li><b>Тексты:</b> ~10 сообщений бота (EN), посты на каждое событие.</li>
+          <li><b>Плейтест:</b> 3 коллеги, 08–10.12, по 30 минут; вторая волна — тренировочный дом на живых игроках 18–21.12.</li>
+        </ul>
       </div>
     </div>
     <div class="cols" style="margin-top:36px">
       <div class="blk">
-        <h3>Что нужно от людей</h3>
+        <h3>Сроки</h3>
         <ul>
-          <li><b>Арт (Flow):</b> 2 баннера команд, «Golem wins» и «Sparky wins», Final Surge, итог ×2. Текст накладываем кодом.</li>
-          <li><b>Коды:</b> 5 FP × ~250, 1 SC × 10, 5 SC × 2, 2 SC × 4. Тег <b>DS_showdown</b>, чтобы сверка не смешалась с DS_drop.</li>
-          <li><b>Тексты:</b> ~20 вопросов командного квиза; посты итогов бот пишет игрокам по-английски.</li>
+          <li>Разработка 23.11 – 04.12, плейтест 08–10.12, репетиция 18.12.</li>
+          <li>Go / no-go 21.12, заморозка деплоя с 22.12, деплой только с ОК Александра.</li>
         </ul>
       </div>
       <div class="blk">
-        <h3>Сроки, аппрув, дежурство</h3>
+        <h3>Дежурство</h3>
         <ul>
-          <li>Механика, призы, деплой в прод — Александр.</li>
-          <li>Разработка 23.11 – 04.12, тест 07–11.12, репетиция 18.12, деплой с ОК до 21.12.</li>
-          <li>25.12 — выходной в Украине: всё автоматически, один дежурный на окна итогов (07:00 26.12 и 04:30 27.12 по Киеву — проверка поста и выплат утром).</li>
-          <li>Ручная проверка только 6 MVP-кодов, утро 27.12 по Киеву.</li>
+          <li>Ночных окон нет: коды и напоминания уходят автоматически.</li>
+          <li>Старт 24.12 в 19:00 по Киеву — рабочее время, дежурный смотрит запуск. Дальше проверка утром по Киеву 25.12, 26.12 и 27.12: страница, DM, офферы 27.12.</li>
+          <li>Александр: очередь Claim (player ID) — когда удобно, до 03.01; 02.01 бот напоминает тем, кто не забрал.</li>
         </ul>
       </div>
     </div>
@@ -482,98 +497,86 @@ footer{padding-block:40px 60px;font-size:.82rem;color:var(--faint);display:flex;
 <div class="wrap">
   <section>
     <div class="sec-title">
-      <div class="eyebrow">Репетиция</div>
-      <h2 class="k">Оба дня за два часа, за неделю до</h2>
-      <p>18.12 на тестовом сервере TEST STORM, в режиме TEST_MODE со сжатым временем.</p>
+      <div class="eyebrow">Репетиция и план Б</div>
+      <h2 class="k">Два дня за час, за неделю до</h2>
+      <p>18.12 на TEST STORM, время сжато: «день» = 20 минут.</p>
     </div>
     <div class="cols">
       <div class="blk"><ul>
-        <li><b>Состав:</b> две «команды» по 4–6 человек — стафф, помощник, пара модераторов.</li>
-        <li><b>Battle за 60 минут:</b> час ивента = 3 минуты; дроп, три игры, три миссии шторма, полночь через <b>/debug nextday</b>.</li>
-        <li><b>Rematch за 40 минут:</b> окно, Final Surge ×2, итог 1:1 → тай-брейк по сумме заряда.</li>
+        <li><b>Состав:</b> 4–6 человек, стафф и помощник, минимум двое с телефона.</li>
+        <li><b>Прогон:</b> тренировочный дом → сочельник (улица) → утро Рождества (ёлка) → закрытие → офферы → Claim.</li>
+        <li><b>Сбой:</b> рестарт сервера посреди дома — повороты и уровни должны пережить рестарт.</li>
       </ul></div>
       <div class="blk"><ul>
-        <li><b>Проверяем:</b> роли, выплаты Bolts без дублей, закреп-табло, Recruit с нового аккаунта, MVP при ничьей, коды из тестового xlsx, export.</li>
-        <li><b>Сбой на репетиции:</b> рестарт бота посреди Battle — счёт и журнал должны пережить рестарт.</li>
-        <li><b>21.12 go / no-go</b>, с 22.12 заморозка деплоя. Проверка деплоя — по времени правки закрепа магазина.</li>
+        <li><b>Проверяем:</b> коды без дублей, уровень не выдаётся дважды, player ID (неверный формат, занятый ID), Show my street, мозаика, export.</li>
+        <li><b>Мобильный:</b> 6×7 и ёлка на 390 px, попадание пальцем, нет случайного зума.</li>
       </ul></div>
+    </div>
+    <div class="planb" style="margin-top:28px">
+      <div class="row"><b>Страница легла меньше чем на час</b><span>Прогресс в базе, ничего не теряется. Конец ивента сдвигается на время простоя, бот пишет в #light-up.</span></div>
+      <div class="row"><b>Легла дольше 3 часов</b><span>Ивент продлевается до 27.12 12:00 ET, офферы уходят после закрытия.</span></div>
+      <div class="row"><b>Не ушли коды</b><span>Дежурный утром делает export и выдаёт коды вручную по xlsx.</span></div>
+      <div class="row"><b>Railway не подхватил коммит</b><span>После 22.12 деплоев нет; версия сверяется 24.12 до старта.</span></div>
     </div>
   </section>
 
   <section style="padding-top:0">
     <div class="sec-title">
-      <div class="eyebrow">План Б</div>
-      <h2 class="k">Если бот упал в Рождество</h2>
-    </div>
-    <div class="planb">
-      <div class="row"><b>Бот лёг меньше чем на час</b><span>Railway поднимает его сам. Журнал миссий в базе, итог считается из журнала. Окно дня продлевается на время простоя, бот пишет об этом в #showdown после рестарта.</span></div>
-      <div class="row"><b>Бот лёг дольше</b><span>Battle 25.12 отменяется без очков, Rematch 26.12 становится единственным решающим днём с теми же наградами. Активность 25.12 засчитывается по логам дропа, Bolts выдаются по <b>/bolts adjust</b>.</span></div>
-      <div class="row"><b>Не отрисовался закреп-табло</b><span>Текстовый пост со счётом и процентами — тот же расчёт, без картинки.</span></div>
-      <div class="row"><b>Не ушли коды итога</b><span>Дежурный утром 27.12 по Киеву делает <b>/showdown export</b> и выдаёт коды вручную по xlsx.</span></div>
-      <div class="row"><b>Railway не подхватил коммит</b><span>После 22.12 деплоев нет. Дежурный сверяет версию по закрепу магазина 25.12 утром ET.</span></div>
-    </div>
-  </section>
-
-  <section>
-    <div class="sec-title">
-      <div class="eyebrow">Промо</div>
-      <h2 class="k">Кто не выбрал сторону до Рождества — смотрит со стороны</h2>
+      <div class="eyebrow">Промо · без рефералов</div>
+      <h2 class="k">Тёмный дом продаёт сам</h2>
     </div>
     <div class="cols">
       <div class="blk">
         <h3>Каналы</h3>
         <ul>
-          <li><b>Попап и баннер на stormrush.com с 14.12</b>: Golem слева, Sparky справа, две кнопки по инвайту в #showdown. На Halloween попап дал 1 251 переход, FB — 23.</li>
-          <li><b>Бродкаст 18.12 и 24.12</b>: «выбери сторону» и «завтра Battle».</li>
-          <li><b>Discord:</b> #special-updates и #📢fresh-promocodes; счёт выбравших сторону в закрепе с 18.12 — «Golem 412 · Sparky 389».</li>
-          <li><b>FB:</b> 2 поста. По правилу владельца — только механика, без Bolts, FP и SC.</li>
+          <li><b>Попап и баннер на stormrush.com с 14.12</b> — на Halloween попап дал 1 251 переход против 23 из FB. Картинка: полуосвещённая улица и кнопка.</li>
+          <li><b>Бродкаст 18.12 и 23.12:</b> «потренируйся» и «завтра свет гаснет».</li>
+          <li><b>Discord:</b> #special-updates, #📢fresh-promocodes, роль ⚡ Games (102 человека) — пинг 24.12 в 12:00 ET.</li>
+          <li><b>FB:</b> 2 поста — только механика, без Bolts, FP и SC (правило владельца).</li>
         </ul>
       </div>
       <div class="blk">
-        <h3>Как приводим новых</h3>
+        <h3>Как держим людей</h3>
         <ul>
-          <li><b>Recruit / Gift Run</b> — миссия шторма 25.12 в 15:00: зови друга, он выбирает сторону — команде заряд, тебе +50 Bolts и очки MVP.</li>
-          <li>Счёт сторон до старта — повод звать своих: «нас меньше на 23».</li>
-          <li>Underdog: вступившим в меньшую команду при перекосе больше 60/40 — +50 Bolts.</li>
+          <li><b>Личные напоминания</b> тем, у кого остались тёмные дома: 25.12 18:00 ET и 26.12 18:00 ET; утром Рождества — «Merry Christmas» каждому.</li>
+          <li><b>Show my street</b> в канале — соцдоказательство без счётчиков, которые стоят пустыми.</li>
+          <li><b>Итоговая мозаика</b> 27.12: все зажжённые улицы одной картинкой. При 20 игроках это всё равно 20 светлых улиц.</li>
         </ul>
       </div>
     </div>
   </section>
 
-  <img class="wide-img" src="assets/banner-leaderboard.jpg" alt="Golem стоит на центральном каменном пьедестале среди облаков, Sparky парит над ним" width="1000" height="558">
-
-  <section>
+  <section style="padding-top:0">
     <div class="sec-title">
       <div class="eyebrow">Анти-абуз · уроки Halloween</div>
-      <h2 class="k">Чтобы один игрок не забрал всё ещё раз</h2>
+      <h2 class="k">Призы за свою улицу, а не за место</h2>
     </div>
     <div class="cols">
       <div class="blk"><ul>
-        <li><b>11 из 12 топов у одного игрока.</b> Главный приз командный и одинаковый для всех активных. MVP — одна награда на человека, очки MVP за день ограничены.</li>
-        <li><b>119 человек не нажали Join.</b> Ивент целиком в Discord: попап ведёт по инвайту сразу в канал, выбор стороны — одна кнопка. Нет привязки — бот говорит это в том же ответе и даёт кнопку.</li>
-        <li><b>Перекос команд.</b> Заряд = процент от максимума на игрока, а не сумма.</li>
+        <li><b>11 из 12 топов у одного игрока.</b> Топа нет: уровни одинаковые для всех, каждый один раз на человека. Один приз на человека на таблицу по всем брендам — в T&amp;C.</li>
+        <li><b>Ответы в чате за минуту.</b> Сетка своя у каждого: скрин чужого решения бесполезен.</li>
+        <li><b>Места решала скорость.</b> Время не пишется никуда, кроме лога.</li>
       </ul></div>
       <div class="blk"><ul>
-        <li><b>Анти-чит был слишком строгим.</b> Новых проверок на скорость нет: миссии — факт действия, игры — со старыми таймингами. Ничья в MVP решается жребием, а не скоростью.</li>
-        <li><b>Мультиаккаунты.</b> Один Discord ↔ один player ID, антифарм Rewards Rush; Recruit засчитывается за аккаунт Discord старше 30 дней.</li>
-        <li><b>Ручной аппрув тормозил.</b> Всё автоматом, руками — только 6 MVP-кодов.</li>
-        <li><b>Railway пропускал коммиты.</b> Репетиция 18.12, заморозка с 22.12, деплой только с ОК Александра.</li>
+        <li><b>Решатели-скрипты.</b> Ёлка за &lt; 20 с без лишних поворотов → в лог на просмотр, без автобана (анти-чит Witching Hours был слишком строгим).</li>
+        <li><b>Мультиаккаунты.</b> Один Discord ↔ один player ID; уровень SC — для аккаунтов, которые были на сервере до 14.12 или с привязкой.</li>
+        <li><b>119 не нажали Join.</b> Заявки до игры нет: вход одной кнопкой из канала, player ID — только при первом Claim prize.</li>
       </ul></div>
     </div>
   </section>
 
   <section style="padding-top:0">
     <div class="sec-title">
-      <div class="eyebrow">KPI · цели, не факты</div>
+      <div class="eyebrow">KPI · цели на 30–100 активных</div>
       <h2 class="k">Что считаем успехом</h2>
     </div>
     <div class="kpi">
-      <div><b class="g">800</b><span>выбрали сторону до 25.12</span></div>
-      <div><b class="s">450</b><span>активны 25.12</span></div>
-      <div><b>60%</b><span>активных 25.12 вернулись 26.12</span></div>
-      <div><b>200</b><span>новых участников сервера через попап и Recruit</span></div>
+      <div><b class="g">150</b><span>открыли улицу или тренировочный дом</span></div>
+      <div><b class="s">100</b><span>зажгли хотя бы один дом</span></div>
+      <div><b class="y">60–85%</b><span>доля прохождения каждого дома</span></div>
+      <div><b>45</b><span>зажгли ёлку</span></div>
     </div>
-    <p class="sub" style="margin-top:14px;color:var(--muted);font-size:.92rem">Плюс: ≈ 270 выданных кодов, разница команд не больше 60/40, рост покупок в #shop в последнюю неделю декабря.</p>
+    <p class="sub" style="margin-top:14px">Плюс: 30+ постов Show my street, конверсия офферов 27–29.12 против обычной недели, рост ⚡ Games.</p>
   </section>
 
   <section style="padding-top:0">
@@ -585,21 +588,26 @@ footer{padding-block:40px 60px;font-size:.82rem;color:var(--faint);display:flex;
       <div class="blk">
         <h3>Риски</h3>
         <ul>
-          <li><b>Рождество — семейный день.</b> Поэтому миссии растянуты на весь день, а не на один вечерний час, и шторм-миссии открыты до 23:59.</li>
-          <li><b>Отрыв после Battle.</b> Rematch даёт равное очко, а Final Surge ×2 в последний час — шанс отыграться по сумме заряда.</li>
-          <li><b>Падение бота в праздник.</b> См. План Б: журнал переживает рестарт, итог пересчитывается.</li>
-          <li><b>Sparky без рук.</b> В арте и текстах он «летит», «разряжается», «обвивает» — никаких хватов и жестов.</li>
+          <li><b>Головоломка «не для всех».</b> Растущая сложность, тренировочный дом, подсказки без штрафа; размеры правим по плейтесту.</li>
+          <li><b>Ёлка на телефоне.</b> 9 колонок — самое узкое место; запасной вариант — ёлка 7 колонок.</li>
+          <li><b>Неверные player ID</b> (на FWL 41 из 120, медиана проверки 7,7 ч). Ввод при первом Claim с подсказкой, где найти ID; при отказе бот пишет сразу, игрок присылает другой — призы не пропадают.</li>
+          <li><b>Sparky без рук.</b> В тексте и арте он «пробегает по проводу», «вспыхивает», а Golem «держит» плитку руками.</li>
         </ul>
       </div>
       <div class="blk">
-        <h3>Открытые вопросы к Александру</h3>
+        <h3>Решено 11.11</h3>
         <ul>
-          <li>Коды итога и MVP (≈ 28 SC) входят в потолок 10 SC за 60 дней или идут мимо него?</li>
-          <li>+150 / +50 Bolts за день — ок для экономики магазина?</li>
-          <li>Окно Rematch 10:00–21:00 ET и итог в 21:30 ET (04:30 Киев) — ок, или итог переносим на 23:59?</li>
-          <li>Выбор стороны открываем с 18.12 — ок?</li>
-          <li>Миссия «кто выиграет день» заодно запускает отложенный блок 5 (prediction). Делаем сейчас?</li>
-          <li>Нужны ли закрытые чаты команд или хватит ролей?</li>
+          <li><b>Магазин к ивенту не привязываем:</b> только коды, без Bolts; коды ивента вне потолка магазина.</li>
+          <li><b>Тренировочный дом</b> с 18.12 — без приза.</li>
+          <li><b>Claim prize как на Witching Hours</b> — player ID только при первом Claim, Александр проверяет вручную; дальше Claim сразу; Claim до 03.01.</li>
+          <li><b>Офферы</b> — личным промокодом.</li>
+          <li><b>Плейтест</b> — 3 коллеги + тренировочный дом на живых игроках.</li>
+          <li><b>Номиналы:</b> 2 дома 1 FP · 4 дома 2 FP · вся улица 5 FP · ёлка 1 SC.</li>
+          <li><b>Офферы переименовать</b> в Golem's Battery Crate и Christmas Star Crate — передано в основной чат.</li>
+        </ul>
+        <h3 style="margin-top:22px">Открытые вопросы</h3>
+        <ul>
+          <li>Нет — дальше ключ-арт во Flow и разработка.</li>
         </ul>
       </div>
     </div>
@@ -613,27 +621,29 @@ footer{padding-block:40px 60px;font-size:.82rem;color:var(--faint);display:flex;
     <div class="post">
       <div class="av" role="img" aria-label="Storm Rush"></div>
       <div>
-        <div class="nm">Rewards Rush<span>BOT</span><small>#special-updates</small></div>
-<pre>⚡ WINTER STORM SHOWDOWN · Dec 25 – 26
+        <div class="nm">Storm Rush<span>BOT</span><small>#special-updates</small></div>
+<pre>⚡ LIGHT UP CHRISTMAS · Dec 24 – 26
 
-Golem: "Stone doesn't move. Stone wins."
-Sparky: "Stone doesn't move. That's the whole problem."
+The storm hit town on Christmas Eve. Every single light went out.
 
-Pick your side in #showdown now. One click, and there's no switching later.
+Golem: "I've got the battery. Somebody has to fix the wires."
+Sparky: "Somebody fast. Somebody bright. So... me."
 
-Dec 25 is the Battle. All day long you can charge your team's meter: claim your drop, get a game right, finish the storm missions. At midnight ET the team with the higher charge takes the first point.
+You get your own street with six dark houses. Inside each one the wires are twisted the wrong way. Tap a piece to turn it. When the power from Golem's battery reaches every bulb, the house lights up.
 
-Dec 26 is the Rematch, with a Final Surge from 8 to 9 PM ET where every charge counts double. Then we crown the winner and one MVP per team.
+🏠 Christmas Eve, Dec 24 at noon ET: your street opens. Can you get the lights back before Christmas morning?
+🎄 Christmas morning: light 4 houses and the big tree on the square opens for you, with a gift under it.
+⏳ Busy with family? Everything stays open until Dec 26, 11:59 PM ET.
 
-Team size doesn't matter. Effort does. Every active player on the winning side gets a Bolts drop, and both sides get rewarded.
+No timer, no race. Every street is different, so nobody can copy your answer. You earn a reward at 2, 4 and 6 houses, and when the tree lights up. Hit Claim prize and it's yours.
 
-Team Golem or Team Sparky? Choose before the storm hits.</pre>
+Want a warm-up? The training house is open in #light-up right now.</pre>
       </div>
     </div>
   </section>
 
   <footer>
-    <span>Storm Rush · Winter Storm Showdown · формат 1+1 (25.12 + 26.12) · концепт, все цифры — предложение</span>
+    <span>Storm Rush · Light Up Christmas · сочельник 24.12 → Рождество 25.12 → 26.12 · концепт v2, все цифры — предложение</span>
     <span>Sweepstakes social casino · USA · 21+ · время NY (ET)</span>
   </footer>
 </div>
@@ -641,171 +651,280 @@ Team Golem or Team Sparky? Choose before the storm hits.</pre>
 <script>
 (function(){
   var $=function(id){return document.getElementById(id)};
-  // day windows (hours ET) and missions; game missions live only during their hour
-  var DAYS=[
-    {name:"Battle",date:"25.12",from:0,to:24,surge:-1,ms:[
-      {k:"drop",t:"Claim your Bolts",at:0,p:20,game:false,w:"весь день"},
-      {k:"q",t:"Миссия шторма: командный квиз",at:10,p:20,game:false,w:"с 10:00"},
-      {k:"g1",t:"Игра 12 PM",at:12,p:15,game:true,w:"12:00–13:00"},
-      {k:"gift",t:"Миссия шторма: Gift Run (Recruit)",at:15,p:20,game:false,w:"с 15:00"},
-      {k:"pr",t:"Миссия шторма: кто выиграет день",at:18,p:10,game:false,w:"с 18:00"},
-      {k:"g2",t:"Игра 8 PM",at:20,p:15,game:true,w:"20:00–21:00"},
-      {k:"g3",t:"Игра 11 PM",at:23,p:10,game:true,w:"23:00–23:59"}
-    ]},
-    {name:"Rematch",date:"26.12",from:10,to:21,surge:20,ms:[
-      {k:"drop",t:"Claim your Bolts",at:10,p:20,game:false,w:"до 21:00"},
-      {k:"g1",t:"Игра 12 PM",at:12,p:20,game:true,w:"12:00–13:00"},
-      {k:"st",t:"Миссия шторма: командный квиз",at:15,p:20,game:false,w:"с 15:00"},
-      {k:"g2",t:"Игра 8 PM · Final Surge",at:20,p:20,game:true,w:"20:00–21:00 · ×2"}
-    ]}
-  ];
-  var FINAL=[[62,57],[55,60]]; // simulated rest-of-team final charge per day
+  function mulberry(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+  // [dr, dc, bit, opposite bit]  N=1 E=2 S=4 W=8
+  var DIRS=[[-1,0,1,4],[0,1,2,8],[1,0,4,1],[0,-1,8,2]];
+  function rot(m,k){k=((k%4)+4)%4;while(k--){m=((m<<1)|(m>>3))&15}return m}
+  function pc(m){var n=0;while(m){n+=m&1;m>>=1}return n}
+  function rect(r,c){var a=[],s="";for(var j=0;j<c;j++)s+="X";for(var i=0;i<r;i++)a.push(s);return a}
+  var TREE=["....X....","...XXX...","..XXXXX..","...XXX...","..XXXXX..",".XXXXXXX.","..XXXXX..",".XXXXXXX.","XXXXXXXXX","....X...."];
+  var LV=[[4,4],[4,5],[5,5],[5,6],[6,6],[6,7]].map(function(d,i){return {nm:"Дом "+(i+1),shape:rect(d[0],d[1]),src:[Math.floor(d[0]/2),Math.floor((d[1]-1)/2)],size:d[0]+"×"+d[1]}});
+  LV.push({nm:"Ёлка на площади",shape:TREE,src:[9,4],size:"46 клеток",tree:true});
+
+  function cur(x){return rot(x.sol,x.rot)}
+  function nb(P,a,d){return P.at[(a.r+d[0])+","+(a.c+d[1])]}
+  function build(L,rng){
+    var cells=[],at={},sh=L.shape;
+    for(var r=0;r<sh.length;r++)for(var c=0;c<sh[r].length;c++) if(sh[r][c]==="X"){at[r+","+c]=cells.length;cells.push({r:r,c:c,sol:0,rot:0,lock:false,par:-1})}
+    var P={R:sh.length,C:sh[0].length,cells:cells,at:at,solved:false,g:2,sp:1};
+    var s=at[L.src[0]+","+L.src[1]],inT={},fr=[];P.src=s;
+    function addF(i){var a=cells[i];DIRS.forEach(function(d){var j=nb(P,a,d);if(j!==undefined&&!inT[j])fr.push([i,j,d[2],d[3]])})}
+    inT[s]=1;addF(s);
+    while(fr.length){var k=Math.floor(rng()*fr.length),e=fr[k];fr[k]=fr[fr.length-1];fr.pop();if(inT[e[1]])continue;inT[e[1]]=1;cells[e[0]].sol|=e[2];cells[e[1]].sol|=e[3];cells[e[1]].par=e[0];addF(e[1])}
+    cells.forEach(function(x,i){x.rot=Math.floor(rng()*4);x.bulb=i!==s&&pc(x.sol)===1});
+    if(L.tree){var st=at["0,4"];cells[st].star=true}
+    // never hand out a solved board
+    var guard=0;while(power(P).all&&guard++<50){for(var i=0;i<cells.length;i++){if(rot(cells[i].sol,1)!==cells[i].sol){cells[i].rot++;break}}}
+    return P;
+  }
+  function power(P){
+    var on={},q=[P.src],dang=false;on[P.src]=1;
+    while(q.length){var i=q.shift(),a=P.cells[i],m=cur(a);
+      DIRS.forEach(function(d){if(!(m&d[2]))return;var j=nb(P,a,d);if(j===undefined||!(cur(P.cells[j])&d[3]))return;if(!on[j]){on[j]=1;q.push(j)}})}
+    P.cells.forEach(function(a){var m=cur(a);DIRS.forEach(function(d){if(!(m&d[2]))return;var j=nb(P,a,d);if(j===undefined||!(cur(P.cells[j])&d[3]))dang=true})});
+    var n=Object.keys(on).length;
+    return {on:on,all:n===P.cells.length&&!dang};
+  }
+  function lines(m){var s="";if(m&1)s+='<line x1="50" y1="50" x2="50" y2="0"/>';if(m&2)s+='<line x1="50" y1="50" x2="100" y2="50"/>';if(m&4)s+='<line x1="50" y1="50" x2="50" y2="100"/>';if(m&8)s+='<line x1="50" y1="50" x2="0" y2="50"/>';return s}
+  var BAT='<svg class="ov" viewBox="0 0 100 100" aria-hidden="true"><rect class="bat" x="22" y="30" width="52" height="40" rx="7"/><rect class="bat" x="74" y="42" width="6" height="16" rx="2"/><path class="boltp" d="M53 34 L39 53 L49 53 L44 66 L59 46 L49 46 Z"/></svg>';
+  var BULB='<svg class="ov" viewBox="0 0 100 100" aria-hidden="true"><circle class="bl" cx="50" cy="50" r="17"/></svg>';
+  var STAR='<svg class="ov" viewBox="0 0 100 100" aria-hidden="true"><polygon class="stp" points="50,24 56.5,42 76,42 60,53.5 66,72 50,61 34,72 40,53.5 24,42 43.5,42"/></svg>';
+
+  // ---------- street ----------
+  var HV=[{w:72,h:42,rh:30},{w:64,h:50,rh:26},{w:78,h:38,rh:34},{w:68,h:46,rh:28},{w:74,h:44,rh:32},{w:66,h:52,rh:24}];
+  function houseSVG(v){
+    var V=HV[v],gy=100,x=(100-V.w)/2,yb=gy-V.h,ax=50,ay=yb-V.rh,s="";
+    s+='<rect class="chim" x="'+(50+V.w*0.2)+'" y="'+(yb-V.rh*0.85)+'" width="8" height="'+(V.rh*0.7)+'"/>';
+    s+='<rect class="body" x="'+x+'" y="'+yb+'" width="'+V.w+'" height="'+V.h+'"/>';
+    s+='<polygon class="roof" points="'+(x-5)+','+yb+' '+ax+','+ay+' '+(x+V.w+5)+','+yb+'"/>';
+    s+='<polyline class="snow" points="'+(x-5)+','+(yb-1)+' '+ax+','+(ay)+' '+(x+V.w+5)+','+(yb-1)+'"/>';
+    s+='<path class="wire" d="M'+(x-3)+','+(yb+4)+' Q'+(ax-V.w/4)+','+(yb-V.rh/2+8)+' '+ax+','+(ay+8)+' Q'+(ax+V.w/4)+','+(yb-V.rh/2+8)+' '+(x+V.w+3)+','+(yb+4)+'"/>';
+    for(var b=0;b<9;b++){var t=(b+0.5)/9,px,py;
+      if(t<0.5){var u=t*2;px=(x-3)+(ax-(x-3))*u;py=(yb+4)+((ay+8)-(yb+4))*u}else{var u2=(t-0.5)*2;px=ax+((x+V.w+3)-ax)*u2;py=(ay+8)+((yb+4)-(ay+8))*u2}
+      s+='<circle class="bulb c'+(b%3)+'" cx="'+px.toFixed(1)+'" cy="'+(py+2).toFixed(1)+'" r="2.4" style="animation-delay:'+(b*0.21).toFixed(2)+'s"/>'}
+    var ww=V.w*0.22,wh=V.h*0.3,wy=yb+V.h*0.22;
+    s+='<rect class="win" x="'+(x+V.w*0.12)+'" y="'+wy+'" width="'+ww+'" height="'+wh+'"/>';
+    s+='<rect class="win" x="'+(x+V.w*0.88-ww)+'" y="'+wy+'" width="'+ww+'" height="'+wh+'"/>';
+    s+='<circle class="win" cx="50" cy="'+(yb-V.rh*0.36)+'" r="3.6"/>';
+    s+='<rect class="door" x="44" y="'+(gy-V.h*0.45)+'" width="12" height="'+(V.h*0.45)+'"/>';
+    s+='<rect class="win" x="46.5" y="'+(gy-V.h*0.4)+'" width="7" height="4"/>';
+    s+='<ellipse class="ground" cx="50" cy="'+(gy+4)+'" rx="56" ry="7"/>';
+    return '<svg viewBox="0 0 100 110" aria-hidden="true">'+s+'</svg>';
+  }
+  function treeSVG(){
+    var s='<rect class="trunk" x="45" y="90" width="10" height="12"/>';
+    s+='<polygon class="tr" points="50,16 24,48 76,48"/><polygon class="tr" points="50,32 16,70 84,70"/><polygon class="tr" points="50,50 8,92 92,92"/>';
+    s+='<polygon class="star" points="50,3 52.9,10.9 61.4,11 54.7,16.2 57.1,24.4 50,19.6 42.9,24.4 45.3,16.2 38.6,11 47.1,10.9"/>';
+    var B=[[44,38,0],[56,42,1],[38,58,2],[52,60,0],[64,56,1],[30,80,1],[44,78,2],[58,82,0],[72,78,2],[50,46,2],[26,64,0],[78,66,1]];
+    B.forEach(function(p,i){s+='<circle class="bulb c'+p[2]+'" cx="'+p[0]+'" cy="'+p[1]+'" r="2.6" style="animation-delay:'+(i*0.17).toFixed(2)+'s"/>'});
+    s+='<ellipse class="ground" cx="50" cy="104" rx="56" ry="7"/>';
+    return '<svg viewBox="0 0 100 110" aria-hidden="true">'+s+'</svg>';
+  }
+
   var S;
-  function maxPts(d){var m=0;DAYS[d].ms.forEach(function(x){m+=x.p*(x.at===DAYS[d].surge?2:1)});return m}
-  function init(){
-    S={team:null,d:0,h:11,done:[{},{}],res:[null,null],bolts:1240,mvp:0,rec:0,hist:[[],[]]};
-    render();
-  }
-  function curve(d,h){ // share of the day's missions already released by hour h
-    var D=DAYS[d], tot=0, rel=0;
-    D.ms.forEach(function(m){var w=m.p*(m.at===D.surge?2:1);tot+=w; if(h>=m.at) rel+=w*Math.min(1,(h-m.at+1)/(m.game?1:4));});
-    return tot?rel/tot:0;
-  }
-  function charge(d,h){
-    var f=curve(d,h), g=FINAL[d][0]*f, s=FINAL[d][1]*f, mine=0;
-    DAYS[d].ms.forEach(function(m){ if(S.done[d][m.k]) mine+=m.p*(m.at===DAYS[d].surge?2:1); });
-    var bump=mine/maxPts(d)*6;
-    if(S.team==="golem") g+=bump; if(S.team==="sparky") s+=bump;
-    return [g,s];
-  }
-  function hh(h){return (h<10?"0":"")+h+":00"}
-  function fmt(n){return String(n).replace(/\B(?=(\d{3})+(?!\d))/g," ")}
-  function score(){
-    var g=0,s=0;
-    S.res.forEach(function(r){ if(!r) return; if(r[0]>r[1]) g++; else s++; });
-    return [g,s];
-  }
-  function render(){
-    var D=DAYS[S.d], over=S.res[1]!==null;
-    $("tab0").className="dtab"+(S.d===0&&!over?" on":"")+(S.res[0]?" done":"");
-    $("tab1").className="dtab"+(S.d===1&&!over?" on":"")+(S.res[1]?" done":"");
-    var surgeNow=S.d===1&&S.h===D.surge;
-    $("today").classList.toggle("surge-on",surgeNow);
-    $("clock").textContent=over?"26.12 · 21:30":D.date+" · "+(S.h>=24?"23:59":hh(S.h));
-    var c=charge(S.d,Math.min(S.h,D.to-1));
-    $("mG").style.width=Math.min(100,c[0])+"%"; $("mS").style.width=Math.min(100,c[1])+"%";
-    $("pG").textContent=c[0].toFixed(1)+"%"; $("pS").textContent=c[1].toFixed(1)+"%";
-    var ul=$("missions"); ul.innerHTML="";
-    D.ms.forEach(function(m){
-      var li=document.createElement("li"); li.className="mis";
-      var mult=m.at===D.surge?2:1, pts=m.p*mult;
-      var open=S.h>=m.at&&S.h<D.to&&(!m.game||S.h===m.at);
-      var missed=m.game&&S.h>m.at&&!S.done[S.d][m.k];
-      li.innerHTML='<div><b>'+m.t+'</b><small>'+m.w+' · +'+pts+' заряда</small></div>';
-      var b=document.createElement("button"); b.type="button";
-      b.textContent=S.done[S.d][m.k]?"Готово":missed?"Пропущено":S.h<m.at?hh(m.at):"Сделать";
-      b.disabled=!!S.done[S.d][m.k]||!open||!S.team||over;
-      b.addEventListener("click",function(){
-        S.done[S.d][m.k]=1; S.mvp+=pts+(m.game?10:0);
-        if(m.k==="gift"&&S.rec<5){S.rec++;S.bolts+=50;S.mvp+=20;}
-        render();
-        $("log").textContent=m.t+": +"+pts+" к заряду "+(S.team==="golem"?"Team Golem":"Team Sparky")+(m.k==="gift"?". Друг выбрал твою сторону: +50 Bolts.":".");
-      });
-      li.appendChild(b); ul.appendChild(li);
-    });
-    $("tick").disabled=!S.team||over||S.h>=D.to;
-    $("endDay").disabled=!S.team||over;
-    $("endDay").textContent=S.h>=D.to?(S.d===0?"Полночь: итог Battle":"21:30: итог и MVP"):"К концу дня";
-    $("wBolts").textContent=fmt(S.bolts); $("wPts").textContent=fmt(S.mvp); $("wRec").textContent=S.rec+" / 5";
-    var sc=score(); $("sG").textContent=sc[0]; $("sS").textContent=sc[1];
-    [0,1].forEach(function(i){ var r=S.res[i], el=$("r"+i);
-      if(r) el.textContent=(r[0]>r[1]?"Golem":"Sparky")+" · "+r[0].toFixed(1)+"% : "+r[1].toFixed(1)+"%";
-      else el.textContent=i===S.d?"идёт":"26.12, 10:00 ET"; });
-    // hourly chart for current day
-    var box=$("hours"); box.innerHTML="";
-    var n=D.to-D.from; box.style.gridTemplateColumns="repeat("+n+",minmax(0,1fr))";
-    for(var h=D.from;h<D.to;h++){
-      var col=document.createElement("div");
-      var fut=h>S.h&&!S.res[S.d];
-      col.className="hcol"+(h===S.h&&!S.res[S.d]?" now":"")+(fut?" fut":"")+(h===D.surge?" sx":"");
-      var v=fut?[2,2]:charge(S.d,h);
-      col.innerHTML='<div class="bars"><i class="g" style="height:'+Math.min(100,v[0])+'%"></i><i class="s" style="height:'+Math.min(100,v[1])+'%"></i></div><span>'+(n>12?(h%3===0?h:""):h)+'</span>';
-      box.appendChild(col);
-    }
-    if(!S.team) $("log").textContent="Сначала выбери сторону — миссии откроются.";
-  }
-  function pickTeam(tm){
-    if(S.team) return;
-    S.team=tm;
-    var el=$(tm==="golem"?"tGolem":"tSparky");
-    el.classList.add("sel"); el.setAttribute("aria-pressed","true");
-    $(tm==="golem"?"bGolem":"bSparky").hidden=false;
-    $("pick").classList.add("locked");
-    $("pickMsg").textContent=(tm==="golem"?"Ты в Team Golem.":"Ты в Team Sparky.")+" Роль выдана, сторону больше не сменить. Миссии ниже открыты.";
-    $("log").textContent="";
-    render();
-  }
-  $("tGolem").addEventListener("click",function(){pickTeam("golem")});
-  $("tSparky").addEventListener("click",function(){pickTeam("sparky")});
-  $("tick").addEventListener("click",function(){ if(S.h<DAYS[S.d].to){S.h++; render(); var D=DAYS[S.d]; if(S.d===1&&S.h===D.surge) $("log").textContent="20:00 ET. Final Surge: следующий час каждый заряд ×2.";} });
-  $("endDay").addEventListener("click",function(){
-    var D=DAYS[S.d];
-    if(S.h<D.to){ S.h=D.to; render(); $("log").textContent="Конец окна. Нажми ещё раз, чтобы бот подвёл итог."; return; }
-    var c=charge(S.d,D.to-1); if(c[0]===c[1]) c[0]+=0.1;
-    S.res[S.d]=[+c[0].toFixed(1),+c[1].toFixed(1)];
-    var active=Object.keys(S.done[S.d]).length>0, my=S.team==="golem"?0:1, won=c[my]>c[1-my];
-    var add=active?(won?150:50):0; S.bolts+=add;
-    var msg=D.date+": "+(c[0]>c[1]?"Team Golem":"Team Sparky")+" берёт "+D.name+", "+c[0].toFixed(1)+"% : "+c[1].toFixed(1)+"%. "+(active?"Тебе +"+add+" Bolts.":"Ты не прошёл ни одной миссии — без Bolts.");
-    if(S.d===0){
-      if(active) msg+=" Christmas Drop: 10 случайных активных получают 1 SC.";
-      S.d=1; S.h=10;
-    } else {
-      var sc=score(), champ;
-      if(sc[0]!==sc[1]) champ=sc[0]>sc[1]?0:1;
-      else { var tg=S.res[0][0]+S.res[1][0], ts=S.res[0][1]+S.res[1][1]; champ=tg>ts?0:1; msg+=" 1:1, решает сумма заряда за два дня."; }
-      var both=Object.keys(S.done[0]).length>0&&active;
-      msg+=" Чемпион — "+(champ===0?"Team Golem":"Team Sparky")+". ";
-      if(both){ if(champ===my) msg+="Тебе код 5 FP."; else { S.bolts+=100; msg+="Тебе +100 Bolts за второе место."; } }
-      else msg+="Для награды за итог нужна активность в оба дня.";
-      msg+=" MVP — у кого больше очков MVP, твои: "+S.mvp+".";
-    }
-    render(); $("log").textContent=msg;
-  });
-  $("reset").addEventListener("click",function(){
-    ["tGolem","tSparky"].forEach(function(id){$(id).classList.remove("sel");$(id).setAttribute("aria-pressed","false")});
-    $("bGolem").hidden=true; $("bSparky").hidden=true; $("pick").classList.remove("locked");
-    $("pickMsg").textContent="Сторону выбирают один раз. После выбора бот выдаёт роль команды, сменить её нельзя.";
-    init();
-  });
-  init();
-
-  // hourly timeline
-  var TL=[
-    [["00:00","День открыт, дроп считается",""],["10:00","Миссия шторма: командный квиз",""],["12:00","Игра 12 PM",""],["15:00","Gift Run (Recruit) · Christmas Drop объявлен","xmas"],["18:00","Миссия: «кто выиграет день»",""],["20:00","Игра 8 PM",""],["23:00","Игра 11 PM · 23:59 Battle закрыт",""],["00:00 · 26.12","Итог Battle, Bolts, Christmas Drop","fin"]],
-    [["10:00","Rematch открыт, дроп",""],["12:00","Игра 12 PM",""],["15:00","Миссия шторма: квиз",""],["18:00","Напоминание: Surge через 2 часа",""],["20:00","Final Surge ×2 · игра 8 PM","nye"],["21:00","Rematch закрыт",""],["21:30","Итог, MVP, коды в личку","fin"]]
+  function code(){var A="ABCDEFGHJKLMNPQRSTUVWXYZ23456789",s="";for(var i=0;i<9;i++)s+=A[Math.floor(Math.random()*A.length)];return s}
+  var TIERS=[
+    {k:"t2",need:2,t:"2 дома",p:"код 1 FP"},
+    {k:"t4",need:4,t:"4 дома",p:"код 2 FP"},
+    {k:"t6",need:6,t:"Вся улица",p:"код 5 FP"},
+    {k:"tt",need:"tree",t:"Ёлка",p:"код 1 SC"}
   ];
-  TL.forEach(function(row,i){ var el=$("tl"+i);
-    row.forEach(function(c){var d=document.createElement("div");d.className="cday "+c[2];d.innerHTML='<div class="d" style="font-size:1.25rem">'+c[0]+'</div><div class="m">'+c[1]+'</div>';el.appendChild(d)}); });
+  function init(){
+    S={seed:Math.floor(Math.random()*1e9),day:1,ended:false,cur:0,P:[],got:{},msgs:[]};
+    var st=$("street");st.innerHTML="";
+    LV.forEach(function(L,i){
+      var b=document.createElement("button");b.type="button";b.className="house";b.id="h"+i;
+      b.innerHTML=(L.tree?treeSVG():houseSVG(i))+'<span class="hl">'+(L.tree?"Ёлка":L.nm)+'</span><span class="hs" id="hs'+i+'"></span>';
+      b.addEventListener("click",function(){open(i)});
+      st.appendChild(b);
+    });
+    $("dm").innerHTML='<div class="empty">Сообщения бота появятся здесь.</div>';
+    open(0);
+  }
+  function solvedHouses(){var n=0;for(var i=0;i<6;i++)if(S.P[i]&&S.P[i].solved)n++;return n}
+  function treeOpen(){return S.day===2&&solvedHouses()>=4}
+  function getP(i){if(!S.P[i])S.P[i]=build(LV[i],mulberry(S.seed+i*7919));return S.P[i]}
+  function open(i){
+    if(i===6&&!treeOpen()){
+      var need=4-solvedHouses();
+      say(S.day===1?"Ёлка на площади откроется утром Рождества (25.12, 00:00 ET) — для тех, у кого горят 4 дома."+(need>0?" Тебе осталось зажечь: "+need+".":""):"Зажги ещё "+need+" "+(need===1?"дом":"дома")+" — и ёлка откроется.");
+      return;
+    }
+    S.cur=i;renderBoard();renderStreet();
+  }
+  function renderStreet(){
+    LV.forEach(function(L,i){
+      var el=$("h"+i),P=S.P[i],lit=P&&P.solved;
+      el.classList.toggle("lit",!!lit);el.classList.toggle("cur",i===S.cur);
+      var locked=i===6&&!treeOpen();el.classList.toggle("locked",locked&&!lit);
+      $("hs"+i).textContent=lit?"горит":locked?(S.day===1?"утром 25.12":"нужно 4 дома"):(L.size);
+      el.setAttribute("aria-label",(L.tree?"Ёлка":L.nm)+": "+(lit?"горит":locked?"закрыта":"темно"));
+    });
+  }
+  function renderBoard(){
+    var L=LV[S.cur],P=getP(S.cur),g=$("grid");
+    g.innerHTML="";g.style.setProperty("--c",P.C);g.style.gridTemplateColumns="repeat("+P.C+",minmax(0,1fr))";
+    g.className="grid"+(P.solved?" done":"")+(S.ended?" off":"");
+    P.els=[];
+    for(var r=0;r<P.R;r++)for(var c=0;c<P.C;c++){
+      var i=P.at[r+","+c];
+      if(i===undefined){var v=document.createElement("div");v.className="void";g.appendChild(v);continue}
+      var x=P.cells[i],t=document.createElement("button");t.type="button";
+      t.className="tile"+(i===P.src?" src":"")+(x.lock?" lock":"");
+      t.setAttribute("aria-label",i===P.src?"Батарея":x.star?"Звезда":x.bulb?"Лампочка":"Провод");
+      t.innerHTML='<svg class="w" viewBox="0 0 100 100" aria-hidden="true" style="transform:rotate('+(x.rot*90)+'deg)">'+lines(x.sol)+(x.bulb||i===P.src?'':'<circle class="hub" cx="50" cy="50" r="8"/>')+'</svg>'
+        +'<svg class="gh" viewBox="0 0 100 100" aria-hidden="true">'+lines(x.sol)+'</svg>'
+        +(i===P.src?BAT:x.star?STAR:x.bulb?BULB:'');
+      (function(i){t.addEventListener("click",function(){tap(i)})})(i);
+      P.els[i]=t;g.appendChild(t);
+    }
+    $("bTitle").textContent=L.tree?"Ёлка на площади":L.nm;
+    $("next").hidden=true;
+    update(true);
+    say(P.solved?(L.tree?"Ёлка горит. С Рождеством!":L.nm+" уже горит."):S.ended?"Ивент закрыт, свет погас.":L.tree?"Большая сетка. Звезда на макушке — последняя лампочка.":"Поверни провода, чтобы ток дошёл до всех лампочек.");
+  }
+  function update(silent){
+    var P=S.P[S.cur],pw=power(P),lit=0,tot=0;
+    P.cells.forEach(function(x,i){
+      var el=P.els[i];el.classList.toggle("on",!!pw.on[i]);
+      el.querySelector(".w").style.transform="rotate("+(x.rot*90)+"deg)";
+      if(x.bulb){tot++;if(pw.on[i])lit++}
+    });
+    $("bMeta").innerHTML=LV[S.cur].size+" · лампочек горит <b>"+lit+"</b> из "+tot;
+    $("hG").textContent="Golem: плитка на место · "+P.g;$("hS").textContent="Sparky: покажи путь · "+P.sp;
+    $("hG").disabled=P.solved||S.ended||P.g<1;$("hS").disabled=P.solved||S.ended||P.sp<1;
+    $("auto").disabled=P.solved||S.ended;
+    if(pw.all&&!P.solved&&!silent) win();
+  }
+  function tap(i){
+    var P=S.P[S.cur],x=P.cells[i];
+    if(P.solved||S.ended||x.lock)return;
+    x.rot++;update();
+  }
+  function win(){
+    var P=S.P[S.cur],L=LV[S.cur];P.solved=true;
+    $("grid").classList.add("done");
+    renderStreet();
+    var he=$("h"+S.cur);he.classList.add("flick");setTimeout(function(){he.classList.remove("flick")},600);
+    var n=solvedHouses();
+    if(L.tree) say("Ёлка горит! Звезда на макушке зажглась.");
+    else say(L.nm+" горит. В окне — подарок. На улице светло: "+n+" из 6.");
+    tiers();
+    var nx=-1;for(var j=0;j<6;j++)if(!getP(j).solved){nx=j;break}
+    if(!L.tree&&nx>=0){$("next").hidden=false;$("next").textContent=LV[nx].nm+" →";$("next").onclick=function(){open(nx)}}
+    else if(!L.tree&&treeOpen()&&!getP(6).solved){$("next").hidden=false;$("next").textContent="Ёлка на площади →";$("next").onclick=function(){open(6)}}
+    update(true);
+  }
+  function dm(html){
+    S.msgs.unshift(html);
+    $("dm").innerHTML=S.msgs.slice(0,6).map(function(m){return '<div class="msg"><span class="who"><b>Storm Rush</b> · бот ивента · личное сообщение</span>'+m+'</div>'}).join("");
+  }
+  function tiers(){
+    var n=solvedHouses();
+    TIERS.forEach(function(T){
+      if(S.got[T.k])return;
+      var ok=T.need==="tree"?(S.P[6]&&S.P[6].solved):n>=T.need;
+      if(!ok)return;S.got[T.k]=true;
+      if(T.k==="t2")dm("⚡ Two houses glowing on your street! Your reward is ready: <b>1 FP</b>. Hit <b>Claim</b> to get your code.");
+      if(T.k==="t4")dm("🎁 Four houses lit! Your reward is ready: <b>2 FP</b>. Hit <b>Claim</b> to get your code. "+(S.day===2?"And the big tree on the square is open for you now.":"And on Christmas morning the big tree on the square opens for you."));
+      if(T.k==="t6")dm("🏠 The whole street is shining! Your reward is ready: <b>5 FP</b>. Hit <b>Claim</b> to get your code.");
+      if(T.k==="tt")dm("🎄 You lit the Christmas tree! Your gift under the tree: <b>1 SC</b>. Hit <b>Claim</b> to get your code. Merry Christmas from Golem and Sparky!");
+    });
+    renderTiers();
+  }
+  function renderTiers(){
+    $("tiers").innerHTML=TIERS.map(function(T){return '<li class="'+(S.got[T.k]?"got":"")+'"><i></i><span>'+T.t+'</span><em>'+T.p+'</em></li>'}).join("");
+  }
+  function say(t){$("status").textContent=t}
+  $("hG").addEventListener("click",function(){
+    var P=S.P[S.cur];if(P.g<1||P.solved)return;
+    var wrong=[];P.cells.forEach(function(x,i){if(!x.lock&&cur(x)!==x.sol)wrong.push(i)});
+    if(!wrong.length)return;
+    var i=wrong[Math.floor(Math.random()*wrong.length)],x=P.cells[i];
+    for(var k=0;k<4;k++)if(rot(x.sol,x.rot+k)===x.sol){x.rot+=k;break}
+    x.lock=true;P.els[i].classList.add("lock");P.g--;
+    say("Golem поставил плитку на место и держит её — её больше не повернуть.");
+    update();
+  });
+  $("hS").addEventListener("click",function(){
+    var P=S.P[S.cur];if(P.sp<1||P.solved)return;
+    var pw=power(P),dark=[];P.cells.forEach(function(x,i){if(x.bulb&&!pw.on[i])dark.push(i)});
+    if(!dark.length)P.cells.forEach(function(x,i){if(x.bulb)dark.push(i)});
+    var i=dark[Math.floor(Math.random()*dark.length)],path=[];
+    while(i!==-1){path.push(i);i=P.cells[i].par}
+    path.forEach(function(j){P.els[j].classList.add("peek")});
+    setTimeout(function(){path.forEach(function(j){if(P.els[j])P.els[j].classList.remove("peek")})},1500);
+    P.sp--;say("Sparky пробежал по проводу до тёмной лампочки. Запоминай путь!");update(true);
+  });
+  $("auto").addEventListener("click",function(){
+    var P=S.P[S.cur];if(P.solved||S.ended)return;
+    var todo=[];P.cells.forEach(function(x,i){if(cur(x)!==x.sol)todo.push(i)});
+    $("auto").disabled=true;
+    todo.forEach(function(i,n){setTimeout(function(){
+      if(S.P[S.cur]!==P)return;
+      var x=P.cells[i];for(var k=0;k<4;k++)if(rot(x.sol,x.rot+k)===x.sol){x.rot+=k;break}
+      update();
+    },n*45)});
+  });
+  $("dayBtn").addEventListener("click",function(){
+    if(S.day===1){
+      S.day=2;$("clock").textContent="25.12 · Рождество";$("dayBtn").textContent="26.12 23:59 ET · погасить свет";
+      var n=solvedHouses();
+      if(n>=4)dm("🎄 Merry Christmas! The big tree on the square is open for you. Light it up, there's a gift waiting under it.");
+      else dm("🎄 Merry Christmas! Light "+(4-n)+" more "+(4-n===1?"house":"houses")+" and the big tree on the square opens for you. Everything stays open until Dec 26, 11:59 PM ET.");
+      renderStreet();
+      say(n>=4?"Утро Рождества: ёлка открыта — нажми на неё на улице.":"Утро Рождества: дома можно доделывать до 23:59 ET 26.12. Ёлка — после 4 домов.");
+      if(S.P[S.cur].solved&&n>=4&&!getP(6).solved){$("next").hidden=false;$("next").textContent="Ёлка на площади →";$("next").onclick=function(){open(6)}}
+    } else if(!S.ended){
+      S.ended=true;$("clock").textContent="26.12 · 23:59";$("dayBtn").textContent="Ивент закрыт";$("dayBtn").disabled=true;
+      var n2=solvedHouses(),tree=S.P[6]&&S.P[6].solved,off;
+      if(tree)off="Christmas Star Crate · 39.99 · +75%";
+      else if(n2>=6)off="Golem's Battery Crate · 39.99 · +50%";
+      else if(n2>=4)off="Spark Bundle · 19.99 · +40%";
+      else if(n2>=1)off="Frozen Grid Battery · 9.99 · +100%";
+      if(off)dm("✨ Thanks for bringing the lights back. Your Christmas deal for the next 72 hours: <b>"+off+"</b>. Unlock it on the site with code <code>"+code()+"</code>. One per player.");
+      else dm("The storm's gone, but your street stayed dark this time. See you at the next event!");
+      say("23:59 ET: свет гаснет, приём закрыт. Итог: "+n2+" из 6 домов"+(tree?" + ёлка":"")+". Оффер придёт 27.12 утром — в макете уже в личке.");
+      $("grid").classList.add("off");update(true);
+    }
+  });
+  $("reset")&&$("reset").addEventListener("click",init);
+  init();renderTiers();
 
-  // snow + sparks in hero
-  var cv=$("snow"), cx=cv.getContext("2d"), F=[], W=0, H=0;
+  // add a "new street" control under the mockup controls
+  var rb=document.createElement("button");rb.type="button";rb.className="act ghost";rb.textContent="Новая улица";
+  rb.addEventListener("click",function(){$("clock").textContent="24.12 · сочельник";$("dayBtn").textContent="Утро Рождества →";$("dayBtn").disabled=false;init();renderTiers()});
+  document.querySelector(".play .ctl").appendChild(rb);
+
+  // ---------- timeline ----------
+  var TL=[
+    [["12:00","19:00","Сочельник: улица открыта, все 6 домов. «Зажги свет до утра Рождества». Пинг ⚡ Games, пост в #light-up","hot"],["20:00","03:00 · 25.12","Пост: первые светлые улицы из Show my street",""]],
+    [["00:00","07:00","Утро Рождества: ёлка открыта для 4+ домов, личное «Merry Christmas» каждому","hot"],["12:00","19:00","Пост: первые зажжённые ёлки",""],["18:00","01:00 · 26.12","Личное напоминание тем, у кого есть тёмные дома",""]],
+    [["весь день","","Догнать: дома и ёлка открыты",""],["18:00","01:00 · 27.12","Напоминание: до конца 6 часов",""],["23:59","06:59 · 27.12","Свет гаснет, приём закрыт",""],["27.12 · 00:05","07:05","Офферы в личку по уровню, итоговая мозаика улиц","fin"],["до 03.01 · 23:59","04.01 · 06:59","Claim prize открыт; 02.01 — напоминание тем, кто не забрал",""]]
+  ];
+  TL.forEach(function(row,i){var el=$("tl"+i);
+    row.forEach(function(c){var d=document.createElement("div");d.className="cday "+c[3];d.innerHTML='<div class="d">'+c[0]+'</div><div class="kv">'+(c[1]?'Киев '+c[1]:'&nbsp;')+'</div><div class="m">'+c[2]+'</div>';el.appendChild(d)})});
+
+  // ---------- snow in hero ----------
+  var cv=$("snow"),cx=cv.getContext("2d"),F=[],W=0,H=0;
   var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   function size(){var r=cv.getBoundingClientRect();W=cv.width=r.width;H=cv.height=r.height}
-  size(); addEventListener("resize",size);
-  for(var i=0;i<120;i++)F.push({x:Math.random(),y:Math.random(),r:Math.random()*1.8+.4,v:Math.random()*.0018+.0008,sp:Math.random()<.12});
+  size();addEventListener("resize",size);
+  for(var i=0;i<130;i++)F.push({x:Math.random(),y:Math.random(),r:Math.random()*1.8+.4,v:Math.random()*.0018+.0008,sp:Math.random()<.1});
   function draw(){
     cx.clearRect(0,0,W,H);
     F.forEach(function(f){
-      if(!reduce){f.y+=f.v; f.x+=f.v*.45; if(f.y>1){f.y=-.02;f.x=Math.random()} if(f.x>1)f.x-=1;}
+      if(!reduce){f.y+=f.v;f.x+=f.v*.45;if(f.y>1){f.y=-.02;f.x=Math.random()}if(f.x>1)f.x-=1}
       cx.fillStyle=f.sp?"rgba(46,234,255,.85)":"rgba(243,246,245,.7)";
-      cx.beginPath(); cx.arc(f.x*W,f.y*H,f.sp?f.r*.8:f.r,0,6.283); cx.fill();
+      cx.beginPath();cx.arc(f.x*W,f.y*H,f.sp?f.r*.8:f.r,0,6.283);cx.fill();
     });
-    if(!reduce) requestAnimationFrame(draw);
+    if(!reduce)requestAnimationFrame(draw);
   }
   draw();
 })();
 </script>
 
-<a href="../" style="position:fixed;z-index:9999;left:max(12px,env(safe-area-inset-left,0px));bottom:calc(12px + env(safe-area-inset-bottom,0px));padding:8px 14px;border-radius:999px;background:rgba(11,16,32,.82);color:#E8EEFA;font:600 13px/1 system-ui,sans-serif;text-decoration:none;backdrop-filter:blur(6px);border:1px solid rgba(232,238,250,.18)">&larr; &#1042;&#1089;&#1077; &#1080;&#1074;&#1077;&#1085;&#1090;&#1099;</a>
+<nav style="position:fixed;z-index:9999;left:max(12px,env(safe-area-inset-left,0px));bottom:calc(12px + env(safe-area-inset-bottom,0px));display:flex;gap:8px;backdrop-filter:blur(6px)"><a href="../" style="padding:8px 14px;border-radius:999px;background:rgba(11,16,32,.82);color:#E8EEFA;font:600 13px/1 system-ui,sans-serif;text-decoration:none;border:1px solid rgba(232,238,250,.18)">&larr; &#1042;&#1089;&#1077; &#1080;&#1074;&#1077;&#1085;&#1090;&#1099;</a><a href="../offers/#stormrush" style="padding:8px 14px;border-radius:999px;background:rgba(11,16,32,.82);color:#E8EEFA;font:600 13px/1 system-ui,sans-serif;text-decoration:none;border:1px solid rgba(232,238,250,.18)">&#1054;&#1092;&#1092;&#1077;&#1088;&#1099; &rarr;</a></nav>
+
 </body>
 </html>

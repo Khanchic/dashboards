@@ -69,6 +69,12 @@ section{padding-block:30px}
 .t-link span{font-family:var(--f-mono);font-size:12px;color:var(--c)}
 .t-link.pending{color:var(--frost-dim);pointer-events:none}
 
+.offers-cta{display:grid;gap:6px;padding:20px 22px;border:1px solid color-mix(in srgb,var(--gold) 50%,var(--rule));border-radius:8px;background:color-mix(in srgb,var(--gold) 8%,var(--night-2));color:var(--frost);text-decoration:none;max-width:900px}
+.offers-cta b{font-family:var(--f-display);font-size:34px;font-weight:600;line-height:1}
+.offers-cta span:not(.eyebrow){color:var(--frost-dim);max-width:70ch}
+.offers-cta i{font-style:normal;font-family:var(--f-mono);font-size:13px;color:var(--gold)}
+.offers-cta:hover,.offers-cta:focus-visible{background:color-mix(in srgb,var(--gold) 14%,var(--night-2));outline:none}
+
 /* матрица */
 .mx-scroll{overflow-x:auto;border:1px solid var(--rule);border-radius:6px}
 table{border-collapse:collapse;width:100%;min-width:760px;font-size:13px}
@@ -103,17 +109,17 @@ a{color:var(--ice)}
 <main>
 <div class="wrap">
   <header class="top">
-    <div class="eyebrow">Рождество 25–26.12 · Новый год 31.12–01.01 · время ET</div>
+    <div class="eyebrow">Рождество 25–26.12 · Vegas — Новый год 31.12–01.01 · время ET</div>
     <h1>9 брендов.<br><span>9 разных</span> праздничных ивентов.</h1>
-    <p class="lede">На Halloween у нас был один движок и одинаковые конкурсы на шесть брендов. Сейчас делаем наоборот: <b>у каждого бренда своя механика</b> из его мира. Формат короткий: <b>день праздника и один день после</b>. Пять брендов играют на Рождество, четыре — на Новый год. Общий слой (логин, коды, Claim, бот, анти-абуз) строим один раз на базе Witching Hours.</p>
+    <p class="lede">На Halloween у нас был один движок и одинаковые конкурсы на шесть брендов. Сейчас делаем наоборот: <b>у каждого бренда своя механика</b> из его мира. Формат короткий: <b>день праздника и один день после</b>. Главный праздник — <b>Рождество</b>: наши игроки из США, а там оно важнее Нового года. Восемь брендов играют 25–26.12, и в промо, офферах и сроках Рождеству даём больше веса. <b>Vegas Way</b> — единственный на Новом году: полночь над Стрипом — самая «вегасовская» дата. Общий слой (логин, коды, Claim, бот, анти-абуз) строим один раз на базе Witching Hours.</p>
     <div class="facts">
-      <div>Регистрация <b>с 14.12</b></div><div>Репетиции <b>до 18.12 / 24.12</b></div><div>Рождество <b>25–26.12</b></div><div>Новый год <b>31.12–01.01</b></div><div>Призы до <b>05.01</b></div>
+      <div>Регистрация <b>с 14.12</b></div><div>Репетиции <b>до 18.12 / 24.12</b></div><div>Рождество <b>25–26.12</b></div><div>Vegas + офферы НГ <b>31.12–01.01</b></div><div>Призы до <b>05.01</b></div>
     </div>
   </header>
 
   <section id="calendar">
     <h2>Календарь сезона</h2>
-    <p class="sub">У каждого бренда два дня: в первый день основная механика, во второй финал, второй шанс или выдача. Нагрузка на команду делится на два окна, и в каждом идёт не больше пяти ивентов.</p>
+    <p class="sub">У каждого бренда два дня: в первый день основная механика, во второй финал, второй шанс или выдача. Storm стартует раньше, в сочельник 24.12. Восемь ивентов идут в окно 25–26.12, Vegas — 31.12–01.01. Дежурства, промо и выдачу планируем в первую очередь на Рождество.</p>
     <div class="cal-scroll"><div class="cal" id="cal"></div></div>
   </section>
 
@@ -121,6 +127,15 @@ a{color:var(--ice)}
     <h2>Концепты по брендам</h2>
     <p class="sub">В каждой карточке ссылка на страницу бренда: механика, путь игрока, призы, интерактивный макет, техника, промо, риски. «Разработка» — дни только на механику бренда, общий слой (≈10 дней) считается один раз отдельно.</p>
     <div class="tickets" id="tickets"></div>
+  </section>
+
+  <section id="offers">
+    <a class="offers-cta" href="offers/">
+      <span class="eyebrow">Офферы · все 9 брендов</span>
+      <b>Новогодние офферы и награды «бонус + оффер»</b>
+      <span>Сезонная сетка 14.12–03.01 из шести волн, персональные офферы за уровни в ивентах, названия офферов по брендам и данные Power BI о том, что уже продаётся.</span>
+      <i>Открыть →</i>
+    </a>
   </section>
 
   <section id="unique">
@@ -137,10 +152,11 @@ a{color:var(--ice)}
       <div class="rule"><div class="n">2</div><div><h4>Регистрация без скрытых шагов</h4><p>119 человек вошли на сайт, но не нажали Join и не смогли играть. Регистрация теперь <b>внутри основного флоу</b>, вместо ошибки показываем экран «шаг 1» с прямой ссылкой.</p></div></div>
       <div class="rule"><div class="n">3</div><div><h4>Анти-чит по плейтесту</h4><p>Флаг «быстрее человека» ловил обычных игроков. Пороги <b>калибруем на тест-стенде</b> под каждую механику, один флаг = заметка, а не бан.</p></div></div>
       <div class="rule"><div class="n">4</div><div><h4>Главный канал — попап на сайте</h4><p>1251 переход с попапа против 23 с FB, и только 9% участников были новыми для сервера. В каждом концепте есть <b>попап, бродкаст и механика, которая приводит новых</b>.</p></div></div>
-      <div class="rule"><div class="n">5</div><div><h4>Авто-аппрув по умолчанию</h4><p>Ручная проверка заявок тормозила старт. Стафф проверяет <b>только крупные призы</b> на выдаче.</p></div></div>
+      <div class="rule"><div class="n">5</div><div><h4>Апрув — только когда забирают приз</h4><p>Ручная проверка заявок тормозила старт. Теперь <b>заявки до игры нет</b>: играть можно сразу после входа через Discord. Player ID вводится при первом Claim, Александр одобряет, и человек сразу получает все накопленные коды.</p></div></div>
       <div class="rule"><div class="n">6</div><div><h4>Тест-стенд и деплой</h4><p>Сначала тест-сервис с быстрым расписанием, в прод только с ОК Александра. Railway пропускает коммиты, после деплоя проверяем версию.</p></div></div>
       <div class="rule"><div class="n">7</div><div><h4>Репетиция и план Б</h4><p>В однодневном ивенте нет права на сбой. За неделю до окна бренда — <b>полный прогон на тест-стенде</b> по реальному расписанию. На случай падения сервиса или бота у каждого бренда заранее готов план Б: пост вместо live-момента, ручная выдача по export.</p></div></div>
-      <div class="rule"><div class="n">8</div><div><h4>Праздники = выходные</h4><p>25.12 и 01.01 в Украине выходные. <b>Коды выдаются автоматически</b>, вручную проверяем только крупные призы, на окно финала дежурит один человек.</p></div></div>
+      <div class="rule"><div class="n">8</div><div><h4>Награды = бонус + оффер</h4><p>Каждый уровень награды — это бесплатный код и персональный оффер с усиленным бонусом. <b>Покупка не даёт прогресса и не повышает шансы в ивенте</b>: правило sweepstakes, No purchase necessary. Подробности на <a href="offers/">странице офферов</a>.</p></div></div>
+      <div class="rule"><div class="n">9</div><div><h4>Праздники = выходные</h4><p>25.12 и 01.01 в Украине выходные. <b>Коды выдаются автоматически</b>, вручную проверяем только крупные призы, на окно финала дежурит один человек.</p></div></div>
     </div>
   </section>
 
@@ -150,9 +166,9 @@ a{color:var(--ice)}
     <div class="plan">
       <div class="step"><div class="d">до 09.11</div><h4>Выбор и правки</h4><p>Александр утверждает концепты, призовые бюджеты и кто ведёт каждый бренд.</p></div>
       <div class="step"><div class="d">10.11 – 20.11</div><h4>Общий слой</h4><p>Один раз на базе Witching Hours: логин Discord с автодобавлением в сервер, коды из xlsx, Claim prize, бот, анти-абуз, export, тест-стенд.</p></div>
-      <div class="step"><div class="d">21.11 – 11.12</div><h4>Механики брендов</h4><p>Сначала рождественские (NLC, Storm, FWL, SCS, Jumanza), потом новогодние. Параллельно арт в Flow и тексты заданий.</p></div>
-      <div class="step"><div class="d">14.12 – 24.12</div><h4>Регистрация и репетиции</h4><p>Попапы на сайтах, бродкаст, Discord, FB. Полный прогон рождественских брендов до 18.12, новогодних до 24.12.</p></div>
-      <div class="step"><div class="d">25.12 – 05.01</div><h4>Два окна и выдача</h4><p>Рождество 25–26.12, Новый год 31.12–01.01. Выдача кодов до 05.01, затем общий отчёт.</p></div>
+      <div class="step"><div class="d">21.11 – 11.12</div><h4>Механики брендов</h4><p>Все бренды параллельно, в отдельных чатах. Параллельно арт в Flow и тексты заданий.</p></div>
+      <div class="step"><div class="d">14.12 – 24.12</div><h4>Регистрация и репетиции</h4><p>Попапы на сайтах, бродкаст, Discord, FB. Полный прогон рождественских брендов до 18.12 (заморозка деплоя 22.12), Vegas — репетиция до 24.12.</p></div>
+      <div class="step"><div class="d">25.12 – 05.01</div><h4>Рождество и выдача</h4><p>Рождество 25–26.12 (8 брендов), Новый год 31.12–01.01 (Vegas + волна офферов). Выдача кодов до 05.01, затем общий отчёт.</p></div>
     </div>
   </section>
 
@@ -160,12 +176,12 @@ a{color:var(--ice)}
     <h2>Что нужно решить</h2>
     <ol class="asks" id="asks">
       <li><b>Согласование с владельцами.</b> NLC Discord ведёт Ваня, FWL — Степан, DexyPlay скоро переходит Степану. Нужно их согласие или передача концепта.</li>
-      <li><b>Призовые бюджеты (предложения, после перехода на 2 дня).</b> Fire Seven ≈256 SC + 1 750 FP (потолок 531 SC) · Vegas 210 SC + до 670 FP · Dexy 230 SC + до 600 FP · NLC ≈350 SC + 1 400 FP · CoinsMania ≈325 SC + 500 FP · SCS ≈140 SC + 680 FP · Jumanza ≈135 SC + 635 FP · Storm ≈28 SC + 1 000 FP + Bolts · FWL ≈$200 (потолок $400). Итого около 1 700 SC на все бренды против 3–4 тыс. в 12-дневной версии.</li>
-      <li><b>Ночь по Киеву.</b> Полночь ET — это 07:00 по Киеву, вечер 31.12 ET — ночь 01.01 у нас. Нужны дежурные на ночные окна или сдвиг расписаний на более ранние часы ET.</li>
+      <li><b>Призовые бюджеты (предложения, после перехода на 2 дня).</b> Fire Seven ≈75 SC + 410 FP при 80 игроках (потолок ≈180 SC) · Vegas ≈36 SC + 375 FP при 80 игроках (потолок 150 SC) · Dexy 230 SC + до 600 FP · NLC ≈350 SC + 1 400 FP · CoinsMania ≈325 SC + 500 FP · SCS ≈140 SC + 680 FP · Jumanza ≈135 SC + 635 FP · Storm ≈45 SC + ≈500 FP на 100 активных · FWL ≈$200 (потолок $400). Итого около 1 700 SC на все бренды против 3–4 тыс. в 12-дневной версии.</li>
+      <li><b>Ночь по Киеву.</b> Полночь ET — это 07:00 по Киеву, вечер 25.12 ET — ночь 26.12 у нас, полночь 31.12 ET у Vegas — утро 01.01. Нужны дежурные на вечерние закрытия или сдвиг расписаний на более ранние часы ET.</li>
       <li><b>Один промокод на пакет?</b> Можно ли в один код положить SC/FC + FP + GC, или на человека нужно 2–3 кода. От этого зависит объём кодов в админках.</li>
       <li><b>Jumanza.</b> Участвует, только если MVP Safari Club готов. Решение go/no-go 07.12.</li>
-      <li><b>Юрист.</b> Розыгрыши (Vegas, Fire Seven) и конкурс прогнозов (Dexy) нужно проверить по правилам sweepstakes: бесплатное участие (AMOE), skill-конкурс.</li>
-      <li><b>Дежурства.</b> 25.12 днём (пять рождественских ивентов) и 31.12 с 23:30 до 00:30 ET (салют, сейф, коронация в полночь). Кто онлайн?</li>
+      <li><b>Юрист.</b> Оставшиеся розыгрыши и skill-конкурсы с топ-местами проверить по правилам sweepstakes: бесплатное участие (AMOE), skill-конкурс.</li>
+      <li><b>Дежурства.</b> 25.12 весь день и вечером (восемь ивентов одновременно), финалы 26.12 и полночь 31.12 ET у Vegas (салют, Get my reward; решено — дежурный саппорт). Кто онлайн на Рождество?</li>
     </ol>
   </section>
 
@@ -179,14 +195,14 @@ const DOW=["чт","пт","сб","вс","пн","вт","ср","чт","пт"];
 const PEAK=new Set([1,2,7,8]);
 // from/to — индексы в DAYS (0 = 24.12, 8 = 01.01)
 const EVENTS=[
- {slug:"fireseven",brand:"Fire Seven",c:"#D39045",name:"The Seven Seals Gala",cls:"Закрытый клуб + общий сейф",idea:"7 конвертов вечером 31.12, по одному в час с 17:00 ET. Собрал все семь печатей 777 — получил билет на Midnight Gala. В полночь золотой андроид открывает сейф, и чем больше гостей пришло, тем выше уровень для всех. 1 января выдача и розыгрыш.",from:7,to:8,fin:"01.01",base:"WH engine + загадки FWL Doors",days:"≈5.5",owner:"Александр",url:"fireseven/"},
- {slug:"vegasway",brand:"Vegas Way",c:"#01C9FF",name:"Countdown on the Strip",cls:"Фокусы на внимательность + общий салют",idea:"Вечером 31.12 Маг показывает фокусы: напёрстки, угадай карту, исчезающая фишка. Разгадал — Арлекина запускает твою ракету. В полночь все ракеты взлетают в общем салюте над Стрипом, золотые выигрывают. 1 января Encore для тех, кто не успел.",from:7,to:8,fin:"01.01",base:"Witching Hours engine (3D)",days:"≈8",owner:"Александр",url:"vegasway/"},
- {slug:"stormrush",brand:"Storm Rush",c:"#00CC7E",name:"Winter Storm Showdown",cls:"Командная война",idea:"25.12 выбираешь Team Golem или Team Sparky, миссии весь день заряжают шкалу команды. 26.12 реванш, итог битвы и MVP каждой команды.",from:1,to:2,fin:"26.12",base:"Модуль Rewards Rush bot",days:"≈7",owner:"Александр",url:"stormrush/"},
- {slug:"scarletsands",brand:"Scarlet Sands",c:"#FF2058",name:"The North Star Expedition",cls:"Квест по карте",idea:"25.12 шесть подсказок из дневника исследовательницы, раз в два часа: азимут, созвездие, шифр. Ставишь пин и получаешь штамп. Кот прячет бонусы в чате Watchers. 26.12 финальная загадка оазиса.",from:1,to:2,fin:"26.12",base:"WH engine без 3D + карта + Watchers",days:"4–5",owner:"Александр",url:"scarletsands/"},
- {slug:"dexyplay",brand:"DexyPlay",c:"#F939E3",name:"Dexy's Year-End Bracket",cls:"Прогнозы + голосование",idea:"31.12 игрок сразу прогнозирует всю сетку из 16 игр и моментов 2026. Раунды голосования примерно каждые три часа, в полночь Dexy коронует победителя. 1 января итоги и карточки «My 2026 with Dexy».",from:7,to:8,fin:"01.01",base:"Скелет WH + страница сетки",days:"≈8.5",owner:"Александр → Степан",url:"dexyplay/"},
+ {slug:"fireseven",brand:"Fire Seven",c:"#D39045",name:"Crack the 777 Vault",cls:"Личный сейф: 7 замков-кодов",idea:"У каждого свой сейф с 7 замками. 25.12 замки открываются по одному в час с 12:00 ET и доступны до 23:30: подбираешь код из 4 символов за 8 попыток, каждый диск подсказывает отдельно. Дворецкий даёт подсказку за 2 попытки. Награда по числу вскрытых замков, топ-3 — 15/10/5 SC. 26.12 выдача.",from:1,to:2,fin:"26.12",base:"Codebreaker из Witching Hours",days:"≈4",owner:"Александр",url:"fireseven/"},
+ {slug:"vegasway",brand:"Vegas Way",c:"#01C9FF",name:"Countdown on the Strip",cls:"Личное шоу: 6 актов-фокусов, ракета по очкам",idea:"Единственный бренд на Новый год: полночь над Стрипом — самая «вегасовская» дата. 31.12 Маг открывает 6 актов (по одному в час с 12:00 ET, все до 23:30): напёрстки, карта на память, загадка Мага, финал Арлекины. Очки за раунды → ракета: искра, красная, голубая или золотая — приз гарантирован по уровню. В полночь салют всех ракет и Get my reward; 1 января Encore для несыгранных актов.",from:7,to:8,fin:"01.01",base:"Движок Witching Hours + 3D-бульвар vegasway",days:"≈6",owner:"Александр",url:"vegasway/"},
+ {slug:"stormrush",brand:"Storm Rush",c:"#00CC7E",name:"Light Up Christmas",cls:"Личная головоломка: зажги улицу",idea:"Гроза выбила свет в городке. С сочельника 24.12 у каждого своя улица из 6 тёмных домов: поворачиваешь куски провода, пока ток от батареи Golem не дойдёт до всех лампочек. Утром 25.12 для 4+ домов — ёлка на площади, всё открыто до 26.12. Награды уровнями.",from:0,to:2,fin:"26.12",base:"Общий слой Witching Hours (без Rewards Rush)",days:"≈4,5",owner:"Александр",url:"stormrush/"},
+ {slug:"scarletsands",brand:"Scarlet Sands",c:"#FF2058",name:"The North Star Expedition",cls:"Квест по карте",idea:"У каждого своя карта пустыни и свои 6 находок из 20 (2 лёгкие, 2 средние, 2 трудные). 25.12 три главы в 11/15/19 ET: пин → «горячо/холодно» → штамп. Кот Saffron даёт подсказки только в чате Watchers. 26.12 оазис по своим находкам; собравшим всё — супер-игра Golden Compass, розыгрыш 50 SC.",from:1,to:2,fin:"26.12",base:"Общий слой WH + модуль northstar (готов, 15 тестов + e2e)",days:"≈4,5",owner:"Александр",url:"scarletsands/"},
+ {slug:"dexyplay",brand:"DexyPlay",c:"#F939E3",name:"Dexy's Holiday Stream: Tag the City",cls:"Граффити-головоломки в эфире",idea:"Город посерел, Dexy в эфире расписывает его неоном. У каждого своя улица из 6 стен; стена — picross 5×5…10×10, картинка-сюрприз своя у каждого. Решил — стена горит, алерт и реплика Dexy. 25.12 стены открываются в 00:00 и 12:00 ET, 26.12 мурал для 4+ стен. Мест и розыгрышей нет.",from:1,to:2,fin:"26.12",base:"Общий слой WH + модуль tagwall (готов, 13 тестов)",days:"≈3,5",owner:"Александр → Степан",url:"dexyplay/"},
  {slug:"nolimitcoins",brand:"NoLimitCoins",c:"#FDC010",name:"Coiny's Gift Exchange",cls:"Обмен подарками",idea:"25.12 у каждого пять подарочных кубов ∞, дарить их можно только другим игрокам. Подарки растят общее Infinity Tree, кольца мультиаккаунтов отсекаются. 26.12 ответный подарок и итог дерева.",from:1,to:2,fin:"26.12",base:"WH engine без 3D + онлайн-чат",days:"4",owner:"Ваня / Александр (чат)",url:"nolimitcoins/"},
  {slug:"fortunewheelz",brand:"Fortune Wheelz",c:"#22C27A",name:"Build Your Wheel",cls:"Сборка личного колеса",idea:"25.12 двенадцать дверей открываются по одной в час. Каждое решённое задание улучшает сегмент твоего личного колеса: базовый, серебро, золото. 26.12 каждый один раз крутит своё колесо.",from:1,to:2,fin:"26.12",base:"FWL Doors bot (форк)",days:"4 + 1 QA",owner:"Степан",url:"fortunewheelz/"},
- {slug:"coinsmania",brand:"CoinsMania",c:"#6F7BFF",name:"Piggy Bank Countdown",cls:"Копилка со сложным процентом",idea:"Весь вечер 31.12 Flash Drop бросает монеты в личную копилку, процент начисляется каждый час. 1 января Hammer Day: разбиваешь копилку и получаешь приз уровня по балансу.",from:7,to:8,fin:"01.01",base:"Flash Drop bot + страница",days:"3",owner:"Александр",url:"coinsmania/"},
+ {slug:"coinsmania",brand:"CoinsMania",c:"#6F7BFF",name:"Piggy Bank Countdown",cls:"Копилка со сложным процентом",idea:"⚠ Переезжает с 31.12 на Рождество — даты, название и скин пересобирает чат бренда. Flash Drop бросает монеты в личную копилку, на второй день Hammer Day: разбиваешь копилку и получаешь приз уровня по балансу.",from:1,to:2,fin:"26.12",base:"Flash Drop bot + страница",days:"3",owner:"Александр",url:"coinsmania/"},
  {slug:"jumanza",brand:"Jumanza",c:"#F1D627",name:"The Great Winter Migration",cls:"Сезонный альбом в игре",idea:"25.12 День миграции в фотоохоте Safari Club: зимние мигрирующие виды и праздничный альбом. 26.12 Час Золотого льва. Только если MVP Safari Club готов, решение 07.12.",from:1,to:2,fin:"26.12",base:"Safari Club (только если MVP готов)",days:"3 поверх MVP",owner:"Александр",url:"jumanza/"}
 ];
 const LOGOS={fireseven:1,vegasway:1,stormrush:1,scarletsands:1,dexyplay:1,nolimitcoins:1,jumanza:1,taofortune:1,fortunewheelz:1,coinsmania:1};
@@ -218,8 +234,8 @@ document.getElementById("tickets").innerHTML=EVENTS.map(e=>`
 
 // матрица уникальности
 const COLS=["Головоломка/квест","Мини-игры на навык","Прогнозы","Команды","Социальное дарение","Копилка/накопление","Коллекция","Сборка к финалу","Общая цель комьюнити"];
-const MAIN={fireseven:8,vegasway:1,stormrush:3,scarletsands:0,dexyplay:2,nolimitcoins:4,fortunewheelz:7,coinsmania:5,jumanza:6};
-const SEC={fireseven:[0,6],vegasway:[8],stormrush:[8],scarletsands:[6],dexyplay:[],nolimitcoins:[8],fortunewheelz:[1],coinsmania:[],jumanza:[1]};
+const MAIN={fireseven:0,vegasway:1,stormrush:0,scarletsands:0,dexyplay:0,nolimitcoins:4,fortunewheelz:7,coinsmania:5,jumanza:6};
+const SEC={fireseven:[6],vegasway:[8],stormrush:[7],scarletsands:[6],dexyplay:[7],nolimitcoins:[8],fortunewheelz:[1],coinsmania:[],jumanza:[1]};
 let t="<thead><tr><th>Бренд</th>"+COLS.map(c=>`<th>${c}</th>`).join("")+"</tr></thead><tbody>";
 EVENTS.forEach(e=>{t+=`<tr style="--c:${e.c}"><td><b>${e.brand}</b></td>`+COLS.map((c,i)=>MAIN[e.slug]===i?`<td class="c on"><span>★</span></td>`:(SEC[e.slug]||[]).includes(i)?`<td class="c">·</td>`:`<td class="c"></td>`).join("")+"</tr>"});
 document.getElementById("mx").innerHTML=t+"</tbody>";

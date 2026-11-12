@@ -12,13 +12,14 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=Caveat:wght@500;700&family=DM+Mono:wght@500&display=swap">
 <style>
-/* Layout: экспедиционный журнал — ночь в красной пустыне, разделы = листы журнала, в центре пергаментная карта и паспорт со штампами */
+/* Layout: экспедиционный журнал — ночь в красной пустыне, разделы = листы журнала, в центре личная пергаментная карта и паспорт */
 :root{
   --night:#0B0B20; --night-2:#15122C; --night-3:#1E1736;
   --crimson:#FF2058; --cta:#DB0037; --desert:#540B2B;
   --sand:#E4B473; --gold:#FFE229;
   --paper:#EBCB93; --paper-2:#D9AF6E; --ink:#4A1A0C; --ink-soft:rgba(74,26,12,.55);
   --text:#F3E6D2; --muted:#B9A58C; --line:rgba(228,180,115,.22);
+  --hot:#DB0037; --warm:#C77B1E; --cold:#3B5BA9;
   --display:"Archivo Black","Arial Black",Impact,sans-serif;
   --body:"DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
   --hand:"Caveat","Segoe Print","Bradley Hand",cursive;
@@ -30,19 +31,35 @@ body{background:var(--night);color:var(--text);font:16px/1.6 var(--body);-webkit
 h1,h2,h3{font-family:var(--display);font-weight:400;letter-spacing:.005em;text-wrap:balance;margin:0}
 p{margin:0}
 a{color:var(--sand)}
+code{font:500 .9em var(--mono);color:var(--sand)}
 .wrap{max-width:1160px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 :focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 
-/* гирлянда лагеря */
 .lights{position:relative;height:34px;overflow:hidden;background:var(--night)}
 .lights svg{position:absolute;inset:0;width:100%;height:100%}
 .bulb{animation:tw 2.8s ease-in-out infinite}
 @keyframes tw{0%,100%{opacity:1}50%{opacity:.35}}
 
 /* HERO */
-.hero{position:relative;overflow:hidden;background:var(--night) url(assets/bg-dunes.jpg) center bottom/cover no-repeat;border-bottom:1px solid var(--line)}
-.hero::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,11,32,.92) 0%,rgba(11,11,32,.55) 45%,rgba(84,11,43,.35) 100%)}
-#sky{position:absolute;inset:0;width:100%;height:100%}
+.hero{position:relative;overflow:hidden;background:var(--night) url(assets/art/hero-camp.jpg) 70% center/cover no-repeat;border-bottom:1px solid var(--line);min-height:min(56vw,640px)}
+.hero::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(11,11,32,.9) 0%,rgba(11,11,32,.6) 38%,rgba(11,11,32,0) 62%)}
+#sky,.hero-art{display:none}
+.gallery{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:16px}
+.gallery figure{margin:0;grid-column:span 2}
+.gallery figure.wide{grid-column:span 3}
+.gallery img{display:block;width:100%;height:auto;border-radius:4px;box-shadow:0 12px 28px rgba(0,0,0,.45)}
+.gallery figcaption{margin-top:8px;font-size:13.5px;color:var(--muted)}
+.gallery figcaption b{display:block;color:var(--sand);font:500 11px/1.3 var(--mono);letter-spacing:.08em;text-transform:uppercase;margin-bottom:2px}
+.icons-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px;background:url(assets/map/parchment.jpg) center/cover;padding:14px;border-radius:4px}
+.icons-row img{width:64px;height:64px;object-fit:contain}
+.st{font:500 12px/1 var(--mono);white-space:nowrap}
+.st.ok{color:#7bd88f}.st.todo{color:var(--crimson)}.st.wait{color:var(--gold)}
+td.when{font:500 13px/1.4 var(--mono);color:var(--sand);white-space:nowrap}
+.cat-say{font-style:italic;color:var(--text)}
+.cp{margin-left:8px;font:500 11px/1 var(--mono);text-transform:uppercase;letter-spacing:.06em;background:transparent;border:1px solid var(--sand);color:var(--sand);padding:6px 8px;border-radius:2px;cursor:pointer;vertical-align:middle}
+.note-box{margin-top:20px;background:var(--night-2);border-left:3px solid var(--crimson);padding:14px 18px;font-size:14.5px}
+.note-box b{color:var(--gold)}
+@media (max-width:760px){.gallery{grid-template-columns:1fr}.gallery figure,.gallery figure.wide{grid-column:auto}.hero{background-position:72% center}.hero::before{background:linear-gradient(180deg,rgba(11,11,32,.9) 0%,rgba(11,11,32,.72) 60%,rgba(11,11,32,.35) 100%)}}
 .hero .wrap{position:relative;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);gap:24px;align-items:end;padding-block:40px 0}
 .hero-copy{padding-bottom:56px}
 .logo{width:min(240px,60vw);height:auto;display:block;margin-bottom:28px}
@@ -62,7 +79,7 @@ section{padding-block:72px;border-bottom:1px solid var(--line)}
 .sheet-head{display:grid;grid-template-columns:auto 1fr;gap:6px 18px;align-items:baseline;margin-bottom:32px}
 .sheet-no{font:500 12px/1 var(--mono);letter-spacing:.14em;color:var(--crimson);text-transform:uppercase;grid-row:span 2;padding-top:10px;border-top:2px solid var(--crimson)}
 .sheet-head h2{font-size:clamp(26px,3.6vw,40px);line-height:1.05;color:var(--gold);text-transform:uppercase}
-.sheet-head p{color:var(--muted);max-width:62ch}
+.sheet-head p{color:var(--muted);max-width:66ch}
 .lede{font-size:clamp(18px,2vw,21px);line-height:1.55;max-width:62ch}
 .lede strong{color:var(--sand)}
 .two{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:40px;align-items:start}
@@ -71,25 +88,37 @@ section{padding-block:72px;border-bottom:1px solid var(--line)}
 .why ul{margin:0;padding-left:18px;display:grid;gap:8px}
 .owner{margin-top:22px;font:500 13px/1.4 var(--mono);color:var(--muted)}
 .owner b{color:var(--sand);font-weight:500}
+.ladder{margin-top:44px;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;border-top:1px solid var(--line)}
+.ladder div{padding:16px 18px 16px 0;border-bottom:1px solid var(--line);font-size:14.5px;position:relative}
+.ladder b{display:block;font:400 18px/1.1 var(--display);color:var(--gold);text-transform:uppercase;margin-bottom:6px}
+.ladder span{display:block;font:500 11px/1.3 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--sand);margin-bottom:6px}
+.ladder .top b{color:var(--crimson)}
 
 /* MAP DEMO */
 .demo{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:28px;align-items:start}
 .diary{background:var(--paper);color:var(--ink);border-radius:3px;padding:18px 20px 16px;position:relative;box-shadow:0 1px 0 var(--paper-2),0 14px 30px rgba(0,0,0,.45)}
 .diary::after{content:"";position:absolute;left:14px;right:14px;top:0;height:6px;background:repeating-linear-gradient(90deg,var(--ink-soft) 0 2px,transparent 2px 14px);opacity:.35}
 .tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
-.tabs button{font:500 12px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;padding:9px 11px;border:1px solid var(--ink-soft);background:transparent;color:var(--ink);border-radius:2px;cursor:pointer}
+.tabs button{font:500 11.5px/1 var(--mono);letter-spacing:.04em;text-transform:uppercase;padding:9px 10px;border:1px solid var(--ink-soft);background:transparent;color:var(--ink);border-radius:2px;cursor:pointer}
 .tabs button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
 .tabs button .ok{color:var(--cta)}
 .tabs button[aria-pressed="true"] .ok{color:var(--gold)}
-.diary-date{font:500 12px/1 var(--mono);letter-spacing:.08em;color:var(--ink-soft);text-transform:uppercase}
+.tabs .sep{flex-basis:100%;height:0}
+.diary-date{font:500 12px/1.3 var(--mono);letter-spacing:.08em;color:var(--ink-soft);text-transform:uppercase}
+.diary-date .tier{display:inline-block;padding:2px 6px;border-radius:2px;color:#fff;margin-left:6px;letter-spacing:.06em}
+.tier.t1{background:#2f7a3a}.tier.t2{background:var(--warm)}.tier.t3{background:var(--cta)}.tier.t4{background:#7a5a00}
 .diary-text{font:600 clamp(22px,2.4vw,27px)/1.22 var(--hand);margin:8px 0 6px;min-height:3.6em}
-.diary-text .cipher{font-family:var(--mono);font-size:.62em;letter-spacing:.12em;background:rgba(74,26,12,.08);padding:2px 6px;display:inline-block;margin:4px 0}
-.constel{display:block;margin:6px 0 2px}
 .status{font:500 14px/1.45 var(--body);min-height:2.9em;margin-top:6px;display:flex;gap:10px;align-items:flex-start}
 .status .tries{font:500 12px/1 var(--mono);white-space:nowrap;padding:5px 7px;border:1px solid var(--ink-soft);border-radius:2px;margin-top:1px}
 .status.good{color:#14632a}.status.bad{color:var(--cta)}
+.heat{font:500 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;padding:4px 6px;border-radius:2px;color:#fff;white-space:nowrap}
+.heat.hot{background:var(--hot)}.heat.warm{background:var(--warm)}.heat.cold{background:var(--cold)}
 
-.mapbox{margin-top:16px;position:relative;border-radius:3px;overflow:hidden;box-shadow:0 18px 40px rgba(0,0,0,.55);background:var(--paper)}
+.seedbar{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;margin-top:16px;font-size:14px;color:var(--muted)}
+.seedbar b{font:500 13px/1 var(--mono);color:var(--gold)}
+.seedbar button,.reset{font:500 12px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;background:transparent;border:1px solid var(--sand);color:var(--sand);padding:9px 12px;border-radius:2px;cursor:pointer}
+.seedbar button{border-color:var(--crimson);color:var(--crimson)}
+.mapbox{margin-top:10px;position:relative;border-radius:3px;overflow:hidden;box-shadow:0 18px 40px rgba(0,0,0,.55);background:var(--paper)}
 #map{display:block;width:100%;height:auto;touch-action:manipulation}
 #map .cell{fill:transparent;cursor:crosshair}
 #map .cell:hover,#map .cell:focus{fill:rgba(219,0,55,.12);outline:none}
@@ -99,21 +128,35 @@ section{padding-block:72px;border-bottom:1px solid var(--line)}
 .watchers{margin-top:14px;display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;background:var(--night-2);border:1px solid var(--line);border-radius:3px;padding:12px 14px;font-size:14px}
 .watchers .av{width:34px;height:34px;border-radius:50%;background:var(--desert) url(assets/mascot-3.png) center 18%/150% no-repeat;border:1px solid var(--crimson)}
 .watchers .who{font:500 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--crimson);margin-bottom:4px}
+.watchers .en{font-style:italic;color:var(--text)}
+.watchers .note{display:block;margin-top:4px;color:var(--muted);font-size:13px}
 
-.passport{background:var(--desert);border-radius:4px 10px 10px 4px;padding:18px 16px 16px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px);box-shadow:inset 6px 0 0 rgba(0,0,0,.25),0 18px 40px rgba(0,0,0,.5)}
+.passport{background:var(--desert);border-radius:4px 10px 10px 4px;padding:18px 16px 16px;overflow:hidden;position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px);box-shadow:inset 6px 0 0 rgba(0,0,0,.25),0 18px 40px rgba(0,0,0,.5)}
 .passport h3{font-size:15px;color:var(--gold);text-transform:uppercase;letter-spacing:.04em}
-.passport .sub{font:500 11px/1.3 var(--mono);color:var(--sand);letter-spacing:.08em;text-transform:uppercase;margin:4px 0 14px}
+.passport .sub{font:500 11px/1.3 var(--mono);color:var(--sand);letter-spacing:.08em;text-transform:uppercase;margin:4px 0 6px}
+.pp-label{font:500 10px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:rgba(228,180,115,.75);margin:12px 0 8px}
 .stamps{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.paws{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
 .slot{aspect-ratio:1;max-width:100%;border:1.5px dashed rgba(228,180,115,.45);border-radius:50%;display:grid;place-items:center;font:500 11px/1.1 var(--mono);color:rgba(228,180,115,.7);text-align:center;position:relative}
-.slot.demo{border-color:var(--sand);color:var(--sand)}
 .slot svg{position:absolute;inset:-4px;width:calc(100% + 8px);height:calc(100% + 8px);transform:rotate(-14deg) scale(1.6);opacity:0;transition:transform .35s cubic-bezier(.2,1.4,.4,1),opacity .15s}
 .slot.stamped svg{transform:rotate(-14deg) scale(1);opacity:1}
-.slot.star{border-style:solid;border-color:var(--gold);color:var(--gold)}
-.pp-foot{margin-top:14px;font-size:13px;line-height:1.45;color:var(--sand)}
+.slot.stamped .lbl{opacity:0}
+.slot.missed{border-style:solid;border-color:rgba(228,180,115,.25);color:rgba(228,180,115,.4)}
+.big-slot{margin-top:10px;border:1.5px dashed var(--gold);border-radius:999px;padding:9px 12px;font:500 11px/1.2 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--gold);text-align:center}
+.big-slot.stamped{background:var(--gold);color:var(--night);border-style:solid}
+.big-slot.locked{border-color:rgba(255,226,41,.35);color:rgba(255,226,41,.5)}
+.big-slot.super.stamped{background:linear-gradient(90deg,#FFE229,#E4B473,#FFE229);box-shadow:0 0 18px rgba(255,226,41,.5)}
+.tiers{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:6px;font-size:13px}
+.tiers li{display:grid;grid-template-columns:18px 1fr;gap:6px;color:rgba(243,230,210,.6)}
+.tiers li::before{content:"○";color:var(--sand)}
+.tiers li.on{color:var(--text)}
+.tiers li.on::before{content:"●";color:var(--gold)}
+.tiers b{color:var(--gold);font-weight:500}
+.pp-foot{margin-top:12px;font-size:13px;line-height:1.45;color:var(--sand)}
 .pp-foot b{color:var(--gold)}
-.reset{margin-top:12px;font:500 12px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;background:transparent;border:1px solid var(--sand);color:var(--sand);padding:9px 12px;border-radius:2px;cursor:pointer}
-.final-note{margin-top:14px;padding:12px;border:1px solid var(--gold);border-radius:3px;font-size:13px;color:var(--text)}
-.final-note b{color:var(--gold)}
+.offer-box{margin-top:12px;padding:10px 12px;border:1px solid var(--gold);border-radius:3px;font-size:13px}
+.offer-box b{color:var(--gold)}
+.reset{margin-top:12px}
 
 /* path */
 .path{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;counter-reset:st}
@@ -124,16 +167,7 @@ section{padding-block:72px;border-bottom:1px solid var(--line)}
 .path h3{font-size:16px;color:var(--sand);text-transform:uppercase;margin-bottom:6px;line-height:1.15}
 .path p{font-size:15px;color:var(--text)}
 
-/* calendar */
-.cal{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:6px}
-.day{background:var(--night-2);border-top:3px solid var(--desert);padding:10px 8px 12px;min-width:0}
-.day .d{font:400 20px/1 var(--display);color:var(--text)}
-.day .w{font:500 10px/1 var(--mono);letter-spacing:.08em;color:var(--muted);text-transform:uppercase;margin:4px 0 10px}
-.day .k{font:500 10px/1.1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--sand)}
-.day p{font-size:12.5px;line-height:1.35;margin-top:6px;color:var(--text)}
-.day.peak{border-top-color:var(--gold);background:linear-gradient(180deg,rgba(255,226,41,.08),var(--night-2) 60%)}
-.day.peak .d{color:var(--gold)}
-.day.fin{border-top-color:var(--crimson);background:linear-gradient(180deg,rgba(255,32,88,.16),var(--night-2) 70%)}
+/* timeline */
 .cal-legend{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:14px;font:500 12px/1.3 var(--mono);color:var(--muted)}
 .cal-legend i{display:inline-block;width:14px;height:3px;vertical-align:middle;margin-right:6px}
 .tl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
@@ -146,21 +180,29 @@ section{padding-block:72px;border-bottom:1px solid var(--line)}
 .tl-day time{font:500 15px/1.2 var(--mono);color:var(--text);font-variant-numeric:tabular-nums}
 .tl-day time small{display:block;font-size:11px;color:var(--muted);margin-top:3px}
 .tl-day li b{display:block;font:400 14px/1.2 var(--display);text-transform:uppercase;letter-spacing:.02em;margin-bottom:2px}
-.tl-day li.pg b{color:var(--sand)}.tl-day li.cat b{color:var(--crimson)}.tl-day li.fx b{color:var(--gold)}
+.tl-day li.pg b{color:var(--sand)}.tl-day li.cat b{color:var(--crimson)}.tl-day li.fx b{color:var(--gold)}.tl-day li.dm b{color:var(--muted)}
 .cols2 .blk.alarm{border-left:2px solid var(--crimson);padding-left:18px}
-.rh{list-style:none;margin:0;padding:0;display:grid;gap:0;counter-reset:rh}
-.rh li{counter-increment:rh;display:grid;grid-template-columns:120px minmax(0,1fr);gap:18px;padding:13px 0;border-bottom:1px solid var(--line);font-size:15px}
+.rh{list-style:none;margin:0;padding:0;display:grid;gap:0}
+.rh li{display:grid;grid-template-columns:120px minmax(0,1fr);gap:18px;padding:13px 0;border-bottom:1px solid var(--line);font-size:15px}
 .rh li span:first-child{font:500 13px/1.4 var(--mono);color:var(--sand)}
 
 /* tables */
 .tbl{overflow-x:auto;border:1px solid var(--line);border-radius:3px}
+h3.tbl-h{font-size:16px;color:var(--sand);text-transform:uppercase;margin:32px 0 12px}
 table{border-collapse:collapse;width:100%;min-width:640px;font-size:15px}
 th,td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top}
 th{font:500 11px/1.2 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--sand);background:var(--night-2)}
 td.n{font-family:var(--mono);font-size:14px;white-space:nowrap;font-variant-numeric:tabular-nums;color:var(--gold)}
+td.en{font-style:italic;color:var(--text)}
+td.k{font:500 13px/1.4 var(--mono);color:var(--sand);white-space:nowrap}
+tr.catrow td.k{color:var(--crimson)}
+tr.oasisrow td{background:rgba(255,226,41,.05)}
+tr.superrow td{background:rgba(255,32,88,.08)}
+tr.tierhead td{background:var(--night-3);font:500 11px/1.2 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}
 tr:last-child td{border-bottom:0}
 tfoot td{background:var(--night-2);font-weight:700}
 .tag{display:inline-block;font:500 10px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--night);background:var(--sand);padding:4px 6px;border-radius:2px;margin-left:8px;vertical-align:middle}
+.tag.ok{background:#7bd88f}
 .limits{margin-top:20px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
 .limits div{border-top:1px solid var(--crimson);padding-top:10px;font-size:14.5px}
 .limits b{display:block;color:var(--sand);font:500 11px/1.3 var(--mono);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
@@ -175,7 +217,9 @@ tfoot td{background:var(--night-2);font-weight:700}
 .est div{background:var(--night-2);border:1px solid var(--line);padding:14px 16px;border-radius:3px;min-width:150px;flex:1 1 150px}
 .est b{display:block;font:400 30px/1 var(--display);color:var(--gold)}
 .est span{font-size:13px;color:var(--muted)}
-.kpi{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border-top:1px solid var(--line)}
+.check{margin-top:28px;background:var(--night-2);border-left:3px solid var(--gold);padding:14px 18px;font-size:14.5px}
+.check b{color:var(--gold)}
+.kpi{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;border-top:1px solid var(--line)}
 .kpi div{padding:18px 16px 18px 0;border-bottom:1px solid var(--line)}
 .kpi b{display:block;font:400 clamp(28px,3.4vw,40px)/1 var(--display);color:var(--gold);font-variant-numeric:tabular-nums}
 .kpi span{display:block;margin-top:8px;font-size:14px;color:var(--text)}
@@ -187,6 +231,9 @@ tfoot td{background:var(--night-2);font-weight:700}
 .q{counter-reset:q;list-style:none;padding:0;margin:0;display:grid;gap:12px}
 .q li{counter-increment:q;display:grid;grid-template-columns:34px 1fr;gap:10px;font-size:15.5px}
 .q li::before{content:"Q" counter(q);font:500 12px/1.6 var(--mono);color:var(--gold)}
+.q li em{font-style:normal;color:var(--muted)}
+.decided{list-style:none;margin:0 0 22px;padding:0;display:grid;gap:6px;font-size:14.5px}
+.decided li::before{content:"✓ ";color:#7bd88f}
 
 /* post */
 .post{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:32px;align-items:end}
@@ -202,27 +249,24 @@ tfoot td{background:var(--night-2);font-weight:700}
 footer{padding-block:34px 48px;color:var(--muted);font-size:13px}
 
 @media (max-width:980px){
-  .cal{grid-template-columns:repeat(6,minmax(0,1fr))}
   .path{grid-template-columns:1fr;gap:18px}
   .path li{display:grid;grid-template-columns:38px 1fr;gap:4px 14px;padding:0}
   .path li::before{margin:0;grid-row:span 2}
   .path li::after{display:none}
   .demo{grid-template-columns:1fr}
   .passport{position:static}
-  .stamps{grid-template-columns:repeat(6,1fr)}
   .kpi{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ladder{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media (max-width:760px){
   .hero .wrap{grid-template-columns:1fr}
   .hero-copy{padding-bottom:8px}
   .hero-art{justify-self:center;max-width:220px}
   .hero-art img.cat{left:-62%}
-  .two,.cols3,.cols2,.post,.limits,.tl{grid-template-columns:1fr}
+  .two,.cols3,.cols2,.post,.limits,.tl,.ladder{grid-template-columns:1fr}
   .rh li{grid-template-columns:1fr;gap:4px}
   .tl-day li{grid-template-columns:78px minmax(0,1fr)}
-  .cal{grid-template-columns:repeat(3,minmax(0,1fr))}
   .lessons li{grid-template-columns:1fr;gap:4px}
-  .stamps{grid-template-columns:repeat(3,1fr)}
   section{padding-block:52px}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
@@ -235,14 +279,14 @@ footer{padding-block:34px 48px;color:var(--muted);font-size:13px}
   <div class="wrap">
     <div class="hero-copy">
       <img class="logo" src="assets/logo.png" alt="Scarlet Sands" width="856" height="184">
-      <div class="eyebrow">Рождество 1+1 · концепт · предложение</div>
+      <div class="eyebrow">Рождество 1+1 · утверждено · механика и арт готовы · 12.11</div>
       <h1>The North Star Expedition<span>Scarlet Sands · Christmas 2026</span></h1>
-      <p class="slogan">Six diary pages on Christmas Day. One oasis the day after.</p>
+      <p class="slogan">Twenty lost treasures. Six are yours. A desert that's only yours.</p>
       <div class="dates">
-        <div><b>14.12</b>регистрация и паспорт</div>
-        <div><b>25.12 · 10:00–20:00</b>6 страниц, раз в 2 часа, ET</div>
-        <div><b>26.12 · 12:00–17:00</b>загадка оазиса, ET</div>
-        <div><b>26.12 · 17:30</b>розыгрыш сундука</div>
+        <div><b>18.12</b>паспорт и страница 0</div>
+        <div><b>25.12 · 11 / 15 / 19</b>3 главы, 6 находок, ET</div>
+        <div><b>26.12</b>оазис и супер-игра</div>
+        <div><b>27.12</b>Golden Compass: 50 SC</div>
       </div>
     </div>
     <div class="hero-art">
@@ -256,26 +300,33 @@ footer{padding-block:34px 48px;color:var(--muted);font-size:13px}
 <main>
 <section id="idea">
   <div class="wrap">
-    <div class="sheet-head"><span class="sheet-no">Лист 01</span><h2>Идея</h2><p>Формат 1+1: Рождество и день после. Не конкурс на скорость, а маршрут, который собираешь за один праздничный день.</p></div>
+    <div class="sheet-head"><span class="sheet-no">Лист 01</span><h2>Идея</h2><p>Формат 1+1: Рождество и день после. Каждый игрок проходит свою экспедицию на своей карте. Скорость ничего не решает.</p></div>
     <div class="two">
-      <p class="lede">25 декабря исследовательница публикует <strong>6 страниц дневника, по одной раз в 2 часа</strong>: азимут, шифр или созвездие. Игрок читает подсказку и ставит пин на пергаментной карте Scarlet Sands. Попал — в его <strong>паспорт экспедиции</strong> ложится штамп. Рыжий кот тем временем прячет по дюнам находки и выдаёт себя в чате Watchers. 26 декабря шесть пинов складываются в последнюю загадку: <strong>где оазис Северной звезды</strong>.</p>
+      <p class="lede">Буря раскидала по пустыне <strong>20 рождественских вещей</strong> исследовательницы: компас, шарф, кружку какао, колокольчик, щелкунчика… Каждому игроку выпадает <strong>6 из 20</strong>: 2 лёгкие, 2 средние, 2 трудные, по главе на каждый уровень. Карта тоже <strong>у каждого своя</strong>: обелиск, колодец, сфинкс и ещё 7 ориентиров стоят в других местах. Страница дневника говорит, где искать («от колодца 2 клетки к Северной звезде»), игрок ставит пин, попал — штамп в <strong>паспорт экспедиции</strong>. Рыжий кот выдаёт себя только в чате Watchers, его лапка — тоже штамп. 26.12 находки ведут к <strong>оазису</strong>, а тех, кто собрал всё, ждёт <strong>супер-игра Golden Compass</strong>.</p>
       <div class="why">
         <h3>Почему это Scarlet Sands</h3>
         <ul>
-          <li>Мир бренда и так про экспедицию: красная пустыня, руины, карты, свитки, компас, лагерь у костра.</li>
-          <li>Маскоты готовы к сюжету: исследовательница ведёт дневник, кот в пробковом шлеме прячет находки. Ничего не надо придумывать заново.</li>
-          <li>У SCS есть свой онлайн-чат Watchers, в нём живут подсказки кота. Ивент тянет людей и в Discord, и в чат на сайте.</li>
-          <li>Механика тихая и умная, на внимательность. Другие бренды на эти праздники берут скорость, голосование и подарки.</li>
+          <li>Мир бренда и так про экспедицию: красная пустыня, руины, карты, компас, лагерь у костра.</li>
+          <li>Маскоты сами просятся в сюжет: исследовательница ведёт дневник, кот в пробковом шлеме прячется.</li>
+          <li>Кот в Watchers — единственный новогодний ивент, который связывает Discord и онлайн-чат сайта (а это $38.9k продаж).</li>
+          <li>Тихая механика на внимательность, хорошо ложится на семейное Рождество: зашёл вечером — прошёл всё.</li>
         </ul>
-        <p class="owner">Ведёт бренд: <b>Александр</b> (Discord, FB, онлайн-чат Watchers)</p>
+        <p class="owner">Ведёт бренд: <b>Александр</b> (Discord, онлайн-чат Watchers) · FB — <b>Ваня</b></p>
       </div>
+    </div>
+    <div class="ladder" aria-label="Лестница уровней">
+      <div><span>25.12 · глава 1–3</span><b>3 штампа</b>2 FP + 20K GC</div>
+      <div><span>25–26.12</span><b>6 штампов</b>3 FP + 30K GC</div>
+      <div><span>26.12 · от 4 штампов</span><b>Оазис</b>1 SC + 50K GC</div>
+      <div class="top"><span>26.12 · собрал всё</span><b>Golden Compass</b>супер-игра, 2 попытки, без подсказок</div>
+      <div class="top"><span>27.12</span><b>Супер-приз</b>50 SC — один победитель среди прошедших супер-игру</div>
     </div>
   </div>
 </section>
 
 <section id="demo">
   <div class="wrap">
-    <div class="sheet-head"><span class="sheet-no">Лист 02</span><h2>Потрогать механику</h2><p>Три из шести страниц дневника 25.12. Прочитай подсказку, нажми на клетку карты. На каждую страницу 3 пина, как в боевой версии. Где-то на карте спит кот.</p></div>
+    <div class="sheet-head"><span class="sheet-no">Лист 02</span><h2>Потрогать механику</h2><p>Полная экспедиция одного игрока: 6 находок, 4 дропа кота, оазис и супер-игра. Нажми «Другой игрок» — у него другой набор находок из 20 и другая карта. На находку 3 пина, на супер-игру 2.</p></div>
     <div class="demo">
       <div>
         <div class="diary">
@@ -284,8 +335,9 @@ footer{padding-block:34px 48px;color:var(--muted);font-size:13px}
           <div class="diary-text" id="dText"></div>
           <div class="status" id="status" aria-live="polite"></div>
         </div>
+        <div class="seedbar"><span>Экспедиция игрока <b id="seedLbl"></b></span><button type="button" id="newSeed">Другой игрок</button><span id="seedNote"></span></div>
         <div class="mapbox" id="mapbox">
-          <svg id="map" viewBox="0 0 1240 940" role="group" aria-label="Карта экспедиции, сетка A–L на 1–9"></svg>
+          <svg id="map" viewBox="0 0 1240 940" role="group" aria-label="Личная карта экспедиции, сетка A–L на 1–9"></svg>
           <img class="cat-pop" id="catPop" src="assets/mascot-3.png" alt="" width="338" height="371">
         </div>
         <div class="watchers" id="watchers">
@@ -295,10 +347,16 @@ footer{padding-block:34px 48px;color:var(--muted);font-size:13px}
       </div>
       <aside class="passport" aria-label="Паспорт экспедиции">
         <h3>Expedition Passport</h3>
-        <div class="sub">6 штампов · 25.12 · каждые 2 часа</div>
+        <div class="sub">6 находок · 4 лапки · оазис · супер-игра</div>
+        <div class="pp-label">Находки (глава 1 · 2 · 3)</div>
         <div class="stamps" id="stamps"></div>
+        <div class="pp-label">Лапки кота (Watchers)</div>
+        <div class="paws" id="paws"></div>
+        <div class="big-slot" id="oasisSlot"></div>
+        <div class="big-slot super" id="superSlot"></div>
+        <ul class="tiers" id="tiers"></ul>
+        <div class="offer-box" id="offerBox" hidden></div>
         <p class="pp-foot" id="ppFoot"></p>
-        <div class="final-note" id="finalNote" hidden><b>Финал 26.12.</b> Соедини свои пины по порядку страниц: линия укажет на оазис Северной звезды. В боевой версии точек 6, и каждая страница меняет фигуру.</div>
         <button class="reset" id="reset" type="button">Сбросить демо</button>
       </aside>
     </div>
@@ -307,108 +365,173 @@ footer{padding-block:34px 48px;color:var(--muted);font-size:13px}
 
 <section id="path">
   <div class="wrap">
-    <div class="sheet-head"><span class="sheet-no">Лист 03</span><h2>Путь игрока</h2><p>Один вход, никаких скрытых шагов. Всё внутри страницы карты.</p></div>
+    <div class="sheet-head"><span class="sheet-no">Лист 03</span><h2>Путь игрока</h2><p>Один вход, никаких скрытых шагов. Всё на странице карты.</p></div>
     <ol class="path">
-      <li><h3>Регистрация</h3><p>С 14.12 попап на сайте → страница карты → «Join the Expedition». Discord-логин сам добавляет на сервер (guilds.join). Игрок получает пустой паспорт и тренировочную страницу 0.</p></li>
-      <li><h3>25.12, утро</h3><p>В 10:00 ET бот шлёт в ЛС «Page 1 is out». Дальше новая страница каждые 2 часа до 20:00, на сайте баннер.</p></li>
-      <li><h3>Пин</h3><p>3 пина на страницу. После второго промаха на полях проявляется подсказка. Попал → штамп. Каждая страница открыта до 23:59 ET.</p></li>
-      <li><h3>Кот</h3><p>Кот прячет находку в клетке и «засвечивается» в Watchers. Первые 25 игроков, чей пин попал в его клетку, получают находку. Пин на кота не тратится.</p></li>
-      <li><h3>26.12, оазис</h3><p>С 12:00 до 17:00 ET финальная загадка, нужно ≥ 4 штампа. Решил → билет в розыгрыш сундука в 17:30 ET.</p></li>
+      <li><h3>Паспорт</h3><p>С 14.12 попап на сайте → страница карты → Discord-логин (сам добавляет на сервер). Игрок получает паспорт, свою карту и свои 6 находок.</p></li>
+      <li><h3>Страница 0</h3><p>С 18.12 тренировка без приза: словарь направлений (North Star — вверх, sunrise — вправо), пин, «горячо / холодно». Player ID здесь не спрашиваем.</p></li>
+      <li><h3>25.12, три главы</h3><p>11:00 — 2 лёгкие, 15:00 — 2 средние, 19:00 — 2 трудные (ET): утро подарков, ужин, свободный вечер. 3 пина на находку. Всё открыто до 23:59 ET 26.12.</p></li>
+      <li><h3>Кот и оазис</h3><p>4 дропа кота в Watchers, на каждый 3 пина (вкладка 🐾), лапка = штамп. 26.12 с 11:00 ET оазис при 4+ штампах. Коды — кнопкой Claim: player ID вводится только тут.</p></li>
+      <li><h3>Golden Compass</h3><p>Открывается тому, кто сам нашёл все 6 находок, все 4 лапки и оазис. 2 попытки без подсказок. 27.12 — розыгрыш 50 SC среди прошедших.</p></li>
     </ol>
+  </div>
+</section>
+
+<section id="pages">
+  <div class="wrap">
+    <div class="sheet-head"><span class="sheet-no">Лист 04</span><h2>20 находок <span class="tag">черновик</span></h2><p>Пул задач. Каждому игроку генератор выдаёт 2 лёгкие + 2 средние + 2 трудные (21 × 21 × 15 = 6 615 наборов), ориентиры ставит так, чтобы все ответы были на карте. Текст одинаковый, клетка у каждого своя. Тексты EN, утверждает Александр до 07.12; сложность — на плейтесте.</p></div>
+    <div class="tbl"><table>
+      <thead><tr><th>Код</th><th>Находка</th><th>Тип</th><th>Текст игроку</th><th>Подсказка после 2-го промаха</th></tr></thead>
+      <tbody id="taskRows"></tbody>
+    </table></div>
+    <h3 class="tbl-h">Оазис, супер-игра и кот</h3>
+    <div class="tbl"><table>
+      <thead><tr><th>Что</th><th>Когда, ET</th><th>Текст игроку</th><th>Как считается</th></tr></thead>
+      <tbody>
+        <tr class="oasisrow"><td class="k">Оазис</td><td>26.12 с 11:00</td><td class="en">Stand in the column of your <b>[находка 1]</b> and the row of your <b>[находка 3]</b>. Then one step toward the North Star. Water. Palms. Lights.</td><td>колонка 1-й находки × ряд 3-й, +1 вверх. Нужно 4+ штампа. 3 пина, «горячо / холодно»</td></tr>
+        <tr class="superrow"><td class="k">Golden Compass</td><td>26.12, после оазиса</td><td class="en">The golden compass. From the oasis, go to the row of your <b>[находка 6]</b>. Then walk diagonally toward sunrise and away from the North Star: 2 squares. No hints this time.</td><td>колонка оазиса, ряд 6-й находки, потом по диагонали 2 вправо-вниз. Только тем, у кого 6 находок без раскрытия + 4 лапки + оазис. 2 пина, без подсказок</td></tr>
+        <tr class="catrow"><td class="k">Кот 1</td><td>25.12 11:30</td><td class="en">Mrrp. Napping right under the Twin Dunes. Do not wake me. (Do wake me.)</td><td>дюны, 1 вниз</td></tr>
+        <tr class="catrow"><td class="k">Кот 2</td><td>25.12 15:30</td><td class="en">Chasing a scarab one square toward sunset from the Sunken Temple.</td><td>храм, 1 влево</td></tr>
+        <tr class="catrow"><td class="k">Кот 3</td><td>25.12 19:30</td><td class="en">Sitting just above the Dry Lake, pretending it's still a lake.</td><td>озеро, 1 вверх</td></tr>
+        <tr class="catrow"><td class="k">Кот 4</td><td>26.12 14:00</td><td class="en">Next to the Camp, one step toward sunrise. Where the warm socks are.</td><td>лагерь, 1 вправо</td></tr>
+      </tbody>
+    </table></div>
+    <div class="limits">
+      <div><b>Промах</b>Горячо — соседняя клетка (и по диагонали). Тепло — 2–3 клетки. Холодно — дальше. После 2-го промаха подсказка на полях.</div>
+      <div><b>3 промаха</b>Место показывается без штампа: точка нужна для оазиса. Но для Golden Compass такая находка уже не считается «собранной».</div>
+      <div><b>Чат</b>Две случайные экспедиции делят ~30% задач, клетка совпадает ≤ 2,4% — обсуждать «как читать» можно, списать нельзя.</div>
+    </div>
   </div>
 </section>
 
 <section id="calendar">
   <div class="wrap">
-    <div class="sheet-head"><span class="sheet-no">Лист 04</span><h2>Таймлайн по часам</h2><p>Время ET, в скобках Киев. 25.12 в Украине выходной: всё по расписанию и выдаётся автоматически, руками только розыгрыш 26.12.</p></div>
+    <div class="sheet-head"><span class="sheet-no">Лист 05</span><h2>Таймлайн по часам</h2><p>Время ET, в скобках Киев. 25.12 в Украине выходной: главы, ЛС и коды идут сами, руками только кот в Watchers и розыгрыш 27.12.</p></div>
     <div class="tl">
       <div class="tl-day"><h3>Пт 25.12 · Рождество</h3><ol id="tl1"></ol></div>
-      <div class="tl-day fin"><h3>Сб 26.12 · Оазис</h3><ol id="tl2"></ol></div>
+      <div class="tl-day fin"><h3>Сб 26.12 · Оазис и Golden Compass</h3><ol id="tl2"></ol></div>
     </div>
-    <div class="cal-legend"><span><i style="background:var(--sand)"></i>страница дневника</span><span><i style="background:var(--crimson)"></i>кот в Watchers</span><span><i style="background:var(--gold)"></i>финал и розыгрыш</span><span>Регистрация с 14.12, анонс 18–20.12, напоминание 24.12, призы до 05.01.2027</span></div>
+    <div class="cal-legend"><span><i style="background:var(--sand)"></i>глава дневника</span><span><i style="background:var(--crimson)"></i>кот в Watchers</span><span><i style="background:var(--gold)"></i>оазис, супер-игра, итоги</span><span><i style="background:var(--muted)"></i>ЛС-напоминание</span><span>Паспорт с 14.12, страница 0 и анонс 18.12, напоминание 24.12</span></div>
   </div>
 </section>
 
 <section id="prizes">
   <div class="wrap">
-    <div class="sheet-head"><span class="sheet-no">Лист 05</span><h2>Призы <span class="tag">предложение</span></h2><p>Пороги паспорта гарантированы всем. Крупное разыгрывается между решившими финал, а не достаётся самому быстрому.</p></div>
+    <div class="sheet-head"><span class="sheet-no">Лист 06</span><h2>Призы и офферы <span class="tag ok">утверждено 11.11</span></h2><p>Одна таблица. Уровни 1–3 гарантированы и суммируются, коды забираются кнопкой Claim, как на Witching Hours: игрок вводит player ID только в этот момент, Александр одобряет, код уходит в ЛС. Супер-приз — отдельный уровень: дойти может только тот, кто собрал всё. Штамп = находка или лапка кота (максимум 6 + 4).</p></div>
     <div class="tbl"><table>
-      <thead><tr><th>Уровень</th><th>Как получить</th><th>Код</th><th>Кодов (оценка)</th></tr></thead>
+      <thead><tr><th>Уровень</th><th>Условие</th><th>Приз</th><th>Ждём на 100 активных</th><th>Пул</th></tr></thead>
       <tbody>
-        <tr><td>Находка кота</td><td>4 дропа в Watchers (3 на 25.12, 1 на 26.12), первые 25 пинов в клетку кота, 1 находка на человека за дроп</td><td class="n">1 FP + 10K GC</td><td class="n">≤ 100</td></tr>
-        <tr><td>3 штампа</td><td>Половина паспорта за 25.12</td><td class="n">2 FP + 20K GC</td><td class="n">~150 / 200</td></tr>
-        <tr><td>Полный паспорт</td><td>Все 6 штампов до 23:59 ET 25.12</td><td class="n">1 SC + 3 FP + 50K GC</td><td class="n">~70 / 100</td></tr>
-        <tr><td>Сундук оазиса, 1 место</td><td>Розыгрыш среди решивших финал 26.12 12:00–17:00 ET</td><td class="n">25 SC + 25 FP + 2.5M GC</td><td class="n">1</td></tr>
-        <tr><td>Сундук оазиса, 2 место</td><td>Тот же розыгрыш</td><td class="n">10 SC + 10 FP + 1M GC</td><td class="n">2</td></tr>
-        <tr><td>Сундук оазиса, 3 место</td><td>Тот же розыгрыш</td><td class="n">5 SC + 5 FP + 500K GC</td><td class="n">5</td></tr>
+        <tr><td>Explorer</td><td>3 штампа</td><td class="n">2 FP + 20K GC</td><td class="n">~80</td><td class="n">150</td></tr>
+        <tr><td>Navigator</td><td>6 штампов</td><td class="n">3 FP + 30K GC</td><td class="n">~60</td><td class="n">120</td></tr>
+        <tr><td>North Star</td><td>Нашёл оазис (нужно 4+ штампа)</td><td class="n">1 SC + 50K GC</td><td class="n">~50</td><td class="n">100</td></tr>
+        <tr><td><b style="color:var(--crimson)">Golden Compass</b></td><td>Все 6 находок сам (без раскрытия) + 4 лапки + оазис → прошёл супер-игру (2 пина, без подсказок)</td><td class="n">50 SC · 1 победитель<br>розыгрыш 27.12</td><td class="n">~10 прошли</td><td class="n">1</td></tr>
       </tbody>
-      <tfoot><tr><td colspan="2">Бюджет при ~300 участниках · в скобках потолок, если все пулы уйдут</td><td class="n">≈ 140 SC · 680 FP · 14.5M GC<br>(≤ 170 SC · 870 FP · 17M GC)</td><td class="n">~330 / 408</td></tr></tfoot>
+      <tfoot><tr><td colspan="2">Полный проход уровней 1–3 = 5 FP + 1 SC + 100K GC на человека</td><td class="n">≈ 100 SC · 340 FP · 5.9M GC</td><td colspan="2" class="n">потолок: 150 SC · 660 FP · 11.6M GC</td></tr></tfoot>
+    </table></div>
+    <h3 class="tbl-h">Персональный оффер 27.12 · один, по высшему уровню, лимит 1, 72 ч, одноразовым промокодом</h3>
+    <div class="tbl"><table>
+      <thead><tr><th>Уровень игрока</th><th>Оффер</th><th>Цена</th><th>Бонус</th><th>Промокодов</th></tr></thead>
+      <tbody>
+        <tr><td>1–2 штампа (играл)</td><td>Ginger Cat's Stash</td><td class="n">9.99</td><td class="n">+100%</td><td class="n">40</td></tr>
+        <tr><td>3–5 штампов</td><td>Explorer's Supply Crate</td><td class="n">19.99</td><td class="n">+40%</td><td class="n">60</td></tr>
+        <tr><td>6+ штампов, без оазиса</td><td>Star Map Chest</td><td class="n">39.99</td><td class="n">+40%</td><td class="n">40</td></tr>
+        <tr><td>Оазис или Golden Compass</td><td>Oasis Treasure Chest</td><td class="n">59.99</td><td class="n">+50%</td><td class="n">80</td></tr>
+      </tbody>
+    </table></div>
+    <h3 class="tbl-h">Сезонные SMM-офферы SCS · Christmas-first <span class="tag">предложение</span></h3>
+    <p style="color:var(--muted);font-size:15px;max-width:76ch;margin:-4px 0 14px">В США Рождество важнее Нового года, поэтому пик и Plus-нога 59.99 стоят на 21–26.12, а Новый год — лёгкая волна из двух офферов. Цены — то, что у SCS уже продаётся в SMM: 19.99 (35% выручки), 59.99 (23%), 39.99 (22%). Названия не пересекаются с офферами-наградами ивента и с 20 находками. Админка: <code>SMM_&lt;канал&gt;_&lt;цена&gt;_&lt;бонус&gt;%_NY26</code>.</p>
+    <div class="tbl"><table>
+      <thead><tr><th>Волна</th><th>Даты, ET</th><th>Оффер</th><th>Цена</th><th>Бонус</th><th>Кому / где</th></tr></thead>
+      <tbody>
+        <tr class="tierhead"><td colspan="6">Warm-up · 14–20.12</td></tr>
+        <tr><td>Daily Deal</td><td>14–20.12</td><td>Desert Advent Deal</td><td class="n">19.99</td><td class="n">+20%</td><td>Daily Promo Code, Discord, FB. Обычная сетка, рождественский арт</td></tr>
+        <tr><td>Save my spot</td><td>14–24.12</td><td>Passport Welcome Pack</td><td class="n">9.99</td><td class="n">+100%</td><td>Тем, кто получил паспорт экспедиции; лимит 1. Покупка ничего не даёт в ивенте</td></tr>
+        <tr class="tierhead"><td colspan="6">Christmas Countdown · 21–24.12 · главный разгон</td></tr>
+        <tr><td>Daily Deal</td><td>21–24.12</td><td>Christmas Caravan</td><td class="n">39.99</td><td class="n">+30%</td><td>Daily Promo Code, Discord, FB, бродкаст</td></tr>
+        <tr><td>Plus-нога</td><td>21–24.12</td><td>Scarlet Christmas Hoard</td><td class="n">59.99</td><td class="n">+40%</td><td>Своя графика: сундук под ёлкой в лагере. Самая дорогая нога сезона</td></tr>
+        <tr><td>Stocking Stuffer</td><td>21–24.12</td><td>Sandy Stocking</td><td class="n">9.99</td><td class="n">+100%</td><td>Дешёвые автоматизации BotCake, неплательщики</td></tr>
+        <tr><td>Christmas Eve</td><td>24.12 18:00–23:59</td><td>Christmas Eve Campfire</td><td class="n">39.99</td><td class="n">+50%</td><td>Флеш вечера, лимит 1, вместе с напоминанием «Tomorrow, 11 AM ET»</td></tr>
+        <tr class="tierhead"><td colspan="6">Christmas · 25–26.12 · пик, идёт ивент</td></tr>
+        <tr><td>Christmas Morning</td><td>25.12 06:00–12:00</td><td>Christmas Morning Chest</td><td class="n">59.99</td><td class="n">+50%</td><td>6 часов утра подарков, лимит 1. Бродкаст + Discord. На ивент покупка не влияет</td></tr>
+        <tr><td>Daily Deal</td><td>25–26.12</td><td>North Star Gift</td><td class="n">19.99</td><td class="n">+40%</td><td>Весь день, Daily Promo Code, Discord</td></tr>
+        <tr class="tierhead"><td colspan="6">After Christmas · 27–30.12</td></tr>
+        <tr><td>Награды ивента</td><td>27–29.12</td><td>Ginger Cat's Stash · Explorer's Supply Crate · Star Map Chest · Oasis Treasure Chest</td><td class="n">9.99–59.99</td><td class="n">+40…100%</td><td>Персонально участникам, по уровню, 72 ч (таблица выше)</td></tr>
+        <tr><td>After-Christmas Sale</td><td>27–30.12</td><td>After-Christmas Treasure</td><td class="n">39.99</td><td class="n">+30%</td><td>Всем, кто не играл в ивент: в США после Рождества сезон распродаж</td></tr>
+        <tr class="tierhead"><td colspan="6">New Year · 31.12–01.01 · лёгкая волна</td></tr>
+        <tr><td>Midnight Flash</td><td>31.12 23:00 – 01.01 01:00</td><td>Midnight Oasis</td><td class="n">39.99</td><td class="n">+40%</td><td>Один оффер, лимит 1, попап и пост с автостартом (06:00 Киев)</td></tr>
+        <tr><td>First Deal</td><td>01.01</td><td>First Sunrise 2027</td><td class="n">19.99</td><td class="n">+40%</td><td>Весь день, Daily Promo Code, Discord</td></tr>
+        <tr class="tierhead"><td colspan="6">Reload · 02–03.01</td></tr>
+        <tr><td>Reload</td><td>02–03.01</td><td>Caravan Reload</td><td class="n">19.99 / 39.99</td><td class="n">+40%</td><td>Купившим в сезоне</td></tr>
+        <tr><td>Win-back</td><td>02–03.01</td><td>Sandstorm Comeback</td><td class="n">9.99</td><td class="n">+100%</td><td>Играли в ивент, но ничего не купили; лимит 1</td></tr>
+      </tbody>
     </table></div>
     <div class="limits">
-      <div><b>Один крупный на человека</b>Победитель сундука выбывает из следующих мест розыгрыша, место переходит дальше по списку.</div>
-      <div><b>Жёсткий потолок</b>У каждого уровня свой пул кодов. Пул кончился → игрок получает штамп и билет, без кода. Бюджет не вылезет.</div>
-      <div><b>Один аккаунт</b>Discord-аккаунт старше 30 дней или привязанный ID игрока SCS. Без этого штампы есть, призов нет.</div>
+      <div><b>Почему розыгрыш, а не «кто быстрее»</b>Скорость = кто сидит онлайн в 19:00 ET в Рождество. На Halloween 4 игрока забрали ⅔ призов. Розыгрыш среди прошедших — шанс у всех, кто дошёл, когда бы ни играл.</div>
+      <div><b>Покупка ничего не даёт</b>Оффер приходит после закрытия. No purchase necessary, AMOE в правилах (розыгрыш — sweepstakes, единственный на бренд).</div>
+      <div><b>Один приз на таблицу</b>По всем брендам — в T&amp;C до старта. Пул кончился → уровень засчитан, код из резерва вручную по export.</div>
     </div>
   </div>
 </section>
 
 <section id="tech">
   <div class="wrap">
-    <div class="sheet-head"><span class="sheet-no">Лист 06</span><h2>Техника и сроки</h2><p>Общий слой (Discord-логин с guilds.join, коды из xlsx, Claim prize, бот, анти-абуз, export) строится один раз на базе Witching Hours для всех брендов. Ниже только механика Scarlet Sands.</p></div>
+    <div class="sheet-head"><span class="sheet-no">Лист 07</span><h2>Техника и сроки</h2><p>Общий слой (Discord-логин с guilds.join, коды, Claim + player ID, бот, export, тест-стенд) строится один раз на базе Witching Hours. Ниже только механика Scarlet Sands.</p></div>
     <div class="cols3">
-      <div class="blk"><h3>Берём из общего слоя</h3><ul><li>Логин, сессии, анти-альт, регистрация с 14.12</li><li>Выдача кодов в ЛС, потолки пулов, Claim prize</li><li>Бот: ЛС-напоминания, посты по расписанию, /export</li><li>Тестовый стенд, деплой в прод только с ОК Александра</li></ul></div>
-      <div class="blk"><h3>Пишем для SCS</h3><ul><li>Страница карты: SVG-слой поверх арта, сетка 12×9, пин, паспорт на 6 штампов</li><li>Проверка пина только на сервере, ответ в клиент не уходит</li><li>Расписание 6 страниц + финал в JSON, открытие по часам ET</li><li>Клетки кота на каждый дроп из админки</li><li>Финальная загадка: проверка оазиса и список решивших для розыгрыша</li><li>Резервная команда /pin для Плана Б</li></ul></div>
-      <div class="blk"><h3>Нужно от людей</h3><ul><li>6 страниц, страница 0 и финал: черновик пишем мы, Александр утверждает до 07.12</li><li>Арт карты без текста (Flow), подписи накладываем SVG</li><li>Коды в админке SCS по таблице призов, до 14.12</li><li>Watchers: 4 дропа кота с готовыми текстами</li><li>Дежурный на финал 26.12</li><li>Правила: No purchase necessary, 21+, US</li></ul></div>
+      <div class="blk"><h3>Берём из общего слоя</h3><ul><li>Логин, сессии, паспорт с 14.12</li><li>Claim prize как на Witching Hours: player ID при заборе кода, ручное одобрение, код в ЛС; пулы по уровням</li><li>Бот: посты глав в #north-star по расписанию, ЛС-напоминания, /export</li><li>Тестовый стенд, деплой только с ОК Александра</li></ul></div>
+      <div class="blk"><h3>Механика SCS — готова 12.11</h3><ul><li><b>Генератор</b>: seed = секрет сервера + Discord ID → 6 находок из 20 (2/2/2), 10 ориентиров, оазис, Golden Compass, 4 кота</li><li><b>Модуль <code>northstar</code></b> в формате конкурсов WH: пины, «горячо / холодно», раскрытие — только на сервере; главы и коты по расписанию</li><li>Уровни, замок супер-игры, розыгрыш, офферы, тексты бота</li><li>Клиент с артом карты, обёртка под хаб, стенд плейтеста со статистикой по 20 задачам</li><li>Секрет <code>NS_SEED_SALT</code> обязателен — без него ответы считались бы по публичному Discord ID</li></ul></div>
+      <div class="blk"><h3>Нужно от людей</h3><ul><li>Основной чат: подключить <code>northstar</code> к общему слою (9 пунктов в <code>mechanic/README.md</code>)</li><li>Утвердить тексты 20 находок и постов до 07.12</li><li>Коды и промокоды офферов в админке SCS до 20.12</li><li>Операторы Watchers: туториал (Лист 17), смены 25–26.12</li><li>Канал #north-star, попап к 14.12, юрист по розыгрышу, дежурные 25–27.12</li></ul></div>
     </div>
     <div class="est">
-      <div><b>4–5</b><span>дней разработки механики SCS</span></div>
-      <div><b>1,5</b><span>дня контент: дневник, арт карты, посты</span></div>
-      <div><b>11.12</b><span>механика на стенде</span></div>
-      <div><b>18.12</b><span>генеральная репетиция</span></div>
+      <div><b>✓</b><span>механика, клиент, стенд, тесты (12.11)</span></div>
+      <div><b>✓</b><span>арт: ключ-арт + карта и 12 значков (12.11)</span></div>
+      <div><b>04.12</b><span>встроено в общий слой</span></div>
+      <div><b>18.12</b><span>страница 0 живьём + репетиция</span></div>
     </div>
+    <div class="check"><b>Проверено 12.11:</b> модуль — 15 юнит-тестов и e2e всей репетиции по HTTP (страница 0 → главы → Claim с player ID → оазис → кот 4 → Golden Compass → закрытие → розыгрыш → офферы); клиент прокликан в браузере, 390 px без бокового скролла. Генератор генератор на 20 000 экспедиций — все валидны: у каждого 2 лёгкие + 2 средние + 2 трудные без повторов, 22 точки на карте (10 ориентиров + 6 находок + оазис + супер + 4 кота) не совпадают и все внутри сетки, один seed = одна экспедиция. Каждая задача выпадает 28–34% игроков (равномерно). Поиск расстановки с откатом: 1–11 перезапусков, ≈ 1,6 мс на экспедицию. Тест: <code>node mechanic/test/generator.test.js 20000</code>.</div>
   </div>
 </section>
 
 <section id="rehearsal">
   <div class="wrap">
-    <div class="sheet-head"><span class="sheet-no">Лист 07</span><h2>Репетиция</h2><p>Один день не прощает ошибок. Весь 25–26.12 прогоняем на тестовом стенде за неделю, в сжатом времени.</p></div>
+    <div class="sheet-head"><span class="sheet-no">Лист 08</span><h2>Плейтест и репетиция</h2><p>Два дня, второго шанса нет. Цель: 60–85% сыгравших доходят до 3 штампов, Golden Compass проходит ~10–20% активных.</p></div>
     <ol class="rh">
-      <li><span>до 10.12</span><span>Плейтест подсказок на 5 людях вне команды. Цель: страницу решают 60–80% за 3 пина. Слишком лёгкие и трудные переписываем.</span></li>
-      <li><span>Пт 18.12</span><span>Генеральный прогон на стенде: 6 страниц раз в 15 минут, 2 дропа кота, финал 30 минут, розыгрыш. 6–8 тестеров с отдельными Discord-аккаунтами. Проверяем ЛС-напоминания, пины, пороги, выдачу кодов, потолки пулов, /export, скрипт розыгрыша.</span></li>
-      <li><span>Сб 19.12</span><span>Чиним найденное. Прогоняем План Б: выключаем сервис посреди страницы 3 и переводим игроков на /pin.</span></li>
-      <li><span>Пн 21.12</span><span>Код заморожен. Деплой в прод с ОК Александра, коды загружены, расписание выставлено по ET.</span></li>
-      <li><span>Чт 24.12</span><span>Смоук на проде: скрытая тестовая страница, один пин, один код. Напоминание игрокам «Tomorrow, 10 AM ET».</span></li>
+      <li><span>08–10.12</span><span>Плейтест на 3 коллегах, каждый проходит 3–4 разные экспедиции (так покрываем все 20 задач). Считаем попадание с 1/2/3 пина по каждой задаче. Задачу, которая сильно выбивается из своего уровня, переписываем или переносим в другой уровень.</span></li>
+      <li><span>18–21.12</span><span>Страница 0 живьём: логин до праздника, данные о том, как игроки понимают словарь направлений.</span></li>
+      <li><span>Пт 18.12</span><span>Генеральный прогон на стенде в сжатом времени: 3 главы по 15 минут, 4 дропа кота, оазис, супер-игра, закрытие, скрипт розыгрыша, офферы. Проверяем ЛС, уровни, пулы, отложенную выдачу кодов, /export.</span></li>
+      <li><span>Пн 21.12</span><span>Go / no-go. Деплой в прод, коды загружены, расписание по ET.</span></li>
+      <li><span>Вт 22.12</span><span>Заморозка кода. 24.12 — смоук на проде и напоминание «Tomorrow, 11 AM ET».</span></li>
     </ol>
   </div>
 </section>
 
 <section id="planb">
   <div class="wrap">
-    <div class="sheet-head"><span class="sheet-no">Лист 08</span><h2>План Б</h2><p>Что делаем, если что-то падает в день ивента. Тексты постов для каждого случая пишем заранее.</p></div>
+    <div class="sheet-head"><span class="sheet-no">Лист 09</span><h2>План Б</h2><p>Скорость ничего не решает и всё открыто до конца 26.12, поэтому почти любой сбой лечится продлением. Посты на каждый случай пишем заранее.</p></div>
     <div class="cols2">
-      <div class="blk alarm"><h3>Сервис карты упал 25.12</h3><ul><li>Бот публикует страницу картинкой карты с сеткой в #north-star</li><li>Игроки отвечают командой <code>/pin F5</code>, бот проверяет тот же ответ</li><li>Штампы из лога бота переносим в паспорта, когда сервис поднимется</li><li>Окно страниц продлеваем до 26.12 12:00 ET</li></ul></div>
-      <div class="blk alarm"><h3>Сервис упал 26.12</h3><ul><li>Финал уходит в Discord: <code>/pin</code> для оазиса, ≥ 4 штампа берём из базы</li><li>Если не поднимается за час: финал сдвигаем на 27.12 тем же окном, пост готов</li><li>Розыгрыш по /export, дежурный проводит его вручную</li></ul></div>
-      <div class="blk alarm"><h3>Коды не дошли</h3><ul><li>/export → список «кому что», дежурный рассылает 27–28.12</li><li>В #north-star пост «codes are on the way, nothing is lost»</li></ul></div>
-      <div class="blk alarm"><h3>Watchers недоступен</h3><ul><li>Дроп кота уходит постом в #north-star в то же время</li><li>Клетка кота та же, механика не меняется</li></ul></div>
+      <div class="blk alarm"><h3>Сервис карты упал</h3><ul><li>Пост в #north-star и ЛС: «the desert is resting, your stamps are safe»</li><li>Экспедиция детерминирована (seed = Discord ID), штампы в базе — после подъёма игрок продолжает с того же места</li><li>Упал больше чем на 2 часа → закрытие и розыгрыш сдвигаем на сутки, пост готов</li></ul></div>
+      <div class="blk alarm"><h3>Коды не дошли</h3><ul><li>/export → «кому что», дежурный рассылает 27–28.12</li><li>Пост «codes are on the way, nothing is lost»</li></ul></div>
+      <div class="blk alarm"><h3>Watchers недоступен</h3><ul><li>Дроп кота уходит постом в #north-star в то же время</li><li>Фраза и клетки те же, механика не меняется</li></ul></div>
+      <div class="blk alarm"><h3>Задача оказалась трудной</h3><ul><li>В админке видно долю промахов по каждой из 20 задач</li><li>Доп. подсказка в ЛС только тем, кому выпала эта задача (текст общий, работает для всех карт)</li></ul></div>
     </div>
   </div>
 </section>
 
 <section id="promo">
   <div class="wrap">
-    <div class="sheet-head"><span class="sheet-no">Лист 09</span><h2>Промо</h2><p>Главный канал как в Halloween: попап и баннер на сайте (1251 переход против 23 из FB). Ивент длится 2 дня, поэтому кто не зарегистрировался заранее, тот его пропустит.</p></div>
+    <div class="sheet-head"><span class="sheet-no">Лист 10</span><h2>Промо</h2><p>Главный канал как в Halloween: попап и баннер на сайте (1 251 переход против 23 из FB). Рефералов нет. Каждое событие — пост по расписанию, ЛС — только тем, кто не закончил.</p></div>
     <div class="cols2">
       <div class="blk"><h3>План</h3><ul>
-        <li><b>14.12 регистрация:</b> попап и баннер на сайте ведут на карту, «Join the Expedition» выдаёт паспорт и страницу 0. Тизер в Discord и FB: рваный угол карты.</li>
-        <li><b>18–20.12 анонс:</b> бродкаст, пост в Discord, FB.</li>
-        <li><b>24.12:</b> бродкаст и ЛС всем зарегистрированным: «Tomorrow, 10 AM ET».</li>
-        <li><b>25.12 каждые 2 часа:</b> ЛС от бота и баннер «Page N is out» на сайте.</li>
-        <li><b>26.12 утром:</b> бродкаст «The oasis opens at noon ET».</li>
+        <li><b>14.12:</b> попап и баннер на сайте → страница карты, паспорт. Тизер в Discord и FB: рваный угол карты.</li>
+        <li><b>18.12:</b> страница 0 + анонс: бродкаст, Discord, FB.</li>
+        <li><b>24.12:</b> бродкаст и ЛС всем с паспортом: «Tomorrow, 11 AM ET».</li>
+        <li><b>25.12:</b> пост на каждую главу и каждый дроп кота; ЛС в 11:00 и 19:00 ET, поздно вечером — тем, у кого меньше 3 штампов.</li>
+        <li><b>26.12:</b> бродкаст «The oasis is open», ЛС тем, кому не хватает штампов; ЛС «Golden Compass is waiting» тем, кто собрал всё.</li>
+        <li><b>27.12:</b> розыгрыш Golden Compass, пост с победителем, офферы в ЛС, итог с картами игроков (Show my map).</li>
       </ul></div>
-      <div class="blk"><h3>Как приводим новых</h3><ul>
-        <li><b>Попутчик:</b> друг зарегистрировался по твоей ссылке до 24.12 → у вас обоих +1 пин на финальной загадке. Без кодов, альтам фармить нечего. До 3 друзей.</li>
-        <li><b>Вход с сайта:</b> попап открывает карту, логин сам добавляет на сервер. Игрок сайта попадает в Discord без лишнего шага.</li>
-        <li><b>Кот в Watchers:</b> дропы ведут игроков Discord в чат сайта и наоборот.</li>
+      <div class="blk"><h3>Как приводим людей</h3><ul>
+        <li><b>Вход с сайта:</b> попап открывает карту, логин сам добавляет на сервер.</li>
+        <li><b>Кот в Watchers:</b> чат сайта видят игроки, которые не сидят в Discord. Лапку можно забрать только с паспортом → регистрация прямо из чата.</li>
+        <li><b>«А что выпало тебе?»:</b> 20 находок, у каждого свои 6 — естественный повод показать свою карту в #north-star.</li>
+        <li><b>Никаких публичных счётчиков:</b> прогресс виден только в своём паспорте.</li>
       </ul></div>
     </div>
   </div>
@@ -416,81 +539,417 @@ footer{padding-block:34px 48px;color:var(--muted);font-size:13px}
 
 <section id="lessons">
   <div class="wrap">
-    <div class="sheet-head"><span class="sheet-no">Лист 10</span><h2>Анти-абуз и уроки Halloween</h2></div>
+    <div class="sheet-head"><span class="sheet-no">Лист 11</span><h2>Анти-абуз и уроки Halloween</h2></div>
     <ul class="lessons">
-      <li><span><b>01</b>Один игрок забрал 11 из 12 первых мест</span><span>Скорости нет: сундук оазиса разыгрывается между решившими. Один крупный приз на человека, место переходит дальше.</span></li>
-      <li><span><b>02</b>119 человек не нажали Join</span><span>Join убран: логин с guilds.join сам добавляет на сервер. Если не вышло, на странице кнопка и объяснение вместо 403.</span></li>
-      <li><span><b>03</b>Флаги «быстрее человека» били по своим</span><span>Таймера на ответ нет. Перебор закрыт тремя пинами на страницу и проверкой на сервере. Флаг только на аномалии вроде 30 аккаунтов с одного IP.</span></li>
-      <li><span><b>04</b>9% новых в сервере</span><span>Попутчик (+1 пин на финале) и вход с сайта, KPI по новым ниже.</span></li>
-      <li><span><b>05</b>Ручной аппрув тормозил</span><span>Штампы, пороги и находки выдаются автоматически. 25.12 в Украине выходной, руками только розыгрыш сундука 26.12.</span></li>
-      <li><span><b>06</b>Ответы утекают в чат</span><span>Это нормально и даже хорошо для активности. Порогам утечка не мешает, а сундук разыгрывается, и скорость ничего не даёт.</span></li>
-      <li><span><b>07</b>Один день, без второго шанса</span><span>Репетиция 18.12 и План Б с командой /pin. Страницы открыты до 23:59 ET, так что поздно проснувшийся успевает.</span></li>
+      <li><span><b>01</b>4 игрока забрали ⅔ призов</span><span>Мест нет: уровни + один розыгрыш. Один приз на таблицу по всем брендам (T&amp;C). Гарантированный максимум с человека — 5 FP + 1 SC.</span></li>
+      <li><span><b>02</b>Ответы утекают в чат за минуту</span><span>Свой набор из 20 и своя карта: клетка из чата подходит другому ≤ 2,4% (и только если ему выпала та же задача).</span></li>
+      <li><span><b>03</b>В лёгких играх места решала скорость</span><span>Скорости нет: всё открыто до 23:59 ET 26.12, супер-приз — розыгрыш среди прошедших.</span></li>
+      <li><span><b>04</b>85 приглашений — 0 пришедших</span><span>Рефералов нет. Рост — попап, бродкаст, Watchers.</span></li>
+      <li><span><b>05</b>41 неверный player ID, проверка 7,7 ч</span><span>Как на ивенте: ID спрашиваем только по кнопке Claim, формат проверяем сразу (неверный ID не уходит в очередь), одобрение руками; очередь 25–27.12 утром и вечером по Киеву.</span></li>
+      <li><span><b>06</b>Codebreaker прошли ~24%</span><span>Сложность растёт по главам, «горячо / холодно», подсказка на полях, раскрытие после 3 промахов. Без подсказок — только супер-игра.</span></li>
+      <li><span><b>07</b>Перебор клеток альтами</span><span>3 пина на находку из 104 клеток, 2 пина в супер-игре, ответ только на сервере. Код и выигрыш получает только аккаунт с одобренным player ID (при Claim).</span></li>
     </ul>
   </div>
 </section>
 
 <section id="kpi">
   <div class="wrap">
-    <div class="sheet-head"><span class="sheet-no">Лист 11</span><h2>Цели</h2><p>Ориентиры для плана, не факты. Базу уточнить по выгрузке Halloween SCS.</p></div>
+    <div class="sheet-head"><span class="sheet-no">Лист 12</span><h2>Цели</h2><p>Считаем на реальную аудиторию: 30–100 активных на бренд (Witching Hours — 78 → 30 человек на конкурс на все бренды).</p></div>
     <div class="kpi">
-      <div><b>450</b><span>регистраций 14–24.12</span><em>паспорт выдан</em></div>
-      <div><b>300</b><span>поставили хотя бы один пин 25.12</span><em>≥ 65% регистраций</em></div>
-      <div><b>90</b><span>решили загадку оазиса 26.12</span><em>возврат на день 2</em></div>
-      <div><b>+100</b><span>новых в Discord, ~330 кодов</span><em>доля новых ≥ 25%</em></div>
+      <div><b>150</b><span>паспортов 14–24.12</span><em>регистрация</em></div>
+      <div><b>70</b><span>поставили хотя бы один пин</span><em>активные</em></div>
+      <div><b>60–85%</b><span>активных дошли до 3 штампов</span><em>сложность</em></div>
+      <div><b>40</b><span>нашли оазис 26.12</span><em>возврат на день 2</em></div>
+      <div><b>30</b><span>нашли кота хотя бы раз</span><em>Watchers ↔ Discord</em></div>
     </div>
   </div>
 </section>
 
 <section id="risks">
   <div class="wrap">
-    <div class="sheet-head"><span class="sheet-no">Лист 12</span><h2>Риски и вопросы</h2></div>
+    <div class="sheet-head"><span class="sheet-no">Лист 13</span><h2>Риски и вопросы</h2></div>
     <div class="two">
       <div class="blk"><h3>Риски</h3><ul>
-        <li><b>Сбой в день ивента.</b> Второго шанса нет: репетиция 18.12, План Б с /pin, готовые посты.</li>
-        <li><b>Подсказки слишком трудные или лёгкие.</b> Плейтест до 10.12, подсказка на полях после 2-го промаха.</li>
-        <li><b>Рождество в США.</b> Люди с семьями, поэтому страницы открыты до 23:59 ET и не требуют сидеть весь день.</li>
-        <li><b>Псевдотекст на арте карты.</b> Арт генерируем без надписей, все подписи живут в SVG-слое.</li>
-        <li><b>Перебор клеток альтами.</b> 108 клеток и 3 пина на страницу; анти-альт; ответы только на сервере.</li>
-        <li><b>Юридическое.</b> Розыгрыш = sweepstakes: правила, бесплатный вход, без покупки.</li>
+        <li><b>Баланс 20 задач.</b> Две «средние» могут оказаться разной сложности → кому-то не повезло. Плейтест по каждой задаче, перенос между уровнями.</li>
+        <li><b>Golden Compass слишком трудный или лёгкий.</b> Ждём ~10–20% активных. Смотрим на репетиции, подсказку в тексте можно смягчить до 22.12.</li>
+        <li><b>Кот зависит от людей.</b> 4 дропа в Watchers постят операторы чата (25.12 до 02:30 Киева). Туториал и фразы заранее, План Б — пост в #north-star.</li>
+        <li><b>Мобильный.</b> Клетка на телефоне ≈ 29 px — на грани. Проверяем на плейтесте, при нужде зум карты.</li>
+        <li><b>Псевдотекст на арте.</b> Фон генерируем без надписей и ориентиров, все подписи живут в SVG-слое.</li>
+        <li><b>Юридическое.</b> Розыгрыш = sweepstakes: No purchase necessary, AMOE, 21+, US — правила до 14.12.</li>
       </ul></div>
-      <div class="blk"><h3>Вопросы к Александру</h3><ol class="q">
-        <li>Бюджет ≈ 140 SC (потолок 170) нормальный, или сундук поднять/урезать?</li>
-        <li>Страницы 10:00–20:00 ET это 17:00–03:00 по Киеву. Оставляем или сдвигаем на 12:00–22:00 ET, ближе к американскому вечеру?</li>
-        <li>Кто дежурит на финале 26.12 12:00–17:30 ET (19:00–00:30 Киев) и проводит розыгрыш?</li>
-        <li>Watchers 25.12 (выходной): сможешь сам бросить 3 дропа кота в 11:00, 15:00 и 19:00 ET, или тексты пишем заранее и постит кто-то другой?</li>
-        <li>Требуем привязку ID игрока SCS для призов или хватит возраста Discord-аккаунта?</li>
-        <li>Имя коту даём? В ките имени нет, на странице и в постах пока «the ginger cat».</li>
-      </ol></div>
+      <div class="blk"><h3>Решено 11.11</h3><ul class="decided">
+        <li>Пул 20 находок, каждому 2 лёгкие + 2 средние + 2 трудные</li>
+        <li>Призы по уровням: 2 FP + 20K / 3 FP + 30K / 1 SC + 50K GC</li>
+        <li>Супер-игра Golden Compass — отдельный уровень для тех, кто собрал всё</li>
+        <li>Супер-приз 50 SC, один победитель — розыгрыш 27.12 среди прошедших супер-игру</li>
+      </ul>
+        <li>Player ID — как на Witching Hours: только при Claim, одобрение руками</li>
+        <li>Главы позже, под американское Рождество: 11:00 / 15:00 / 19:00 ET <em>(предложение)</em></li>
+        <li>SMM-офферы сезона — Christmas-first, сетка в Листе 06</li>
+        <li>Кота в Watchers постят операторы чата по готовым текстам; для них туториал, как делали в чате Scarlet</li>
+        <li>Имя коту — Saffron (только в текстах, в промпты арта не идёт)</li>
+      </ul>
+      <h3>Вопросы к Александру</h3><p style="font-size:15px;color:var(--muted)">Открытых вопросов нет. Дальше — модуль механики, тексты, правила, арт.</p></div>
     </div>
   </div>
 </section>
 
 <section id="post">
   <div class="wrap">
-    <div class="sheet-head"><span class="sheet-no">Лист 13</span><h2>Анонс в Discord</h2><p>Голосом исследовательницы. Публикация 18.12.</p></div>
+    <div class="sheet-head"><span class="sheet-no">Лист 14</span><h2>Анонс в Discord</h2><p>Голосом исследовательницы. Публикация 18.12, вместе со страницей 0.</p></div>
     <div class="post">
       <div class="dc">
         <div class="hd"><i aria-hidden="true"></i><div><b>Scarlet Sands</b><small>#announcements</small></div></div>
         <div id="postText">
 <p>Explorers, grab your warmest scarf 🧭</p>
-<p>On <b>Christmas Day</b> my expedition diary goes public. From <b>10 AM ET</b>, every two hours, I'll leave you one page: a bearing, a cipher or a pattern of stars. Six pages in all. Read one, drop your pin on the map, and if you're right, you get a stamp in your <b>Expedition Passport</b>.</p>
-<p>Someone small, ginger and very smug is also hiding finds around the dunes. He won't tell me where. He might tell you in the Watchers chat.</p>
-<p>On <b>December 26</b> your six pins point to one place: <b>the North Star Oasis</b>. Find it between noon and 5 PM ET and your name goes into the oasis chest.</p>
-<p>📍 Grab your passport now on the map page. 3 and 6 stamps unlock FP, GC and SC codes. See you under the star!</p>
+<p>A sandstorm scattered my Christmas things all over the desert. Twenty of them: my compass, my cocoa mug, a very offended nutcracker. On <b>Christmas Day</b> I'll need your help to find them.</p>
+<p>Every explorer gets <b>their own six</b> and <b>their own map</b>. Same desert, different dunes. The diary opens in three chapters, at <b>11 AM, 3 PM and 7 PM ET</b>, and each find gets a little harder. Drop a pin, and if you're right, you get a stamp in your <b>Expedition Passport</b>.</p>
+<p>Saffron, my small, ginger and very smug cat, is hiding in the dunes too. He only talks in the <b>Watchers chat</b>. Find him and you get a paw print. It counts as a stamp.</p>
+<p>On <b>December 26</b> your finds lead to <b>the North Star Oasis</b>. And if you found everything, the <b>Golden Compass</b> is waiting. One explorer who finds it wins <b>50 SC</b>.</p>
+<p>3 stamps, 6 stamps and the oasis each unlock a code with FP, GC and SC. No race: everything stays open until 11:59 PM ET on Dec 26.</p>
+<p>📍 Grab your passport on the map page. Practice page is open today.</p>
 <p><small>No purchase necessary. 21+. US only. Full rules on the map page.</small></p>
         </div>
         <button class="copy" type="button" id="copyPost">Скопировать текст</button>
       </div>
-      <img src="assets/mascot-1.png" alt="Исследовательница с кружкой, кот спит рядом" width="560" height="744">
+      <img src="assets/art/popup-square.jpg" alt="Исследовательница с картой, рыжий кот в пробковом шлеме на плече, звезда над палаткой" width="1600" height="1600" style="border-radius:4px">
     </div>
   </div>
 </section>
+
+<section id="art">
+  <div class="wrap">
+    <div class="sheet-head"><span class="sheet-no">Лист 15</span><h2>Ключ-арт и карта</h2><p>Сгенерировано во Flow 12.11 (Nano Banana, 2K), промпты и выбор — <code>art/</code>. Текст на картинки накладываем кодом. Карта и значки уже стоят в макете (Лист 02).</p></div>
+    <div class="gallery">
+      <figure class="wide"><img src="assets/art/hero-camp.jpg" alt="Лагерь у костра в рождественскую ночь" loading="lazy" width="1600" height="893"><figcaption><b>01 · лагерь у костра · 16:9</b>Попап и баннер с 14.12, анонс 18.12, FB, бродкаст. Заголовок — в небо слева сверху.</figcaption></figure>
+      <figure class="wide"><img src="assets/art/oasis.jpg" alt="С гребня дюны видят оазис в огоньках" loading="lazy" width="1600" height="893"><figcaption><b>03 · оазис · 16:9</b>Пост и бродкаст 26.12 «оазис открыт». Текст — по центру или справа сверху.</figcaption></figure>
+      <figure><img src="assets/art/popup-square.jpg" alt="Исследовательница с картой, кот на плече" loading="lazy" width="1600" height="1600"><figcaption><b>02 · квадрат · 1:1</b>Мобильный попап, квадратный пост, бродкаст. Верхняя половина свободна.</figcaption></figure>
+      <figure><img src="assets/art/golden-compass.jpg" alt="Золотой компас у оазиса" loading="lazy" width="1600" height="1600"><figcaption><b>04 · Golden Compass · 1:1</b>ЛС «открыт», пост победителя 27.12. Заголовок снизу на подложке.</figcaption></figure>
+      <figure><img src="assets/art/cat-watchers.jpg" alt="Рыжий кот выглядывает из-за дюны" loading="lazy" width="1600" height="1600"><figcaption><b>05 · Saffron · 1:1</b>Дропы в Watchers и посты «Saffron was seen in Watchers».</figcaption></figure>
+    </div>
+    <div class="icons-row" aria-label="Значки карты">
+      <img src="assets/map/icon-camp.png" alt="Camp" data-first-icon><img src="assets/map/icon-obelisk.png" alt="Broken Obelisk"><img src="assets/map/icon-well.png" alt="Scarab Well"><img src="assets/map/icon-temple.png" alt="Sunken Temple"><img src="assets/map/icon-dunes.png" alt="Twin Dunes"><img src="assets/map/icon-cactus.png" alt="Cactus Gate"><img src="assets/map/icon-lake.png" alt="Dry Lake"><img src="assets/map/icon-sphinx.png" alt="Sphinx Rock"><img src="assets/map/icon-caravan.png" alt="Old Caravan"><img src="assets/map/icon-pyramid.png" alt="Little Pyramid"><img src="assets/map/icon-oasis.png" alt="Oasis"><img src="assets/map/icon-golden.png" alt="Golden Compass">
+    </div>
+  </div>
+</section>
+
+<section id="checklist">
+  <div class="wrap">
+    <div class="sheet-head"><span class="sheet-no">Лист 16</span><h2>Чек-лист запуска</h2><p>Обновлено 12.11. Время ET, в скобках Киев (ET + 7). Источник — <code>launch/CHECKLIST.md</code>.</p></div>
+    <div class="cols2">
+      <div class="blk"><h3>Готово</h3><ul>
+        <li><span class="st ok">✓</span> Концепт: 20 находок (2+2+2 на игрока), своя карта, кот в Watchers, оазис, Golden Compass</li>
+        <li><span class="st ok">✓</span> Механика <code>northstar</code>: генератор (20 000 проверено), расписание, уровни, розыгрыш, офферы, тексты бота</li>
+        <li><span class="st ok">✓</span> Секрет <code>NS_SEED_SALT</code> обязателен; кот — 3 пина на дроп</li>
+        <li><span class="st ok">✓</span> Клиент с артом карты, стенд плейтеста, 15 юнит-тестов + e2e репетиции</li>
+        <li><span class="st ok">✓</span> Арт: ключ-арт 01–05, пергамент карты и 12 значков</li>
+        <li><span class="st ok">✓</span> Тексты: закреп, тизер, анонс, посты по часам, ЛС, бродкаст, FB, попап</li>
+        <li><span class="st ok">✓</span> Туториал для саппорта Watchers (Лист 17), черновик правил для юриста, SMM-сетка</li>
+      </ul></div>
+      <div class="blk"><h3>Открыто</h3><ul>
+        <li><span class="st todo">○</span> Основной чат: подключить <code>northstar</code> к общему слою, строки хаба и офферов — <b>до 04.12</b></li>
+        <li><span class="st todo">○</span> Юрист: розыгрыш Golden Compass ([CONFIRM] в правилах) — <b>до 12.12</b></li>
+        <li><span class="st todo">○</span> Канал #north-star: создать скрытым заранее, открыть 18.12</li>
+        <li><span class="st todo">○</span> Общий плейтест всех брендов на коллегах — когда соберут стенды (стенд SCS готов)</li>
+        <li><span class="st todo">○</span> Коды и промокоды офферов в админке — <b>до 20.12</b></li>
+        <li><span class="st todo">○</span> Операторы Watchers прочитали туториал, смены 25–26.12 закрыты — <b>до 18.12</b></li>
+      </ul></div>
+    </div>
+    <h3 class="tbl-h">Даты</h3>
+    <div class="tbl"><table>
+      <thead><tr><th>Когда</th><th>Что</th><th>Кто</th></tr></thead>
+      <tbody>
+        <tr><td class="when">до 04.12</td><td>Общий слой поддерживает 9 пунктов, <code>northstar</code> встроен, <code>NS_SEED_SALT</code> задан в env прода</td><td>основной чат + Claude</td></tr>
+        <tr><td class="when">до 07.12</td><td>Утвердить тексты 20 находок и постов</td><td>Александр</td></tr>
+        <tr><td class="when">08–10.12</td><td>Плейтест: 3 коллеги × 3–4 экспедиции, по статистике правим задачи (&lt; 60% — проще, &gt; 95% с первого пина — сложнее)</td><td>Александр + Claude</td></tr>
+        <tr><td class="when">до 12.12</td><td>Правила — финал без [CONFIRM]</td><td>юрист</td></tr>
+        <tr><td class="when">14.12</td><td>Попап и баннер (кадры 01 / 02), тизер в Discord, бродкаст; паспорт (логин) открыт</td><td>Александр / сайт</td></tr>
+        <tr><td class="when">18.12</td><td>Страница 0, анонс, бродкаст, FB; репетиция ~45 мин, операторы ищут кота</td><td>вместе</td></tr>
+        <tr><td class="when">до 20.12</td><td>Коды: 3 штампа × 150, 6 штампов × 120, оазис × 100, Golden Compass 50 SC × 1 (+2 резерв); офферы Stash × 40, Supply × 60, Star Map × 40, Oasis × 80</td><td>Александр</td></tr>
+        <tr><td class="when">21.12 · 22.12</td><td>Go / no-go · заморозка деплоя, <code>NS_SEED_SALT</code> больше не трогаем</td><td>Александр</td></tr>
+        <tr><td class="when">24.12 18:00 (01:00)</td><td>Пост, бродкаст, ЛС «Tomorrow, 11 AM ET»</td><td>авто + Александр</td></tr>
+        <tr><td class="when">25.12 11 / 15 / 19 (18 / 22 / 02)</td><td>Главы 1–3, посты в #north-star</td><td>авто</td></tr>
+        <tr><td class="when">25.12 +30 мин</td><td>Коты 1–3 в Watchers + пост «Saffron was seen»</td><td>операторы + авто</td></tr>
+        <tr><td class="when">26.12 11:00 (18:00)</td><td>Оазис, бродкаст</td><td>авто + Александр</td></tr>
+        <tr><td class="when">26.12 14:00 (21:00)</td><td>Кот 4 в Watchers</td><td>операторы</td></tr>
+        <tr><td class="when">26.12 23:59 (06:59)</td><td>Закрытие</td><td>авто</td></tr>
+        <tr><td class="when">27.12 00:05 · 05:00 (07:05 · 12:00)</td><td>Офферы промокодами · розыгрыш Golden Compass, пост с победителем</td><td>авто · дежурный</td></tr>
+        <tr><td class="when">до 03.01</td><td>Очередь Claim (player ID), перетяжка, если победитель не подтвердился</td><td>Александр</td></tr>
+        <tr><td class="when">04.01</td><td>Export и итоги: доля по 20 задачам, коты, Watchers ↔ Discord</td><td>Александр + Claude</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+
+<section id="support">
+  <div class="wrap">
+    <div class="sheet-head"><span class="sheet-no">Лист 17</span><h2>Туториал для саппорта · Watchers</h2><p>Для операторов онлайн-чата Watchers на сайте. Подсказки кота Saffron постят операторы (решение 12.11). Источник — <code>copy/WATCHERS-TUTORIAL.md</code>.</p></div>
+    <div class="two">
+      <p class="lede">25–26.12 идёт рождественский ивент. У каждого игрока <strong>своя карта</strong> пустыни, он ищет на ней вещи исследовательницы. Рыжий кот <strong>Saffron</strong> прячется на карте, и где он сидит, знает только чат Watchers: вы публикуете <strong>4 фразы кота</strong>, игроки ищут его на своей карте. Нашёл — лапка, это штамп в паспорт.</p>
+      <div class="why"><h3>Главное правило</h3><ul>
+        <li>Публикуем только фразу кота, <b>без клеток и координат</b>: одна и та же фраза у разных игроков ведёт в разные клетки.</li>
+        <li>Текст — <b>дословно</b>, по-английски. Картинка, если чат позволяет: кот из-за дюны (кадр 05).</li>
+        <li>Через ~2 часа повторить фразу один раз с припиской <i>(in case you missed it)</i>; закрепить, если можно.</li>
+        <li>Опоздали — публикуйте, как сможете: искать можно до 27.12, 07:00 Киева.</li>
+      </ul></div>
+    </div>
+    <h3 class="tbl-h">4 сообщения точно по времени</h3>
+    <div class="tbl"><table>
+      <thead><tr><th>№</th><th>Киев</th><th>ET</th><th>Текст — копировать как есть</th></tr></thead>
+      <tbody>
+        <tr><td class="k">1</td><td class="when">25.12 18:30</td><td class="when">11:30 AM</td><td><span class="cat-say" id="cat1">🐾 Saffron says: Mrrp. Napping right under the Twin Dunes. Do not wake me. (Do wake me.)</span> <button class="cp" type="button" data-copy="cat1">Скопировать</button></td></tr>
+        <tr><td class="k">2</td><td class="when">25.12 22:30</td><td class="when">3:30 PM</td><td><span class="cat-say" id="cat2">🐾 Saffron says: Chasing a scarab one square toward sunset from the Sunken Temple.</span> <button class="cp" type="button" data-copy="cat2">Скопировать</button></td></tr>
+        <tr><td class="k">3</td><td class="when">26.12 02:30 (ночь)</td><td class="when">25.12 7:30 PM</td><td><span class="cat-say" id="cat3">🐾 Saffron says: Sitting just above the Dry Lake, pretending it's still a lake.</span> <button class="cp" type="button" data-copy="cat3">Скопировать</button></td></tr>
+        <tr><td class="k">4</td><td class="when">26.12 21:00</td><td class="when">2:00 PM</td><td><span class="cat-say" id="cat4">🐾 Saffron says: Next to the Camp, one step toward sunrise. Where the warm socks are.</span> <button class="cp" type="button" data-copy="cat4">Скопировать</button></td></tr>
+      </tbody>
+    </table></div>
+    <h3 class="tbl-h">Готовые ответы игрокам (EN)</h3>
+    <div class="tbl"><table>
+      <thead><tr><th>Вопрос</th><th>Ответ</th></tr></thead>
+      <tbody>
+        <tr><td>Where is the cat? / What square?</td><td class="en">Read Saffron's message above and use it on <b>your own</b> map. Every explorer's map is different, so a friend's square won't fit yours. 🐾</td></tr>
+        <tr><td>How do I play? / What is this?</td><td class="en">It's our Christmas expedition! Grab your passport here: {map_link}. Find the hidden items on your own map, and Saffron's hints show up right here in the chat.</td></tr>
+        <tr><td>My friend said B4 and it's wrong</td><td class="en">Every map is different, so squares from other players won't work. Use Saffron's words on your own map.</td></tr>
+        <tr><td>I missed the cat!</td><td class="en">No worries, everything stays open until Dec 26, 11:59 PM ET. Scroll up for his message.</td></tr>
+        <tr><td>My pins ran out</td><td class="en">Each Saffron hint gives you 3 tries, with hot and cold after a miss. If they're used up, there are still other finds and paw prints to collect.</td></tr>
+        <tr><td>How do I get my prize?</td><td class="en">Hit <b>Claim prize</b> on the map page. The first time, you enter your player ID; we check it, and the codes come to you on Discord.</td></tr>
+        <tr><td>Is it a race? / Did I lose?</td><td class="en">No race at all. Rewards come at 3 and 6 stamps and for the oasis, everyone who reaches them gets them.</td></tr>
+        <tr><td>Do I need to buy something?</td><td class="en">No purchase necessary. The expedition is free.</td></tr>
+      </tbody>
+    </table></div>
+    <div class="cols2" style="margin-top:28px">
+      <div class="blk alarm"><h3>Нельзя</h3><ul>
+        <li>Писать клетки, координаты, «левее/правее», подсказки сверх 4 фраз</li>
+        <li>Обещать призы, называть суммы сверх таблицы, говорить, кто выиграл</li>
+        <li>Обсуждать чужие карты, просить скриншоты карт</li>
+        <li>Связывать ивент с покупкой («купи — получишь подсказку»)</li>
+      </ul></div>
+      <div class="blk alarm"><h3>Если что-то пошло не так</h3><ul>
+        <li><b>Watchers лёг:</b> сразу к дежурному, фраза кота уходит постом в #north-star; когда чат поднимется — опубликовать и там</li>
+        <li><b>Не открывается карта:</b> <i>We know, we're on it. Your stamps are safe, and we'll extend the time if needed.</i> + дежурному</li>
+        <li><b>Код / player ID:</b> <i>Please hit Claim prize again on the map page; if it still doesn't work, our team will check it within a day.</i> + ник дежурному</li>
+        <li><b>Спам клетками в чате:</b> удалить, ответить «Every map is different…»</li>
+        <li><b>Не знаете ответа:</b> <i>Great question, I'll check with the team!</i> — и к дежурному</li>
+      </ul></div>
+    </div>
+    <div class="note-box"><b>Перед 25.12:</b> до 18.12 прочитать туториал · 18.12 репетиция (найти кота самим в тестовом режиме) · 24.12 проверить, что смены 25.12 18:30–03:00 и 26.12 21:00 по Киеву закрыты людьми. Подставить перед раздачей: <code>{map_link}</code> — страница карты, дежурный 25–26.12 и как с ним связаться.</div>
+  </div>
+</section>
 </main>
-<footer><div class="wrap">Концепт для Александра · Рождество 25–26.12.2026, формат 1+1 · Scarlet Sands · все цифры — предложение · 02.11.2026</div></footer>
+<footer><div class="wrap">Scarlet Sands · The North Star Expedition · Рождество 25–26.12.2026, формат 1+1 · обновлено 12.11.2026 · исходники: <code>scarletsands/</code> (mechanic, art, copy, launch)</div></footer>
 
 <script>
+/* генератор: копия mechanic/shared/expedition.js — не править здесь, запускать node mechanic/sync-page.js */
+/*EXPEDITION:BEGIN*/
+/* The North Star Expedition — генератор личной экспедиции игрока (Scarlet Sands, Рождество 25–26.12.2026).
+ *
+ * Пул из 20 задач (7 лёгких, 7 средних, 6 трудных). Каждому игроку по seed (= Discord ID) выпадает
+ * 2 лёгкие (глава 1) + 2 средние (глава 2) + 2 трудные (глава 3). Ориентиры на карте (10 штук) у каждого
+ * стоят по-своему, поэтому даже одинаковая задача у двух игроков даёт разные клетки.
+ * Дальше: оазис (26.12, от 4 штампов) и супер-игра Golden Compass (только тем, кто собрал всё).
+ *
+ * Сетка 12×9: колонки A–L слева направо, ряды 1–9 сверху вниз.
+ * Словарь направлений (учим на странице 0): toward the North Star = вверх, away from the North Star = вниз,
+ * toward sunrise = вправо, toward sunset = влево.
+ * Работает в браузере (window.Expedition) и в node (module.exports). Проверка ответа — только на сервере.
+ */
+(function (root) {
+  const COLS = 'ABCDEFGHIJKL', W = 12, H = 9;
+  const LANDMARKS = ['camp', 'obelisk', 'well', 'temple', 'dunes', 'cactus', 'lake', 'sphinx', 'caravan', 'pyramid'];
+  const NAMES = { camp: 'Camp', obelisk: 'Broken Obelisk', well: 'Scarab Well', temple: 'Sunken Temple',
+    dunes: 'Twin Dunes', cactus: 'Cactus Gate', lake: 'Dry Lake', sphinx: 'Sphinx Rock', caravan: 'Old Caravan',
+    pyramid: 'Little Pyramid' };
+  const blocked = (c, r) => c >= 10 && r <= 1;            // угол с розой ветров
+  const inGrid = (c, r) => c >= 0 && c < W && r >= 0 && r < H && !blocked(c, r);
+  const id = (c, r) => COLS[c] + (r + 1);
+  const at = id_ => [COLS.indexOf(id_[0]), +id_.slice(1) - 1];
+  const mid = (a, b) => [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2];
+  const mirror = (center, from) => [2 * center[0] - from[0], 2 * center[1] - from[1]];
+
+  /* Пул задач. tier: 1 лёгкая · 2 средняя · 3 трудная. text — как увидит игрок (EN), hint — подсказка на полях. */
+  const TASKS = [
+    // ЛЁГКИЕ: один ориентир, 1–2 шага
+    { key: 'E1', tier: 1, item: 'Brass Compass', type: 'Шаги',
+      text: 'From the Scarab Well, 2 squares toward the North Star. I dropped my brass compass there.',
+      hint: 'Северная звезда — вверх: 2 клетки вверх от колодца.', f: L => [L.well[0], L.well[1] - 2] },
+    { key: 'E2', tier: 1, item: 'Camp Lantern', type: 'Рядом',
+      text: 'I hung the lantern right next to the Sunken Temple, on the sunrise side.',
+      hint: 'Восход — справа: соседняя клетка справа от храма.', f: L => [L.temple[0] + 1, L.temple[1]] },
+    { key: 'E3', tier: 1, item: 'Cocoa Mug', type: 'Шаги',
+      text: '3 squares toward sunset from the Camp. My cocoa went cold there.',
+      hint: 'Закат — слева: 3 клетки влево от лагеря.', f: L => [L.camp[0] - 3, L.camp[1]] },
+    { key: 'E4', tier: 1, item: 'Wool Scarf', type: 'Шаги',
+      text: 'From the Little Pyramid, 2 squares away from the North Star. The wind took my scarf.',
+      hint: '«Away from the North Star» — вниз: 2 клетки вниз от пирамиды.', f: L => [L.pyramid[0], L.pyramid[1] + 2] },
+    { key: 'E5', tier: 1, item: 'Gingerbread Tin', type: 'Шаги',
+      text: 'From the Old Caravan, 1 square toward sunrise and 1 toward the North Star. Smells like ginger.',
+      hint: '1 вправо и 1 вверх — соседняя клетка по диагонали вправо-вверх от каравана.', f: L => [L.caravan[0] + 1, L.caravan[1] - 1] },
+    { key: 'E6', tier: 1, item: 'Sleigh Bell', type: 'Шаги',
+      text: 'From the Cactus Gate, 2 squares toward sunset. Listen for the bell.',
+      hint: 'Закат — слева: 2 клетки влево от кактусов.', f: L => [L.cactus[0] - 2, L.cactus[1]] },
+    { key: 'E7', tier: 1, item: 'Candy Cane', type: 'Шаги',
+      text: 'From the Sphinx Rock: 2 squares toward sunrise, then 1 away from the North Star.',
+      hint: '2 вправо, потом 1 вниз от сфинкса.', f: L => [L.sphinx[0] + 2, L.sphinx[1] + 1] },
+    // СРЕДНИЕ: два ориентира или длинный маршрут
+    { key: 'M1', tier: 2, item: 'Map-Paper Gift', type: 'Середина',
+      text: 'Exactly halfway between the Camp and the Sunken Temple. I counted the squares twice.',
+      hint: 'Посчитай отдельно колонки и ряды между лагерем и храмом и раздели каждое пополам.', f: L => mid(L.camp, L.temple) },
+    { key: 'M2', tier: 2, item: 'Star Ornament', type: 'Пересечение',
+      text: "Where the Sunken Temple's column crosses the Twin Dunes' row. The star ornament is there.",
+      hint: 'Колонка — буква храма, ряд — цифра дюн.', f: L => [L.temple[0], L.dunes[1]] },
+    { key: 'M3', tier: 2, item: 'Desert Candle', type: 'Маршрут',
+      text: 'From the Dry Lake: 3 squares toward sunset, then 2 toward the North Star. A candle is still burning.',
+      hint: '3 влево, потом 2 вверх от озера.', f: L => [L.lake[0] - 3, L.lake[1] - 2] },
+    { key: 'M4', tier: 2, item: 'Silver Spyglass', type: 'Пересечение',
+      text: "Where the Scarab Well's column crosses the Broken Obelisk's row. I left the spyglass on a rock.",
+      hint: 'Колонка — буква колодца, ряд — цифра обелиска.', f: L => [L.well[0], L.obelisk[1]] },
+    { key: 'M5', tier: 2, item: 'Holly Wreath', type: 'Середина',
+      text: 'Exactly halfway between the Sphinx Rock and the Old Caravan. The wreath is hanging on a stick.',
+      hint: 'Посчитай отдельно колонки и ряды между сфинксом и караваном и раздели каждое пополам.', f: L => mid(L.sphinx, L.caravan) },
+    { key: 'M6', tier: 2, item: 'Snow Globe', type: 'Шифр',
+      text: 'The guide scratched this on the tent pole. Shift every letter back by three: WZR EHORZ WKH ZHOO',
+      hint: 'W→T, Z→W, R→O: первое слово TWO. Получится TWO BELOW THE WELL.', f: L => [L.well[0], L.well[1] + 2] },
+    { key: 'M7', tier: 2, item: 'Music Box', type: 'Пересечение',
+      text: "In the Cactus Gate's row, 2 squares toward sunrise from the Dry Lake's column. I hear it playing.",
+      hint: 'Ряд — цифра кактусов. Колонка — на 2 правее буквы озера.', f: L => [L.lake[0] + 2, L.cactus[1]] },
+    // ТРУДНЫЕ: отражение, шифр −5, обратный путь, два шага логики
+    { key: 'H1', tier: 3, item: 'Christmas Stocking', type: 'Отражение',
+      text: 'Walk from the Camp to the Scarab Well, then keep going the same way for the same distance.',
+      hint: 'Сколько клеток и куда от лагеря до колодца — ровно столько же ещё от колодца.', f: L => mirror(L.well, L.camp) },
+    { key: 'H2', tier: 3, item: 'Pocket Watch', type: 'Шифр',
+      text: 'This one is older. Shift every letter back by five: YMWJJ WNLMY TK YMJ YJRUQJ',
+      hint: 'Y→T, M→H, W→R: первое слово THREE. Получится THREE RIGHT OF THE TEMPLE.', f: L => [L.temple[0] + 3, L.temple[1]] },
+    { key: 'H3', tier: 3, item: 'Lost Mitten', type: 'Обратный путь',
+      text: 'I walked 2 squares toward sunrise and 3 toward the North Star and reached the Sphinx Rock. My mitten is where I started.',
+      hint: 'Иди назад от сфинкса: 2 влево и 3 вниз.', f: L => [L.sphinx[0] - 2, L.sphinx[1] + 3] },
+    { key: 'H4', tier: 3, item: 'Tin Soldier', type: 'Два шага',
+      text: "Find where the Old Caravan's column crosses the Broken Obelisk's row. From there, 2 more squares toward the North Star.",
+      hint: 'Колонка каравана × ряд обелиска, потом 2 клетки вверх.', f: L => [L.caravan[0], L.obelisk[1] - 2] },
+    { key: 'H5', tier: 3, item: 'Silver Locket', type: 'Диагональ',
+      text: 'From the Little Pyramid, walk diagonally toward sunset and the North Star: 3 squares.',
+      hint: 'Диагональ влево-вверх: 3 клетки влево и 3 вверх от пирамиды.', f: L => [L.pyramid[0] - 3, L.pyramid[1] - 3] },
+    { key: 'H6', tier: 3, item: 'Nutcracker', type: 'Отражение',
+      text: 'The Twin Dunes are exactly halfway between the Cactus Gate and the nutcracker.',
+      hint: 'От кактусов до дюн — и ровно столько же дальше за дюны.', f: L => mirror(L.dunes, L.cactus) },
+  ];
+
+  /* Оазис и супер-игра: текст персональный (называет предметы игрока), клетка считается от его находок. */
+  const OASIS = {
+    text: T => `Stand in the column of your ${T[0].item} and the row of your ${T[2].item}. Then one step toward the North Star. Water. Palms. Lights.`,
+    hint: T => `колонка — как у «${T[0].item}» (глава 1), ряд — как у «${T[2].item}» (глава 2), потом клетка вверх.`,
+    f: (L, P) => [P.s1[0], P.s3[1] - 1] };
+  const SUPER = {
+    text: T => `The golden compass. From the oasis, go to the row of your ${T[5].item}. Then walk diagonally toward sunrise and away from the North Star: 2 squares. No hints this time.`,
+    f: (L, P) => [P.oasis[0] + 2, P.s6[1] + 2] };
+
+  /* Кот в Watchers: фраза одна для всех. Лапка = штамп, пин не тратит. */
+  const CATS = [
+    { key: 'c1', text: 'Mrrp. Napping right under the Twin Dunes. Do not wake me. (Do wake me.)', f: L => [L.dunes[0], L.dunes[1] + 1] },
+    { key: 'c2', text: 'Chasing a scarab one square toward sunset from the Sunken Temple.', f: L => [L.temple[0] - 1, L.temple[1]] },
+    { key: 'c3', text: "Sitting just above the Dry Lake, pretending it's still a lake.", f: L => [L.lake[0], L.lake[1] - 1] },
+    { key: 'c4', text: 'Next to the Camp, one step toward sunrise. Where the warm socks are.', f: L => [L.camp[0] + 1, L.camp[1]] },
+  ];
+
+  function hashSeed(s) { let h = 2166136261; for (const ch of String(s)) { h ^= ch.codePointAt(0); h = Math.imul(h, 16777619); } return h >>> 0; }
+  function rng(seed) { let a = seed >>> 0; return () => { a = (a + 0x6D2B79F5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+  function pick2(rand, tier) {
+    const pool = TASKS.filter(t => t.tier === tier); const i = Math.floor(rand() * pool.length);
+    let j = Math.floor(rand() * (pool.length - 1)); if (j >= i) j++;
+    return [pool[i], pool[j]];
+  }
+
+  /* Какие ориентиры и находки читает функция — выясняем один раз через Proxy. */
+  function depsOf(f) {
+    const lm = new Set(), ans = new Set();
+    const spy = (set) => new Proxy({}, { get: (_, k) => { set.add(k); return [0, 0]; } });
+    f(spy(lm), spy(ans));
+    return { lm: [...lm], ans: [...ans] };
+  }
+  const DEPS = new Map();
+  for (const t of [...TASKS, OASIS, SUPER, ...CATS]) DEPS.set(t.f, depsOf(t.f));
+
+  /* Расстановка ориентиров поиском с откатом: ставим по одному; как только для находки готовы все её ориентиры,
+   * сразу считаем её клетку и проверяем (в сетке, целая, не занята). Перезапуски с лимитом узлов. */
+  const CELLS = []; for (let r = 0; r < H; r++) for (let c = 0; c < W; c++) if (inGrid(c, r)) CELLS.push([c, r]);
+  const LIDX = Object.fromEntries(LANDMARKS.map((k, i) => [k, i]));
+  function tryPlace(rand, tasks) {
+    const items = [...tasks.map((t, i) => ['s' + (i + 1), t.f]), ['oasis', OASIS.f], ['super', SUPER.f], ...CATS.map(c => [c.key, c.f])];
+    // уровень готовности находки = индекс последнего нужного ориентира (с учётом находок, от которых она зависит)
+    const readyAt = {};
+    for (const [key, f] of items) { const d = DEPS.get(f);
+      readyAt[key] = Math.max(-1, ...d.lm.map(k => LIDX[k]), ...d.ans.map(k => readyAt[k])); }
+    const byLevel = LANDMARKS.map((_, i) => items.filter(([k]) => readyAt[k] === i));
+    const L = {}, P = {}, used = new Set(); let nodes = 0;
+    const shuffled = () => { const a = CELLS.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(rand() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+    function rec(i) {
+      if (i === LANDMARKS.length) return true;
+      const name = LANDMARKS[i];
+      for (const [c, r] of shuffled()) {
+        if (++nodes > 3000) return false;
+        const cid = id(c, r);
+        if (used.has(cid)) continue;
+        let ok = true;
+        for (const k in L) { const [x, y] = L[k]; if (Math.max(Math.abs(x - c), Math.abs(y - r)) < 2) { ok = false; break; } }
+        if (!ok) continue;
+        L[name] = [c, r]; used.add(cid);
+        const added = [];
+        for (const [key, f] of byLevel[i]) {
+          const [x, y] = f(L, P);
+          if (!Number.isInteger(x) || !Number.isInteger(y) || !inGrid(x, y) || used.has(id(x, y))) { ok = false; break; }
+          P[key] = [x, y]; used.add(id(x, y)); added.push(key);
+        }
+        if (ok && rec(i + 1)) return true;
+        for (const key of added) { used.delete(id(...P[key])); delete P[key]; }
+        delete L[name]; used.delete(cid);
+        if (nodes > 3000) return false;
+      }
+      return false;
+    }
+    return rec(0) ? { L: { ...L }, P: { ...P } } : null;
+  }
+
+  /* Детерминированно: один seed = один набор задач и одна карта. */
+  function buildExpedition(seed) {
+    const rand = rng(hashSeed(seed));
+    const tasks = [...pick2(rand, 1), ...pick2(rand, 2), ...pick2(rand, 3)];
+    // attempt = перезапуск поиска (до 4 000 узлов каждый); статистика — mechanic/test
+    for (let attempt = 1; attempt <= 500; attempt++) {
+      const m = tryPlace(rand, tasks);
+      if (m) {
+        const lm = {}; for (const k in m.L) lm[k] = id(...m.L[k]);
+        const ans = {}; for (const k in m.P) ans[k] = id(...m.P[k]);
+        return { seed: String(seed), attempts: attempt, landmarks: lm, answers: ans,
+          tasks: tasks.map((t, i) => ({ slot: 's' + (i + 1), chapter: Math.floor(i / 2) + 1, key: t.key, tier: t.tier,
+            item: t.item, type: t.type, text: t.text, hint: t.hint })),
+          oasis: { text: OASIS.text(tasks), hint: OASIS.hint(tasks) }, super: { text: SUPER.text(tasks) },
+          cats: CATS.map(c => ({ key: c.key, text: c.text })) };
+      }
+    }
+    throw new Error('expedition: no map for seed ' + seed);
+  }
+
+  /* Обратная связь после промаха (Чебышёв: соседняя клетка, включая диагональ = 1). В супер-игре не показывается. */
+  function feedback(guessId, answerId) {
+    const [a, b] = at(guessId), [c, d] = at(answerId);
+    const dist = Math.max(Math.abs(a - c), Math.abs(b - d));
+    if (dist === 0) return { hit: true, dist, heat: 'hit' };
+    return { hit: false, dist, heat: dist === 1 ? 'hot' : dist <= 3 ? 'warm' : 'cold' };
+  }
+
+  const RULES = { triesTask: 3, triesOasis: 3, triesSuper: 2, oasisMinStamps: 4,
+    // супер-игра: все 6 предметов найдены сами (без раскрытия), все 4 лапки, оазис найден
+    superUnlocked: s => s.found === 6 && s.paws === 4 && s.oasis };
+
+  const api = { COLS, W, H, LANDMARKS, NAMES, TASKS: TASKS.map(({ f, ...t }) => t), RULES,
+    id, at, inGrid, buildExpedition, feedback, hashSeed };
+  if (typeof module !== 'undefined' && module.exports) module.exports = api; else root.Expedition = api;
+})(typeof window !== 'undefined' ? window : globalThis);
+/*EXPEDITION:END*/
+
 (()=>{
 const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const E = window.Expedition;
 
 /* гирлянда */
 const gl=document.getElementById('garland');
@@ -516,18 +975,16 @@ function sky(t){const r=cv.getBoundingClientRect();cx.clearRect(0,0,r.width,r.he
   if(!RM) requestAnimationFrame(sky)}
 sizeSky();addEventListener('resize',sizeSky);
 
+/* таблица 20 находок */
+const TIER=['','Лёгкая · глава 1 · 11:00 ET','Средняя · глава 2 · 15:00 ET','Трудная · глава 3 · 19:00 ET'];
+document.getElementById('taskRows').innerHTML=[1,2,3].map(t=>`<tr class="tierhead"><td colspan="5">${TIER[t]} · каждому 2 из ${E.TASKS.filter(x=>x.tier===t).length}</td></tr>`+
+  E.TASKS.filter(x=>x.tier===t).map(x=>`<tr><td class="k">${x.key}</td><td>${x.item}</td><td>${x.type}</td><td class="en">${x.text}</td><td>${x.hint}</td></tr>`).join('')).join('');
+
 /* ---------- карта ---------- */
-const COLS='ABCDEFGHIJKL', CELL=100, OX=40, OY=40;
+const CELL=100, OX=40, OY=40;
 const svg=document.getElementById('map');
 const ink='#4A1A0C', red='#B4002E';
 const cxy=(c,r)=>[OX+c*CELL+50,OY+r*CELL+50];
-const cellOf=id=>[COLS.indexOf(id[0]),+id.slice(1)-1];
-
-const LM={ /* ориентиры, клетка → рисунок */
-  camp:{at:'B8',name:'Camp'}, obelisk:{at:'C7',name:'Broken Obelisk'}, well:{at:'E2',name:'Scarab Well'},
-  temple:{at:'I3',name:'Sunken Temple'}, dunes:{at:'H6',name:'Twin Dunes'}, cactus:{at:'K8',name:'Cactus Gate'},
-  lake:{at:'F8',name:'Dry Lake'}
-};
 function icon(k,x,y){
   switch(k){
     case 'camp':return `<path d="M${x-30} ${y+22}L${x} ${y-24}L${x+30} ${y+22}Z" fill="#E4B473" stroke="${ink}" stroke-width="3"/><path d="M${x} ${y-24}L${x-6} ${y+22}" stroke="${ink}" stroke-width="2"/><path d="M${x+36} ${y+22}q4 -16 10 -6q4 -14 8 0q2 8 -18 6z" fill="${red}"/>`;
@@ -535,143 +992,195 @@ function icon(k,x,y){
     case 'well':return `<ellipse cx="${x}" cy="${y+10}" rx="26" ry="10" fill="#6b3a1c" stroke="${ink}" stroke-width="3"/><path d="M${x-26} ${y+10}v-12M${x+26} ${y+10}v-12M${x-30} ${y-2}h60" stroke="${ink}" stroke-width="3" fill="none"/><ellipse cx="${x}" cy="${y-18}" rx="7" ry="9" fill="${ink}"/><path d="M${x-7} ${y-20}l-7 -4M${x+7} ${y-20}l7 -4M${x-7} ${y-14}l-7 4M${x+7} ${y-14}l7 4" stroke="${ink}" stroke-width="2"/>`;
     case 'temple':return `<path d="M${x-36} ${y+26}h72v-8h-72zM${x-30} ${y+18}v-30M${x-12} ${y+18}v-30M${x+12} ${y+18}v-30M${x+30} ${y+18}v-30M${x-38} ${y-12}h76L${x} ${y-34}Z" fill="#D9AF6E" stroke="${ink}" stroke-width="3" stroke-linejoin="round"/>`;
     case 'dunes':return `<path d="M${x-46} ${y+20}q22 -40 46 0q22 -46 46 0" fill="none" stroke="${ink}" stroke-width="3"/><path d="M${x-30} ${y+20}q8 -14 16 -6M${x+16} ${y+20}q8 -16 18 -6" stroke="${ink}" stroke-width="1.5" fill="none"/>`;
-    case 'cactus':return [ -18, 18].map(d=>`<path d="M${x+d} ${y+28}v-48a6 6 0 0 1 12 0v48M${x+d} ${y}h-8v-14M${x+d+12} ${y-6}h8v-12" fill="none" stroke="${ink}" stroke-width="3" stroke-linecap="round"/>`).join('');
-    case 'lake':return `<ellipse cx="${x}" cy="${y}" rx="60" ry="28" fill="rgba(180,0,46,.08)" stroke="${ink}" stroke-width="2" stroke-dasharray="6 6"/><path d="M${x-30} ${y}l10 -6l8 8l12 -6l10 6" stroke="${ink}" stroke-width="1.5" fill="none"/>`;
+    case 'cactus':return [-18,6].map(d=>`<path d="M${x+d} ${y+28}v-48a6 6 0 0 1 12 0v48M${x+d} ${y}h-8v-14M${x+d+12} ${y-6}h8v-12" fill="none" stroke="${ink}" stroke-width="3" stroke-linecap="round"/>`).join('');
+    case 'lake':return `<ellipse cx="${x}" cy="${y+4}" rx="44" ry="22" fill="rgba(180,0,46,.08)" stroke="${ink}" stroke-width="2" stroke-dasharray="6 6"/><path d="M${x-24} ${y+4}l8 -6l8 8l10 -6l8 6" stroke="${ink}" stroke-width="1.5" fill="none"/>`;
+    case 'sphinx':return `<path d="M${x-38} ${y+24}h70v-12q-6 -10 -24 -10h-18v-14q0 -16 -14 -16q-14 0 -14 16v36z" fill="#D9AF6E" stroke="${ink}" stroke-width="3" stroke-linejoin="round"/><path d="M${x-30} ${y-20}l-6 14M${x-12} ${y-20}l6 14" stroke="${ink}" stroke-width="2"/><circle cx="${x-21}" cy="${y-16}" r="2.5" fill="${ink}"/>`;
+    case 'caravan':return `<path d="M${x-32} ${y+10}v-12q32 -36 64 0v12z" fill="#EBCB93" stroke="${ink}" stroke-width="3"/><path d="M${x-16} ${y-12}v22M${x} ${y-18}v28M${x+16} ${y-12}v22" stroke="${ink}" stroke-width="1.5"/><rect x="${x-38}" y="${y+8}" width="76" height="8" fill="#8a5a33" stroke="${ink}" stroke-width="2.5"/><circle cx="${x-22}" cy="${y+22}" r="9" fill="none" stroke="${ink}" stroke-width="3"/><circle cx="${x+22}" cy="${y+22}" r="9" fill="none" stroke="${ink}" stroke-width="3"/>`;
+    case 'pyramid':return `<path d="M${x-36} ${y+26}L${x} ${y-30}L${x+36} ${y+26}Z" fill="#D9AF6E" stroke="${ink}" stroke-width="3" stroke-linejoin="round"/><path d="M${x} ${y-30}L${x+8} ${y+26}M${x-20} ${y+2}h34M${x-28} ${y+14}h50" stroke="${ink}" stroke-width="1.5"/>`;
+    case 'oasis':return `<ellipse cx="${x}" cy="${y+18}" rx="40" ry="14" fill="#3f8fa3" stroke="${ink}" stroke-width="2.5"/><path d="M${x-14} ${y+14}q-2 -26 4 -40M${x+14} ${y+14}q2 -22 -6 -34" stroke="${ink}" stroke-width="4" fill="none"/><path d="M${x-10} ${y-26}q-22 -2 -30 12M${x-10} ${y-26}q16 -12 30 -2M${x-10} ${y-26}q-6 -14 -20 -16M${x+8} ${y-20}q20 -6 30 8M${x+8} ${y-20}q-2 -16 12 -22" stroke="#2f6b2a" stroke-width="5" fill="none" stroke-linecap="round"/>`;
+    case 'golden':return `<circle cx="${x}" cy="${y}" r="30" fill="#FFE229" stroke="${ink}" stroke-width="3"/><circle cx="${x}" cy="${y}" r="22" fill="none" stroke="${ink}" stroke-width="1.5" stroke-dasharray="3 3"/><path d="M${x} ${y-24}L${x+7} ${y}L${x} ${y+24}L${x-7} ${y}Z" fill="${red}" stroke="${ink}" stroke-width="1.5"/>`;
   }
 }
-const STONES_W=[['J5',-28,-14],['J5',18,20],['K5',0,-22],['K5',30,16],['L5',-14,-18]]; /* «корона» из 5 камней — Кассиопея */
-const STONES_DECOY=[['C4',-10,0],['D4',-30,6],['D4',20,-4],['E4',-6,10]];
-function stone(id,dx,dy,big){const[c,r]=cellOf(id);const[x,y]=cxy(c,r);return `<ellipse cx="${x+dx}" cy="${y+dy}" rx="${big?11:9}" ry="${big?8:7}" fill="#8a5a33" stroke="${ink}" stroke-width="2.5"/>`}
+const TEXT_ANCHOR=c=>c===0?['start',-44]:c===11?['end',44]:['middle',0];
+/* арт из Flow (art/process-assets.ps1 → assets/map/icons.json): значки с прозрачным фоном, вписываем в квадрат box */
+const ART={"camp":[256,208],"obelisk":[207,256],"well":[202,256],"temple":[256,233],"dunes":[256,131],"cactus":[193,256],"lake":[256,169],"sphinx":[256,187],"caravan":[237,256],"pyramid":[256,197],"oasis":[256,199],"golden":[256,251]};
+function art(k,x,y,box=86){const[w,h]=ART[k],s=box/Math.max(w,h),W=w*s,H=h*s;return `<image href="assets/map/icon-${k}.png" x="${(x-W/2).toFixed(1)}" y="${(y-H/2).toFixed(1)}" width="${W.toFixed(1)}" height="${H.toFixed(1)}"/>`}
 
-function drawMap(){
+function drawBase(m){
   let s=`<defs>
     <filter id="paper" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="3" seed="7"/><feColorMatrix values="0 0 0 0 .29  0 0 0 0 .1  0 0 0 0 .05  0 0 0 .22 0"/><feComposite in2="SourceGraphic" operator="in"/></filter>
     <radialGradient id="burn" cx="50%" cy="50%" r="72%"><stop offset="62%" stop-color="#EBCB93" stop-opacity="0"/><stop offset="100%" stop-color="#7a3a12" stop-opacity=".75"/></radialGradient>
   </defs>
-  <rect width="1240" height="940" fill="#EBCB93"/><rect width="1240" height="940" filter="url(#paper)"/>`;
-  /* контуры дюн, фон */
-  for(let i=0;i<9;i++){const y=120+i*92;s+=`<path d="M40 ${y} C 260 ${y-40}, 420 ${y+44}, 640 ${y} S 1020 ${y-36}, 1200 ${y+6}" fill="none" stroke="rgba(74,26,12,.13)" stroke-width="2"/>`}
-  /* сетка */
+  <rect width="1240" height="940" fill="#EBCB93"/><image href="assets/map/parchment.jpg" x="0" y="0" width="1240" height="940" preserveAspectRatio="none"/>`;
   for(let c=0;c<=12;c++)s+=`<line x1="${OX+c*CELL}" y1="${OY}" x2="${OX+c*CELL}" y2="${OY+900}" stroke="rgba(74,26,12,.28)" stroke-width="1" stroke-dasharray="3 7"/>`;
   for(let r=0;r<=9;r++)s+=`<line x1="${OX}" y1="${OY+r*CELL}" x2="${OX+1200}" y2="${OY+r*CELL}" stroke="rgba(74,26,12,.28)" stroke-width="1" stroke-dasharray="3 7"/>`;
-  for(let c=0;c<12;c++)s+=`<text x="${OX+c*CELL+50}" y="28" text-anchor="middle" font-family="DM Mono,monospace" font-size="20" fill="${ink}" opacity=".7">${COLS[c]}</text>`;
+  for(let c=0;c<12;c++)s+=`<text x="${OX+c*CELL+50}" y="28" text-anchor="middle" font-family="DM Mono,monospace" font-size="20" fill="${ink}" opacity=".7">${E.COLS[c]}</text>`;
   for(let r=0;r<9;r++)s+=`<text x="20" y="${OY+r*CELL+57}" text-anchor="middle" font-family="DM Mono,monospace" font-size="20" fill="${ink}" opacity=".7">${r+1}</text>`;
-  /* маршрут от лагеря */
-  s+=`<path d="M240 840 C 300 760, 280 700, 340 690 S 520 560, 640 560 S 800 420, 900 360" fill="none" stroke="${red}" stroke-width="3" stroke-dasharray="2 10" stroke-linecap="round" opacity=".55"/>`;
-  for(const k in LM){const[c,r]=cellOf(LM[k].at);const[x,y]=cxy(c,r);s+=icon(k,x,y-6)+`<text x="${x}" y="${y+46}" text-anchor="middle" font-family="Caveat,cursive" font-weight="700" font-size="25" fill="${ink}">${LM[k].name}</text>`}
-  STONES_W.forEach(([id,dx,dy],i)=>s+=stone(id,dx,dy,i===2));
-  STONES_DECOY.forEach(([id,dx,dy])=>s+=stone(id,dx,dy));
-  /* роза ветров с Северной звездой */
-  const rx=1130,ry=150;
-  s+=`<g transform="translate(${rx} ${ry})"><circle r="54" fill="none" stroke="${ink}" stroke-width="2"/><circle r="40" fill="none" stroke="${ink}" stroke-width="1" stroke-dasharray="2 4"/>
+  for(const k in m.landmarks){const[c,r]=E.at(m.landmarks[k]);const[x,y]=cxy(c,r);const[an,dx]=TEXT_ANCHOR(c);
+    s+=art(k,x,y-12)+`<text x="${x+dx}" y="${y+48}" text-anchor="${an}" font-family="Caveat,cursive" font-weight="700" font-size="23" fill="${ink}" stroke="#F3E2BF" stroke-width="5" stroke-linejoin="round" paint-order="stroke">${E.NAMES[k]}</text>`}
+  const rx=1140,ry=150;
+  s+=`<g transform="translate(${rx} ${ry})"><circle r="54" fill="#EBCB93" stroke="${ink}" stroke-width="2"/><circle r="40" fill="none" stroke="${ink}" stroke-width="1" stroke-dasharray="2 4"/>
     <path d="M0 -62L10 0L0 62L-10 0Z" fill="${ink}"/><path d="M-62 0L0 -8L62 0L0 8Z" fill="#D9AF6E" stroke="${ink}" stroke-width="2"/><path d="M0 -62L10 0L0 0Z" fill="${red}"/>
     <text y="-72" text-anchor="middle" font-family="Archivo Black,sans-serif" font-size="20" fill="${red}">N</text>
     <path d="M0 -112l5 13l14 0l-11 8l4 14l-12 -8l-12 8l4 -14l-11 -8l14 0z" fill="${red}" transform="scale(.9)"/></g>`;
-  s+=`<rect width="1240" height="940" fill="url(#burn)" pointer-events="none"/>`;
-  s+=`<g id="pins"></g><g id="route"></g><g id="cells">`;
-  for(let r=0;r<9;r++)for(let c=0;c<12;c++)s+=`<rect class="cell" x="${OX+c*CELL}" y="${OY+r*CELL}" width="${CELL}" height="${CELL}" data-id="${COLS[c]}${r+1}" tabindex="0" role="button" aria-label="Клетка ${COLS[c]}${r+1}"/>`;
+  s+=`<g id="route"></g><g id="marks"></g><g id="cells">`;
+  for(let r=0;r<9;r++)for(let c=0;c<12;c++){if(!E.inGrid(c,r))continue;const cid=E.id(c,r);
+    s+=`<rect class="cell" x="${OX+c*CELL}" y="${OY+r*CELL}" width="${CELL}" height="${CELL}" data-id="${cid}" tabindex="0" role="button" aria-label="Клетка ${cid}"/>`}
   s+=`</g>`;
   svg.innerHTML=s;
 }
-drawMap();
 
-/* дни демо */
-const DAYS=[
-  {key:'az',tab:'10:00 · Азимут',date:'Страница 1 · 25 декабря · 10:00 ET',ans:'F5',cat:'H7',stamp:'Obelisk Trail',
-   text:'«From the <u>Broken Obelisk</u> I walked <b>3 squares toward sunrise</b>, then <b>2 toward the North Star</b>. That\'s where I left the brass compass.»',
-   hint:'На полях: восход — это восток, вправо. Северная звезда — вверх.',
-   watch:'Кот спит в тени. Кто-то видел его ушки чуть ниже Twin Dunes 👀'},
-  {key:'ci',tab:'12:00 · Шифр',date:'Страница 2 · 25 декабря · 12:00 ET',ans:'G3',cat:'D6',stamp:'Temple Cipher',
-   text:'«The guide wrote this on the tent wall and laughed. Shift every letter <b>back by three</b>:»<br><span class="cipher">WZR VTXDUHV ZHVW RI WKH WHPSOH</span>',
-   hint:'На полях: W→T, Z→W, R→O. Первое слово — TWO.',
-   watch:'Кот гонялся за скарабеем где-то между лагерем и колодцем. Направо от обелиска, на ступеньку выше.'},
-  {key:'st',tab:'14:00 · Созвездие',date:'Страница 3 · 25 декабря · 14:00 ET',ans:'K5',cat:'B2',stamp:'Queen\'s Stones',
-   text:'«Last night the sky showed this crown. Somebody laid the same shape on the sand in stones. Pin its <b>brightest star</b>.»<svg class="constel" width="150" height="54" viewBox="0 0 150 54" aria-hidden="true"><path d="M8 18L42 44L74 8L106 40L140 14" fill="none" stroke="#4A1A0C" stroke-width="1.5" stroke-dasharray="3 4"/><circle cx="8" cy="18" r="4" fill="#4A1A0C"/><circle cx="42" cy="44" r="4" fill="#4A1A0C"/><circle cx="74" cy="8" r="7" fill="#B4002E"/><circle cx="106" cy="40" r="4" fill="#4A1A0C"/><circle cx="140" cy="14" r="4" fill="#4A1A0C"/></svg>',
-   hint:'На полях: ищи пять камней зигзагом, не четыре в ряд. Самый крупный — в центре.',
-   watch:'Кот сегодня у левого края карты, на одной линии с колодцем. Шлем видно издалека.'}
-];
-const st={day:0,tries:[3,3,3],done:[false,false,false],pins:[[],[],[]],cat:[false,false,false]};
-const tabs=document.getElementById('tabs'),dDate=document.getElementById('dDate'),dText=document.getElementById('dText'),
-  status=document.getElementById('status'),wText=document.getElementById('wText'),pinsG=()=>svg.querySelector('#pins'),
-  catPop=document.getElementById('catPop'),stampsEl=document.getElementById('stamps'),ppFoot=document.getElementById('ppFoot');
+/* ---------- состояние демо ---------- */
+const SLOTS=['s1','s2','s3','s4','s5','s6'], CAT_KEYS=['c1','c2','c3','c4'];
+const TIME=['11:00','15:00','19:00'], TIERS=['','лёгкая','средняя','трудная'];
+const HEAT={hot:['hot','Горячо 🔥','совсем рядом, соседняя клетка (и по диагонали)'],warm:['warm','Тепло','2–3 клетки'],cold:['cold','Холодно','дальше 3 клеток']};
+const PIN_COL={hit:'#DB0037',hot:'#DB0037',warm:'#C77B1E',cold:'#3B5BA9',miss:'#4A1A0C'};
+let st, TABS;
 
-function stampSVG(i,name){return `<svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="44" fill="rgba(219,0,55,.12)" stroke="#FF2058" stroke-width="4"/><circle cx="50" cy="50" r="35" fill="none" stroke="#FF2058" stroke-width="1.5" stroke-dasharray="3 3"/><path d="M50 26l4 11h12l-10 7l4 12l-10 -7l-10 7l4 -12l-10 -7h12z" fill="#FFE229"/><text x="50" y="74" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#FF2058" letter-spacing="1">${name.toUpperCase().slice(0,15)}</text></svg>`}
-const SLOTS=['10:00','12:00','14:00','16:00','18:00','20:00'];
-const DEMO_SLOT={'10:00':0,'12:00':1,'14:00':2};
+function fresh(seed){
+  const m=E.buildExpedition(seed);
+  TABS=[...m.tasks.map(t=>({key:t.slot,cat:'c'+t.chapter,tab:`${t.chapter}·${t.slot.slice(1)} ${t.item}`,
+      date:`Глава ${t.chapter} · 25 декабря · ${TIME[t.chapter-1]} ET`,tier:t.tier,item:t.item,text:t.text,hint:t.hint,tries:3})),
+    {key:'oasis',cat:'c4',tab:'Оазис',date:'26 декабря · с 11:00 ET · от 4 штампов',item:'North Star Oasis',text:m.oasis.text,hint:m.oasis.hint,tries:3},
+    {key:'super',cat:'c4',tab:'★ Golden Compass',date:'26 декабря · супер-игра · только для собравших всё',tier:4,item:'Golden Compass',text:m.super.text,hint:null,tries:2}];
+  st={seed,m,tab:0,tries:Object.fromEntries(TABS.map(t=>[t.key,t.tries])),done:{},revealed:{},pins:Object.fromEntries(TABS.map(t=>[t.key,[]])),cats:{},seen:{}};
+  drawBase(m);
+  document.getElementById('seedLbl').textContent='#'+seed.slice(-4);
+}
+const found=()=>SLOTS.filter(k=>st.done[k]).length;
+const paws=()=>CAT_KEYS.filter(k=>st.cats[k]).length;
+const stamps=()=>found()+paws();
+const known=k=>st.done[k]||st.revealed[k];
+const superOpen=()=>E.RULES.superUnlocked({found:found(),paws:paws(),oasis:!!st.done.oasis});
+const lockReason=k=>{
+  if(k==='oasis'){if(stamps()<E.RULES.oasisMinStamps)return `Оазис откроется при 4 штампах, сейчас ${stamps()}. Лапки кота тоже считаются.`;
+    if(!(known('s1')&&known('s3')))return 'Сначала закрой находки 1 и 3: оазис считается от них.';}
+  if(k==='super'&&!superOpen())return `Golden Compass — только для тех, кто собрал всё сам: находок ${found()}/6, лапок ${paws()}/4, оазис ${st.done.oasis?'✓':'—'}. Находка, показанная после 3 промахов, не считается.`;
+  return null;
+};
+
+const tabsEl=document.getElementById('tabs'),dDate=document.getElementById('dDate'),dText=document.getElementById('dText'),
+  status=document.getElementById('status'),wText=document.getElementById('wText'),catPop=document.getElementById('catPop');
+
+function stampSVG(name){return `<svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="44" fill="rgba(219,0,55,.12)" stroke="#FF2058" stroke-width="4"/><circle cx="50" cy="50" r="35" fill="none" stroke="#FF2058" stroke-width="1.5" stroke-dasharray="3 3"/><path d="M50 26l4 11h12l-10 7l4 12l-10 -7l-10 7l4 -12l-10 -7h12z" fill="#FFE229"/><text x="50" y="74" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="#FF2058" letter-spacing=".5">${name.toUpperCase().slice(0,16)}</text></svg>`}
+function pawSVG(){return `<svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="44" fill="rgba(255,226,41,.12)" stroke="#FFE229" stroke-width="4"/><ellipse cx="50" cy="60" rx="15" ry="12" fill="#FF2058"/><circle cx="33" cy="42" r="6" fill="#FF2058"/><circle cx="44" cy="34" r="6" fill="#FF2058"/><circle cx="56" cy="34" r="6" fill="#FF2058"/><circle cx="67" cy="42" r="6" fill="#FF2058"/></svg>`}
+
 function renderPassport(){
-  stampsEl.innerHTML=SLOTS.map(d=>{const di=DEMO_SLOT[d];const demo=di!==undefined;
-    return `<div class="slot ${demo?'demo':''} ${demo&&st.done[di]?'stamped':''} ${d==='20:00'?'star':''}">${d}${demo?stampSVG(di,DAYS[di].stamp):''}</div>`}).join('');
-  const n=st.done.filter(Boolean).length, c=st.cat.filter(Boolean).length;
-  ppFoot.innerHTML=`Штампов в демо: <b>${n} из 3</b>${c?` · находок кота: <b>${c}</b>`:''}<br>Пороги боевой версии: 3 и 6 штампов, финал от 4.`;
-  document.getElementById('finalNote').hidden=n<3;
+  document.getElementById('stamps').innerHTML=SLOTS.map((k,i)=>`<div class="slot ${st.done[k]?'stamped':''} ${st.revealed[k]?'missed':''}"><span class="lbl">${st.revealed[k]?'мимо':(Math.floor(i/2)+1)+'·'+(i+1)}</span>${stampSVG(TABS[i].item)}</div>`).join('');
+  document.getElementById('paws').innerHTML=CAT_KEYS.map((k,i)=>`<div class="slot ${st.cats[k]?'stamped':''}"><span class="lbl">${i+1}</span>${pawSVG()}</div>`).join('');
+  const os=document.getElementById('oasisSlot');os.className='big-slot'+(st.done.oasis?' stamped':'');os.textContent=st.done.oasis?'★ Оазис найден':'Оазис · 26.12';
+  const ss=document.getElementById('superSlot');ss.className='big-slot super'+(st.done.super?' stamped':superOpen()?'':' locked');
+  ss.textContent=st.done.super?'★ Golden Compass — билет на 50 SC':superOpen()?'Golden Compass открыт':'🔒 Golden Compass';
+  const n=stamps(),oasis=!!st.done.oasis;
+  const T=[[n>=3,'3 штампа','2 FP + 20K GC','код в ЛС'],[n>=6,'6 штампов','3 FP + 30K GC','код в ЛС'],[oasis,'Оазис','1 SC + 50K GC','код в ЛС'],[!!st.done.super,'Golden Compass','50 SC','в розыгрыше 27.12']];
+  document.getElementById('tiers').innerHTML=T.map(([on,h,p,x])=>`<li class="${on?'on':''}"><span>${h} → <b>${p}</b>${on?' · '+x:''}</span></li>`).join('');
+  const ob=document.getElementById('offerBox');
+  const off=oasis?['Oasis Treasure Chest','59.99','+50%']:n>=6?['Star Map Chest','39.99','+40%']:n>=3?["Explorer's Supply Crate",'19.99','+40%']:n>=1?["Ginger Cat's Stash",'9.99','+100%']:null;
+  ob.hidden=!off; if(off) ob.innerHTML=`Оффер 27.12 (по высшему уровню): <b>${off[0]}</b> ${off[1]} ${off[2]}, 72 ч`;
+  document.getElementById('ppFoot').innerHTML=`Штампов: <b>${n}</b> из 10 · находка + лапка = штамп`;
   drawRoute();
 }
-function renderTabs(){tabs.innerHTML=DAYS.map((d,i)=>`<button type="button" aria-pressed="${i===st.day}" data-i="${i}">${d.tab}${st.done[i]?' <span class="ok">✓</span>':''}</button>`).join('')}
-function setStatus(cls,msg){status.className='status '+cls;status.innerHTML=`<span class="tries">${st.tries[st.day]} / 3</span><span>${msg}</span>`}
-function renderDay(){
-  const d=DAYS[st.day];renderTabs();dDate.textContent=d.date;dText.innerHTML=d.text;wText.textContent=d.watch;
-  if(st.done[st.day])setStatus('good',`Штамп «${d.stamp}» уже в паспорте. Переключи страницу дневника.`);
-  else if(st.tries[st.day]===0)setStatus('bad','Пины на эту страницу кончились. Следующая страница выйдет через 2 часа.');
-  else setStatus('',st.tries[st.day]<=1?`Подсказка на полях: ${d.hint}`:'Нажми на клетку карты, куда ведёт подсказка.');
-  drawPins();catPop.classList.remove('on');
+function renderTabs(){
+  tabsEl.innerHTML=TABS.map((t,i)=>{const ok=st.done[t.key]?' <span class="ok">✓</span>':st.revealed[t.key]?' ✗':'';const lock=lockReason(t.key)&&!st.done[t.key]&&(t.key==='oasis'||t.key==='super')?' 🔒':'';
+    return (i===6?'<span class="sep"></span>':'')+`<button type="button" aria-pressed="${i===st.tab}" data-i="${i}">${t.tab}${ok}${lock}</button>`}).join('');
 }
-function drawPins(){
-  pinsG().innerHTML=st.pins[st.day].map(p=>{const[c,r]=cellOf(p.id);const[x,y]=cxy(c,r);
-    const col=p.ok?'#DB0037':'#4A1A0C';
-    return `<g transform="translate(${x} ${y})"><ellipse cy="4" rx="12" ry="4" fill="rgba(0,0,0,.25)"/><path d="M0 2C-4 -10 -16 -18 -16 -32a16 16 0 0 1 32 0C16 -18 4 -10 0 2z" fill="${col}" stroke="#2a0d05" stroke-width="2"/><circle cy="-32" r="6" fill="${p.ok?'#FFE229':'#EBCB93'}"/></g>`}).join('');
+function setStatus(cls,msg){const t=TABS[st.tab];status.className='status '+cls;status.innerHTML=`<span class="tries">${st.tries[t.key]} / ${t.tries}</span><span>${msg}</span>`}
+function renderTab(){
+  const t=TABS[st.tab];st.seen[t.cat]=true;renderTabs();
+  dDate.innerHTML=`${t.date}${t.tier?` <span class="tier t${t.tier}">${t.tier===4?'супер':TIERS[t.tier]}</span>`:''}`;dText.innerHTML='«'+t.text+'»';
+  const ci=CAT_KEYS.indexOf(t.cat), cat=st.m.cats[ci];
+  wText.innerHTML=`<span class="en">🐾 ${cat.text}</span><span class="note">Дроп кота ${ci+1} из 4. Фраза одна для всех, клетка — на твоей карте. ${st.cats[t.cat]?'<b style="color:var(--gold)">Лапка уже в паспорте.</b>':'Нажми на клетку: пин не тратится.'}</span>`;
+  const lr=st.done[t.key]?null:lockReason(t.key);
+  if(lr)setStatus('',lr);
+  else if(st.done[t.key])setStatus('good',t.key==='super'?'Golden Compass найден. Ты в розыгрыше 50 SC 27.12.':`«${t.item}» уже в паспорте. Переключи страницу.`);
+  else if(st.revealed[t.key])setStatus('bad',t.key==='super'?'Попытки кончились. Уровни 1–3 остаются твоими.':'Пины кончились. Место показано пунктиром — без штампа, но для оазиса пригодится.');
+  else if(t.hint&&st.tries[t.key]===1)setStatus('',`Подсказка на полях: ${t.hint}`);
+  else setStatus('',t.key==='super'?'Две попытки, без «горячо / холодно» и без подсказок.':'Нажми на клетку карты, куда ведёт страница.');
+  drawMarks();catPop.classList.remove('on');
+}
+function pinSVG(cid,col,head){const[x,y]=cxy(...E.at(cid));
+  return `<g transform="translate(${x} ${y})"><ellipse cy="4" rx="12" ry="4" fill="rgba(0,0,0,.25)"/><path d="M0 2C-4 -10 -16 -18 -16 -32a16 16 0 0 1 32 0C16 -18 4 -10 0 2z" fill="${col}" stroke="#2a0d05" stroke-width="2"/><circle cy="-32" r="6" fill="${head}"/></g>`}
+function drawMarks(){
+  const t=TABS[st.tab],A=st.m.answers;let s='';
+  for(const k of SLOTS){if(k===t.key)continue;const[x,y]=cxy(...E.at(A[k]));const n=k.slice(1);
+    if(st.done[k])s+=`<circle cx="${x}" cy="${y}" r="15" fill="#DB0037" stroke="#2a0d05" stroke-width="2" opacity=".85"/><text x="${x}" y="${y+5}" text-anchor="middle" font-family="DM Mono,monospace" font-size="13" fill="#FFE229">${n}</text>`;
+    else if(st.revealed[k])s+=`<circle cx="${x}" cy="${y}" r="15" fill="none" stroke="#4A1A0C" stroke-width="2" stroke-dasharray="4 4"/><text x="${x}" y="${y+5}" text-anchor="middle" font-family="DM Mono,monospace" font-size="13" fill="#4A1A0C">${n}</text>`}
+  if(st.revealed[t.key]&&t.key!=='super'){const[x,y]=cxy(...E.at(A[t.key]));s+=`<circle cx="${x}" cy="${y}" r="38" fill="none" stroke="#DB0037" stroke-width="3" stroke-dasharray="8 6"/>`}
+  if(st.done.oasis){const[x,y]=cxy(...E.at(A.oasis));s+=art('oasis',x,y-4,96)}
+  if(st.done.super){const[x,y]=cxy(...E.at(A.super));s+=art('golden',x,y,78)}
+  for(const p of st.pins[t.key])if(p.heat!=='hit'||!(t.key==='oasis'||t.key==='super'))s+=pinSVG(p.id,PIN_COL[p.heat],p.heat==='hit'?'#FFE229':'#EBCB93');
+  for(const k of CAT_KEYS)if(st.cats[k]){const[x,y]=cxy(...E.at(A[k]));s+=`<g transform="translate(${x-14} ${y+14}) scale(.28)" opacity=".85"><ellipse cx="50" cy="60" rx="15" ry="12" fill="#B4002E"/><circle cx="33" cy="42" r="6" fill="#B4002E"/><circle cx="44" cy="34" r="6" fill="#B4002E"/><circle cx="56" cy="34" r="6" fill="#B4002E"/><circle cx="67" cy="42" r="6" fill="#B4002E"/></g>`}
+  svg.querySelector('#marks').innerHTML=s;
 }
 function drawRoute(){
-  const g=svg.querySelector('#route');const pts=DAYS.map((d,i)=>st.done[i]?cxy(...cellOf(d.ans)):null);
-  if(pts.some(p=>!p)){g.innerHTML='';return}
-  const [a,b,c]=pts;const ex=c[0]+(c[0]-b[0])*.55, ey=c[1]+(c[1]-b[1])*.55-160;
-  g.innerHTML=`<path d="M${a[0]} ${a[1]} L${b[0]} ${b[1]} L${c[0]} ${c[1]} Q ${c[0]+40} ${c[1]-120} 1130 150" fill="none" stroke="#DB0037" stroke-width="4" stroke-dasharray="10 8"/><circle cx="1130" cy="150" r="70" fill="none" stroke="#FFE229" stroke-width="5"/><text x="1030" y="250" font-family="Caveat,cursive" font-weight="700" font-size="30" fill="#B4002E">to the oasis?</text>`;
+  const g=svg.querySelector('#route'),A=st.m.answers;if(!st.done.oasis){g.innerHTML='';return}
+  const pts=[...SLOTS,'oasis'].filter(k=>known(k)).map(k=>cxy(...E.at(A[k])));
+  const [ox,oy]=cxy(...E.at(A.oasis));
+  let s=`<path d="M${pts.map(p=>p.join(' ')).join(' L')}" fill="none" stroke="#DB0037" stroke-width="3.5" stroke-dasharray="10 8" opacity=".7"/><circle cx="${ox}" cy="${oy}" r="56" fill="none" stroke="#FFE229" stroke-width="5"/>`;
+  if(st.done.super){const[sx,sy]=cxy(...E.at(A.super));s+=`<path d="M${ox} ${oy} L${sx} ${sy}" stroke="#FFE229" stroke-width="5" stroke-dasharray="2 9" stroke-linecap="round"/><circle cx="${sx}" cy="${sy}" r="48" fill="none" stroke="#FFE229" stroke-width="4"/>`}
+  g.innerHTML=s;
 }
-function pin(id){
-  const i=st.day,d=DAYS[i];
-  if(st.done[i]||st.tries[i]===0){renderDay();return}
-  if(st.pins[i].some(p=>p.id===id))return;
-  const ok=id===d.ans;
-  if(id===d.cat&&!st.cat[i]){
-    st.cat[i]=true;const[c,r]=cellOf(id);const[x,y]=cxy(c,r);const box=svg.getBoundingClientRect(),k=box.width/1240;
-    catPop.style.left=(x*k)+'px';catPop.style.top=(y*k+16)+'px';catPop.classList.add('on');
-    setStatus('good',`Кот! Находка в ${id}: <b>1 FP + 10K GC</b>. Пин не потрачен. В боевой версии находку получают первые 25 игроков за дроп.`);
-    renderPassport();setTimeout(()=>catPop.classList.remove('on'),2600);return;
+function findCat(cid){
+  const k=CAT_KEYS.find(k=>st.seen[k]&&!st.cats[k]&&st.m.answers[k]===cid);if(!k)return false;
+  st.cats[k]=true;const[x,y]=cxy(...E.at(cid));const box=svg.getBoundingClientRect(),sc=box.width/1240;
+  catPop.style.left=(x*sc)+'px';catPop.style.top=(y*sc+16)+'px';catPop.classList.add('on');
+  setStatus('good',`Кот! ${cid}: лапка ${CAT_KEYS.indexOf(k)+1} в паспорте, это штамп. Пин не потрачен.`);
+  renderPassport();renderTabs();setTimeout(()=>{catPop.classList.remove('on');drawMarks()},2200);
+  return true;
+}
+function pin(cid){
+  if(findCat(cid))return;
+  const t=TABS[st.tab],k=t.key;
+  if(st.done[k]||st.revealed[k]||lockReason(k)){renderTab();return}
+  if(st.pins[k].some(p=>p.id===cid))return;
+  const fb=E.feedback(cid,st.m.answers[k]);
+  st.tries[k]--;
+  if(k==='super'){
+    st.pins[k].push({id:cid,heat:fb.hit?'hit':'miss'});
+    if(fb.hit){st.done[k]=true;setStatus('good',`${cid}: Golden Compass! Ты в розыгрыше 50 SC 27.12.`)}
+    else if(st.tries[k]===0){st.revealed[k]=true;setStatus('bad',`${cid}: мимо. Попытки кончились — уровни 1–3 остаются твоими.`)}
+    else setStatus('bad',`${cid}: мимо. Осталась 1 попытка, подсказок не будет.`);
+  } else {
+    st.pins[k].push({id:cid,heat:fb.heat});
+    if(fb.hit){st.done[k]=true;setStatus('good',k==='oasis'?`${cid}: оазис Северной звезды! Уровень North Star, код в ЛС.${superOpen()?' Открыт Golden Compass!':''}`:`${cid}: верно. «${t.item}» — штамп в паспорте.`)}
+    else{const[h,lbl,why]=HEAT[fb.heat];
+      if(st.tries[k]===0){st.revealed[k]=true;setStatus('bad',`<span class="heat ${h}">${lbl}</span> ${cid}: последний пин. Место показано пунктиром: штампа нет, но точка для оазиса есть.`)}
+      else setStatus('bad',`<span class="heat ${h}">${lbl}</span> ${cid}: ${why}. ${st.tries[k]===1?'Подсказка на полях: '+t.hint:'Ещё '+st.tries[k]+' пина.'}`)}
   }
-  st.tries[i]--;st.pins[i].push({id,ok});
-  if(ok){st.done[i]=true;setStatus('good',`${id}: верно. Штамп «${d.stamp}» в паспорте.`)}
-  else if(st.tries[i]===0)setStatus('bad',`${id}: мимо, и это был последний пин. Ответ был ${d.ans}. В боевой версии ответы показываем только 26.12, после финала.`);
-  else setStatus('bad',`${id}: здесь пусто. ${st.tries[i]<=1?'Подсказка на полях: '+d.hint:'Ещё '+st.tries[i]+' пина.'}`);
-  drawPins();renderPassport();renderTabs();
+  drawMarks();renderPassport();renderTabs();
 }
 svg.addEventListener('click',e=>{const t=e.target.closest('.cell');if(t)pin(t.dataset.id)});
 svg.addEventListener('keydown',e=>{const t=e.target.closest('.cell');if(t&&(e.key==='Enter'||e.key===' ')){e.preventDefault();pin(t.dataset.id)}});
-tabs.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;st.day=+b.dataset.i;renderDay()});
-document.getElementById('reset').addEventListener('click',()=>{Object.assign(st,{tries:[3,3,3],done:[false,false,false],pins:[[],[],[]],cat:[false,false,false]});renderPassport();renderDay()});
-renderPassport();renderDay();
+tabsEl.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;st.tab=+b.dataset.i;renderTab()});
+const randSeed=()=>String(1e17+Math.floor(Math.random()*8.9e17)).slice(0,18);
+document.getElementById('newSeed').addEventListener('click',()=>{const tab=st.tab;fresh(randSeed());st.tab=tab;
+  document.getElementById('seedNote').textContent='Другой набор находок из 20 и другая карта.';renderPassport();renderTab()});
+document.getElementById('reset').addEventListener('click',()=>{fresh(st.seed);renderPassport();renderTab()});
+fresh('418273645512903681');renderPassport();renderTab();
 
 /* таймлайн по часам: [ET, Киев, тип, заголовок, текст] */
 const TL1=[
- ['10:00','17:00','pg','Страница 1 · азимут','ЛС от бота всем с паспортом, баннер на сайте. Карта открыта.'],
- ['11:00','18:00','cat','Кот · дроп 1','Подсказка в Watchers, первые 25 пинов в его клетку.'],
- ['12:00','19:00','pg','Страница 2 · шифр',''],
- ['14:00','21:00','pg','Страница 3 · созвездие','Порог 3 штампа: код приходит сам.'],
- ['15:00','22:00','cat','Кот · дроп 2',''],
- ['16:00','23:00','pg','Страница 4 · азимут',''],
- ['18:00','01:00','pg','Страница 5 · шифр',''],
- ['19:00','02:00','cat','Кот · дроп 3',''],
- ['20:00','03:00','pg','Страница 6 · созвездие','Последняя. Полный паспорт = код с SC.'],
- ['23:59','06:59','fx','Страницы закрыты','Паспорта зафиксированы для финала.']
+ ['11:00','18:00','pg','Глава 1 · 2 лёгкие находки','Утро подарков. ЛС всем с паспортом, пост в #north-star, баннер на сайте.'],
+ ['11:30','18:30','cat','Кот · дроп 1','Фраза в Watchers; в #north-star: «Saffron was seen in Watchers».'],
+ ['15:00','22:00','pg','Глава 2 · 2 средние','Время ужина — только пост в #north-star, без ЛС.'],
+ ['15:30','22:30','cat','Кот · дроп 2',''],
+ ['19:00','02:00','pg','Глава 3 · 2 трудные','Свободный вечер. ЛС всем: «the diary is complete».'],
+ ['19:30','02:30','cat','Кот · дроп 3',''],
+ ['22:00','05:00','dm','ЛС тем, у кого < 3 штампов','«Everything stays open until tomorrow night.»']
 ];
 const TL2=[
- ['10:00','17:00','fx','Бродкаст','«The oasis opens at noon ET», итог паспорта в ЛС.'],
- ['12:00','19:00','fx','Загадка оазиса','Нужно ≥ 4 штампа. 3 пина, попутчикам +1.'],
- ['14:00','21:00','cat','Кот · дроп 4','Последняя находка и намёк на сторону света.'],
- ['17:00','00:00','fx','Финал закрыт','Список решивших уходит в скрипт розыгрыша.'],
- ['17:30','00:30','fx','Розыгрыш сундука','Пост в Discord, коды победителям, дежурный проверяет.'],
- ['до 05.01','','fx','Выдача','Ручная проверка только сундука.']
+ ['11:00','18:00','fx','Оазис открыт','Бродкаст. ЛС: 4+ штампа — «the oasis is open», меньше — «N stamps to go».'],
+ ['14:00','21:00','cat','Кот · дроп 4','Последняя лапка. После неё у собравших всё открывается Golden Compass.'],
+ ['19:00','02:00','dm','ЛС тем, кто не дошёл','До оазиса — «N stamps to go»; собравшим всё — «the Golden Compass is waiting».'],
+ ['23:59','06:59','fx','Всё закрыто','Паспорта зафиксированы, коды за уровни уже в ЛС, список Golden Compass → розыгрыш.'],
+ ['27.12 05:00','12:00','fx','Розыгрыш Golden Compass','50 SC, 1 победитель. Пост с победителем, офферы в ЛС, итог с картами игроков.']
 ];
 const tl=(arr)=>arr.map(([et,kv,c,h,p])=>`<li class="${c}"><time>${et}${kv?`<small>Киев ${kv}</small>`:''}</time><div><b>${h}</b>${p}</div></li>`).join('');
 document.getElementById('tl1').innerHTML=tl(TL1);document.getElementById('tl2').innerHTML=tl(TL2);
+
+/* копировать фразы кота (туториал Watchers) */
+document.addEventListener('click',async e=>{const b=e.target.closest('.cp');if(!b)return;const t=document.getElementById(b.dataset.copy).innerText.trim();
+  try{await navigator.clipboard.writeText(t);b.textContent='Скопировано'}catch(_){const r=document.createRange();r.selectNodeContents(document.getElementById(b.dataset.copy));const s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='Выделено, Ctrl+C'}});
 
 /* копировать пост */
 document.getElementById('copyPost').addEventListener('click',async e=>{
@@ -681,6 +1190,7 @@ document.getElementById('copyPost').addEventListener('click',async e=>{
 })();
 </script>
 
-<a href="../" style="position:fixed;z-index:9999;left:max(12px,env(safe-area-inset-left,0px));bottom:calc(12px + env(safe-area-inset-bottom,0px));padding:8px 14px;border-radius:999px;background:rgba(11,16,32,.82);color:#E8EEFA;font:600 13px/1 system-ui,sans-serif;text-decoration:none;backdrop-filter:blur(6px);border:1px solid rgba(232,238,250,.18)">&larr; &#1042;&#1089;&#1077; &#1080;&#1074;&#1077;&#1085;&#1090;&#1099;</a>
+<nav style="position:fixed;z-index:9999;left:max(12px,env(safe-area-inset-left,0px));bottom:calc(12px + env(safe-area-inset-bottom,0px));display:flex;gap:8px;backdrop-filter:blur(6px)"><a href="../" style="padding:8px 14px;border-radius:999px;background:rgba(11,16,32,.82);color:#E8EEFA;font:600 13px/1 system-ui,sans-serif;text-decoration:none;border:1px solid rgba(232,238,250,.18)">&larr; &#1042;&#1089;&#1077; &#1080;&#1074;&#1077;&#1085;&#1090;&#1099;</a><a href="../offers/#scarletsands" style="padding:8px 14px;border-radius:999px;background:rgba(11,16,32,.82);color:#E8EEFA;font:600 13px/1 system-ui,sans-serif;text-decoration:none;border:1px solid rgba(232,238,250,.18)">&#1054;&#1092;&#1092;&#1077;&#1088;&#1099; &rarr;</a></nav>
+
 </body>
 </html>
