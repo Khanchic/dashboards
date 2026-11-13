@@ -1,0 +1,41 @@
+/* Поле тропы. Снежная тропа на склоне, фигуры — «сани» с животными. Jumanza: #F1D627 / #49F623 / #5C05E5 / #100128. */
+.tg{display:grid;gap:12px;max-width:440px;margin:0 auto;user-select:none;-webkit-user-select:none}
+.tg-head{display:flex;justify-content:space-between;align-items:flex-end;gap:10px}
+.tg-title{margin:0;font:800 28px/1 "Smooch Sans",sans-serif;text-transform:uppercase;color:#F1D627}
+.tg-zone{color:rgba(255,255,255,.7);font-size:13px}
+.tg-moves{text-align:right;font:500 14px/1.2 "Work Sans",sans-serif;color:rgba(255,255,255,.8)}
+.tg-moves b{font:800 26px/1 "Smooch Sans",sans-serif;color:#fff;margin-left:4px}
+.tg-moves small{display:block;font-size:11px;color:rgba(255,255,255,.55)}
+.tg-board{--exit:2;position:relative;aspect-ratio:1;border-radius:14px;padding:3.2%;
+  background:linear-gradient(160deg,#e9f1fb 0%,#cfdcef 55%,#b9c8e2 100%);
+  box-shadow:inset 0 0 0 4px #512410,inset 0 0 0 8px #8a4a22,0 10px 30px rgba(0,0,0,.45)}
+.tg-board.summit{background:radial-gradient(circle at 70% 20%,#fff 0,#e6eefb 35%,#b7c6e3 100%)}
+.tg-field{position:relative;width:100%;height:100%}
+.tg-cells{position:absolute;inset:0;
+  background-image:linear-gradient(rgba(81,36,16,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(81,36,16,.12) 1px,transparent 1px);
+  background-size:calc(100%/6) calc(100%/6)}
+/* выезд: разрыв в правой рамке на ряду --exit */
+.tg-exit{position:absolute;right:-2px;top:calc(3.2% + var(--exit) * (93.6%/6));height:calc(93.6%/6);width:9%;
+  background:linear-gradient(90deg,rgba(73,246,35,.0),rgba(73,246,35,.55));border-radius:0 10px 10px 0;display:grid;place-items:center end;padding-right:2px;z-index:0}
+.tg-exit span{font-size:clamp(14px,4vw,20px)}
+.tg-pc{position:absolute;box-sizing:border-box;padding:6px;touch-action:none;cursor:grab;transition:left .12s ease,top .12s ease;z-index:1}
+.tg-pc::before{content:"";position:absolute;inset:3px;border-radius:10px;background:rgba(92,5,229,.16);box-shadow:inset 0 0 0 2px rgba(92,5,229,.35),0 3px 0 rgba(16,1,40,.18)}
+.tg-pc img{position:relative;display:block;width:100%;height:100%;object-fit:contain;pointer-events:none;filter:drop-shadow(0 3px 2px rgba(16,1,40,.35))}
+.tg-pc img.rot{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(90deg)}
+.tg-pc.car::before{background:rgba(241,214,39,.45);box-shadow:inset 0 0 0 3px #F1D627,0 0 16px rgba(241,214,39,.8)}
+.tg-pc .gift{position:absolute;right:8%;top:-6%;font-size:clamp(14px,4.2vw,22px);filter:drop-shadow(0 2px 2px rgba(0,0,0,.4))}
+.tg-pc.drag{transition:none;z-index:3;cursor:grabbing}
+.tg-pc.drag::before{box-shadow:inset 0 0 0 3px #49F623,0 6px 14px rgba(16,1,40,.35)}
+.tg-pc.hint::before{animation:tgPulse 1s ease-in-out infinite}
+@keyframes tgPulse{0%,100%{box-shadow:inset 0 0 0 3px #49F623}50%{box-shadow:inset 0 0 0 3px #49F623,0 0 18px 4px rgba(73,246,35,.9)}}
+.tg-pc.car.out{left:110%!important;opacity:0;transition:left .8s ease-in,opacity .8s ease-in .4s}
+.tg-ghost{position:absolute;box-sizing:border-box;border:3px dashed #49F623;border-radius:10px;z-index:0;background:rgba(73,246,35,.12)}
+.tg-tip{min-height:42px;font:500 14px/1.4 "Work Sans",sans-serif;color:rgba(255,255,255,.85);text-align:center}
+.tg-tip b{color:#F1D627}
+.tg-tools{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.tg-btn{display:inline-flex;align-items:center;gap:8px;font:800 20px/1 "Smooch Sans",sans-serif;text-transform:uppercase;border:0;border-radius:8px;cursor:pointer;
+  padding:8px 14px;background:linear-gradient(#71F854,#2FDC09);color:#100128;box-shadow:0 4px 0 #1f9a06}
+.tg-btn img{width:30px;height:30px;object-fit:contain;margin:-6px 0}
+.tg-btn i{font-style:normal;background:#100128;color:#F1D627;border-radius:999px;min-width:24px;padding:3px 6px;font-size:15px}
+.tg-btn.ghost{background:#F9F5FF;box-shadow:0 4px 0 #b9a8d6}
+.tg-btn:disabled{opacity:.45;cursor:default}

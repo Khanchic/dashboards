@@ -3,16 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Piggy Bank Countdown</title>
+<title>Merry Coinsmas</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,800;1,900&family=Bitcount+Single&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,800;1,900&family=Bitcount+Single&display=swap">
+<link rel="stylesheet" href="assets/game/sort-game.css">
 <style>
-/* Layout: the CoinsMania sky (cobalt to violet, puffy clouds) as the page itself; white cloud slabs hold the working parts; chunky gold Kanit for headlines, the site's Bitcount timer face for every number that counts. Single committed look. */
+/* Небо CoinsMania (кобальт → фиолет, облака) — сама страница; белые «облачные» плиты держат рабочие части; Kanit для заголовков, Bitcount — для цифр. */
 :root{
   --sky:#1818F5; --sky-deep:#0808AB; --sky-night:#06067A; --violet:#6A1BE0; --magenta:#D63CF0;
-  --gold:#FDD717; --gold-deep:#C98A00; --amber:#FFAA00;
-  --pig:#F7A6A6; --pig-deep:#E0607A;
+  --gold:#FDD717; --gold-deep:#C98A00; --amber:#FFAA00; --red:#E5232F;
   --cloud:#FFFFFF; --lav:#E2E2FE; --lav-2:#CECEFD; --navy:#171A27; --navy-2:#3D425C; --mint:#25E3F8;
   --f:"Kanit", "Arial Rounded MT Bold", "Trebuchet MS", sans-serif;
   --digits:"Bitcount Single", "Courier New", ui-monospace, monospace;
@@ -34,11 +34,9 @@ section{padding-block:76px;position:relative}
 section header{display:grid;gap:12px;margin-bottom:34px;max-width:780px}
 h2{font-size:clamp(30px,4.6vw,52px)}
 .lead{font-size:18px;color:var(--lav);max-width:62ch}
-
 .sky-a{background:linear-gradient(180deg,var(--sky-deep) 0%,var(--sky) 100%)}
 .sky-b{background:linear-gradient(180deg,var(--sky) 0%,var(--violet) 100%)}
 .sky-c{background:linear-gradient(180deg,var(--violet) 0%,var(--sky-deep) 100%)}
-.clouds-bottom{position:relative}
 .clouds-bottom::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:90px;pointer-events:none;
   background:
    radial-gradient(60px 46px at 6% 100%,rgba(255,255,255,.95) 98%,transparent 100%),
@@ -70,19 +68,25 @@ h2{font-size:clamp(30px,4.6vw,52px)}
 #snow{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
 .who{font-size:13px;color:var(--lav)}
 
-/* IDEA */
+/* IDEA: до / после */
 .idea{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:center}
 .idea p{font-size:18px;max-width:58ch}
-.idea .why{display:grid;gap:14px;margin-top:8px}
-.idea .why div{display:grid;grid-template-columns:44px minmax(0,1fr);gap:12px;align-items:start;font-size:15.5px;color:var(--navy-2)}
-.idea .why b{color:var(--navy);display:block}
+.why{display:grid;gap:14px;margin-top:8px}
+.why div{display:grid;grid-template-columns:44px minmax(0,1fr);gap:12px;align-items:start;font-size:15.5px;color:var(--navy-2)}
+.why b{color:var(--navy);display:block}
 .coin{width:44px;height:44px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#FFF1A0,var(--gold) 45%,var(--gold-deep) 100%);box-shadow:inset 0 -3px 0 #9C6B00,0 3px 6px rgba(0,0,0,.18);display:grid;place-items:center;font-weight:800;color:#8A5A00;font-size:17px}
-.vault-art{border-radius:28px;overflow:hidden;box-shadow:0 18px 40px rgba(8,8,171,.25)}
-.vault-art img{display:block;width:100%;height:auto}
-.vault-art figcaption{font-size:13px;color:var(--navy-2);padding:10px 4px 0}
+.ba{--cm-y:#FDD717;--cs-glass:rgba(160,180,255,.10);--cs-edge:rgba(170,190,255,.45);display:grid;grid-template-columns:minmax(0,1fr) 40px minmax(0,1fr);gap:8px;align-items:center;background:var(--sky-deep);border-radius:28px;padding:22px 18px;box-shadow:0 18px 40px rgba(8,8,171,.25)}
+.ba figure{margin:0;display:grid;gap:10px;justify-items:center;text-align:center}
+.ba figcaption{font-size:14px;color:var(--lav)}
+.ba figcaption b{display:block;color:var(--gold);font-size:16px}
+.ba .arrow{font-size:30px;color:var(--gold);text-align:center}
+.ba .mini{display:flex;gap:5px;align-items:flex-end}
+.ba .mini .cs-jar{--coin:22px;--cap:4;width:32px;padding:3px 4px 5px;gap:3px;cursor:default;border-width:2px}
+.ba .mini .cs-coin svg{width:62%}
+.ba .pig-svg{width:150px}
 
 /* PATH */
-.track{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px;counter-reset:s}
+.track{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;counter-reset:s}
 .track li{display:grid;gap:10px;align-content:start;position:relative}
 .track li::before{counter-increment:s;content:counter(s);width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:24px;color:#8A5A00;background:radial-gradient(circle at 35% 30%,#FFF1A0,var(--gold) 45%,var(--gold-deep) 100%);box-shadow:inset 0 -4px 0 #9C6B00,0 6px 14px rgba(6,6,60,.35)}
 .track li:not(:last-child)::after{content:"";position:absolute;left:60px;right:-8px;top:25px;border-top:3px dotted rgba(253,215,23,.6)}
@@ -90,96 +94,62 @@ h2{font-size:clamp(30px,4.6vw,52px)}
 .track p{font-size:15px;color:var(--lav)}
 
 /* MOCKUP */
-.mock{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:28px;align-items:start}
-.slab{background:var(--cloud);color:var(--navy);border-radius:28px;padding:24px;display:grid;gap:18px;box-shadow:0 20px 50px rgba(6,6,60,.35);min-width:0}
-.pigbox{position:relative;background:radial-gradient(90% 80% at 50% 60%,var(--lav) 0%,#fff 70%);border-radius:22px;overflow:hidden}
-#pig{display:block;width:100%;height:auto;max-height:330px}
-#burst{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
-.pig-g{transform-origin:150px 150px;transition:transform .5s cubic-bezier(.3,1.6,.5,1)}
-.shake{animation:shake .5s linear 2}
-@keyframes shake{0%,100%{transform:translateX(0) rotate(0)}20%{transform:translateX(-6px) rotate(-3deg)}40%{transform:translateX(6px) rotate(3deg)}60%{transform:translateX(-4px) rotate(-2deg)}80%{transform:translateX(4px) rotate(2deg)}}
-.half{transition:transform 1s cubic-bezier(.2,.8,.3,1),opacity 1s}
-.smashed .half.l{transform:translate(-60px,40px) rotate(-24deg)}
-.smashed .half.r{transform:translate(60px,46px) rotate(22deg)}
-.readout{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-.readout div{background:var(--lav);border-radius:16px;padding:10px 12px;display:grid}
-.readout b{font-size:28px;color:var(--sky-deep);font-weight:400;line-height:1.1}
-.readout span{font-size:13px;color:var(--navy-2)}
-.ladder{position:relative;height:14px;border-radius:10px;background:var(--lav)}
-.ladder i{position:absolute;left:0;top:0;bottom:0;border-radius:10px;background:linear-gradient(90deg,#C77B48,#C9CDD8 35%,var(--gold) 62%,var(--mint));transition:width .5s}
-.ladder u{position:absolute;top:-4px;width:3px;height:22px;background:var(--navy);border-radius:2px;text-decoration:none}
-.ladder-l{position:relative;height:18px;font-size:12px;color:var(--navy-2)}
-.ladder-l span{position:absolute;transform:translateX(-50%);white-space:nowrap}
-.smash{border:0;border-radius:40px;padding:14px 22px;font-family:var(--f);font-size:18px;font-weight:800;text-transform:uppercase;letter-spacing:.03em;color:#5A3A00;background:linear-gradient(180deg,#FFE65A,var(--gold) 50%,var(--amber));box-shadow:0 5px 0 var(--gold-deep),0 10px 18px rgba(201,138,0,.35);cursor:pointer}
-.smash:active{transform:translateY(3px);box-shadow:0 2px 0 var(--gold-deep)}
-.btnrow{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-.result{border-radius:18px;padding:14px 16px;background:var(--sky-deep);color:#fff;display:grid;gap:4px}
-.result b{font-size:24px;color:var(--gold);font-weight:800;text-transform:uppercase}
-.result span{color:var(--lav);font-size:14.5px}
-.presets{display:flex;gap:8px;flex-wrap:wrap}
-.chip{border:2px solid var(--lav-2);background:#fff;color:var(--sky-deep);border-radius:30px;padding:6px 12px;font-family:var(--f);font-size:14px;font-weight:600;cursor:pointer}
-.chip:hover,.chip[aria-pressed="true"]{background:var(--sky-deep);border-color:var(--sky-deep);color:#fff}
-.cal{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
-.hr{border-radius:16px;border:2px solid var(--lav-2);background:#fff;padding:8px 9px 9px;display:grid;gap:4px;min-width:0}
-.hr.in{border-color:var(--sky);background:linear-gradient(180deg,#F1F1FF,#fff)}
-.hr.miss{border-style:dashed;background:#FAFAFD}
-.hr.peak{box-shadow:0 0 0 3px var(--gold) inset}
-.hr .top{display:flex;justify-content:space-between;align-items:center;gap:4px}
-.hr .dt{font-size:16px;color:var(--navy)}
-.tog{border:0;border-radius:10px;padding:4px 7px;font-family:var(--f);font-size:12px;font-weight:700;cursor:pointer;background:var(--sky);color:#fff}
-.hr.miss .tog{background:var(--lav);color:var(--navy-2)}
-.gold-t{width:30px;height:30px;border-radius:50%;border:2px dashed #D9C47A;background:#fff;cursor:pointer;font-family:var(--f);font-size:10.5px;font-weight:800;color:#9C6B00;padding:0}
-.gold-t.on{border:0;background:radial-gradient(circle at 35% 30%,#FFF1A0,var(--gold) 45%,var(--gold-deep) 100%);box-shadow:inset 0 -2px 0 #9C6B00}
-.hr .rate{font-size:12.5px;color:var(--navy-2)}
-.hr .bal{font-size:19px;color:var(--sky-deep);line-height:1}
-.hr.dark{background:var(--sky-deep);border-color:var(--sky-deep);color:#fff}
-.hr.dark .dt{color:var(--gold)}
-.hr.dark .rate{color:var(--lav)}
-.hr.dark .bal{color:var(--gold)}
-.rules{font-size:13.5px;color:var(--navy-2);display:grid;gap:4px;padding-left:16px;margin:0}
+.mock{display:grid;gap:18px}
+.mock .bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.mock .note{font-size:14px;color:var(--lav)}
+.mock-grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:18px;align-items:start}
+.panel{background:rgba(6,6,122,.55);border:1px solid rgba(170,190,255,.35);border-radius:22px;padding:16px}
+.panel h3{font-size:15px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px}
+.mtiers{list-style:none;margin:0;padding:0;display:grid;gap:5px}
+.mtiers li{display:grid;grid-template-columns:18px minmax(0,1fr) auto;gap:10px;align-items:center;padding:8px 12px;background:rgba(255,255,255,.07);border-radius:12px;font-size:14.5px}
+.mtiers i{width:14px;height:14px;border-radius:50%;background:rgba(255,255,255,.2)}
+.mtiers li.got i{background:var(--gold);box-shadow:0 0 10px rgba(253,215,23,.7)}
+.mtiers em{font-style:normal;color:var(--lav);font-size:13.5px}
+.mtiers li.got em{color:var(--gold)}
+.dms{display:grid;gap:6px;margin-top:10px}
+.dm{background:rgba(255,255,255,.07);border-left:3px solid var(--gold);border-radius:0 10px 10px 0;padding:8px 11px;font-size:13.5px;color:var(--lav)}
+.dm small{display:block;color:#9AA0E0;font-size:11.5px}
+.btn{font-family:var(--f);font-weight:800;text-transform:uppercase;font-size:14px;border:0;cursor:pointer;padding:10px 18px;border-radius:999px;background:var(--gold);color:#14127A;box-shadow:0 3px 0 var(--gold-deep)}
+.btn.ghost{background:transparent;color:var(--gold);box-shadow:inset 0 0 0 2px var(--gold)}
 
-/* HOURS */
-.pre{display:flex;flex-wrap:wrap;gap:8px 26px;margin-bottom:26px;font-size:15px;color:var(--navy-2)}
-.pre b{color:var(--violet);font-weight:600}
-.days{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:28px}
-.dcard{border-radius:28px;padding:22px;display:grid;gap:4px;align-content:start}
-.dcard.eve{background:var(--sky-deep);color:#fff}
-.dcard.morn{background:var(--lav);color:var(--navy)}
-.dcard h3{font-size:26px;font-weight:800;text-transform:uppercase}
+/* TIMELINE */
+.days{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.dcard{border-radius:28px;padding:22px;display:grid;gap:4px;align-content:start;background:var(--lav);color:var(--navy)}
+.dcard.main{background:var(--sky-deep);color:#fff}
+.dcard h3{font-size:24px;font-weight:800;text-transform:uppercase}
 .dcard .sub{font-size:14px;margin-bottom:12px;opacity:.85}
 .hrs{list-style:none;margin:0;padding:0;display:grid}
-.hrs li{display:grid;grid-template-columns:70px minmax(0,1fr);gap:12px;padding:9px 0;border-top:1px solid rgba(255,255,255,.18)}
-.morn .hrs li{border-top-color:var(--lav-2)}
-.hrs time{font-family:var(--digits);font-size:18px;color:var(--gold)}
-.morn .hrs time{color:var(--violet)}
+.hrs li{display:grid;grid-template-columns:62px minmax(0,1fr);gap:12px;padding:9px 0;border-top:1px solid var(--lav-2)}
+.main .hrs li{border-top-color:rgba(255,255,255,.18)}
+.hrs time{font-family:var(--digits);font-size:18px;color:var(--violet)}
+.main .hrs time{color:var(--gold)}
 .hrs p{font-size:14.5px}
-.eve .hrs p{color:var(--lav)}
+.main .hrs p{color:var(--lav)}
 .hrs p b{font-weight:600}
-.eve .hrs p b{color:#fff}
-.hrs small{display:block;font-size:12px;opacity:.7}
-.ratebar{display:flex;gap:4px;margin:6px 0 4px}
-.ratebar span{flex:1;border-radius:6px;background:rgba(253,215,23,.2);color:var(--gold);font-family:var(--digits);font-size:12px;text-align:center;padding:3px 0}
+.main .hrs p b{color:#fff}
+.pre{display:flex;flex-wrap:wrap;gap:8px 26px;margin-bottom:26px;font-size:15px;color:var(--navy-2)}
+.pre b{color:var(--violet);font-weight:600}
 
 /* PRIZES */
 .tiers{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-bottom:28px}
 .tier{border-radius:24px;padding:18px;display:grid;gap:6px;align-content:start;color:var(--navy)}
-.tier .need{font-size:28px;line-height:1}
-.tier h3{font-size:22px;font-weight:800;text-transform:uppercase}
+.tier .need{font-size:26px;line-height:1}
+.tier h3{font-size:21px;font-weight:800;text-transform:uppercase}
 .tier p{font-size:15px}
 .tier .prize{font-weight:700;font-size:18px}
-.t-cu{background:linear-gradient(160deg,#F6C7A2,#D98A5A)}
-.t-ag{background:linear-gradient(160deg,#F5F6FA,#BFC4D4)}
-.t-au{background:linear-gradient(160deg,#FFF0A0,var(--gold) 55%,#E8A800)}
-.t-di{background:linear-gradient(160deg,#C9FBFF,var(--mint) 55%,#7B8CFF)}
-.tbl{overflow-x:auto;border-radius:18px;border:2px solid var(--lav-2)}
+.t1{background:linear-gradient(160deg,#FFD9E6,#FFB3C7)}
+.t2{background:linear-gradient(160deg,#F5F6FA,#BFC4D4)}
+.t3{background:linear-gradient(160deg,#FFF0A0,var(--gold) 55%,#E8A800)}
+.t4{background:linear-gradient(160deg,#FFF6C8,#FDD717 40%,#FF9E2C)}
+.tbl{overflow-x:auto;border-radius:18px;border:2px solid rgba(255,255,255,.25)}
 table{border-collapse:collapse;width:100%;min-width:620px;font-size:15px}
-th,td{padding:11px 14px;text-align:left;border-bottom:1px solid var(--lav-2)}
-th{background:var(--lav);font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--navy-2);font-weight:600}
+th,td{padding:11px 14px;text-align:left;border-bottom:1px solid rgba(255,255,255,.15)}
+th{background:rgba(6,6,122,.5);font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--lav);font-weight:600}
 td.r,th.r{text-align:right}
-tfoot td{background:var(--sky-deep);color:var(--gold);font-weight:700;border-bottom:0}
+tfoot td{background:var(--sky-night);color:var(--gold);font-weight:700;border-bottom:0}
 .limits{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-top:22px}
-.limits div{font-size:15px;color:var(--navy-2)}
-.limits b{display:block;color:var(--navy)}
+.limits div{font-size:15px;color:var(--lav)}
+.limits b{display:block;color:#fff}
 
 /* GENERIC COLS */
 .cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:30px 48px}
@@ -191,8 +161,9 @@ tfoot td{background:var(--sky-deep);color:var(--gold);font-weight:700;border-bot
 .on-cloud .cols b{color:var(--navy)}
 .est{display:flex;gap:30px;flex-wrap:wrap;margin-bottom:30px}
 .est div{display:grid}
-.est b{font-size:52px;color:var(--gold);line-height:1;font-weight:400}
-.est span{font-size:14px;color:var(--lav)}
+.est b{font-size:52px;color:var(--violet);line-height:1;font-weight:400}
+.est span{font-size:14px;color:var(--navy-2)}
+code{font-family:Consolas,ui-monospace,monospace;font-size:.88em;background:rgba(127,127,255,.15);padding:1px 5px;border-radius:5px}
 
 /* PLAN B */
 .fail{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
@@ -231,13 +202,13 @@ tfoot td{background:var(--sky-deep);color:var(--gold);font-weight:700;border-bot
 .post .nm small{font-weight:500;color:#949BA4;font-size:12px;margin-left:6px}
 .post p{margin-top:8px}
 .post .em{background:#2B2D31;border-left:4px solid #FDD717;border-radius:4px;padding:12px 14px;margin-top:12px}
-.ghost{margin-top:14px;border:2px solid var(--gold);background:transparent;color:var(--gold);border-radius:30px;padding:9px 16px;font-family:var(--f);font-weight:600;font-size:15px;cursor:pointer}
+.copy{margin-top:14px;border:2px solid var(--gold);background:transparent;color:var(--gold);border-radius:30px;padding:9px 16px;font-family:var(--f);font-weight:600;font-size:15px;cursor:pointer}
 footer{padding-block:34px;background:var(--sky-night);color:var(--lav);font-size:13.5px}
 footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center}
 footer img{width:120px;height:auto}
 
 @media (max-width:960px){
-  .hero .wrap,.idea,.mock,.promo,.days{grid-template-columns:minmax(0,1fr)}
+  .hero .wrap,.idea,.promo,.mock-grid,.days{grid-template-columns:minmax(0,1fr)}
   .track{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:28px}
   .track li::after{display:none}
   .tiers,.kpi{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -246,10 +217,9 @@ footer img{width:120px;height:auto}
 @media (max-width:600px){
   section{padding-block:56px}
   .track,.cols,.tiers,.fail{grid-template-columns:minmax(0,1fr)}
-  .cal{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .readout b{font-size:22px}
   .plan div{grid-template-columns:minmax(0,1fr);gap:2px}
-  .slab{padding:16px;border-radius:22px}
+  .ba{grid-template-columns:minmax(0,1fr);padding:18px 12px}
+  .ba .arrow{transform:rotate(90deg)}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
@@ -261,16 +231,16 @@ footer img{width:120px;height:auto}
   <div class="wrap">
     <div class="hero-l">
       <img class="logo" src="assets/logo.png" alt="CoinsMania" width="400" height="156">
-      <span class="kicker">New Year's Eve 2026 · концепт · формат 1+1</span>
-      <h1 class="chunky">Piggy Bank Countdown</h1>
-      <p class="slogan">Feed the pig all night. Smash it on New Year's Day.</p>
+      <span class="kicker">Рождество 25–26.12.2026 · концепт v2 от 12.11 · механика собрана</span>
+      <h1 class="chunky">Merry Coinsmas</h1>
+      <p class="slogan">Sort the coins. Fill your piggy.</p>
       <div class="count">
-        <div><b class="dig">31.12</b><span>17:00–00:00 ET копим</span></div>
-        <div><b class="dig">2→10%</b><span>бонус растёт к полуночи</span></div>
-        <div><b class="dig">01.01</b><span>Hammer Day</span></div>
-        <div><b class="dig">≈350 SC</b><span>бюджет, предложение</span></div>
+        <div><b class="dig">18.12</b><span>тренировочная банка</span></div>
+        <div><b class="dig">25.12</b><span>банки 1–3 и 4–6</span></div>
+        <div><b class="dig">26.12</b><span>золотая банка для 4+</span></div>
+        <div><b class="dig">≈35 SC</b><span>+ ≈400 FP на 100 игроков</span></div>
       </div>
-      <span class="who">Бренд ведёт Александр · Discord CoinsMania (Coin Vault) + Flash Drop bot</span>
+      <span class="who">Бренд ведёт Александр · Discord CoinsMania · общий слой Witching Hours</span>
     </div>
     <div class="hero-r">
       <img src="assets/pig-giftbox.jpg" alt="Свин CoinsMania на облаке открывает красную коробку, полную золотых монет" width="624" height="720">
@@ -281,19 +251,17 @@ footer img{width:120px;height:auto}
 <section class="on-cloud" id="idea">
   <div class="wrap idea">
     <div style="display:grid;gap:18px">
-      <span class="kicker">Идея</span>
-      <h2 class="chunky">Копилка, которая растёт до полуночи</h2>
-      <p>31 декабря в 17:00 ET у каждого игрока открывается копилка. Каждый час он может покормить её, а Flash Drop в Discord раз в час бросает золотые монеты. В конце каждого часа на весь баланс начисляется бонус, и чем ближе полночь, тем он выше: с 2% до 10%. В полночь копилка закрывается, а 1 января её разбивают молотком.</p>
+      <span class="kicker">Идея в одну фразу</span>
+      <h2 class="chunky">Монеты перемешались — разложи и наполни свина</h2>
+      <p>У каждого игрока свой свин-копилка в рождественском колпаке и шесть банок с перемешанными монетами. Тапаешь банку — поднимаются верхние монеты, тапаешь другую — они пересыпаются на свой цвет или в пустую. Разобрал банку так, что в каждой стопке один цвет, — монеты ссыпаются в свина. 2, 4 и 6 банок и золотая банка — это призы.</p>
       <div class="why">
-        <div><span class="coin">1</span><span><b>Свин — маскот бренда</b>Розовый свин в костюме супергероя с буквами CM, сидит на облаке с коробкой монет. Копилка-свинья — его естественный новогодний образ.</span></div>
-        <div><span class="coin">2</span><span><b>Сервер Coin Vault</b>Discord CoinsMania уже собран как хранилище монет: #welcome-vault, #coin-news, Coin Street. Копилка — личный сейф игрока в этом хранилище.</span></div>
-        <div><span class="coin">3</span><span><b>Flash Drop уже написан</b>Бот кидает золотые монеты прямо в копилку. У роли ⚡ появляется смысл, а новый сервер получает живой вечер.</span></div>
+        <div><span class="coin">1</span><span><b>Понятно за 3 секунды</b>Coin sort / ball sort знаком любому, кто играл в казуалки на телефоне. Монеты — прямо тема бренда, свин — его маскот.</span></div>
+        <div><span class="coin">2</span><span><b>Не боится маленькой аудитории</b>Приз зависит только от своей копилки: ни лидерборда, ни общих счётчиков, ни рефералов. Живо выглядит и при 20 игроках.</span></div>
+        <div><span class="coin">3</span><span><b>Своя раздача у каждого</b>Банки перемешиваются для каждого игрока отдельно, решение проверяет сервер. Ответ из чата к твоей банке не подходит.</span></div>
+        <div><span class="coin">4</span><span><b>Без обязаловки</b>Нет почасовых окон и Grab на 60 секунд: что открылось — доступно до 26.12 23:59 ET. Undo бесплатный, 3 подсказки на банку.</span></div>
       </div>
     </div>
-    <figure class="vault-art" style="margin:0">
-      <img src="assets/vault.jpg" alt="Голубой сейф CoinsMania, полный золотых монет, на облаках" width="1048" height="460">
-      <figcaption>Баннер Vault Rush с coinsmania.com. Бренд-кита нет: все картинки на странице взяты с сайта, нужны исходники (см. вопросы).</figcaption>
-    </figure>
+    <div class="ba" id="ba" aria-label="До и после"></div>
   </div>
 </section>
 
@@ -301,143 +269,77 @@ footer img{width:120px;height:auto}
   <div class="wrap">
     <header>
       <span class="kicker">Путь игрока</span>
-      <h2 class="chunky">Пять шагов до молотка</h2>
+      <h2 class="chunky">Четыре шага до полного свина</h2>
     </header>
     <ol class="track">
-      <li><h3>Заводит копилку заранее</h3><p>С 14.12 попап на coinsmania.com. Вход через Discord сразу добавляет в сервер, затем ввод CoinsMania username. Кто завёл до 31.12, получает +50 стартовых монет.</p></li>
-      <li><h3>31.12, 17:00 ET — старт</h3><p>Копилка открывается с депозитом 100 монет. Игрок берёт роль ⚡, чтобы не пропустить дропы.</p></li>
-      <li><h3>Кормит каждый час</h3><p>Раз в час кнопка «Feed the pig»: +50. Покормил — в конце часа бонус на весь баланс. Не покормил — бонус за этот час на паузе, монеты остаются.</p></li>
-      <li><h3>Ловит Flash Drop</h3><p>Раз в час в случайную минуту бот даёт кнопку Grab на 60 секунд: +100. Монеты получают все, кто нажал в окне, гонки нет.</p></li>
-      <li><h3>01.01 разбивает</h3><p>В 11:00 ET новогодняя монета для всех, у кого есть копилка. Потом удар молотком, баланс решает уровень: Copper, Silver, Gold или Diamond.</p></li>
+      <li><h3>Вход через Discord</h3><p>Попап на coinsmania.com с 14.12 → логин Discord сразу добавляет в сервер. Заявок нет — играть можно сразу.</p></li>
+      <li><h3>Тренировочная банка</h3><p>С 18.12: 3 цвета, минута игры, без приза. Учит механике до праздника и даёт нам долю прохождения на живых.</p></li>
+      <li><h3>Рождество: 6 банок</h3><p>25.12 в полночь ET банки 1–3, в полдень — 4–6. Каждая разобранная банка наполняет свина. 26.12 открывается золотая — для 4+.</p></li>
+      <li><h3>Claim prize</h3><p>При первом Claim — player ID на проверку Александром, после одобрения все накопленные коды. Дальше Claim сразу. До 03.01.</p></li>
     </ol>
   </div>
 </section>
 
 <section class="sky-b clouds-bottom" id="mockup">
-  <div class="wrap">
+  <div class="wrap mock">
     <header>
-      <span class="kicker">Мини-макет · работает в браузере</span>
-      <h2 class="chunky">Вечер 31.12 по часам</h2>
-      <p class="lead">Каждая карточка — один час. Кнопкой отметь, покормил игрок копилку или нет, кружком добавь золотые монеты из Flash Drop. Баланс и бонус пересчитываются сразу, потом жми «Разбить». Считается ровно по правилам под карточками.</p>
+      <span class="kicker">Рабочий макет · тот же клиент, что в игре</span>
+      <h2 class="chunky">Попробуй сам</h2>
+      <p class="lead">Все банки открыты сразу. Раздача случайная, как у игрока; правила, undo, подсказки — те же, что на сервере. Призы и сообщения — как их увидит игрок (EN).</p>
     </header>
-    <div class="mock">
-      <div class="slab">
-        <div class="pigbox" id="pigbox">
-          <svg id="pig" viewBox="0 0 300 250" role="img" aria-label="Стеклянная копилка-свинья, монеты внутри поднимаются вместе с балансом">
-            <defs>
-              <radialGradient id="glass" cx="38%" cy="30%" r="80%"><stop offset="0" stop-color="#FFE3E3" stop-opacity=".75"/><stop offset=".55" stop-color="#F7A6A6" stop-opacity=".55"/><stop offset="1" stop-color="#E0607A" stop-opacity=".8"/></radialGradient>
-              <radialGradient id="pinkS" cx="40%" cy="35%" r="70%"><stop offset="0" stop-color="#FFD0D0"/><stop offset="1" stop-color="#E0607A"/></radialGradient>
-              <pattern id="coins" width="26" height="15" patternUnits="userSpaceOnUse">
-                <rect width="26" height="15" fill="#C98A00"/>
-                <ellipse cx="13" cy="7.5" rx="12" ry="6" fill="#FDD717" stroke="#9C6B00" stroke-width="1.2"/>
-                <ellipse cx="0" cy="0" rx="12" ry="6" fill="#FFE65A" stroke="#9C6B00" stroke-width="1.2"/>
-                <ellipse cx="26" cy="0" rx="12" ry="6" fill="#FFE65A" stroke="#9C6B00" stroke-width="1.2"/>
-                <ellipse cx="0" cy="15" rx="12" ry="6" fill="#FFE65A" stroke="#9C6B00" stroke-width="1.2"/>
-                <ellipse cx="26" cy="15" rx="12" ry="6" fill="#FFE65A" stroke="#9C6B00" stroke-width="1.2"/>
-              </pattern>
-              <clipPath id="bodyClip"><ellipse cx="145" cy="140" rx="104" ry="78"/></clipPath>
-              <clipPath id="cutL"><polygon points="0,0 150,0 138,40 158,70 134,105 160,140 136,175 156,210 142,250 0,250"/></clipPath>
-              <clipPath id="cutR"><polygon points="150,0 300,0 300,250 142,250 156,210 136,175 160,140 134,105 158,70 138,40"/></clipPath>
-              <g id="pigShape">
-                <ellipse cx="145" cy="226" rx="96" ry="10" fill="#1818F5" opacity=".12"/>
-                <rect x="78" y="186" width="24" height="36" rx="10" fill="url(#pinkS)"/>
-                <rect x="178" y="186" width="24" height="36" rx="10" fill="url(#pinkS)"/>
-                <path d="M44 128 q-22 -6 -18 -24 q4 -12 14 -4" fill="none" stroke="#E0607A" stroke-width="6" stroke-linecap="round"/>
-                <g clip-path="url(#bodyClip)">
-                  <rect x="30" y="60" width="240" height="170" fill="#FFF4F4" opacity=".6"/>
-                  <rect id="fill" x="30" y="218" width="240" height="0" fill="url(#coins)"/>
-                </g>
-                <ellipse cx="145" cy="140" rx="104" ry="78" fill="url(#glass)" stroke="#E0607A" stroke-width="3"/>
-                <path d="M86 92 q30 -26 86 -18" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" opacity=".7"/>
-                <path d="M190 72 l14 -34 l22 30 z" fill="url(#pinkS)" stroke="#E0607A" stroke-width="2"/>
-                <path d="M150 66 l6 -30 l22 24 z" fill="url(#pinkS)" stroke="#E0607A" stroke-width="2"/>
-                <rect x="118" y="60" width="44" height="9" rx="4.5" fill="#3D2A55"/>
-                <ellipse cx="250" cy="138" rx="26" ry="23" fill="url(#pinkS)" stroke="#E0607A" stroke-width="2.5"/>
-                <ellipse cx="243" cy="136" rx="4" ry="6" fill="#9C3550"/>
-                <ellipse cx="258" cy="136" rx="4" ry="6" fill="#9C3550"/>
-                <circle cx="214" cy="108" r="6.5" fill="#171A27"/>
-                <circle cx="216" cy="106" r="2" fill="#fff"/>
-                <text x="145" y="152" text-anchor="middle" font-family="Kanit, sans-serif" font-weight="800" font-size="30" fill="#fff" opacity=".85" stroke="#E0607A" stroke-width="1">CM</text>
-              </g>
-            </defs>
-            <g class="pig-g" id="pigG">
-              <g class="half l" clip-path="url(#cutL)"><use href="#pigShape"/></g>
-              <g class="half r" clip-path="url(#cutR)"><use href="#pigShape"/></g>
-            </g>
-          </svg>
-          <canvas id="burst" aria-hidden="true"></canvas>
-        </div>
-        <div class="readout">
-          <div><b class="dig" id="bal">0</b><span>монет в копилке</span></div>
-          <div><b class="dig" id="fed">0/7</b><span>часов покормлено</span></div>
-          <div><b class="dig" id="gc">0</b><span>Flash Drop поймано</span></div>
-        </div>
-        <div>
-          <div class="ladder" id="ladder"><i></i></div>
-          <div class="ladder-l" id="ladderL"></div>
-        </div>
-        <div class="btnrow">
-          <button class="smash" id="smash" type="button">Разбить копилку</button>
-          <button class="chip" id="again" type="button" hidden>Склеить обратно</button>
-        </div>
-        <div class="result" id="result" hidden></div>
-      </div>
-      <div class="slab">
-        <div class="presets" id="presets" role="group" aria-label="Готовые сценарии">
-          <button class="chip" type="button" data-p="sample" aria-pressed="true">Пример игрока</button>
-          <button class="chip" type="button" data-p="full">Весь вечер</button>
-          <button class="chip" type="button" data-p="fullgold">Весь вечер + все дропы</button>
-          <button class="chip" type="button" data-p="late">Пришёл в 21:00</button>
-          <button class="chip" type="button" data-p="drops">Только дропы</button>
-        </div>
-        <div class="cal" id="cal"></div>
-        <ul class="rules">
-          <li>Старт в 17:00: 100 монет, +50 тем, кто завёл копилку до 31.12.</li>
-          <li>Каждый час: покормил +50, Flash Drop +100. Бонус в конце часа: 2, 3, 4, 5, 6, 8, 10% на весь баланс, только если в этот час покормил.</li>
-          <li>Не покормил — бонус за час на паузе, монеты и дропы остаются. 01.01 в 11:00 новогодняя монета +100 всем, без бонуса.</li>
-        </ul>
+    <div class="bar">
+      <span class="note">Раздачи генерируются в браузере. В проде — на сервере, клиенту уходит только текущее положение монет.</span>
+      <span style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn ghost" type="button" id="solveMe">Разобрать за меня</button><button class="btn ghost" type="button" id="resetMock">Новый свин</button></span>
+    </div>
+    <div class="panel" id="mPiggy"></div>
+    <div class="mock-grid">
+      <div id="mGame"><div class="panel" style="text-align:center;color:var(--lav);padding:30px">Pick a jar.</div></div>
+      <div class="panel">
+        <h3>Your rewards</h3>
+        <ul class="mtiers" id="mTiers"></ul>
+        <h3 style="margin-top:16px">Messages from Piggins</h3>
+        <div class="dms" id="mDms"></div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="on-cloud" id="hours">
+<section class="on-cloud" id="timeline">
   <div class="wrap">
     <header>
-      <span class="kicker">Таймлайн по часам · ET</span>
-      <h2 class="chunky">Вечер и утро после</h2>
-      <p class="lead">Вечер 31.12 по ET — это ночь в Киеве, а 01.01 там выходной. Дропы и бонусы работают автоматически, дежурный один и на окно финала 01.01.</p>
+      <span class="kicker">Таймлайн · всё по ET, Киев = ET + 7</span>
+      <h2 class="chunky">Рождество по часам</h2>
     </header>
     <div class="pre">
-      <span><b>14.12</b> попап на сайте, регистрация копилки, +50 стартовых</span>
-      <span><b>18–20.12</b> анонс в Discord, Instagram, FB</span>
-      <span><b>24.12</b> репетиция на тест-сервере</span>
-      <span><b>30.12</b> бродкаст «Tomorrow at 5 PM»</span>
+      <span><b>14.12</b> попап и логин</span>
+      <span><b>18.12 12:00</b> тренировочная банка</span>
+      <span><b>21.12</b> go / no-go</span>
+      <span><b>24.12 18:00</b> бродкаст «в полночь открываем»</span>
     </div>
     <div class="days">
-      <div class="dcard eve">
-        <h3>Чт 31.12 · New Year's Eve</h3>
-        <p class="sub">Копим. 17:00–00:00 ET, 7 часов</p>
-        <div class="ratebar" aria-label="Бонус по часам"><span>2%</span><span>3%</span><span>4%</span><span>5%</span><span>6%</span><span>8%</span><span>10%</span></div>
-        <ol class="hrs">
-          <li><time>12:00</time><p>Бродкаст и попап «Your piggy opens at 5 PM». Пост в #coin-news.</p></li>
-          <li><time>17:00</time><p><b>Копилка открывается</b>, 100 монет. Первый час, бонус 2%.<small>00:00 Киев</small></p></li>
-          <li><time>17–23</time><p><b>Каждый час</b>: кнопка Feed на странице и Flash Drop в случайную минуту, Grab на 60 секунд. Бонус в :00 следующего часа.</p></li>
-          <li><time>20:00</time><p>Бродкаст «Halfway there: your bonus just hit 5%».</p></li>
-          <li><time>23:00</time><p><b>Последний час</b>, бонус 10%. Пост в Discord: «Last feed before midnight».</p></li>
-          <li><time>00:00</time><p><b>Копилка закрывается.</b> Пост с общей суммой монет всего сервера.<small>07:00 Киев</small></p></li>
-        </ol>
+      <div class="dcard main">
+        <h3>Пт 25.12</h3><p class="sub">Рождество · в Украине выходной</p>
+        <ul class="hrs">
+          <li><time>00:00</time><p><b>Банки 1–3</b> (4, 5, 6 цветов). Пост + DM всем, кто вошёл.</p></li>
+          <li><time>12:00</time><p><b>Банки 4–6</b> (7, 8, 9 цветов). Пост + DM.</p></li>
+          <li><time>20:00</time><p>DM тем, у кого меньше 2 банок.</p></li>
+        </ul>
       </div>
-      <div class="dcard morn">
-        <h3>Пт 01.01 · Hammer Day</h3>
-        <p class="sub">Разбиваем. 10:00 ET – 03.01</p>
-        <ol class="hrs">
-          <li><time>10:00</time><p><b>Молоток доступен.</b> Бродкаст «Happy New Year. Time to smash».<small>17:00 Киев</small></p></li>
-          <li><time>11:00</time><p><b>Новогодняя монета</b>: Flash Drop +100 всем, у кого есть копилка. Второй шанс для тех, кто уснул.</p></li>
-          <li><time>11:00+</time><p>Коды уровней выдаются сразу после удара, на странице и в DM.</p></li>
-          <li><time>20:00</time><p><b>Lucky Shard</b>: розыгрыш 5 × 10 SC среди разбивших, пост в Discord.<small>03:00 Киев</small></p></li>
-          <li><time>03.01</time><p>Последний день, чтобы разбить. Коды забрать до 05.01, Diamond проверяется вручную до 04.01.</p></li>
-        </ol>
+      <div class="dcard">
+        <h3>Сб 26.12</h3><p class="sub">Догнать и золотая банка</p>
+        <ul class="hrs">
+          <li><time>00:00</time><p><b>Золотая банка</b> (8 цветов по 5) — для 4+ банок. DM: открыта / сколько осталось.</p></li>
+          <li><time>18:00</time><p>DM «6 часов до конца» с тем, что осталось игроку.</p></li>
+          <li><time>23:59</time><p>Всё закрывается. Пост с итогом.</p></li>
+        </ul>
+      </div>
+      <div class="dcard">
+        <h3>27.12 – 03.01</h3><p class="sub">Офферы и Claim</p>
+        <ul class="hrs">
+          <li><time>27.12</time><p><b>00:05</b> — личный оффер по высшему уровню, одноразовый промокод, 72 ч.</p></li>
+          <li><time>02.01</time><p><b>12:00</b> — DM тем, кто не нажал Claim.</p></li>
+          <li><time>03.01</time><p><b>23:59</b> — Claim закрыт. Очередь player ID можно разбирать после праздника.</p></li>
+        </ul>
       </div>
     </div>
   </div>
@@ -446,113 +348,95 @@ footer img{width:120px;height:auto}
 <section class="sky-c" id="prizes">
   <div class="wrap">
     <header>
-      <span class="kicker">Призы · предложение</span>
-      <h2 class="chunky">Что внутри копилки</h2>
-      <p class="lead">Уровень зависит только от своего баланса, лидерборда нет: один игрок не может забрать все места. Расчёт на 300 участников, коды команда создаёт в админке CoinsMania.</p>
+      <span class="kicker">Призы · одна таблица, уровни, без мест и розыгрыша</span>
+      <h2 class="chunky">Что внутри свина</h2>
+      <p class="lead">Каждый уровень — один раз на человека, код по кнопке Claim prize. Номиналы — как у Storm Rush, утверждены 12.11. Лимита «один приз на все бренды» нет: призы гарантированные (правило 9).</p>
     </header>
     <div class="tiers">
-      <div class="tier t-cu"><span class="need dig">300+</span><h3>Copper Pig</h3><p class="prize">5 FP</p><p>зашёл на пару часов</p></div>
-      <div class="tier t-ag"><span class="need dig">650+</span><h3>Silver Pig</h3><p class="prize">0,5 SC</p><p>весь вечер без дропов или с 21:00 с дропами</p></div>
-      <div class="tier t-au"><span class="need dig">1 000+</span><h3>Gold Pig</h3><p class="prize">2 SC</p><p>весь вечер и 3+ дропа</p></div>
-      <div class="tier t-di"><span class="need dig">1 400+</span><h3>Diamond Pig</h3><p class="prize">4 SC</p><p>все 7 часов и 6+ дропов</p></div>
+      <div class="tier t1"><span class="need dig">2 банки</span><h3>Piggy Saver</h3><p class="prize">1 FP</p><p>первые 5–10 минут игры</p></div>
+      <div class="tier t2"><span class="need dig">4 банки</span><h3>Piggy Banker</h3><p class="prize">2 FP</p><p>+ открывает золотую банку</p></div>
+      <div class="tier t3"><span class="need dig">6 банок</span><h3>Full Piggy</h3><p class="prize">5 FP</p><p>свин полный</p></div>
+      <div class="tier t4"><span class="need dig">★ золотая</span><h3>Golden Piggy</h3><p class="prize">1 SC</p><p>рождественский подарок</p></div>
     </div>
-    <div class="slab" style="padding:0;gap:0;overflow:hidden">
-      <div class="tbl" style="border:0">
-        <table>
-          <thead><tr><th>Награда</th><th>Приз</th><th class="r">Получат, оценка</th><th class="r">Итого</th></tr></thead>
-          <tbody>
-            <tr><td>Copper Pig</td><td>5 FP</td><td class="r dig">100</td><td class="r dig">500 FP</td></tr>
-            <tr><td>Silver Pig</td><td>0,5 SC</td><td class="r dig">110</td><td class="r dig">55 SC</td></tr>
-            <tr><td>Gold Pig</td><td>2 SC</td><td class="r dig">60</td><td class="r dig">120 SC</td></tr>
-            <tr><td>Diamond Pig</td><td>4 SC, ручная проверка</td><td class="r dig">25</td><td class="r dig">100 SC</td></tr>
-            <tr><td>Lucky Shard</td><td>10 SC, 5 случайных из разбивших до 20:00 01.01</td><td class="r dig">5</td><td class="r dig">50 SC</td></tr>
-          </tbody>
-          <tfoot><tr><td colspan="3">Итого, предложение</td><td class="r">≈325 SC + 500 FP · лимит 350 SC</td></tr></tfoot>
-        </table>
-      </div>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>Высший уровень</th><th>Оффер 27.12</th><th class="r">Цена</th><th class="r">Бонус</th><th class="r">Промокодов</th></tr></thead>
+        <tbody>
+          <tr><td>1–3 банки</td><td>Coin Stocking Pack</td><td class="r">9.99</td><td class="r">+100%</td><td class="r">60</td></tr>
+          <tr><td>4–5 банок</td><td>Golden Piggy Bundle</td><td class="r">19.99</td><td class="r">+40%</td><td class="r">40</td></tr>
+          <tr><td>6 банок</td><td>Full Piggy Vault</td><td class="r">39.99</td><td class="r">+50%</td><td class="r">40</td></tr>
+          <tr><td>Золотая банка</td><td>Merry Coinsmas Crate</td><td class="r">39.99</td><td class="r">+75%</td><td class="r">80</td></tr>
+        </tbody>
+        <tfoot><tr><td colspan="5">На 100 активных: ≈80 × 1 FP + 60 × 2 FP + 40 × 5 FP ≈ 400 FP · ≈35 × 1 SC. Коды с запасом ~1,5×: 1 FP × 150, 2 FP × 120, 5 FP × 80, 1 SC × 60.</td></tr></tfoot>
+      </table>
     </div>
     <div class="limits">
-      <div style="color:var(--lav)"><b style="color:#fff">Один код уровня на человека</b>Копилка одна на CoinsMania-аккаунт, разбивается один раз.</div>
-      <div style="color:var(--lav)"><b style="color:#fff">Потолок 14 SC на человека</b>Diamond + один Lucky Shard. Shard повторно не выпадает.</div>
-      <div style="color:var(--lav)"><b style="color:#fff">Flash Drop без кодов</b>В ивент бот раздаёт монеты в копилку, а не промокоды: для 8 дропов кодов не нужно.</div>
+      <div><b>Покупка не даёт прогресса</b>Оффер приходит после закрытия и ничего не меняет в ивенте. No purchase necessary.</div>
+      <div><b>Офферы — первые у бренда</b>У CoinsMania нет истории покупок в Power BI. Проверить пресеты цен в кассе; запасной вариант — обычные SMM-офферы по цене уровня, как у Vegas.</div>
+      <div><b>Пул кодов свой</b>Отдельный пул CoinsMania, офферы — личным одноразовым промокодом, лимит 1.</div>
     </div>
   </div>
 </section>
 
-<section class="sky-a" id="tech">
+<section class="on-cloud" id="tech">
   <div class="wrap">
     <header>
       <span class="kicker">Техника</span>
-      <h2 class="chunky">Что пишем для CoinsMania</h2>
-      <p class="lead">Общий слой строится один раз для всех брендов и в эту оценку не входит: Discord-логин с guilds.join, коды из xlsx, Claim prize, бот, export, общий анти-абуз.</p>
+      <h2 class="chunky">Механика уже собрана</h2>
+      <p class="lead">Папка <code>coinsmania/mechanic/</code> — по образцу Storm и Dexy, чтобы общий слой подключал всех одинаково.</p>
     </header>
     <div class="est">
-      <div><b class="dig">3</b><span>дня разработки механики</span></div>
-      <div><b class="dig">24.12</b><span>репетиция</span></div>
-      <div><b class="dig">14.12</b><span>регистрация открыта</span></div>
+      <div><b class="dig">9/9</b><span>тестов: юнит + e2e репетиции</span></div>
+      <div><b class="dig">12/12</b><span>QA клиента в браузере</span></div>
+      <div><b class="dig">≈1</b><span>день на встраивание в общий слой</span></div>
+      <div><b class="dig">8797</b><span>порт стенда в общем плейтесте</span></div>
     </div>
     <div class="cols">
       <div>
-        <h3>Механика бренда (оценка)</h3>
+        <h3>Что готово</h3>
         <ul>
-          <li><b>Леджер копилки</b>: депозиты, часовые слоты по ET, бонус в :00, заморозка в полночь — 1 день.</li>
-          <li><b>Golden Coin в Flash Drop</b>: расписание 17–23 + 01.01 11:00, кнопка Grab, окно 60 секунд, все нажавшие — 1 день.</li>
-          <li><b>Страница</b>: часы, стеклянная свинья, молоток, уровни и Lucky Shard (SVG + canvas, как в макете) — 1 день.</li>
+          <li><b>Модуль <code>coinsort</code></b> в формате конкурсов Witching Hours: раздача, ходы, undo, restart, подсказка с откатом из тупика.</li>
+          <li><b>Генератор</b>: нет готовых стопок, решение гарантировано решателем, не короче 2 ходов на цвет. 25 раздач на каждую банку в тестах.</li>
+          <li><b>Расписание ET</b> с демо-режимом, тексты бота (EN), уровни и офферы.</li>
+          <li><b>Стенд</b> без Discord: плейтест, репетиция <code>--show</code>, <code>/stats</code> (доля прохождения, ходы, undo, подсказки, быстрые банки), <code>/qa</code>.</li>
+          <li><b>Клиент</b>: банка (тап-тап, быстрые нажатия, подсветка подсказки), свин в колпаке с заливкой золотом, обёртка под хаб WH.</li>
         </ul>
       </div>
       <div>
-        <h3>Нужно от людей</h3>
+        <h3>Нужно от общего слоя</h3>
         <ul>
-          <li><b>2 токена ботов</b> (CoinsMania Mod и тестовый) — уже ждём для Flash Drop.</li>
-          <li><b>Коды</b>: 4 уровня + Lucky Shard, ≈300 штук в админке CoinsMania до 15.12.</li>
-          <li><b>Арт</b>: свин с молотком и стеклянная копилка в стиле сайта (Flow или дизайнер), исходники лого и маскота.</li>
-          <li><b>Аппрув</b>: прод только с ОК Александра, заморозка кода с 28.12. Тексты и модерация — Александр.</li>
-        </ul>
-      </div>
-      <div>
-        <h3>Переиспользуем</h3>
-        <ul>
-          <li><b>Flash Drop bot</b> (Desktop/cursor/flash-drop-bot, написан 29.10, не задеплоен): роль ⚡, алерты в стафф, запрет локального старта с боевым токеном.</li>
-          <li><b>discord-servers/setup.js</b>: открыть скрытые #pick-your-ping и #coin-chat, добавить #piggy-bank.</li>
-        </ul>
-      </div>
-      <div>
-        <h3>Юридически</h3>
-        <ul>
-          <li>Участие бесплатное, ни депозит, ни бонус не зависят от покупок. Монеты копилки — очки ивента, не GC и не SC.</li>
-          <li>В текстах для игроков пишем «bonus», не «interest», чтобы не звучало как финансовый продукт. 21+, USA, правила в #piggy-bank.</li>
+          <li><b>8 конкурсов бренда открыты одновременно</b> (практика, 6 банок, золотая), золотая — только при 4+ банках.</li>
+          <li><b>Приз = уровень</b> по числу банок, мест и розыгрыша нет.</li>
+          <li><b>Claim по правилу 8</b>: player ID при первом Claim, ручное одобрение, потом сразу. До 03.01.</li>
+          <li><b>DM по таймлайну</b>, посты в канал ивента, офферы 27.12 00:05 ET.</li>
+          <li><b>Свой бот CoinsMania Mod</b> — уже на сервере бренда, видит все каналы.</li>
         </ul>
       </div>
     </div>
   </div>
 </section>
 
-<section class="on-cloud" id="rehearsal">
+<section class="sky-a" id="rehearsal">
   <div class="wrap">
     <header>
-      <span class="kicker">Репетиция · чт 24.12</span>
-      <h2 class="chunky">Полный прогон за неделю</h2>
-      <p class="lead">Вечер и утро прогоняем целиком на тестовом Discord-сервере с тестовым токеном бота, боевой сервер не трогаем. Ускоренные часы: 1 час ивента = 5 минут, весь сценарий за 50 минут.</p>
+      <span class="kicker">Плейтест и репетиция</span>
+      <h2 class="chunky">Проверяем до праздника</h2>
     </header>
     <div class="cols">
       <div>
-        <h3>Что прогоняем</h3>
-        <ol>
-          <li>15 тестовых аккаунтов, из них 3 на одном устройстве и 2 без CoinsMania username: страница должна подсказать, а не дать 403.</li>
-          <li>Открытие в 17:00, 7 часовых слотов, кнопка Feed, бонусы в :00, пауза у тех, кто пропустил.</li>
-          <li>7 Flash Drop: Grab нажимают одновременно 15 человек, все получают монеты.</li>
-          <li>Заморозка в полночь, новогодняя монета, молоток, коды из тестового xlsx, Lucky Shard.</li>
-          <li>Рестарт сервиса посреди часа и бот офлайн 10 минут.</li>
-        </ol>
+        <h3>Плейтест 08–10.12</h3>
+        <ul>
+          <li>Общий плейтест всех брендов, стенд CoinsMania на порту <b>8797</b>: <code>node mechanic/dev/server.js --lan</code>.</li>
+          <li><b>Цель: 60–85%</b> разобравших на банках 5–6. Ниже — меньше цветов, выше — можно больше. Правится одной строкой в <code>server/jars.js</code>.</li>
+          <li>Смотрим медиану времени: банка 6 должна укладываться в ~5 минут, всё — в 20–30 минут за праздник.</li>
+        </ul>
       </div>
       <div>
-        <h3>Критерии go / no-go (28.12)</h3>
+        <h3>Репетиция 18.12 и go / no-go 21.12</h3>
         <ul>
-          <li>Баланс в леджере совпадает с ручным расчётом у всех 15 до монеты.</li>
-          <li>Все 7 дропов пришли, ни один не потерялся при рестарте.</li>
-          <li>Коды выданы автоматически, export сходится.</li>
-          <li>Три аккаунта с одного устройства: Gold и Diamond получил только первый.</li>
-          <li>Посты плана Б готовы и лежат в стафф-канале.</li>
+          <li><code>--show</code>: весь ивент сжат до ~50 минут — практика, 1–3, 4–6, золотая, конец, офферы, Claim.</li>
+          <li>Тренировочная банка с 18.12 на живых — вторая волна данных о сложности до заморозки 22.12.</li>
+          <li><b>No-go</b>, если доля на банке 6 ниже 50% и правка не помогла, или Claim не отрабатывает на тестовом сервере.</li>
         </ul>
       </div>
     </div>
@@ -564,36 +448,30 @@ footer img{width:120px;height:auto}
     <header>
       <span class="kicker">План Б</span>
       <h2 class="chunky">Если что-то упало в праздник</h2>
-      <p class="lead">Правило одно: из-за нашего сбоя игрок не теряет монеты. Страница и бот пишут в один леджер, тексты на все случаи заготовлены заранее.</p>
     </header>
     <div class="fail">
-      <div><h3>Упал Flash Drop bot</h3><p>Дежурный постит дроп словом в #coin-chat из заготовки. На странице есть запасное поле <b>«Golden coin word»</b>, слово действует 5 минут.</p></div>
-      <div><h3>Упала страница</h3><p>Кормление через команду <b>/feed</b> в Discord, тот же леджер. В бродкасте и на сайте ссылка меняется на канал.</p></div>
-      <div><h3>Лежит всё больше часа</h3><p>Каждому, кто кормил в предыдущем часе, пропавший час засчитывается как покормленный. Пост с объяснением из заготовки.</p></div>
-      <div><h3>Сбой в полночь или 01.01</h3><p>Молоток переносится, разбивать можно до 03.01. Коды уровней дежурный выдаёт по export массовым DM.</p></div>
-      <div><h3>Не импортировались коды</h3><p>Запасной xlsx готов с 15.12. Если и он не прошёл, на странице «Your prize is on its way, by Jan 4», выдача по export.</p></div>
-      <div><h3>Ночь в Киеве</h3><p>Вечер 31.12 по ET — 00:00–07:00 Киев. Алерты бота идут в стафф-канал, будильник у дежурного на 00:00 и 07:00 Киев, вмешательство только по алерту.</p></div>
+      <div><h3>Упала страница</h3><p>Прогресс в базе после каждого хода. Поднялась — игрок продолжает с того же места. Окно до 26.12 23:59, часовых окон нет, поэтому час простоя ничего не ломает.</p></div>
+      <div><h3>Банка «нерешаемая»</h3><p>Не бывает: раздача проходит решатель до выдачи. Застрял — подсказка откатывает до решаемой позиции. На крайний случай <b>Start over</b>.</p></div>
+      <div><h3>Не импортировались коды</h3><p>Уровни в базе остаются. Claim показывает «Your prize is on its way, by Jan 4», выдача по export массовым DM.</p></div>
+      <div><h3>Ночь в Киеве</h3><p>00:00 ET 25.12 = 07:00 Киев, выходной. Старт видит дежурный утром; 12:00 ET = 19:00 Киев. Алерты бота — в стафф-канал.</p></div>
     </div>
   </div>
 </section>
 
 <section class="sky-c" id="promo">
   <div class="wrap promo">
-    <figure>
-      <img src="assets/pig-coaster.jpg" alt="Свин CoinsMania в пиратской шляпе на розовой вагонетке с монетами" width="1048" height="460">
-    </figure>
+    <figure><img src="assets/vault.jpg" alt="Голубой сейф CoinsMania, полный золотых монет, на облаках" width="1048" height="460"></figure>
     <div>
       <header style="margin-bottom:22px">
-        <span class="kicker">Промо</span>
+        <span class="kicker">Промо · рефералов нет</span>
         <h2 class="chunky">Сначала сайт, потом Discord</h2>
-        <p class="lead">Кто не узнал до 31.12, пропустил: ивент длится один вечер. Discord CoinsMania новый, поэтому каждый участник — новый для сервера. В Halloween попап на сайте дал 1 251 переход, FB — 23.</p>
       </header>
       <div class="plan">
-        <div><span class="w dig">14.12</span><span><h3>Попап и регистрация</h3><p>«Open your piggy bank, get 50 coins now». В Discord открываем #pick-your-ping: «Get ⚡ before the pig opens».</p></span></div>
-        <div><span class="w dig">18–20.12</span><span><h3>Анонс</h3><p>Свин трясёт копилку: Instagram, FB, #coin-news. Правила в #piggy-bank.</p></span></div>
-        <div><span class="w dig">21–30.12</span><span><h3>Разогрев</h3><p>Обычный Flash Drop с промокодом раз в день: люди привыкают к ⚡ и к кнопке Grab.</p></span></div>
-        <div><span class="w dig">31.12</span><span><h3>Вечер</h3><p>Попап и бродкаст в 12:00, 20:00, 23:00. Каждый дроп пингует ⚡.</p></span></div>
-        <div><span class="w dig">01.01</span><span><h3>Утро</h3><p>Бродкаст «Time to smash» в 10:00, пост с Lucky Shard в 20:00.</p></span></div>
+        <div><span class="w dig">14.12</span><span><h3>Попап и логин</h3><p>«Your Christmas piggy is waiting». Логин Discord с guilds.join — сервер растёт с сайта.</p></span></div>
+        <div><span class="w dig">18.12</span><span><h3>Тренировочная банка</h3><p>Пост в канале ивента, Instagram, FB (без валют). Каналы сервера открываем к 14.12.</p></span></div>
+        <div><span class="w dig">24.12</span><span><h3>Бродкаст</h3><p>18:00 ET: «в полночь открываются банки». Попап на сайте весь день.</p></span></div>
+        <div><span class="w dig">25–26.12</span><span><h3>Пост на каждое событие</h3><p>Банки 1–3, 4–6, золотая, последние 6 часов. DM тем, кто не закончил.</p></span></div>
+        <div><span class="w dig">ноябрь</span><span><h3>Flash Drop — отдельно</h3><p>Бот не часть ивента. Если запустить его в ноябре, к Рождеству у сервера будет аудитория с ролью ⚡.</p></span></div>
       </div>
     </div>
   </div>
@@ -609,22 +487,20 @@ footer img{width:120px;height:auto}
       <div>
         <h3>Анти-абуз</h3>
         <ul>
-          <li><b>Одна копилка на человека</b>: связка Discord + CoinsMania username, Discord-аккаунт старше 30 дней. Один код на аккаунт сайта.</li>
-          <li><b>Мультиаккаунты</b>: общий IP или устройство — Gold, Diamond и Lucky Shard получает только первая копилка, остальные максимум Silver.</li>
-          <li><b>Время по серверу</b>, по ET. Feed раз в час, время клиента не учитывается.</li>
-          <li><b>Grab без гонки</b>: все, кто нажал за 60 секунд, получают монеты. Ботам-кликерам нечего выигрывать у людей, флаги скорости не нужны.</li>
-          <li><b>Diamond</b> (≈25 человек) проверяется вручную до 04.01. Остальное автоматом.</li>
+          <li><b>Решение знает только сервер.</b> Каждый ход проверяется; клиент шлёт «откуда → куда», а не результат.</li>
+          <li><b>Своя раздача.</b> Скрин чужой банки или чат-ответ не помогает.</li>
+          <li><b>Онлайн-решатель coin sort</b> решит банку за секунду. Выгода максимум 8 FP + 1 SC — риск принят, только лог: меньше 0,6 с на ход или путь ровно как у решателя.</li>
+          <li><b>Player ID</b> — один на Discord, проверка Александром при первом Claim.</li>
         </ul>
       </div>
       <div>
         <h3>Уроки Halloween</h3>
         <ul>
-          <li><b>11 из 12 побед у одного.</b> Лидерборда нет, уровень зависит от своей копилки. Lucky Shard один на человека.</li>
-          <li><b>119 не нажали Join.</b> Вход через Discord сразу добавляет в сервер. Нет привязки — страница пишет, что сделать.</li>
-          <li><b>Строгие флаги скорости.</b> Механика не про скорость, флагов нет.</li>
-          <li><b>Новых было 9%.</b> Сервер новый, вход только с сайта, +50 стартовых монет за регистрацию заранее.</li>
-          <li><b>Ручной аппрув.</b> Бонусы и коды автоматом, руками только Diamond.</li>
-          <li><b>Railway.</b> Репетиция 24.12, прод только с ОК Александра.</li>
+          <li><b>642 заявки → 296 сыграли.</b> Заявки до игры нет, апрув — только на Claim.</li>
+          <li><b>Скорость решала места.</b> Мест нет, скорость ничего не даёт.</li>
+          <li><b>78 → 30 человек на конкурс.</b> Ничего не зависит от толпы.</li>
+          <li><b>4 игрока забрали ⅔ призов.</b> Призы гарантированные, по уровню — забрать чужое нельзя.</li>
+          <li><b>85 приглашений → 0.</b> Рефералов нет.</li>
         </ul>
       </div>
     </div>
@@ -634,18 +510,18 @@ footer img{width:120px;height:auto}
 <section class="on-cloud" id="kpi">
   <div class="wrap">
     <header>
-      <span class="kicker">KPI · цели, не факты</span>
+      <span class="kicker">KPI · на реальную аудиторию, 30–100 активных</span>
       <h2 class="chunky">Что считаем успехом</h2>
     </header>
     <div class="kpi">
-      <div><b class="dig">450</b><span>копилок заведено к 31.12</span></div>
-      <div><b class="dig">300</b><span>открыли копилку 31.12</span></div>
-      <div><b class="dig">4/7</b><span>среднее число покормленных часов</span></div>
-      <div><b class="dig">+250</b><span>новых в Discord CoinsMania</span></div>
-      <div><b class="dig">250</b><span>держателей роли ⚡</span></div>
-      <div><b class="dig">85%</b><span>разбили копилку до 03.01</span></div>
-      <div><b class="dig">≈300</b><span>выданных кодов</span></div>
-      <div><b class="dig">0</b><span>игроков, потерявших монеты из-за сбоя</span></div>
+      <div><b class="dig">100</b><span>логинов к 25.12 (сервер новый)</span></div>
+      <div><b class="dig">60</b><span>сыграли хотя бы одну банку</span></div>
+      <div><b class="dig">60–85%</b><span>разобрали банку 6 из открывших</span></div>
+      <div><b class="dig">40%</b><span>дошли до золотой банки</span></div>
+      <div><b class="dig">+50</b><span>новых в Discord CoinsMania</span></div>
+      <div><b class="dig">80%</b><span>нажали Claim до 03.01</span></div>
+      <div><b class="dig">≥5</b><span>покупок по офферу</span></div>
+      <div><b class="dig">0</b><span>потерянного прогресса</span></div>
     </div>
   </div>
 </section>
@@ -653,18 +529,15 @@ footer img{width:120px;height:auto}
 <section class="sky-a" id="risks">
   <div class="wrap">
     <header>
-      <span class="kicker">Риски и открытые вопросы</span>
+      <span class="kicker">Открытые вопросы</span>
       <h2 class="chunky">Нужно решение Александра</h2>
     </header>
     <ol class="qs">
-      <li><span><b>Ассеты бренда.</b> <span>Бренд-кита нет, лого и свин скачаны с coinsmania.com (лого 400 px). Нужны исходники и свин без фона. Кто дизайнер CoinsMania?</span></span></li>
-      <li><span><b>Как зовут свина?</b> <span>На сайте имени нет. В посте он говорит от первого лица без имени.</span></span></li>
-      <li><span><b>Токены CoinsMania Mod + тестовый бот.</b> <span>Без них Flash Drop не задеплоить и не отрепетировать. Нужны до 15.12.</span></span></li>
-      <li><span><b>Дежурный.</b> <span>Вечер 31.12 по ET — это 00:00–07:00 Киев. Кто на алертах ночью и кто на финале 01.01, 10:00–13:00 ET (17:00–20:00 Киев)?</span></span></li>
-      <li><span><b>Бюджет ≈350 SC + 500 FP</b> <span>и валюты: у CoinsMania те же SC/FP/GC, что у остальных?</span></span></li>
-      <li><span><b>Привязка аккаунта.</b> <span>Есть ли у CoinsMania API или выгрузка, чтобы проверить username? Иначе Diamond проверяем вручную по админке.</span></span></li>
-      <li><span><b>Запуск сервера.</b> <span>Каналы скрыты (launched: false). Открываем #pick-your-ping и #coin-chat к 14.12?</span></span></li>
-      <li><span><b>Риск: низкая база.</b> <span>Если на 28.12 копилок меньше 150, снижаем пороги на 20% и объявляем это до старта.</span></span></li>
+      <li><span><b>Решено 12.11:</b> <span>название «Merry Coinsmas»; номиналы 1 / 2 / 5 FP + 1 SC; рождественские офферы из таблицы; player ID и форма Claim — как у Storm; бот — свой, CoinsMania Mod (создан и на сервере); свина зовут Piggins.</span></span></li>
+      <li><span><b>Пресеты цен в кассе CoinsMania</b> <span>для четырёх офферов — у бренда ещё не было офферов.</span></span></li>
+      <li><span><b>Канал ивента</b> <span>(#coinsmas или #piggy-sort) и открытие скрытых каналов сервера к 14.12.</span></span></li>
+      <li><span><b>Арт для промо.</b> <span>Piggins в колпаке с банками монет — промпты во Flow/Cursor, как у Storm? Нужен свин без фона.</span></span></li>
+      <li><span><b>Дежурные</b> <span>25–26.12 и очередь player ID 27.12–03.01.</span></span></li>
     </ol>
   </div>
 </section>
@@ -678,162 +551,137 @@ footer img{width:120px;height:auto}
     <div class="post">
       <div class="av" role="img" aria-label="Аватар свина CoinsMania"></div>
       <div id="postText">
-        <div class="nm">CoinsMania <small>Today at 5:00 PM</small></div>
-        <p>@⚡ Flash Drop Oink. New Year's Eve is my night.</p>
-        <p>On <b>Dec 31 at 5 PM ET</b> your piggy bank opens. Feed it once an hour and everything inside gets a bonus at the top of the hour. 2% at 5 PM, 10% by 11 PM. The closer to midnight, the fatter the pig.</p>
-        <p>Every hour I drop <b>golden coins</b> right here. Hit Grab within 60 seconds and they go straight into your pig. Everyone who hits it gets them.</p>
+        <div class="nm">CoinsMania <small>Today at 6:00 PM</small></div>
+        <p>Oink! Piggins here, and someone mixed up all my Christmas coins 🐷🎄</p>
+        <p>Starting <b>Christmas Day at midnight ET</b>, you get 6 jars of mixed-up coins. Tap a jar to pick up the top coins, tap another to drop them on the same color. Sort every stack and the coins fly into your piggy bank.</p>
         <div class="em">
-          <p style="margin:0"><b>Jan 1 is Hammer Day</b><br>Smash your pig. Copper, Silver, Gold or Diamond, the coins inside decide what you get.</p>
+          <p style="margin:0"><b>2 jars, 4 jars, 6 jars</b>: a reward at each one.<br>Sort 4 and you unlock the <b>Golden Jar</b> on Dec 26, with 1 SC inside.</p>
         </div>
-        <p>Open your piggy bank before New Year's Eve and I'll throw in 50 coins to start.</p>
-        <p style="color:#949BA4;font-size:13px">No purchase necessary. 21+. Rules in #piggy-bank.</p>
+        <p>No timer, no race. Everything stays open until Dec 26, 11:59 PM ET. Want to warm up? The practice jar is open right now.</p>
+        <p style="color:#949BA4;font-size:13px">No purchase necessary. Rules in the event channel.</p>
       </div>
     </div>
-    <button class="ghost" id="copyPost" type="button">Скопировать текст поста</button>
+    <button class="copy" id="copyPost" type="button">Скопировать текст поста</button>
   </div>
 </section>
 
 <footer>
   <div class="wrap">
-    <span>CoinsMania · New Year's Eve 31.12.2026 – 01.01.2027 · концепт, все цифры — предложение</span>
+    <span>CoinsMania · Merry Coinsmas · Рождество 25–26.12.2026 · концепт v2 от 12.11, призы утверждены</span>
     <img src="assets/logo.png" alt="" width="400" height="156">
   </div>
 </footer>
 
+<script src="assets/game/coins.js"></script>
+<script src="assets/game/piggy.js"></script>
+<script src="assets/game/sort-game.js"></script>
 <script>
-(function(){
-const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+(function () {
+'use strict';
+var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/* ---------- snow over the hero ---------- */
-const sc = document.getElementById('snow'), sx = sc.getContext('2d');
-let flakes = [];
-function sizeSnow(){ const r = sc.getBoundingClientRect(), d = devicePixelRatio||1; sc.width = r.width*d; sc.height = r.height*d; sx.setTransform(d,0,0,d,0,0);
-  flakes = Array.from({length: Math.round(r.width/14)}, ()=>({x:Math.random()*r.width, y:Math.random()*r.height, r:1+Math.random()*2.6, v:.3+Math.random()*.8, p:Math.random()*6})); }
-function snow(){
-  const w = sc.clientWidth, h = sc.clientHeight; sx.clearRect(0,0,w,h);
-  flakes.forEach(f=>{ if(!reduce){ f.y += f.v; f.p += .01; f.x += Math.sin(f.p)*.3; if(f.y>h){ f.y=-4; f.x=Math.random()*w; } }
-    sx.beginPath(); sx.arc(f.x,f.y,f.r,0,7); sx.fillStyle='rgba(255,255,255,'+(.35+f.r/6)+')'; sx.fill(); });
-  if(!reduce) requestAnimationFrame(snow);
-}
-sizeSnow(); snow(); addEventListener('resize', ()=>{ sizeSnow(); if(reduce) snow(); });
+/* ---------- снег над hero ---------- */
+var sc = document.getElementById('snow'), sx = sc.getContext('2d'), flakes = [];
+function size() { sc.width = sc.offsetWidth; sc.height = sc.offsetHeight; flakes = []; for (var i = 0; i < Math.round(sc.width / 14); i++) flakes.push({ x: Math.random() * sc.width, y: Math.random() * sc.height, r: 1 + Math.random() * 2.4, s: .3 + Math.random() * .8, d: Math.random() * 6 }); }
+function snow() { sx.clearRect(0, 0, sc.width, sc.height); sx.fillStyle = 'rgba(255,255,255,.8)'; flakes.forEach(function (f) { f.y += f.s; f.d += .01; f.x += Math.sin(f.d) * .3; if (f.y > sc.height) { f.y = -4; f.x = Math.random() * sc.width; } sx.beginPath(); sx.arc(f.x, f.y, f.r, 0, 7); sx.fill(); }); requestAnimationFrame(snow); }
+size(); addEventListener('resize', size);
+if (!reduce) snow(); else { sx.fillStyle = 'rgba(255,255,255,.7)'; flakes.forEach(function (f) { sx.beginPath(); sx.arc(f.x, f.y, f.r, 0, 7); sx.fill(); }); }
 
-/* ---------- piggy model: 7 hourly slots on 31.12 ---------- */
-const HOURS = ['17:00','18:00','19:00','20:00','21:00','22:00','23:00'];
-const RATES = [.02,.03,.04,.05,.06,.08,.10];
-const TIERS = [[0,'Пока пусто','Нужно 300 монет, чтобы получить Copper.'],[300,'Copper Pig','5 FP'],[650,'Silver Pig','0,5 SC'],[1000,'Gold Pig','2 SC'],[1400,'Diamond Pig','4 SC, после ручной проверки']];
-const MAXV = 1800;
-const PRESETS = {
-  sample:   {early:1, feed:[1,1,0,1,1,1,1], gold:[1,0,0,1,0,1,1], ny:1},
-  full:     {early:1, feed:[1,1,1,1,1,1,1], gold:[0,0,0,0,0,0,0], ny:0},
-  fullgold: {early:1, feed:[1,1,1,1,1,1,1], gold:[1,1,1,1,1,1,1], ny:1},
-  late:     {early:0, feed:[0,0,0,0,1,1,1], gold:[0,0,0,0,1,1,1], ny:1},
-  drops:    {early:1, feed:[0,0,0,0,0,0,0], gold:[1,1,1,1,1,1,1], ny:1},
-};
-let st = JSON.parse(JSON.stringify(PRESETS.sample)), smashed = false;
+/* ---------- до / после ---------- */
+(function () {
+  var mixed = [[1, 0, 2, 0], [2, 1, 0, 1], [0, 2, 1, 2], [], []];
+  var sorted = [[0, 0, 0, 0], [1, 1, 1, 1], [2, 2, 2, 2], [], []];
+  function jars(js) { return '<div class="mini">' + js.map(function (j) { return '<span class="cs-jar' + (j.length === 4 && j.every(function (c) { return c === j[0]; }) ? ' full' : '') + '">' + j.map(function (c) { return CoinSort.coinHtml(c); }).join('') + '</span>'; }).join('') + '</div>'; }
+  document.getElementById('ba').innerHTML =
+    '<figure>' + jars(mixed) + CoinPiggy.pigSvg({ jars: 0 }, false) + '<figcaption><b>До</b>монеты вперемешку, свин пустой</figcaption></figure>' +
+    '<div class="arrow" aria-hidden="true">→</div>' +
+    '<figure>' + jars(sorted) + CoinPiggy.pigSvg({ jars: 6 }, true) + '<figcaption><b>После</b>стопки по цветам, свин полный — коды</figcaption></figure>';
+})();
 
-function calc(){
-  const opened = st.feed.some(Boolean) || st.gold.some(Boolean);
-  let b = opened ? 100 + (st.early?50:0) : 0;
-  const rows = [];
-  for(let i=0;i<7;i++){
-    let add = 0;
-    if(st.feed[i]) add += 50;
-    if(st.gold[i]) add += 100;
-    b += add;
-    if(st.feed[i]) b = Math.round(b*(1+RATES[i]));
-    rows.push({add, b, r: st.feed[i]?RATES[i]:0});
+/* ---------- рабочий макет: тот же клиент, ходы проверяются локально по тем же правилам ---------- */
+var C = window.Coins, HINTS = 3;
+var JARS = [
+  { id: 'practice', title: 'Practice', colors: 3, cap: 4, practice: true },
+  { id: 'j1', title: 'Jar 1', colors: 4, cap: 4 }, { id: 'j2', title: 'Jar 2', colors: 5, cap: 4 }, { id: 'j3', title: 'Jar 3', colors: 6, cap: 4 },
+  { id: 'j4', title: 'Jar 4', colors: 7, cap: 4 }, { id: 'j5', title: 'Jar 5', colors: 8, cap: 4 }, { id: 'j6', title: 'Jar 6', colors: 9, cap: 4 },
+  { id: 'golden', title: 'The Golden Jar', colors: 8, cap: 5, golden: true, needJars: 4 }
+];
+var TIERS = [
+  { id: 't2', jars: 2, name: 'Piggy Saver', prize: '1 FP', dm: '🐷 2 jars sorted! Your first reward is ready: 1 FP. Hit Claim prize to get your code.' },
+  { id: 't4', jars: 4, name: 'Piggy Banker', prize: '2 FP', dm: '🪙 4 jars! Reward ready: 2 FP. Hit Claim prize. And the Golden Jar is open for you now ✨' },
+  { id: 't6', jars: 6, name: 'Full Piggy', prize: '5 FP', dm: '🐷 All 6 jars sorted, your piggy is full! Reward ready: 5 FP. Hit Claim prize.' },
+  { id: 'golden', golden: true, name: 'Golden Piggy', prize: '1 SC', dm: '🎄 You sorted the Golden Jar! Your Christmas gift: 1 SC. Hit Claim prize. Merry Coinsmas!' }
+];
+var S, game = null, cur = null;
+function fresh() { S = { att: {}, got: {}, dms: [{ t: 'now', text: '🎄 Merry Christmas from Piggins! Jars 1–3 are open. Sort the coins, fill your piggy. No timer, everything stays open until Dec 26, 11:59 PM ET.' }] }; }
+function prog() { var n = 0; ['j1', 'j2', 'j3', 'j4', 'j5', 'j6'].forEach(function (id) { if (S.att[id] && S.att[id].solved) n++; }); return { jars: n, golden: !!(S.att.golden && S.att.golden.solved) }; }
+function viewOf(a) { var J = a.J; return { jar: J.id, title: J.title, size: J.colors + '×' + J.cap, practice: !!J.practice, golden: !!J.golden, cap: J.cap, colors: J.colors, jars: C.clone(a.jars), canUndo: a.hist.length > 0, stuck: !a.solved && !C.hasMoves(a.jars, J.cap), solved: a.solved, done: a.solved, hintsLeft: a.hintsLeft, pours: a.pours }; }
+function localMove(a, input) {
+  var cap = a.J.cap, hint = null, rew = 0;
+  if (a.solved) return { error: 'finished' };
+  if (input.do === 'pour') { var n = C.pour(a.jars, cap, input.from, input.to); if (!n) return { error: 'bad_pour' }; a.hist.push([input.from, input.to, n]); a.pours++; }
+  else if (input.do === 'undo') { var l = a.hist.pop(); if (!l) return { error: 'nothing_to_undo' }; C.unpour(a.jars, l[0], l[1], l[2]); }
+  else if (input.do === 'restart') { a.jars = C.clone(a.start); a.hist = []; }
+  else if (input.do === 'hint') {
+    if (a.hintsLeft < 1) return { error: 'no_hints' };
+    var s = C.solve(a.jars, cap, { limit: 40000 });
+    while (!s.ok && a.hist.length) { var h = a.hist.pop(); C.unpour(a.jars, h[0], h[1], h[2]); rew++; s = C.solve(a.jars, cap, { limit: 40000 }); }
+    if (!s.ok) return { error: 'no_hint' };
+    hint = { from: s.moves[0][0], to: s.moves[0][1], rewound: rew }; a.hintsLeft--;
   }
-  const lock = b;
-  if(opened && st.ny) b += 100;
-  return {rows, lock, b, fed: st.feed.filter(Boolean).length, drops: st.gold.filter(Boolean).length + (opened&&st.ny?1:0)};
+  if (C.isDone(a.jars, cap)) a.solved = true;
+  return { hint: hint };
 }
-function tierOf(b){ let t = TIERS[0]; TIERS.forEach(x=>{ if(b>=x[0]) t = x; }); return t; }
-
-const cal = document.getElementById('cal');
-function renderCal(res){
-  cal.innerHTML = '';
-  HOURS.forEach((h,i)=>{
-    const r = res.rows[i], el = document.createElement('div');
-    el.className = 'hr ' + (st.feed[i]?'in':'miss') + (i===6?' peak':'');
-    el.innerHTML = '<div class="top"><span class="dt dig">'+h+'</span>'+
-      '<button class="gold-t'+(st.gold[i]?' on':'')+'" type="button" id="g'+i+'" aria-label="Flash Drop в '+h+'">'+(st.gold[i]?'+100':'')+'</button></div>'+
-      '<span class="rate">'+(st.feed[i] ? 'бонус '+Math.round(RATES[i]*100)+'%' : 'бонус на паузе')+'</span>'+
-      '<span class="bal dig">'+r.b.toLocaleString('ru')+'</span>'+
-      '<button class="tog" type="button" id="t'+i+'">'+(st.feed[i]?'покормил':'не кормил')+'</button>';
-    el.querySelector('.tog').onclick = ()=>{ st.feed[i] = st.feed[i]?0:1; clearPreset(); update(); };
-    el.querySelector('.gold-t').onclick = ()=>{ st.gold[i] = st.gold[i]?0:1; clearPreset(); update(); };
-    cal.appendChild(el);
+function award() { var p = prog(); TIERS.forEach(function (t) { if (S.got[t.id]) return; if (t.golden ? p.golden : p.jars >= t.jars) { S.got[t.id] = true; S.dms.unshift({ t: 'just now', text: t.dm }); } }); }
+function list() {
+  var p = prog();
+  return JARS.map(function (J) {
+    var a = S.att[J.id];
+    var can = J.golden && p.jars < J.needJars ? { ok: false, error: 'need_jars', need: J.needJars - p.jars } : { ok: true };
+    return { id: J.id, title: J.title, colors: J.colors, practice: !!J.practice, golden: !!J.golden, status: a ? (a.solved ? 'sorted' : 'active') : 'new', can: can };
   });
-  const lock = document.createElement('div'); lock.className = 'hr dark';
-  lock.innerHTML = '<div class="top"><span class="dt dig">00:00</span></div><span class="rate">копилка закрыта</span><span class="bal dig">'+res.lock.toLocaleString('ru')+'</span>';
-  cal.appendChild(lock);
-  const ny = document.createElement('div'); ny.className = 'hr dark';
-  ny.innerHTML = '<div class="top"><span class="dt dig">01.01</span><button class="gold-t'+(st.ny?' on':'')+'" type="button" id="gny" aria-label="Новогодняя монета 01.01">'+(st.ny?'+100':'')+'</button></div><span class="rate">11:00 новогодняя монета · Hammer</span><span class="bal dig">'+res.b.toLocaleString('ru')+'</span><span class="rate">'+tierOf(res.b)[1]+'</span>';
-  ny.querySelector('.gold-t').onclick = ()=>{ st.ny = st.ny?0:1; clearPreset(); update(); };
-  cal.appendChild(ny);
 }
-function clearPreset(){ document.querySelectorAll('#presets .chip').forEach(c=>c.setAttribute('aria-pressed','false')); }
-
-document.getElementById('ladderL').innerHTML = TIERS.slice(1).map(t=>'<span style="left:'+(t[0]/MAXV*100)+'%">'+t[1].split(' ')[0]+' '+t[0]+'</span>').join('');
-document.getElementById('ladder').insertAdjacentHTML('beforeend', TIERS.slice(1).map(t=>'<u style="left:'+(t[0]/MAXV*100)+'%"></u>').join(''));
-
-function update(){
-  const res = calc();
-  renderCal(res);
-  document.getElementById('bal').textContent = res.b.toLocaleString('ru');
-  document.getElementById('fed').textContent = res.fed+'/7';
-  document.getElementById('gc').textContent = res.drops;
-  document.querySelector('#ladder i').style.width = Math.min(100,res.b/MAXV*100)+'%';
-  const frac = Math.min(1, res.b/MAXV), hgt = 8 + frac*150;
-  const f = document.getElementById('fill'); f.setAttribute('y', 218 - hgt); f.setAttribute('height', hgt);
-  if(!smashed) document.getElementById('pigG').style.transform = 'scale('+(0.82 + frac*0.2)+')';
+function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+function side() {
+  CoinPiggy.render(document.getElementById('mPiggy'), list(), { current: cur, onOpen: open, progress: prog() });
+  document.getElementById('mTiers').innerHTML = TIERS.map(function (t) { return '<li class="' + (S.got[t.id] ? 'got' : '') + '"><i></i><span>' + (t.golden ? 'Golden Jar' : t.jars + ' jars') + ' · ' + t.name + '</span><em>' + t.prize + (S.got[t.id] ? ' · Claim' : '') + '</em></li>'; }).join('');
+  document.getElementById('mDms').innerHTML = S.dms.slice(0, 5).map(function (d) { return '<div class="dm"><small>Piggins · ' + d.t + '</small>' + esc(d.text) + '</div>'; }).join('');
 }
-
-document.querySelectorAll('#presets .chip').forEach(c=>c.onclick = ()=>{
-  st = JSON.parse(JSON.stringify(PRESETS[c.dataset.p])); clearPreset(); c.setAttribute('aria-pressed','true'); if(smashed) glue(); update();
-});
-
-/* ---------- hammer ---------- */
-const bc = document.getElementById('burst'), bx = bc.getContext('2d');
-let parts = [];
-function sizeBurst(){ const r = bc.getBoundingClientRect(), d = devicePixelRatio||1; bc.width = r.width*d; bc.height = r.height*d; bx.setTransform(d,0,0,d,0,0); }
-function burst(n){
-  sizeBurst(); const w = bc.clientWidth, h = bc.clientHeight;
-  parts = Array.from({length:n},()=>({x:w*.48, y:h*.55, vx:(Math.random()-.5)*9, vy:-3-Math.random()*8, r:5+Math.random()*6, a:Math.random()*6, s:(Math.random()-.5)*.3}));
-  let frames = 0;
-  (function step(){
-    bx.clearRect(0,0,w,h);
-    parts.forEach(p=>{ p.x+=p.vx; p.y+=p.vy; p.vy+=.32; p.a+=p.s; if(p.y>h-14){ p.y=h-14; p.vy*=-.35; p.vx*=.8; }
-      bx.save(); bx.translate(p.x,p.y); bx.scale(Math.cos(p.a)*.9+.1,1); bx.beginPath(); bx.arc(0,0,p.r,0,7);
-      bx.fillStyle='#FDD717'; bx.fill(); bx.lineWidth=1.5; bx.strokeStyle='#9C6B00'; bx.stroke(); bx.restore(); });
-    if(++frames < 160 && !reduce) requestAnimationFrame(step);
-  })();
+function open(id, J) {
+  if (J && J.can && !J.can.ok) { document.getElementById('mGame').innerHTML = '<div class="panel" style="text-align:center;color:var(--lav);padding:30px">Sort ' + J.can.need + ' more ' + (J.can.need === 1 ? 'jar' : 'jars') + ' and the Golden Jar opens for you.</div>'; return; }
+  var conf = JARS.filter(function (x) { return x.id === id; })[0];
+  var a = S.att[id];
+  if (!a) { var g = C.generate(conf); a = S.att[id] = { J: conf, start: C.clone(g.jars), jars: g.jars, hist: [], hintsLeft: HINTS, pours: 0, solved: false, startedAt: Date.now() }; }
+  cur = id;
+  if (game) game.destroy();
+  game = CoinSort.mount(document.getElementById('mGame'), {
+    move: function (input) {
+      var r = localMove(a, input);
+      var out = { attempt: { startedAt: a.startedAt, view: viewOf(a) } };
+      if (r.error) out.error = r.error;
+      if (r.hint) out.attempt.hint = r.hint;
+      return new Promise(function (res) { setTimeout(function () { res(out); }, 60); });
+    },
+    onDone: function () { award(); side(); CoinPiggy.flick(document.getElementById('mPiggy')); var n = list().filter(function (j) { return j.status !== 'sorted' && !j.practice && j.can.ok; })[0]; if (n) open(n.id, n); }
+  });
+  game.load({ startedAt: a.startedAt, view: viewOf(a) });
+  side();
 }
-const pigG = document.getElementById('pigG'), result = document.getElementById('result');
-document.getElementById('smash').onclick = ()=>{
-  if(smashed) return;
-  const res = calc(), t = tierOf(res.b);
-  pigG.classList.add('shake');
-  setTimeout(()=>{
-    pigG.classList.remove('shake'); smashed = true;
-    document.getElementById('pig').classList.add('smashed');
-    burst(Math.max(8, Math.min(70, Math.round(res.b/25))));
-    result.hidden = false;
-    const lucky = res.b>=300 ? '<span>Плюс шанс на Lucky Shard (10 SC): 5 случайных из всех, кто разбил до 20:00 ET.</span>' : '';
-    result.innerHTML = '<b>'+t[1]+'</b><span>'+res.b.toLocaleString('ru')+' монет → '+t[2]+'</span>'+lucky;
-    document.getElementById('again').hidden = false;
-  }, reduce ? 0 : 1000);
+document.getElementById('resetMock').onclick = function () { fresh(); cur = null; if (game) { game.destroy(); game = null; } document.getElementById('mGame').innerHTML = '<div class="panel" style="text-align:center;color:var(--lav);padding:30px">Pick a jar.</div>'; side(); };
+document.getElementById('solveMe').onclick = function () {
+  if (!cur || !S.att[cur] || S.att[cur].solved) { var n = list().filter(function (j) { return j.status !== 'sorted' && j.can.ok; })[0]; if (!n) return; open(n.id, n); }
+  var a = S.att[cur], s = C.solve(a.jars, a.J.cap);
+  if (!s.ok) return;
+  var i = 0, g0 = game;
+  (function step() { if (i >= s.moves.length || !game || game !== g0) return; /* банка сменилась — стоп */ var m = s.moves[i++]; var tapJ = function (k) { var b = document.querySelectorAll('#mGame .cs-jar')[k]; if (b) b.click(); }; /* после тапа банки перерисованы — искать заново */ tapJ(m[0]); tapJ(m[1]); setTimeout(step, reduce ? 0 : 140); })();
 };
-function glue(){ smashed = false; document.getElementById('pig').classList.remove('smashed'); result.hidden = true; document.getElementById('again').hidden = true; bx.clearRect(0,0,bc.width,bc.height); update(); }
-document.getElementById('again').onclick = glue;
+fresh(); side();
 
-/* ---------- copy post ---------- */
-document.getElementById('copyPost').onclick = function(){
-  const el = document.getElementById('postText'), txt = Array.from(el.querySelectorAll('p')).map(p=>p.innerText).join('\n\n'), btn = this;
-  (navigator.clipboard ? navigator.clipboard.writeText(txt) : Promise.reject()).then(()=>{ btn.textContent='Скопировано'; }).catch(()=>{ const r=document.createRange(); r.selectNodeContents(el); const s=getSelection(); s.removeAllRanges(); s.addRange(r); btn.textContent='Текст выделен, нажми Ctrl+C'; });
+/* ---------- копировать пост ---------- */
+document.getElementById('copyPost').onclick = function () {
+  var t = Array.prototype.map.call(document.querySelectorAll('#postText p'), function (p) { return p.innerText; }).join('\n\n');
+  navigator.clipboard.writeText(t).then(function () { document.getElementById('copyPost').textContent = 'Скопировано'; });
 };
-
-update();
 })();
 </script>
 

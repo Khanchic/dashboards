@@ -1,0 +1,26 @@
+/* Экран яруса Infinity Garland. Палитра NLC: золото #FDC010, голубой #00B4EB, розовый #EB1F6A, фиолетовый #8B3BD1. */
+.gg{display:grid;gap:12px}
+.gg-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+.gg-title{font-size:1.15rem;font-weight:800}
+.gg-count{font-size:.85rem;color:#A3A6C6;font-variant-numeric:tabular-nums}
+.gg-board{background:radial-gradient(80% 70% at 50% 40%,#16207A 0%,#0C0D13 85%);border:1px solid #2A2F5E;border-radius:12px;padding:10px;display:grid;place-items:center}
+.gg-svg{display:block;width:100%;max-width:520px;max-height:68vh;touch-action:none;user-select:none;-webkit-user-select:none}
+.gg-cell{fill:#121535;stroke:#232858;stroke-width:1}
+.gg-bulb{fill:#3A3F6E;transition:r .15s}
+.gg-bulb.on{filter:drop-shadow(0 0 4px currentColor)}
+.gg-link{stroke:#FDC010;stroke-width:7;stroke-linecap:round;filter:drop-shadow(0 0 5px rgba(253,192,16,.75))}
+.gg-link.locked{stroke:#00B4EB;filter:drop-shadow(0 0 5px rgba(0,180,235,.8))}
+.gg-link.lit{stroke:#FFE27A;animation:gg-glow 1.6s ease-in-out var(--d,0s) infinite alternate}
+.gg-bulb.lit{animation:gg-twinkle 1.2s ease-in-out var(--d,0s) infinite alternate}
+@keyframes gg-glow{from{filter:drop-shadow(0 0 3px rgba(253,192,16,.6))}to{filter:drop-shadow(0 0 10px rgba(253,192,16,1))}}
+@keyframes gg-twinkle{from{opacity:.55}to{opacity:1}}
+.gg-msg{margin:0;min-height:1.4em;font-size:.95rem;color:#A3A6C6}
+.gg-msg.good{color:#FDC010;font-weight:700}
+.gg-ctrl{display:flex;gap:10px;flex-wrap:wrap}
+.gg-ctrl button{font:inherit;font-weight:700;font-size:.9rem;border-radius:8px;padding:9px 14px;cursor:pointer;border:1px solid #00B4EB;background:transparent;color:#F2F1FA}
+.gg-ctrl .gg-hint{border-color:#FDC010;color:#FDC010}
+.gg-ctrl button:disabled{opacity:.35;cursor:not-allowed}
+.gg-help{margin:0;font-size:.8rem;color:#6E7299}
+.gg.solved .gg-board{border-color:#FDC010;box-shadow:0 0 30px rgba(253,192,16,.25)}
+@media (max-width:600px){.gg-board{padding:4px;border-radius:10px}}
+@media (prefers-reduced-motion:reduce){.gg-link.lit,.gg-bulb.lit{animation:none}}

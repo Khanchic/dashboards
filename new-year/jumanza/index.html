@@ -6,17 +6,20 @@
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
 </head>
 <body>
-<title>The Great Winter Migration</title>
+<title>Christmas on Kilimanjaro</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Smooch+Sans:wght@500;600;800&family=Work+Sans:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="assets/game/mountain.css">
+<link rel="stylesheet" href="assets/game/trail-game.css">
 <style>
-/* Layout: праздничный пропуск Safari Club — жёлтая шапка сайта Jumanza, живописная саванна, фиолетовые плашки DS с зелёным свечением, альбом карточек как главный объект */
+/* Концепт v2 (12.11): Christmas on Kilimanjaro — отдельный ивент Jumanza, не Safari Club. Жёлтая шапка сайта,
+   живописный Килиманджаро, фиолетовые плашки DS с зелёным свечением; макет игры — тот же код, что в стенде. */
 :root{
   --bg:#100128; --bg-2:#200250; --bg-3:#340381; --purple:#5C05E5; --purple-2:#7724FA;
   --yellow:#F1D627; --yellow-2:#F7E887; --green:#49F623; --green-hi:#71F854; --green-lo:#2FDC09; --glow:#00EE3B;
-  --gold:#F5B54E; --wood:#512410; --pink:#FF2172; --mint:#0FE58B;
+  --gold:#F5B54E; --wood:#512410; --pink:#FF2172; --snow:#E9F1FB;
   --text:#F9F5FF; --muted:#BFB0E0; --line:rgba(249,245,255,.12);
   --display:"Smooch Sans","Arial Narrow","Roboto Condensed",sans-serif;
   --body:"Work Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
@@ -28,34 +31,37 @@ h1,h2,h3{font-family:var(--display);font-weight:800;text-transform:uppercase;lin
 p{margin:0}
 .wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 :focus-visible{outline:3px solid var(--yellow);outline-offset:3px}
-.btn{font:800 22px/1 var(--display);text-transform:uppercase;letter-spacing:.02em;color:var(--bg);background:linear-gradient(180deg,var(--green-hi),var(--green-lo));border:0;border-radius:8px;padding:12px 20px 11px;cursor:pointer;box-shadow:0 4px 0 #1f9a05;display:inline-flex;align-items:center;gap:10px}
-.btn:active{transform:translateY(2px);box-shadow:0 2px 0 #1f9a05}
+.btn{font:800 20px/1 var(--display);text-transform:uppercase;letter-spacing:.02em;color:var(--bg);background:linear-gradient(180deg,var(--green-hi),var(--green-lo));border:0;border-radius:8px;padding:10px 16px 9px;cursor:pointer;box-shadow:0 4px 0 #1f9a05;display:inline-flex;align-items:center;gap:8px}
 .btn.white{background:var(--text);box-shadow:0 4px 0 #a99bc9}
-.btn.ghost{background:transparent;color:var(--text);box-shadow:none;border:1.5px solid var(--line)}
 .btn[disabled]{opacity:.45;cursor:default}
 
-/* шапка сайта */
 .topbar{background:var(--yellow);color:var(--bg)}
 .topbar .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:8px}
 .topbar img{height:44px;width:auto;display:block}
 .topbar span{font:800 18px/1 var(--display);text-transform:uppercase;letter-spacing:.04em}
 
-/* hero */
-.hero{position:relative;overflow:hidden;background:var(--bg) url(assets/bg-kilimanjaro.jpg) center 30%/cover no-repeat;min-height:520px;display:flex;align-items:flex-end}
-.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(16,1,40,.55),rgba(16,1,40,.1) 35%,rgba(16,1,40,.86) 82%,var(--bg))}
-#fw{position:absolute;inset:0;width:100%;height:100%;z-index:1}
-.hero .wrap{position:relative;z-index:2;width:100%;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:20px;align-items:end;padding-block:80px 40px}
+.hero{position:relative;overflow:hidden;background:var(--bg) url(assets/art/01-trail-jam.jpg) center 40%/cover no-repeat;min-height:600px;display:flex;align-items:flex-end}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(16,1,40,.78),rgba(16,1,40,.25) 55%,rgba(16,1,40,0)),linear-gradient(180deg,rgba(16,1,40,0) 60%,var(--bg))}
+.art{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.art figure{margin:0;background:var(--bg);border-radius:16px;overflow:hidden}
+section.alt .art figure{background:var(--bg)}
+.art img{display:block;width:100%;height:auto}
+.art figcaption{padding:10px 14px;font-size:14px;color:var(--muted)}
+.art figcaption b{color:var(--yellow);font:800 19px/1 var(--display);text-transform:uppercase;margin-right:6px}
+.art .sq{grid-row:span 2}
+@media (max-width:720px){.art{grid-template-columns:1fr}.art .sq{grid-row:auto}}
+#snow{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
+.hero .wrap{position:relative;z-index:2;width:100%;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);gap:20px;align-items:end;padding-block:90px 40px}
 .kick{display:inline-block;font:800 17px/1 var(--display);letter-spacing:.08em;text-transform:uppercase;color:var(--bg);background:var(--yellow);padding:7px 10px 5px;border-radius:4px}
-.hero h1{font-size:clamp(64px,10vw,132px);color:var(--yellow);margin:16px 0 10px;text-shadow:0 4px 0 var(--wood),0 10px 30px rgba(0,0,0,.5)}
+.hero h1{font-size:clamp(60px,9.5vw,124px);color:var(--yellow);margin:16px 0 10px;text-shadow:0 4px 0 var(--wood),0 10px 30px rgba(0,0,0,.5)}
 .hero h1 small{display:block;font-size:.42em;color:var(--text);letter-spacing:.04em;text-shadow:0 2px 0 rgba(0,0,0,.5)}
-.slogan{font:600 clamp(24px,2.6vw,32px)/1.05 var(--display);text-transform:uppercase;color:var(--text);max-width:24ch}
+.slogan{font:600 clamp(24px,2.6vw,32px)/1.05 var(--display);text-transform:uppercase;max-width:26ch}
 .slogan b{color:var(--green)}
 .hero-dates{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
 .hero-dates span{background:rgba(92,5,229,.82);border:1px solid rgba(249,245,255,.18);border-radius:8px;padding:8px 12px;font-size:14px}
 .hero-dates b{font:800 22px/1 var(--display);color:var(--yellow);margin-right:6px}
-.hero-lion{justify-self:end;width:100%;max-width:420px;filter:sepia(.5) saturate(1.6) brightness(1.08) drop-shadow(0 0 30px rgba(245,181,78,.55)) drop-shadow(0 20px 30px rgba(0,0,0,.6))}
+.hero-car{justify-self:end;width:100%;max-width:380px;filter:drop-shadow(0 0 26px rgba(241,214,39,.45)) drop-shadow(0 18px 24px rgba(0,0,0,.6))}
 
-/* секции */
 section{padding-block:68px}
 section.alt{background:var(--bg-2)}
 .hd{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:10px 30px;margin-bottom:30px}
@@ -63,159 +69,69 @@ section.alt{background:var(--bg-2)}
 .hd p{max-width:58ch;color:var(--muted)}
 .lede{font-size:clamp(18px,2vw,21px);line-height:1.5;max-width:62ch}
 .lede b{color:var(--yellow)}
-.split{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:44px;align-items:start}
-.why{display:grid;gap:14px}
-.why div{display:grid;grid-template-columns:56px 1fr;gap:14px;align-items:center;font-size:15px}
-.why img{width:56px;height:56px;object-fit:contain}
-.owner{margin-top:18px;font-size:14px;color:var(--muted)}
-.owner b{color:var(--text)}
-.dep{margin-top:26px;border:2px dashed var(--yellow);border-radius:16px;padding:16px 18px;font-size:15px;background:rgba(241,214,39,.06)}
-.dep h3{font-size:26px;color:var(--yellow);margin-bottom:6px}
+.split{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:44px;align-items:start}
+.decided{margin-top:22px;border:2px solid var(--green);border-radius:16px;padding:14px 18px;font-size:15px;background:rgba(73,246,35,.06)}
+.decided b{color:var(--green)}
+.rules{display:grid;gap:10px}
+.rules div{display:grid;grid-template-columns:34px 1fr;gap:12px;align-items:start;font-size:15px;background:var(--bg-2);border-radius:12px;padding:12px 14px}
+.rules i{font-style:normal;font:800 26px/1 var(--display);color:var(--green)}
+.rules b{display:block;font:800 19px/1.05 var(--display);text-transform:uppercase;margin-bottom:3px}
 
-/* охота */
-.hunt-wrap{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:22px;align-items:start}
-.stage{position:relative;aspect-ratio:16/9;max-width:100%;border-radius:16px;overflow:hidden;background:#d9a85a url(assets/bg-hunt.jpg) center/cover;cursor:none;user-select:none;-webkit-user-select:none;touch-action:manipulation;box-shadow:0 -24px 160px -70px var(--glow)}
-.stage.night{background-color:#1a0838}
-.stage .tint{position:absolute;inset:0;background:linear-gradient(180deg,rgba(30,6,80,.85),rgba(16,1,40,.55) 55%,rgba(16,1,40,.4));opacity:0;transition:opacity .6s;pointer-events:none}
-.stage.night .tint{opacity:1}
-#sfw{position:absolute;inset:0;width:100%;height:60%;pointer-events:none}
-.ent{position:absolute;will-change:transform;pointer-events:none}
-.ent img,.ent svg{display:block;width:100%;height:auto}
-.ent.flip img{transform:scaleX(-1)}
-.ent.golden img{filter:sepia(1) saturate(3.2) hue-rotate(-8deg) brightness(1.25) drop-shadow(0 0 14px #ffd54a)}
-.bushfg{position:absolute;bottom:-6%;pointer-events:none;width:30%}
-.vf{position:absolute;width:17%;aspect-ratio:1;transform:translate(-50%,-50%);pointer-events:none;border-radius:50%;box-shadow:0 0 0 2000px rgba(16,1,40,.22);transition:box-shadow .2s}
-.vf::before,.vf::after{content:"";position:absolute;inset:0;border:2px solid rgba(249,245,255,.9);border-radius:50%}
-.vf::after{inset:44%;border-radius:0;border:0;background:linear-gradient(var(--text),var(--text)) center/100% 2px no-repeat,linear-gradient(var(--text),var(--text)) center/2px 100% no-repeat}
-.flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none}
-.flash.go{animation:fl .35s ease-out}
-@keyframes fl{0%{opacity:.85}100%{opacity:0}}
-.hud{position:absolute;left:12px;right:12px;top:10px;display:flex;justify-content:space-between;gap:8px;pointer-events:none;font:800 20px/1 var(--display);text-transform:uppercase}
-.hud span{background:rgba(16,1,40,.72);border-radius:8px;padding:7px 10px 5px;display:flex;gap:6px;align-items:center}
-.hud img{width:18px;height:18px}
-.toast{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);background:var(--purple);border-radius:999px;padding:8px 16px 6px;font:800 20px/1 var(--display);text-transform:uppercase;white-space:nowrap;opacity:0;transition:opacity .2s;pointer-events:none;max-width:92%;overflow:hidden;text-overflow:ellipsis}
-.toast.on{opacity:1}
-.start{position:absolute;inset:0;display:grid;place-items:center;background:rgba(16,1,40,.55);cursor:default;z-index:5}
-.start-card{text-align:center;display:grid;gap:12px;justify-items:center;padding:16px}
-.start-card h3{font-size:clamp(30px,4vw,44px);color:var(--yellow)}
-.start-card p{max-width:40ch;font-size:15px}
-.controls{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;align-items:center}
-.controls .note{font-size:13px;color:var(--muted);flex:1 1 220px}
+/* макет */
+.demo{display:grid;gap:18px}
+.demo-play{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:18px;align-items:start}
+.panel{background:linear-gradient(180deg,var(--purple),#3a0a9a);padding:18px;border-radius:16px;box-shadow:0 -24px 204px -70px var(--glow)}
+.panel h3{font-size:24px;margin-bottom:10px}
+.empty{color:var(--muted);text-align:center;padding:40px 0}
+.tiers{list-style:none;margin:0;padding:0;display:grid;gap:4px}
+.tiers li{display:grid;grid-template-columns:18px minmax(0,1fr) auto;gap:10px;align-items:center;padding:8px 12px;background:rgba(255,255,255,.1);border-radius:8px;font-size:14px}
+.tiers i{width:14px;height:14px;border-radius:50%;background:rgba(255,255,255,.25)}
+.tiers li.got i{background:var(--yellow);box-shadow:0 0 10px rgba(241,214,39,.8)}
+.tiers li.got em{color:var(--yellow)}
+.tiers em{font-style:normal;color:var(--muted);font-size:13px}
+.dms{display:grid;gap:6px;margin-top:10px}
+.dm{background:rgba(16,1,40,.55);border-left:3px solid var(--yellow);padding:8px 11px;font-size:13.5px;border-radius:0 8px 8px 0}
+.dm small{display:block;color:rgba(255,255,255,.45);font-size:11px}
+.demo-tools{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;justify-content:center}
+.demo-tools .note{flex:1 1 100%;text-align:center;font-size:12.5px;color:var(--muted)}
 
-/* альбом */
-.album{background:linear-gradient(180deg,var(--purple),#4a04b8);border-radius:16px;padding:16px;box-shadow:0 -24px 204px -70px var(--glow)}
-.album h3{font-size:30px;color:var(--text);display:flex;justify-content:space-between;align-items:baseline}
-.album h3 small{font:500 13px/1 var(--body);text-transform:none;color:var(--yellow-2)}
-.set{margin-top:12px}
-.set-h{display:flex;justify-content:space-between;align-items:baseline;font:800 17px/1 var(--display);text-transform:uppercase;letter-spacing:.03em;color:var(--yellow);margin-bottom:6px}
-.set-h em{font:500 11px/1 var(--body);font-style:normal;color:var(--text);opacity:.8;text-transform:none}
-.set.complete .set-h em{color:var(--green);opacity:1;font-weight:700}
-.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
-.card{aspect-ratio:3/4;border-radius:8px;background:rgba(16,1,40,.45);border:1.5px solid rgba(249,245,255,.14);display:grid;grid-template-rows:1fr auto;overflow:hidden;position:relative}
-.card .pic{display:grid;place-items:center;padding:6px;min-height:0}
-.card .pic img,.card .pic svg{max-width:100%;max-height:100%;object-fit:contain}
-.card .nm{font:700 9.5px/1.15 var(--body);text-align:center;padding:4px 3px 5px;background:rgba(16,1,40,.5)}
-.card.locked .pic{opacity:.35;font:800 26px/1 var(--display);color:var(--muted)}
-.card.locked .nm{color:var(--muted)}
-.card.got{background:linear-gradient(180deg,#f3dfa9,#d9a85a);border-color:var(--yellow)}
-.card.got .nm{background:var(--wood);color:var(--yellow)}
-.card.new{animation:pop .5s cubic-bezier(.2,1.6,.4,1)}
-@keyframes pop{0%{transform:scale(.6) rotate(-6deg)}100%{transform:none}}
-.goldslot{margin-top:12px;display:grid;grid-template-columns:64px 1fr;gap:12px;align-items:center;border:1.5px dashed var(--gold);border-radius:12px;padding:8px 10px;font-size:13px}
-.goldslot .pic{width:64px;height:64px;border-radius:8px;background:rgba(16,1,40,.5);display:grid;place-items:center;overflow:hidden}
-.goldslot .pic img{width:100%;filter:brightness(0) opacity(.4)}
-.goldslot.got{border-style:solid;background:rgba(245,181,78,.15)}
-.goldslot.got .pic img{filter:sepia(1) saturate(3) brightness(1.2)}
-.goldslot b{color:var(--gold);font:800 18px/1 var(--display);text-transform:uppercase;display:block;margin-bottom:2px}
-
-/* модалка DS */
-.modal-bg{position:fixed;inset:0;background:rgba(8,10,12,.72);display:grid;place-items:center;z-index:50;padding:16px}
-.modal{position:relative;width:min(380px,100%);background:linear-gradient(180deg,var(--purple),var(--purple-2));border-radius:16px;padding:22px 20px 14px;text-align:center;box-shadow:0 -24px 204px -70px var(--glow);overflow:hidden}
-.modal .x{position:absolute;right:10px;top:8px;background:none;border:0;color:var(--text);font:800 26px/1 var(--display);cursor:pointer;padding:6px}
-.modal img.icon{width:120px;height:auto;margin:0 auto 8px;display:block}
-.modal h3{font-size:36px;color:var(--text)}
-.modal p{font-size:15px;margin:8px 0 14px}
-.modal .row{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;background:rgba(16,1,40,.35);border-radius:12px;padding:10px;margin-bottom:14px;font:800 22px/1 var(--display)}
-.modal .row span{display:flex;align-items:center;gap:6px}
-.modal .row img{width:24px;height:24px}
-.modal .btn{width:100%;justify-content:center}
-.modal .close{display:block;margin:10px auto 0;background:none;border:0;color:var(--text);font:800 18px/1 var(--display);text-transform:uppercase;cursor:pointer;padding:6px}
-.confetti{position:absolute;inset:0;pointer-events:none}
-
-/* путь */
-.steps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;counter-reset:s}
+/* общие блоки */
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;counter-reset:s}
 .step{counter-increment:s;background:var(--bg);border-radius:16px;padding:16px;border:1px solid var(--line)}
-.step::before{content:counter(s);font:800 54px/.8 var(--display);color:var(--green);display:block;margin-bottom:10px}
-.step h3{font-size:26px;color:var(--yellow);margin-bottom:6px}
+.step::before{content:counter(s);font:800 50px/.8 var(--display);color:var(--green);display:block;margin-bottom:10px}
+.step h3{font-size:24px;color:var(--yellow);margin-bottom:6px}
 .step p{font-size:14.5px}
-
-/* календарь */
-.cal{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px}
-.day{border-radius:12px;background:var(--bg-2);padding:12px 12px 14px;border:1px solid var(--line);min-width:0}
-.day .d{font:800 34px/.85 var(--display);color:var(--text)}
-.day .d small{font-size:.5em;color:var(--muted);margin-left:4px}
-.day .sp{font:800 19px/1 var(--display);text-transform:uppercase;color:var(--yellow);margin:8px 0 4px}
-.day .set-tag{display:inline-block;font:700 10px/1 var(--body);text-transform:uppercase;letter-spacing:.06em;padding:4px 6px;border-radius:4px;background:var(--bg-3)}
-.day p{font-size:13px;margin-top:6px;color:var(--muted)}
-.day.peak{background:linear-gradient(180deg,#3c0a8d,var(--bg-2));border-color:var(--yellow)}
-.day.peak .d{color:var(--yellow)}
-.day.fin{background:linear-gradient(180deg,#4b3410,var(--bg-2));border-color:var(--gold)}
-.day.fin .d{color:var(--gold)}
-.tl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
-.tl-day{background:var(--bg);border-radius:16px;padding:18px 18px 8px;border-top:4px solid var(--green)}
-.tl-day.gold{border-top-color:var(--gold)}
-.tl-day h3{font-size:30px;color:var(--yellow);margin-bottom:8px}
-.tl-day.gold h3{color:var(--gold)}
-.tl-day ol{list-style:none;margin:0;padding:0}
-.tl-day li{display:grid;grid-template-columns:88px minmax(0,1fr);gap:12px;padding:10px 0;border-bottom:1px solid var(--line);font-size:14.5px}
-.tl-day li:last-child{border-bottom:0}
-.tl-day time{font:800 26px/.9 var(--display);color:var(--text);font-variant-numeric:tabular-nums}
-.tl-day time small{display:block;font:500 11px/1.2 var(--body);color:var(--muted);margin-top:4px}
-.tl-day li b{display:block;font:800 19px/1 var(--display);text-transform:uppercase;margin-bottom:3px}
-.tl-day li.sky b{color:#8fd3ff}.tl-day li.herd b{color:var(--yellow)}.tl-day li.lion b{color:var(--gold)}.tl-day li.ops b{color:var(--green)}
-.rh{list-style:none;margin:0;padding:0;display:grid;gap:8px}
-.rh li{display:grid;grid-template-columns:110px minmax(0,1fr);gap:16px;padding:14px 16px;border-radius:12px;background:var(--bg-2);font-size:15px}
-.rh li span:first-child{font:800 22px/1 var(--display);text-transform:uppercase;color:var(--green)}
-.box.alarm{border-left:4px solid var(--pink)}
-.box.alarm h3{color:var(--pink)}
-
-/* таблицы */
+.tl{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.tl li{display:grid;grid-template-columns:150px minmax(0,1fr);gap:16px;padding:12px 16px;border-radius:12px;background:var(--bg-2);font-size:15px}
+section.alt .tl li{background:var(--bg)}
+.tl time{font:800 22px/1 var(--display);color:var(--green);text-transform:uppercase}
+.tl time small{display:block;font:500 12px/1.3 var(--body);text-transform:none;color:var(--muted);margin-top:3px}
+.tl li.peak{border-left:4px solid var(--yellow)}
+.tl li b{color:var(--yellow)}
 .tbl{overflow-x:auto;border-radius:16px;background:var(--bg)}
-table{border-collapse:collapse;width:100%;min-width:660px;font-size:15px}
-th,td{padding:12px 14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+section.alt .tbl{background:var(--bg)}
+table{border-collapse:collapse;width:100%;min-width:620px;font-size:15px}
+th,td{padding:11px 14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
 th{font:800 17px/1 var(--display);text-transform:uppercase;letter-spacing:.04em;color:var(--yellow);background:var(--bg-3)}
 td.n{white-space:nowrap;font-weight:700;font-variant-numeric:tabular-nums}
 tfoot td{background:var(--bg-3);font-weight:700}
 .prop{display:inline-block;font:800 15px/1 var(--display);text-transform:uppercase;letter-spacing:.06em;background:var(--pink);color:var(--text);padding:5px 8px 3px;border-radius:4px;vertical-align:middle}
-.limits{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:16px}
-.limits div{background:var(--bg-3);border-radius:12px;padding:14px;font-size:14.5px}
-.limits b{display:block;font:800 21px/1 var(--display);text-transform:uppercase;color:var(--green);margin-bottom:6px}
-
-/* общие блоки */
 .grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
 .grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
 .box{background:var(--bg-2);border-radius:16px;padding:18px}
 section.alt .box{background:var(--bg)}
-.box h3{font-size:28px;color:var(--yellow);margin-bottom:10px}
+.box h3{font-size:26px;color:var(--yellow);margin-bottom:10px}
 .box ul{margin:0;padding-left:18px;display:grid;gap:7px;font-size:15px}
-.box.fb{border:2px solid var(--pink)}
-.box.fb h3{color:var(--pink)}
-.days{display:flex;flex-wrap:wrap;gap:12px;margin-top:16px}
-.days div{flex:1 1 170px;border-radius:12px;padding:14px;background:var(--bg-3)}
-.days b{display:block;font:800 46px/.85 var(--display);color:var(--green)}
-.days span{font-size:13.5px}
+.box p{font-size:15px}
+.box p+p{margin-top:8px}
 .kpi{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
 .kpi div{border-radius:16px;padding:18px;background:var(--bg-2);border-bottom:4px solid var(--green)}
-.kpi b{display:block;font:800 clamp(46px,5vw,64px)/.85 var(--display);color:var(--yellow);font-variant-numeric:tabular-nums}
+section.alt .kpi div{background:var(--bg)}
+.kpi b{display:block;font:800 clamp(44px,5vw,60px)/.85 var(--display);color:var(--yellow);font-variant-numeric:tabular-nums}
 .kpi span{display:block;font-size:14px;margin-top:8px}
-.lessons{display:grid;gap:8px}
-.lesson{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:20px;padding:14px 16px;border-radius:12px;background:var(--bg-2);font-size:15px}
-.lesson span:first-child{color:var(--muted)}
-.lesson span:first-child b{display:block;font:800 18px/1 var(--display);text-transform:uppercase;color:var(--pink);margin-bottom:4px}
 .q{margin:0;padding-left:22px;display:grid;gap:9px;font-size:15.5px}
 .q li::marker{font:800 18px var(--display);color:var(--green)}
-
-/* пост */
+.q b{color:var(--yellow)}
 .post{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:26px;align-items:center}
 .dc{background:#1e1f2a;border-radius:8px;padding:16px 18px;font-size:15px;line-height:1.5;color:#e3e5ea;border:1px solid rgba(255,255,255,.06)}
 .dc .who{display:flex;gap:10px;align-items:center;margin-bottom:10px}
@@ -223,461 +139,349 @@ section.alt .box{background:var(--bg)}
 .dc .who b{color:var(--yellow)}
 .dc .who small{color:#8b8f99;font-size:12px;margin-left:6px}
 .dc p+p{margin-top:10px}
-.post .art{position:relative}
-.post .art img{display:block;width:100%;height:auto}
-footer{padding-block:28px 44px;color:var(--muted);font-size:13px;border-top:1px solid var(--line)}
+.post img{display:block;width:100%;height:auto}
+footer{padding-block:28px 64px;color:var(--muted);font-size:13px;border-top:1px solid var(--line)}
 
 @media (max-width:1000px){
-  .hunt-wrap{grid-template-columns:1fr}
+  .demo-play{grid-template-columns:1fr}
   .steps{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .cal{grid-template-columns:repeat(4,minmax(0,1fr))}
   .kpi{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media (max-width:720px){
   .hero{min-height:0}
-  .hero .wrap{grid-template-columns:1fr;padding-block:48px 28px}
-  .hero-lion{max-width:240px;justify-self:center}
-  .split,.grid3,.grid2,.post,.limits,.tl{grid-template-columns:1fr}
-  .rh li{grid-template-columns:1fr;gap:4px}
-  .tl-day li{grid-template-columns:72px minmax(0,1fr)}
+  .hero .wrap{grid-template-columns:1fr;padding-block:56px 28px}
+  .hero-car{max-width:230px;justify-self:center}
+  .split,.grid3,.grid2,.post{grid-template-columns:1fr}
   .steps{grid-template-columns:1fr}
-  .cal{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .lesson{grid-template-columns:1fr;gap:4px}
+  .tl li{grid-template-columns:1fr;gap:4px}
   .topbar span{display:none}
   section{padding-block:50px}
-  .hud{font-size:16px}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 
-<div class="topbar"><div class="wrap"><img src="assets/logo.png" alt="Jumanza" width="700" height="176"><span>Safari Club · Season concept</span></div></div>
+<div class="topbar"><div class="wrap"><img src="assets/logo.png" alt="Jumanza" width="700" height="176"><span>Christmas event · concept v2</span></div></div>
 
 <header class="hero">
-  <canvas id="fw" aria-hidden="true"></canvas>
+  <canvas id="snow" aria-hidden="true"></canvas>
   <div class="wrap">
     <div>
-      <span class="kick">Рождество 1+1 в Safari Club · предложение</span>
-      <h1>The Great Winter Migration<small>25–26 Dec · Jumanza</small></h1>
-      <p class="slogan">Six travelers on Christmas Day. <b>The Golden Lion the day after.</b></p>
+      <span class="kick">Рождество · отдельный ивент Jumanza</span>
+      <h1>Christmas on Kilimanjaro<small>25–26 Dec · Jumanza</small></h1>
+      <p class="slogan">The animals blocked every trail to the summit. <b>Get the gifts through.</b></p>
       <div class="hero-dates">
-        <span><b>25.12</b>День миграции, весь день ET</span>
-        <span><b>26.12 · 14:00</b>Час Золотого льва, ET</span>
-        <span><b>07.12</b>go / no-go по MVP</span>
+        <span><b>18.12</b>тренировочная тропа</span>
+        <span><b>25.12 · 00:00 ET</b>6 троп + вершина</span>
+        <span><b>26.12 · 23:59 ET</b>закрытие</span>
+        <span><b>до 03.01</b>Claim prize</span>
       </div>
     </div>
-    <img class="hero-lion" src="assets/lion-roar.png" alt="Лев Jumanza в золотом свете" width="600" height="661">
   </div>
 </header>
 
 <main>
 <section id="idea">
+  <div class="wrap split">
+    <div>
+      <div class="hd" style="margin-bottom:18px"><h2>Идея</h2></div>
+      <p class="lede">Единственный снег в Африке лежит на вершине Килиманджаро. Там ёлка, и к ней едут подарки на <b>safari 4x4</b>. Только животные перегородили все тропы. <b>Двигай их по своей оси и выпусти машину направо.</b> Шесть троп снизу вверх по поясам горы: саванна, дождевой лес, вереск, пустошь, альпийская пустыня, ледник. После четырёх открывается вершина.</p>
+      <p class="lede" style="margin-top:14px">Понятно за 3 секунды: видишь машину, видишь выезд, двигаешь зверей. Жанр «пробка из блоков»: удачи нет, скорость ничего не решает, ошибиться нельзя, есть «начать заново» и подсказка льва.</p>
+      <div class="decided"><b>12.11, Александр:</b> Jumanza на Рождество, но своим ивентом, а Safari Club — отдельно. Winter Migration снят. Из трёх идей (Kilimanjaro / Temple of Gifts / Lion's Lost Presents) выбрана Kilimanjaro.</div>
+    </div>
+    <div class="rules">
+      <div><i>1</i><p><b>Поле своё у каждого</b>Пазл из заранее собранного пула (300 на уровень) + у каждой фигуры свой зверь. Скрин чужого решения не поможет.</p></div>
+      <div><i>2</i><p><b>Сложность точная</b>Минимум ходов задаём числом: 4 → 6 → 8 → 11 → 14 → 17, вершина 20. Каждый пазл перепроверен решателем.</p></div>
+      <div><i>3</i><p><b>Без окон и розыгрышей</b>Всё открыто с 25.12 00:00 до 26.12 23:59 ET. Призы — уровни по числу троп, мест нет.</p></div>
+      <div><i>4</i><p><b>Арт уже есть</b>Звери стиля B из Safari Club (зебра, бегемот, носорог, слон, жираф, фламинго, бревно, 4x4). Нужен только ключ-арт.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="demo" class="alt">
   <div class="wrap">
-    <div class="hd"><h2>Идея</h2><p>Формат 1+1: Рождество и день после. Праздничный слой поверх фотоохоты Safari Club, а не отдельная игра.</p></div>
-    <div class="split">
-      <div>
-        <p class="lede">В декабре в саванну правда прилетают гости с севера: белые аисты, ласточки, амурские кобчики. А стада гну и зебр уходят на южные пастбища. <b>25 декабря, в День миграции</b>, в фотоохоте Safari Club появляются <b>6 мигрирующих видов</b>. Снимок кладёт карточку в <b>праздничный альбом</b>, сет из трёх даёт Jumz и промокод. <b>26 декабря</b> на один час открывается <b>Час Золотого льва</b>: шанс встретить его в объективе в тысячи раз выше обычного.</p>
-        <p class="owner">Ведёт бренд: <b>Александр</b>. Ивент живёт в категории 🐾 Safari Club в Discord Jumanza.</p>
-        <div class="dep">
-          <h3>Только если MVP Safari Club готов. Решение 07.12</h3>
-          Сейчас в <code>safari-club/app/</code> готовы только конфиг, правила и схема БД. Логина, серверной охоты, зоопарка и деплоя ещё нет, арт pack-1 в работе. Критерии go на <b>07.12</b>: MVP в проде хотя бы по ссылке с Discord-логином (Activity не обязательна), охота и зоопарк считаются на сервере, к 18.12 можно провести репетицию. Не готов → <b>Jumanza пропускает Рождество</b>. Бот-фолбэк не делаем: альбом через бота занял бы около 3 дней поверх ещё не задеплоенного Flash Drop bot и повторил бы механику CoinsMania.
+    <div class="hd"><h2>Макет</h2><p>Работает тот же код, что в стенде плейтеста; сервер здесь подменён браузером. Всё открыто сразу. Тяни животное пальцем или мышью вдоль его оси.</p></div>
+    <div class="demo">
+      <div id="mountain"></div>
+      <div class="demo-play">
+        <div class="panel"><div id="game"><div class="empty">Выбери тропу на горе.</div></div>
+          <div class="demo-tools"><button class="btn white" type="button" id="solve">Решить за меня</button><button class="btn white" type="button" id="fresh">Новое поле</button><span class="note">Эти две кнопки только в макете.</span></div>
         </div>
-      </div>
-      <div class="why">
-        <div><img src="assets/badge-elephant.png" alt="" width="260" height="264"><span>Бренд и так про сафари и Африку, а у Safari Club уже есть фотоохота с альбомом («Already in your album»). Ивент просто наполняет его.</span></div>
-        <div><img src="assets/badge-lion.png" alt="" width="260" height="264"><span>Золотой лев уже придуман: шанс 0,00003% за спавн, не покупается, сразу в зоопарк. На 26.12 даём ему один час славы.</span></div>
-        <div><img src="assets/token-paw.png" alt="" width="200" height="200"><span>Часть наград идёт в Jumz, валюте игры. Ивент прогревает экономику зоопарка сразу после запуска.</span></div>
-        <div><img src="assets/badge-buffalo.png" alt="" width="260" height="264"><span>Никакой другой бренд не делает коллекцию. Тут нет скорости и топа, есть альбом, который хочется закрыть.</span></div>
+        <div class="panel">
+          <h3>Your rewards</h3>
+          <ul class="tiers" id="tiers"></ul>
+          <h3 style="margin-top:16px">Messages from the bot</h3>
+          <div class="dms" id="dms"></div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<section id="hunt" class="alt">
+<section id="art">
   <div class="wrap">
-    <div class="hd"><h2>Мини-фотоохота</h2><p>Демо одного раунда: 8 кадров, 40 секунд. Наведи видоискатель на животное и нажми. Зебра и аисты — мигранты Дня миграции, бегемот — местный житель, он даёт только Jumz.</p></div>
-    <div class="hunt-wrap">
-      <div>
-        <div class="stage" id="stage" aria-label="Фотоохота, демо">
-          <div class="tint"></div>
-          <canvas id="sfw" aria-hidden="true"></canvas>
-          <div id="ents"></div>
-          <img class="bushfg" src="assets/bush.png" alt="" style="left:-6%" width="420" height="268">
-          <img class="bushfg" src="assets/bush.png" alt="" style="right:-8%;transform:scaleX(-1);width:26%" width="420" height="268">
-          <div class="vf" id="vf" hidden></div>
-          <div class="flash" id="flash"></div>
-          <div class="hud"><span id="hShots">Кадры 8</span><span id="hTime">0:40</span><span><img src="assets/token-paw.png" alt="" width="200" height="200"><b id="hJ">0</b></span></div>
-          <div class="toast" id="toast" aria-live="polite"></div>
-          <div class="start" id="startScr">
-            <div class="start-card">
-              <h3 id="startTitle">Раунд 1 из 3</h3>
-              <p id="startText">25.12, День миграции: в саванне зебры, над ней пролетают белые аисты. Каждый вид в раунде засчитывается один раз.</p>
-              <button class="btn" id="startBtn" type="button">Начать охоту</button>
-            </div>
-          </div>
-        </div>
-        <div class="controls">
-          <button class="btn white" id="lionBtn" type="button" aria-pressed="false">Час Золотого льва</button>
-          <span class="note" id="lionNote">Переключает сцену на Час льва 26.12: сумерки, салют над саванной, лев выходит часто. В боевой версии шанс 1 к 400 за спавн, только этот час.</span>
-        </div>
-      </div>
-      <aside class="album" aria-label="Праздничный альбом">
-        <h3>Migration Album <small id="albCount">0 / 6</small></h3>
-        <div id="sets"></div>
-        <div class="goldslot" id="goldSlot"><div class="pic"><img src="assets/lion-roar.png" alt="" width="600" height="661"></div><div><b>Рождественский Золотой лев</b>Вне сетов. Ловится только в Час льва 26.12 и сразу живёт в твоём зоопарке.</div></div>
-      </aside>
+    <div class="hd"><h2>Арт</h2><p>Flow (Nano Banana), 12.11, через Cursor. Звери и лев — стиль игры (Safari Club, стиль B). Исходники и варианты — <code>art\out\</code>, разбор — <code>PICKS.md</code>.</p></div>
+    <div class="art">
+      <figure><img src="assets/art/01-trail-jam.jpg" alt="Звери перегородили тропу к горе, лев показывает на вершину" width="1376" height="768" loading="lazy"><figcaption><b>01</b>Шапка страницы, анонс 14.12</figcaption></figure>
+      <figure class="sq"><img src="assets/art/03-popup-drive.jpg" alt="Лев за рулём 4x4 с подарками" width="1024" height="1024" loading="lazy"><figcaption><b>03</b>Попап на сайте 1:1, верх под текст</figcaption></figure>
+      <figure><img src="assets/art/02-summit-tree.jpg" alt="Ёлка на вершине, лев кладёт подарок" width="1376" height="768" loading="lazy"><figcaption><b>02</b>Пост 25.12, итоги</figcaption></figure>
+      <figure><img src="assets/art/04-base-camp.jpg" alt="Базовый лагерь, лев грузит подарки" width="1376" height="768" loading="lazy"><figcaption><b>04</b>Тренировочная тропа 18.12, бродкаст</figcaption></figure>
     </div>
   </div>
 </section>
 
-<section id="path">
+<section id="path" class="alt">
   <div class="wrap">
-    <div class="hd"><h2>Путь игрока</h2><p>Вход тот же, что у Safari Club: Activity в Discord или ссылка с Discord-логином. Отдельной регистрации на ивент нет.</p></div>
+    <div class="hd"><h2>Путь игрока</h2><p>Заявки до игры нет (правило 8): играть сразу после Discord-логина, player ID — только при первом Claim.</p></div>
     <div class="steps">
-      <div class="step"><h3>Field pass</h3><p>С 14.12 попап на сайте ведёт в игру. Discord-логин с guilds.join сам добавляет на сервер. Кто вошёл до 24.12, получает +1 раунд в День миграции.</p></div>
-      <div class="step"><h3>25.12</h3><p>4 раунда фотоохоты вместо 3 (с Field pass 5). В саванне 6 мигрантов. В 12:00, 16:00 и 20:00 ET пролёт стай: птиц в 3 раза больше.</p></div>
-      <div class="step"><h3>Альбом</h3><p>Первый снимок вида кладёт карточку. Повторный даёт только Jumz. Карточки не продаются и не передаются.</p></div>
-      <div class="step"><h3>Сеты</h3><p>2 сета по 3 вида. Сет закрыт → 300 Jumz и промокод в ЛС от бота, автоматически.</p></div>
-      <div class="step"><h3>26.12</h3><p>14:00–15:00 ET Час Золотого льва: раунд для всех, полный альбом даёт второй. 6 из 6 → билет в розыгрыш в 15:30 ET.</p></div>
+      <div class="step"><h3>Попап и пост</h3><p>С 14.12 попап на сайте Jumanza и бродкаст: «Christmas on Kilimanjaro, 25 Dec». Ссылка ведёт на страницу ивента.</p></div>
+      <div class="step"><h3>Discord-логин</h3><p>Общий слой: вход + guilds.join на сервер Jumanza. С 18.12 открыта тренировочная тропа (3 хода, без приза).</p></div>
+      <div class="step"><h3>25.12 утром</h3><p>DM «Merry Christmas», открыты 6 троп. После 4-й открывается вершина. 26.12 — день догнать.</p></div>
+      <div class="step"><h3>Claim</h3><p>Уровень → DM «приз готов». Первый Claim: player ID + телефон + почта → проверка → все коды сразу. Дальше Claim мгновенный.</p></div>
     </div>
   </div>
 </section>
 
-<section id="calendar" class="alt">
+<section id="calendar">
   <div class="wrap">
-    <div class="hd"><h2>Таймлайн по часам</h2><p>Время ET, рядом Киев. 25.12 в Украине выходной: всё по расписанию, коды уходят сами. Дежурный нужен только на Час льва 26.12.</p></div>
-    <div class="tl">
-      <div class="tl-day"><h3>Пт 25.12 · День миграции</h3><ol id="tl1"></ol></div>
-      <div class="tl-day gold"><h3>Сб 26.12 · Час Золотого льва</h3><ol id="tl2"></ol></div>
-    </div>
+    <div class="hd"><h2>Таймлайн</h2><p>Время ET, рядом Киев (ET + 7). 25.12 в Украине выходной: открытие в 07:00 по Киеву, без ручных действий.</p></div>
+    <ol class="tl">
+      <li><time>14.12<small>с утра</small></time><span>Попап на сайте, пост-анонс в Discord, бродкаст. Логин работает (предрегистрация общего слоя).</span></li>
+      <li><time>18.12 · 12:00<small>Киев 19:00</small></time><span>Тренировочная тропа: учимся двигать зверей. Без приза и без player ID. Даёт живую долю прохождения до заморозки 22.12.</span></li>
+      <li><time>24.12 · 18:00<small>Киев 01:00 25.12</small></time><span>Сочельник: пост + бродкаст «утром тропы открыты».</span></li>
+      <li class="peak"><time>25.12 · 00:00<small>Киев 07:00</small></time><span><b>Утро Рождества.</b> Все 6 троп, вершина после 4. Пост с пингом роли, DM всем вошедшим.</span></li>
+      <li><time>25.12 · 12:00<small>Киев 19:00</small></time><span>Пост «первые на вершине» (ники без цифр).</span></li>
+      <li><time>25.12 · 18:00<small>Киев 01:00</small></time><span>DM тем, у кого есть непройденные тропы.</span></li>
+      <li><time>26.12 · 18:00<small>Киев 01:00</small></time><span>DM «6 часов до конца» + что осталось игроку.</span></li>
+      <li class="peak"><time>26.12 · 23:59<small>Киев 06:59</small></time><span><b>Тропы закрываются.</b></span></li>
+      <li><time>27.12 · 00:05<small>Киев 07:05</small></time><span>Личный оффер промокодом по высшему уровню, 72 ч, лимит 1.</span></li>
+      <li><time>02.01 · 12:00<small>Киев 19:00</small></time><span>DM незабравшим призы. Claim до 03.01 23:59 ET.</span></li>
+    </ol>
   </div>
 </section>
 
-<section id="prizes">
+<section id="prizes" class="alt">
   <div class="wrap">
-    <div class="hd"><h2>Призы <span class="prop">предложение</span></h2><p>Всё гарантированное раздаётся за сеты, без топов. Крупное разыгрывается между закрывшими альбом.</p></div>
+    <div class="hd"><h2>Призы <span class="prop">как у Storm</span></h2><p>Одна таблица, уровни по числу троп. Каждый уровень один раз. Номиналы взяты как у Storm Rush (решены там 11.11): одинаково для всех брендов на Рождество.</p></div>
     <div class="tbl"><table>
-      <thead><tr><th>Уровень</th><th>Как получить</th><th>Награда</th><th>Кодов (оценка / потолок)</th></tr></thead>
+      <thead><tr><th>Уровень</th><th>Приз</th><th>Кодов (запас ~1,5×)</th><th>Оффер 27.12 по высшему уровню</th></tr></thead>
       <tbody>
-        <tr><td>Сет закрыт</td><td>3 вида одного сета 25.12, за каждый из 2 сетов</td><td class="n">300 Jumz + 2 FP + 25K GC</td><td class="n">~250 / 300</td></tr>
-        <tr><td>Альбом 6/6</td><td>Все 6 видов до 23:59 ET 25.12</td><td class="n">Билет в розыгрыш + 2-й раунд в Час льва</td><td class="n">—</td></tr>
-        <tr><td>Золотой лев</td><td>Пойман в Час льва 26.12, 1 на человека</td><td class="n">Лев в зоопарк + 5 SC + 5 FP + 100K GC</td><td class="n">~15 / 20</td></tr>
-        <tr><td>Розыгрыш, 1 место</td><td>Среди закрывших альбом, 26.12 15:30 ET</td><td class="n">25 SC + 25 FP + 2.5M GC</td><td class="n">1</td></tr>
-        <tr><td>Розыгрыш, 2 место</td><td>Тот же розыгрыш</td><td class="n">10 SC + 10 FP + 1M GC</td><td class="n">2</td></tr>
-        <tr><td>Розыгрыш, 3 место</td><td>Тот же розыгрыш</td><td class="n">5 SC + 5 FP + 500K GC</td><td class="n">3</td></tr>
+        <tr><td>2 тропы</td><td class="n">1 FP</td><td class="n">150</td><td>1–3 тропы: <b>Base Camp Pack</b> 9.99, +100%</td></tr>
+        <tr><td>4 тропы (открывает вершину)</td><td class="n">2 FP</td><td class="n">150</td><td>4–5 троп: <b>Safari Trail Bundle</b> 19.99, +40%</td></tr>
+        <tr><td>Все 6 троп</td><td class="n">5 FP</td><td class="n">120</td><td>6 троп: <b>Kilimanjaro Treasure</b> 39.99, +50%</td></tr>
+        <tr><td>Вершина (ёлка)</td><td class="n">1 SC</td><td class="n">100</td><td>вершина: <b>Summit Star Chest</b> 39.99, +75%</td></tr>
       </tbody>
-      <tfoot><tr><td colspan="2">Бюджет при ~250 игроках · в скобках потолок пулов</td><td class="n">≈ 135 SC · 635 FP · 14M GC<br>(≤ 160 SC · 760 FP · 15.5M GC)</td><td class="n">~270 / 326</td></tr></tfoot>
+      <tfoot><tr><td>Полный проход</td><td class="n">8 FP + 1 SC</td><td></td><td>Офферы — промокоды: 60 / 40 / 40 / 80</td></tr></tfoot>
     </table></div>
-    <div class="limits">
-      <div><b>Один крупный на человека</b>Поймавший льва может выиграть розыгрыш, но только одно место розыгрыша. Место переходит дальше.</div>
-      <div><b>Пулы с потолком</b>Пул кода кончился → игрок получает Jumz и отметку в альбоме. Сверх потолка бюджет не растёт.</div>
-      <div><b>Jumz без лимита</b>Jumz не стоит денег и идёт в зоопарк. Им можно щедро платить за повторы и местных зверей.</div>
+    <div class="grid3" style="margin-top:16px">
+      <div class="box"><h3>Бюджет на 100</h3><p>100 начали → ~75 дошли до 2 троп, ~60 до 4, ~45 вершина, ~40 все 6. Это ≈ <b>400 FP + 45 SC</b>. Потолок — число загруженных кодов.</p></div>
+      <div class="box"><h3>Покупка не помогает</h3><p>Оффер приходит после закрытия и на прогресс не влияет. No purchase necessary.</p></div>
+      <div class="box"><h3>Вершина — 1 SC</h3><p>Только аккаунтам, которые на сервере Jumanza до 14.12, как у Storm. Подозрительное — по export.</p></div>
     </div>
+  </div>
+</section>
+
+<section id="difficulty">
+  <div class="wrap">
+    <div class="hd"><h2>Сложность</h2><p>Цель — проходят 60–85%. Подсказок льва 3 на тропу: каждая показывает один следующий ход кратчайшего решения. Правится одним числом в <code>server/levels.js</code>, пул пересобирается скриптом.</p></div>
+    <div class="tbl"><table>
+      <thead><tr><th>Тропа</th><th>Пояс горы</th><th>Минимум ходов</th><th>Фигур</th></tr></thead>
+      <tbody>
+        <tr><td>Тренировка (18.12)</td><td>Base camp</td><td class="n">3</td><td class="n">4–6</td></tr>
+        <tr><td>Тропа 1</td><td>Savanna</td><td class="n">4</td><td class="n">5–7</td></tr>
+        <tr><td>Тропа 2</td><td>Rainforest</td><td class="n">6</td><td class="n">6–8</td></tr>
+        <tr><td>Тропа 3</td><td>Heather slopes</td><td class="n">8</td><td class="n">7–9</td></tr>
+        <tr><td>Тропа 4</td><td>Moorland</td><td class="n">11</td><td class="n">8–10</td></tr>
+        <tr><td>Тропа 5</td><td>Alpine desert</td><td class="n">14</td><td class="n">9–11</td></tr>
+        <tr><td>Тропа 6</td><td>Glacier</td><td class="n">17</td><td class="n">9–12</td></tr>
+        <tr><td>Вершина</td><td>Christmas tree on the peak</td><td class="n">20</td><td class="n">10–12</td></tr>
+      </tbody>
+    </table></div>
+    <p style="margin-top:14px;color:var(--muted);font-size:15px">Ориентир жанра: «новичок» — до 8 ходов, «средний» — 15–20, «эксперт» — 30+. Мы держимся в лёгкой половине; что жмёт — увидим на плейтесте 08–10.12 и на тренировочной тропе 18–21.12.</p>
   </div>
 </section>
 
 <section id="tech" class="alt">
   <div class="wrap">
-    <div class="hd"><h2>Техника</h2><p>Общий слой (логин с guilds.join, коды из xlsx, Claim prize, бот, анти-абуз, export) строится один раз для всех брендов. MVP Safari Club — отдельный проект. Ниже только механика ивента.</p></div>
-    <div class="grid3">
-      <div class="box"><h3>Берём готовое</h3><ul><li>Safari Club MVP: охота с проверкой на сервере, зоопарк, ledger, анти-альт</li><li>Правила в shared/rules.js: раунды, список видов раунда, «Already in your album»</li><li>Golden Lion уже в правилах, меняем только шанс на час</li><li>Общий слой: выдача кодов в ЛС, потолки пулов, /export</li></ul></div>
-      <div class="box"><h3>Пишем для Jumanza</h3><ul><li>6 видов-мигрантов с окном 25.12 и пролётами стай по часам</li><li>Доп. раунды: 4 на 25.12, +1 за Field pass, лев-раунд(ы) 26.12</li><li>Альбом, 2 сета, хук на выдачу кода</li><li>Окно Часа льва по ET, шанс 1/400, лимит 1 на человека, список для розыгрыша</li><li>Баннер ивента на экране Safari Club</li></ul></div>
-      <div class="box"><h3>Нужно от людей</h3><ul><li>Александр: ОК на виды и бюджет до 20.11, решение go/no-go 07.12</li><li>Арт в стиле B: гну, газель, аист, ласточка, кобчик + золотой лев (pack-1)</li><li>Коды в админке Jumanza по таблице, до 14.12</li><li>Дежурный на Час льва 26.12</li><li>Правила: No purchase necessary, 21+, US</li></ul></div>
-    </div>
-    <div class="days">
-      <div><b>3</b><span>дня на механику ивента поверх готового MVP</span></div>
-      <div><b>1,5</b><span>дня на арт: 5 видов во Flow + рамка карточки</span></div>
-      <div><b>07.12</b><span>go / no-go по MVP</span></div>
-      <div><b>18.12</b><span>генеральная репетиция</span></div>
+    <div class="hd"><h2>Техника</h2><p>Механика готова 12.11 в <code>jumanza\mechanic\</code> — в формате конкурсов Witching Hours, как у Storm Rush. Общий слой собирает основной чат.</p></div>
+    <div class="grid2">
+      <div class="box"><h3>Сделано</h3><ul>
+        <li>Генератор + решатель (<code>shared/jam.js</code>), пул по 300 пазлов на уровень, каждый перепроверен.</li>
+        <li>Модуль <code>trail</code>: ходы проверяет сервер, засчитывается любое решение, подсказка льва, «начать заново».</li>
+        <li>Расписание ET, тексты бота (EN), уровни, офферы.</li>
+        <li>Стенд <code>node dev/server.js --lan</code> на порту 8798: плейтест, репетиция <code>--show</code>, <code>/stats</code>, Claim с одобрением.</li>
+        <li>Тесты: юнит + e2e всей репетиции по HTTP.</li>
+      </ul></div>
+      <div class="box"><h3>Нужно от общего слоя</h3><ul>
+        <li>Канал ивента уже есть: #🏔️・kilimanjaro, открыть 18.12.</li>
+        <li>8 конкурсов бренда открыты одновременно; вершина при 4+ тропах (<code>schedule.canStart</code>).</li>
+        <li>Приз = уровень, Claim с player ID при первом Claim и ручным одобрением (как Storm).</li>
+        <li>DM по таймлайну, офферы промокодом 27.12, пул кодов отдельный.</li>
+        <li>Бот на сервере Jumanza с правами в канале ивента.</li>
+        <li>Подключение: <code>MODULES.trail = require('.../jumanza/mechanic/server/trail')</code>, params <code>{ level }</code>.</li>
+      </ul></div>
     </div>
   </div>
 </section>
 
-<section id="rehearsal">
+<section id="abuse">
   <div class="wrap">
-    <div class="hd"><h2>Репетиция</h2><p>Один день не прощает ошибок. Оба дня прогоняем на тестовом стенде за неделю, со сжатым временем.</p></div>
-    <ol class="rh">
-      <li><span>до 11.12</span><span>Механика на стенде с подменой даты. Плейтест на 5 людях: калибруем частоту мигрантов (сет за 2 раунда реален) и анти-чит по живым данным.</span></li>
-      <li><span>Пт 18.12</span><span>Генеральный прогон: День миграции сжат в 1 час (пролёты раз в 15 минут), Час льва в 10 минут с шансом 1/40. 6–8 тестеров в Activity и по ссылке. Проверяем доп. раунды, альбом, выдачу кодов, потолки пулов, лимит на льва, /export, скрипт розыгрыша. Нагрузка: 300 одновременных игроков скриптом.</span></li>
-      <li><span>Сб 19.12</span><span>Чиним найденное. Прогоняем План Б: роняем сервис посреди раунда и проверяем, что раунд и альбом не теряются.</span></li>
-      <li><span>Пн 21.12</span><span>Код заморожен, деплой в прод с ОК Александра, коды загружены, окна выставлены по ET.</span></li>
-      <li><span>Чт 24.12</span><span>Смоук на проде тестовым аккаунтом. Бродкаст «Tomorrow the herds arrive».</span></li>
+    <div class="hd"><h2>Анти-абуз и план Б</h2></div>
+    <div class="grid3">
+      <div class="box"><h3>Решатель-скрипт</h3><p>Написать его легко, как и у Storm. Выгода — максимум 8 FP + 1 SC на человека. Поэтому только лог: вершина быстрее 20 с или ровно минимум ходов на всех тропах → staff смотрит.</p></div>
+      <div class="box"><h3>Мульти-аккаунты</h3><p>Player ID один на Discord, телефон и почта в форме, ручное одобрение. SC за вершину только аккаунтам с сервера до 14.12.</p></div>
+      <div class="box"><h3>Если упало</h3><p>Прогресс сохраняется после каждого хода. Упал сервер — продлеваем закрытие на время простоя (пост заранее написан). Кончились коды — Claim ждёт, дозагрузка из админки.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="kpi" class="alt">
+  <div class="wrap">
+    <div class="hd"><h2>Цели</h2><p>Ориентиры на реальных цифрах Witching Hours: 30–100 активных на бренд.</p></div>
+    <div class="kpi">
+      <div><b>80</b><span>сыграли хотя бы одну тропу</span></div>
+      <div><b>60–85%</b><span>прохождение каждой тропы</span></div>
+      <div><b>45</b><span>дошли до вершины</span></div>
+      <div><b>15%</b><span>купили личный оффер</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="questions">
+  <div class="wrap">
+    <div class="hd"><h2>Решено 12.11</h2><p>Открытых вопросов нет.</p></div>
+    <ol class="q">
+      <li><b>Player ID Jumanza</b> — только цифры, как у Storm.</li>
+      <li><b>Офферы</b> — Base Camp Pack / Safari Trail Bundle / Kilimanjaro Treasure / Summit Star Chest — одобрены.</li>
+      <li><b>Ключ-арт</b> — 4 кадра (тропа с пробкой, вершина с ёлкой, попап 1:1, базовый лагерь): пакет промптов для Cursor + Google Flow готов.</li>
+      <li><b>Канал</b> #🏔️・kilimanjaro на сервере Jumanza создан, скрыт до 18.12.</li>
+      <li><b>Дежурные</b> 25–26.12 и очередь player ID — будут.</li>
     </ol>
   </div>
 </section>
 
-<section id="planb" class="alt">
-  <div class="wrap">
-    <div class="hd"><h2>План Б</h2><p>Что делаем, если что-то падает в день ивента. Посты для каждого случая пишем заранее.</p></div>
-    <div class="grid2">
-      <div class="box alarm"><h3>Safari Club упал 25.12</h3><ul><li>Короткий сбой: раунд, прерванный падением, возвращается игроку</li><li>Дольше часа: День миграции продлеваем до 26.12 13:00 ET, до Часа льва</li><li>Дольше 6 часов: весь ивент сдвигаем на 26–27.12, пост готов</li></ul></div>
-      <div class="box alarm"><h3>Сбой в Час льва 26.12</h3><ul><li>Пойманные львы уже в базе и не теряются</li><li>Час повторяем 27.12 в 14:00 ET для всех, кто не успел сыграть</li><li>Розыгрыш по /export, дежурный проводит его вручную</li></ul></div>
-      <div class="box alarm"><h3>Activity не открывается</h3><ul><li>Пост со ссылкой на веб-версию: тот же аккаунт, тот же альбом</li><li>Баннер на сайте ведёт сразу на ссылку</li></ul></div>
-      <div class="box alarm"><h3>Коды не дошли</h3><ul><li>/export → список «кому что», дежурный рассылает 27–28.12</li><li>Пост «codes are on the way, nothing is lost»</li></ul></div>
-    </div>
-  </div>
-</section>
-
-<section id="promo">
-  <div class="wrap">
-    <div class="hd"><h2>Промо</h2><p>Главный канал — попап и баннер на сайте, как показал Halloween. Ивент длится 2 дня: кто не узнал заранее, тот пропустил.</p></div>
-    <div class="grid2">
-      <div class="box"><h3>План</h3><ul>
-        <li><b>14.12 Field pass:</b> попап и баннер на сайте ведут в Safari Club. Вошёл до 24.12 → +1 раунд в День миграции. Тизер: силуэты стаи, «Something is flying south».</li>
-        <li><b>18–20.12 анонс:</b> бродкаст, пост в Discord и FB.</li>
-        <li><b>24.12:</b> бродкаст и ЛС «Tomorrow the herds arrive».</li>
-        <li><b>25.12:</b> ЛС от бота перед каждым пролётом стай (12:00, 16:00, 20:00 ET).</li>
-        <li><b>26.12:</b> утром бродкаст, в 13:45 ET отсчёт к Часу льва в Discord и на сайте.</li>
-      </ul></div>
-      <div class="box"><h3>Как приводим новых</h3><ul>
-        <li><b>Вход прямо с сайта:</b> попап → игра → логин сам добавляет в Discord.</li>
-        <li><b>Проводник:</b> друг зашёл по твоей ссылке до 24.12 → у вас обоих +300 Jumz, когда он сделает первый снимок 25.12. До 3 друзей, только аккаунты старше 30 дней.</li>
-        <li><b>Час льва открыт всем:</b> даже кто пропустил 25.12, может прийти 26.12 за львом.</li>
-      </ul></div>
-    </div>
-  </div>
-</section>
-
-<section id="lessons" class="alt">
-  <div class="wrap">
-    <div class="hd"><h2>Анти-абуз и уроки Halloween</h2></div>
-    <div class="lessons">
-      <div class="lesson"><span><b>Один забрал 11 из 12 мест</b>Одинаковые конкурсы и скорость</span><span>Топов нет. Всё за сеты, крупное в розыгрыше, одно место розыгрыша на человека, лев 1 на человека.</span></div>
-      <div class="lesson"><span><b>119 не нажали Join</b>Скрытый шаг</span><span>guilds.join при логине. Если не вышло, игра говорит, что делать, без голой 403.</span></div>
-      <div class="lesson"><span><b>Флаги били по своим</b>Слишком строгий анти-чит</span><span>Очки считает сервер по seed и действиям клиента (так уже задумано в MVP). Пороги «нечеловеческой» скорости калибруем на плейтесте.</span></div>
-      <div class="lesson"><span><b>9% новых</b>Слабое привлечение</span><span>Вход с сайта и Проводник за Jumz, а не за коды. Альтам фармить нечего.</span></div>
-      <div class="lesson"><span><b>Ручной аппрув тормозил</b>Стафф — узкое место</span><span>Коды за сеты и льва уходят ботом сами. 25.12 в Украине выходной, руками только розыгрыш 26.12.</span></div>
-      <div class="lesson"><span><b>Один день</b>Второго шанса нет</span><span>Репетиция 18.12, План Б с продлением окна, раунд при сбое возвращается игроку.</span></div>
-      <div class="lesson"><span><b>Альты</b>Новая точка абуза</span><span>Карточки не передаются, коды только аккаунтам старше 30 дней, анти-альт и ledger из MVP.</span></div>
-    </div>
-  </div>
-</section>
-
-<section id="kpi">
-  <div class="wrap">
-    <div class="hd"><h2>Цели</h2><p>Ориентиры, не факты. Базу сверить с активностью Discord Jumanza в ноябре.</p></div>
-    <div class="kpi">
-      <div><b>400</b><span>Field pass: вошли в Safari Club до 24.12</span></div>
-      <div><b>250</b><span>сделали хотя бы 1 снимок 25.12</span></div>
-      <div><b>60%</b><span>вернулись 26.12 на Час льва</span></div>
-      <div><b>+80</b><span>новых в Discord, ~270 кодов, 30% закрыли альбом</span></div>
-    </div>
-  </div>
-</section>
-
-<section id="risks" class="alt">
-  <div class="wrap">
-    <div class="hd"><h2>Риски и вопросы</h2></div>
-    <div class="grid2">
-      <div class="box"><h3>Риски</h3><ul>
-        <li><b>MVP не успевает.</b> Главный риск. Решение 07.12; no-go → Jumanza пропускает Рождество, арт и механика не пропадают.</li>
-        <li><b>Activity не верифицирована.</b> Не блокер: тот же код работает по ссылке с Discord-логином.</li>
-        <li><b>Арт 5 видов.</b> Птицы в полёте для Flow новые. Закладываем 1,5 дня и реролл.</li>
-        <li><b>Свежий сервис в праздник.</b> MVP выходит за 1–2 недели до ивента. Поэтому репетиция с нагрузкой и План Б обязательны.</li>
-        <li><b>Юридическое.</b> Розыгрыш = sweepstakes: правила, бесплатный вход, без покупки.</li>
-      </ul></div>
-      <div class="box"><h3>Вопросы к Александру</h3><ol class="q">
-        <li>Критерии go на 07.12 (MVP в проде по ссылке, охота и зоопарк на сервере, репетиция 18.12 возможна) ок? Решаешь ты?</li>
-        <li>Если no-go: переносим «Migration» стартовым ивентом Safari Club на январь, или просто откладываем?</li>
-        <li>Бюджет ≈ 135 SC (потолок 160) ок?</li>
-        <li>Час льва 26.12 в 14:00–15:00 ET (21:00 Киев) или ближе к вечеру США, 20:00 ET (03:00 Киев)?</li>
-        <li>Пойманный 26.12 лев остаётся в зоопарке навсегда, как обычный Golden Lion?</li>
-        <li>Jumz-иконка: берём бронзовую монету с лапой из стиль-теста?</li>
-        <li>6 видов ок, или взять часть животных из pack-1, чтобы рисовать меньше?</li>
-      </ol></div>
-    </div>
-  </div>
-</section>
-
-<section id="post">
-  <div class="wrap">
-    <div class="hd"><h2>Анонс в Discord</h2><p>Голосом льва Jumanza. Публикация 18.12 в #announcements и в Safari Club.</p></div>
-    <div class="post">
+<section id="post" class="alt">
+  <div class="wrap post">
+    <div>
+      <div class="hd" style="margin-bottom:16px"><h2>Анонс в Discord</h2><p>Голос льва Jumanza, живой и без пафоса. Публикация 14.12.</p></div>
       <div class="dc">
-        <div class="who"><i aria-hidden="true"></i><div><b>Jumanza</b><small>#announcements</small></div></div>
-        <div id="postText">
-<p>Roar. That's lion for "charge your camera" 📸</p>
-<p>Something is flying south. On <b>Christmas Day</b>, six winter travelers arrive in the Safari Club savanna: storks from the north, herds on the move, a few birds I can never catch myself. You get an extra round that day, two if you log in before Dec 24.</p>
-<p>Snap each one in the Photo Hunt to fill your <b>Migration Album</b>. Finish a set of three and you get <b>300 Jumz plus a promo code</b>, straight to your DMs.</p>
-<p>And on <b>December 26, from 2 to 3 PM ET</b>, I'll be out there myself. Golden. Rare. Faster than you think. Catch me and I move into your zoo for good.</p>
-<p>Full album = a ticket to the draw at 3:30 PM ET. See you in the grass.</p>
-<p><small>No purchase necessary. 21+. US only. Full rules in #safari-club.</small></p>
-        </div>
+        <div class="who"><i></i><b>Jumanza</b><small>Today at 12:00 PM</small></div>
+        <p>🏔️ <b>Christmas on Kilimanjaro</b> — Dec 25–26</p>
+        <p>There's only one place in Africa with snow on Christmas, and this year the tree is up there. The gifts are packed in the safari 4x4, but the animals have parked themselves on every trail up the mountain.</p>
+        <p>Slide them out of the way, get the 4x4 through, and climb from the savanna to the glacier. Clear 4 trails and the summit opens. Rewards come with every step: 2, 4 and 6 trails, plus a gift under the tree on top.</p>
+        <p>🐾 Practice trail opens Dec 18. The real climb starts Christmas morning, Dec 25, 12:00 AM ET, and stays open until Dec 26, 11:59 PM ET. No rush, no timer.</p>
       </div>
-      <div class="art"><img src="assets/safari-4x4.png" alt="Сафари-внедорожник Safari Club" width="600" height="330"></div>
     </div>
+    <img src="assets/art/03-popup-drive.jpg" alt="Лев за рулём 4x4 с подарками" width="1024" height="1024" style="border-radius:12px">
   </div>
 </section>
 </main>
-<footer><div class="wrap">Концепт для Александра · Рождество 25–26.12.2026, формат 1+1 · Jumanza · все цифры — предложение · 02.11.2026</div></footer>
 
-<div id="modalRoot"></div>
+<footer><div class="wrap">Концепт v2 для Александра · Christmas on Kilimanjaro · Jumanza · Рождество 25–26.12.2026 · 12.11.2026 · v1 (Winter Migration) — index-v1-0211.html</div></footer>
 
+<script src="assets/game/jam.js"></script>
+<script src="assets/game/mountain.js"></script>
+<script src="assets/game/trail-game.js"></script>
+<script src="assets/game/demo-pool.js"></script>
 <script>
-(()=>{
-const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
-const $=id=>document.getElementById(id);
+/* Макет: «сервер» в браузере — та же логика, что server/trail.js + dev/server.js, без расписания (всё открыто). */
+(function () {
+  var J = window.Jam, $ = function (id) { return document.getElementById(id); };
+  var LV = [
+    { id: 'practice', n: 0, title: 'Practice trail', zone: 'Base camp', moves: 3, training: true },
+    { id: 't1', n: 1, title: 'Trail 1', zone: 'Savanna', moves: 4 }, { id: 't2', n: 2, title: 'Trail 2', zone: 'Rainforest', moves: 6 },
+    { id: 't3', n: 3, title: 'Trail 3', zone: 'Heather slopes', moves: 8 }, { id: 't4', n: 4, title: 'Trail 4', zone: 'Moorland', moves: 11 },
+    { id: 't5', n: 5, title: 'Trail 5', zone: 'Alpine desert', moves: 14 }, { id: 't6', n: 6, title: 'Trail 6', zone: 'Glacier', moves: 17 },
+    { id: 'summit', n: 7, title: 'The summit', zone: 'Christmas tree on the peak', moves: 20, summit: true }
+  ];
+  var TIERS = [
+    { id: 't2', need: 2, name: 'Two trails cleared', prize: '1 FP', dm: '🦓 Two trails cleared! Your reward is ready: 1 FP. Hit Claim to get your code.' },
+    { id: 't4', need: 4, name: 'Four trails cleared', prize: '2 FP', dm: '🎁 Four trails cleared! Your reward is ready: 2 FP. And the path to the summit is open.' },
+    { id: 't6', need: 6, name: 'All six trails', prize: '5 FP', dm: '🏔️ All six trails are clear! Your reward is ready: 5 FP.' },
+    { id: 'summit', summitTier: true, name: 'Gifts on the summit', prize: '1 SC', dm: '🎄 You made it to the top of Kilimanjaro! Your gift under the tree: 1 SC. Merry Christmas from the lion!' }
+  ];
+  var SHAPE = { h2: ['zebra', 'hippo', 'rhino'], h3: ['elephant', 'log'], v2: ['giraffe', 'flamingo'], v3: ['log'] };
+  var att = {}, got = {}, dms = [], cur = null, game = null;
+  var pick = function (a) { return a[Math.floor(Math.random() * a.length)]; };
+  var byId = function (id) { return LV.filter(function (l) { return l.id === id; })[0]; };
+  var trailsDone = function () { return LV.filter(function (l) { return /^t\d$/.test(l.id) && att[l.id] && att[l.id].solved; }).length; };
 
-/* ---------- салют (hero и ночная сцена) ---------- */
-function fireworks(cv,density){
-  const cx=cv.getContext('2d');let W=0,H=0,parts=[],on=true;
-  const cols=['#F1D627','#49F623','#FF2172','#F9F5FF','#F5B54E','#0FE58B'];
-  function size(){const r=cv.getBoundingClientRect(),d=devicePixelRatio||1;W=r.width;H=r.height;cv.width=W*d;cv.height=H*d;cx.setTransform(d,0,0,d,0,0)}
-  function burst(){const x=W*(.15+Math.random()*.7),y=H*(.12+Math.random()*.4),c=cols[Math.random()*cols.length|0],n=34;
-    for(let i=0;i<n;i++){const a=i/n*Math.PI*2,s=1.2+Math.random()*1.8;parts.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s,l:1,c})}}
-  let last=0;
-  function tick(t){if(!on){cx.clearRect(0,0,W,H);return}
-    cx.clearRect(0,0,W,H);
-    if(t-last>density){burst();last=t}
-    parts=parts.filter(p=>p.l>0);
-    for(const p of parts){p.x+=p.vx;p.y+=p.vy;p.vy+=.025;p.vx*=.985;p.l-=.012;cx.globalAlpha=Math.max(p.l,0);cx.fillStyle=p.c;cx.fillRect(p.x,p.y,2.2,2.2)}
-    cx.globalAlpha=1;requestAnimationFrame(tick)}
-  size();addEventListener('resize',size);
-  return{start(){on=true;size();if(RM){burst();for(let k=0;k<40;k++)parts.forEach(p=>{p.x+=p.vx;p.y+=p.vy});tickStatic()}else requestAnimationFrame(tick)},stop(){on=false}};
-  function tickStatic(){cx.clearRect(0,0,W,H);for(const p of parts){cx.fillStyle=p.c;cx.fillRect(p.x,p.y,2.2,2.2)}}
-}
-fireworks($('fw'),1300).start();
-const stageFW=fireworks($('sfw'),700);stageFW.stop();
+  function create(L) {
+    var pz = J.dec(pick(window.DEMO_POOL[L.moves]));
+    var pieces = pz.pieces.map(function (p, i) { return i ? { o: p.o, len: p.len, fix: p.fix, kind: pick(SHAPE[p.o + p.len]) } : p; });
+    return { level: L.id, pieces: pieces, start: pz.pos.slice(), pos: pz.pos.slice(), slides: 0, hintsLeft: 3, solved: false, peek: null };
+  }
+  function view(s) {
+    var L = byId(s.level);
+    return { level: s.level, title: L.title, zone: L.zone, summit: !!L.summit, training: !!L.training, W: J.W, exitRow: J.EXIT_ROW,
+      pieces: s.pieces.map(function (p, i) { return { o: p.o, len: p.len, fix: p.fix, kind: p.kind, pos: s.pos[i] }; }),
+      par: L.moves, slides: s.slides, hintsLeft: s.hintsLeft, solved: s.solved, done: s.solved, peek: s.peek };
+  }
+  function move(s, input) {
+    if (s.solved) return { error: 'finished' };
+    s.peek = null;
+    if (input.do === 'slides') {
+      var pos = s.pos.slice();
+      for (var k = 0; k < input.s.length; k++) { var st = input.s[k]; if (!J.canSlide(s.pieces, pos, st[0], st[1])) return { error: 'blocked' }; pos[st[0]] = st[1]; if (J.solved(pos)) break; }
+      s.pos = pos; s.slides += input.s.length;
+    } else if (input.do === 'reset') s.pos = s.start.slice();
+    else if (input.do === 'hint') { if (s.hintsLeft < 1) return { error: 'no_hints' }; var path = J.solve(s.pieces, s.pos); s.peek = { i: path[0].i, to: path[0].to, left: path.length }; s.hintsLeft--; }
+    if (J.solved(s.pos) && !s.solved) { s.solved = true; award(); }
+    return {};
+  }
+  function award() {
+    var t = trailsDone(), sm = att.summit && att.summit.solved;
+    TIERS.forEach(function (x) { if (!got[x.id] && (x.summitTier ? sm : t >= x.need)) { got[x.id] = true; dms.unshift(x.dm); } });
+  }
+  function levels() {
+    var t = trailsDone();
+    return LV.map(function (L) {
+      var s = att[L.id];
+      return { id: L.id, n: L.n, title: L.title, zone: L.zone, summit: !!L.summit, training: !!L.training,
+        status: s ? (s.solved ? 'clear' : 'active') : 'new', can: L.summit && t < 4 ? { ok: false, error: 'need_trails', need: 4 - t } : { ok: true } };
+    });
+  }
+  function side() {
+    Mountain.render($('mountain'), levels(), { current: cur, onOpen: open, bg: 'assets/bg-kilimanjaro.jpg' });
+    $('tiers').innerHTML = TIERS.map(function (x) { return '<li class="' + (got[x.id] ? 'got' : '') + '"><i></i><span>' + x.name + '</span><em>' + x.prize + (got[x.id] ? ' · ready' : '') + '</em></li>'; }).join('');
+    $('dms').innerHTML = dms.length ? dms.slice(0, 5).map(function (d) { return '<div class="dm"><small>Jumanza</small>' + d + '</div>'; }).join('') : '<div class="dm"><small>Jumanza</small>🎄 Merry Christmas! The animals have blocked every trail up Kilimanjaro. Six trails are waiting for you.</div>';
+  }
+  function open(id) {
+    var L = byId(id);
+    if (L.summit && trailsDone() < 4) { if (game) { game.destroy(); game = null; } cur = null; $('game').innerHTML = '<div class="empty">Clear ' + (4 - trailsDone()) + ' more trails and the summit opens.</div>'; side(); return; }
+    if (!att[id]) att[id] = create(L);
+    cur = id;
+    if (game) game.destroy();
+    game = Trail.mount($('game'), {
+      sprites: 'assets/sprites/',
+      move: function (input) { var s = att[id], r = move(s, input); return Promise.resolve({ error: r.error, attempt: { view: view(s) } }); },
+      onDone: function () { side(); Mountain.cheer($('mountain'), id); }
+    });
+    game.load({ view: view(att[id]) });
+    side();
+  }
+  $('solve').onclick = function () {
+    if (!cur || !att[cur] || att[cur].solved) return;
+    var s = att[cur], path = J.solve(s.pieces, s.pos);
+    move(s, { do: 'slides', s: path.map(function (x) { return [x.i, x.to]; }) });
+    game.load({ view: view(s) }); side(); Mountain.cheer($('mountain'), cur);
+  };
+  $('fresh').onclick = function () { if (!cur) return; delete att[cur]; open(cur); };
+  side();
+  open('t1');
+})();
 
-/* ---------- виды и сеты ---------- */
-const STORK=`<svg viewBox="0 0 140 70" aria-hidden="true"><path d="M8 38 Q30 30 56 34 Q78 36 100 31 L132 27 L104 37 Q80 44 56 42 Q32 44 8 38Z" fill="#F9F5FF" stroke="#2a1a10" stroke-width="2"/><path d="M48 34 Q36 10 8 4 Q40 6 70 33Z" fill="#F9F5FF" stroke="#2a1a10" stroke-width="2"/><path d="M8 4 Q22 6 30 12 L20 14Z" fill="#1b1b1b"/><path d="M58 40 Q50 60 26 68 Q52 64 74 40Z" fill="#F9F5FF" stroke="#2a1a10" stroke-width="2"/><path d="M26 68 Q36 66 44 60 L36 58Z" fill="#1b1b1b"/><path d="M104 31 L138 26" stroke="#E2401B" stroke-width="4" stroke-linecap="round"/><path d="M8 38 L-4 44" stroke="#E2401B" stroke-width="3"/></svg>`;
-const SETS=[
-  {id:'herd',name:'Great Migration',reward:'300 Jumz + 2 FP + 25K GC',sp:[['zebra','Plains Zebra','частый'],['wildebeest','Blue Wildebeest','частый'],['gazelle','Thomson\'s Gazelle','редкий']]},
-  {id:'sky',name:'Northern Guests',reward:'300 Jumz + 2 FP + 25K GC',sp:[['stork','White Stork','в пролёт'],['swallow','Barn Swallow','в пролёт'],['falcon','Amur Falcon','редкий']]}
-];
-const ART={zebra:'<img src="assets/zebra.png" alt="" width="520" height="474">',stork:STORK,
-  elephant:'<img src="assets/badge-elephant.png" alt="" width="260" height="264">',buffalo:'<img src="assets/badge-buffalo.png" alt="" width="260" height="264">'};
-const album=new Set(); let gotLion=false;
-function renderAlbum(newId){
-  $('sets').innerHTML=SETS.map(s=>{const done=s.sp.every(([k])=>album.has(k));
-    return `<div class="set ${done?'complete':''}"><div class="set-h">${s.name}<em>${done?'Сет закрыт ✓':s.reward}</em></div><div class="cards">${
-      s.sp.map(([k,n,d])=>album.has(k)?`<div class="card got ${k===newId?'new':''}"><div class="pic">${ART[k]||''}</div><div class="nm">${n}</div></div>`
-        :`<div class="card locked"><div class="pic">?</div><div class="nm">${n}<br>${d}</div></div>`).join('')}</div></div>`}).join('');
-  $('albCount').textContent=`${album.size} / 6`;
-  $('goldSlot').classList.toggle('got',gotLion);
-}
-renderAlbum();
-
-/* ---------- охота ---------- */
-const stage=$('stage'),ents=$('ents'),vf=$('vf');
-const TYPES={
-  zebra:{w:16,y:[58,66],speed:[5.5,8],html:'<img src="assets/zebra.png" alt="" width="520" height="474">',album:true,name:'Plains Zebra',pts:60},
-  hippo:{w:15,y:[66,72],speed:[3.5,5],html:'<img src="assets/hippo.png" alt="" width="520" height="308">',album:false,name:'Hippo',pts:40},
-  stork:{w:7,y:[12,30],speed:[9,12],html:STORK,album:true,name:'White Stork',pts:90,flock:3},
-  lion:{w:19,y:[54,60],speed:[11,14],html:'<img src="assets/lion-roar.png" alt="" width="600" height="661">',album:false,name:'Golden Lion',pts:5000,golden:true}
-};
-let G=null, night=false, raf=0;
-function rnd(a,b){return a+Math.random()*(b-a)}
-function spawn(type,dx=0,dy=0){
-  const T=TYPES[type],dir=type==='stork'?1:(Math.random()<.5?1:-1);
-  const el=document.createElement('div');el.className='ent'+(dir<0?' flip':'')+(T.golden?' golden':'');
-  el.style.width=T.w+'%';el.innerHTML=T.html;
-  if(type==='stork')el.style.animation='none';
-  const y=rnd(...T.y)+dy;el.style.top=y+'%';el.style.zIndex=Math.round(y);
-  const x0=dir>0?-T.w-dx:100+dx;el.style.left='0';el.style.transform=`translateX(${x0*stage.clientWidth/100}px)`;
-  ents.appendChild(el);
-  G.ents.push({el,type,dir,x:x0,v:rnd(...T.speed),w:T.w});
-}
-function spawnTick(){
-  if(night&&Math.random()<.35)return spawn('lion');
-  const r=Math.random();
-  if(r<.45)spawn('zebra');else if(r<.7)spawn('hippo');else{for(let i=0;i<TYPES.stork.flock;i++)spawn('stork',i*8,(i%2)*5)}
-}
-function toast(msg){const t=$('toast');t.innerHTML=msg;t.classList.add('on');clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.remove('on'),1500)}
-function hud(){$('hShots').textContent='Кадры '+G.shots;const s=Math.max(0,Math.ceil(G.time));$('hTime').textContent='0:'+String(s).padStart(2,'0');$('hJ').textContent=G.j}
-function loop(t){
-  if(!G||!G.on)return;
-  const dt=Math.min(.05,(t-(G.t||t))/1000);G.t=t;G.time-=dt;G.next-=dt;
-  if(G.next<=0){spawnTick();G.next=rnd(1.3,2.2)}
-  for(const e of G.ents){e.x+=e.dir*e.v*dt;e.el.style.transform=`translateX(${e.x*stage.clientWidth/100}px)`;e.el.style.left='0'}
-  G.ents=G.ents.filter(e=>{const out=e.x<-e.w-30||e.x>130;if(out)e.el.remove();return !out});
-  hud();
-  if(G.time<=0||G.shots<=0){endRound();return}
-  raf=requestAnimationFrame(loop);
-}
-let round=1;
-function startRound(){
-  ents.innerHTML='';G={on:true,ents:[],shots:8,time:40,next:.2,j:0,seen:new Set(),newCards:[],t:0};
-  $('startScr').hidden=true;vf.hidden=false;hud();spawn('zebra');raf=requestAnimationFrame(loop);
-}
-function endRound(){
-  G.on=false;cancelAnimationFrame(raf);vf.hidden=true;
-  const nc=G.newCards;
-  showModal({icon:'assets/token-paw.png',title:'Раунд окончен',
-    text:nc.length?`Новые карточки: ${nc.join(', ')}.`:'Новых карточек нет, но Jumz твои.',
-    row:`<span><img src="assets/token-paw.png" alt="">+${G.j} Jumz</span>`,cta:round<3?'Следующий раунд':'Ещё раз (демо)'});
-  round=round<3?round+1:1;
-  $('startTitle').textContent=`Раунд ${round} из 3`;$('startScr').hidden=false;
-}
-function shoot(px,py){
-  if(!G||!G.on)return;
-  G.shots--;const f=$('flash');f.classList.remove('go');void f.offsetWidth;f.classList.add('go');
-  const sr=stage.getBoundingClientRect(),R=sr.width*.085+10;let best=null,bd=1e9;
-  for(const e of G.ents){const b=e.el.getBoundingClientRect();const cx=b.left+b.width/2,cy=b.top+b.height/2;const d=Math.hypot(cx-px,cy-py);
-    if(d<R+b.width*.25&&d<bd){bd=d;best=e}}
-  if(!best){toast('Мимо, только трава');hud();return}
-  const T=TYPES[best.type];
-  if(best.type==='lion'){
-    if(!gotLion){gotLion=true;renderAlbum();G.j+=T.pts;hud();best.el.remove();G.ents=G.ents.filter(x=>x!==best);
-      G.on=false;cancelAnimationFrame(raf);
-      showModal({icon:'assets/lion-roar.png',golden:true,title:'Golden Lion!',text:'Рождественский Золотой лев переезжает в твой зоопарк. Код придёт в ЛС от бота.',
-        row:`<span><img src="assets/coin-sc.png" alt="">5 SC</span><span><img src="assets/coin-fp.png" alt="">5 FP</span><span><img src="assets/coin-gc.png" alt="">100K GC</span>`,cta:'В зоопарк',resume:true});return}
-    toast('Лев уже в зоопарке: 1 на человека');hud();return}
-  const center=bd<R*.5;const pts=Math.round(T.pts*(center?1.5:1));
-  if(G.seen.has(best.type)){toast(`${T.name}: уже в альбоме этого раунда, +0`);hud();return}
-  G.seen.add(best.type);G.j+=pts;
-  if(T.album&&!album.has(best.type)){album.add(best.type);G.newCards.push(T.name);renderAlbum(best.type);toast(`Новая карточка: ${T.name}! +${pts}`)}
-  else if(T.album)toast(`${T.name}: карточка уже есть, +${pts} Jumz`);
-  else toast(`${T.name}: местный житель, не мигрант. +${pts} Jumz`);
-  hud();
-}
-stage.addEventListener('pointermove',e=>{const r=stage.getBoundingClientRect();vf.style.left=(e.clientX-r.left)+'px';vf.style.top=(e.clientY-r.top)+'px'});
-stage.addEventListener('pointerdown',e=>{if(e.target.closest('.start'))return;const r=stage.getBoundingClientRect();vf.style.left=(e.clientX-r.left)+'px';vf.style.top=(e.clientY-r.top)+'px';shoot(e.clientX,e.clientY)});
-$('startBtn').addEventListener('click',startRound);
-$('lionBtn').addEventListener('click',e=>{
-  night=!night;stage.classList.toggle('night',night);e.currentTarget.setAttribute('aria-pressed',night);
-  e.currentTarget.textContent=night?'Вернуть день':'Час Золотого льва';
-  $('startText').textContent=night?'26.12, 14:00 ET. Над саванной салют, Золотой лев выходит на охоту. Поймать можно один раз.':'25.12, День миграции: в саванне зебры, над ней пролетают белые аисты. Каждый вид в раунде засчитывается один раз.';
-  night?stageFW.start():stageFW.stop();
-});
-
-/* ---------- модалка в стиле DS ---------- */
-function showModal({icon,title,text,row,cta,golden,resume}){
-  const root=$('modalRoot');
-  root.innerHTML=`<div class="modal-bg"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="mT"><canvas class="confetti" id="conf"></canvas>
-    <button class="x" type="button" aria-label="Закрыть">✕</button>
-    <img class="icon" src="${icon}" alt="" style="${golden?'filter:sepia(1) saturate(3) brightness(1.2) drop-shadow(0 0 16px #ffd54a)':''}">
-    <h3 id="mT">${title}</h3><p>${text}</p><div class="row">${row}</div>
-    <button class="btn" type="button" id="mOk">${cta}</button><button class="close" type="button">Close</button></div></div>`;
-  const close=()=>{root.innerHTML='';if(resume&&G){G.on=true;G.t=0;vf.hidden=false;raf=requestAnimationFrame(loop)}};
-  root.querySelectorAll('.x,.close,#mOk').forEach(b=>b.addEventListener('click',close));
-  $('mOk').focus();
-  const cv=$('conf'),c=cv.getContext('2d');const r=cv.getBoundingClientRect();cv.width=r.width;cv.height=r.height;
-  const cols=['#58C7F3','#FF2172','#D400FF','#7724FA','#49F623','#FF9900','#F1D627'];
-  const bits=Array.from({length:70},()=>({x:Math.random()<.5?Math.random()*60:r.width-Math.random()*60,y:-Math.random()*r.height,v:1+Math.random()*2,a:Math.random()*6,c:cols[Math.random()*7|0]}));
-  (function fall(){if(!document.body.contains(cv))return;c.clearRect(0,0,r.width,r.height);
-    for(const b of bits){b.y+=b.v;b.a+=.08;if(b.y>r.height)b.y=-10;c.save();c.translate(b.x,b.y);c.rotate(b.a);c.fillStyle=b.c;c.fillRect(-3,-1.5,6,3);c.restore()}
-    if(!RM)requestAnimationFrame(fall)})();
-}
-
-/* ---------- таймлайн по часам: [ET, Киев, тип, заголовок, текст] ---------- */
-const TL1=[
- ['00:00','07:00','herd','Стада пришли','6 мигрантов в саванне, 4 раунда (с Field pass 5). Альбом открыт.'],
- ['10:00','17:00','ops','Бродкаст','«The herds are here», баннер на сайте.'],
- ['12:00','19:00','sky','Пролёт стай · 1','30 минут: аисты и ласточки ×3. ЛС от бота за 10 минут.'],
- ['16:00','23:00','sky','Пролёт стай · 2','Амурский кобчик тоже чаще.'],
- ['20:00','03:00','sky','Пролёт стай · 3','Последний шанс на птиц.'],
- ['23:59','06:59','ops','Альбом закрыт','Список 6/6 фиксируется для розыгрыша.']
-];
-const TL2=[
- ['10:00','17:00','ops','Бродкаст','«The Golden Lion hunts at 2 PM ET».'],
- ['13:45','20:45','ops','Отсчёт','Пост в Discord и баннер на сайте.'],
- ['14:00','21:00','lion','Час Золотого льва','Лев-раунд для всех, полный альбом даёт второй. Шанс 1/400 за спавн.'],
- ['15:00','22:00','lion','Час закрыт','Пойманные львы уже в зоопарках, коды ушли сами.'],
- ['15:30','22:30','ops','Розыгрыш','Среди 6/6, пост в Discord, дежурный проверяет.'],
- ['до 05.01','','ops','Выдача','Ручная проверка только розыгрыша.']
-];
-const tl=a=>a.map(([et,kv,c,h,p])=>`<li class="${c}"><time>${et}${kv?`<small>Киев ${kv}</small>`:''}</time><div><b>${h}</b>${p}</div></li>`).join('');
-$('tl1').innerHTML=tl(TL1);$('tl2').innerHTML=tl(TL2);
+/* снег в шапке */
+(function () {
+  var c = document.getElementById('snow'); if (!c || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var x = c.getContext('2d'), F = [], w, h;
+  function size() { w = c.width = c.offsetWidth; h = c.height = c.offsetHeight; }
+  size(); addEventListener('resize', size);
+  for (var i = 0; i < 90; i++) F.push({ x: Math.random(), y: Math.random(), r: 1 + Math.random() * 2.2, v: .2 + Math.random() * .6, d: Math.random() * 6 });
+  (function tick(t) {
+    x.clearRect(0, 0, w, h); x.fillStyle = 'rgba(255,255,255,.8)';
+    F.forEach(function (f) { f.y += f.v / h * 2; if (f.y > 1) f.y = 0; var px = (f.x * w + Math.sin(t / 1400 + f.d) * 14); x.beginPath(); x.arc(px, f.y * h, f.r, 0, 6.3); x.fill(); });
+    requestAnimationFrame(tick);
+  })(0);
 })();
 </script>
 
