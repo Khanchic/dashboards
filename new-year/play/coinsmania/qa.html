@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<script src="../runtime.js" data-server="srv/dev/server.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>QA…</title>
+<link rel="stylesheet" href="client/sort-game.css">
+<style>body{margin:0;padding:16px;background:#0A0938;color:#fff;font:14px/1.5 system-ui,sans-serif}#out{white-space:pre-wrap;font:13px/1.5 Consolas,monospace;margin-top:14px}.ok{color:#27C93F}.bad{color:#FF4FA3}</style>
+</head>
+<body>
+<b>QA клиента банки (настоящий sort-game.js против стенда, только плейтест-режим)</b>
+<div id="game" style="max-width:720px;margin-top:10px"></div>
+<div id="out"></div>
+<script src="shared/coins.js"></script>
+<script src="client/sort-game.js"></script>
+<script>
+(async function () {
+  var out = document.getElementById('out'), fails = 0;
+  function log(ok, s) { out.innerHTML += '<span class="' + (ok ? 'ok' : 'bad') + '">' + (ok ? 'PASS ' : 'FAIL ') + s + '</span>\n'; if (!ok) fails++; }
+  var post = function (u, b) { return fetch(u, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(b) }).then(function (r) { return r.json(); }); };
+  var sleep = function (ms) { return new Promise(function (r) { setTimeout(r, ms); }); };
+  var tapJar = function (i) { document.querySelector('.cs-jar[data-i="' + i + '"]').click(); };
+  var btn = function (d) { return document.querySelector('[data-do="' + d + '"]'); };
+  try {
+    var who = await post('api/join', { nick: 'QA ' + Date.now().toString(36) });
+    var P = who.p, JAR = 'j3';
+    var o = await post('api/open', { p: P, jar: JAR });
+    var done = false, last = null;
+    var game = CoinSort.mount(document.getElementById('game'), {
+      move: function (input) { return post('api/move', { p: P, jar: JAR, input: input }).then(function (r) { last = r; return r; }); },
+      onDone: function () { done = true; }
+    });
+    game.load(o.attempt);
+    var v = o.attempt.view;
+    log(document.querySelectorAll('.cs-jar').length === v.jars.length, 'банок на экране = ' + v.jars.length);
+
+    // 1) выбор и снятие выбора
+    var src = v.jars.findIndex(function (j) { return j.length; });
+    tapJar(src);
+    log(document.querySelector('.cs-jar.sel') && document.querySelectorAll('.cs-jar.sel .lift').length === Coins.runLen(v.jars[src]), 'тап поднимает верхнюю серию');
+    tapJar(src);
+    log(!document.querySelector('.cs-jar.sel'), 'повторный тап снимает выбор');
+
+    // 2) ход в пустую банку → undo кнопкой
+    var empty = v.jars.findIndex(function (j) { return !j.length; });
+    tapJar(src); tapJar(empty);
+    await sleep(400);
+    log(last && !last.error && last.attempt.view.pours === 1, 'ход ушёл на сервер (pours = 1)');
+    log(!btn('undo').disabled, 'Undo доступен');
+    btn('undo').click();
+    await sleep(400);
+    log(last && JSON.stringify(last.attempt.view.jars) === JSON.stringify(v.jars), 'Undo вернул как было (сервер)');
+    log(document.querySelectorAll('.cs-jar')[src].querySelectorAll('.cs-coin').length === v.jars[src].length, 'Undo вернул как было (экран)');
+
+    // 3) подсказка подсвечивает ход
+    btn('hint').click();
+    await sleep(500);
+    var h = last && last.attempt && last.attempt.hint;
+    log(h && document.querySelector('.cs-jar.hint-from[data-i="' + h.from + '"]') && document.querySelector('.cs-jar.hint-to[data-i="' + h.to + '"]'), 'подсказка подсветила from → to');
+    log(/\(2\)/.test(btn('hint').textContent), 'подсказок осталось 2');
+
+    // 4) нелегальный тап: выбрать банку и тапнуть в чужой цвет — хода нет, выбор переходит
+    var jars = last.attempt.view.jars, cap = last.attempt.view.cap, bad = null;
+    for (var f = 0; f < jars.length && !bad; f++) for (var t = 0; t < jars.length; t++) if (f !== t && jars[f].length && jars[t].length && !Coins.canPour(jars, cap, f, t)) { bad = [f, t]; break; }
+    if (bad) { var p0 = last.attempt.view.pours; tapJar(bad[0]); tapJar(bad[1]); await sleep(300); log(last.attempt.view.pours === p0 && document.querySelector('.cs-jar.sel[data-i="' + bad[1] + '"]'), 'нелегальный тап: хода нет, выбрана новая банка'); tapJar(bad[1]); }
+
+    // 5) быстрые нажатия: всё решение подряд без пауз
+    var sol = Coins.solve(jars, cap).moves;
+    sol.forEach(function (m) { tapJar(m[0]); tapJar(m[1]); });
+    for (var i = 0; i < 60 && !done; i++) await sleep(200);
+    log(done, 'быстрые нажатия: банка разобрана, onDone сработал (' + sol.length + ' ходов)');
+    var me = await fetch('api/me?p=' + encodeURIComponent(P)).then(function (r) { return r.json(); });
+    log(me.jars.find(function (j) { return j.id === JAR; }).status === 'sorted', 'сервер: банка sorted');
+  } catch (e) { log(false, 'исключение: ' + e.message); }
+  document.title = fails ? 'QA FAIL ' + fails : 'QA PASS';
+  out.innerHTML += '\n' + document.title;
+})();
+</script>
+</body>
+</html>

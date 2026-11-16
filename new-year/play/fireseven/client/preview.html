@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vault Client Preview</title>
+<!-- Превью клиента vault.js без сервера: настоящие hub-core.js и hub.css из halloween-week/app (только чтение),
+     вместо hub.js — мини-хаб ниже, вместо сервера — порт engine/vault-lock.js + vault-event.js + wh-adapter.js в браузере.
+     Параметры адреса: t=1210|1420|1810|2100|2330|0000|1100 (время ET), start=1 (сразу нажать Start),
+     demo=N или N.K (N замков открыто, на следующем K промахов), tut=0|1 (обучение уже видели / показать), frame=390 (страница в iframe 390 px). -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Manrope:wght@300;400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="../../../halloween-week/app/public/hub.css">
+<link rel="stylesheet" href="vault.css">
+<style>
+  .stage{background:radial-gradient(90% 70% at 50% 30%,#123226,#020806 70%)}
+  .pv-bar{position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding:6px 10px;
+    background:rgba(2,8,6,.94);border-top:1px solid rgba(211,144,69,.4);font:500 12px/1.2 "Manrope",system-ui,sans-serif;color:#cfd8d4}
+  .pv-bar b{color:#E9C78F;font-variant-numeric:tabular-nums;margin-right:6px}
+  .pv-bar button{font:inherit;color:#E9C78F;background:none;border:1px solid rgba(211,144,69,.4);border-radius:999px;padding:4px 10px;cursor:pointer}
+  .pv-err{position:fixed;left:0;right:0;top:0;z-index:99;background:#b00020;color:#fff;font:600 13px/1.4 monospace;padding:8px 12px;white-space:pre-wrap}
+  .pv-ok{position:fixed;right:8px;top:56px;z-index:98;background:#1f6b45;color:#fff;font:700 11px/1 monospace;padding:4px 6px;border-radius:4px}
+  body.pv-embed .pv-bar{display:none}
+  .pv-frame{display:flex;gap:24px;align-items:flex-start;padding:16px;background:#111;min-height:100vh;overflow:auto}
+  .pv-frame iframe{border:1px solid #444;background:#000;flex:none}
+  .pv-frame p{color:#bbb;font:13px/1.5 system-ui;max-width:260px}
+</style>
+<script>
+  // ошибки JS — красной плашкой сверху; через 2 с без ошибок — зелёная метка «JS OK»
+  window.PV_ERRORS = [];
+  function pvErr(msg) {
+    window.PV_ERRORS.push(msg);
+    var d = document.querySelector('.pv-err');
+    if (!d) { d = document.createElement('div'); d.className = 'pv-err'; (document.body || document.documentElement).appendChild(d); }
+    d.textContent = 'JS error: ' + window.PV_ERRORS.join('\n');
+  }
+  window.onerror = function (m, src, line, col) { pvErr(m + ' @ ' + String(src).split('/').pop() + ':' + line + ':' + col); };
+  window.addEventListener('unhandledrejection', function (e) { pvErr('promise: ' + (e.reason && (e.reason.stack || e.reason.message) || e.reason)); });
+</script>
+</head>
+<body>
+<script>
+  // frame=390: эта же страница в iframe нужной ширины (headless Edge не даёт окно уже ~500 px)
+  (function () {
+    var P = new URLSearchParams(location.search), w = P.get('frame');
+    if (!w) return;
+    P.delete('frame'); P.set('embed', '1');
+    document.write('<div class="pv-frame"><iframe src="?' + P.toString() + '" width="' + Number(w) + '" height="' + (Number(P.get('h')) || 1300) +
+      '" title="Phone preview"></iframe><p>Phone width ' + Number(w) + ' px. Time controls are inside the frame only when opened directly.</p></div>');
+    window.PV_FRAME = true;
+  })();
+</script>
+<div id="pvApp">
+<div class="stage"><div id="gl"></div></div>
+<div class="ui">
+  <header class="top">
+    <div class="brand"><span id="brandName" class="brand-name">Fire Seven</span><span class="div" aria-hidden="true"></span><span class="eyebrow">Christmas Day</span></div>
+    <div class="top-right">
+      <div class="timer panel" role="timer"><i aria-hidden="true"></i><span id="timerLabel">Loading</span> <b id="timer">--:--</b></div>
+      <div class="me panel" id="me"><span id="meName">tester</span></div>
+    </div>
+  </header>
+  <section class="info panel" aria-labelledby="title">
+    <p class="night" id="night">&nbsp;</p>
+    <h1 id="title">Crack the 777 Vault</h1>
+    <p id="rules"></p>
+    <div class="legend" id="legend" hidden></div>
+    <p class="meta" id="meta"></p>
+  </section>
+  <aside class="board panel" aria-labelledby="boardTitle">
+    <div class="board-head"><h2 id="boardTitle">Leaderboard</h2></div>
+    <ol class="rows" id="rows"><li class="empty">The board opens at midnight.</li></ol>
+    <p class="board-foot" id="boardFoot"></p>
+  </aside>
+  <section class="log panel" aria-labelledby="logTitle">
+    <h2 id="logTitle">Your tries</h2>
+    <ol id="log"><li class="empty">Your tries show up here.</li></ol>
+  </section>
+  <section class="dock panel" id="dock" aria-label="Play">
+    <div class="gate" id="gate"></div>
+    <p class="flash" id="flash" role="status" aria-live="polite"></p>
+  </section>
+  <ol class="track panel" id="track" aria-label="Today"></ol>
+</div>
+<div class="pv-bar" id="pvBar">
+  <b id="pvClock"></b>
+  <button type="button" data-t="1100">11:00</button>
+  <button type="button" data-t="1210">12:10</button>
+  <button type="button" data-t="1420">14:20</button>
+  <button type="button" data-t="1810">18:10</button>
+  <button type="button" data-t="2100">21:00</button>
+  <button type="button" data-t="2330">23:30</button>
+  <button type="button" data-t="0000">00:00</button>
+  <button type="button" id="pvSolve">Crack current lock</button>
+  <button type="button" id="pvTut">Reset tutorial</button>
+  <button type="button" id="pvReset">New vault</button>
+</div>
+</div>
+
+<script>if (window.PV_FRAME) document.getElementById('pvApp').remove();</script>
+<script src="../../../halloween-week/app/public/hub-core.js"></script>
+<script>
+  // если hub-core.js не нашёлся (другая раскладка папок) — минимальная замена с тем же контрактом
+  if (!window.WH) {
+    window.WH = (function () {
+      var WH = { games: {}, byMech: {} };
+      WH.$ = function (s) { return document.querySelector(s); };
+      WH.esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
+      WH.plural = function (n, one, many) { return n + ' ' + (n === 1 ? one : many); };
+      WH.timeEt = function (ms, short) { var o = { timeZone: 'America/New_York', hour: 'numeric' }; if (!short) o.minute = '2-digit'; return new Date(ms).toLocaleTimeString('en-US', o); };
+      WH.clockText = function (sec) { sec = Math.max(0, Math.floor(sec)); var h = Math.floor(sec / 3600), m = Math.floor((sec % 3600) / 60), s = sec % 60; return (h ? h + ':' : '') + String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0'); };
+      WH.register = function (g) { WH.games[g.id] = g; g.mechanics.forEach(function (m) { WH.byMech[m] = g; }); };
+      WH.gameFor = function (m) { return WH.byMech[m] || null; };
+      WH.logEmpty = function (t) { var l = WH.$('#log'); if (l) l.innerHTML = '<li class="empty">' + t + '</li>'; };
+      WH.logRows = function (rows) { var l = WH.$('#log'); if (l) l.innerHTML = rows.map(function (r) { return '<li><span class="n"></span><span>' + r[0] + '</span><span class="pegs">' + r[1] + '</span></li>'; }).join(''); };
+      WH.lost = function () { WH.flash('Connection lost. Try again.'); };
+      return WH;
+    })();
+  }
+  window.F7V_CONFIG = { assetBase: '../assets/', revealVideo: '../assets/art/clip-16x9.mp4' }; // в бою — путь, куда выложены assets/ Fire Seven (README)
+</script>
+<script src="vault.js"></script>
+<script>
+// ===================== фейковый сервер: порт engine/vault-lock.js + vault-event.js + wh-adapter.js =====================
+var ENGINE = (function () {
+  var SYMBOLS = ['seven', 'diamond', 'champagne', 'bell', 'gift', 'pocket-watch', 'star', 'snowflake'];
+  var LEN = 4, TRIES = 8, BUTLER_LEFT = 3, BUTLER_COST = 2, MIN_TRY_GAP_MS = 1000, MIN = 60000;
+  var LOCKS = [
+    { id: 'I', name: 'The Invitation', symbols: 6, repeats: false, tries: 8 },
+    { id: 'II', name: 'The Wreath', symbols: 7, repeats: false, tries: 8 },
+    { id: 'III', name: 'The Lights', symbols: 8, repeats: false, tries: 8 },
+    { id: 'IV', name: 'The Gifts', symbols: 6, repeats: true, tries: 7 },
+    { id: 'V', name: 'The Toast', symbols: 7, repeats: true, tries: 7 },
+    { id: 'VI', name: 'The Fireplace', symbols: 8, repeats: true, tries: 6 },
+    { id: 'VII', name: 'Midnight', symbols: 8, repeats: true, tries: 5 },
+  ];
+  var REST = { bonus: { fp: 5, gc: 100000, sc: 0 } };
+  var OFFERS = [
+    { min: 1, max: 2, offer: { name: "Butler's Nightcap", price: 9.99, extra: 100, hours: 48 } },
+    { min: 3, max: 6, offer: { name: 'Velvet Combination', price: 19.99, extra: 40, hours: 48 } },
+    { min: 7, max: 7, offer: { name: 'Seven Sevens Case', price: 39.99, extra: 50, hours: 48 } },
+  ];
+  function makeSchedule() {
+    var t0 = new Date('2026-12-25T12:00:00-05:00').getTime();
+    return { opens: LOCKS.map(function (_, i) { return t0 + i * 60 * MIN; }), close: t0 + 11.5 * 60 * MIN, reveal: t0 + 12 * 60 * MIN };
+  }
+  // --- vault-lock ---
+  function lockCreate(p, rng) {
+    var n = Math.min(SYMBOLS.length, Math.max(LEN, p.symbols || 6)), repeats = !!p.repeats, secret, i;
+    if (repeats) { secret = []; for (i = 0; i < LEN; i++) secret.push(Math.floor(rng() * n)); }
+    else {
+      var pool = []; for (i = 0; i < n; i++) pool.push(i);
+      for (i = pool.length - 1; i > 0; i--) { var j = Math.floor(rng() * (i + 1)), t = pool[i]; pool[i] = pool[j]; pool[j] = t; }
+      secret = pool.slice(0, LEN);
+    }
+    return { n: n, len: LEN, repeats: repeats, tries: p.tries || TRIES, secret: secret, guesses: [], butler: null, lastAt: 0, status: 'open' };
+  }
+  function feedback(guess, secret) {
+    var r = [0, 0, 0, 0], left = {}, i;
+    for (i = 0; i < secret.length; i++) { if (guess[i] === secret[i]) r[i] = 2; else left[secret[i]] = (left[secret[i]] || 0) + 1; }
+    for (i = 0; i < secret.length; i++) { if (r[i] !== 2 && left[guess[i]] > 0) { r[i] = 1; left[guess[i]]--; } }
+    return r;
+  }
+  function butlerAvailable(s) { return s.status === 'open' && !s.butler && s.tries - s.guesses.length <= BUTLER_LEFT && s.guesses.length < s.tries; }
+  function lockScore(s) { return s.status === 'open' ? null : s.guesses.length + (s.butler ? BUTLER_COST : 0); }
+  function lockView(s) {
+    var fin = s.status !== 'open';
+    return { symbols: SYMBOLS.slice(0, s.n), len: s.len, repeats: !!s.repeats, tries: s.tries,
+      guesses: s.guesses.map(function (g) { return { guess: g.guess, fb: g.fb }; }), butler: s.butler, butlerAvailable: butlerAvailable(s),
+      status: s.status, score: lockScore(s), secret: fin ? s.secret : undefined };
+  }
+  function lockMove(s, input, ctx) {
+    if (s.status !== 'open') return { error: 'finished' };
+    var rng = ctx.rng || Math.random;
+    if (input.butler) {
+      if (!butlerAvailable(s)) return { error: 'butler_unavailable' };
+      var green = {}; s.guesses.forEach(function (g) { g.fb.forEach(function (v, i) { if (v === 2) green[i] = 1; }); });
+      var free = [0, 1, 2, 3].filter(function (i) { return !green[i]; }); if (!free.length) free = [0, 1, 2, 3];
+      var pos = free[Math.floor(rng() * free.length)];
+      s.butler = { pos: pos, sym: s.secret[pos] };
+      return { state: s, done: false };
+    }
+    var guess = Array.isArray(input.guess) ? input.guess.map(Number) : null;
+    if (!guess || guess.length !== s.len || guess.some(function (v) { return !Number.isInteger(v) || v < 0 || v >= s.n; })) return { error: 'bad_guess' };
+    if (!s.repeats && new Set(guess).size !== guess.length) return { error: 'repeat_symbol' };
+    var now = ctx.now;
+    if (now - (s.lastAt || 0) < MIN_TRY_GAP_MS) return { error: 'too_fast' };
+    s.lastAt = now;
+    var fb = feedback(guess, s.secret);
+    s.guesses.push({ guess: guess, fb: fb, at: now });
+    if (fb.every(function (v) { return v === 2; })) s.status = 'solved';
+    else if (s.guesses.length >= s.tries) s.status = 'jammed';
+    return { state: s, done: s.status !== 'open' };
+  }
+  // --- vault-event / wh-adapter ---
+  function lockResult(s) { return s.status === 'open' ? null : { solved: s.status === 'solved', tries: s.guesses.length, butler: !!s.butler, score: lockScore(s), at: s.guesses.length ? s.guesses[s.guesses.length - 1].at : null }; }
+  function playerSummary(results) {
+    var cracked = 0, score = 0, played = 0, lastAt = null, lastIdx = -1;
+    results.forEach(function (r, i) { if (!r) return; played++; score += r.score; if (r.solved) { cracked++; if (i > lastIdx) { lastIdx = i; lastAt = r.at; } } });
+    return { cracked: cracked, played: played, score: score, lastAt: lastAt };
+  }
+  function summarize(st) { var res = st.locks.map(lockResult), s = playerSummary(res); s.locks = res; return s; }
+  function offerFor(n) { var t = OFFERS.filter(function (x) { return n >= x.min && n <= x.max; })[0]; return t ? t.offer : null; }
+  function create(params, rng) {
+    return { opens: params.opens, close: params.close, locks: LOCKS.map(function (c) { return lockCreate(c, rng); }), lastAt: 0 };
+  }
+  function view(st, finished) {
+    return { opens: st.opens, close: st.close, locks: st.locks.map(function (s, i) { return Object.assign({}, LOCKS[i], lockView(s)); }), total: summarize(st), finished: !!finished };
+  }
+  function move(st, input, ctx) {
+    var i = Number(input.lock);
+    if (!Number.isInteger(i) || i < 0 || i >= st.locks.length) return { error: 'bad_lock' };
+    if (ctx.now < st.opens[i]) return { error: 'lock_not_open' };
+    if (ctx.now >= st.close) return { error: 'closed' };
+    var r = lockMove(st.locks[i], input.butler ? { butler: true } : { guess: input.guess }, ctx);
+    if (r.error) return { error: r.error };
+    var done = st.locks.every(function (s) { return s.status !== 'open'; });
+    return { state: st, done: done, result: done ? summarize(st) : null };
+  }
+  function prizeFor(st) { // без топ-3 (их проверяют вручную днём 26.12): все с ≥ 1 замком — REST + оффер
+    var s = summarize(st);
+    return s.cracked ? Object.assign({ kind: 'rest', bonus: REST.bonus, offer: offerFor(s.cracked) }, s) : Object.assign({ kind: 'none' }, s);
+  }
+  // решатель для превью: случайный код, согласный со всеми подсказками (как «обычный внимательный игрок» в макете)
+  function consistentPick(s) {
+    var c = [], n = s.n, a, b, d, e;
+    for (a = 0; a < n; a++) for (b = 0; b < n; b++) for (d = 0; d < n; d++) for (e = 0; e < n; e++) {
+      var g = [a, b, d, e];
+      if (!s.repeats && new Set(g).size < 4) continue;
+      if (s.butler && g[s.butler.pos] !== s.butler.sym) continue;
+      var ok = s.guesses.every(function (h) { return feedback(h.guess, g).join() === h.fb.join(); });
+      if (ok) c.push(g);
+    }
+    return c[Math.floor(Math.random() * c.length)];
+  }
+  function wrongPick(s) { for (var k = 0; k < 50; k++) { var g = consistentPick(s); if (g && g.join() !== s.secret.join()) return g; } return null; }
+  return { LOCKS: LOCKS, makeSchedule: makeSchedule, create: create, view: view, move: move, prizeFor: prizeFor, consistentPick: consistentPick, wrongPick: wrongPick, feedback: feedback };
+})();
+
+// ===================== мини-хаб: то, что в бою делает public/hub.js =====================
+(function () {
+  'use strict';
+  if (window.PV_FRAME) return; // внешняя страница с iframe: хаб живёт внутри рамки
+  var $ = WH.$, esc = WH.esc, timeEt = WH.timeEt;
+  var P = new URLSearchParams(location.search);
+  if (P.get('embed')) document.body.classList.add('pv-embed');
+  var SCHED = ENGINE.makeSchedule();
+  var CONTEST_ID = 'f7-vault';
+  var offset = 0, flashTimer = null, st = null;
+  var server = { att: null }; // одна попытка = сейф игрока
+
+  function etMs(hhmm) {
+    var h = Number(hhmm.slice(0, 2)), m = Number(hhmm.slice(2));
+    var day = h < 6 ? '26' : '25';
+    return new Date('2026-12-' + day + 'T' + String(h).padStart(2, '0') + ':' + String(m).padStart(2, '0') + ':00-05:00').getTime();
+  }
+  function setTime(hhmm) { offset = etMs(hhmm) - Date.now(); load(); }
+  WH.now = function () { return Date.now() + offset; };
+
+  // --- сервер (как play.js + server.js stateFor, с рекомендованной правкой: после 23:30 сейф остаётся в state до вскрытия + 48 ч) ---
+  function publicAttempt() {
+    var a = server.att; if (!a) return null;
+    var t = WH.now(), v = ENGINE.view(a.state, a.status !== 'active' || t >= SCHED.close);
+    v.reveal = SCHED.reveal;
+    if (t >= SCHED.reveal) v.prize = ENGINE.prizeFor(a.state);
+    return { status: a.status, result: a.result, view: v };
+  }
+  function contestOut() {
+    var t = WH.now();
+    return { id: CONTEST_ID, mechanic: 'vault777', name: 'Crack the 777 Vault', ready: true,
+      params: { opens: SCHED.opens, close: SCHED.close, reveal: SCHED.reveal },
+      session: 'xmas', sessionTitle: 'Christmas Day', sessionKind: 'night', index: 0, of: 1,
+      startsAt: SCHED.opens[0], closesAt: SCHED.close, open: t >= SCHED.opens[0] && t < SCHED.close };
+  }
+  function srvState() {
+    return { now: WH.now(), brand: { slug: 'fireseven', name: 'Fire Seven', palette: { accent: '#d71434', fire: '#d39045', panel: 'rgba(5,17,12,.74)', ground: '#020806' },
+      lobby: 'https://example.com/lobby', discord: 'https://discord.com/channels/0/0' },
+      me: { name: 'tester', status: 'approved', canPlay: true }, contest: contestOut(), attempt: publicAttempt(),
+      track: ENGINE.LOCKS.map(function (L, i) { var t = WH.now(); return { id: 'l' + i, name: 'Lock ' + L.id, startsAt: SCHED.opens[i], state: t >= SCHED.close ? 'done' : t >= SCHED.opens[i] ? 'now' : 'soon' }; }),
+      boards: {} };
+  }
+  function srvStart() {
+    var c = contestOut();
+    if (!c.open) return { error: WH.now() < c.startsAt ? 'not_open' : 'closed' };
+    if (!server.att) server.att = { status: 'active', state: ENGINE.create({ opens: SCHED.opens, close: SCHED.close }, Math.random), result: null };
+    return { attempt: publicAttempt() };
+  }
+  function srvMove(body) {
+    var c = contestOut();
+    if (!c.open || body.contest !== CONTEST_ID) return { error: 'closed', message: 'This contest is closed.' };
+    var a = server.att;
+    if (!a) return { error: 'not_started' };
+    if (a.status !== 'active') return { error: 'finished', attempt: publicAttempt() };
+    var r = ENGINE.move(a.state, body.input || {}, { now: WH.now(), rng: Math.random });
+    if (r.error) return { error: r.error };
+    if (r.done) { a.status = 'done'; a.result = r.result; }
+    return { attempt: publicAttempt() };
+  }
+  // ответы — как JSON с сервера: копия, а не живой объект
+  function reply(o) { return new Promise(function (res) { setTimeout(function () { var j = JSON.parse(JSON.stringify(o)); j._status = j.error && !j.attempt ? 409 : 200; res(j); }, 120); }); }
+  WH.api = function (path, body) {
+    if (path === '/state') return reply(srvState());
+    if (path === '/start') return reply(srvStart());
+    if (path === '/move') return reply(srvMove(body));
+    return reply({ error: 'not_found' });
+  };
+
+  // --- то, что hub.js дописывает в WH ---
+  WH.game = { key: null, busy: false };
+  WH.hall = { closeVault: function () {}, unlock: function (f) { if (f) f(); }, reveal: function (s, f) { if (f) f(); }, showPuzzle: function () {}, setTrack: function () {}, setHint: function () {} };
+  Object.defineProperty(WH, 'st', { get: function () { return st; } });
+  WH.move = function (input) { return WH.api('/move', { contest: st.contest.id, input: input }); };
+  WH.load = load;
+  WH.flash = function (msg) { var el = $('#flash'); el.textContent = msg; clearTimeout(flashTimer); flashTimer = setTimeout(function () { el.textContent = ''; }, 5000); };
+  WH.handleError = function (r) {
+    WH.flash({ login: 'Log in with Discord to play.', closed: 'This contest is closed.', not_open: 'This contest hasn\'t opened yet.', slow_down: 'Easy there. One move at a time.' }[r.error] || r.message || 'Something went wrong. Try again.');
+    if (r.error !== 'slow_down' && r.error !== 'too_fast') load();
+  };
+  WH.showResult = function () {};
+  WH.effective = function () { return { c: st && st.contest, a: st && st.attempt }; };
+
+  function load() {
+    return WH.api('/state').then(function (s) { st = s; render(); });
+  }
+  setInterval(load, 8000);
+
+  function render() {
+    var pal = st.brand.palette, root = document.documentElement.style;
+    root.setProperty('--accent', pal.accent); root.setProperty('--fire', pal.fire); root.setProperty('--panel', pal.panel); root.setProperty('--obsidian', pal.ground);
+    var c = st.contest, g = WH.gameFor(c.mechanic);
+    $('#night').textContent = c.sessionTitle;
+    $('#title').textContent = c.name;
+    $('#rules').textContent = g.rules(c.params, c.mechanic);
+    $('#logTitle').textContent = g.logTitle;
+    $('#meta').textContent = c.open ? 'Closes at ' + timeEt(c.closesAt) + ' ET' : WH.now() < c.startsAt ? 'Opens at ' + timeEt(c.startsAt) + ' ET' : 'Vault opens at ' + timeEt(c.params.reveal) + ' ET';
+    $('#track').innerHTML = st.track.map(function (it, i) { return '<li class="' + it.state + '"><span class="rn">' + WH.roman(i + 1) + '</span><span class="tm">' + timeEt(it.startsAt, true) + '</span><span class="gm">' + esc(it.name) + '</span></li>'; }).join('');
+    renderDock();
+    tick();
+  }
+  function gateHtml() {
+    var c = st.contest, a = st.attempt, t = WH.now();
+    if (!c.open && t < c.startsAt) return '<p>Your vault is ready. The first lock opens on Christmas Day at 12:00 PM ET.</p><small>This page updates by itself.</small>';
+    if (!a) {
+      if (!c.open) return '<p>The locks are closed. Your vault opens at midnight.</p>';
+      return '<p><b>' + esc(c.name) + '</b> is live. One vault per player.</p><div class="row"><button type="button" class="btn gold" id="startBtn">Start</button></div>';
+    }
+    if (a.status === 'active' && c.open) return '';
+    return '<p>' + esc(g().doneText(a.result || a.view.total || {}, c.mechanic)) + '</p>';
+  }
+  function g() { return WH.gameFor(st.contest.mechanic); }
+  // как renderDock() в hub.js: панель видна только во время попытки, затем sync игры
+  function renderDock() {
+    var c = st.contest, a = st.attempt, html = gateHtml(), gate = $('#gate');
+    if (gate.getAttribute('data-html') !== html) { gate.innerHTML = html; gate.setAttribute('data-html', html); }
+    var playing = Boolean(a && a.status === 'active' && c && c.open), cur = c && c.ready ? WH.gameFor(c.mechanic) : null;
+    Object.keys(WH.games).forEach(function (id) { var gm = WH.games[id], on = playing && gm === cur; $(gm.panel).hidden = !on; if (!on && gm.off) gm.off(); });
+    if (cur) cur.sync(c, a); else WH.logEmpty('Your tries show up here.');
+  }
+  $('#gate').addEventListener('click', function (e) {
+    var b = e.target.closest('#startBtn'); if (!b) return;
+    b.disabled = true;
+    WH.api('/start', { contest: st.contest.id }).then(function (r) { if (r.attempt) load(); else { b.disabled = false; WH.handleError(r); } });
+  });
+  document.addEventListener('keydown', function (e) {
+    var ids = Object.keys(WH.games);
+    for (var k = 0; k < ids.length; k++) { var gm = WH.games[ids[k]]; if (gm.key && gm.key(e)) return; }
+  });
+  function tick() {
+    var c = st && st.contest; if (!c) return;
+    var t = WH.now(), target = c.open ? c.closesAt : t < c.startsAt ? c.startsAt : c.params.reveal;
+    $('#timerLabel').textContent = c.open ? 'Closes in' : t < c.startsAt ? 'Starts in' : 'Opens in';
+    $('#timer').textContent = WH.clockText((target - t) / 1000);
+    var d = new Date(t).toLocaleString('en-US', { timeZone: 'America/New_York', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', second: '2-digit' });
+    $('#pvClock').textContent = d + ' ET';
+  }
+  setInterval(tick, 1000);
+
+  // --- превью: «прошлое» игрока, кнопки времени ---
+  function prePlay(spec) { // "5.3" — открыть 5 замков, на 6-м сделать 3 промаха
+    var parts = String(spec).split('.'), solved = Number(parts[0]) || 0, miss = Number(parts[1]) || 0, a = server.att;
+    var base = SCHED.opens[0];
+    for (var i = 0; i < solved && i < 7; i++) {
+      var s = a.state.locks[i], at = Math.max(base, SCHED.opens[i]) + 60000;
+      while (s.status === 'open') { var gg = ENGINE.consistentPick(s), fb = ENGINE.feedback(gg, s.secret); s.guesses.push({ guess: gg, fb: fb, at: at += 30000 }); s.lastAt = at;
+        if (fb.every(function (x) { return x === 2; })) s.status = 'solved'; else if (s.guesses.length >= s.tries) s.status = 'jammed'; }
+    }
+    var n = a.state.locks[solved];
+    for (var k = 0; n && k < miss && n.guesses.length < n.tries - 1; k++) {
+      var w = ENGINE.wrongPick(n); if (!w) break;
+      n.guesses.push({ guess: w, fb: ENGINE.feedback(w, n.secret), at: SCHED.opens[solved] + 60000 + k * 30000 });
+    }
+  }
+  function solveCurrent() {
+    var a = server.att, cur = window.F7V && window.F7V.state.cur; if (!a || cur < 0) return;
+    var s = a.state.locks[cur];
+    while (s.status === 'open') { var gg = ENGINE.consistentPick(s), fb = ENGINE.feedback(gg, s.secret); s.guesses.push({ guess: gg, fb: fb, at: WH.now() }); s.lastAt = WH.now();
+      if (fb.every(function (x) { return x === 2; })) s.status = 'solved'; else if (s.guesses.length >= s.tries) s.status = 'jammed'; }
+    if (a.state.locks.every(function (x) { return x.status !== 'open'; })) { a.status = 'done'; a.result = ENGINE.view(a.state).total; }
+    load();
+  }
+  document.getElementById('pvBar').addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b) return;
+    if (b.hasAttribute('data-t')) setTime(b.getAttribute('data-t'));
+    else if (b.id === 'pvSolve') solveCurrent();
+    else if (b.id === 'pvTut') { try { localStorage.removeItem('f7v-tut'); } catch (x) {} location.reload(); }
+    else if (b.id === 'pvReset') { server.att = null; if (window.F7V) window.F7V.state.key = null; load(); }
+  });
+
+  try { if (P.get('tut') === '0') localStorage.setItem('f7v-tut', '1'); if (P.get('tut') === '1') localStorage.removeItem('f7v-tut'); } catch (x) {}
+  offset = etMs(P.get('t') || '1420') - Date.now();
+  if (P.get('start')) {
+    var keep = offset; offset = SCHED.opens[0] + 60000 - Date.now(); srvStart(); offset = keep;
+    if (P.get('demo')) prePlay(P.get('demo'));
+  }
+  load();
+  setTimeout(function () { if (!window.PV_ERRORS.length) { var d = document.createElement('div'); d.className = 'pv-ok'; d.textContent = 'JS OK'; document.body.appendChild(d); } }, 2000);
+})();
+</script>
+</body>
+</html>

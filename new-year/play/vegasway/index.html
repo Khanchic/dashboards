@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script src="../runtime.js" data-server="srv/dev/server.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Countdown on the Strip — playtest</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,400;0,600;0,700;0,800;0,900;1,800&family=Yellowtail&display=swap">
+<link rel="stylesheet" href="client/strip-game.css">
+<style>
+:root{--night:#00131A;--night-2:#03202B;--red:#FF2B39;--cyan:#01C9FF;--gold:#BCAA74;--gold-deep:#7B5F33;--bulb:#FFDA0A;--ink-2:#B9CDD4;--ink-3:#7F98A2;--line:rgba(188,170,116,.28);color-scheme:dark}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--night);color:#fff;font:16px/1.5 Raleway,system-ui,"Segoe UI",Arial,sans-serif;-webkit-font-smoothing:antialiased}
+.stage{position:relative;min-height:100vh;min-height:100dvh;background:var(--night) url(assets/bg-sky.jpg) center 30%/cover no-repeat;isolation:isolate;overflow:hidden}
+.stage::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,19,26,.55),rgba(0,19,26,.25) 30%,rgba(0,19,26,.85) 70%,var(--night));z-index:-1}
+#sky{position:fixed;inset:0;width:100%;height:100%;z-index:5;pointer-events:none}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:14px max(16px,env(safe-area-inset-left,0px)) 0}
+.top img{height:40px;width:auto}
+.pills{display:flex;gap:8px;flex-wrap:wrap}
+.pill{background:rgba(0,19,26,.8);border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:13px;font-weight:700;backdrop-filter:blur(6px)}
+.pill b{color:var(--bulb)}
+.wrap{max-width:980px;margin:0 auto;padding:18px max(16px,env(safe-area-inset-left,0px)) 40px}
+.marquee{text-align:center;margin:10px auto 22px}
+.marquee .pre{font-family:Yellowtail,cursive;font-size:28px;color:var(--cyan);line-height:1;text-shadow:0 0 12px rgba(1,201,255,.8)}
+.marquee h1{margin:0;font-weight:900;font-size:clamp(30px,6vw,52px);line-height:.95;text-transform:uppercase;text-shadow:0 0 2px #fff,0 0 14px var(--red),0 0 34px rgba(255,43,57,.8)}
+.marquee h1 em{color:var(--red);font-style:italic}
+.panel{background:linear-gradient(180deg,rgba(3,32,43,.92),rgba(0,19,26,.94));border:1px solid var(--line);border-radius:16px;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+.join{max-width:420px;margin:0 auto;padding:22px;display:grid;gap:12px;text-align:center}
+.join input{font:700 17px Raleway,system-ui,sans-serif;padding:13px 16px;border-radius:12px;border:1px solid var(--line);background:#00131A;color:#fff}
+.join input:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+.btn{font:800 14px/1 Raleway,system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:14px 22px;cursor:pointer;border:0;background:var(--bulb);color:#1d1600;box-shadow:0 0 22px rgba(255,218,10,.45)}
+.btn.ghost{background:transparent;color:#fff;box-shadow:inset 0 0 0 2px var(--cyan)}
+.btn:focus-visible{outline:2px solid #fff;outline-offset:3px}
+.note{color:var(--ink-2);font-size:13px}
+.lobby{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:18px;align-items:start}
+@media (max-width:760px){.lobby{grid-template-columns:1fr}}
+.acts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding:12px}
+@media (max-width:420px){.acts{grid-template-columns:1fr}}
+.actc{display:grid;gap:4px;text-align:left;padding:14px;border-radius:12px;border:1px solid rgba(1,201,255,.18);background:linear-gradient(180deg,#03202B,#00131A);color:#fff;cursor:pointer;font:inherit}
+.actc:hover{border-color:var(--cyan)}
+.actc:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+.actc .k{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);font-weight:800}
+.actc .t{font-weight:900;font-size:16px;line-height:1.2}
+.actc .y{font-size:13px;color:var(--ink-2)}
+.actc .s{margin-top:6px;font-weight:800;font-size:13px;color:var(--bulb)}
+.actc.done{border-color:rgba(255,218,10,.35)}
+.actc.done .s{color:#fff}
+.actc.final{border-color:var(--red)}
+.rocket{padding:18px;display:grid;gap:12px;justify-items:center;text-align:center}
+.rk{position:relative;width:calc(34px*var(--s,1));height:calc(110px*var(--s,1));margin:8px 0 4px;transition:all .5s}
+.rk .body{position:absolute;inset:18% 12% 14%;border-radius:40% 40% 10% 10%;background:linear-gradient(90deg,color-mix(in srgb,var(--c) 60%,#000),var(--c) 45%,color-mix(in srgb,var(--c) 70%,#000));box-shadow:0 0 22px var(--c)}
+.rk .nose{position:absolute;left:12%;right:12%;top:0;height:24%;background:var(--c);clip-path:polygon(50% 0,100% 100%,0 100%);filter:brightness(1.2)}
+.rk .fin{position:absolute;bottom:4%;width:30%;height:28%;background:var(--c);filter:brightness(.75)}
+.rk .fin.l{left:-12%;clip-path:polygon(100% 0,100% 100%,0 100%)}.rk .fin.r{right:-12%;clip-path:polygon(0 0,100% 100%,0 100%)}
+.rk .flame{position:absolute;left:30%;right:30%;bottom:-16%;height:18%;background:radial-gradient(ellipse at top,#fff3b0,#FFDA0A 40%,transparent 70%);animation:fl .25s infinite alternate}
+@keyframes fl{to{transform:scaleY(1.3)}}
+.rk.none{opacity:.25}
+.big{font-weight:900;font-size:34px;line-height:1}
+.big small{font-size:15px;color:var(--ink-2);font-weight:700}
+.bar{width:100%;height:10px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden;position:relative}
+.bar i{position:absolute;inset:0 auto 0 0;background:linear-gradient(90deg,var(--red),var(--cyan),var(--bulb));border-radius:999px;transition:width .5s}
+.ticks{width:100%;display:flex;justify-content:space-between;font-size:11px;color:var(--ink-3);font-weight:700}
+.game{max-width:640px;margin:0 auto}
+.claim{position:fixed;z-index:6;left:50%;bottom:max(18px,env(safe-area-inset-bottom,0px));transform:translateX(-50%);width:min(92vw,460px);padding:18px;display:grid;gap:8px;text-align:center}
+.claim h3{margin:0;font-size:20px;font-weight:900;text-transform:uppercase}
+.claim .bonus{font-weight:800;color:var(--bulb)}
+.claim .offer{color:var(--ink-2);font-size:14px}
+.claim .code{font:900 22px/1.2 ui-monospace,Consolas,monospace;letter-spacing:.06em;background:#00131A;border:1px dashed var(--bulb);border-radius:10px;padding:10px;user-select:all}
+.banner{max-width:640px;margin:-8px auto 18px;text-align:center;padding:10px 16px;border-radius:999px;background:rgba(0,19,26,.82);border:1px solid var(--line);font-weight:800}
+.banner b{color:var(--bulb);font-variant-numeric:tabular-nums}
+.banner.hot{border-color:var(--bulb);box-shadow:0 0 22px rgba(255,218,10,.25)}
+.actc:disabled{cursor:not-allowed;opacity:.55}
+.actc:disabled:hover{border-color:rgba(1,201,255,.18)}
+.got{font-weight:800;color:var(--bulb)}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<div class="stage">
+  <canvas id="sky" aria-hidden="true"></canvas>
+  <div class="top">
+    <img src="assets/logo.png" alt="Vegas Way" width="700" height="350">
+    <div class="pills" id="pills" hidden>
+      <span class="pill" id="who"></span>
+      <span class="pill">Points <b id="tot">0</b> / 54</span>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="marquee" id="marquee">
+      <div class="pre">New Year’s Eve on Vegas Way</div>
+      <h1>Countdown <em>on the</em> Strip</h1>
+    </div>
+    <div class="banner" id="banner" hidden aria-live="polite"></div>
+
+    <form class="panel join" id="join" hidden>
+      <p style="margin:0;font-weight:700">Six acts. One rocket with your name on it.</p>
+      <label for="nick" class="note">Your name for the playtest</label>
+      <input id="nick" maxlength="24" autocomplete="nickname" required>
+      <button class="btn" type="submit">Get on the Strip</button>
+      <p class="note" style="margin:0">Playtest build. No real prizes — your answers help us tune how hard each trick is. Play each act once, honestly, without notes.</p>
+    </form>
+
+    <div class="lobby" id="lobby" hidden>
+      <div class="panel"><div class="acts" id="acts"></div></div>
+      <div class="panel rocket">
+        <div class="rk none" id="rk"><span class="fin l"></span><span class="fin r"></span><span class="nose"></span><span class="body"></span><span class="flame"></span></div>
+        <div class="big"><span id="tot2">0</span> <small>of 54 points</small></div>
+        <div id="tierName" style="font-weight:800"></div>
+        <div class="bar"><i id="barFill" style="width:0"></i></div>
+        <div class="ticks"><span>0</span><span>20 red</span><span>35 blue</span><span>48 gold</span></div>
+        <div class="note" id="nextTxt"></div>
+        <button class="btn" type="button" id="getReward" hidden>Get my reward</button>
+        <div class="got" id="gotTxt" hidden></div>
+        <button class="btn ghost" type="button" id="midnight">Midnight: launch the salute</button>
+        <p class="note" style="margin:0" id="midNote">On Dec 31 the salute and your prize open at 12:00 AM ET. In the playtest you can launch it any time.</p>
+      </div>
+    </div>
+
+    <div class="panel game" id="game" hidden></div>
+  </div>
+  <div class="panel claim" id="claim" hidden>
+    <h3 id="cTitle"></h3>
+    <div class="bonus" id="cBonus"></div>
+    <div class="code" id="cCode" hidden></div>
+    <div class="offer" id="cOffer"></div>
+    <button class="btn" type="button" id="cClose">Get my reward</button>
+    <p class="note" style="margin:0" id="cNote">Playtest: the button just closes this card.</p>
+  </div>
+</div>
+<script src="client/strip-game.js"></script>
+<script src="client/salute.js"></script>
+<script>
+(function () {
+  'use strict';
+  var $ = function (s) { return document.querySelector(s); };
+  var P = null, me = null, game = null, sky = Salute.create($('#sky'));
+  try { P = localStorage.getItem('strip.p'); } catch (e) {}
+  var TYPE = { shell: 'Follow the chip', cards: 'Remember the cards', riddle: 'Solve the riddle' };
+  var COLOR = { spark: '#fff3b0', red: '#FF2B39', blue: '#01C9FF', gold: '#FFDA0A' };
+  var SCALE = { spark: 0.6, red: 0.8, blue: 1, gold: 1.25 };
+  function roman(n) { return ['', 'I', 'II', 'III', 'IV', 'V', 'VI'][n]; }
+  function api(path, data) {
+    return fetch(path, data ? { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) } : undefined)
+      .then(function (r) { return r.json(); });
+  }
+  function show(id) { ['#join', '#lobby', '#game'].forEach(function (s) { $(s).hidden = s !== id; }); $('#marquee').hidden = id === '#game'; }
+
+  function refresh() {
+    return api('api/me?p=' + encodeURIComponent(P)).then(function (s) {
+      if (s.error) { P = null; try { localStorage.removeItem('strip.p'); } catch (e) {} show('#join'); return; }
+      me = s;
+      $('#pills').hidden = false; $('#who').textContent = s.nick;
+      $('#tot').textContent = s.total; $('#tot2').textContent = s.total;
+      var rk = $('#rk');
+      rk.classList.toggle('none', !s.tier);
+      rk.style.setProperty('--c', s.tier ? COLOR[s.tier.id] : '#7F98A2');
+      rk.style.setProperty('--s', s.tier ? SCALE[s.tier.id] : 0.6);
+      $('#tierName').textContent = s.tier ? s.tier.name : 'No rocket yet — play an act';
+      $('#barFill').style.width = (s.total / s.max * 100) + '%';
+      $('#nextTxt').textContent = s.next ? s.next.need + ' more ' + (s.next.need === 1 ? 'point' : 'points') + ' to the ' + s.next.name : 'Top rocket. Nothing bigger on the Strip.';
+      skew = s.now ? s.now - Date.now() : 0;
+      renderActs();
+      renderReward();
+      tick();
+      if (!game) show('#lobby');
+    });
+  }
+
+  // ---------- режим репетиции (--show): фазы, отсчёты, закрытые акты ----------
+  var skew = 0;
+  function srvNow() { return Date.now() + skew; }
+  function left(ms) {
+    var s = Math.max(0, Math.round((ms - srvNow()) / 1000)), h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), x = s % 60;
+    return (h ? h + ':' + String(m).padStart(2, '0') : m) + ':' + String(x).padStart(2, '0');
+  }
+  function actStatus(a) {
+    if (a.status === 'done') return '✓ ' + a.points + ' of 9 points';
+    if (a.status === 'expired') return 'Closed · ' + a.points + ' of 9 points';
+    if (a.status === 'active') return a.can.ok ? 'Continue · ' + a.points + ' so far' : 'Closed · ' + a.points + ' so far';
+    if (a.can.ok) return 'Play';
+    if (a.can.error === 'not_open') return 'Opens in <span data-at="' + a.can.opensAt + '">' + left(a.can.opensAt) + '</span>';
+    if (a.can.error === 'claimed') return 'Reward taken';
+    return 'Closed' + (a.can.encoreAt ? ' · Encore in <span data-at="' + a.can.encoreAt + '">' + left(a.can.encoreAt) + '</span>' : '');
+  }
+  function renderActs() {
+    var s = me;
+    $('#acts').innerHTML = s.acts.map(function (a) {
+      var open = a.status !== 'new' || a.can.ok;
+      return '<button type="button" class="actc' + (a.status === 'done' ? ' done' : '') + (a.host === 'harlequin' ? ' final' : '') + '" data-act="' + a.act + '"' + (open ? '' : ' disabled') + '>' +
+        '<span class="k">Act ' + roman(a.act) + ' · opens ' + (a.opensHour > 12 ? a.opensHour - 12 + ' PM' : '12 PM') + ' ET</span>' +
+        '<span class="t">' + a.title + '</span><span class="y">' + TYPE[a.type] + ' · 3 rounds</span><span class="s">' + actStatus(a) + '</span></button>';
+    }).join('');
+  }
+  var PHASE = {
+    before: function (s) { return 'The show opens in <b data-at="' + s.sched.firstOpen + '"></b>'; },
+    show: function (s) { return 'Acts are open till 11:30 PM ET · <b data-at="' + s.sched.closesAt + '"></b> left'; },
+    intermission: function (s) { return 'Acts are closed. Salute in <b data-at="' + s.sched.midnight + '"></b>'; },
+    claim: function (s) { return '🎆 Happy New Year! Rewards are open. Encore in <b data-at="' + s.sched.encore.opensAt + '"></b>'; },
+    encore: function (s) { return 'Encore: play the acts you missed · <b data-at="' + s.sched.encore.closesAt + '"></b> left'; },
+    after: function (s) { return 'The show is over. Rewards open for <b data-at="' + s.sched.claimUntil + '"></b>'; },
+    over: function () { return 'The show is over. See you next time!'; }
+  };
+  function renderReward() {
+    var s = me, show = s.mode === 'show';
+    $('#banner').hidden = !show;
+    if (show) { $('#banner').innerHTML = PHASE[s.phase](s); $('#banner').classList.toggle('hot', s.phase === 'claim' || s.phase === 'encore'); }
+    var c = show ? s.claim : null;
+    $('#getReward').hidden = !(c && c.open && !c.claimed && s.tier);
+    $('#gotTxt').hidden = !(c && c.claimed);
+    if (c && c.claimed) $('#gotTxt').textContent = 'Reward received: ' + c.claimed.name + ' · code ' + c.claimed.code;
+    $('#nextTxt').hidden = Boolean(c && c.claimed); // уровень зафиксирован — «ещё N очков» уже неправда
+    var salute = !show || srvNow() >= s.sched.midnight;
+    $('#midnight').disabled = !salute;
+    $('#midnight').textContent = show ? (salute ? 'Watch the salute' : 'Salute at midnight') : 'Midnight: launch the salute';
+    $('#midNote').textContent = show ? 'Rehearsal: the whole event runs in about an hour. Midnight is at ' + new Date(s.sched.midnight).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + ' your time.'
+                                     : 'On Dec 31 the salute and your prize open at 12:00 AM ET. In the playtest you can launch it any time.';
+  }
+  var lastPhase = null;
+  function tick() {
+    Array.prototype.forEach.call(document.querySelectorAll('[data-at]'), function (el) { el.textContent = left(Number(el.getAttribute('data-at'))); });
+  }
+  setInterval(function () {
+    tick();
+    if (!me || me.mode !== 'show' || game) return;
+    // по наступлении любого рубежа — подтянуть состояние с сервера
+    var marks = [me.sched.firstOpen, me.sched.closesAt, me.sched.midnight, me.sched.encore.opensAt, me.sched.encore.closesAt, me.sched.claimUntil].concat(me.sched.acts.map(function (a) { return a.opensAt; }));
+    var t = srvNow(), crossed = marks.some(function (m) { return m <= t && m > t - 1000; });
+    if (crossed || me.phase !== lastPhase) { lastPhase = me.phase; refresh(); }
+  }, 1000);
+  setInterval(function () { if (me && me.mode === 'show' && !game) refresh(); }, 15000);
+
+  function fmtBonus(b) {
+    var parts = [];
+    if (b.sc) parts.push(b.sc + ' SC'); if (b.fp) parts.push(b.fp + ' FP'); if (b.gc) parts.push((b.gc / 1e6 >= 1 ? b.gc / 1e6 + 'M' : b.gc / 1e3 + 'K') + ' GC');
+    return parts.join(' + ');
+  }
+  function card(title, bonus, offer, code, note, btn) {
+    $('#cTitle').textContent = title; $('#cBonus').textContent = bonus; $('#cOffer').textContent = offer;
+    $('#cCode').hidden = !code; $('#cCode').textContent = code || '';
+    $('#cNote').textContent = note; $('#cClose').textContent = btn;
+    $('#claim').hidden = false;
+  }
+  $('#getReward').addEventListener('click', function () {
+    var unplayed = me.acts.filter(function (a) { return a.status === 'new'; }).length;
+    var encoreAhead = me.phase === 'claim' || me.phase === 'encore';
+    if (unplayed && encoreAhead && !confirm('You still have ' + unplayed + ' act' + (unplayed > 1 ? 's' : '') + ' you can play in the Encore. Taking your reward now locks your rocket at ' + me.total + ' points. Take it now?')) return;
+    api('api/claim', { p: P }).then(function (r) {
+      if (!r.claim) { $('#banner').textContent = 'Could not get the reward (' + r.error + '). Try again in a minute.'; return; }
+      var c = r.claim;
+      card('Your ' + c.name, fmtBonus(c.bonus), 'Plus a special offer: our $' + c.offer.price + ' pack.', c.code, 'Copy the code and redeem it on Vegas Way. Rehearsal codes are not real.', 'Done');
+      refresh();
+    });
+  });
+
+  $('#acts').addEventListener('click', function (e) {
+    var b = e.target.closest('.actc'); if (!b || b.disabled) return;
+    var act = Number(b.getAttribute('data-act'));
+    api('api/start', { p: P, act: act }).then(function (r) {
+      if (!r.attempt || r.error) { refresh(); return; }
+      show('#game');
+      if (game) game.destroy();
+      game = StripGame.mount($('#game'), {
+        assets: { magician: 'assets/magician.png', harlequin: 'assets/harlequin.png' },
+        move: function (input) { return api('api/move', { p: P, act: act, input: input }); },
+        onRound: function (v, gain, el) {
+          if (!gain || !el) return;
+          var r = el.getBoundingClientRect();
+          var tierNow = me && me.tier ? me.tier.id : 'red';
+          sky.launch(r.left + r.width / 2, tierNow, '+' + gain, 0, r.top);
+        },
+        onDone: function () { game.destroy(); game = null; refresh(); }
+      });
+      game.load(r.attempt);
+      window.scrollTo(0, 0);
+    });
+  });
+
+  $('#join').addEventListener('submit', function (e) {
+    e.preventDefault();
+    api('api/join', { nick: $('#nick').value }).then(function (r) {
+      if (!r.p) { $('#nick').focus(); return; }
+      P = r.p; try { localStorage.setItem('strip.p', P); } catch (er) {}
+      refresh();
+    });
+  });
+
+  $('#midnight').addEventListener('click', function () {
+    api('api/rockets').then(function (r) {
+      sky.fire(r.rockets, { me: me && me.nick });
+      if (!me || !me.tier || me.mode === 'show') return; // в репетиции награда — кнопкой Get my reward
+      var t = me.tier;
+      setTimeout(function () {
+        card('Your ' + t.name, fmtBonus(t.bonus), 'Plus a special offer: our $' + t.offer.price + ' pack.', null, 'Playtest: the button just closes this card.', 'Get my reward');
+      }, 4500);
+    });
+  });
+  $('#cClose').addEventListener('click', function () { $('#claim').hidden = true; });
+
+  // Автовход из общего хаба плейтеста: <base>/?name=Ann — имя вводится один раз на все бренды
+  var qName = null;
+  try { qName = new URLSearchParams(location.search).get('name'); } catch (e) {}
+  if (qName) {
+    api('api/join', { nick: qName }).then(function (r) {
+      if (r.p) { P = r.p; try { localStorage.setItem('strip.p', P); } catch (er) {} }
+      if (P) refresh(); else show('#join');
+    });
+  } else if (P) refresh(); else show('#join');
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<script src="../runtime.js" data-server="srv/dev/server.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>F7 Vault · Stats</title>
+<style>
+  :root{--bg:#06110d;--fg:#e6eee9;--mute:#93a39b;--line:#21362d;--gold:#E9C78F;--ok:#3ccf8e;--warn:#f0b04a;--bad:#ff6b6b}
+  body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.45 system-ui,"Segoe UI",sans-serif}
+  main{max-width:960px;margin:0 auto;padding:20px 16px 40px}
+  h1{margin:0 0 4px;font-size:22px;color:var(--gold)} h2{margin:28px 0 8px;font-size:16px}
+  p{margin:0;color:var(--mute)}
+  table{width:100%;border-collapse:collapse;margin-top:6px}
+  th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+  th{color:var(--mute);font-weight:600;font-size:12px}
+  .ok{color:var(--ok)} .warn{color:var(--warn)} .bad{color:var(--bad)}
+  .wrap{overflow-x:auto}
+</style>
+</head>
+<body>
+<main>
+  <h1>Crack the 777 Vault — плейтест</h1>
+  <p id="sub">Цель по замкам: I–III ~100%, IV–V ~93–95%, VI ~78%, VII ~57% (симуляция). Обновляется каждые 10 с.</p>
+  <h2>Замки</h2>
+  <div class="wrap"><table id="locks"></table></div>
+  <h2>Топ-3 (как посчитает полночь)</h2>
+  <div class="wrap"><table id="top"></table></div>
+  <h2>Игроки</h2>
+  <div class="wrap"><table id="list"></table></div>
+</main>
+<script>
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function cls(r) { return r == null ? '' : r >= 60 ? 'ok' : r >= 40 ? 'warn' : 'bad'; }
+  function load() {
+    fetch('api/stats').then(function (r) { return r.json(); }).then(function (s) {
+      document.getElementById('sub').textContent = 'Игроков: ' + s.players + '. Цель по замкам: I–III ~100%, IV–V ~93–95%, VI ~78%, VII ~57% (симуляция). Обновляется каждые 10 с.';
+      document.getElementById('locks').innerHTML = '<tr><th>Замок</th><th>Играли</th><th>Открыли</th><th>%</th><th>Попыток в среднем</th><th>Дворецкий</th></tr>' +
+        s.locks.map(function (L) { return '<tr><td>' + L.id + ' ' + esc(L.name) + '</td><td>' + L.played + '</td><td>' + L.passed + '</td><td class="' + cls(L.rate) + '">' + (L.rate == null ? '—' : L.rate + '%') + '</td><td>' + (L.avgTries == null ? '—' : L.avgTries) + '</td><td>' + L.butler + '</td></tr>'; }).join('');
+      document.getElementById('top').innerHTML = s.top.length ? '<tr><th>Место</th><th>Игрок</th><th>Замков</th><th>Счёт</th></tr>' +
+        s.top.map(function (t) { return '<tr><td>' + t.place + '</td><td>' + esc(t.nick) + '</td><td>' + t.cracked + '</td><td>' + t.score + '</td></tr>'; }).join('') : '<tr><td>Пока никто не вскрыл сейф.</td></tr>';
+      document.getElementById('list').innerHTML = '<tr><th>Игрок</th><th>Замков</th><th>Счёт</th><th>Статус</th><th>Мин</th></tr>' +
+        s.list.map(function (p) { return '<tr><td>' + esc(p.nick) + '</td><td>' + p.cracked + '</td><td>' + (p.score == null ? '—' : p.score) + '</td><td>' + esc(p.status) + '</td><td>' + (p.min == null ? '—' : p.min) + '</td></tr>'; }).join('');
+    });
+  }
+  load(); setInterval(load, 10000);
+</script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<script src="../runtime.js" data-server="srv/dev/server.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Infinity Garland · статистика</title>
+<style>
+:root{color-scheme:dark}
+body{margin:0;background:#0C0D13;color:#F2F1FA;font:15px/1.5 "Segoe UI",system-ui,sans-serif}
+.wrap{max-width:1100px;margin:0 auto;padding:20px 16px 40px}
+h1{font-size:1.5rem;margin:0 0 4px}
+h2{font-size:1rem;margin:28px 0 10px;color:#00B4EB;text-transform:uppercase;letter-spacing:.08em}
+p{color:#A3A6C6;margin:0}
+.tw{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:640px;font-variant-numeric:tabular-nums}
+th{text-align:left;font-size:.75rem;color:#00B4EB;text-transform:uppercase;letter-spacing:.1em;padding:8px 10px;border-bottom:2px solid #FDC010;font-weight:500}
+td{padding:8px 10px;border-bottom:1px solid rgba(242,241,250,.08)}
+.ok{color:#5BE39A;font-weight:600}.lo{color:#FF8FB0;font-weight:600}.hi{color:#FDC010;font-weight:600}
+.bars{display:flex;gap:6px;align-items:flex-end;height:110px}
+.bars div{flex:1;display:grid;grid-template-rows:1fr auto;gap:4px;text-align:center;font-size:.75rem;color:#6E7299;height:100%}
+.bars i{display:block;background:#FDC010;align-self:end;min-height:2px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Infinity Garland — статистика стенда</h1>
+  <p id="sub">…</p>
+  <h2>Ярусы</h2>
+  <div class="tw"><table><thead><tr><th>Уровень</th><th>Сетка</th><th>Лампочек</th><th>Открыли</th><th>Зажгли</th><th>Доля</th><th>Время, медиана</th><th>Ходов, медиана</th><th>Подсказка Coiny</th></tr></thead><tbody id="lv"></tbody></table></div>
+  <h2>Сколько ярусов зажгли (из 6)</h2>
+  <div class="bars" id="dist"></div>
+  <h2>Уровни призов</h2>
+  <p id="tiers"></p>
+  <h2>Заявки Claim · проверка player ID</h2>
+  <p id="pendEmpty">Нет заявок.</p>
+  <div class="tw"><table id="pendT" hidden><thead><tr><th>Игрок</th><th>Player ID</th><th>Ждёт</th><th>Призы</th><th></th></tr></thead><tbody id="pend"></tbody></table></div>
+  <h2>Игроки</h2>
+  <div class="tw"><table><thead><tr><th>Имя</th><th>Тренировка</th><th>Ярусов</th><th>Звезда</th></tr></thead><tbody id="pl"></tbody></table></div>
+</div>
+<script>
+var esc = function (s) { return String(s).replace(/</g, '&lt;'); };
+function load() {
+  fetch('api/stats').then(function (r) { return r.json(); }).then(function (s) {
+    document.getElementById('sub').textContent = (s.mode === 'show' ? 'Репетиция. ' : 'Плейтест. ') + 'Игроков: ' + s.players + '. Цель по каждому ярусу: зажгли 60–85% открывших. Ниже 60% — уменьшить ярус или убрать укусы, выше 85% — можно усложнить (shape и bites в server/levels.js).';
+    document.getElementById('lv').innerHTML = s.levels.map(function (l) {
+      var cls = l.rate == null ? '' : l.rate < 60 ? 'lo' : l.rate > 85 ? 'hi' : 'ok';
+      return '<tr><td>' + l.title + '</td><td>' + l.size + '</td><td>' + (l.bulbs || '—') + '</td><td>' + l.opened + '</td><td>' + l.lit + '</td><td class="' + cls + '">' + (l.rate == null ? '—' : l.rate + '%') + '</td><td>' + (l.medianMin == null ? '—' : l.medianMin + ' мин') + '</td><td>' + (l.medianMoves == null ? '—' : l.medianMoves) + '</td><td>' + (l.hintUsed == null ? '—' : l.hintUsed + '%') + '</td></tr>';
+    }).join('');
+    var max = Math.max.apply(null, s.tiersDist.concat([1]));
+    document.getElementById('dist').innerHTML = s.tiersDist.map(function (n, i) { return '<div><i style="height:' + (n / max * 100) + '%"></i><span>' + i + ' · ' + n + '</span></div>'; }).join('');
+    document.getElementById('tiers').textContent = '2 яруса: ' + s.tiers.t2 + ' · 4 яруса: ' + s.tiers.t4 + ' · вся ёлка: ' + s.tiers.t6 + ' · звезда ∞: ' + s.tiers.star;
+    document.getElementById('pendEmpty').hidden = s.pending.length > 0;
+    document.getElementById('pendT').hidden = !s.pending.length;
+    document.getElementById('pend').innerHTML = s.pending.map(function (x) {
+      var mins = Math.round((Date.now() - x.at) / 60000);
+      return '<tr><td>' + esc(x.nick) + '</td><td>' + x.playerId + '</td><td>' + mins + ' мин</td><td>' + x.unclaimed.join(', ') + '</td><td><button data-p="' + esc(x.p) + '" data-ok="1">Одобрить</button> <button data-p="' + esc(x.p) + '" data-ok="">Отклонить</button></td></tr>';
+    }).join('');
+    document.getElementById('pl').innerHTML = s.list.map(function (p) { return '<tr><td>' + esc(p.nick) + '</td><td>' + (p.practice ? 'да' : '—') + '</td><td>' + p.tiers + '</td><td>' + (p.star ? 'да' : '—') + '</td></tr>'; }).join('');
+  });
+}
+document.addEventListener('click', function (e) {
+  var b = e.target.closest('button[data-p]'); if (!b) return;
+  fetch('api/staff/review', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ p: b.dataset.p, ok: Boolean(b.dataset.ok) }) }).then(load);
+});
+load(); setInterval(load, 5000);
+</script>
+</body>
+</html>

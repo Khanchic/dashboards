@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script src="../runtime.js" data-server="srv/dev/server.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>North Star Expedition · playtest</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Sans:wght@400;500;700&family=Caveat:wght@600;700&family=DM+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="client/north-star-game.css">
+<style>
+  :root{--night:#0B0B20;--night2:#15122C;--gold:#FFE229;--sand:#E4B473;--crimson:#FF2058;--cta:#DB0037;--text:#F3E6D2;--muted:#B9A58C;--line:rgba(228,180,115,.22)}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--night);color:var(--text);font:15px/1.5 "DM Sans",system-ui,sans-serif}
+  .wrap{max-width:1180px;margin:0 auto;padding:16px}
+  header{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;justify-content:space-between;margin-bottom:14px}
+  header img{height:36px}
+  h1{font:400 22px/1.1 "Archivo Black",sans-serif;color:var(--gold);margin:0;text-transform:uppercase}
+  .mode{font:500 12px "DM Mono",monospace;color:var(--sand)}
+  .card{background:var(--night2);border:1px solid var(--line);border-radius:4px;padding:14px 16px;margin-bottom:14px}
+  .row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+  input{background:#0f0d22;border:1px solid var(--line);color:var(--text);padding:10px 12px;border-radius:3px;font:inherit}
+  button.b{background:var(--cta);color:#fff;border:0;padding:10px 14px;border-radius:3px;font:500 12px "DM Mono",monospace;text-transform:uppercase;cursor:pointer}
+  button.g{background:transparent;color:var(--sand);border:1px solid var(--sand)}
+  .switch button{background:transparent;color:var(--sand);border:1px solid var(--line);padding:9px 12px;border-radius:3px;font:500 12px "DM Mono",monospace;text-transform:uppercase;cursor:pointer}
+  .switch button[aria-pressed="true"]{background:var(--sand);color:var(--night)}
+  .cols{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:14px;align-items:start;margin-top:14px}
+  .side h3{margin:0 0 8px;font:400 14px "Archivo Black",sans-serif;color:var(--sand);text-transform:uppercase}
+  .watch p{margin:6px 0;font-style:italic}
+  .watch small{color:var(--muted);font-style:normal;display:block}
+  .dms{max-height:340px;overflow:auto;font-size:13.5px}
+  .dms p{margin:0 0 8px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+  .muted{color:var(--muted)}
+  .tiers{list-style:none;padding:0;margin:0 0 10px}
+  .tiers li{font-size:13.5px}
+  .tiers b{color:var(--gold);font-weight:500}
+  @media (max-width:900px){.cols{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="row"><img src="../../scarletsands/assets/logo.png" alt="Scarlet Sands"><h1>The North Star Expedition</h1></div>
+    <div class="mode" id="mode"></div>
+  </header>
+
+  <div class="card" id="join">
+    <p>Playtest: type your name and play. Everything is in English, like on Christmas Day. Please don't write anything down or ask others for answers.</p>
+    <div class="row"><input id="nick" placeholder="Your name" maxlength="24"><button class="b" id="go">Start</button></div>
+  </div>
+
+  <div id="app" hidden>
+    <div class="row switch" id="switch"></div>
+    <div class="cols">
+      <div id="game"><p class="muted" id="gameNote"></p></div>
+      <div class="side">
+        <div class="card watch"><h3>Watchers chat</h3><div id="watch"></div><small>On Christmas Day Saffron's hints appear only in the Watchers chat on the site.</small></div>
+        <div class="card"><h3>Rewards</h3><ul class="tiers" id="tiers"></ul>
+          <div class="row" id="claimRow"><input id="pid" placeholder="Player ID (digits)" inputmode="numeric" maxlength="12"><button class="b" id="claim">Claim prize</button></div>
+          <p class="muted" id="claimNote"></p></div>
+        <div class="card"><h3>Bot messages</h3><div class="dms" id="dms"></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="client/north-star-game.js"></script>
+<script>
+(function () {
+  var $ = function (s) { return document.querySelector(s); };
+  var P = localStorage.getItem('ns_p'), me = null, kind = null, game = null, gameKey = '';
+  var qs = new URLSearchParams(location.search);
+  var post = function (u, b) { return fetch(u, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(b) }).then(function (r) { return r.json(); }); };
+  var esc = function (s) { return String(s).replace(/[&<>]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]; }); };
+  var fmt = function (ms) { return ms ? new Date(ms).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : ''; };
+
+  function join(nick) {
+    post('api/join', { nick: nick }).then(function (r) { if (r.p) { P = r.p; localStorage.setItem('ns_p', P); start(); } });
+  }
+  $('#go').onclick = function () { join($('#nick').value); };
+  if (qs.get('nick')) join(qs.get('nick'));
+  else if (P) start();
+
+  var ASSETS = { parchment: '../../scarletsands/assets/map/parchment.jpg', icons: '../../scarletsands/assets/map/', sizes: null };
+  function start() {
+    $('#join').hidden = true; $('#app').hidden = false;
+    fetch('../../scarletsands/assets/map/icons.json').then(function (r) { return r.json(); }).catch(function () { return null; })
+      .then(function (s) { ASSETS.sizes = s; load(); setInterval(load, 4000); });
+  }
+  function load() {
+    fetch('api/me?p=' + encodeURIComponent(P)).then(function (r) { if (r.status === 404) { localStorage.removeItem('ns_p'); location.reload(); } return r.json(); }).then(function (m) { me = m; render(); });
+  }
+  function render() {
+    $('#mode').textContent = me.mode === 'show' ? 'REHEARSAL · phase: ' + me.phase : 'PLAYTEST · everything open · expeditions played: ' + me.expeditions;
+    // переключатель: страница 0 / экспедиция / (плейтест) новая экспедиция
+    var sw = '<button data-k="training" aria-pressed="' + (kind === 'training') + '">Practice page</button>' +
+      '<button data-k="expedition" aria-pressed="' + (kind === 'expedition') + '">My expedition</button>' +
+      (me.mode === 'playtest' ? '<button data-k="new">New expedition ↻</button>' : '');
+    $('#switch').innerHTML = sw;
+    if (!kind) kind = me.expedition || me.can.expedition.ok ? 'expedition' : 'training';
+    var a = me[kind];
+    if (!a) {
+      var can = me.can[kind];
+      $('#gameNote').textContent = can.ok ? 'Opening…' : can.error === 'not_open' ? 'Opens at ' + fmt(can.opensAt) + '.' : 'Closed.';
+      if (can.ok) open(kind);
+      if (game) { game.destroy(); game = null; gameKey = ''; }
+    } else {
+      $('#gameNote').textContent = '';
+      var k = kind + ':' + a.startedAt;
+      if (k !== gameKey) { if (game) game.destroy(); gameKey = k; game = NorthStar.mount($('#game'), { move: move, assets: ASSETS }); }
+      game.load(a);
+    }
+    $('#watch').innerHTML = me.watchers.length ? me.watchers.map(function (w) { return '<p>🐾 ' + esc(w.text) + '<small>drop ' + w.drop + (w.at ? ' · ' + fmt(w.at) : '') + '</small></p>'; }).join('') : '<p class="muted">Saffron hasn\'t shown up yet.</p>';
+    $('#tiers').innerHTML = me.tiers.map(function (t) { return '<li>' + (t.got ? '● ' : '○ ') + t.name + ' → <b>' + t.prize + '</b>' + (t.got ? (t.got.code ? ' · ' + esc(t.got.code) : ' · ready') : '') + '</li>'; }).join('');
+    var c = me.claim;
+    $('#pid').hidden = Boolean(c.pid && c.pid.status !== 'rejected');
+    $('#claimNote').textContent = c.pid ? 'Player ID: ' + c.pid.status + (c.unclaimed ? ' · rewards waiting: ' + c.unclaimed : '') : c.unclaimed ? 'Rewards waiting: ' + c.unclaimed + '. Your player ID is asked only now.' : 'Reach 3 stamps for your first reward.';
+    $('#dms').innerHTML = me.dms.map(function (d) { return '<p><span class="muted">' + fmt(d.at) + '</span> ' + esc(d.text) + '</p>'; }).join('') || '<p class="muted">No messages yet.</p>';
+  }
+  function open(k) { post('api/open', { p: P, kind: k }).then(load); }
+  function move(input) { return post('api/move', { p: P, kind: kind, input: input }).then(function (r) { setTimeout(load, 50); return r; }); }
+  $('#switch').addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b) return;
+    var k = b.getAttribute('data-k');
+    if (k === 'new') { if (confirm('Start a new expedition? This one goes to the stats.')) post('api/newmap', { p: P }).then(function () { kind = 'expedition'; gameKey = ''; load(); }); return; }
+    kind = k; gameKey = ''; render();
+  });
+  $('#claim').onclick = function () { post('api/claim', { p: P, playerId: $('#pid').value }).then(function (r) { $('#claimNote').textContent = r.error ? r.error.replace(/_/g, ' ') : r.status; setTimeout(load, 100); }); };
+})();
+</script>
+</body>
+</html>

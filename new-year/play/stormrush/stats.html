@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<script src="../runtime.js" data-server="srv/dev/server.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Light Up Christmas · статистика</title>
+<style>
+:root{color-scheme:dark}
+body{margin:0;background:#0C130F;color:#F3F6F5;font:15px/1.5 "Segoe UI",system-ui,sans-serif}
+.wrap{max-width:1100px;margin:0 auto;padding:20px 16px 40px}
+h1{font-size:1.5rem;margin:0 0 4px}
+h2{font-size:1rem;margin:28px 0 10px;color:#41F999;text-transform:uppercase;letter-spacing:.08em}
+p{color:rgba(243,246,245,.66);margin:0}
+.tw{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:640px;font-variant-numeric:tabular-nums}
+th{text-align:left;font-size:.75rem;color:#41F999;text-transform:uppercase;letter-spacing:.1em;padding:8px 10px;border-bottom:2px solid #00CC7E;font-weight:500}
+td{padding:8px 10px;border-bottom:1px solid rgba(243,246,245,.08)}
+.ok{color:#41F999;font-weight:600}.lo{color:#ff8a7a;font-weight:600}.hi{color:#F5F100;font-weight:600}
+.bars{display:flex;gap:6px;align-items:flex-end;height:110px}
+.bars div{flex:1;display:grid;grid-template-rows:1fr auto;gap:4px;text-align:center;font-size:.75rem;color:rgba(243,246,245,.5);height:100%}
+.bars i{display:block;background:#2EEAFF;align-self:end;min-height:2px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Light Up Christmas — статистика стенда</h1>
+  <p id="sub">Цель по каждому дому: зажгли 60–85% открывших. Ниже 60% — сетку уменьшить, выше 85% — можно увеличить (размеры в <code>server/levels.js</code>).</p>
+  <h2>Дома</h2>
+  <div class="tw"><table><thead><tr><th>Уровень</th><th>Сетка</th><th>Клеток</th><th>Открыли</th><th>Зажгли</th><th>Доля</th><th>Время, медиана</th><th>Поворотов, медиана</th><th>Golem</th><th>Sparky</th></tr></thead><tbody id="lv"></tbody></table></div>
+  <h2>Сколько домов зажгли (из 6)</h2>
+  <div class="bars" id="dist"></div>
+  <h2>Уровни призов</h2>
+  <p id="tiers"></p>
+  <h2>Заявки Claim · проверка player ID</h2>
+  <p id="pendEmpty">Нет заявок.</p>
+  <div class="tw"><table id="pendT" hidden><thead><tr><th>Игрок</th><th>Player ID</th><th>Ждёт</th><th>Призы</th><th></th></tr></thead><tbody id="pend"></tbody></table></div>
+  <h2>Игроки</h2>
+  <div class="tw"><table><thead><tr><th>Имя</th><th>Тренировка</th><th>Домов</th><th>Ёлка</th></tr></thead><tbody id="pl"></tbody></table></div>
+</div>
+<script>
+function load() {
+  fetch('api/stats').then(function (r) { return r.json(); }).then(function (s) {
+    document.getElementById('sub').firstChild.textContent = (s.mode === 'show' ? 'Репетиция. ' : 'Плейтест. ') + 'Игроков: ' + s.players + '. Цель по каждому дому: зажгли 60–85% открывших. Ниже 60% — сетку уменьшить, выше 85% — можно увеличить (размеры в ';
+    document.getElementById('lv').innerHTML = s.levels.map(function (l) {
+      var cls = l.rate == null ? '' : l.rate < 60 ? 'lo' : l.rate > 85 ? 'hi' : 'ok';
+      return '<tr><td>' + l.title + '</td><td>' + l.size + '</td><td>' + (l.tiles || '—') + '</td><td>' + l.opened + '</td><td>' + l.lit + '</td><td class="' + cls + '">' + (l.rate == null ? '—' : l.rate + '%') + '</td><td>' + (l.medianMin == null ? '—' : l.medianMin + ' мин') + '</td><td>' + (l.medianTurns == null ? '—' : l.medianTurns) + '</td><td>' + (l.golemUsed == null ? '—' : l.golemUsed + '%') + '</td><td>' + (l.sparkyUsed == null ? '—' : l.sparkyUsed + '%') + '</td></tr>';
+    }).join('');
+    var max = Math.max.apply(null, s.housesDist.concat([1]));
+    document.getElementById('dist').innerHTML = s.housesDist.map(function (n, i) { return '<div><i style="height:' + (n / max * 100) + '%"></i><span>' + i + ' · ' + n + '</span></div>'; }).join('');
+    document.getElementById('tiers').textContent = '2 дома: ' + s.tiers.t2 + ' · 4 дома: ' + s.tiers.t4 + ' · вся улица: ' + s.tiers.t6 + ' · ёлка: ' + s.tiers.tree;
+    document.getElementById('pendEmpty').hidden = s.pending.length > 0;
+    document.getElementById('pendT').hidden = !s.pending.length;
+    document.getElementById('pend').innerHTML = s.pending.map(function (x) {
+      var mins = Math.round((Date.now() - x.at) / 60000);
+      return '<tr><td>' + x.nick.replace(/</g, '&lt;') + '</td><td>' + x.playerId + '</td><td>' + mins + ' мин</td><td>' + x.unclaimed.join(', ') + '</td><td><button data-p="' + x.p + '" data-ok="1">Одобрить</button> <button data-p="' + x.p + '" data-ok="">Отклонить</button></td></tr>';
+    }).join('');
+    document.getElementById('pl').innerHTML = s.list.map(function (p) { return '<tr><td>' + p.nick.replace(/</g, '&lt;') + '</td><td>' + (p.training ? 'да' : '—') + '</td><td>' + p.houses + '</td><td>' + (p.tree ? 'да' : '—') + '</td></tr>'; }).join('');
+  });
+}
+document.addEventListener('click', function (e) {
+  var b = e.target.closest('button[data-p]'); if (!b) return;
+  fetch('api/staff/review', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ p: b.dataset.p, ok: Boolean(b.dataset.ok) }) }).then(load);
+});
+load(); setInterval(load, 5000);
+</script>
+</body>
+</html>

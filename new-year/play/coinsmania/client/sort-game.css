@@ -1,0 +1,99 @@
+/* CoinsMania · Merry Coinsmas — банка Coin Sort + свин-копилка. Бренд: #FDD717 жёлтый, #1818F5 синий, Kanit. */
+.cs,.piggy{--cm-y:#FDD717;--cm-b:#1818F5;--cs-ink:#fff;--cs-ink2:#C8CCF5;--cs-glass:rgba(160,180,255,.10);--cs-edge:rgba(170,190,255,.45)}
+
+/* ---------- банка ---------- */
+.cs{background:linear-gradient(180deg,#14127A 0%,#0B0A45 100%);border:1px solid var(--cs-edge);border-radius:18px;padding:16px;color:var(--cs-ink);user-select:none;-webkit-tap-highlight-color:transparent}
+.cs-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.cs-title{font-size:1.15rem;font-weight:800}
+.cs-size,.cs-count{color:var(--cs-ink2);font-size:.85rem}
+.cs-talk{min-height:2.6em;margin:8px 0 12px;font-size:.92rem;color:var(--cs-ink2)}
+.cs-jars{display:grid;grid-template-columns:repeat(var(--cols,6),auto);justify-content:center;gap:14px 10px;padding:18px 0 6px}
+.cs-jar{--coin:38px;position:relative;width:calc(var(--coin) + 14px);height:calc(var(--cap) * (var(--coin) + 4px) + 16px);padding:6px 7px 8px;display:flex;flex-direction:column-reverse;align-items:center;gap:4px;
+  background:var(--cs-glass);border:2px solid var(--cs-edge);border-top-width:0;border-radius:6px 6px 20px 20px;cursor:pointer;transition:transform .12s,box-shadow .12s,border-color .12s;font:inherit}
+.cs-jar::before{content:"";position:absolute;left:-5px;right:-5px;top:-7px;height:7px;border-radius:4px;background:rgba(170,190,255,.55)}
+.cs-jar:hover{border-color:#fff}
+.cs-jar:focus-visible{outline:2px solid var(--cm-y);outline-offset:3px}
+.cs-jar.sel{border-color:var(--cm-y);box-shadow:0 0 0 2px rgba(253,215,23,.25)}
+.cs-jar.full{border-color:var(--cm-y);background:rgba(253,215,23,.12)}
+.cs-jar.full::before{background:var(--cm-y)}
+.cs-jar.nope{animation:cs-nope .3s}
+.cs-jar.hint-from{box-shadow:0 0 0 3px #fff;animation:cs-pulse 1s infinite}
+.cs-jar.hint-to{box-shadow:0 0 0 3px var(--cm-y),0 0 18px rgba(253,215,23,.6)}
+.cs-jar.drop .cs-coin:last-child{animation:cs-drop .22s ease-out}
+@keyframes cs-nope{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+@keyframes cs-pulse{50%{transform:translateY(-3px)}}
+@keyframes cs-drop{from{transform:translateY(-22px)}to{transform:none}}
+
+.cs-coin{width:var(--coin,38px);height:var(--coin,38px);border-radius:50%;display:grid;place-items:center;flex:none;transition:transform .12s;
+  box-shadow:inset 0 -3px 0 rgba(0,0,0,.28),inset 0 3px 0 rgba(255,255,255,.35),0 2px 3px rgba(0,0,0,.35)}
+.cs-coin svg{width:58%;height:58%;filter:drop-shadow(0 1px 0 rgba(0,0,0,.25))}
+.cs-coin.lift{transform:translateY(-16px)}
+.cs-c0{background:radial-gradient(circle at 35% 30%,#FFF27A,#FDD717 55%,#C99A00)}
+.cs-c1{background:radial-gradient(circle at 35% 30%,#FF9CCB,#FF4FA3 55%,#C11F70)}
+.cs-c2{background:radial-gradient(circle at 35% 30%,#8DF0A5,#27C93F 55%,#138A2A)}
+.cs-c3{background:radial-gradient(circle at 35% 30%,#9DB6FF,#3D6BFF 55%,#1C3BC4)}
+.cs-c4{background:radial-gradient(circle at 35% 30%,#FF9A8F,#FF4136 55%,#B71C14)}
+.cs-c5{background:radial-gradient(circle at 35% 30%,#D2B5FF,#9B5CFF 55%,#6526C9)}
+.cs-c6{background:radial-gradient(circle at 35% 30%,#FFFFFF,#C9D1E3 55%,#8790A8)}
+.cs-c6 svg{fill:#5A6380}
+.cs-c7{background:radial-gradient(circle at 35% 30%,#FFC58A,#FF8A1F 55%,#C25A00)}
+.cs-c8{background:radial-gradient(circle at 35% 30%,#A4F3FF,#22D3EE 55%,#0E8FA6)}
+.cs-c8 svg g{stroke:#fff}
+
+.cs-tools{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:14px}
+.cs-btn{font:inherit;font-weight:600;font-size:.9rem;padding:9px 14px;border-radius:999px;border:0;cursor:pointer;background:rgba(255,255,255,.12);color:#fff}
+.cs-btn:hover:not(:disabled){background:rgba(255,255,255,.2)}
+.cs-btn:disabled{opacity:.35;cursor:default}
+.cs-hint{background:var(--cm-y);color:#14127A}
+.cs-hint:hover:not(:disabled){background:#FFE45C}
+
+.cs.cs-golden{background:linear-gradient(180deg,#3A2A00 0%,#140F45 70%);border-color:var(--cm-y)}
+.cs.cs-solved .cs-jar{border-color:var(--cm-y);animation:cs-pulse .6s 2}
+.cs.cs-solved .cs-talk{color:var(--cm-y);font-weight:600}
+
+@media (max-width:520px){
+  .cs{padding:12px}
+  .cs-jars{gap:20px 6px}
+  .cs-jar{--coin:30px;padding:5px 5px 7px}
+  .cs-coin.lift{transform:translateY(-12px)}
+}
+@media (prefers-reduced-motion:reduce){.cs-jar,.cs-coin{transition:none}.cs-jar.drop .cs-coin:last-child,.cs-jar.hint-from,.cs.cs-solved .cs-jar{animation:none}}
+
+/* ---------- свин + список банок ---------- */
+.piggy{display:grid;grid-template-columns:minmax(180px,260px) minmax(0,1fr);gap:18px;align-items:center}
+@media (max-width:720px){.piggy{grid-template-columns:minmax(0,1fr)}.pig-wrap{max-width:240px;margin:0 auto}}
+.pig-wrap{position:relative}
+.pig-svg{width:100%;height:auto;display:block;overflow:visible}
+.pig-body{fill:#FFB3C7}
+.pig-line{fill:none;stroke:#C2185B;stroke-width:3;stroke-linejoin:round}
+.pig-slot{fill:#5A0F2E}
+.pig-eye{fill:#3A0A1E}
+.pig-nose{fill:#C2185B}
+.pig-tail{fill:none;stroke:#C2185B;stroke-width:3;stroke-linecap:round}
+.pig-gold{transition:y .8s ease}
+.pig-star{fill:#FDD717;stroke:#fff;stroke-width:1.5}
+.pig-hat{fill:#E5232F;stroke:#8E0F18;stroke-width:2;stroke-linejoin:round}
+.pig-hat-band{fill:none;stroke:#fff;stroke-width:9;stroke-linecap:round}
+.pig-hat-pom{fill:#fff}
+.pig-svg.is-golden{filter:drop-shadow(0 0 14px rgba(253,215,23,.75))}
+.pig-svg.is-golden .pig-body{fill:#FFE97A}
+.pig-meter{text-align:center;font-size:.95rem;color:#C8CCF5;margin-top:4px}
+.pig-meter b{font-size:1.5rem;color:#FDD717}
+.pig-meter span{color:#FDD717}
+.pig-wrap.bump .pig-svg{animation:pig-bump .5s .7s}
+@keyframes pig-bump{40%{transform:scale(1.06) rotate(-2deg)}}
+.pig-drop{position:absolute;top:-30px;width:18px;height:18px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#FFF27A,#FDD717 55%,#C99A00);animation:pig-fall .8s ease-in forwards;pointer-events:none}
+@keyframes pig-fall{to{transform:translateY(46px);opacity:.2}}
+
+.pj-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:8px}
+.pj{font:inherit;text-align:left;display:grid;grid-template-columns:28px minmax(0,1fr);grid-template-rows:auto auto;column-gap:8px;align-items:center;padding:9px 10px;border-radius:12px;border:1px solid rgba(170,190,255,.35);background:rgba(255,255,255,.06);color:#fff;cursor:pointer}
+.pj i{grid-row:1/3;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-weight:800;font-size:.85rem;background:rgba(255,255,255,.12)}
+.pj b{font-weight:600;font-size:.9rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pj small{color:#C8CCF5;font-size:.75rem}
+.pj:hover{border-color:#fff}
+.pj.cur{border-color:#FDD717;box-shadow:0 0 0 1px #FDD717}
+.pj-sorted i{background:#FDD717;color:#14127A}
+.pj-active i{background:#1818F5}
+.pj-locked{opacity:.55}
+.pj-golden{border-color:rgba(253,215,23,.6);background:rgba(253,215,23,.08)}
+.pj-practice{border-style:dashed}

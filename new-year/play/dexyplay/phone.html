@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<script src="../runtime.js" data-server="srv/dev/server.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tag the City · телефон</title>
+<!-- QA: игра в рамках телефонов. /phone?open=w6 — какую стену открыть (по умолчанию w6, самая большая 10×10). -->
+<style>
+body{margin:0;background:#05030a;color:#C9BCDD;font:14px system-ui,sans-serif;padding:16px}
+.row{display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap}
+.ph{display:flex;flex-direction:column;gap:6px}
+iframe{border:2px solid #7645BA;border-radius:18px;background:#0C0713}
+</style>
+</head>
+<body>
+<div class="row" id="row"></div>
+<script>
+var q = new URLSearchParams(location.search), open = q.get('open') || 'w6', full = q.get('h'); // &h=2400 — вся страница
+[[360, 780, 'Android 360'], [390, 844, 'iPhone 390']].forEach(function (d, i) {
+  if (full) d[1] = Number(full);
+  var b = document.createElement('div'); b.className = 'ph';
+  b.innerHTML = '<span>' + d[2] + ' × ' + d[1] + '</span><iframe width="' + d[0] + '" height="' + d[1] + '" src="/?nick=phone' + d[0] + '&open=' + encodeURIComponent(open) + '"></iframe>';
+  document.getElementById('row').appendChild(b);
+});
+</script>
+</body>
+</html>

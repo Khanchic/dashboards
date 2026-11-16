@@ -1,0 +1,64 @@
+/* Игра «акт шоу Мага» — Vegas Way NY. Все классы с префиксом sg-, чтобы не конфликтовать с хабом. */
+.sg{--night:#00131A;--red:#FF2B39;--cyan:#01C9FF;--gold:#BCAA74;--gold-deep:#7B5F33;--bulb:#FFDA0A;--ink-2:#B9CDD4;--ink-3:#7F98A2;--line:rgba(188,170,116,.28);
+  position:relative;display:grid;gap:12px;justify-items:center;color:#fff;font-family:Raleway,system-ui,"Segoe UI",Arial,sans-serif;padding:14px 12px 18px}
+.sg-head{width:100%;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.sg-host{display:flex;align-items:center;gap:10px;min-width:0}
+.sg-av{width:44px;height:44px;border-radius:50%;flex:none;background:#0b2b36 center 6%/170% auto no-repeat;box-shadow:0 0 0 2px var(--gold)}
+.sg-title{font-weight:900;font-size:18px;line-height:1.1;text-transform:uppercase;letter-spacing:.02em}
+.sg-sub{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);font-weight:700}
+.sg-dots{display:flex;gap:6px;align-items:center}
+.sg-dot{min-width:30px;height:26px;padding:0 6px;border-radius:999px;border:1px solid var(--line);display:grid;place-items:center;font:800 12px/1 inherit;color:var(--ink-3);background:rgba(0,19,26,.7)}
+.sg-dot.cur{border-color:var(--bulb);color:#fff}
+.sg-dot.g3{background:var(--bulb);color:#1d1600;border-color:var(--bulb)}
+.sg-dot.g1{background:var(--cyan);color:#00131A;border-color:var(--cyan)}
+.sg-dot.g0{background:rgba(255,43,57,.25);color:#fff;border-color:var(--red)}
+.sg-felt{position:relative;width:min(100%,560px);height:230px;--hw:100px}
+.sg-felt::before{content:"";position:absolute;left:4%;right:4%;bottom:6px;height:38px;border-radius:50%;background:radial-gradient(ellipse at center,rgba(1,201,255,.32),rgba(1,201,255,0) 70%)}
+.sg-item{position:absolute;bottom:20px;height:150px;left:0;display:flex;align-items:flex-end;justify-content:center;border:0;background:none;padding:0;color:inherit;cursor:pointer;
+  transition:left var(--sw,320ms) cubic-bezier(.55,0,.35,1),transform var(--sw,320ms) ease,opacity .3s}
+.sg-item:disabled{cursor:default}
+.sg-item:focus-visible{outline:2px solid var(--cyan);outline-offset:4px;border-radius:12px}
+.sg-item.up{transform:translateY(-14px)}.sg-item.down{transform:translateY(10px)}
+.sg-item.miss{opacity:.45}
+.sg-felt.pickable .sg-item:not(:disabled):hover .sg-hat{transform:translateY(-6px)}
+.sg-hat{position:relative;width:var(--hw);height:calc(var(--hw)*1.18);transition:transform .35s ease}
+.sg-hat .cr{position:absolute;left:14%;right:14%;top:0;bottom:13.5%;border-radius:8px 8px 4px 4px;background:linear-gradient(90deg,#08080b,#24232b 45%,#0b0b10);box-shadow:inset 0 2px 0 rgba(255,255,255,.08)}
+.sg-hat .bd{position:absolute;left:14%;right:14%;bottom:13.5%;height:15%;background:var(--band,linear-gradient(90deg,#3b1a63,#6d3bb0,#3b1a63));box-shadow:0 0 12px var(--band,transparent)}
+.sg-hat .br{position:absolute;left:0;right:0;bottom:5%;height:13.5%;border-radius:50%;background:linear-gradient(180deg,#2a2931,#060608)}
+.sg-item.lift .sg-hat{transform:translateY(calc(var(--hw)*-.7)) rotate(-8deg)}
+.sg-chip{position:absolute;bottom:calc(var(--hw)*.16);left:50%;width:calc(var(--hw)*.56);aspect-ratio:1;transform:translateX(-50%);border-radius:50%;
+  background:radial-gradient(circle,#FF2B39 0 36%,#fff 37% 41%,transparent 42%),repeating-conic-gradient(#FF2B39 0 30deg,#fff 30deg 45deg);
+  box-shadow:0 0 0 3px var(--gold),0 0 18px rgba(255,43,57,.6);opacity:0;transition:opacity .2s}
+.sg-chip::after{content:"";position:absolute;inset:33%;background:var(--cyan);clip-path:polygon(50% 0,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0 50%,39% 39%)}
+.sg-item.chip .sg-chip{opacity:1}
+.sg-grid{position:absolute;inset:0 0 14px;display:grid;place-content:center;grid-template-columns:repeat(var(--cols,4),var(--cw,64px));gap:10px}
+.sg-grid .sg-item{position:relative;bottom:auto;left:auto;height:auto;transition:opacity .3s}
+.sg-card{position:relative;width:var(--cw,64px);height:var(--ch,90px);perspective:600px;display:block}
+.sg-card .f,.sg-card .b{position:absolute;inset:0;border-radius:9px;backface-visibility:hidden;transition:transform .45s ease}
+.sg-card .b{background:repeating-linear-gradient(45deg,#00131A 0 7px,#06303F 7px 14px);box-shadow:inset 0 0 0 4px #00131A,inset 0 0 0 6px var(--red),0 8px 18px rgba(0,0,0,.5)}
+.sg-card .b::after{content:"";position:absolute;inset:38% 30%;background:var(--red);clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%);opacity:.9}
+.sg-card .f{transform:rotateY(180deg);background:linear-gradient(160deg,#fff,#e9eef0);box-shadow:inset 0 0 0 3px var(--gold),0 8px 18px rgba(0,0,0,.5);display:grid;place-items:center}
+.sg-item.flip .sg-card .b{transform:rotateY(180deg)}
+.sg-item.flip .sg-card .f{transform:rotateY(360deg)}
+.sg-item.right .sg-card .f{box-shadow:inset 0 0 0 3px var(--bulb),0 0 22px rgba(255,218,10,.7)}
+.sg-sym{display:block;width:52%;aspect-ratio:1;background:var(--c)}
+.sg-sym.star{clip-path:polygon(50% 0,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0 50%,39% 39%)}
+.sg-sym.diamond{clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%)}
+.sg-sym.chip{border-radius:50%;width:44%}
+.sg-sym.triangle{clip-path:polygon(50% 6%,100% 94%,0 94%)}
+.sg-sym.hexagon{clip-path:polygon(25% 6%,75% 6%,100% 50%,75% 94%,25% 94%,0 50%)}
+.sg-sym.plus{clip-path:polygon(36% 0,64% 0,64% 36%,100% 36%,100% 64%,64% 64%,64% 100%,36% 100%,36% 64%,0 64%,0 36%,36% 36%)}
+.sg-sym.bolt{clip-path:polygon(62% 0,12% 58%,44% 58%,34% 100%,88% 40%,56% 40%)}
+.sg-sym.square{width:40%;border-radius:4px}
+.sg-say{min-height:52px;max-width:540px;text-align:center;font-weight:700;font-size:16px;line-height:1.4;text-shadow:0 2px 10px #000}
+.sg-say small{display:block;font-weight:500;color:var(--ink-2);font-size:13px}
+.sg-say ol{display:inline-block;text-align:left;margin:6px 0 2px;padding-left:22px;font-weight:600;font-size:15px}
+.sg-say ol li::marker{color:var(--bulb)}
+.sg-say ol b{text-transform:none}
+.sg-cl{display:inline-block;width:.8em;height:.8em;border-radius:2px;background:var(--c);margin-right:4px;vertical-align:-1px;box-shadow:0 0 6px var(--c)}
+.sg-go{font:800 14px/1 inherit;letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:14px 26px;cursor:pointer;border:0;background:var(--bulb);color:#1d1600;box-shadow:0 0 22px rgba(255,218,10,.45)}
+.sg-go:disabled{opacity:.45;cursor:not-allowed}
+.sg-go:focus-visible{outline:2px solid #fff;outline-offset:3px}
+.sg-gain{font-weight:900;color:var(--bulb)}
+/* reduced motion: убираем украшения (подъём шляпы, переворот карт), но движение шляп при тасовке оставляем — это сама игра */
+@media (prefers-reduced-motion:reduce){.sg-hat,.sg-card .f,.sg-card .b{transition:none}.sg-item.up,.sg-item.down{transform:none}}

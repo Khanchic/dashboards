@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script src="../runtime.js" data-server="srv/dev/server.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Crack the 777 Vault · Playtest</title>
+<!-- Стенд плейтеста F7: разметка как в client/preview.html, но вместо порта движка в браузере — настоящий сервер dev/server.js.
+     hub-core.js и hub.css отдаёт сервер из halloween-week/app/public (только чтение). Вход: ?nick=Имя или форма. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Manrope:wght@300;400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="hub.css">
+<link rel="stylesheet" href="vault.css">
+<style>
+  .stage{background:radial-gradient(90% 70% at 50% 30%,#123226,#020806 70%)}
+  .pt-bar{position:fixed;left:50%;top:14px;transform:translateX(-50%);z-index:50;display:flex;gap:8px;align-items:center;padding:5px 8px 5px 14px;
+    background:rgba(2,8,6,.9);border:1px solid rgba(211,144,69,.4);border-radius:999px;font:500 12px/1.3 "Manrope",system-ui,sans-serif;color:#cfd8d4;white-space:nowrap}
+  @media (max-width:900px){.pt-bar{top:auto;bottom:8px}.pt-bar span{display:none}}
+  .pt-bar b{color:#E9C78F}
+  .pt-bar button{font:inherit;color:#E9C78F;background:none;border:1px solid rgba(211,144,69,.4);border-radius:999px;padding:4px 10px;cursor:pointer}
+  .pt-bar button[hidden]{display:none}
+  .pt-login{position:fixed;inset:0;z-index:99;display:grid;place-items:center;background:rgba(2,8,6,.92)}
+  .pt-login form{display:flex;flex-direction:column;gap:12px;width:min(340px,calc(100vw - 32px));padding:24px;border:1px solid rgba(211,144,69,.45);border-radius:16px;background:#06140f;color:#e8efe9;font:500 14px/1.4 "Manrope",system-ui,sans-serif}
+  .pt-login h2{margin:0;font:700 20px/1.2 "Cinzel",serif;color:#E9C78F}
+  .pt-login input{font:inherit;padding:10px 12px;border-radius:10px;border:1px solid rgba(211,144,69,.45);background:#020806;color:#fff}
+  .pt-login button{font:700 14px/1 "Manrope",sans-serif;padding:12px;border:0;border-radius:999px;background:#d39045;color:#1a0d02;cursor:pointer}
+</style>
+</head>
+<body>
+<div class="stage"><div id="gl"></div></div>
+<div class="ui">
+  <header class="top">
+    <div class="brand"><span id="brandName" class="brand-name">Fire Seven</span><span class="div" aria-hidden="true"></span><span class="eyebrow">Christmas Day</span></div>
+    <div class="top-right">
+      <div class="timer panel" role="timer"><i aria-hidden="true"></i><span id="timerLabel">Loading</span> <b id="timer">--:--</b></div>
+      <div class="me panel" id="me"><span id="meName">…</span></div>
+    </div>
+  </header>
+  <section class="info panel" aria-labelledby="title">
+    <p class="night" id="night">&nbsp;</p>
+    <h1 id="title">Crack the 777 Vault</h1>
+    <p id="rules"></p>
+    <div class="legend" id="legend" hidden></div>
+    <p class="meta" id="meta"></p>
+  </section>
+  <aside class="board panel" aria-labelledby="boardTitle">
+    <div class="board-head"><h2 id="boardTitle">Leaderboard</h2></div>
+    <ol class="rows" id="rows"><li class="empty">The board opens at midnight.</li></ol>
+    <p class="board-foot" id="boardFoot"></p>
+  </aside>
+  <section class="log panel" aria-labelledby="logTitle">
+    <h2 id="logTitle">Your tries</h2>
+    <ol id="log"><li class="empty">Your tries show up here.</li></ol>
+  </section>
+  <section class="dock panel" id="dock" aria-label="Play">
+    <div class="gate" id="gate"></div>
+    <p class="flash" id="flash" role="status" aria-live="polite"></p>
+  </section>
+  <ol class="track panel" id="track" aria-label="Today"></ol>
+</div>
+<div class="pt-bar">
+  <span title="In the real event a lock opens every hour from 12 PM ET.">Playtest: all 7 locks open, 90 min</span>
+  <button type="button" id="ptOpen" hidden>Done? Open my vault now</button>
+  <button type="button" id="ptTut">Show tutorial</button>
+</div>
+
+<script src="hub-core.js"></script>
+<script>
+  window.F7V_CONFIG = {
+    assetBase: '../../fireseven/assets/',
+    revealVideo: '../../fireseven/assets/art/clip-16x9.mp4',
+    onClaim: function () { WH.flash('Playtest: here you would enter your player ID once and get the code after approval.'); },
+  };
+</script>
+<script src="vault.js"></script>
+<script>
+(function () {
+  'use strict';
+  var $ = WH.$, esc = WH.esc, timeEt = WH.timeEt;
+  var P = new URLSearchParams(location.search);
+  var offset = 0, flashTimer = null, st = null, me = null;
+
+  WH.now = function () { return Date.now() + offset; };
+
+  // ---------- вход ----------
+  function store(k, v) { try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (x) { return null; } }
+  function join(nick) {
+    return fetch('api/join', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ nick: nick }) })
+      .then(function (r) { return r.json(); })
+      .then(function (j) { if (!j.p) throw new Error(j.error || 'join'); me = j.p; store('f7p', j.p); store('f7nick', j.nick); return j; });
+  }
+  function loginForm() {
+    var d = document.createElement('div');
+    d.className = 'pt-login';
+    d.innerHTML = '<form><h2>Crack the 777 Vault</h2><p>Playtest. Your name, so we can tell the results apart:</p>' +
+      '<input name="n" minlength="2" maxlength="24" required autofocus placeholder="Your name"><button>Play</button></form>';
+    document.body.appendChild(d);
+    d.querySelector('form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      join(d.querySelector('input').value).then(function () { d.remove(); load(); }).catch(function () { alert('Name: 2–24 characters.'); });
+    });
+  }
+
+  // ---------- API ----------
+  WH.api = function (path, body) {
+    var req = path === '/state'
+      ? fetch('api/state?p=' + encodeURIComponent(me))
+      : fetch('api' + path, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(Object.assign({ p: me }, body || {})) });
+    return req.then(function (r) { return r.json().then(function (j) { j._status = r.status; return j; }); });
+  };
+
+  // ---------- то, что в бою делает public/hub.js ----------
+  WH.game = { key: null, busy: false };
+  WH.hall = { closeVault: function () {}, unlock: function (f) { if (f) f(); }, reveal: function (s, f) { if (f) f(); }, showPuzzle: function () {}, setTrack: function () {}, setHint: function () {} };
+  Object.defineProperty(WH, 'st', { get: function () { return st; } });
+  WH.move = function (input) { return WH.api('/move', { contest: st.contest.id, input: input }); };
+  WH.load = load;
+  WH.lost = function () { WH.flash('Connection lost. Try again.'); };
+  WH.flash = function (msg) { var el = $('#flash'); el.textContent = msg; clearTimeout(flashTimer); flashTimer = setTimeout(function () { el.textContent = ''; }, 6000); };
+  WH.handleError = function (r) {
+    if (r.error === 'login') { store('f7p', ''); loginForm(); return; }
+    WH.flash({ closed: 'Time is up for this vault.', not_open: 'This lock hasn\'t opened yet.', slow_down: 'Easy there. One move at a time.' }[r.error] || r.message || 'Something went wrong. Try again.');
+    if (r.error !== 'slow_down' && r.error !== 'too_fast') load();
+  };
+  WH.showResult = function () {};
+  WH.effective = function () { return { c: st && st.contest, a: st && st.attempt }; };
+
+  function load() {
+    if (!me) return Promise.resolve();
+    return WH.api('/state').then(function (s) {
+      if (s.error) return WH.handleError(s);
+      offset = s.now - Date.now();
+      st = s; render();
+    }).catch(WH.lost);
+  }
+  setInterval(load, 8000);
+
+  function render() {
+    var pal = st.brand.palette, root = document.documentElement.style;
+    root.setProperty('--accent', pal.accent); root.setProperty('--fire', pal.fire); root.setProperty('--panel', pal.panel); root.setProperty('--obsidian', pal.ground);
+    var c = st.contest, g = WH.gameFor(c.mechanic), a = st.attempt;
+    $('#meName').textContent = st.me.name;
+    $('#night').textContent = c.sessionTitle;
+    $('#title').textContent = c.name;
+    $('#rules').textContent = g.rules(c.params, c.mechanic);
+    $('#logTitle').textContent = g.logTitle;
+    $('#meta').textContent = a && c.open ? 'Your 90 minutes end at ' + timeEt(c.closesAt) + ' ET' : '';
+    $('#track').innerHTML = st.track.map(function (it, i) { return '<li class="' + it.state + '"><span class="rn">' + WH.roman(i + 1) + '</span><span class="tm"></span><span class="gm">' + esc(it.name) + '</span></li>'; }).join('');
+    $('#ptOpen').hidden = !(a && WH.now() < c.params.reveal);
+    renderDock();
+    tick();
+  }
+  function gateHtml() {
+    var c = st.contest, a = st.attempt;
+    if (!a) return '<p><b>' + esc(c.name) + '</b>. One vault per player. Seven locks, fewer tries wins.</p><div class="row"><button type="button" class="btn gold" id="startBtn">Start</button></div>';
+    if (a.status === 'active' && c.open) return '';
+    return '<p>' + esc(WH.gameFor(c.mechanic).doneText(a.result || a.view.total || {}, c.mechanic)) + '</p>';
+  }
+  function renderDock() {
+    var c = st.contest, a = st.attempt, html = gateHtml(), gate = $('#gate');
+    if (gate.getAttribute('data-html') !== html) { gate.innerHTML = html; gate.setAttribute('data-html', html); }
+    var playing = Boolean(a && a.status === 'active' && c && c.open), cur = c && c.ready ? WH.gameFor(c.mechanic) : null;
+    Object.keys(WH.games).forEach(function (id) { var gm = WH.games[id], on = playing && gm === cur; $(gm.panel).hidden = !on; if (!on && gm.off) gm.off(); });
+    if (cur) cur.sync(c, a); else WH.logEmpty('Your tries show up here.');
+  }
+  $('#gate').addEventListener('click', function (e) {
+    var b = e.target.closest('#startBtn'); if (!b) return;
+    b.disabled = true;
+    WH.api('/start', { contest: st.contest.id }).then(function (r) { if (r.attempt) load(); else { b.disabled = false; WH.handleError(r); } });
+  });
+  document.addEventListener('keydown', function (e) {
+    var ids = Object.keys(WH.games);
+    for (var k = 0; k < ids.length; k++) { var gm = WH.games[ids[k]]; if (gm.key && gm.key(e)) return; }
+  });
+  function tick() {
+    var c = st && st.contest; if (!c) return;
+    var t = WH.now(), a = st.attempt;
+    var running = a && c.open, revealed = a && t >= c.params.reveal;
+    $('#timerLabel').textContent = !a ? 'Ready' : running ? 'Time left' : revealed ? 'Vault' : 'Opens in';
+    $('#timer').textContent = !a ? '90:00' : running ? WH.clockText((c.closesAt - t) / 1000) : revealed ? 'open' : WH.clockText((c.params.reveal - t) / 1000);
+  }
+  setInterval(tick, 1000);
+
+  document.getElementById('ptOpen').addEventListener('click', function () {
+    if (!confirm('Open your vault now? Locks you have not finished stay as they are.')) return;
+    WH.api('/open-now', {}).then(function () { if (window.F7V) window.F7V.state.revealLoad = false; load(); });
+  });
+  document.getElementById('ptTut').addEventListener('click', function () { try { localStorage.removeItem('f7v-tut'); } catch (x) {} location.reload(); });
+
+  var nick = P.get('nick') || P.get('name');
+  if (nick) join(nick).then(load).catch(loginForm);
+  else if ((me = store('f7p'))) load();
+  else loginForm();
+})();
+</script>
+</body>
+</html>

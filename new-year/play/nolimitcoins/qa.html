@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<script src="../runtime.js" data-server="srv/dev/server.js"></script>
+<meta charset="utf-8">
+<title>Infinity Garland · QA клиента</title>
+<style>body{margin:0;background:#0C0D13;color:#F2F1FA;font:14px/1.5 "Segoe UI",sans-serif}#log{padding:10px 16px;white-space:pre-wrap}iframe{width:1280px;height:1000px;border:0}.pass{color:#5BE39A}.fail{color:#FF8FB0}</style>
+</head>
+<body>
+<div id="log">QA: стартую…</div>
+<iframe id="f"></iframe>
+<script>var module = { exports: {} }; window.onerror = function (m) { window.__err = String(m); };</script>
+<script src="/test/solver.js"></script>
+<script>
+/**
+ * Автотест клиента в браузере: водит «пальцем» (PointerEvent) по ярусам через настоящий garland-game.js,
+ * пачки уходят на сервер, проверяем, что сервер засчитал. Плюс тап-стирание, Clear и подсказка Coiny посреди рисования.
+ * Открыть /qa (стенд в режиме плейтеста). Итог — первой строкой: QA PASS / QA FAIL.
+ */
+var solveLoop = module.exports.solve;
+var nick = 'QA ' + Date.now().toString(36);
+var log = document.getElementById('log'), lines = [];
+function say(s) { lines.push(s); log.textContent = lines.join('\n'); }
+var sleep = function (ms) { return new Promise(function (r) { setTimeout(r, ms); }); };
+function post(u, b) { return fetch(u, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(b) }).then(function (r) { return r.json(); }); }
+var f = document.getElementById('f');
+
+function center(svg, x, C) {
+  var r = Math.floor(x / C), c = x % C, pt = svg.createSVGPoint();
+  pt.x = (c + 0.5) * 40; pt.y = (r + 0.5) * 40;
+  var p = pt.matrixTransform(svg.getScreenCTM());
+  return { clientX: p.x, clientY: p.y };
+}
+function fire(svg, type, pos) {
+  var W = f.contentWindow;
+  svg.dispatchEvent(new W.PointerEvent(type, Object.assign({ bubbles: true, cancelable: true, pointerId: 7, pointerType: 'touch', isPrimary: true }, pos)));
+}
+async function waitSvg() { for (var i = 0; i < 60; i++) { var s = f.contentDocument && f.contentDocument.querySelector('.gg-svg'); if (s && s.getAttribute('viewBox')) return s; await sleep(100); } throw new Error('нет сетки'); }
+
+async function openLevel(p, id) {
+  f.src = '/?nick=' + encodeURIComponent(nick) + '&open=' + id;
+  await new Promise(function (r) { f.onload = r; });
+  var svg = await waitSvg();
+  var a = (await post('api/open', { p: p, level: id })).attempt;
+  return { svg: svg, view: a.view };
+}
+async function drawLoop(svg, view, cells, fast) {
+  fire(svg, 'pointerdown', center(svg, cells[0], view.C));
+  for (var i = 1; i < cells.length; i++) { fire(svg, 'pointermove', center(svg, cells[i], view.C)); if (!fast && i % 5 === 0) await sleep(30); }
+  fire(svg, 'pointermove', center(svg, cells[0], view.C));
+  fire(svg, 'pointerup', center(svg, cells[0], view.C));
+}
+async function lit(p, id) { for (var i = 0; i < 40; i++) { var m = await fetch('api/me?p=' + encodeURIComponent(p)).then(function (r) { return r.json(); }); var L = m.levels.find(function (l) { return l.id === id; }); if (L.status === 'lit') return true; await sleep(150); } return false; }
+
+(async function () {
+  var ok = true;
+  try {
+    var j = await post('api/join', { nick: nick }), p = j.p;
+    // 1) ярусы 1–3: одна протяжка через всю петлю (быстро — проверка пачек)
+    for (var id of ['g1', 'g2', 'g3']) {
+      var o = await openLevel(p, id);
+      var loop = solveLoop(o.view), cells = loop.map(function (e) { return e[0]; });
+      await drawLoop(o.svg, o.view, cells, id === 'g2');
+      var good = await lit(p, id);
+      say((good ? 'PASS ' : 'FAIL ') + id + ': протяжка пальцем ' + cells.length + ' лампочек' + (id === 'g2' ? ' (без пауз)' : ''));
+      ok = ok && good;
+    }
+    // 2) ярус 4: нарисовать половину, тап стирает, Clear, подсказка, потом дорисовать петлю
+    var o4 = await openLevel(p, 'g4');
+    var cells4 = solveLoop(o4.view).map(function (e) { return e[0]; });
+    fire(o4.svg, 'pointerdown', center(o4.svg, cells4[0], o4.view.C));
+    for (var i = 1; i < 10; i++) fire(o4.svg, 'pointermove', center(o4.svg, cells4[i], o4.view.C));
+    fire(o4.svg, 'pointerup', center(o4.svg, cells4[9], o4.view.C));
+    var cnt = function () { return o4.svg.querySelectorAll('.gg-link').length; };
+    var before = cnt();
+    fire(o4.svg, 'pointerdown', center(o4.svg, cells4[5], o4.view.C)); fire(o4.svg, 'pointerup', center(o4.svg, cells4[5], o4.view.C));
+    var tapOk = before === 9 && cnt() === 7;
+    say((tapOk ? 'PASS' : 'FAIL') + ' тап по лампочке стирает 2 её связи (' + before + ' → ' + cnt() + ')'); ok = ok && tapOk;
+    f.contentDocument.querySelector('.gg-clear').click(); await sleep(800);
+    f.contentDocument.querySelector('.gg-hint').click(); await sleep(900);
+    var after = await post('api/open', { p: p, level: 'g4' });
+    var hintOk = after.attempt.view.locked.length === 2 && after.attempt.view.links.length === 2 && after.attempt.view.hintsLeft === 1;
+    say((hintOk ? 'PASS' : 'FAIL') + ' Clear + подсказка Coiny: на сервере 2 закреплённые связи'); ok = ok && hintOk;
+    o4 = { svg: await waitSvg(), view: after.attempt.view };
+    var rest = solveLoop(after.attempt.view);
+    // петля, совместимая с закреплёнными связями: решатель ищет без учёта, поэтому перебираем до совпадения
+    var allLoops = module.exports.all(after.attempt.view, 3000), locked = after.attempt.view.locked;
+    var keyOf = function (a, b) { return a < b ? a + '-' + b : b + '-' + a; };
+    var fit = allLoops.find(function (l) { var ks = l.map(function (e) { return keyOf(e[0], e[1]); }); return locked.every(function (k) { return ks.indexOf(k) >= 0; }); }) || rest;
+    // закреплённые связи протяжка не трогает (их нельзя стереть), остальное дорисуется
+    await drawLoop(o4.svg, o4.view, fit.map(function (e) { return e[0]; }), false);
+    var g4 = await lit(p, 'g4');
+    say((g4 ? 'PASS' : 'FAIL') + ' g4: дорисовал петлю поверх подсказки'); ok = ok && g4;
+  } catch (e) { ok = false; say('FAIL ' + e.message); }
+  lines.unshift(ok ? 'QA PASS' : 'QA FAIL'); log.textContent = lines.join('\n'); log.className = ok ? 'pass' : 'fail';
+  document.title = ok ? 'QA PASS' : 'QA FAIL';
+})();
+</script>
+</body>
+</html>

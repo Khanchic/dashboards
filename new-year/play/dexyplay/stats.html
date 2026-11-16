@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<script src="../runtime.js" data-server="srv/dev/server.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tag the City · статистика</title>
+<style>
+:root{--bg:#0C0713;--bg2:#160C24;--bg3:#21123A;--pk:#F939E3;--ye:#FFE733;--gr:#33FF8F;--ink:#fff;--ink2:#C9BCDD;--ink3:#8E7FA8;--line:rgba(118,69,186,.45);color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,"Segoe UI",sans-serif}
+.wrap{max-width:1100px;margin:0 auto;padding:20px 16px 50px}
+h1{margin:0 0 4px;font-size:1.6rem}
+h2{margin:28px 0 10px;font-size:1.1rem;color:var(--pk)}
+.sub{color:var(--ink3);margin:0 0 14px}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:640px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);font-weight:600}
+td.r{text-align:right;font-variant-numeric:tabular-nums}
+.good{color:var(--gr)}.low{color:#ff8ad8}.high{color:var(--ye)}
+small{color:var(--ink3)}
+.dist{display:flex;gap:6px;align-items:flex-end;height:110px}
+.dist div{flex:1;background:var(--bg3);position:relative;min-width:24px}
+.dist i{position:absolute;left:0;right:0;bottom:0;background:var(--pk)}
+.dist span{position:absolute;left:0;right:0;bottom:-20px;text-align:center;font-size:12px;color:var(--ink3)}
+.dist b{position:absolute;left:0;right:0;top:-18px;text-align:center;font-size:12px;font-weight:400}
+button{font:inherit;padding:5px 10px;border:0;cursor:pointer;margin-right:6px}
+.ok{background:var(--gr);color:var(--bg)}.no{background:#4a2c3d;color:#fff}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Tag the City · статистика</h1>
+  <p class="sub" id="sub"></p>
+
+  <h2>Стены</h2>
+  <p class="sub">Цель: доля расписавших из открывших — <b>60–85%</b>. Ниже 60 — уменьшить стену, выше 85 на последних — можно крупнее. Время — от открытия до решения.</p>
+  <div class="scroll"><table><thead><tr><th>Стена</th><th>Размер</th><th class="r">Открыли</th><th class="r">Расписали</th><th class="r">Доля</th><th class="r">Медиана, мин</th><th class="r">Медиана кликов</th><th class="r">С подсказкой</th><th>Картинки</th></tr></thead><tbody id="walls"></tbody></table></div>
+
+  <h2>Сколько стен расписал каждый (1–6, без практики)</h2>
+  <div class="dist" id="dist"></div>
+  <p class="sub" style="margin-top:28px" id="tiers"></p>
+
+  <h2>Подозрительно быстрые стены</h2>
+  <p class="sub">Только для разбора после эфира, на призы не влияет. Флаг: быстрее 0,3 с на клетку от открытия стены или вся стена 1–2 пачками (похоже на скрипт). Правило — <code>server/fairplay.js</code>.</p>
+  <div class="scroll"><table><thead><tr><th>Игрок</th><th>Стена</th><th class="r">Секунд</th><th>Почему</th></tr></thead><tbody id="fast"></tbody></table></div>
+
+  <h2>Заявки player ID (репетиция)</h2>
+  <div class="scroll"><table><thead><tr><th>Игрок</th><th>Player ID</th><th>Ждёт</th><th></th></tr></thead><tbody id="pending"></tbody></table></div>
+
+  <h2>Игроки</h2>
+  <div class="scroll"><table><thead><tr><th>Ник</th><th class="r">Стен</th><th>Мурал</th><th>Практика</th></tr></thead><tbody id="list"></tbody></table></div>
+</div>
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  var dash = function (v, suf) { return v == null ? '—' : v + (suf || ''); };
+  function load() {
+    fetch('api/stats').then(function (r) { return r.json(); }).then(function (s) {
+      $('sub').textContent = (s.mode === 'show' ? 'Репетиция' : 'Плейтест') + ' · игроков: ' + s.players + ' · обновляется каждые 5 с';
+      $('walls').innerHTML = s.walls.map(function (w) {
+        var cls = w.rate == null ? '' : w.rate < 60 ? 'low' : w.rate > 85 ? 'high' : 'good';
+        var pics = Object.keys(w.pics).map(function (k) { return esc(k) + ' ' + w.pics[k]; }).join(', ');
+        return '<tr><td>' + esc(w.title) + '</td><td>' + w.size + '</td><td class="r">' + w.opened + '</td><td class="r">' + w.tagged + '</td><td class="r ' + cls + '">' + dash(w.rate, '%') + '</td><td class="r">' + dash(w.medianMin) + '</td><td class="r">' + dash(w.medianPaints) + '</td><td class="r">' + dash(w.hintUsed, '%') + '</td><td><small>' + (pics || '—') + '</small></td></tr>';
+      }).join('');
+      var max = Math.max.apply(null, s.wallsDist.concat([1]));
+      $('dist').innerHTML = s.wallsDist.map(function (n, i) { return '<div><i style="height:' + Math.round(n / max * 100) + '%"></i><b>' + n + '</b><span>' + i + '</span></div>'; }).join('');
+      $('tiers').innerHTML = 'Уровни: Tagger (2) <b>' + s.tiers.t2 + '</b> · Street Artist (4) <b>' + s.tiers.t4 + '</b> · City Painter (6) <b>' + s.tiers.t6 + '</b> · Muralist <b>' + s.tiers.mural + '</b>';
+      $('fast').innerHTML = s.fast.length ? s.fast.map(function (f) {
+        return '<tr><td>' + esc(f.nick) + '</td><td>' + esc(f.title) + ' ' + f.size + '</td><td class="r">' + f.sec + '</td><td><small>' + esc(f.flag) + '</small></td></tr>';
+      }).join('') : '<tr><td colspan="4"><small>нет</small></td></tr>';
+      $('pending').innerHTML = s.pending.length ? s.pending.map(function (p) {
+        return '<tr><td>' + esc(p.nick) + '</td><td>' + esc(p.playerId) + '</td><td>' + esc(p.unclaimed.join(', ')) + '</td><td><button class="ok" data-p="' + esc(p.p) + '" data-ok="1">Одобрить</button><button class="no" data-p="' + esc(p.p) + '" data-ok="">Отклонить</button></td></tr>';
+      }).join('') : '<tr><td colspan="4"><small>нет</small></td></tr>';
+      $('list').innerHTML = s.list.map(function (p) { return '<tr><td>' + esc(p.nick) + '</td><td class="r">' + p.walls + '</td><td>' + (p.mural ? '✓' : '') + '</td><td>' + (p.practice ? '✓' : '') + '</td></tr>'; }).join('');
+    });
+  }
+  $('pending').addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b) return;
+    fetch('api/staff/review', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ p: b.dataset.p, ok: Boolean(b.dataset.ok) }) }).then(load);
+  });
+  load(); setInterval(load, 5000);
+})();
+</script>
+</body>
+</html>

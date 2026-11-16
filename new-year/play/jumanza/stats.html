@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<script src="../runtime.js" data-server="srv/dev/server.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kilimanjaro · статистика</title>
+<style>
+:root{color-scheme:dark}
+body{margin:0;background:#100128;color:#fff;font:15px/1.45 "Segoe UI",system-ui,sans-serif}
+.wrap{max-width:1100px;margin:0 auto;padding:20px 16px 50px}
+h1{font-size:1.5rem;margin:0 0 4px}
+h2{font-size:1.05rem;margin:26px 0 8px;color:#F1D627}
+p{color:rgba(255,255,255,.7);margin:0 0 10px}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:640px}
+th,td{padding:7px 10px;border-bottom:1px solid rgba(255,255,255,.12);text-align:left;white-space:nowrap}
+th{font-weight:600;color:rgba(255,255,255,.6);font-size:.82rem}
+.ok{color:#49F623}.lo{color:#ff8a7a}.hi{color:#F1D627}
+button{font:inherit;padding:4px 10px;margin-right:4px;border:0;border-radius:6px;cursor:pointer}
+.yes{background:#49F623;color:#100128}.no{background:#ff8a7a;color:#100128}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Christmas on Kilimanjaro — статистика</h1>
+  <p id="meta"></p>
+  <h2>Тропы (цель — проходят 60–85%)</h2>
+  <div class="scroll"><table id="lv"></table></div>
+  <h2>Сколько троп прошли</h2>
+  <p id="dist"></p>
+  <h2>Уровни призов</h2>
+  <p id="tiers"></p>
+  <h2>Очередь player ID</h2>
+  <div class="scroll"><table id="pend"></table></div>
+  <h2>Игроки</h2>
+  <div class="scroll"><table id="pl"></table></div>
+</div>
+<script>
+function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+function rateCls(r) { return r == null ? '' : r < 60 ? 'lo' : r > 85 ? 'hi' : 'ok'; }
+function load() {
+  fetch('api/stats').then(function (r) { return r.json(); }).then(function (s) {
+    document.getElementById('meta').textContent = (s.mode === 'show' ? 'Репетиция' : 'Плейтест') + ' · игроков: ' + s.players + ' · обновляется каждые 5 с';
+    document.getElementById('lv').innerHTML = '<tr><th>Тропа</th><th>Мин. ходов</th><th>Открыли</th><th>Прошли</th><th>Доля</th><th>Медиана, мин</th><th>Медиана ходов</th><th>Сбросов</th><th>Подсказка льва</th><th>Застряли (ходы/подсказки)</th></tr>' +
+      s.levels.map(function (l) {
+        return '<tr><td>' + esc(l.title) + ' <small>' + esc(l.zone) + '</small></td><td>' + l.par + '</td><td>' + l.opened + '</td><td>' + l.cleared + '</td><td class="' + rateCls(l.rate) + '">' + (l.rate == null ? '—' : l.rate + '%') + '</td><td>' + (l.medianMin ?? '—') + '</td><td>' + (l.medianSlides ?? '—') + '</td><td>' + (l.medianResets ?? '—') + '</td><td>' + (l.lionUsed == null ? '—' : l.lionUsed + '%') + '</td><td>' + l.stuck.map(function (x) { return x.slides + '/' + x.hints; }).join(', ') + '</td></tr>';
+      }).join('');
+    document.getElementById('dist').textContent = s.trailsDist.map(function (n, i) { return i + ': ' + n; }).join(' · ');
+    document.getElementById('tiers').textContent = Object.keys(s.tiers).map(function (k) { return k + ': ' + s.tiers[k]; }).join(' · ');
+    document.getElementById('pend').innerHTML = s.pending.length ? '<tr><th>Игрок</th><th>Player ID</th><th>Ждёт призов</th><th></th></tr>' + s.pending.map(function (x) {
+      return '<tr><td>' + esc(x.nick) + '</td><td>' + esc(x.playerId) + '</td><td>' + esc(x.unclaimed.join(', ')) + '</td><td><button class="yes" data-p="' + esc(x.p) + '" data-ok="1">Одобрить</button><button class="no" data-p="' + esc(x.p) + '" data-ok="">Отклонить</button></td></tr>';
+    }).join('') : '<tr><td>Пусто</td></tr>';
+    Array.prototype.forEach.call(document.querySelectorAll('#pend button'), function (b) {
+      b.onclick = function () { fetch('api/staff/review', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ p: b.dataset.p, ok: Boolean(b.dataset.ok) }) }).then(load); };
+    });
+    document.getElementById('pl').innerHTML = '<tr><th>Игрок</th><th>Троп</th><th>Вершина</th><th>Тренировка</th></tr>' +
+      s.list.map(function (x) { return '<tr><td>' + esc(x.nick) + '</td><td>' + x.trails + '</td><td>' + (x.summit ? '🎄' : '') + '</td><td>' + (x.practice ? '✓' : '') + '</td></tr>'; }).join('');
+  });
+}
+load(); setInterval(load, 5000);
+</script>
+</body>
+</html>

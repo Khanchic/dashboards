@@ -1,0 +1,27 @@
+/* Карта горы. Цвета Jumanza: жёлтый #F1D627, зелёный CTA #49F623, фиолетовый #5C05E5, фон #100128. */
+.mt{position:relative;width:100%;aspect-ratio:1400/685;background:#100128 center/cover no-repeat;border-radius:16px;overflow:hidden;box-shadow:0 0 0 1px rgba(241,214,39,.25)}
+.mt::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(16,1,40,.15),rgba(16,1,40,0) 40%,rgba(16,1,40,.35));pointer-events:none}
+.mt-path{position:absolute;inset:0;width:100%;height:100%;z-index:1}
+.mt-path path{fill:none;stroke:rgba(255,248,220,.75);stroke-width:.45;stroke-dasharray:1.2 1;vector-effect:non-scaling-stroke;stroke-width:2.5}
+.mt-node{position:absolute;z-index:2;transform:translate(-50%,-50%);display:flex;align-items:center;gap:6px;padding:0;border:0;background:none;cursor:pointer;font:inherit;color:#fff}
+.mt-node b{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:#5C05E5;border:3px solid #F1D627;font:800 20px/1 "Smooch Sans",sans-serif;box-shadow:0 4px 12px rgba(0,0,0,.45);flex:none}
+.mt-node span{font:800 15px/1 "Smooch Sans",sans-serif;text-transform:uppercase;letter-spacing:.02em;background:rgba(16,1,40,.72);padding:5px 8px;border-radius:8px;white-space:nowrap}
+.mt-node small{display:block;font:500 10px/1.2 "Work Sans",sans-serif;text-transform:none;letter-spacing:0;color:rgba(255,255,255,.75);margin-top:2px}
+.mt-node.clear b{background:#49F623;color:#100128;border-color:#fff}
+.mt-node.active b{background:#F1D627;color:#100128}
+.mt-node.locked{opacity:.75}
+.mt-node.locked b{background:#3a2a5a;border-color:rgba(255,255,255,.4);font-size:15px}
+.mt-node.summit b{width:46px;height:46px;background:#F1D627;color:#100128;border-color:#fff}
+.mt-node.summit.locked b{background:#3a2a5a;color:#fff}
+.mt-node.cur b{outline:3px solid #49F623;outline-offset:3px}
+.mt-node.cheer b{animation:mtCheer 1.5s ease}
+@keyframes mtCheer{0%{transform:scale(1)}30%{transform:scale(1.5);box-shadow:0 0 30px 10px rgba(73,246,35,.8)}100%{transform:scale(1)}}
+.mt-count{position:absolute;right:12px;top:10px;z-index:2;font:800 18px/1 "Smooch Sans",sans-serif;text-transform:uppercase;background:#F1D627;color:#100128;padding:6px 10px;border-radius:8px}
+/* узкий экран: подписи только у текущей и вершины, узлы мельче */
+@media (max-width:640px){
+  .mt-node b{width:26px;height:26px;font-size:14px;border-width:2px}
+  .mt-count{font-size:14px;padding:4px 7px;right:8px;top:6px}
+  .mt-node span{display:none}
+  .mt-node.cur span,.mt-node.summit span{display:block;font-size:12px}
+  .mt-node.summit b{width:32px;height:32px}
+}

@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<script src="../runtime.js" data-server="srv/dev/server.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Плейтест — статистика</title>
+<style>
+:root{--night:#00131A;--line:rgba(188,170,116,.28);--gold:#BCAA74;--ink-2:#B9CDD4;--ok:#3ddc84;--warn:#FFDA0A;--bad:#FF2B39;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--night);color:#fff;font:15px/1.5 Raleway,system-ui,"Segoe UI",Arial,sans-serif}
+.wrap{max-width:1000px;margin:0 auto;padding:24px 16px 60px}
+h1{margin:0 0 4px;font-size:26px}
+h2{margin:30px 0 10px;font-size:15px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+.note{color:var(--ink-2);font-size:13px}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:640px}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+td.r,th.r{text-align:right;font-variant-numeric:tabular-nums}
+.ok{color:var(--ok);font-weight:800}.warn{color:var(--warn);font-weight:800}.bad{color:var(--bad);font-weight:800}
+.tiers{display:flex;gap:12px;flex-wrap:wrap}
+.tiers div{border:1px solid var(--line);border-radius:10px;padding:10px 14px;min-width:120px}
+.tiers b{display:block;font-size:24px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Плейтест «Countdown on the Strip»</h1>
+  <p class="note">Цель по раунду: <span class="ok">60–85%</span> угадывают с первой попытки. Ниже 60% — упростить (меньше шляп / перестановок / карт), выше 90% — можно усложнить. Обновляется раз в 10 секунд.</p>
+  <div id="out">Загрузка…</div>
+</div>
+<script>
+(function () {
+  'use strict';
+  var TYPE = { shell: 'напёрстки', cards: 'карты', riddle: 'загадка' };
+  function pct(a, b) { return b ? Math.round(a / b * 100) : null; }
+  function cls(p) { return p == null ? '' : p < 60 ? 'bad' : p > 90 ? 'warn' : 'ok'; }
+  function cfg(r) { return TYPE[r.type] + ', ' + (r.type === 'cards' ? r.n + ' карт' : r.n + ' шляп') + (r.type === 'shell' ? ', ' + r.swaps + ' перест. по ' + r.ms + ' мс' : ''); }
+  function load() {
+    fetch('api/stats').then(function (r) { return r.json(); }).then(function (s) {
+      var rows = '';
+      s.rounds.forEach(function (A) {
+        A.rounds.forEach(function (R, i) {
+          var p1 = pct(R.first, R.played), p2 = pct(R.first + R.second, R.played);
+          rows += '<tr><td>' + (i === 0 ? '<b>Акт ' + A.act + '</b><br><span class="note">' + A.title + '<br>начали ' + A.started + ', закончили ' + A.finished + (A.avgMinutes != null ? ', ~' + A.avgMinutes + ' мин' : '') + '</span>' : '') + '</td>' +
+            '<td>' + (i + 1) + '</td><td>' + cfg(R) + '</td><td class="r">' + R.played + '</td>' +
+            '<td class="r ' + cls(p1) + '">' + (p1 == null ? '—' : p1 + '%') + '</td>' +
+            '<td class="r">' + (p2 == null ? '—' : p2 + '%') + '</td><td class="r">' + R.miss + '</td></tr>';
+        });
+      });
+      var full = s.totals.filter(function (t) { return t.actsDone === 6; });
+      var counts = {}; s.tiers.forEach(function (t) { counts[t.id] = 0; });
+      full.forEach(function (t) { if (t.tier) counts[t.tier] += 1; });
+      var tiers = s.tiers.map(function (t) {
+        return '<div><span class="note">' + t.name + ' (от ' + t.min + ')</span><b>' + counts[t.id] + '</b><span class="note">' + (full.length ? pct(counts[t.id], full.length) + '%' : '—') + '</span></div>';
+      }).join('');
+      var people = s.totals.map(function (t) { return '<tr><td>' + t.nick.replace(/[<>&]/g, '') + '</td><td class="r">' + t.actsDone + ' / 6</td><td class="r"><b>' + t.points + '</b></td><td>' + (t.tier || '—') + '</td></tr>'; }).join('');
+      document.getElementById('out').innerHTML =
+        '<h2>Раунды · игроков ' + s.players + '</h2><div class="scroll"><table><thead><tr><th>Акт</th><th>Раунд</th><th>Фокус</th><th class="r">Сыграли</th><th class="r">С 1-й</th><th class="r">С 1-й или 2-й</th><th class="r">Мимо</th></tr></thead><tbody>' + rows + '</tbody></table></div>' +
+        '<h2>Уровни у сыгравших все 6 актов · ' + full.length + ' чел.</h2><div class="tiers">' + tiers + '</div>' +
+        '<p class="note">Цель: красную берут ~85%, голубую ~60%, золотую ~30–40% (накопительно: голубая = голубая + золотая).</p>' +
+        '<h2>Игроки</h2><div class="scroll"><table><thead><tr><th>Имя</th><th class="r">Актов</th><th class="r">Очки</th><th>Ракета</th></tr></thead><tbody>' + people + '</tbody></table></div>';
+    });
+  }
+  load(); setInterval(load, 10000);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+/* Экран дома Light Up Christmas. Цвета — бренд Storm Rush (kit.md): провода циан #2EEAFF, лампочки жёлтый #F5F100,
+   батарея зелёный #00CC7E, фон #0C130F. Шрифт — Kanit (подключает страница). */
+.lu{--lu-bg:#0C130F;--lu-tile:#121c17;--lu-wire:#3d4c44;--lu-cy:#2EEAFF;--lu-y:#F5F100;--lu-g:#00CC7E;--lu-g2:#41F999;--lu-text:#F3F6F5;--lu-muted:rgba(243,246,245,.66);color:var(--lu-text);font-family:"Kanit","Segoe UI",system-ui,sans-serif}
+.lu-head{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 14px;align-items:baseline}
+.lu-title{font-size:1.5rem;font-weight:800;font-style:italic;text-transform:uppercase;line-height:1}
+.lu-meta{font-size:.9rem;color:var(--lu-muted);font-variant-numeric:tabular-nums}
+.lu-meta b{color:var(--lu-y);font-weight:600}
+.lu-grid{display:grid;margin:16px auto 0;width:min(100%, calc(var(--c) * 60px));touch-action:manipulation;user-select:none;-webkit-user-select:none;transition:box-shadow .5s}
+.lu-grid.lu-done{box-shadow:0 0 0 2px rgba(245,241,0,.5),0 0 40px rgba(245,241,0,.18)}
+.lu-tile{aspect-ratio:1;border:0;padding:0;margin:0;background:var(--lu-tile);box-shadow:inset 0 0 0 1px rgba(243,246,245,.05);cursor:pointer;position:relative;display:block;-webkit-tap-highlight-color:transparent}
+.lu-tile:hover{background:#17231d}
+.lu-tile:focus-visible{outline:2px solid var(--lu-text);outline-offset:-2px;z-index:2}
+.lu-tile svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.lu-w{transition:transform .17s ease-out}
+.lu-w line{stroke:var(--lu-wire);stroke-width:15}
+.lu-w .lu-hub{fill:var(--lu-wire)}
+.lu-tile.on .lu-w line{stroke:var(--lu-cy)}
+.lu-tile.on .lu-w .lu-hub{fill:var(--lu-cy)}
+.lu-tile.on .lu-w{filter:drop-shadow(0 0 3px rgba(46,234,255,.85))}
+.lu-gh{opacity:0;transition:opacity .2s}
+.lu-gh line{stroke:#fff;stroke-width:5;stroke-dasharray:7 6}
+.lu-tile.lu-peek .lu-gh{opacity:.95}
+.lu-tile.lu-peek{background:#1d2c25}
+.lu-bl{fill:#27322c;stroke:var(--lu-wire);stroke-width:3}
+.lu-stp{fill:#27322c;stroke:var(--lu-wire);stroke-width:3;stroke-linejoin:round}
+.lu-tile.on .lu-bl,.lu-tile.on .lu-stp{fill:var(--lu-y);stroke:#fffbb8}
+.lu-tile.on .lu-ov{filter:drop-shadow(0 0 6px rgba(245,241,0,.9))}
+.lu-bat{fill:var(--lu-g)}
+.lu-boltp{fill:var(--lu-bg)}
+.lu-tile.lu-src .lu-ov{filter:drop-shadow(0 0 5px rgba(0,204,126,.8))}
+.lu-tile.lu-lock{box-shadow:inset 0 0 0 3px #7d8c84;background:#26322c;cursor:default}
+.lu-void{aspect-ratio:1}
+.lu-done .lu-tile{cursor:default}
+.lu-status{margin:14px 0 0;min-height:1.6em;font-size:.95rem;text-align:center}
+.lu-help{display:grid;grid-template-columns:96px minmax(0,1fr);gap:14px;align-items:center;margin-top:16px}
+.lu-golem{width:96px;height:120px;object-fit:contain;object-position:bottom}
+.lu-hb{display:grid;gap:8px}
+.lu-hb small{font-size:.8rem;color:var(--lu-muted)}
+.lu-act{font:inherit;font-weight:600;font-style:italic;text-transform:uppercase;font-size:.85rem;letter-spacing:.04em;border:0;cursor:pointer;padding:9px 14px;background:var(--lu-g);color:var(--lu-bg);text-align:left;clip-path:polygon(8px 0,100% 0,calc(100% - 8px) 100%,0 100%)}
+.lu-act.lu-s{background:var(--lu-cy)}
+.lu-act:disabled{opacity:.4;cursor:default}
+.lu-act:focus-visible{outline:2px solid var(--lu-text);outline-offset:3px}
+@media (max-width:420px){.lu-help{grid-template-columns:minmax(0,1fr)}.lu-golem{display:none}}
+@media (prefers-reduced-motion:reduce){.lu *{transition:none!important}}

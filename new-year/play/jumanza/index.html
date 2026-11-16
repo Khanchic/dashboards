@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script src="../runtime.js" data-server="srv/dev/server.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Christmas on Kilimanjaro · playtest</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Smooch+Sans:wght@800&family=Work+Sans:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="client/mountain.css">
+<link rel="stylesheet" href="client/trail-game.css">
+<style>
+:root{--bg:#100128;--card:#2a0f5c;--card2:#3a1a78;--text:#fff;--muted:rgba(255,255,255,.72);--faint:rgba(255,255,255,.45);--y:#F1D627;--g:#49F623;--p:#5C05E5;color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--text);font:500 16px/1.5 "Work Sans",system-ui,sans-serif}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px}
+header{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;padding:16px 0}
+header img{height:30px}
+header .mode{font-size:.82rem;color:var(--muted);text-align:right}
+h1{margin:6px 0 0;font:800 clamp(2.4rem,7vw,4.4rem)/.9 "Smooch Sans",sans-serif;text-transform:uppercase}
+h1 span{color:var(--y)}
+.lede{color:var(--muted);margin:10px 0 18px;max-width:62ch}
+.join{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0}
+.join input,.claim input{font:inherit;padding:10px 14px;background:var(--card);border:1px solid rgba(241,214,39,.35);color:var(--text);border-radius:8px;min-width:200px;flex:1}
+.btn{font:800 20px/1 "Smooch Sans",sans-serif;text-transform:uppercase;border:0;cursor:pointer;padding:10px 18px;border-radius:8px;background:linear-gradient(#71F854,#2FDC09);color:#100128;box-shadow:0 4px 0 #1f9a06}
+.btn.ghost{background:#F9F5FF;box-shadow:0 4px 0 #b9a8d6}
+.play{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:20px;margin:18px 0 40px;align-items:start}
+@media (max-width:900px){.play{grid-template-columns:minmax(0,1fr)}}
+.panel{background:linear-gradient(180deg,#5C05E5 0%,#3a0a9a 100%);padding:20px;border-radius:16px;box-shadow:0 -24px 204px -70px #00EE3B}
+.panel h3{margin:0 0 10px;font:800 22px/1 "Smooch Sans",sans-serif;text-transform:uppercase}
+.empty{color:var(--muted);font-size:.95rem;padding:30px 0;text-align:center}
+.tiers{list-style:none;margin:0;padding:0;display:grid;gap:4px}
+.tiers li{display:grid;grid-template-columns:20px minmax(0,1fr) auto;gap:10px;align-items:center;padding:8px 12px;background:rgba(255,255,255,.1);border-radius:8px;font-size:.92rem}
+.tiers i{width:16px;height:16px;border-radius:50%;background:rgba(255,255,255,.25)}
+.tiers li.got i{background:var(--g);box-shadow:0 0 10px rgba(73,246,35,.8)}
+.tiers li.ready i{background:var(--y);box-shadow:0 0 10px rgba(241,214,39,.8)}
+.tiers em{font-style:normal;color:var(--muted);font-size:.85rem;overflow-wrap:anywhere}
+.tiers li.got em{color:var(--g)}
+.tiers li.ready em{color:var(--y)}
+.claim{margin-top:12px;display:grid;gap:8px}
+.claim p{margin:0;font-size:.88rem;color:var(--muted)}
+.claim form{display:flex;flex-wrap:wrap;gap:8px}
+.claim .err{color:#ffb3a8}
+.dms{display:grid;gap:6px;margin-top:10px}
+.dm{background:rgba(16,1,40,.55);border-left:3px solid var(--y);padding:9px 12px;font-size:.88rem;border-radius:0 8px 8px 0}
+.dm small{display:block;color:var(--faint);font-size:.72rem}
+.next{margin-top:14px;text-align:center}
+footer{color:var(--faint);font-size:.8rem;padding:20px 0 40px}
+footer a{color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header><img src="../../jumanza/assets/sprites/logo.webp" alt="Jumanza"><div class="mode" id="mode"></div></header>
+  <h1>Christmas on <span>Kilimanjaro</span></h1>
+  <p class="lede">The gifts are going up to the Christmas tree on the snowy peak, but the animals have blocked every trail. Drag them out of the way along their path and get the safari 4x4 through. Clear 4 trails and the summit opens.</p>
+
+  <form class="join" id="join">
+    <input id="nick" maxlength="24" placeholder="Your name" autocomplete="nickname" required>
+    <button class="btn" type="submit">Start the climb</button>
+  </form>
+
+  <div id="app" hidden>
+    <div id="mountain"></div>
+    <div class="play">
+      <div class="panel"><div id="game"><div class="empty">Pick a trail on the mountain.</div></div><div class="next" id="next"></div></div>
+      <div class="panel">
+        <h3>Your rewards</h3>
+        <ul class="tiers" id="tiers"></ul>
+        <div class="claim" id="claim"></div>
+        <h3 style="margin-top:18px">Messages from the bot</h3>
+        <div class="dms" id="dms"></div>
+      </div>
+    </div>
+  </div>
+  <footer>Jumanza · Christmas on Kilimanjaro · <span id="foot"></span> · <a href="stats.html">stats</a></footer>
+</div>
+
+<script src="shared/jam.js"></script>
+<script src="client/mountain.js"></script>
+<script src="client/trail-game.js"></script>
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var P = null, ME = null, game = null, cur = null;
+  try { P = localStorage.getItem('kili_p'); } catch (e) {}
+
+  function post(url, data) { return fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) }).then(function (r) { return r.json(); }); }
+  function load() { return fetch('api/me?p=' + encodeURIComponent(P)).then(function (r) { if (!r.ok) throw 0; return r.json(); }).then(render); }
+  var fmt = function (ms) { return new Date(ms).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }); };
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+
+  function render(me) {
+    ME = me;
+    $('join').hidden = true; $('app').hidden = false;
+    var ph = { before: 'starts soon', practice: 'practice trail', christmas: '"Christmas" · trails open', closed: 'trails closed' };
+    $('mode').innerHTML = me.mode === 'show'
+      ? 'Rehearsal · ' + (ph[me.phase] || me.phase) + '<br>"Christmas" ' + fmt(me.sched.christmas) + ' · close ' + fmt(me.sched.closesAt)
+      : 'Playtest · everything is open<br>' + esc(me.nick);
+    $('foot').textContent = me.nick;
+    Mountain.render($('mountain'), me.levels, { current: cur, onOpen: open });
+    $('tiers').innerHTML = me.tiers.map(function (t) {
+      var st = !t.got ? '' : t.got.code ? 'got' : 'ready';
+      var right = !t.got ? t.prize : t.got.code ? t.got.code : t.prize + ' · ready';
+      return '<li class="' + st + '"><i></i><span>' + t.name + '</span><em>' + esc(right) + '</em></li>';
+    }).join('');
+    renderClaim(me.claim);
+    $('dms').innerHTML = me.dms.length ? me.dms.slice(0, 8).map(function (d) { return '<div class="dm"><small>Jumanza · ' + fmt(d.at) + '</small>' + esc(d.text) + '</div>'; }).join('') : '<div class="empty" style="padding:10px 0">Nothing yet.</div>';
+  }
+
+  var CLAIM_ERR = { need_player_id: 'Player ID is digits only. You can find it in your Jumanza profile.', player_id_taken: 'This player ID is already linked to another Discord account.', claim_closed: 'Claim is closed.', nothing_to_claim: 'Nothing to claim yet.' };
+  var claimMsg = '';
+  function renderClaim(c) {
+    var box = $('claim');
+    if (!c || !c.unclaimed) { box.innerHTML = claimMsg ? '<p>' + claimMsg + '</p>' : ''; return; }
+    if (!c.open) { box.innerHTML = '<p>Claim is closed.</p>'; return; }
+    if (c.pid && c.pid.status === 'pending') { box.innerHTML = '<p>We\'re checking your player ID. Your codes will arrive in your messages as soon as it\'s approved.</p>'; return; }
+    if (c.pid && c.pid.status === 'approved') {
+      box.innerHTML = '<button class="btn" type="button" id="claimBtn">Claim prize</button>' + (claimMsg ? '<p class="err">' + claimMsg + '</p>' : '');
+      $('claimBtn').onclick = function () { doClaim({}); };
+      return;
+    }
+    box.innerHTML = '<p>' + (c.pid && c.pid.status === 'rejected' ? 'We couldn\'t find that player ID. Check it and try again.' : 'First claim: add your Jumanza player ID. We check it once, then every reward comes instantly.') + '</p>' +
+      '<form id="claimForm"><input id="pid" inputmode="numeric" placeholder="Player ID" autocomplete="off"><button class="btn" type="submit">Claim prize</button></form>' +
+      (claimMsg ? '<p class="err">' + claimMsg + '</p>' : '');
+    $('claimForm').onsubmit = function (e) { e.preventDefault(); doClaim({ playerId: $('pid').value }); };
+  }
+  function doClaim(extra) {
+    post('api/claim', Object.assign({ p: P }, extra)).then(function (r) { claimMsg = r.error ? (CLAIM_ERR[r.error] || r.error) : ''; load(); });
+  }
+
+  var MSG = { not_open: 'Not open yet.', need_trails: 'Clear 4 trails and the summit opens.', closed: 'The trails are closed. The event is over.' };
+  function open(id, L) {
+    if (L && L.can && !L.can.ok && L.status === 'new') {
+      $('game').innerHTML = '<div class="empty">' + (L.can.error === 'need_trails' ? 'Clear ' + L.can.need + ' more ' + (L.can.need === 1 ? 'trail' : 'trails') + ' and the summit opens for you.' : MSG[L.can.error] || 'Not available.') + '</div>';
+      return;
+    }
+    post('api/open', { p: P, level: id }).then(function (r) {
+      if (!r.attempt) { $('game').innerHTML = '<div class="empty">' + (MSG[r.error] || r.error) + '</div>'; return; }
+      cur = id; $('next').innerHTML = '';
+      if (game) game.destroy();
+      game = Trail.mount($('game'), {
+        sprites: '../../jumanza/assets/sprites/',
+        move: function (input) { return post('api/move', { p: P, level: id, input: input }); },
+        onDone: function () { load().then(function () { Mountain.cheer($('mountain'), id); suggest(); }); }
+      });
+      game.load(r.attempt);
+      Mountain.render($('mountain'), ME.levels, { current: cur, onOpen: open });
+      if (r.attempt.view.done) suggest();
+    });
+  }
+  function suggest() {
+    var n = ME.levels.find(function (l) { return l.status !== 'clear' && !l.training && l.can && l.can.ok; });
+    $('next').innerHTML = n ? '<button class="btn ghost" type="button" id="go">' + (n.summit ? 'Up to the summit' : n.title) + ' →</button>' : '';
+    if (n) $('go').onclick = function () { open(n.id, n); };
+  }
+
+  function enter(nick) {
+    return post('api/join', { nick: nick }).then(function (r) {
+      if (!r.p) return; P = r.p; try { localStorage.setItem('kili_p', P); } catch (er) {}
+      return load();
+    });
+  }
+  $('join').addEventListener('submit', function (e) { e.preventDefault(); enter($('nick').value); });
+  // ?nick=Имя (или ?name=) — вход без ввода имени (хаб плейтеста); ?open=t1 — сразу открыть тропу
+  var q = new URLSearchParams(location.search);
+  var qn = q.get('nick') || q.get('name');
+  if (qn) enter(qn).then(function () { if (q.get('open')) open(q.get('open')); });
+  else if (P) load().catch(function () { P = null; });
+  setInterval(function () { if (P && ME && ME.mode === 'show') load(); }, 5000);
+})();
+</script>
+</body>
+</html>

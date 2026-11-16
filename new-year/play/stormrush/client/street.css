@@ -1,0 +1,31 @@
+/* Улица Light Up Christmas (street.js). Окна при свете — тёплый #FFE38A, гирлянда — три цвета бренда. */
+.ls{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:6px;align-items:end;padding:22px 12px 10px;background:linear-gradient(180deg,#07100c 0%,#0d1a14 70%,#132219 100%);font-family:"Kanit","Segoe UI",system-ui,sans-serif;color:#F3F6F5}
+.ls-house{font:inherit;color:inherit;border:0;background:transparent;cursor:pointer;padding:6px 2px 8px;display:grid;gap:2px;justify-items:center;text-align:center}
+.ls-house svg{width:100%;height:auto;display:block}
+.ls-house.training svg{width:80%}
+.ls-hl{font-size:.78rem;font-weight:600;font-style:italic;text-transform:uppercase}
+.ls-hs{font-size:.72rem;color:rgba(243,246,245,.4);line-height:1.2}
+.ls-house.cur{background:rgba(46,234,255,.08);box-shadow:inset 0 -3px 0 #2EEAFF}
+.ls-house:hover{background:rgba(243,246,245,.04)}
+.ls-house:focus-visible{outline:2px solid #F3F6F5;outline-offset:2px}
+.ls-house.locked{cursor:not-allowed}
+.ls-house.locked svg{opacity:.45}
+.ls-body{fill:#1A2620}.ls-roof{fill:#26342c}.ls-chim{fill:#2b3a32}.ls-door{fill:#0b120e}
+.ls-snow{fill:none;stroke:#E3ECE9;stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round}
+.ls-ground{fill:#E3ECE9;opacity:.85}
+.ls-win{fill:#0b110e}
+.ls-bulb{fill:#2c3832}
+.ls-tr{fill:#163322}.ls-trunk{fill:#2b2a22}
+.ls-star{fill:#3a4a42}
+.ls-house.lit svg{filter:drop-shadow(0 0 12px rgba(245,241,0,.32))}
+.ls-house.lit .ls-win{fill:#FFE38A}
+.ls-house.lit .ls-tr{fill:#1c4630}
+.ls-house.lit .ls-star{fill:#F5F100}
+.ls-house.lit .ls-bulb.c0{fill:#41F999}.ls-house.lit .ls-bulb.c1{fill:#2EEAFF}.ls-house.lit .ls-bulb.c2{fill:#F5F100}
+.ls-house.lit .ls-bulb{animation:ls-tw 1.8s infinite}
+.ls-house.lit .ls-hs{color:#F5F100}
+.ls-house.flick svg{animation:ls-flick .5s steps(1,end)}
+@keyframes ls-tw{0%,100%{opacity:1}50%{opacity:.35}}
+@keyframes ls-flick{0%{opacity:1}20%{opacity:.4}40%{opacity:1}60%{opacity:.5}80%{opacity:1}}
+@media (max-width:760px){.ls{grid-template-columns:repeat(4,minmax(0,1fr));padding-inline:8px}}
+@media (prefers-reduced-motion:reduce){.ls *{animation:none!important}}

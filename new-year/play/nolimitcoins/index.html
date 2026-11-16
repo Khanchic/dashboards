@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script src="../runtime.js" data-server="srv/dev/server.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Infinity Garland · playtest</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,400;0,600;0,800;1,900&display=swap">
+<link rel="stylesheet" href="client/tree.css">
+<link rel="stylesheet" href="client/garland-game.css">
+<style>
+:root{--ink:#0C0D13;--panel:#161936;--panel2:#1D2146;--line:#2A2F5E;--gold:#FDC010;--blue:#00B4EB;--pink:#EB1F6A;--text:#F2F1FA;--muted:#A3A6C6;--dim:#6E7299;color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--ink);color:var(--text);font:400 16px/1.5 "Work Sans","Segoe UI",system-ui,sans-serif}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px}
+header{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;padding:18px 0}
+header img{height:30px}
+header .mode{font-size:.82rem;color:var(--muted);text-align:right}
+.hero{position:relative;border-radius:14px;overflow:hidden;padding:28px 22px;background:radial-gradient(120% 90% at 85% 30%,#1B2C9E 0%,#0A1666 40%,var(--ink) 80%)}
+.hero::after{content:"";position:absolute;inset:0 0 0 45%;background:url(../../nolimitcoins/assets/coiny-gifts.jpg) 60% 30%/cover no-repeat;-webkit-mask-image:linear-gradient(90deg,transparent,#000 45%);mask-image:linear-gradient(90deg,transparent,#000 45%);opacity:.75}
+.hero h1,.hero p{position:relative;z-index:1}
+h1{margin:0;font-size:clamp(2.2rem,7vw,4.2rem);font-weight:900;font-style:italic;letter-spacing:-.03em;line-height:.95;max-width:9ch;background:linear-gradient(180deg,#FFE27A,var(--gold) 45%,#D36400);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lede{color:var(--muted);margin:12px 0 0;max-width:46ch}
+@media (max-width:600px){.hero::after{inset:0;opacity:.25;-webkit-mask-image:none;mask-image:none}}
+.join{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0}
+.join input{font:inherit;padding:10px 14px;background:var(--panel);border:1px solid var(--line);color:var(--text);border-radius:8px;min-width:220px}
+.btn{font:inherit;font-weight:800;font-size:.9rem;border:0;cursor:pointer;padding:10px 16px;background:var(--gold);color:var(--ink);border-radius:8px}
+.btn:disabled{opacity:.4}
+.btn.ghost{background:transparent;color:var(--gold);box-shadow:inset 0 0 0 1px var(--gold)}
+.play{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.3fr) minmax(0,.9fr);gap:18px;margin:18px 0 40px;align-items:start}
+@media (max-width:1000px){.play{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:600px){.panel{padding:12px}}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px;min-width:0}
+.panel h3{margin:0 0 10px;font-size:.8rem;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:var(--blue)}
+.empty{color:var(--dim);font-size:.95rem;padding:30px 0;text-align:center}
+.tiers{list-style:none;margin:0;padding:0;display:grid;gap:4px}
+.tiers li{display:grid;grid-template-columns:18px minmax(0,1fr) auto;gap:10px;align-items:center;padding:8px 10px;background:var(--panel2);border-radius:6px;font-size:.92rem}
+.tiers i{width:14px;height:14px;border-radius:50%;background:#2E3366}
+.tiers li.got i{background:var(--gold);box-shadow:0 0 10px rgba(253,192,16,.7)}
+.tiers em{font-style:normal;color:var(--dim);font-size:.82rem;overflow-wrap:anywhere;text-align:right}
+.tiers li.got em{color:var(--gold)}
+.tiers li.ready i{background:var(--blue);box-shadow:0 0 10px rgba(0,180,235,.7)}
+.tiers li.ready em{color:var(--blue)}
+.claim{margin-top:12px;display:grid;gap:8px}
+.claim p{margin:0;font-size:.88rem;color:var(--muted)}
+.claim form{display:flex;flex-wrap:wrap;gap:8px}
+.claim input{font:inherit;padding:9px 12px;background:var(--panel2);border:1px solid var(--line);color:var(--text);border-radius:8px;flex:1;min-width:140px}
+.claim .err{color:#FF8FB0}
+.dms{display:grid;gap:6px;margin-top:6px}
+.dm{background:#1E2148;border-left:3px solid var(--gold);border-radius:4px;padding:9px 12px;font-size:.88rem;overflow-wrap:anywhere}
+.dm small{display:block;color:var(--dim);font-size:.72rem}
+.next{margin-top:12px;text-align:center}
+footer{color:var(--dim);font-size:.8rem;padding:20px 0 40px}
+footer a{color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header><img src="../../nolimitcoins/assets/logo.png" alt="NoLimitCoins"><div class="mode" id="mode"></div></header>
+  <div class="hero"><h1>Infinity Garland</h1><p class="lede">Coiny brought the tree, you bring the lights. On every tier, hang one glowing garland through every light. One loop, no crossings. Light four tiers and the Infinity Star on top is yours.</p></div>
+
+  <form class="join" id="join">
+    <input id="nick" maxlength="24" placeholder="Your name" autocomplete="nickname" required>
+    <button class="btn" type="submit">Open my tree</button>
+  </form>
+
+  <div id="app" hidden>
+    <div class="play">
+      <div class="panel"><h3>Your tree</h3><div id="tree"></div></div>
+      <div class="panel"><div id="game"><div class="empty">Tap a tier on your tree.</div></div><div class="next" id="next"></div></div>
+      <div class="panel">
+        <h3>Your rewards</h3>
+        <ul class="tiers" id="tiers"></ul>
+        <div class="claim" id="claim"></div>
+        <h3 style="margin-top:18px">Messages from Coiny</h3>
+        <div class="dms" id="dms"></div>
+      </div>
+    </div>
+  </div>
+  <footer>NoLimitCoins · Infinity Garland · <span id="foot"></span> · <a href="stats.html">stats</a></footer>
+</div>
+
+<script src="shared/garland.js"></script>
+<script src="client/tree.js"></script>
+<script src="client/garland-game.js"></script>
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var P = null, ME = null, game = null, cur = null;
+  try { P = localStorage.getItem('garland_p'); } catch (e) {}
+
+  function post(url, data) { return fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) }).then(function (r) { return r.json(); }); }
+  function load() { return fetch('api/me?p=' + encodeURIComponent(P)).then(function (r) { if (!r.ok) throw 0; return r.json(); }).then(render); }
+  var fmt = function (ms) { return new Date(ms).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }); };
+  var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+
+  function render(me) {
+    ME = me;
+    $('join').hidden = true; $('app').hidden = false;
+    var ph = { before: 'starts soon', practice: 'practice bauble', morning: '"Christmas morning" · tiers 1–3', day: '"Christmas noon" · tiers 1–6', evening: '"Christmas evening" · star open', closed: 'garlands out' };
+    $('mode').innerHTML = me.mode === 'show'
+      ? 'Rehearsal · ' + (ph[me.phase] || me.phase) + '<br>tiers 1–3 ' + fmt(me.sched.morning) + ' · 4–6 ' + fmt(me.sched.day) + ' · star ' + fmt(me.sched.evening) + ' · out ' + fmt(me.sched.closesAt)
+      : 'Playtest · everything is open<br>' + esc(me.nick);
+    $('foot').textContent = me.nick;
+    GarlandTree.render($('tree'), me.levels, { current: cur, onOpen: open });
+    $('tiers').innerHTML = me.tiers.map(function (t) {
+      var st = !t.got ? '' : t.got.code ? 'got' : 'ready';
+      var right = !t.got ? t.prize : t.got.code ? t.got.code : t.prize + ' · ready';
+      return '<li class="' + st + '"><i></i><span>' + t.name + '</span><em>' + right + '</em></li>';
+    }).join('');
+    renderClaim(me.claim);
+    $('dms').innerHTML = me.dms.length ? me.dms.slice(0, 8).map(function (d) { return '<div class="dm"><small>NoLimitCoins · ' + fmt(d.at) + '</small>' + esc(d.text) + '</div>'; }).join('') : '<div class="empty" style="padding:10px 0">Nothing yet.</div>';
+  }
+
+  var CLAIM_ERR = { need_player_id: 'Player ID is digits only. You can find it in your NoLimitCoins profile.', player_id_taken: 'This player ID is already linked to another Discord account.', claim_closed: 'Claim is closed.', nothing_to_claim: 'Nothing to claim yet.' };
+  var claimMsg = '';
+  function renderClaim(c) {
+    var box = $('claim');
+    if (!c || !c.unclaimed) { box.innerHTML = claimMsg ? '<p>' + claimMsg + '</p>' : ''; return; }
+    if (!c.open) { box.innerHTML = '<p>Claim is closed.</p>'; return; }
+    if (c.pid && c.pid.status === 'pending') { box.innerHTML = '<p>We\'re checking your player ID. Your codes will arrive in your messages as soon as it\'s approved.</p>'; return; }
+    if (c.pid && c.pid.status === 'approved') {
+      box.innerHTML = '<button class="btn" type="button" id="claimBtn">Claim prize</button>' + (claimMsg ? '<p class="err">' + claimMsg + '</p>' : '');
+      $('claimBtn').onclick = function () { doClaim({}); };
+      return;
+    }
+    box.innerHTML = '<p>' + (c.pid && c.pid.status === 'rejected' ? 'We couldn\'t find that player ID. Check it and try again.' : 'First claim: add your NoLimitCoins player ID. We check it once, then every reward comes instantly.') + '</p>' +
+      '<form id="claimForm"><input id="pid" inputmode="numeric" placeholder="Player ID" autocomplete="off"><button class="btn" type="submit">Claim prize</button></form>' +
+      (claimMsg ? '<p class="err">' + claimMsg + '</p>' : '');
+    $('claimForm').onsubmit = function (e) { e.preventDefault(); doClaim({ playerId: $('pid').value }); };
+  }
+  function doClaim(extra) {
+    post('api/claim', Object.assign({ p: P }, extra)).then(function (r) { claimMsg = r.error ? (CLAIM_ERR[r.error] || r.error) : ''; load(); });
+  }
+
+  var when = function (ms) { return new Date(ms).toLocaleString([], { weekday: 'short', hour: 'numeric', minute: '2-digit' }); };
+  function why(can) {
+    if (can.error === 'need_tiers') return 'Light ' + can.need + ' more ' + (can.need === 1 ? 'tier' : 'tiers') + ' and the Infinity Star opens for you.';
+    if (can.error === 'not_open') return 'Opens ' + when(can.opensAt) + '.';
+    if (can.error === 'closed') return 'The garlands are out for this year.';
+    return 'Not available.';
+  }
+  function open(id, L) {
+    if (L && L.can && !L.can.ok && L.status === 'new') { $('game').innerHTML = '<div class="empty">' + why(L.can) + '</div>'; return; }
+    post('api/open', { p: P, level: id }).then(function (r) {
+      if (!r.attempt) { $('game').innerHTML = '<div class="empty">' + (r.can ? why(r.can) : r.error) + '</div>'; return; }
+      cur = id; $('next').innerHTML = '';
+      if (game) game.destroy();
+      game = GarlandGame.mount($('game'), {
+        move: function (input) { return post('api/move', { p: P, level: id, input: input }); },
+        onDone: function () { load().then(suggest); }
+      });
+      game.load(r.attempt);
+      GarlandTree.render($('tree'), ME.levels, { current: cur, onOpen: open });
+      if (innerWidth <= 1000 && !q.get('open')) $('game').scrollIntoView({ behavior: 'smooth', block: 'start' }); // на телефоне сетка ниже ёлки
+    });
+  }
+  function suggest() {
+    var n = ME.levels.find(function (l) { return l.status !== 'lit' && !l.practice && l.can && l.can.ok; });
+    $('next').innerHTML = n ? '<button class="btn ghost" type="button" id="go">' + n.title + ' →</button>' : '';
+    if (n) $('go').onclick = function () { open(n.id, n); };
+  }
+
+  function joinAs(nick) {
+    return post('api/join', { nick: nick }).then(function (r) {
+      if (!r.p) return; P = r.p; try { localStorage.setItem('garland_p', P); } catch (er) {}
+      return load();
+    });
+  }
+  $('join').addEventListener('submit', function (e) { e.preventDefault(); joinAs($('nick').value); });
+  // ?nick=Имя или ?name=Имя — вход без ввода (хаб плейтеста передаёт оба); ?open=g1 — сразу открыть ярус
+  var q = new URLSearchParams(location.search);
+  var qn = q.get('nick') || q.get('name');
+  if (qn) joinAs(qn).then(function () { if (q.get('open')) open(q.get('open')); });
+  else if (P) load().catch(function () { P = null; });
+  setInterval(function () { if (P && ME && ME.mode === 'show') load(); }, 5000);
+})();
+</script>
+</body>
+</html>

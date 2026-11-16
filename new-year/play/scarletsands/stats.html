@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<script src="../runtime.js" data-server="srv/dev/server.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>North Star · статистика</title>
+<style>
+  body{margin:0;background:#0B0B20;color:#F3E6D2;font:14px/1.45 system-ui,sans-serif}
+  .wrap{max-width:1180px;margin:0 auto;padding:16px}
+  h1{color:#FFE229;font-size:20px;margin:0 0 4px}
+  h2{color:#E4B473;font-size:15px;text-transform:uppercase;margin:24px 0 8px}
+  .muted{color:#B9A58C}
+  .scroll{overflow-x:auto}
+  table{border-collapse:collapse;width:100%;min-width:720px}
+  th,td{text-align:left;padding:7px 9px;border-bottom:1px solid rgba(228,180,115,.2);vertical-align:top}
+  th{font:500 11px monospace;text-transform:uppercase;color:#E4B473;background:#15122C}
+  td.n{font-family:monospace;white-space:nowrap}
+  .ok{color:#7bd88f}.lo{color:#ff6b6b}.hi{color:#ffb347}
+  tr.tier td{background:#1E1736;color:#FFE229;font:500 11px monospace;text-transform:uppercase}
+  button{background:#DB0037;color:#fff;border:0;padding:7px 10px;border-radius:3px;cursor:pointer;margin-right:6px}
+  button.g{background:#2f7a3a}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>The North Star Expedition · статистика</h1>
+  <p class="muted" id="sum"></p>
+  <h2>20 находок · доля нашедших (цель 60–85% среди тех, кто закрыл задачу)</h2>
+  <p class="muted">«с 1/2/3» — нашли с первого, второго, третьего пина; «раскрыто» — 3 промаха. Красное — меньше 60% (упростить или перенести в уровень ниже), оранжевое — больше 95% с первого пина (слишком легко).</p>
+  <div class="scroll"><table><thead><tr><th>Код</th><th>Находка</th><th>Тип</th><th>Выпала</th><th>Закрыли</th><th>с 1 / 2 / 3</th><th>Раскрыто</th><th>Нашли</th><th>С 1-го</th></tr></thead><tbody id="tasks"></tbody></table></div>
+  <h2>Оазис, коты, Golden Compass</h2>
+  <div class="scroll"><table><thead><tr><th>Что</th><th>Пробовали</th><th>с 1 / 2 / 3</th><th>Не нашли</th><th>Нашли</th></tr></thead><tbody id="extra"></tbody></table></div>
+  <h2>Штампы и уровни</h2>
+  <p id="dist"></p>
+  <h2>Заявки player ID</h2>
+  <div id="pending" class="muted"></div>
+  <h2>Golden Compass · розыгрыш 50 SC</h2>
+  <div id="golden"></div>
+  <h2>Игроки</h2>
+  <div class="scroll"><table><thead><tr><th>Ник</th><th>Экспедиций</th><th>Штампы</th><th>Находки</th><th>Лапки</th><th>Оазис</th><th>Golden</th><th>Стр. 0</th></tr></thead><tbody id="list"></tbody></table></div>
+</div>
+<script>
+(function () {
+  var $ = function (s) { return document.querySelector(s); };
+  var post = function (u, b) { return fetch(u, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(b) }).then(function (r) { return r.json(); }); };
+  var pct = function (x) { return x == null ? '—' : x + '%'; };
+  var TIER = ['', 'Лёгкие · глава 1', 'Средние · глава 2', 'Трудные · глава 3'];
+  function load() {
+    fetch('api/stats').then(function (r) { return r.json(); }).then(function (s) {
+      $('#sum').textContent = (s.mode === 'show' ? 'РЕПЕТИЦИЯ' : 'ПЛЕЙТЕСТ') + ' · игроков ' + s.players + ' · экспедиций ' + s.runs;
+      var rows = '';
+      [1, 2, 3].forEach(function (t) {
+        rows += '<tr class="tier"><td colspan="9">' + TIER[t] + '</td></tr>';
+        s.tasks.filter(function (x) { return x.tier === t; }).forEach(function (x) {
+          var cls = x.rate == null ? '' : x.rate < 60 ? 'lo' : x.first > 95 ? 'hi' : 'ok';
+          rows += '<tr><td class="n">' + x.key + '</td><td>' + x.item + '</td><td>' + x.type + '</td><td class="n">' + x.given + '</td><td class="n">' + x.resolved + '</td><td class="n">' + x.hit.join(' / ') + '</td><td class="n">' + x.revealed + '</td><td class="n ' + cls + '">' + pct(x.rate) + '</td><td class="n">' + pct(x.first) + '</td></tr>';
+        });
+      });
+      $('#tasks').innerHTML = rows;
+      var e = s.extra, sum = function (a) { return a.reduce(function (p, c) { return p + c; }, 0); };
+      $('#extra').innerHTML = '<tr><td>Оазис</td><td class="n">' + e.oasis.opened + '</td><td class="n">' + e.oasis.hit.join(' / ') + '</td><td class="n">' + e.oasis.revealed + '</td><td class="n">' + sum(e.oasis.hit) + '</td></tr>' +
+        e.cats.map(function (c, i) { return '<tr><td>Кот ' + (i + 1) + '</td><td class="n">' + c.opened + '</td><td class="n">' + c.hit.join(' / ') + '</td><td class="n">' + c.missed + '</td><td class="n">' + sum(c.hit) + '</td></tr>'; }).join('') +
+        '<tr><td>Golden Compass (открыт у ' + e.super.unlocked + ')</td><td class="n">' + (sum(e.super.hit) + e.super.failed) + '</td><td class="n">' + e.super.hit.join(' / ') + '</td><td class="n">' + e.super.failed + '</td><td class="n">' + sum(e.super.hit) + '</td></tr>';
+      $('#dist').innerHTML = 'Штампов 0–10: ' + s.stampsDist.map(function (n, i) { return i + ': <b>' + n + '</b>'; }).join(' · ') + '<br>Уровни: 3 штампа ' + s.tiers.t3 + ' · 6 штампов ' + s.tiers.t6 + ' · оазис ' + s.tiers.oasis + ' · Golden Compass ' + s.tiers.golden;
+      $('#pending').innerHTML = s.pending.length ? s.pending.map(function (x) { return '<p>' + x.nick + ' · ID ' + x.playerId + ' · ждёт: ' + x.unclaimed.join(', ') + ' <button class="g" data-p="' + x.p + '" data-ok="1">Одобрить</button><button data-p="' + x.p + '" data-ok="0">Отклонить</button></p>'; }).join('') : 'Нет заявок.';
+      $('#golden').innerHTML = (s.golden.length ? '<p>Прошли супер-игру: ' + s.golden.map(function (g) { return g.nick + (g.pid ? ' (ID ' + g.pid + ')' : ''); }).join(', ') + '</p>' : '<p class="muted">Пока никто не нашёл Golden Compass.</p>') +
+        (s.draw ? '<p>Победитель: <b>' + (s.list.find(function () { return false; }) || '') + s.draw.winner + '</b> из ' + s.draw.candidates + '</p>' : '') +
+        '<button id="draw">' + (s.draw ? 'Перетянуть (без победителя)' : 'Провести розыгрыш') + '</button>';
+      $('#draw').onclick = function () { post('api/staff/draw', { exclude: s.draw ? (s.draw.exclude || []).concat([s.draw.winner]) : [] }).then(function (r) { alert(r.error || ('Победитель: ' + r.winner + ' (из ' + r.candidates + ')')); load(); }); };
+      $('#list').innerHTML = s.list.sort(function (a, b) { return b.stamps - a.stamps; }).map(function (x) { return '<tr><td>' + x.nick + '</td><td class="n">' + x.expeditions + '</td><td class="n">' + x.stamps + '</td><td class="n">' + x.found + '</td><td class="n">' + x.paws + '</td><td>' + (x.oasis ? '✓' : '') + '</td><td>' + (x.golden ? '★' : '') + '</td><td>' + (x.training ? '✓' : '') + '</td></tr>'; }).join('');
+    });
+  }
+  document.addEventListener('click', function (e) { var b = e.target.closest('button[data-p]'); if (b) post('api/staff/review', { p: b.getAttribute('data-p'), ok: b.getAttribute('data-ok') === '1' }).then(load); });
+  load(); setInterval(load, 5000);
+})();
+</script>
+</body>
+</html>

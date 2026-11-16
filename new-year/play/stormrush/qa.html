@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<script src="../runtime.js" data-server="srv/dev/server.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Light Up · QA клиента</title>
+<link rel="stylesheet" href="client/lightup-game.css">
+<style>body{margin:0;background:#0C130F;color:#F3F6F5;font:14px system-ui,sans-serif}.wrap{max-width:900px;margin:0 auto;padding:16px}pre{background:#fff;color:#000;padding:10px;white-space:pre-wrap;font:12px monospace}#game{background:#1A2620;padding:16px;margin-top:12px}</style>
+</head>
+<body>
+<div class="wrap">
+  <pre id="out">QA: кликаю как игрок…</pre>
+  <div id="game"></div>
+</div>
+<script src="shared/grid.js"></script>
+<script src="client/lightup-game.js"></script>
+<script>
+// Сценарий: игрок открывает дом, жмёт по плиткам быстро (пачки уходят, пока идут запросы), посреди — подсказка Golem,
+// потом Sparky, доделывает. Проверяем: дом засчитан сервером, локальная картинка совпала с сервером, уровни выданы.
+(function () {
+  var G = LightGrid, log = [], out = document.getElementById('out');
+  function say(s) { log.push(s); out.textContent = log.join('\n'); }
+  function post(u, d) { return fetch(u, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(d) }).then(function (r) { return r.json(); }); }
+  var sleep = function (ms) { return new Promise(function (r) { setTimeout(r, ms); }); };
+  function solve(tiles) {
+    var at = G.indexOf(tiles), src = tiles.findIndex(function (t) { return t.src; }), asg = tiles.map(function () { return -1; });
+    var order = tiles.map(function (_, i) { return i; }).sort(function (a, b) { return tiles[a].r - tiles[b].r || tiles[a].c - tiles[b].c; });
+    var opts = tiles.map(function (t) { var s = {}, l = []; for (var k = 0; k < 4; k++) { var m = G.rot(t.m, k); if (!s[m]) { s[m] = 1; l.push(m); } } return l; });
+    function ok(i, m) { var t = tiles[i]; for (var d = 0; d < 4; d++) { var D = G.DIRS[d], j = at[(t.r + D[0]) + ',' + (t.c + D[1])]; if (j === undefined) { if (m & D[2]) return false; continue; } if (asg[j] < 0) continue; if (!!(m & D[2]) !== !!(asg[j] & D[3])) return false; } return true; }
+    function rec(n) { if (n === order.length) return G.power(tiles, asg, src, at).solved; var i = order[n]; for (var q = 0; q < opts[i].length; q++) { var m = opts[i][q]; if (!ok(i, m)) continue; asg[i] = m; if (rec(n + 1)) return true; asg[i] = -1; } return false; }
+    return rec(0) ? asg : null;
+  }
+  var tilesEls = function () { return document.querySelectorAll('#game .lu-tile'); };
+  async function playHouse(p, level, useHints) {
+    var o = await post('api/open', { p: p, level: level });
+    var doneView = null, moves = 0;
+    var game = LightUp.mount(document.getElementById('game'), {
+      move: function (input) { moves++; return post('api/move', { p: p, level: level, input: input }); },
+      onDone: function (v) { doneView = v; }
+    });
+    game.load(o.attempt);
+    var v = o.attempt.view, cur = v.tiles.map(function (t) { return t.m; });
+    // кнопки плиток идут в DOM в порядке r,c — сопоставим индексы
+    var at = G.indexOf(v.tiles), els = tilesEls(), byIdx = [];
+    var k = 0; for (var r = 0; r < v.R; r++) for (var c = 0; c < v.C; c++) { var i = at[r + ',' + c]; if (i !== undefined) byIdx[i] = els[k]; k++; }
+    els = null;
+    var domEls = document.querySelectorAll('#game .lu-grid > *');
+    k = 0; for (r = 0; r < v.R; r++) for (c = 0; c < v.C; c++) { i = at[r + ',' + c]; if (i !== undefined) byIdx[i] = domEls[k]; k++; }
+    if (useHints) {
+      // сначала пара «неправильных» нажатий, затем Golem посреди решения
+      byIdx[0].click(); await sleep(20); byIdx[0].click(); await sleep(400);
+      document.querySelector('#game .lu-g').click(); await sleep(600);
+      document.querySelector('#game .lu-s').click(); await sleep(600);
+    }
+    // решаем от текущего состояния, которое видит игрок (запросим у сервера)
+    var cv = (await post('api/open', { p: p, level: level })).attempt.view;
+    var target = solve(cv.tiles);
+    if (!target) { say(level + ': решатель не нашёл решение'); return false; }
+    var taps = [];
+    cv.tiles.forEach(function (t, i) { if (t.lock) return; for (var q = 0; q < 4; q++) if (G.rot(t.m, q) === target[i]) { for (var z = 0; z < q; z++) taps.push(i); break; } });
+    for (var n = 0; n < taps.length; n++) { byIdx[taps[n]].click(); await sleep(n % 5 === 4 ? 140 : 25); } // быстро, с паузами — пачки и запросы в полёте
+    for (var w = 0; w < 40 && !doneView; w++) await sleep(100);
+    var server = (await post('api/open', { p: p, level: level })).attempt;
+    say(level + ': taps=' + taps.length + ' запросов=' + moves + ' onDone=' + !!doneView + ' server solved=' + server.view.solved + ' turns=' + server.view.turns + (useHints ? ' golemLeft=' + server.view.golemLeft + ' sparkyLeft=' + server.view.sparkyLeft : ''));
+    game.destroy();
+    return server.view.solved;
+  }
+  (async function () {
+    var j = await post('api/join', { nick: 'QA Client ' + Date.now() % 100000 });
+    var ok1 = await playHouse(j.p, 'h1', false);
+    var ok2 = await playHouse(j.p, 'h2', true);
+    var ok3 = await playHouse(j.p, 'h6', false);
+    var me = await fetch('api/me?p=' + j.p).then(function (r) { return r.json(); });
+    say('progress: lit=' + me.progress.lit + ' tiers=' + me.tiers.filter(function (t) { return t.got; }).map(function (t) { return t.id; }).join(',') + ' dms=' + me.dms.length);
+    say(ok1 && ok2 && ok3 && me.progress.lit === 3 ? 'RESULT: PASS' : 'RESULT: FAIL');
+    document.title = 'QA done';
+  })().catch(function (e) { say('ERROR ' + e); });
+})();
+</script>
+</body>
+</html>
