@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Чат-офферы: сетки и цены</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+<style>
+:root {
+  color-scheme: dark;
+  --bg: #070a13; --fg: #f0f4fc; --muted: #8f9cba; --dim: #5b6787;
+  --panel: rgba(14,20,36,.78); --panel-2: rgba(20,28,48,.9); --line: rgba(255,255,255,.09); --grid: rgba(255,255,255,.07);
+  --brand: #00e5ff; --ok: #00f59b; --bad: #ff5c7a; --warn: #ffb020;
+  --k-week: #00e5ff; --k-old: #ffb020; --k-ever: #5b6787;
+  --b-nlc: #a78bfa; --b-fwl: #ffd600; --b-scs: #ff5c7a;
+  --r: 14px; --sans: 'Plus Jakarta Sans', -apple-system, 'Segoe UI', Roboto, sans-serif; --serif: 'Source Serif 4', Georgia, serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--sans); font-size: 14px; line-height: 1.45; -webkit-font-smoothing: antialiased; }
+body { padding: 28px 24px 80px; }
+@media (max-width: 600px) { body { padding: 20px 16px 60px; } }
+.wrap { max-width: 1160px; margin: 0 auto; display: flex; flex-direction: column; gap: 34px; }
+.head { display: flex; flex-direction: column; gap: 10px; }
+.eyebrow { font-size: 11.5px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--brand); }
+h1 { font-family: var(--serif); font-weight: 400; font-size: 34px; margin: 0; line-height: 1.12; text-wrap: balance; }
+.period { color: var(--muted); font-size: 12.5px; margin: 0; }
+.lede { margin: 0; max-width: 74ch; line-height: 1.6; font-size: 14.5px; }
+.lede b { font-weight: 700; font-variant-numeric: tabular-nums; }
+.pills { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+.pills .lbl { font-size: 11.5px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-right: 6px; }
+.pill { font: inherit; font-size: 12.5px; font-weight: 700; color: var(--muted); background: transparent; border: 1px solid var(--line); border-radius: 99px; padding: 6px 13px; cursor: pointer; font-variant-numeric: tabular-nums; }
+.pill:hover { color: #fff; border-color: rgba(255,255,255,.22); }
+.pill[aria-pressed="true"] { color: #050811; background: var(--brand); border-color: var(--brand); box-shadow: 0 0 14px rgba(0,229,255,.3); }
+.pill .sub { font-weight: 500; opacity: .75; margin-left: 4px; }
+section { display: flex; flex-direction: column; gap: 14px; }
+h2 { margin: 0; font-size: 17px; font-weight: 700; }
+.note { margin: 0; color: var(--muted); font-size: 12.5px; line-height: 1.55; max-width: 80ch; }
+.grid3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 14px; }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); padding: 18px 20px; display: flex; flex-direction: column; gap: 10px; min-width: 0; position: relative; overflow: hidden; }
+.card.brand::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 3px; background: var(--c); }
+.card .top { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.tag { display: inline-flex; align-items: center; gap: 7px; font-weight: 800; font-size: 13px; letter-spacing: .04em; }
+.tag i { width: 9px; height: 9px; border-radius: 50%; background: var(--c); box-shadow: 0 0 10px var(--c); }
+.big { font-family: var(--serif); font-size: 34px; line-height: 1.05; font-variant-numeric: tabular-nums; margin: 0; }
+.delta { font-size: 12.5px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.delta.up { color: var(--ok); } .delta.down { color: var(--bad); } .delta.flat { color: var(--muted); }
+.split { display: flex; height: 8px; border-radius: 99px; overflow: hidden; background: rgba(255,255,255,.05); }
+.split span { height: 100%; }
+.kv { display: grid; grid-template-columns: 1fr auto auto; gap: 4px 12px; font-size: 12.5px; font-variant-numeric: tabular-nums; }
+.kv .k { color: var(--muted); display: flex; align-items: center; gap: 6px; }
+.kv .v { text-align: right; } .kv .v2 { text-align: right; color: var(--muted); min-width: 4.5em; }
+.sw { width: 9px; height: 9px; border-radius: 2px; display: inline-block; flex: none; }
+.gridline { font-size: 12px; color: var(--muted); border-top: 1px dashed var(--line); padding-top: 8px; }
+.gridline b { color: var(--fg); font-weight: 600; }
+.legend { display: flex; flex-wrap: wrap; gap: 14px; font-size: 12.5px; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.chart { position: relative; min-height: 220px; }
+.chart svg { display: block; overflow: visible; }
+.chart text { fill: var(--muted); font-family: var(--sans); font-size: 11px; }
+.chart .val { fill: var(--fg); font-weight: 700; font-variant-numeric: tabular-nums; }
+.tip { position: absolute; pointer-events: none; background: #111a2e; border: 1px solid rgba(255,255,255,.16); border-radius: 10px; box-shadow: 0 8px 24px rgba(0,0,0,.5); padding: 7px 10px; font-size: 12px; font-variant-numeric: tabular-nums; white-space: nowrap; z-index: 5; opacity: 0; transition: opacity .12s; }
+.tip .d { color: var(--muted); }
+.tablewrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; font-size: 13px; }
+th { text-align: right; font-weight: 700; color: var(--muted); font-size: 11.5px; letter-spacing: .03em; padding: 6px 10px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+td { text-align: right; padding: 7px 10px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+th:first-child, td:first-child { text-align: left; }
+td.l { text-align: left; white-space: normal; }
+tr.sel td { background: rgba(0,229,255,.06); }
+td .bar { display: inline-block; height: 6px; border-radius: 3px; vertical-align: middle; margin-left: 8px; opacity: .85; }
+.empty { color: var(--muted); font-size: 12.5px; padding: 18px 0; text-align: center; }
+.insights { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 14px; }
+.oldt td.l { width: 100%; } .oldt td { vertical-align: top; }
+.ins { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); padding: 16px 18px; display: flex; flex-direction: column; gap: 6px; }
+.ins .n { font-size: 11px; font-weight: 800; letter-spacing: .12em; color: var(--c, var(--brand)); text-transform: uppercase; }
+.ins h3 { margin: 0; font-size: 15px; font-weight: 700; line-height: 1.35; }
+.ins p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.55; }
+.ins p b { color: var(--fg); font-weight: 600; }
+.decide { background: linear-gradient(135deg, rgba(0,229,255,.09), rgba(167,139,250,.07)); border: 1px solid rgba(0,229,255,.22); border-radius: var(--r); padding: 18px 20px; }
+.decide ol { margin: 8px 0 0; padding-left: 1.3em; display: flex; flex-direction: column; gap: 8px; line-height: 1.55; }
+.decide li b { color: var(--brand); }
+.foot { color: var(--dim); font-size: 12px; line-height: 1.6; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="head">
+    <div class="eyebrow">Онлайн-чаты · Power BI · Offer Type = Chat</div>
+    <h1>Чат-офферы: какие сетки и цены работают</h1>
+    <p class="period" id="period">—</p>
+    <p class="lede" id="lede">—</p>
+  </header>
+
+  <div class="pills" id="pills"><span class="lbl">Неделя</span></div>
+
+  <section>
+    <h2>Неделя по брендам</h2>
+    <div class="grid3" id="tiles"></div>
+    <div class="legend">
+      <span><i class="sw" style="background:var(--k-week)"></i>офферы этой недели</span>
+      <span><i class="sw" style="background:var(--k-old)"></i>старые пакеты прошлых недель</span>
+      <span><i class="sw" style="background:var(--k-ever)"></i>support 9.99 (без даты)</span>
+    </div>
+  </section>
+
+  <section>
+    <h2>Откуда деньги, по неделям</h2>
+    <p class="note">Депозит с чат-пакетов: офферы этой недели, старые пакеты, которые всё ещё покупают, и постоянный support-пакет. Новая неделя слева.</p>
+    <div class="grid3" id="stacks"></div>
+  </section>
+
+  <section>
+    <h2>Цена → покупки (только офферы недели)</h2>
+    <p class="note">Сколько раз купили оффер каждой цены за выбранную неделю. Подпись над столбиком — депозит.</p>
+    <div class="grid3" id="prices"></div>
+  </section>
+
+  <section>
+    <h2>Plus против дешёвого</h2>
+    <p class="note">Покупки дешёвого оффера и Plus в дни, где их два. Новая неделя слева.</p>
+    <div class="legend"><span><i class="sw" style="background:var(--k-week)"></i>дешёвый (Core)</span><span><i class="sw" style="background:#f472b6"></i>Plus</span></div>
+    <div class="grid3" id="legs"></div>
+  </section>
+
+  <section>
+    <h2>Сетка недели → результат</h2>
+    <div class="tablewrap"><table id="gridtable"></table></div>
+  </section>
+
+  <section>
+    <h2>Старые пакеты, которые продаются на выбранной неделе</h2>
+    <p class="note">Пакеты прошлых недель с датой в названии. Доступность у них без срока, поэтому их продолжают покупать.</p>
+    <div class="grid3" id="olds"></div>
+  </section>
+
+  <section>
+    <h2>Что видно (W40–W45)</h2>
+    <div class="insights">
+      <div class="ins" style="--c:#f472b6"><span class="n">01 · Plus</span><h3>Plus в kg-chats почти не покупают</h3><p>NLC Plus 49.99 — <b>1 покупка</b> за W45, FWL Plus 59.99 — <b>0</b> (в W44 — 5). У FWL Plus = 60 SC + 30 FP, ровно двойной дешёвый без бонуса сверху. В Scarlet Plus по 29.99–49.99 продаётся: <b>~70 покупок</b> за W45.</p></div>
+      <div class="ins" style="--c:var(--b-nlc)"><span class="n">02 · NLC</span><h3>NLC просел из-за старых пакетов, а не из-за сетки</h3><p>Пакеты W40 по 49.99–69.99 давали <b>$4–6k в неделю</b> (Midweek Coin Rush 49.99 — 46 покупок за неделю) и в W44 перестали продаваться. Без них NLC держится на <b>~$1.3k</b>. Дорогие паки игроки NLC берут, когда наполнение жирное.</p></div>
+      <div class="ins" style="--c:var(--b-nlc)"><span class="n">03 · NLC цена</span><h3>19.99 ≈ 29.99 по деньгам, 49.99 обрушивает продажи</h3><p>19.99 — <b>42 покупки / $870</b>, 29.99 — <b>28–34 / $840–1 020</b>, 49.99 — <b>9 / $450</b>.</p></div>
+      <div class="ins" style="--c:var(--b-fwl)"><span class="n">04 · FWL</span><h3>65% денег FWL в W45 — старые пакеты</h3><p>Неделя W45 — <b>$5.8k</b>, рекорд за период, но <b>$3.7k</b> из них пришли от пакетов сентября–октября (21.09 по 19.99 — 25 покупок, 04.10 по 9.99 — 20). Офферы самой недели по 29.99 — 55 покупок; 39.99 в W43 — 34.</p></div>
+    </div>
+    <div class="decide">
+      <b style="color:var(--fg)">Что решить по сеткам с 23.11</b>
+      <ol>
+        <li><b>Старые пакеты:</b> выключаем или оставляем? Сейчас это реальные деньги (FWL $3.7k, Scarlet $3.75k в W45), но они конкурируют с недельной сеткой и делают тест цен грязным.</li>
+        <li><b>Plus:</b> реальная выгода сверху (больше FP / GK, а не ×2), или цена ниже, как у Scarlet (39.99–49.99), или убрать.</li>
+        <li><b>NLC:</b> дешёвый — 19.99 или 29.99; 1–2 дня в неделю — дорогой пак с наполнением как у пакетов W40.</li>
+      </ol>
+    </div>
+  </section>
+
+  <p class="foot">Источник: USA Offer Monitoring (Power BI), вкладка Offers, Offer Type = Chat, Period = Week. «Офферы недели» — пакеты с датой этой недели в названии, «старые» — с датой раньше, support — без даты. Покупки = Offers Count, депозит = Dep Sum. W44 — Haunted Week. W46 будет добавлена, когда в отчёте появится 15.11.</p>
+</div>
+<div class="tip" id="tip"></div>
+<script>
+const D = {"weeks": [{"id": "2026-W40", "start": "2026-09-28", "end": "2026-10-04"}, {"id": "2026-W41", "start": "2026-10-05", "end": "2026-10-11"}, {"id": "2026-W42", "start": "2026-10-12", "end": "2026-10-18"}, {"id": "2026-W43", "start": "2026-10-19", "end": "2026-10-25"}, {"id": "2026-W44", "start": "2026-10-26", "end": "2026-11-01"}, {"id": "2026-W45", "start": "2026-11-02", "end": "2026-11-08"}], "brands": ["NLC", "FWL", "SCS"], "data": {"2026-W40": {"NLC": {"total": {"n": 126, "usd": 4769}, "kinds": {"week": {"n": 115, "usd": 4659}, "old": {"n": 0, "usd": 0}, "evergreen": {"n": 11, "usd": 110}}, "prices": [{"p": 19.99, "n": 51, "usd": 1019}, {"p": 49.99, "n": 27, "usd": 1350}, {"p": 59.99, "n": 30, "usd": 1800}, {"p": 69.99, "n": 7, "usd": 490}], "legs": {"core": {"n": 115, "usd": 4659}, "plus": {"n": 0, "usd": 0}}, "old": [], "oldCount": 0, "grid": ""}, "FWL": {"total": {"n": 214, "usd": 4840}, "kinds": {"week": {"n": 175, "usd": 4280}, "old": {"n": 6, "usd": 230}, "evergreen": {"n": 33, "usd": 330}}, "prices": [{"p": 9.99, "n": 54, "usd": 540}, {"p": 19.99, "n": 22, "usd": 440}, {"p": 29.99, "n": 83, "usd": 2490}, {"p": 39.99, "n": 7, "usd": 280}, {"p": 49.99, "n": 1, "usd": 50}, {"p": 59.99, "n": 8, "usd": 480}], "legs": {"core": {"n": 158, "usd": 3460}, "plus": {"n": 17, "usd": 820}}, "old": [{"name": "Chat_FridayFortuneFrenzy_18.09", "date": "18.09", "price": 59.99, "n": 1, "usd": 60.0}, {"name": "Chat_GoldenWheelSunday_27.09", "date": "27.09", "price": 29.99, "n": 2, "usd": 60.0}, {"name": "Chat_FortuneThunderThursday_17.09", "date": "17.09", "price": 49.99, "n": 1, "usd": 50.0}, {"name": "Chat_MidweekMegaWheel_23.09", "date": "23.09", "price": 29.99, "n": 1, "usd": 30.0}, {"name": "Chat_TripleFortuneTuesday_22.09", "date": "22.09", "price": 29.99, "n": 1, "usd": 30.0}], "oldCount": 5, "grid": ""}, "SCS": {"total": {"n": 285, "usd": 5869}, "kinds": {"week": {"n": 0, "usd": 0}, "old": {"n": 0, "usd": 0}, "evergreen": {"n": 285, "usd": 5869}}, "prices": [], "legs": {"core": {"n": 0, "usd": 0}, "plus": {"n": 0, "usd": 0}}, "old": [], "oldCount": 0, "grid": ""}}, "2026-W41": {"NLC": {"total": {"n": 163, "usd": 5510}, "kinds": {"week": {"n": 46, "usd": 940}, "old": {"n": 89, "usd": 4290}, "evergreen": {"n": 28, "usd": 280}}, "prices": [{"p": 19.99, "n": 45, "usd": 900}, {"p": 39.99, "n": 1, "usd": 40}], "legs": {"core": {"n": 46, "usd": 940}, "plus": {"n": 0, "usd": 0}}, "old": [{"name": "Chat_Midweek Coin Rush_49.99_30.09", "date": "30.09", "price": 49.99, "n": 30, "usd": 1500.0}, {"name": "Chat_SuperCoinSaturday_69,99_03.10", "date": "03.10", "price": 69.99, "n": 17, "usd": 1190.0}, {"name": "Chat_ThunderCoinThursday_59.99_01.10", "date": "01.10", "price": 59.99, "n": 14, "usd": 840.0}, {"name": "Chat_SundayGoldenCoins_19,99_04.10", "date": "04.10", "price": 19.99, "n": 24, "usd": 480.0}, {"name": "Chat_FridayCoinFrenzy_69.99_02.10", "date": "02.10", "price": 69.99, "n": 4, "usd": 280.0}], "oldCount": 5, "grid": ""}, "FWL": {"total": {"n": 145, "usd": 3670}, "kinds": {"week": {"n": 91, "usd": 2730}, "old": {"n": 21, "usd": 610}, "evergreen": {"n": 33, "usd": 330}}, "prices": [{"p": 29.99, "n": 91, "usd": 2730}], "legs": {"core": {"n": 91, "usd": 2730}, "plus": {"n": 0, "usd": 0}}, "old": [{"name": "Chat_FortuneThunderThursday_01.10", "date": "01.10", "price": 29.99, "n": 5, "usd": 150.0}, {"name": "Chat_FridayFortuneFrenzyPlus_02.10", "date": "02.10", "price": 59.99, "n": 2, "usd": 120.0}, {"name": "Chat_FortuneThunderThursday_17.09", "date": "17.09", "price": 49.99, "n": 2, "usd": 100.0}, {"name": "Chat_MidweekMegaWheel_23.09", "date": "23.09", "price": 29.99, "n": 3, "usd": 90.0}, {"name": "Chat_GoldenWheelSunday_04.10", "date": "04.10", "price": 9.99, "n": 5, "usd": 50.0}, {"name": "Chat_GoldenWheelSundayPlus_04.10", "date": "04.10", "price": 39.99, "n": 1, "usd": 40.0}, {"name": "Chat_SuperSpinSaturday_26.09", "date": "26.09", "price": 29.99, "n": 1, "usd": 30.0}, {"name": "Chat_LuckyWheelMonday_21.09", "date": "21.09", "price": 19.99, "n": 1, "usd": 20.0}], "oldCount": 9, "grid": ""}, "SCS": {"total": {"n": 320, "usd": 6224}, "kinds": {"week": {"n": 116, "usd": 3625}, "old": {"n": 0, "usd": 0}, "evergreen": {"n": 204, "usd": 2599}}, "prices": [{"p": 19.99, "n": 36, "usd": 720}, {"p": 24.99, "n": 27, "usd": 675}, {"p": 29.99, "n": 17, "usd": 510}, {"p": 39.99, "n": 8, "usd": 320}, {"p": 49.99, "n": 28, "usd": 1400}], "legs": {"core": {"n": 80, "usd": 1905}, "plus": {"n": 36, "usd": 1720}}, "old": [], "oldCount": 0, "grid": ""}}, "2026-W42": {"NLC": {"total": {"n": 164, "usd": 7300}, "kinds": {"week": {"n": 28, "usd": 840}, "old": {"n": 109, "usd": 6190}, "evergreen": {"n": 27, "usd": 270}}, "prices": [{"p": 29.99, "n": 28, "usd": 840}], "legs": {"core": {"n": 28, "usd": 840}, "plus": {"n": 0, "usd": 0}}, "old": [{"name": "Chat_Midweek Coin Rush_49.99_30.09", "date": "30.09", "price": 49.99, "n": 46, "usd": 2300.0}, {"name": "Chat_FridayCoinFrenzy_69.99_02.10", "date": "02.10", "price": 69.99, "n": 22, "usd": 1540.0}, {"name": "Chat_SuperCoinSaturday_69,99_03.10", "date": "03.10", "price": 69.99, "n": 17, "usd": 1190.0}, {"name": "Chat_ThunderCoinThursday_59.99_01.10", "date": "01.10", "price": 59.99, "n": 17, "usd": 1020.0}, {"name": "Chat_NoLimitMonday_05.10", "date": "05.10", "price": 19.99, "n": 4, "usd": 80.0}, {"name": "Chat_SundayGoldenCoins_19,99_04.10", "date": "04.10", "price": 19.99, "n": 3, "usd": 60.0}], "oldCount": 6, "grid": "29.99 каждый день (блок G)"}, "FWL": {"total": {"n": 197, "usd": 3650}, "kinds": {"week": {"n": 141, "usd": 2660}, "old": {"n": 23, "usd": 660}, "evergreen": {"n": 33, "usd": 330}}, "prices": [{"p": 9.99, "n": 68, "usd": 680}, {"p": 19.99, "n": 31, "usd": 620}, {"p": 29.99, "n": 37, "usd": 1110}, {"p": 39.99, "n": 1, "usd": 40}, {"p": 49.99, "n": 3, "usd": 150}, {"p": 59.99, "n": 1, "usd": 60}], "legs": {"core": {"n": 136, "usd": 2410}, "plus": {"n": 5, "usd": 250}}, "old": [{"name": "Chat_FortuneThunderThursday_01.10", "date": "01.10", "price": 29.99, "n": 7, "usd": 210.0}, {"name": "Chat_GoldenWheelSundayPlus_04.10", "date": "04.10", "price": 39.99, "n": 3, "usd": 120.0}, {"name": "Chat_GoldenWheelSunday_11.10", "date": "11.10", "price": 29.99, "n": 3, "usd": 90.0}, {"name": "Chat_GoldenWheelSunday_27.09", "date": "27.09", "price": 29.99, "n": 2, "usd": 60.0}, {"name": "Chat_MidweekMegaWheel_23.09", "date": "23.09", "price": 29.99, "n": 2, "usd": 60.0}, {"name": "Chat_FortuneThunderThursday_17.09", "date": "17.09", "price": 49.99, "n": 1, "usd": 50.0}, {"name": "Chat_GoldenWheelSunday_04.10", "date": "04.10", "price": 9.99, "n": 3, "usd": 30.0}, {"name": "Chat_GoldenWheelSunday_20.09", "date": "20.09", "price": 19.99, "n": 1, "usd": 20.0}], "oldCount": 9, "grid": ""}, "SCS": {"total": {"n": 281, "usd": 6800}, "kinds": {"week": {"n": 241, "usd": 6200}, "old": {"n": 8, "usd": 280}, "evergreen": {"n": 32, "usd": 320}}, "prices": [{"p": 19.99, "n": 172, "usd": 3440}, {"p": 39.99, "n": 69, "usd": 2760}], "legs": {"core": {"n": 172, "usd": 3440}, "plus": {"n": 69, "usd": 2760}}, "old": [{"name": "Chat_ScarletSundayBlessingPlus_49.99_11.10", "date": "11.10", "price": 49.99, "n": 4, "usd": 200.0}, {"name": "Chat_ScarletSundayBlessing_19.99_11.10", "date": "11.10", "price": 19.99, "n": 4, "usd": 80.0}], "oldCount": 2, "grid": ""}}, "2026-W43": {"NLC": {"total": {"n": 162, "usd": 5860}, "kinds": {"week": {"n": 34, "usd": 1020}, "old": {"n": 83, "usd": 4390}, "evergreen": {"n": 45, "usd": 450}}, "prices": [{"p": 29.99, "n": 34, "usd": 1020}], "legs": {"core": {"n": 34, "usd": 1020}, "plus": {"n": 0, "usd": 0}}, "old": [{"name": "Chat_Midweek Coin Rush_49.99_30.09", "date": "30.09", "price": 49.99, "n": 36, "usd": 1800.0}, {"name": "Chat_ThunderCoinThursday_59.99_01.10", "date": "01.10", "price": 59.99, "n": 17, "usd": 1020.0}, {"name": "Chat_FridayCoinFrenzy_69.99_02.10", "date": "02.10", "price": 69.99, "n": 12, "usd": 840.0}, {"name": "Chat_SuperCoinSaturday_69,99_03.10", "date": "03.10", "price": 69.99, "n": 7, "usd": 490.0}, {"name": "Chat_NoLimitMonday_05.10", "date": "05.10", "price": 19.99, "n": 6, "usd": 120.0}, {"name": "Chat_SundayGoldenCoins_18.10", "date": "18.10", "price": 29.99, "n": 2, "usd": 60.0}, {"name": "Chat_SundayGoldenCoins_19,99_04.10", "date": "04.10", "price": 19.99, "n": 3, "usd": 60.0}], "oldCount": 7, "grid": "29.99 + Plus 59.99 (блок H)"}, "FWL": {"total": {"n": 104, "usd": 2450}, "kinds": {"week": {"n": 34, "usd": 1360}, "old": {"n": 22, "usd": 610}, "evergreen": {"n": 48, "usd": 480}}, "prices": [{"p": 39.99, "n": 34, "usd": 1360}], "legs": {"core": {"n": 34, "usd": 1360}, "plus": {"n": 0, "usd": 0}}, "old": [{"name": "Chat_SuperSpinSaturday_26.09", "date": "26.09", "price": 29.99, "n": 9, "usd": 270.0}, {"name": "Chat_SuperSpinSaturdayPlus_03.10", "date": "03.10", "price": 49.99, "n": 2, "usd": 100.0}, {"name": "Chat_LuckyWheelMonday_05.10", "date": "05.10", "price": 29.99, "n": 3, "usd": 90.0}, {"name": "Chat_TripleFortuneTuesday_06.10", "date": "06.10", "price": 29.99, "n": 2, "usd": 60.0}, {"name": "Chat_GoldenWheelSunday_18.10", "date": "18.10", "price": 9.99, "n": 4, "usd": 40.0}, {"name": "Chat_FridayFortuneFrenzy_25.09", "date": "25.09", "price": 29.99, "n": 1, "usd": 30.0}, {"name": "Chat_TripleFortuneTuesday_29.09", "date": "29.09", "price": 19.99, "n": 1, "usd": 20.0}], "oldCount": 7, "grid": "39.99 каждый день"}, "SCS": {"total": {"n": 261, "usd": 6720}, "kinds": {"week": {"n": 209, "usd": 5760}, "old": {"n": 22, "usd": 660}, "evergreen": {"n": 30, "usd": 300}}, "prices": [{"p": 9.99, "n": 11, "usd": 110}, {"p": 14.99, "n": 27, "usd": 405}, {"p": 19.99, "n": 56, "usd": 1120}, {"p": 24.99, "n": 29, "usd": 725}, {"p": 29.99, "n": 33, "usd": 990}, {"p": 39.99, "n": 24, "usd": 960}, {"p": 49.99, "n": 29, "usd": 1450}], "legs": {"core": {"n": 139, "usd": 2840}, "plus": {"n": 70, "usd": 2920}}, "old": [{"name": "Chat_ScarletSundayBlessing_19.99_18.10", "date": "18.10", "price": 19.99, "n": 6, "usd": 120.0}, {"name": "Chat_ScarletSundayBlessingPlus_39.99_18.10", "date": "18.10", "price": 39.99, "n": 3, "usd": 120.0}, {"name": "Chat_DesertGoldThursdayPlus_39.99_15.10", "date": "15.10", "price": 39.99, "n": 2, "usd": 80.0}, {"name": "Chat_FridayTreasureRushPlus_39.99_16.10", "date": "16.10", "price": 39.99, "n": 2, "usd": 80.0}, {"name": "Chat_MidweekGoldRushPlus_39.99_14.10", "date": "14.10", "price": 39.99, "n": 2, "usd": 80.0}, {"name": "Chat_MidweekGoldRush_19.99_14.10", "date": "14.10", "price": 19.99, "n": 3, "usd": 60.0}, {"name": "Chat_MondayMadnessPlus_39.99_12.10", "date": "12.10", "price": 39.99, "n": 1, "usd": 40.0}, {"name": "Chat_RedSandsRushTuesdayPlus_39.99_13.10", "date": "13.10", "price": 39.99, "n": 1, "usd": 40.0}], "oldCount": 10, "grid": ""}}, "2026-W44": {"NLC": {"total": {"n": 54, "usd": 1370}, "kinds": {"week": {"n": 9, "usd": 450}, "old": {"n": 11, "usd": 580}, "evergreen": {"n": 34, "usd": 340}}, "prices": [{"p": 49.99, "n": 9, "usd": 450}], "legs": {"core": {"n": 9, "usd": 450}, "plus": {"n": 0, "usd": 0}}, "old": [{"name": "Chat_Midweek Coin Rush_49.99_30.09", "date": "30.09", "price": 49.99, "n": 6, "usd": 300.0}, {"name": "Chat_ThunderCoinThursday_59.99_01.10", "date": "01.10", "price": 59.99, "n": 3, "usd": 180.0}, {"name": "Chat_FridayCoinFrenzy_69.99_02.10", "date": "02.10", "price": 69.99, "n": 1, "usd": 70.0}, {"name": "Chat_SundayGoldenCoins_25.10", "date": "25.10", "price": 29.99, "n": 1, "usd": 30.0}], "oldCount": 4, "grid": "49.99 каждый день (блок I)"}, "FWL": {"total": {"n": 158, "usd": 4490}, "kinds": {"week": {"n": 89, "usd": 2820}, "old": {"n": 35, "usd": 1330}, "evergreen": {"n": 34, "usd": 340}}, "prices": [{"p": 29.99, "n": 84, "usd": 2520}, {"p": 59.99, "n": 5, "usd": 300}], "legs": {"core": {"n": 84, "usd": 2520}, "plus": {"n": 5, "usd": 300}}, "old": [{"name": "Chat_FortuneThunderThursdayPlus_01.10", "date": "01.10", "price": 59.99, "n": 9, "usd": 540.0}, {"name": "Chat_LuckyWheelMondayPlus_28.09", "date": "28.09", "price": 39.99, "n": 4, "usd": 160.0}, {"name": "Chat_MidweekMegaWheel_23.09", "date": "23.09", "price": 29.99, "n": 5, "usd": 150.0}, {"name": "Chat_GoldenWheelSunday_27.09", "date": "27.09", "price": 29.99, "n": 3, "usd": 90.0}, {"name": "Chat_GoldenWheelSunday_25.10", "date": "25.10", "price": 39.99, "n": 2, "usd": 80.0}, {"name": "Chat_GoldenWheelSundayPlus_04.10", "date": "04.10", "price": 39.99, "n": 2, "usd": 80.0}, {"name": "Chat_SuperSpinSaturday_19.09", "date": "19.09", "price": 69.99, "n": 1, "usd": 70.0}, {"name": "Chat_GoldenWheelSunday_20.09", "date": "20.09", "price": 19.99, "n": 3, "usd": 60.0}], "oldCount": 10, "grid": "29.99 + Plus 59.99 Ср–Сб (Haunted Week)"}, "SCS": {"total": {"n": 296, "usd": 6900}, "kinds": {"week": {"n": 208, "usd": 5280}, "old": {"n": 50, "usd": 1240}, "evergreen": {"n": 38, "usd": 380}}, "prices": [{"p": 19.99, "n": 152, "usd": 3040}, {"p": 39.99, "n": 56, "usd": 2240}], "legs": {"core": {"n": 152, "usd": 3040}, "plus": {"n": 56, "usd": 2240}}, "old": [{"name": "Chat_FridayTreasureRush_19.99_16.10", "date": "16.10", "price": 19.99, "n": 9, "usd": 180.0}, {"name": "Chat_DesertGoldThursday_19.99_15.10", "date": "15.10", "price": 19.99, "n": 6, "usd": 120.0}, {"name": "Chat_MidweekGoldRushPlus_39.99_21.10", "date": "21.10", "price": 39.99, "n": 3, "usd": 120.0}, {"name": "Chat_RedSandsRushTuesdayPlus_39.99_20.10", "date": "20.10", "price": 39.99, "n": 3, "usd": 120.0}, {"name": "Chat_DesertGoldThursdayPlus_39.99_15.10", "date": "15.10", "price": 39.99, "n": 2, "usd": 80.0}, {"name": "Chat_MidweekGoldRush_19.99_21.10", "date": "21.10", "price": 19.99, "n": 4, "usd": 80.0}, {"name": "Chat_ScarletSundayBlessingPlus_39.99_18.10", "date": "18.10", "price": 39.99, "n": 2, "usd": 80.0}, {"name": "Chat_DesertGoldThursday_24.99_22.10", "date": "22.10", "price": 24.99, "n": 3, "usd": 75.0}], "oldCount": 18, "grid": ""}}, "2026-W45": {"NLC": {"total": {"n": 85, "usd": 1300}, "kinds": {"week": {"n": 42, "usd": 870}, "old": {"n": 0, "usd": 0}, "evergreen": {"n": 43, "usd": 430}}, "prices": [{"p": 19.99, "n": 41, "usd": 820}, {"p": 49.99, "n": 1, "usd": 50}], "legs": {"core": {"n": 41, "usd": 820}, "plus": {"n": 1, "usd": 50}}, "old": [], "oldCount": 0, "grid": "19.99 + Plus 49.99 (блок J)"}, "FWL": {"total": {"n": 221, "usd": 5790}, "kinds": {"week": {"n": 55, "usd": 1650}, "old": {"n": 126, "usd": 3740}, "evergreen": {"n": 40, "usd": 400}}, "prices": [{"p": 29.99, "n": 55, "usd": 1650}], "legs": {"core": {"n": 55, "usd": 1650}, "plus": {"n": 0, "usd": 0}}, "old": [{"name": "Chat_LuckyWheelMonday_21.09", "date": "21.09", "price": 19.99, "n": 25, "usd": 500.0}, {"name": "Chat_SuperSpinSaturday_19.09", "date": "19.09", "price": 69.99, "n": 5, "usd": 350.0}, {"name": "Chat_MidweekMegaWheel_23.09", "date": "23.09", "price": 29.99, "n": 11, "usd": 330.0}, {"name": "Chat_GoldenWheelSundayPlus_04.10", "date": "04.10", "price": 39.99, "n": 8, "usd": 320.0}, {"name": "Chat_GoldenWheelSunday_27.09", "date": "27.09", "price": 29.99, "n": 7, "usd": 210.0}, {"name": "Chat_GoldenWheelSunday_04.10", "date": "04.10", "price": 9.99, "n": 20, "usd": 200.0}, {"name": "Chat_LuckyWheelMonday_28.09", "date": "28.09", "price": 49.99, "n": 4, "usd": 200.0}, {"name": "Chat_FortuneThunderThursdayPlus_01.10", "date": "01.10", "price": 59.99, "n": 3, "usd": 180.0}], "oldCount": 27, "grid": "29.99 + Plus 59.99 Ср–Сб"}, "SCS": {"total": {"n": 406, "usd": 10279}, "kinds": {"week": {"n": 219, "usd": 5995}, "old": {"n": 133, "usd": 3750}, "evergreen": {"n": 54, "usd": 534}}, "prices": [{"p": 9.99, "n": 5, "usd": 50}, {"p": 14.99, "n": 26, "usd": 390}, {"p": 19.99, "n": 75, "usd": 1500}, {"p": 24.99, "n": 23, "usd": 575}, {"p": 29.99, "n": 37, "usd": 1110}, {"p": 39.99, "n": 28, "usd": 1120}, {"p": 49.99, "n": 25, "usd": 1250}], "legs": {"core": {"n": 149, "usd": 3115}, "plus": {"n": 70, "usd": 2880}}, "old": [{"name": "Chat_WildOutlawSaturdayPlus_39.99_17.10", "date": "17.10", "price": 39.99, "n": 11, "usd": 440.0}, {"name": "Chat_FridayTreasureRush_19.99_16.10", "date": "16.10", "price": 19.99, "n": 16, "usd": 320.0}, {"name": "Chat_DesertGoldThursday_19.99_29.10", "date": "29.10", "price": 19.99, "n": 12, "usd": 240.0}, {"name": "Chat_FridayTreasureRushPlus_39.99_30.10", "date": "30.10", "price": 39.99, "n": 6, "usd": 240.0}, {"name": "Chat_MidweekGoldRushPlus_39.99_14.10", "date": "14.10", "price": 39.99, "n": 6, "usd": 240.0}, {"name": "Chat_DesertGoldThursdayPlus_39.99_29.10", "date": "29.10", "price": 39.99, "n": 5, "usd": 200.0}, {"name": "Chat_FridayTreasureRush_19.99_30.10", "date": "30.10", "price": 19.99, "n": 10, "usd": 200.0}, {"name": "Chat_DesertGoldThursday_19.99_15.10", "date": "15.10", "price": 19.99, "n": 9, "usd": 180.0}], "oldCount": 34, "grid": ""}}}};
+const BC = { NLC: getComputedStyle(document.documentElement).getPropertyValue('--b-nlc').trim(), FWL: '#ffd600', SCS: '#ff5c7a' };
+const BN = { NLC: 'NoLimitCoins', FWL: 'Fortune Wheelz', SCS: 'Scarlet Sands' };
+const KC = { week: '#00e5ff', old: '#ffb020', evergreen: '#5b6787' };
+const KN = { week: 'офферы недели', old: 'старые пакеты', evergreen: 'support 9.99' };
+const PLUS = '#f472b6';
+const $ = (n) => '$' + Math.round(n).toLocaleString('en-US').replace(/,/g, ' ');
+const int = (n) => Math.round(n).toLocaleString('en-US').replace(/,/g, ' ');
+const dm = (iso) => iso.slice(8, 10) + '.' + iso.slice(5, 7);
+const weeksNewestFirst = [...D.weeks].reverse();
+const wl = (w) => `${w.id.slice(5)} · ${dm(w.start)}–${dm(w.end)}`;
+let sel = weeksNewestFirst[0].id;
+
+const tip = document.getElementById('tip');
+function showTip(ev, html) { tip.innerHTML = html; tip.style.opacity = 1; const x = Math.min(ev.pageX + 14, window.innerWidth + window.scrollX - tip.offsetWidth - 10); tip.style.left = x + 'px'; tip.style.top = (ev.pageY - 10 - tip.offsetHeight) + 'px'; }
+function hideTip() { tip.style.opacity = 0; }
+
+function pills() {
+  const box = document.getElementById('pills');
+  weeksNewestFirst.forEach((w) => {
+    const b = document.createElement('button'); b.className = 'pill'; b.dataset.w = w.id;
+    b.innerHTML = `${w.id.slice(5)}<span class="sub">${dm(w.start)}–${dm(w.end)}</span>`;
+    b.onclick = () => { sel = w.id; render(); };
+    box.appendChild(b);
+  });
+}
+
+function prevOf(id) { const i = D.weeks.findIndex((w) => w.id === id); return i > 0 ? D.weeks[i - 1].id : null; }
+
+function head() {
+  const w = D.weeks.find((x) => x.id === sel), d = D.data[sel], p = prevOf(sel);
+  document.getElementById('period').textContent = `Неделя ${sel.slice(5)} · ${dm(w.start)}–${dm(w.end)}.${w.end.slice(0, 4)} · NLC, FWL — kg-chats · Scarlet — Watchers`;
+  const tot = D.brands.reduce((s, b) => s + (d[b]?.total.usd || 0), 0);
+  const old = D.brands.reduce((s, b) => s + (d[b]?.kinds.old.usd || 0), 0);
+  const ptot = p ? D.brands.reduce((s, b) => s + (D.data[p][b]?.total.usd || 0), 0) : null;
+  const ch = ptot ? Math.round((tot / ptot - 1) * 100) : null;
+  document.getElementById('lede').innerHTML = `Три чата принесли <b>${$(tot)}</b> депозитов с чат-пакетов${ch !== null ? ` (<b style="color:${ch >= 0 ? 'var(--ok)' : 'var(--bad)'}">${ch >= 0 ? '+' : ''}${ch}%</b> к прошлой неделе)` : ''}. Из них <b>${$(old)}</b> (${Math.round(old / tot * 100)}%) — старые пакеты прошлых недель, которые всё ещё продаются.`;
+  document.querySelectorAll('.pill').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.w === sel)));
+}
+
+function tiles() {
+  const box = document.getElementById('tiles'); box.innerHTML = '';
+  const d = D.data[sel], p = prevOf(sel);
+  D.brands.forEach((b) => {
+    const x = d[b], c = document.createElement('div'); c.className = 'card brand'; c.style.setProperty('--c', BC[b]);
+    if (!x) { c.innerHTML = `<div class="tag"><i></i>${b}</div><div class="empty">нет данных за эту неделю</div>`; box.appendChild(c); return; }
+    const px = p && D.data[p][b];
+    const dl = px ? Math.round((x.total.usd / px.total.usd - 1) * 100) : null;
+    const cls = dl === null ? 'flat' : dl > 2 ? 'up' : dl < -2 ? 'down' : 'flat';
+    const T = x.total.usd || 1;
+    c.innerHTML = `
+      <div class="top"><div class="tag"><i></i>${b}<span style="color:var(--muted);font-weight:600;letter-spacing:0">${BN[b]}</span></div>
+      <span class="delta ${cls}">${dl === null ? '' : (dl >= 0 ? '▲ +' : '▼ ') + dl + '%'}</span></div>
+      <p class="big">${$(x.total.usd)}</p>
+      <div class="split">${['week', 'old', 'evergreen'].map((k) => `<span style="width:${x.kinds[k].usd / T * 100}%;background:${KC[k]}"></span>`).join('')}</div>
+      <div class="kv">${['week', 'old', 'evergreen'].map((k) => `<span class="k"><i class="sw" style="background:${KC[k]}"></i>${KN[k]}</span><span class="v">${$(x.kinds[k].usd)}</span><span class="v2">${int(x.kinds[k].n)} пок.</span>`).join('')}
+      <span class="k">средний чек офферов недели</span><span class="v">${x.kinds.week.n ? '$' + (x.kinds.week.usd / x.kinds.week.n).toFixed(2) : '—'}</span><span class="v2"></span></div>
+      ${x.grid ? `<div class="gridline">Сетка: <b>${x.grid}</b></div>` : ''}`;
+    box.appendChild(c);
+  });
+}
+
+// все три карточки создаются до рисования: иначе auto-fit сетка растягивает первую на всю ширину и график вылезает
+function chartCards(boxId) {
+  const box = document.getElementById(boxId); box.innerHTML = '';
+  const out = {};
+  D.brands.forEach((b) => { const c = document.createElement('div'); c.className = 'card brand'; c.style.setProperty('--c', BC[b]); c.innerHTML = `<div class="tag"><i></i>${b}</div><div class="chart"></div>`; box.appendChild(c); out[b] = c; });
+  return out;
+}
+function svgIn(el, h) { el.innerHTML = ''; const w = el.clientWidth || 320; return { svg: d3.select(el).append('svg').attr('width', w).attr('height', h), w, h }; }
+
+function stacks() {
+  const cards = chartCards('stacks');
+  D.brands.forEach((b) => {
+    const c = cards[b];
+    const el = c.querySelector('.chart'), m = { t: 18, r: 6, b: 24, l: 40 };
+    const { svg, w, h } = svgIn(el, 230);
+    const rows = weeksNewestFirst.map((wk) => { const x = D.data[wk.id][b]; return { id: wk.id, week: x ? x.kinds.week.usd : 0, old: x ? x.kinds.old.usd : 0, evergreen: x ? x.kinds.evergreen.usd : 0, tot: x ? x.total.usd : 0 }; });
+    const xs = d3.scaleBand().domain(rows.map((r) => r.id)).range([m.l, w - m.r]).padding(0.28);
+    const ys = d3.scaleLinear().domain([0, d3.max(rows, (r) => r.tot) * 1.12 || 1]).nice(4).range([h - m.b, m.t]);
+    svg.append('g').selectAll('line').data(ys.ticks(4)).join('line').attr('x1', m.l).attr('x2', w - m.r).attr('y1', ys).attr('y2', ys).attr('stroke', 'var(--grid)');
+    svg.append('g').selectAll('text').data(ys.ticks(4)).join('text').attr('x', m.l - 6).attr('y', (d) => ys(d) + 4).attr('text-anchor', 'end').text((d) => d >= 1000 ? d / 1000 + 'k' : d);
+    const st = d3.stack().keys(['week', 'old', 'evergreen'])(rows);
+    svg.append('g').selectAll('g').data(st).join('g').attr('fill', (s) => KC[s.key])
+      .selectAll('rect').data((s) => s.map((v) => ({ v, key: s.key }))).join('rect')
+      .attr('x', (d) => xs(d.v.data.id)).attr('width', xs.bandwidth())
+      .attr('y', (d) => ys(d.v[1])).attr('height', (d) => Math.max(0, ys(d.v[0]) - ys(d.v[1])))
+      .attr('opacity', (d) => d.v.data.id === sel ? 1 : 0.42).attr('rx', 2)
+      .on('mousemove', (ev, d) => showTip(ev, `<b>${d.v.data.id.slice(5)} · ${b}</b><br><span class="d">${KN[d.key]}</span> ${$(d.v.data[d.key])}<br><span class="d">всего</span> ${$(d.v.data.tot)}`)).on('mouseleave', hideTip)
+      .on('click', (ev, d) => { sel = d.v.data.id; render(); }).style('cursor', 'pointer');
+    svg.append('g').selectAll('text').data(rows).join('text').attr('class', 'val').attr('x', (r) => xs(r.id) + xs.bandwidth() / 2).attr('y', (r) => ys(r.tot) - 5).attr('text-anchor', 'middle').style('font-size', '10.5px').attr('opacity', (r) => r.id === sel ? 1 : 0.6).text((r) => r.tot ? (r.tot / 1000).toFixed(1) + 'k' : '');
+    svg.append('g').selectAll('text').data(rows).join('text').attr('x', (r) => xs(r.id) + xs.bandwidth() / 2).attr('y', h - 6).attr('text-anchor', 'middle').style('font-weight', (r) => r.id === sel ? 800 : 500).style('fill', (r) => r.id === sel ? 'var(--fg)' : null).text((r) => r.id.slice(5));
+  });
+}
+
+function prices() {
+  const cards = chartCards('prices');
+  D.brands.forEach((b) => {
+    const x = D.data[sel][b], c = cards[b];
+    const el = c.querySelector('.chart');
+    if (!x || !x.prices.length) { el.innerHTML = '<div class="empty">офферы недели не продавались</div>'; return; }
+    const m = { t: 22, r: 6, b: 24, l: 34 }, { svg, w, h } = svgIn(el, 220);
+    const rows = x.prices.filter((r) => r.p);
+    const span = Math.min(w - m.r - m.l, rows.length * 90), x0 = m.l + (w - m.r - m.l - span) / 2;
+    const xs = d3.scaleBand().domain(rows.map((r) => r.p)).range([x0, x0 + span]).padding(0.32);
+    const ys = d3.scaleLinear().domain([0, d3.max(rows, (r) => r.n) * 1.18 || 1]).nice(4).range([h - m.b, m.t]);
+    svg.append('g').selectAll('line').data(ys.ticks(4)).join('line').attr('x1', m.l).attr('x2', w - m.r).attr('y1', ys).attr('y2', ys).attr('stroke', 'var(--grid)');
+    svg.append('g').selectAll('text').data(ys.ticks(4)).join('text').attr('x', m.l - 6).attr('y', (d) => ys(d) + 4).attr('text-anchor', 'end').text((d) => d);
+    svg.append('g').selectAll('rect').data(rows).join('rect').attr('x', (r) => xs(r.p)).attr('width', xs.bandwidth()).attr('y', (r) => ys(r.n)).attr('height', (r) => ys(0) - ys(r.n)).attr('rx', 3).attr('fill', BC[b])
+      .on('mousemove', (ev, r) => showTip(ev, `<b>$${r.p}</b><br><span class="d">покупок</span> ${r.n}<br><span class="d">депозит</span> ${$(r.usd)}`)).on('mouseleave', hideTip);
+    svg.append('g').selectAll('text').data(rows).join('text').attr('class', 'val').attr('x', (r) => xs(r.p) + xs.bandwidth() / 2).attr('y', (r) => ys(r.n) - 6).attr('text-anchor', 'middle').style('font-size', '10.5px').text((r) => r.n + ' · ' + $(r.usd));
+    svg.append('g').selectAll('text').data(rows).join('text').attr('x', (r) => xs(r.p) + xs.bandwidth() / 2).attr('y', h - 6).attr('text-anchor', 'middle').text((r) => '$' + r.p);
+  });
+}
+
+function legs() {
+  const cards = chartCards('legs');
+  D.brands.forEach((b) => {
+    const c = cards[b];
+    const el = c.querySelector('.chart'), m = { t: 18, r: 6, b: 24, l: 34 }, { svg, w, h } = svgIn(el, 200);
+    const rows = weeksNewestFirst.map((wk) => { const x = D.data[wk.id][b]; return { id: wk.id, core: x ? x.legs.core.n : 0, plus: x ? x.legs.plus.n : 0 }; });
+    const x0 = d3.scaleBand().domain(rows.map((r) => r.id)).range([m.l, w - m.r]).padding(0.22);
+    const x1 = d3.scaleBand().domain(['core', 'plus']).range([0, x0.bandwidth()]).padding(0.08);
+    const ys = d3.scaleLinear().domain([0, d3.max(rows, (r) => Math.max(r.core, r.plus)) * 1.15 || 1]).nice(4).range([h - m.b, m.t]);
+    svg.append('g').selectAll('line').data(ys.ticks(4)).join('line').attr('x1', m.l).attr('x2', w - m.r).attr('y1', ys).attr('y2', ys).attr('stroke', 'var(--grid)');
+    svg.append('g').selectAll('text').data(ys.ticks(4)).join('text').attr('x', m.l - 6).attr('y', (d) => ys(d) + 4).attr('text-anchor', 'end').text((d) => d);
+    const g = svg.append('g').selectAll('g').data(rows).join('g').attr('transform', (r) => `translate(${x0(r.id)},0)`).attr('opacity', (r) => r.id === sel ? 1 : 0.45);
+    g.selectAll('rect').data((r) => ['core', 'plus'].map((k) => ({ k, n: r[k], id: r.id }))).join('rect')
+      .attr('x', (d) => x1(d.k)).attr('width', x1.bandwidth()).attr('y', (d) => ys(d.n)).attr('height', (d) => ys(0) - ys(d.n)).attr('rx', 2)
+      .attr('fill', (d) => d.k === 'plus' ? PLUS : KC.week)
+      .on('mousemove', (ev, d) => showTip(ev, `<b>${d.id.slice(5)} · ${b}</b><br><span class="d">${d.k === 'plus' ? 'Plus' : 'дешёвый'}</span> ${d.n} пок.`)).on('mouseleave', hideTip);
+    g.selectAll('text.val').data((r) => ['plus'].map((k) => ({ k, n: r[k] }))).join('text').attr('class', 'val').attr('x', (d) => x1(d.k) + x1.bandwidth() / 2).attr('y', (d) => ys(d.n) - 4).attr('text-anchor', 'middle').style('font-size', '10px').style('fill', PLUS).text((d) => d.n);
+    svg.append('g').selectAll('text').data(rows).join('text').attr('x', (r) => x0(r.id) + x0.bandwidth() / 2).attr('y', h - 6).attr('text-anchor', 'middle').style('font-weight', (r) => r.id === sel ? 800 : 500).style('fill', (r) => r.id === sel ? 'var(--fg)' : null).text((r) => r.id.slice(5));
+  });
+}
+
+function gridTable() {
+  const t = document.getElementById('gridtable');
+  const maxN = d3.max(D.weeks.flatMap((w) => D.brands.map((b) => D.data[w.id][b]?.kinds.week.n || 0))) || 1;
+  let html = '<thead><tr><th>Неделя</th><th>Бренд</th><th style="text-align:left">Сетка / цены в продаже</th><th>Покупки офферов недели</th><th>Депозит</th><th>Ср. чек</th><th>Plus, пок.</th><th>Старые, $</th></tr></thead><tbody>';
+  weeksNewestFirst.forEach((w) => D.brands.forEach((b, i) => {
+    const x = D.data[w.id][b];
+    const cls = w.id === sel ? ' class="sel"' : '';
+    if (!x) { html += `<tr${cls}><td>${i ? '' : wl(w)}</td><td>${b}</td><td class="l" colspan="6" style="color:var(--muted)">нет данных</td></tr>`; return; }
+    const pr = x.prices.filter((r) => r.p).map((r) => '$' + r.p).join(', ');
+    html += `<tr${cls}><td>${i ? '' : wl(w)}</td><td><span class="tag" style="--c:${BC[b]}"><i></i>${b}</span></td><td class="l">${x.grid ? '<b>' + x.grid + '</b>' : '<span style="color:var(--muted)">' + (pr || '—') + '</span>'}</td>
+      <td>${x.kinds.week.n}<span class="bar" style="width:${x.kinds.week.n / maxN * 70}px;background:${BC[b]}"></span></td><td>${$(x.kinds.week.usd)}</td>
+      <td>${x.kinds.week.n ? '$' + (x.kinds.week.usd / x.kinds.week.n).toFixed(2) : '—'}</td><td style="color:${x.legs.plus.n ? PLUS : 'var(--muted)'}">${x.legs.plus.n}</td><td style="color:var(--warn)">${$(x.kinds.old.usd)}</td></tr>`;
+  }));
+  t.innerHTML = html + '</tbody>';
+}
+
+function olds() {
+  const box = document.getElementById('olds'); box.innerHTML = '';
+  D.brands.forEach((b) => {
+    const x = D.data[sel][b], c = document.createElement('div'); c.className = 'card brand'; c.style.setProperty('--c', BC[b]);
+    let inner = `<div class="top"><div class="tag"><i></i>${b}</div><span class="delta" style="color:var(--warn)">${x ? $(x.kinds.old.usd) + ' · ' + x.oldCount + ' пак.' : ''}</span></div>`;
+    if (!x || !x.old.length) inner += '<div class="empty">старые пакеты не продавались</div>';
+    else inner += '<table class="oldt"><thead><tr><th>Пакет</th><th>Пок.</th><th>Депозит</th></tr></thead><tbody>' +
+      x.old.map((o) => `<tr><td class="l"><div>${o.name.replace(/^Chat_/, '').replace(/_\d{2}\.\d{2}$/, '').replace(/_[\d.,]+$/, '').replace(/([a-z])([A-Z])/g, '$1 $2')}</div><div style="color:var(--muted);font-size:11.5px">$${o.price} · от ${o.date}</div></td><td>${o.n}</td><td>${$(o.usd)}</td></tr>`).join('') + '</tbody></table>';
+    c.innerHTML = inner; box.appendChild(c);
+  });
+}
+
+function render() { head(); tiles(); stacks(); prices(); legs(); gridTable(); olds(); }
+pills(); render();
+let rt, lastW = document.body.clientWidth;
+new ResizeObserver(() => { const w = document.body.clientWidth; if (w === lastW) return; lastW = w; clearTimeout(rt); rt = setTimeout(() => { stacks(); prices(); legs(); }, 150); }).observe(document.body);
+</script>
+</body>
+</html>
