@@ -1,0 +1,1109 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Онлайн-чаты · Итоги</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800;900&family=Titan+One&family=Gochi+Hand&family=Kanit:wght@600;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --night:#0C091C;
+  --night-2:#140F2E;
+  --night-3:#1E1644;
+  --ink:#FFF8EA;
+  --ink-2:#C9C2E3;
+  --ink-3:#8E86B2;
+  --gold:#FFD27A;
+  --lamp:#FF9A3C;
+  --lav:#C9A8FF;
+  --mint:#3FD39A;
+  --rose:#FF6B7A;
+  --sky:#63B3FF;
+  --line:rgba(255,248,234,.12);
+  --f-display:"Titan One",Impact,sans-serif;
+  --f-body:"Nunito","Segoe UI",system-ui,sans-serif;
+  --f-hand:"Gochi Hand",cursive;
+  --f-kanit:"Kanit",sans-serif;
+  --mx:50%;
+  --my:220px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--night);color:var(--ink)}
+body{
+  margin:0;
+  font-family:var(--f-body);
+  font-size:16.5px;
+  line-height:1.55;
+  color:var(--ink);
+  background:#0A0718;
+  overflow-x:hidden;
+}
+h1,h2,h3,h4,p{margin:0}
+a{color:var(--gold);text-decoration:none}
+.wrap{width:min(1280px,calc(100% - 48px));margin-inline:auto}
+@media (max-width:640px){.wrap{width:calc(100% - 24px)}}
+.num{font-variant-numeric:tabular-nums}
+
+/* ==================== GLOBAL HERO ==================== */
+.hero{
+  position:relative;
+  padding:28px 0 70px;
+  border-bottom:1px solid var(--line);
+  background:
+    radial-gradient(380px 380px at var(--mx) var(--my),rgba(255,210,122,.22),rgba(255,154,60,.08) 45%,transparent 72%),
+    radial-gradient(1100px 540px at 50% 0%,rgba(65,42,138,.65),transparent 75%),
+    linear-gradient(180deg,#090616 0%,#110C29 50%,#0C091C 100%);
+}
+.topbar{
+  display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;
+  padding-bottom:18px;border-bottom:1px solid var(--line);
+  font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);
+}
+.tag{display:inline-flex;align-items:center;gap:8px;font-weight:800}
+.tag::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 12px var(--gold)}
+.tag b{color:#fff}
+.hero-in{
+  display:grid;justify-items:center;text-align:center;
+  padding-top:36px;gap:14px;
+}
+.pre{font-family:var(--f-hand);font-size:clamp(22px,2.6vw,32px);color:var(--gold);transform:rotate(-1deg)}
+.hero h1{
+  font-family:var(--f-display);font-weight:400;
+  font-size:clamp(34px,5.6vw,68px);line-height:1.02;letter-spacing:.01em;
+  color:#FFF6DE;
+  text-shadow:0 6px 0 #070512,0 14px 38px rgba(0,0,0,.7);
+  max-width:20ch;
+}
+.dates{font-weight:900;font-size:clamp(15px,1.7vw,19px);letter-spacing:.08em;text-transform:uppercase;color:var(--lamp)}
+.slogan{max-width:76ch;color:var(--ink-2);font-size:clamp(16px,1.65vw,19.5px);line-height:1.55}
+.slogan b{color:#fff}
+.brand-pill-bar{
+  display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:14px;max-width:980px;
+}
+.bpill{
+  display:inline-flex;align-items:center;gap:7px;
+  padding:6px 14px;border-radius:999px;font-size:13px;font-weight:800;
+  background:rgba(255,255,255,.05);border:1px solid var(--line);color:#fff;
+  transition:transform .15s ease,border-color .15s ease;
+}
+.bpill:hover{transform:translateY(-2px);border-color:var(--gold)}
+.bpill .dot{width:8px;height:8px;border-radius:50%}
+
+/* ==================== STICKY NAV ==================== */
+.snav{
+  position:sticky;top:0;z-index:60;
+  background:rgba(10,7,24,.92);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+}
+.snav-in{
+  display:flex;align-items:center;gap:6px;overflow-x:auto;
+  padding:10px 0;scrollbar-width:none;
+}
+.snav-in::-webkit-scrollbar{display:none}
+.snav a{
+  flex:0 0 auto;
+  display:inline-flex;align-items:center;gap:7px;
+  padding:7px 13px;border-radius:999px;
+  font-size:13px;font-weight:800;color:var(--ink-2);
+  border:1px solid transparent;
+  transition:all .16s ease;
+}
+.snav a:hover,.snav a.active{
+  color:#fff;background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.24);
+}
+.snav a .icon-tag{font-size:14px}
+
+/* ==================== ACT SECTIONS (BRAND-THEMED) ==================== */
+main section.act-sec{
+  padding-block:76px;
+  border-bottom:1px solid var(--line);
+  position:relative;
+}
+
+/* THEME 00: Overview Master VIP Hub */
+.theme-overview{
+  background:
+    radial-gradient(900px 500px at 85% 15%,rgba(201,168,255,.12),transparent 65%),
+    radial-gradient(800px 460px at 10% 80%,rgba(255,154,60,.10),transparent 65%),
+    linear-gradient(180deg,#0C091C 0%,#150F33 50%,#0C091C 100%);
+}
+
+/* THEME 01: Scarlet Sands & Desert Relics (Онлайн-чаты) */
+.theme-chat-scs{
+  background:
+    radial-gradient(950px 520px at 80% 10%,rgba(245,158,11,.16),transparent 65%),
+    radial-gradient(850px 480px at 15% 85%,rgba(220,38,38,.12),transparent 65%),
+    radial-gradient(600px 400px at 50% 50%,rgba(180,83,9,.08),transparent 70%),
+    linear-gradient(180deg,#140B05 0%,#24140A 50%,#120904 100%);
+  --act-gold:#FBBF24;
+  --act-lamp:#F59E0B;
+  --act-accent:#DC2626;
+  --act-panel:rgba(42,24,12,.74);
+  --act-border:rgba(245,158,11,.24);
+}
+
+/* THEME 02: Discord Blurple & Fire Seven Flame */
+.theme-ds{
+  background:
+    radial-gradient(920px 540px at 85% 15%,rgba(88,101,242,.22),transparent 65%),
+    radial-gradient(860px 480px at 12% 80%,rgba(239,68,68,.16),transparent 65%),
+    linear-gradient(180deg,#0B0D26 0%,#141740 50%,#0A0B22 100%);
+  --act-gold:#FBBF24;
+  --act-lamp:#5865F2;
+  --act-accent:#EF4444;
+  --act-panel:rgba(24,27,70,.72);
+  --act-border:rgba(88,101,242,.28);
+}
+
+/* THEME 03: Facebook Meta Blue & Vegas Way Penthouse */
+.theme-fb{
+  background:
+    radial-gradient(960px 520px at 85% 15%,rgba(24,119,242,.22),transparent 65%),
+    radial-gradient(860px 480px at 15% 85%,rgba(139,92,246,.16),transparent 65%),
+    linear-gradient(180deg,#071228 0%,#0C2046 50%,#061022 100%);
+  --act-gold:#FDE047;
+  --act-lamp:#38BDF8;
+  --act-accent:#1877F2;
+  --act-panel:rgba(14,35,74,.72);
+  --act-border:rgba(24,119,242,.28);
+}
+
+/* THEME 04: BotCake Broadcasts (Messenger Teal & Waves) */
+.theme-bcb{
+  background:
+    radial-gradient(920px 500px at 80% 20%,rgba(0,196,159,.20),transparent 65%),
+    radial-gradient(840px 460px at 15% 80%,rgba(2,132,199,.18),transparent 65%),
+    linear-gradient(180deg,#05171F 0%,#0A2A38 50%,#04131A 100%);
+  --act-gold:#38BDF8;
+  --act-lamp:#00C49F;
+  --act-accent:#0284C7;
+  --act-panel:rgba(11,46,60,.72);
+  --act-border:rgba(0,196,159,.28);
+}
+
+/* THEME 05: BotCake Automation (Cyber Neon Triggers) */
+.theme-bca{
+  background:
+    radial-gradient(940px 520px at 80% 15%,rgba(168,85,247,.22),transparent 65%),
+    radial-gradient(860px 480px at 15% 85%,rgba(236,72,153,.18),transparent 65%),
+    linear-gradient(180deg,#140722 0%,#260D3E 50%,#10051C 100%);
+  --act-gold:#F472B6;
+  --act-lamp:#A855F7;
+  --act-accent:#EC4899;
+  --act-panel:rgba(44,17,70,.74);
+  --act-border:rgba(168,85,247,.28);
+}
+
+/* THEME 06: The Witching Hours (Halloween Spooky Fog) */
+.theme-wh{
+  background:
+    radial-gradient(950px 540px at 80% 15%,rgba(249,115,22,.24),transparent 65%),
+    radial-gradient(860px 500px at 15% 80%,rgba(132,204,22,.18),transparent 65%),
+    radial-gradient(600px 400px at 50% 50%,rgba(124,58,237,.14),transparent 70%),
+    linear-gradient(180deg,#130722 0%,#240D3E 50%,#0E0519 100%);
+  --act-gold:#FACC15;
+  --act-lamp:#F97316;
+  --act-accent:#84CC16;
+  --act-panel:rgba(42,16,68,.76);
+  --act-border:rgba(249,115,22,.32);
+}
+
+/* THEME 07: FWL Halloween Doors (Emerald VIP + Glowing Pumpkin) */
+.theme-fwl{
+  background:
+    radial-gradient(950px 520px at 85% 15%,rgba(16,185,129,.24),transparent 65%),
+    radial-gradient(860px 480px at 15% 80%,rgba(234,88,12,.22),transparent 65%),
+    linear-gradient(180deg,#051A13 0%,#0A3426 50%,#04140E 100%);
+  --act-gold:#34D399;
+  --act-lamp:#10B981;
+  --act-accent:#EA580C;
+  --act-panel:rgba(12,54,39,.74);
+  --act-border:rgba(16,185,129,.32);
+}
+
+/* ==================== ACT HEADER STYLING ==================== */
+.act{
+  display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  margin-bottom:18px;padding-bottom:14px;border-bottom:2px solid var(--act-border, var(--line));
+}
+.act-left{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.act .k{
+  font-family:var(--f-hand);font-size:24px;color:var(--act-lamp, var(--lamp));
+}
+.act h2{
+  font-family:var(--f-display);font-weight:400;
+  font-size:clamp(26px,3.6vw,42px);line-height:1.06;color:#FFF6DE;
+}
+.act .period-badge{
+  font-size:13px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;
+  color:var(--ink-2);background:rgba(255,255,255,.05);border:1px solid var(--act-border, var(--line));
+  padding:6px 12px;border-radius:999px;
+}
+.lead{font-size:clamp(16.5px,1.65vw,19.5px);color:var(--ink);max-width:80ch;margin-bottom:24px}
+.lead strong,.lead b{color:var(--act-gold, var(--gold));font-weight:900}
+.subh{
+  font-size:14px;letter-spacing:.13em;text-transform:uppercase;font-weight:900;
+  color:var(--act-lamp, var(--lamp));margin:32px 0 12px;display:flex;align-items:center;gap:10px;
+}
+.subh::after{content:"";flex:1;height:1px;background:var(--act-border, var(--line))}
+.subnote{color:var(--ink-2);font-size:14.5px;margin:-6px 0 14px;max-width:80ch}
+
+/* ==================== KPI STRIPS ==================== */
+.kpi-strip{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));
+  gap:2px;background:var(--act-border, var(--line));border:1px solid var(--act-border, var(--line));
+  border-radius:16px;overflow:hidden;margin-bottom:24px;
+}
+.kpi-tile{
+  background:linear-gradient(180deg,var(--act-panel, rgba(36,28,84,.65)),rgba(12,9,28,.92));
+  padding:16px 18px 18px;display:flex;flex-direction:column;gap:5px;min-width:0;
+}
+.kpi-tile.featured{
+  background:linear-gradient(180deg,rgba(255,210,122,.18),var(--act-panel, rgba(36,28,84,.75)));
+  border-left:2px solid var(--act-gold, var(--gold));
+}
+.kpi-label{font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;font-weight:800;color:var(--ink-2)}
+.kpi-val{
+  font-family:var(--f-display);font-weight:400;
+  font-size:clamp(24px,2.7vw,34px);line-height:1.08;color:var(--act-gold, var(--gold));
+  font-variant-numeric:tabular-nums;
+}
+.kpi-val.mint{color:var(--mint)}
+.kpi-val.lav{color:var(--lav)}
+.kpi-val.white{color:#fff}
+.kpi-note{font-size:13px;color:var(--ink-2);line-height:1.4}
+.kpi-note b{color:#fff;font-weight:800}
+
+/* ==================== CARDS & GRIDS ==================== */
+.grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.grid-auto{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
+@media (max-width:920px){.grid-2,.grid-3{grid-template-columns:1fr}}
+
+.card{
+  background:var(--act-panel, rgba(26,20,64,.72));
+  border:1px solid var(--act-border, var(--line));
+  border-radius:16px;
+  padding:20px 22px;
+  display:flex;flex-direction:column;gap:10px;min-width:0;
+  box-shadow:0 12px 32px rgba(0,0,0,.28);
+  transition:transform .18s ease,border-color .18s ease;
+}
+.card:hover{border-color:var(--act-gold, var(--gold));transform:translateY(-2px)}
+.card.accent{
+  border-color:var(--act-border, var(--line));
+  background:linear-gradient(180deg,rgba(255,255,255,.05),var(--act-panel, rgba(26,20,64,.75)));
+}
+.card h3{
+  font-size:16px;font-weight:900;letter-spacing:.02em;color:#fff;
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+}
+.card .badge{
+  font-size:11.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;
+  padding:3px 9px;border-radius:999px;
+  background:rgba(255,255,255,.08);color:var(--act-gold, var(--gold));
+  border:1px solid var(--act-border, var(--line));
+}
+.card .big-stat{
+  font-family:var(--f-display);font-size:28px;color:var(--act-gold, var(--gold));line-height:1.1;
+}
+.card .meta{font-size:13.5px;color:var(--ink-2);line-height:1.45}
+.card .meta b{color:#fff}
+.stat-pair{display:flex;gap:24px;flex-wrap:wrap;margin:4px 0}
+.stat-pair div{display:flex;flex-direction:column;gap:2px}
+
+/* Individual Brand Cards (when rendering projects) */
+.brand-card{
+  border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:10px;
+  box-shadow:0 12px 30px rgba(0,0,0,.35);
+  position:relative;overflow:hidden;
+}
+.brand-card::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:4px;background:var(--b-color,#FFD27A);
+}
+.brand-card{color:var(--ink)}
+.brand-card h3{
+  font-size:17px;font-weight:900;letter-spacing:.02em;color:#FFF6DE;
+  display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;
+  text-shadow:0 0 14px var(--b-color,#FFD27A),0 2px 0 rgba(0,0,0,.45);
+}
+.brand-card .big-stat{
+  font-family:var(--f-display);font-size:30px;line-height:1.1;
+  text-shadow:0 0 22px rgba(0,0,0,.35);
+}
+.brand-card .meta{font-size:13.5px;color:var(--ink-2);line-height:1.45}
+.brand-card .meta b{color:#fff;font-weight:900}
+.brand-card .badge{
+  font-size:11.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;
+  padding:3px 9px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid;
+  text-shadow:none;
+}
+
+/* ==================== CHARTS ==================== */
+.chart-box{position:relative;width:100%;min-height:220px;user-select:none}
+.chart-box.small{min-height:150px}
+.chart-box.mini{min-height:96px}
+.legend{display:flex;flex-wrap:wrap;gap:16px;font-size:13px;color:var(--ink-2)}
+.legend span{display:inline-flex;align-items:center;gap:6px;font-weight:700}
+.sw{width:10px;height:10px;border-radius:3px;display:inline-block}
+.chart-tip{
+  position:absolute;pointer-events:none;z-index:30;
+  background:#0A0718;border:1px solid var(--act-gold, #FFD27A);border-radius:10px;
+  padding:8px 12px;font-size:12.5px;line-height:1.4;color:#fff;
+  box-shadow:0 10px 28px rgba(0,0,0,.65);white-space:nowrap;
+  font-variant-numeric:tabular-nums;
+}
+.chart-tip .t-head{color:var(--act-gold, #FFD27A);font-weight:900;margin-bottom:3px}
+
+/* ==================== TABLES ==================== */
+.tbl-scroll{
+  overflow-x:auto;border:1px solid var(--act-border, var(--line));
+  border-radius:14px;background:rgba(8,5,20,.72);
+}
+.tbl-scroll.tall{max-height:440px;overflow:auto}
+table.dt{border-collapse:collapse;width:100%;font-size:14.5px;font-variant-numeric:tabular-nums}
+table.dt th,table.dt td{padding:10px 13px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+table.dt th:first-child,table.dt td:first-child{text-align:left}
+table.dt th{
+  position:sticky;top:0;z-index:2;
+  background:rgba(18,12,38,.96);color:var(--act-lamp, var(--lamp));
+  font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;font-weight:900;
+  border-bottom:2px solid var(--act-border, var(--line));
+}
+table.dt{color:var(--ink)}
+table.dt td{color:var(--ink-2)}
+table.dt tr:last-child td{border-bottom:0}
+table.dt tr:hover td{background:rgba(255,255,255,.04)}
+table.dt td.strong{color:var(--act-gold, var(--gold));font-weight:900}
+table.dt td.good{color:var(--mint);font-weight:900}
+table.dt td.muted{color:var(--ink-3)}
+table.dt td:first-child{font-weight:800;color:#fff}
+
+/* ==================== CHECKLISTS & METHOD ==================== */
+.checks{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.checks li{display:grid;grid-template-columns:22px minmax(0,1fr);gap:10px;color:var(--ink-2);font-size:15px}
+.checks li::before{
+  content:"";width:10px;height:10px;margin-top:7px;border-radius:50%;
+  background:var(--act-gold, var(--gold));box-shadow:0 0 10px var(--act-gold, rgba(255,210,122,.6));
+}
+.checks b{color:#fff}
+
+details.method{
+  margin-top:22px;background:rgba(255,255,255,.03);border:1px solid var(--act-border, var(--line));
+  border-radius:12px;padding:12px 16px;
+}
+details.method summary{
+  cursor:pointer;font-weight:800;font-size:13.5px;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--ink-2);
+}
+details.method ul{margin:10px 0 0;padding-left:18px;color:var(--ink-2);font-size:14px;display:grid;gap:6px}
+
+footer{padding:48px 0 60px;color:var(--ink-3);font-size:13.5px}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:22px}
+</style>
+<body>
+<header class="hero" id="top">
+  <div class="wrap topbar">
+    <div class="tag">Online Chats Report · <b>Май – Ноябрь 2026</b></div>
+    <div class="tag">Scarlet Sands · Fortune Wheelz · NoLimitCoins</div>
+  </div>
+  <div class="wrap hero-in">
+    <div class="pre">offers, content &amp; events inside brand chats</div>
+    <h1>Онлайн-чаты: итоги</h1>
+    <div class="dates num">15 мая – 1 ноября 2026 · 3 чата · сетки офферов · квизы · ивенты</div>
+    <div class="brand-pill-bar">
+      <span class="bpill" style="border-color:rgba(245,158,11,.35)"><span class="dot" style="background:#F59E0B"></span>🏜️ Scarlet Sands</span>
+      <span class="bpill" style="border-color:rgba(16,185,129,.35)"><span class="dot" style="background:#10B981"></span>🎡 Fortune Wheelz</span>
+      <span class="bpill" style="border-color:rgba(251,191,36,.35)"><span class="dot" style="background:#FBBF24"></span>🪙 NoLimitCoins</span>
+    </div>
+  </div>
+</header>
+<main>
+<section class="wrap act-sec theme-chat-scs" id="act-chat">
+  <div class="act">
+    <div class="act-left">
+      <span class="k">act 01 · scarlet sands, fortune wheelz, nolimitcoins</span>
+      <h2>🏜️ Онлайн-чаты: сетка офферов и контент</h2>
+    </div>
+    <span class="period-badge">15 мая – 1 ноября 2026 · Desert &amp; Oasis Theme</span>
+  </div>
+  <p class="lead">
+    Для каждого онлайн-чата собрана своя сетка офферов под стиль и аудиторию бренда. Вместе они продали <b>7 111 офферов</b> на <b>$164 212</b>.
+    Контент и развлекательную часть чатов закрываю под ключ: квизы, опросы, батлы, попапы и сезонные ивенты.
+    После покупки в чате <b>86% покупателей</b> сделали ещё один депозит.
+  </p>
+
+  <div class="kpi-strip">
+    <div class="kpi-tile featured">
+      <span class="kpi-label">Продано офферов</span>
+      <span class="kpi-val">7 111</span>
+      <span class="kpi-note"><b>5 233</b> покупателей</span>
+    </div>
+    <div class="kpi-tile featured">
+      <span class="kpi-label">Депозит с офферов</span>
+      <span class="kpi-val">$164 212</span>
+      <span class="kpi-note">средний чек <b>$23.09</b></span>
+    </div>
+    <div class="kpi-tile">
+      <span class="kpi-label">Купили что-то ещё</span>
+      <span class="kpi-val mint">86%</span>
+      <span class="kpi-note">покупателей сделали следующий депозит</span>
+    </div>
+    <div class="kpi-tile">
+      <span class="kpi-label">Активации чат-кодов</span>
+      <span class="kpi-val">37 995</span>
+      <span class="kpi-note"><b>9 385</b> игроков · теги CHAT, с 01.06</span>
+    </div>
+    <div class="kpi-tile">
+      <span class="kpi-label">FTD с чата</span>
+      <span class="kpi-val white">28</span>
+      <span class="kpi-note">первый депозит после чат-кода</span>
+    </div>
+    <div class="kpi-tile">
+      <span class="kpi-label">Реактивации 7д</span>
+      <span class="kpi-val lav">306</span>
+      <span class="kpi-note">0д <b>1 283</b> · 1д <b>722</b> · 14д <b>206</b></span>
+    </div>
+  </div>
+
+  <div class="subh">Сетка офферов в каждом чате брендов</div>
+  <p class="subnote">Под каждый чат собрана отдельная сетка: свои цены, пакеты и оффер дня под аудиторию бренда. Сетка обновляется каждую неделю, офферы заводятся в админку и показываются игрокам попапами и карточками прямо в чате.</p>
+  <div class="grid-3" id="chat-brand-cards"></div>
+
+  <div class="grid-2" style="margin-top:20px">
+    <div class="card accent">
+      <h3>Контент и развлечения — под ключ <span class="badge">Full Production</span></h3>
+      <p class="meta">Всю контентную и развлекательную часть чатов закрываю сам, от идеи до запуска:</p>
+      <ul class="checks">
+        <li><span><b>Ежедневные квизы, опросы и батлы:</b> тексты, обложки, расписание по времени США.</span></li>
+        <li><span><b>Попапы при входе и in-feed карточки с офферами:</b> графика, тексты и слоты показа.</span></li>
+        <li><span><b>Чат-промокоды на каждый день</b> и розыгрыши внутри чата.</span></li>
+        <li><span><b>Сезонные ивенты:</b> концепция, сценарий для ведущего, графика и коды.</span></li>
+      </ul>
+      <p class="meta" style="margin-top:6px">Чат-коды из квизов, конкурсов и дропов активировали <b>37 995 раз</b>, их забрали <b>9 385 игроков</b> (с 1 июня).</p>
+    </div>
+
+    <div class="card">
+      <h3>Haunted Week: Хэллоуин в чатах <span class="badge">26.10 – 01.11.2026</span></h3>
+      <p class="meta">Во всех трёх чатах прошла хеллоуинская неделя: ежедневный Witching Hour, Trick or Treat, Cursed Code и финал Halloween Night 31 октября со специальными хеллоуинскими офферами.</p>
+      <div class="kpi-strip" style="margin-bottom:0;margin-top:6px">
+        <div class="kpi-tile">
+          <span class="kpi-label">Офферов за неделю</span>
+          <span class="kpi-val">508</span>
+          <span class="kpi-note">на <b>$12 759</b> депозита</span>
+        </div>
+        <div class="kpi-tile">
+          <span class="kpi-label">Хеллоуин-коды</span>
+          <span class="kpi-val">453</span>
+          <span class="kpi-note">активаций · <b>222</b> игрока</span>
+        </div>
+        <div class="kpi-tile">
+          <span class="kpi-label">Реактивации 7д</span>
+          <span class="kpi-val lav">25</span>
+          <span class="kpi-note">из них <b>5</b> по HW · FTD <b>1</b></span>
+        </div>
+        <div class="kpi-tile">
+          <span class="kpi-label">Контент и графика</span>
+          <span class="kpi-val white">35 квизов</span>
+          <span class="kpi-note"><b>14</b> карточек · <b>58</b> кодов · <b>36</b> попапов · <b>18</b> баннеров</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="subh">Динамика онлайн-чатов по неделям</div>
+  <div class="card">
+    <h3>Депозит с чат-офферов по неделям <span class="badge">W20 – W44</span></h3>
+    <p class="meta">До сентября чат был только на Scarlet Sands. Рост с конца августа — запуск Fortune Wheelz, с конца сентября — NoLimitCoins.</p>
+    <div class="chart-box" id="chart-chat-wk-dep"></div>
+  </div>
+  <div class="grid-3" style="margin-top:18px">
+    <div class="card">
+      <h3>Активации чат-кодов</h3>
+      <p class="meta">Все теги CHAT, включая Хэллоуин (с 01.06).</p>
+      <div class="chart-box small" id="chart-chat-wk-acts"></div>
+    </div>
+    <div class="card">
+      <h3>FTD после чат-кода</h3>
+      <p class="meta">Первый депозит после активации кода из чата.</p>
+      <div class="chart-box small" id="chart-chat-wk-ftd"></div>
+    </div>
+    <div class="card">
+      <h3>Реактивации 7д</h3>
+      <p class="meta">Вернулись после 7+ дней без активности.</p>
+      <div class="chart-box small" id="chart-chat-wk-react"></div>
+    </div>
+  </div>
+
+  <div class="subh">По месяцам и брендам</div>
+  <div class="grid-2">
+    <div class="card">
+      <h3>Сколько пришло и сколько вынесли по месяцам</h3>
+      <div class="legend">
+        <span><i class="sw" style="background:#FBBF24"></i>Депозит</span>
+        <span><i class="sw" style="background:#DC2626"></i>Вынесли за 7 дней</span>
+      </div>
+      <div class="chart-box" id="chart-chat-mo-inout"></div>
+    </div>
+    <div class="card">
+      <h3>Чаты по брендам</h3>
+      <p class="meta">Scarlet Sands ведёт чат с мая, Fortune Wheelz — с августа, NoLimitCoins — с сентября. В октябре все три чата вышли на сопоставимый объём.</p>
+      <div class="tbl-scroll">
+        <table class="dt" id="tbl-chat-brands"></table>
+      </div>
+    </div>
+  </div>
+
+</section>
+</main>
+<footer>
+  <div class="wrap">
+    <span>Онлайн-чаты · 15 мая – 1 ноября 2026 · USA Offer Monitoring + CRM</span>
+    <span>Scarlet Sands · Fortune Wheelz · NoLimitCoins</span>
+  </div>
+</footer>
+<script>
+const D = {"chat":{"totals":{"period":"15.05–01.11.2026","brands":"3","offers_sold":"7111","buyers":"5233","deposit_usd":"164212","avg_check_usd":"23.09","out_7d_usd":"77275","inout_7d_usd":"86936","out_7d_share":"0.4706","out_24h_usd":"68109","inout_24h_usd":"96103","ftd":"28","reactivated_0d":"1283","reactivated_1d":"722","reactivated_7d":"306","reactivated_14d":"206","rebuy_share":"0.8621","code_activations":"37995","code_users":"9385"},"brands":[{"brand":"Scarlet Sands","since":"с мая","offers_in_grid":"76","offers_sold":"5005","buyers":"3317","deposit_usd":"103989","avg_check_usd":"20.78","out_7d_usd":"52422","inout_7d_usd":"51566","out_7d_share":"0.5041","deposit_oct_usd":"29312"},{"brand":"NoLimitCoins","since":"с сентября","offers_in_grid":"39","offers_sold":"862","buyers":"815","deposit_usd":"31386","avg_check_usd":"36.41","out_7d_usd":"15770","inout_7d_usd":"15616","out_7d_share":"0.5025","deposit_oct_usd":"24086"},{"brand":"Fortune Wheelz","since":"с августа","offers_in_grid":"82","offers_sold":"1244","buyers":"1101","deposit_usd":"28837","avg_check_usd":"23.18","out_7d_usd":"9083","inout_7d_usd":"19753","out_7d_share":"0.315","deposit_oct_usd":"16778"}],"monthly":[{"month":"2026-05","label":"Май (с 15.05)","code_activations":"","offers_sold":"517","buyers":"507","deposit_usd":"10478","out_7d_usd":"7917","inout_7d_usd":"2561","out_7d_share":"0.7556","out_24h_usd":"5292","inout_24h_usd":"5186","ftd":"","reactivated_0d":"","reactivated_7d":"","reactivated_14d":""},{"month":"2026-06","label":"Июнь","code_activations":"2128","offers_sold":"645","buyers":"502","deposit_usd":"11954","out_7d_usd":"5362","inout_7d_usd":"6591","out_7d_share":"0.4486","out_24h_usd":"5235","inout_24h_usd":"6719","ftd":"1","reactivated_0d":"128","reactivated_7d":"11","reactivated_14d":"8"},{"month":"2026-07","label":"Июль","code_activations":"3014","offers_sold":"749","buyers":"562","deposit_usd":"15124","out_7d_usd":"5148","inout_7d_usd":"9976","out_7d_share":"0.3404","out_24h_usd":"4288","inout_24h_usd":"10836","ftd":"4","reactivated_0d":"156","reactivated_7d":"25","reactivated_14d":"18"},{"month":"2026-08","label":"Август","code_activations":"5337","offers_sold":"905","buyers":"687","deposit_usd":"19136","out_7d_usd":"8021","inout_7d_usd":"11115","out_7d_share":"0.4192","out_24h_usd":"5741","inout_24h_usd":"13395","ftd":"9","reactivated_0d":"259","reactivated_7d":"47","reactivated_14d":"27"},{"month":"2026-09","label":"Сентябрь","code_activations":"12000","offers_sold":"1615","buyers":"1299","deposit_usd":"35544","out_7d_usd":"16903","inout_7d_usd":"18641","out_7d_share":"0.4756","out_24h_usd":"15215","inout_24h_usd":"20329","ftd":"5","reactivated_0d":"478","reactivated_7d":"98","reactivated_14d":"69"},{"month":"2026-10","label":"Октябрь (+01.11)","code_activations":"15516","offers_sold":"2680","buyers":"2500","deposit_usd":"71976","out_7d_usd":"33924","inout_7d_usd":"38052","out_7d_share":"0.4713","out_24h_usd":"32338","inout_24h_usd":"39638","ftd":"9","reactivated_0d":"707","reactivated_7d":"136","reactivated_14d":"88"}],"weekly":[{"week":"W20","dates":"15.05–17.05","week_start":"2026-05-15","offers_sold":"87","deposit_usd":"2220","buyers":"87","ftd":"","reactivated_7d":"","code_activations":""},{"week":"W21","dates":"18.05–24.05","week_start":"2026-05-18","offers_sold":"209","deposit_usd":"4185","buyers":"206","ftd":"","reactivated_7d":"","code_activations":""},{"week":"W22","dates":"25.05–31.05","week_start":"2026-05-25","offers_sold":"221","deposit_usd":"4075","buyers":"216","ftd":"","reactivated_7d":"","code_activations":""},{"week":"W23","dates":"01.06–07.06","week_start":"2026-06-01","offers_sold":"198","deposit_usd":"3925","buyers":"185","ftd":"0","reactivated_7d":"3","code_activations":"668"},{"week":"W24","dates":"08.06–14.06","week_start":"2026-06-08","offers_sold":"194","deposit_usd":"3805","buyers":"183","ftd":"0","reactivated_7d":"0","code_activations":"501"},{"week":"W25","dates":"15.06–21.06","week_start":"2026-06-15","offers_sold":"151","deposit_usd":"2580","buyers":"146","ftd":"1","reactivated_7d":"3","code_activations":"482"},{"week":"W26","dates":"22.06–28.06","week_start":"2026-06-22","offers_sold":"36","deposit_usd":"890","buyers":"35","ftd":"0","reactivated_7d":"2","code_activations":"208"},{"week":"W27","dates":"29.06–05.07","week_start":"2026-06-29","offers_sold":"178","deposit_usd":"3495","buyers":"163","ftd":"0","reactivated_7d":"10","code_activations":"831"},{"week":"W28","dates":"06.07–12.07","week_start":"2026-07-06","offers_sold":"165","deposit_usd":"3310","buyers":"159","ftd":"1","reactivated_7d":"8","code_activations":"973"},{"week":"W29","dates":"13.07–19.07","week_start":"2026-07-13","offers_sold":"169","deposit_usd":"3325","buyers":"162","ftd":"2","reactivated_7d":"4","code_activations":"674"},{"week":"W30","dates":"20.07–26.07","week_start":"2026-07-20","offers_sold":"151","deposit_usd":"3210","buyers":"146","ftd":"0","reactivated_7d":"0","code_activations":"1"},{"week":"W31","dates":"27.07–02.08","week_start":"2026-07-27","offers_sold":"200","deposit_usd":"4370","buyers":"188","ftd":"1","reactivated_7d":"8","code_activations":"991"},{"week":"W32","dates":"03.08–09.08","week_start":"2026-08-03","offers_sold":"238","deposit_usd":"4724","buyers":"222","ftd":"1","reactivated_7d":"7","code_activations":"1179"},{"week":"W33","dates":"10.08–16.08","week_start":"2026-08-10","offers_sold":"212","deposit_usd":"3894","buyers":"204","ftd":"2","reactivated_7d":"9","code_activations":"1110"},{"week":"W34","dates":"17.08–23.08","week_start":"2026-08-17","offers_sold":"166","deposit_usd":"3375","buyers":"162","ftd":"2","reactivated_7d":"7","code_activations":"941"},{"week":"W35","dates":"24.08–30.08","week_start":"2026-08-24","offers_sold":"175","deposit_usd":"4340","buyers":"169","ftd":"4","reactivated_7d":"18","code_activations":"1617"},{"week":"W36","dates":"31.08–06.09","week_start":"2026-08-31","offers_sold":"302","deposit_usd":"5985","buyers":"289","ftd":"1","reactivated_7d":"29","code_activations":"2842"},{"week":"W37","dates":"07.09–13.09","week_start":"2026-09-07","offers_sold":"316","deposit_usd":"7235","buyers":"301","ftd":"0","reactivated_7d":"20","code_activations":"2447"},{"week":"W38","dates":"14.09–20.09","week_start":"2026-09-14","offers_sold":"416","deposit_usd":"10570","buyers":"395","ftd":"2","reactivated_7d":"23","code_activations":"3037"},{"week":"W39","dates":"21.09–27.09","week_start":"2026-09-21","offers_sold":"397","deposit_usd":"8314","buyers":"379","ftd":"1","reactivated_7d":"29","code_activations":"2961"},{"week":"W40","dates":"28.09–04.10","week_start":"2026-09-28","offers_sold":"625","deposit_usd":"15478","buyers":"613","ftd":"2","reactivated_7d":"28","code_activations":"2914"},{"week":"W41","dates":"05.10–11.10","week_start":"2026-10-05","offers_sold":"628","deposit_usd":"15403","buyers":"610","ftd":"1","reactivated_7d":"32","code_activations":"3511"},{"week":"W42","dates":"12.10–18.10","week_start":"2026-10-12","offers_sold":"642","deposit_usd":"17749","buyers":"625","ftd":"5","reactivated_7d":"26","code_activations":"3085"},{"week":"W43","dates":"19.10–25.10","week_start":"2026-10-19","offers_sold":"527","deposit_usd":"15029","buyers":"511","ftd":"1","reactivated_7d":"35","code_activations":"4000"},{"week":"W44","dates":"26.10–01.11","week_start":"2026-10-26","offers_sold":"508","deposit_usd":"12759","buyers":"482","ftd":"1","reactivated_7d":"25","code_activations":"3020"}],"haunted":{"period":"26.10–01.11.2026","offers_sold":"508","deposit_usd":"12759","hw_activations":"453","hw_players":"222","hw_react7":"5","react7_all":"25","ftd_all":"1","quizzes_scs":"35","cards_scs":"14","hw_codes_scs":"58","packs_kg":"18","popups_kg":"36","banners_kg":"18"}}};
+
+// Brand Theme Definitions
+const BRANDS = {
+  'Fire Seven': { emoji: '🔥', color: '#EF4444', sec: '#F59E0B', bg: 'rgba(239,68,68,0.12)', border: 'rgba(239,68,68,0.38)', tag: 'Emerald & Flame' },
+  'CoinsMania': { emoji: '🐷', color: '#D946EF', sec: '#F2B705', bg: 'rgba(217,70,239,0.12)', border: 'rgba(217,70,239,0.38)', tag: 'Stage Cloud' },
+  'Jumanza': { emoji: '🦁', color: '#10B981', sec: '#F59E0B', bg: 'rgba(16,185,129,0.12)', border: 'rgba(16,185,129,0.38)', tag: 'Safari Jungle' },
+  'Vegas Way': { emoji: '🃏', color: '#8B5CF6', sec: '#F59E0B', bg: 'rgba(139,92,246,0.14)', border: 'rgba(139,92,246,0.38)', tag: 'Penthouse Velvet' },
+  'Storm Rush': { emoji: '⚡', color: '#06B6D4', sec: '#3B82F6', bg: 'rgba(6,182,212,0.12)', border: 'rgba(6,182,212,0.38)', tag: 'Epic Storm' },
+  'Scarlet Sands': { emoji: '🏜️', color: '#F59E0B', sec: '#DC2626', bg: 'rgba(245,158,11,0.14)', border: 'rgba(245,158,11,0.38)', tag: 'Desert Relics' },
+  'Fortune Wheelz': { emoji: '🎡', color: '#10B981', sec: '#FBBF24', bg: 'rgba(16,185,129,0.14)', border: 'rgba(16,185,129,0.38)', tag: 'VIP Emerald Wheel' },
+  'NoLimitCoins': { emoji: '🪙', color: '#FBBF24', sec: '#16A34A', bg: 'rgba(251,191,36,0.12)', border: 'rgba(251,191,36,0.38)', tag: 'Jungle Canopy' },
+  'TAO Fortune': { emoji: '🎋', color: '#E11D48', sec: '#FBBF24', bg: 'rgba(225,29,72,0.12)', border: 'rgba(225,29,72,0.38)', tag: 'Eastern Fortune' },
+  'DexyPlay': { emoji: '💜', color: '#A855F7', sec: '#06B6D4', bg: 'rgba(168,85,247,0.12)', border: 'rgba(168,85,247,0.38)', tag: 'Neon Speed' }
+};
+
+function getBrand(name) {
+  return BRANDS[name] || { emoji: '🎲', color: '#FFD27A', sec: '#FF9A3C', bg: 'rgba(255,210,122,0.12)', border: 'rgba(255,210,122,0.32)', tag: name };
+}
+
+// Spotlight in Hero
+const heroEl = document.getElementById('top');
+heroEl.addEventListener('pointermove', (e) => {
+  const r = heroEl.getBoundingClientRect();
+  document.documentElement.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100).toFixed(1) + '%');
+  document.documentElement.style.setProperty('--my', (e.clientY - r.top).toFixed(0) + 'px');
+});
+
+// Formatting
+const sp = (n) => Math.round(Number(n) || 0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+const FMT = {
+  int: (v) => (v === '' || v == null || isNaN(Number(v))) ? '—' : sp(v),
+  money: (v) => (v === '' || v == null || isNaN(Number(v))) ? '—' : '$' + sp(v),
+  money2: (v) => (v === '' || v == null || isNaN(Number(v))) ? '—' : '$' + Number(v).toFixed(2),
+  pct: (v) => (v === '' || v == null || isNaN(Number(v))) ? '—' : Math.round(Number(v) * 100) + '%',
+  pct1: (v) => (v === '' || v == null || isNaN(Number(v))) ? '—' : (Number(v) * 100).toFixed(1).replace('.', ',') + '%',
+  pctplus: (v) => (v === '' || v == null || isNaN(Number(v))) ? 'с нуля' : '+' + Math.round(Number(v) * 100) + '%',
+  short: (v) => {
+    const n = Number(v) || 0;
+    return n >= 1000 ? sp(Math.round(n / 1000)) + 'k' : String(Math.round(n));
+  }
+};
+
+function makeTip(container) {
+  const t = document.createElement('div');
+  t.className = 'chart-tip';
+  t.hidden = true;
+  container.appendChild(t);
+  return t;
+}
+function showTip(container, tip, xRatio, py, head, lines) {
+  tip.innerHTML = '<div class="t-head">' + head + '</div>' + lines.map(l => '<div>' + l + '</div>').join('');
+  tip.hidden = false;
+  const cw = container.clientWidth || 600;
+  const px = xRatio * cw;
+  const left = Math.max(6, Math.min(cw - tip.offsetWidth - 6, px - tip.offsetWidth / 2));
+  const top = Math.max(6, py - tip.offsetHeight - 10);
+  tip.style.left = left + 'px';
+  tip.style.top = top + 'px';
+}
+
+// Bar Chart
+function renderBarChart(elId, rows, opts) {
+  const el = document.getElementById(elId);
+  if (!el || !rows || !rows.length) return;
+  el.innerHTML = '';
+  const W = Math.max(320, el.clientWidth || 640);
+  const H = opts.height || 220;
+  const ml = opts.ml || 48, mr = 10, mt = 14, mb = 24;
+  const plotW = W - ml - mr, plotH = H - mt - mb;
+
+  const vals = rows.map(r => r[opts.field] === '' || r[opts.field] == null ? null : Number(r[opts.field]));
+  const maxV = Math.max(...vals.filter(v => v != null), 1) * 1.08;
+  const ticks = [0, 0.25, 0.5, 0.75, 1].map(t => t * maxV);
+
+  const ns = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(ns, 'svg');
+  svg.setAttribute('width', '100%');
+  svg.setAttribute('height', H);
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+
+  ticks.forEach(tv => {
+    const y = mt + plotH - (tv / maxV) * plotH;
+    const line = document.createElementNS(ns, 'line');
+    line.setAttribute('x1', ml); line.setAttribute('x2', W - mr);
+    line.setAttribute('y1', y); line.setAttribute('y2', y);
+    line.setAttribute('stroke', 'rgba(255,248,234,0.10)');
+    svg.appendChild(line);
+
+    const txt = document.createElementNS(ns, 'text');
+    txt.setAttribute('x', ml - 6); txt.setAttribute('y', y + 4);
+    txt.setAttribute('text-anchor', 'end');
+    txt.setAttribute('font-size', '11');
+    txt.setAttribute('fill', '#8E86B2');
+    txt.textContent = opts.yFmt ? opts.yFmt(tv) : FMT.short(tv);
+    svg.appendChild(txt);
+  });
+
+  const step = plotW / rows.length;
+  const bw = Math.max(4, Math.min(28, step * 0.72));
+  const every = Math.max(1, Math.ceil(rows.length / Math.floor(plotW / 46)));
+  const color = opts.color || '#FFD27A';
+  const tip = makeTip(el);
+  const barEls = [];
+
+  rows.forEach((r, i) => {
+    const cx = ml + i * step + step / 2;
+    if (i % every === 0) {
+      const xl = document.createElementNS(ns, 'text');
+      xl.setAttribute('x', cx); xl.setAttribute('y', H - 6);
+      xl.setAttribute('text-anchor', 'middle');
+      xl.setAttribute('font-size', '11');
+      xl.setAttribute('fill', '#8E86B2');
+      xl.textContent = opts.xLabel ? opts.xLabel(r) : r.week;
+      svg.appendChild(xl);
+    }
+    const v = vals[i];
+    const rect = document.createElementNS(ns, 'rect');
+    if (v != null && v > 0) {
+      const bh = Math.max(2, (v / maxV) * plotH);
+      rect.setAttribute('x', cx - bw / 2);
+      rect.setAttribute('y', mt + plotH - bh);
+      rect.setAttribute('width', bw);
+      rect.setAttribute('height', bh);
+      rect.setAttribute('rx', '3');
+      rect.setAttribute('fill', color);
+      svg.appendChild(rect);
+    }
+    barEls.push(rect);
+
+    const hit = document.createElementNS(ns, 'rect');
+    hit.setAttribute('x', ml + i * step);
+    hit.setAttribute('y', mt);
+    hit.setAttribute('width', step);
+    hit.setAttribute('height', plotH);
+    hit.setAttribute('fill', 'transparent');
+    hit.addEventListener('pointermove', (ev) => {
+      barEls.forEach((b, bi) => b.setAttribute('opacity', bi === i ? '1' : '0.45'));
+      const box = el.getBoundingClientRect();
+      showTip(el, tip, cx / W, ev.clientY - box.top, opts.tipHead(r), opts.tipLines(r));
+    });
+    hit.addEventListener('pointerleave', () => {
+      tip.hidden = true;
+      barEls.forEach(b => b.setAttribute('opacity', '1'));
+    });
+    svg.appendChild(hit);
+  });
+
+  el.appendChild(svg);
+}
+
+// Grouped Bars
+function renderGroupedBars(elId, rows, opts) {
+  const el = document.getElementById(elId);
+  if (!el || !rows || !rows.length) return;
+  el.innerHTML = '';
+  const W = Math.max(320, el.clientWidth || 560);
+  const H = opts.height || 220;
+  const ml = opts.ml || 48, mr = 10, mt = 18, mb = 24;
+  const plotW = W - ml - mr, plotH = H - mt - mb;
+
+  const maxV = Math.max(...rows.map(r => Math.max(Number(r[opts.k1]) || 0, Number(r[opts.k2]) || 0)), 1) * 1.12;
+  const ticks = [0, 0.25, 0.5, 0.75, 1].map(t => t * maxV);
+  const ns = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(ns, 'svg');
+  svg.setAttribute('width', '100%'); svg.setAttribute('height', H);
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+
+  ticks.forEach(tv => {
+    const y = mt + plotH - (tv / maxV) * plotH;
+    const line = document.createElementNS(ns, 'line');
+    line.setAttribute('x1', ml); line.setAttribute('x2', W - mr);
+    line.setAttribute('y1', y); line.setAttribute('y2', y);
+    line.setAttribute('stroke', 'rgba(255,248,234,0.10)');
+    svg.appendChild(line);
+
+    const txt = document.createElementNS(ns, 'text');
+    txt.setAttribute('x', ml - 6); txt.setAttribute('y', y + 4);
+    txt.setAttribute('text-anchor', 'end'); txt.setAttribute('font-size', '11'); txt.setAttribute('fill', '#8E86B2');
+    txt.textContent = opts.yFmt ? opts.yFmt(tv) : FMT.short(tv);
+    svg.appendChild(txt);
+  });
+
+  const step = plotW / rows.length;
+  const bw = Math.max(6, Math.min(24, step * 0.34));
+  const tip = makeTip(el);
+  const groups = [];
+
+  rows.forEach((r, i) => {
+    const cx = ml + i * step + step / 2;
+    const xl = document.createElementNS(ns, 'text');
+    xl.setAttribute('x', cx); xl.setAttribute('y', H - 6);
+    xl.setAttribute('text-anchor', 'middle'); xl.setAttribute('font-size', '11'); xl.setAttribute('fill', '#8E86B2');
+    xl.textContent = opts.xLabel(r);
+    svg.appendChild(xl);
+
+    const g = document.createElementNS(ns, 'g');
+    const v1 = Number(r[opts.k1]) || 0, v2 = Number(r[opts.k2]) || 0;
+    const h1 = Math.max(2, (v1 / maxV) * plotH), h2 = Math.max(2, (v2 / maxV) * plotH);
+
+    const r1 = document.createElementNS(ns, 'rect');
+    r1.setAttribute('x', cx - bw - 2); r1.setAttribute('y', mt + plotH - h1);
+    r1.setAttribute('width', bw); r1.setAttribute('height', h1);
+    r1.setAttribute('rx', '3'); r1.setAttribute('fill', opts.c1 || '#FFD27A');
+
+    const r2 = document.createElementNS(ns, 'rect');
+    r2.setAttribute('x', cx + 2); r2.setAttribute('y', mt + plotH - h2);
+    r2.setAttribute('width', bw); r2.setAttribute('height', h2);
+    r2.setAttribute('rx', '3'); r2.setAttribute('fill', opts.c2 || '#C9A8FF');
+
+    g.append(r1, r2);
+    svg.appendChild(g);
+    groups.push(g);
+
+    const hit = document.createElementNS(ns, 'rect');
+    hit.setAttribute('x', ml + i * step); hit.setAttribute('y', mt);
+    hit.setAttribute('width', step); hit.setAttribute('height', plotH);
+    hit.setAttribute('fill', 'transparent');
+    hit.addEventListener('pointermove', (ev) => {
+      groups.forEach((gr, gi) => gr.setAttribute('opacity', gi === i ? '1' : '0.45'));
+      const box = el.getBoundingClientRect();
+      showTip(el, tip, cx / W, ev.clientY - box.top, opts.tipHead(r), opts.tipLines(r));
+    });
+    hit.addEventListener('pointerleave', () => {
+      tip.hidden = true;
+      groups.forEach(gr => gr.setAttribute('opacity', '1'));
+    });
+    svg.appendChild(hit);
+  });
+
+  el.appendChild(svg);
+}
+
+// Line Chart
+function renderLineChart(elId, rows, opts) {
+  const el = document.getElementById(elId);
+  if (!el || !rows || !rows.length) return;
+  el.innerHTML = '';
+  const W = Math.max(320, el.clientWidth || 560);
+  const H = opts.height || 220;
+  const ml = opts.ml || 48, mr = 18, mt = 18, mb = 24;
+  const plotW = W - ml - mr, plotH = H - mt - mb;
+
+  const vals = rows.map(r => Number(r[opts.field]) || 0);
+  const maxV = (Math.max(...vals, 0.1)) * 1.1;
+  const ticks = [0, 0.25, 0.5, 0.75, 1].map(t => t * maxV);
+
+  const ns = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(ns, 'svg');
+  svg.setAttribute('width', '100%'); svg.setAttribute('height', H);
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+
+  ticks.forEach(tv => {
+    const y = mt + plotH - (tv / maxV) * plotH;
+    const line = document.createElementNS(ns, 'line');
+    line.setAttribute('x1', ml); line.setAttribute('x2', W - mr);
+    line.setAttribute('y1', y); line.setAttribute('y2', y);
+    line.setAttribute('stroke', 'rgba(255,248,234,0.10)');
+    svg.appendChild(line);
+
+    const txt = document.createElementNS(ns, 'text');
+    txt.setAttribute('x', ml - 6); txt.setAttribute('y', y + 4);
+    txt.setAttribute('text-anchor', 'end'); txt.setAttribute('font-size', '11'); txt.setAttribute('fill', '#8E86B2');
+    txt.textContent = opts.yFmt ? opts.yFmt(tv) : FMT.short(tv);
+    svg.appendChild(txt);
+  });
+
+  const pts = rows.map((r, i) => {
+    const x = ml + (rows.length > 1 ? (i / (rows.length - 1)) * plotW : plotW / 2);
+    const y = mt + plotH - (vals[i] / maxV) * plotH;
+    return [x, y, r];
+  });
+
+  const color = opts.color || '#3FD39A';
+  const areaD = 'M' + pts[0][0] + ',' + (mt + plotH) + ' ' + pts.map(p => 'L' + p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' ') + ' L' + pts[pts.length - 1][0] + ',' + (mt + plotH) + ' Z';
+  const area = document.createElementNS(ns, 'path');
+  area.setAttribute('d', areaD); area.setAttribute('fill', color); area.setAttribute('opacity', '0.15');
+  svg.appendChild(area);
+
+  const lineD = pts.map((p, i) => (i === 0 ? 'M' : 'L') + p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' ');
+  const pathEl = document.createElementNS(ns, 'path');
+  pathEl.setAttribute('d', lineD); pathEl.setAttribute('fill', 'none');
+  pathEl.setAttribute('stroke', color); pathEl.setAttribute('stroke-width', '2.5');
+  svg.appendChild(pathEl);
+
+  const every = Math.max(1, Math.ceil(rows.length / Math.floor(plotW / 52)));
+  const tip = makeTip(el);
+  const step = rows.length > 1 ? plotW / (rows.length - 1) : plotW;
+
+  pts.forEach(([x, y, r], i) => {
+    if (i % every === 0 || i === rows.length - 1) {
+      const xl = document.createElementNS(ns, 'text');
+      xl.setAttribute('x', x); xl.setAttribute('y', H - 6);
+      xl.setAttribute('text-anchor', 'middle'); xl.setAttribute('font-size', '11'); xl.setAttribute('fill', '#8E86B2');
+      xl.textContent = opts.xLabel(r);
+      svg.appendChild(xl);
+    }
+    const dot = document.createElementNS(ns, 'circle');
+    dot.setAttribute('cx', x); dot.setAttribute('cy', y); dot.setAttribute('r', '3.5');
+    dot.setAttribute('fill', color);
+    svg.appendChild(dot);
+
+    const hit = document.createElementNS(ns, 'rect');
+    hit.setAttribute('x', x - step / 2); hit.setAttribute('y', mt);
+    hit.setAttribute('width', step); hit.setAttribute('height', plotH);
+    hit.setAttribute('fill', 'transparent');
+    hit.addEventListener('pointermove', (ev) => {
+      dot.setAttribute('r', '6');
+      const box = el.getBoundingClientRect();
+      showTip(el, tip, x / W, ev.clientY - box.top, opts.tipHead(r), opts.tipLines(r));
+    });
+    hit.addEventListener('pointerleave', () => {
+      dot.setAttribute('r', '3.5');
+      tip.hidden = true;
+    });
+    svg.appendChild(hit);
+  });
+
+  el.appendChild(svg);
+}
+
+// Horizontal Bars
+function renderHBars(elId, rows, opts) {
+  const el = document.getElementById(elId);
+  if (!el || !rows || !rows.length) return;
+  el.innerHTML = '';
+  const sorted = [...rows].sort((a, b) => Number(b[opts.field]) - Number(a[opts.field]));
+  const W = Math.max(320, el.clientWidth || 540);
+  const rowH = 28;
+  const H = sorted.length * rowH + 10;
+  const ml = opts.ml || 128, mr = 54;
+  const maxV = Math.max(...sorted.map(r => Number(r[opts.field]) || 0), 1);
+
+  const ns = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(ns, 'svg');
+  svg.setAttribute('width', '100%'); svg.setAttribute('height', H);
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  const tip = makeTip(el);
+
+  sorted.forEach((r, i) => {
+    const y = 6 + i * rowH;
+    const v = Number(r[opts.field]) || 0;
+    const bw = Math.max(3, (v / maxV) * (W - ml - mr));
+
+    const lbl = document.createElementNS(ns, 'text');
+    lbl.setAttribute('x', ml - 8); lbl.setAttribute('y', y + 15);
+    lbl.setAttribute('text-anchor', 'end'); lbl.setAttribute('font-size', '12'); lbl.setAttribute('fill', '#FFF8EA');
+    lbl.textContent = r[opts.labelKey];
+    svg.appendChild(lbl);
+
+    const bar = document.createElementNS(ns, 'rect');
+    bar.setAttribute('x', ml); bar.setAttribute('y', y + 2);
+    bar.setAttribute('width', bw); bar.setAttribute('height', rowH - 8);
+    bar.setAttribute('rx', '4'); bar.setAttribute('fill', opts.color || '#FFD27A');
+    svg.appendChild(bar);
+
+    const valTxt = document.createElementNS(ns, 'text');
+    valTxt.setAttribute('x', ml + bw + 6); valTxt.setAttribute('y', y + 15);
+    valTxt.setAttribute('font-size', '12'); valTxt.setAttribute('fill', '#C9C2E3');
+    valTxt.textContent = FMT.int(v);
+    svg.appendChild(valTxt);
+
+    const hit = document.createElementNS(ns, 'rect');
+    hit.setAttribute('x', 0); hit.setAttribute('y', y);
+    hit.setAttribute('width', W); hit.setAttribute('height', rowH);
+    hit.setAttribute('fill', 'transparent');
+    hit.addEventListener('pointermove', (ev) => {
+      const box = el.getBoundingClientRect();
+      showTip(el, tip, (ml + bw / 2) / W, ev.clientY - box.top, r[opts.labelKey], opts.tipLines(r));
+    });
+    hit.addEventListener('pointerleave', () => { tip.hidden = true; });
+    svg.appendChild(hit);
+  });
+
+  el.appendChild(svg);
+}
+
+// Mini Monthly Bars
+function renderMiniBars(container, rows, depField, offField, barColor) {
+  const W = 230, H = 86;
+  const ns = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(ns, 'svg');
+  svg.setAttribute('width', '100%'); svg.setAttribute('height', H);
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  const maxV = Math.max(...rows.map(r => Number(r[depField]) || 0), 1);
+  const step = W / Math.max(rows.length, 1);
+  const bw = Math.min(36, step * 0.68);
+  const monMap = { '07': 'июл', '08': 'авг', '09': 'сен', '10': 'окт' };
+
+  rows.forEach((r, i) => {
+    const cx = i * step + step / 2;
+    const v = Number(r[depField]) || 0;
+    const bh = Math.max(2, (v / maxV) * (H - 34));
+    const rect = document.createElementNS(ns, 'rect');
+    rect.setAttribute('x', cx - bw / 2); rect.setAttribute('y', H - 20 - bh);
+    rect.setAttribute('width', bw); rect.setAttribute('height', bh);
+    rect.setAttribute('rx', '3'); rect.setAttribute('fill', barColor || '#FFD27A');
+    svg.appendChild(rect);
+
+    const vt = document.createElementNS(ns, 'text');
+    vt.setAttribute('x', cx); vt.setAttribute('y', H - 24 - bh);
+    vt.setAttribute('text-anchor', 'middle'); vt.setAttribute('font-size', '10.5'); vt.setAttribute('fill', '#FFF8EA');
+    vt.textContent = '$' + FMT.short(v);
+    svg.appendChild(vt);
+
+    const mt = document.createElementNS(ns, 'text');
+    mt.setAttribute('x', cx); mt.setAttribute('y', H - 5);
+    mt.setAttribute('text-anchor', 'middle'); mt.setAttribute('font-size', '10.5'); mt.setAttribute('fill', '#8E86B2');
+    mt.textContent = monMap[r.month.slice(5)] || r.month;
+    svg.appendChild(mt);
+  });
+  container.appendChild(svg);
+}
+
+// Mini Sparkline
+function renderMiniSpark(container, rows, lineColor) {
+  if (!rows.length) return;
+  const W = 230, H = 86;
+  const ns = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(ns, 'svg');
+  svg.setAttribute('width', '100%'); svg.setAttribute('height', H);
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  const vals = rows.map(r => Number(r.followers) || 0);
+  const minV = Math.min(...vals), maxV = Math.max(...vals, minV + 1);
+  const pts = rows.map((r, i) => [
+    6 + (rows.length > 1 ? (i / (rows.length - 1)) * (W - 12) : (W - 12) / 2),
+    10 + (1 - (vals[i] - minV) / (maxV - minV)) * (H - 30)
+  ]);
+  const c = lineColor || '#3FD39A';
+  const areaD = 'M' + pts[0][0] + ',' + (H - 18) + ' ' + pts.map(p => 'L' + p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' ') + ' L' + pts[pts.length - 1][0] + ',' + (H - 18) + ' Z';
+  const area = document.createElementNS(ns, 'path');
+  area.setAttribute('d', areaD); area.setAttribute('fill', c); area.setAttribute('opacity', '0.18');
+  svg.appendChild(area);
+
+  const lineD = pts.map((p, i) => (i === 0 ? 'M' : 'L') + p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' ');
+  const path = document.createElementNS(ns, 'path');
+  path.setAttribute('d', lineD); path.setAttribute('fill', 'none'); path.setAttribute('stroke', c); path.setAttribute('stroke-width', '2');
+  svg.appendChild(path);
+
+  const t1 = document.createElementNS(ns, 'text');
+  t1.setAttribute('x', 4); t1.setAttribute('y', H - 4); t1.setAttribute('font-size', '10'); t1.setAttribute('fill', '#8E86B2');
+  t1.textContent = rows[0].week_label;
+  const t2 = document.createElementNS(ns, 'text');
+  t2.setAttribute('x', W - 4); t2.setAttribute('y', H - 4); t2.setAttribute('text-anchor', 'end'); t2.setAttribute('font-size', '10'); t2.setAttribute('fill', '#8E86B2');
+  t2.textContent = rows[rows.length - 1].week_label;
+  svg.append(t1, t2);
+  container.appendChild(svg);
+}
+
+// Table Builder
+function buildTable(tblId, headers, rows, cols) {
+  const tbl = document.getElementById(tblId);
+  if (!tbl) return;
+  tbl.innerHTML = '<thead><tr>' + headers.map(h => '<th>' + h + '</th>').join('') + '</tr></thead>';
+  const tb = document.createElement('tbody');
+  rows.forEach(r => {
+    const tr = document.createElement('tr');
+    cols.forEach(([field, fmt, cls, fn]) => {
+      const td = document.createElement('td');
+      const raw = fn ? fn(r) : r[field];
+      if (!fmt) td.textContent = raw;
+      else if (raw === '' || raw == null) { td.textContent = '—'; td.className = 'muted'; }
+      else { td.textContent = FMT[fmt](raw); if (cls) td.className = cls; }
+      tr.appendChild(td);
+    });
+    tb.appendChild(tr);
+  });
+  tbl.appendChild(tb);
+}
+
+// ==================== POPULATE ACT 01: CHAT BRANDS ====================
+const chatBrandWrap = document.getElementById('chat-brand-cards');
+[...D.chat.brands].sort((a, b) => Number(b.deposit_usd) - Number(a.deposit_usd)).forEach(b => {
+  const br = getBrand(b.brand);
+  const c = document.createElement('div');
+  c.className = 'brand-card';
+  c.style.background = br.bg;
+  c.style.border = '1px solid ' + br.border;
+  c.style.setProperty('--b-color', br.color);
+  c.innerHTML = `
+    <h3>${br.emoji} ${b.brand} <span class="badge" style="color:${br.color};border-color:${br.border}">${b.since} · ${b.offers_in_grid} офферов</span></h3>
+    <div class="stat-pair">
+      <div><span class="big-stat" style="color:${br.color}">${FMT.money(b.deposit_usd)}</span><span class="kpi-label">принесла сетка</span></div>
+      <div><span class="big-stat" style="color:#fff">${FMT.int(b.offers_sold)}</span><span class="kpi-label">офферов продано</span></div>
+    </div>
+    <p class="meta">В октябре: <b>${FMT.money(b.deposit_oct_usd)}</b> · Средний чек: <b>${FMT.money2(b.avg_check_usd)}</b> · Покупателей: <b>${FMT.int(b.buyers)}</b></p>
+  `;
+  chatBrandWrap.appendChild(c);
+});
+
+buildTable('tbl-chat-brands',
+  ['Бренд', 'Запуск', 'В сетке', 'Покупок', 'Депозит', 'Ср. чек', 'Inout 7д', 'Октябрь'],
+  D.chat.brands,
+  [['brand'], ['since'], ['offers_in_grid', 'int'], ['offers_sold', 'int'], ['deposit_usd', 'money', 'strong'], ['avg_check_usd', 'money2'], ['inout_7d_usd', 'money', 'good'], ['deposit_oct_usd', 'money']]
+);
+
+buildTable('tbl-chat-monthly',
+  ['Месяц', 'Активации кодов', 'Покупок', 'Покупателей', 'Депозит', 'Вынесли 7д', '% вынесли', 'Inout 7д', 'Inout 24ч', 'FTD', 'Реакт. 0д', 'Реакт. 7д', 'Реакт. 14д'],
+  D.chat.monthly,
+  [['label'], ['code_activations', 'int'], ['offers_sold', 'int'], ['buyers', 'int'], ['deposit_usd', 'money', 'strong'], ['out_7d_usd', 'money'], ['out_7d_share', 'pct'], ['inout_7d_usd', 'money', 'good'], ['inout_24h_usd', 'money'], ['ftd', 'int'], ['reactivated_0d', 'int'], ['reactivated_7d', 'int'], ['reactivated_14d', 'int']]
+);
+// ==================== RENDER CHARTS ====================
+function drawAllCharts() {
+  // Act 01: Chat (Desert Gold & Terracotta)
+  renderBarChart('chart-chat-wk-dep', D.chat.weekly, {
+    field: 'deposit_usd', height: 220, color: '#F59E0B', yFmt: v => '$' + FMT.short(v),
+    tipHead: r => r.week + ' · ' + r.dates,
+    tipLines: r => ['Депозит: ' + FMT.money(r.deposit_usd), 'Покупок: ' + FMT.int(r.offers_sold), 'Покупателей: ' + FMT.int(r.buyers)]
+  });
+  renderBarChart('chart-chat-wk-acts', D.chat.weekly, {
+    field: 'code_activations', height: 150, color: '#FBBF24',
+    tipHead: r => r.week + ' · ' + r.dates,
+    tipLines: r => ['Активации: ' + FMT.int(r.code_activations)]
+  });
+  renderBarChart('chart-chat-wk-ftd', D.chat.weekly, {
+    field: 'ftd', height: 150, color: '#10B981', yFmt: v => Math.round(v),
+    tipHead: r => r.week + ' · ' + r.dates,
+    tipLines: r => ['FTD: ' + FMT.int(r.ftd)]
+  });
+  renderBarChart('chart-chat-wk-react', D.chat.weekly, {
+    field: 'reactivated_7d', height: 150, color: '#DC2626', yFmt: v => Math.round(v),
+    tipHead: r => r.week + ' · ' + r.dates,
+    tipLines: r => ['Реактивации 7д: ' + FMT.int(r.reactivated_7d)]
+  });
+  renderGroupedBars('chart-chat-mo-inout', D.chat.monthly, {
+    k1: 'deposit_usd', k2: 'out_7d_usd', c1: '#FBBF24', c2: '#DC2626', height: 220,
+    yFmt: v => '$' + FMT.short(v),
+    xLabel: r => r.label.split(' ')[0],
+    tipHead: r => r.label,
+    tipLines: r => ['Депозит: ' + FMT.money(r.deposit_usd), 'Вынесли 7д: ' + FMT.money(r.out_7d_usd) + ' (' + FMT.pct(r.out_7d_share) + ')', 'Inout 7д: ' + FMT.money(r.inout_7d_usd)]
+  });
+}
+
+drawAllCharts();
+window.addEventListener('resize', () => {
+  clearTimeout(window._rz);
+  window._rz = setTimeout(drawAllCharts, 150);
+});
+</script>
+</body>
+</html>
