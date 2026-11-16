@@ -80,10 +80,15 @@ footer a{color:var(--muted)}
 
 <script src="shared/jam.js"></script>
 <script src="client/mountain.js"></script>
+<script src="../3d/vendor/three.min.js"></script>
+<script src="../3d/ny3d.js"></script>
+<script src="client/mountain3d.js"></script>
 <script src="client/trail-game.js"></script>
 <script>
 (function () {
   var $ = function (id) { return document.getElementById(id); };
+  // 3D-гора, если есть WebGL (иначе прежняя 2D-карта Mountain)
+  var Mountain = window.Mountain3D && Mountain3D.supported() ? Mountain3D : window.Mountain;
   var P = null, ME = null, game = null, cur = null;
   try { P = localStorage.getItem('kili_p'); } catch (e) {}
 
@@ -167,7 +172,8 @@ footer a{color:var(--muted)}
   // ?nick=Имя (или ?name=) — вход без ввода имени (хаб плейтеста); ?open=t1 — сразу открыть тропу
   var q = new URLSearchParams(location.search);
   var qn = q.get('nick') || q.get('name');
-  if (qn) enter(qn).then(function () { if (q.get('open')) open(q.get('open')); });
+  // ?scroll=1 — прокрутить к горе (скриншоты QA целиком по сцене)
+  if (qn) enter(qn).then(function () { if (q.get('open')) open(q.get('open')); if (q.get('scroll')) $('mountain').scrollIntoView(); });
   else if (P) load().catch(function () { P = null; });
   setInterval(function () { if (P && ME && ME.mode === 'show') load(); }, 5000);
 })();

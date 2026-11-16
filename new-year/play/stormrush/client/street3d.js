@@ -63,7 +63,7 @@
   // ======================================================================================================
   function build(box) {
     var k = NY3D.create(box, {
-      bg: 0x05090b, fog: [0x0a1614, 30, 72], exposure: 0.95,
+      bg: 0x05090b, fog: [0x0a1614, 30, 72], exposure: 1.2,
       env: [0x0c1a17, 0x2a2418, 0x0e2a33, 0x040908], cam: { pos: CAM.pos, look: CAM.look, fov: 42 }, designAspect: 16 / 8, minZoom: 0.42, parallax: 0.9,
     });
     if (!k) return null;
@@ -84,8 +84,8 @@
     scene.add(stars);
 
     // ---------- свет ----------
-    var hemi = new T.HemisphereLight(0x4a7ad0, 0x0a1a24, 0.46); scene.add(hemi);
-    var moon = new T.DirectionalLight(0x7fb2ff, 0.4); moon.position.set(-12, 22, 10); scene.add(moon);
+    var hemi = new T.HemisphereLight(0x8aaee8, 0x1a2a3a, 0.95); scene.add(hemi); // под sRGB-цвета ядра (16.11) — светлее
+    var moon = new T.DirectionalLight(0xa8c8ff, 0.75); moon.position.set(-12, 22, 10); scene.add(moon);
     var squareLight = new T.PointLight(0xffd27a, 0, 30, 2); squareLight.position.set(0, 6, -28); scene.add(squareLight);
 
     // ---------- земля, дорога, сугробы ----------
@@ -94,7 +94,7 @@
       for (var i = 0; i < 9000; i++) { var v = 200 + Math.random() * 55 | 0; g.fillStyle = 'rgba(' + v + ',' + (v + 6) + ',' + (v + 12) + ',.35)'; g.fillRect(Math.random() * w, Math.random() * h, 2, 2); }
     });
     snowTex.wrapS = snowTex.wrapT = T.RepeatWrapping; snowTex.repeat.set(10, 10);
-    var ground = new T.Mesh(new T.PlaneGeometry(160, 160), new T.MeshStandardMaterial({ color: 0x6f92c4, map: snowTex, roughness: 0.95, metalness: 0 }));
+    var ground = new T.Mesh(new T.PlaneGeometry(160, 160), new T.MeshStandardMaterial({ color: 0xa6bee0, map: snowTex, roughness: 0.95, metalness: 0 }));
     ground.rotation.x = -Math.PI / 2; ground.position.z = -20; scene.add(ground);
     var roadTex = k.tex(256, 1024, function (g, w, h) {
       g.fillStyle = '#2a3034'; g.fillRect(0, 0, w, h);
@@ -111,7 +111,7 @@
     var square = new T.Mesh(new T.CircleGeometry(9, 48), new T.MeshStandardMaterial({ color: 0x9ab8de, roughness: 0.9, map: snowTex }));
     square.rotation.x = -Math.PI / 2; square.position.set(0, 0.02, -31); scene.add(square);
     // сугробы вдоль улицы
-    var drift = new T.MeshStandardMaterial({ color: 0x86a8d6, roughness: 1 });
+    var drift = new T.MeshStandardMaterial({ color: 0xb4c8e6, roughness: 1 });
     for (var d = 0; d < 26; d++) {
       var side = d % 2 ? 1 : -1, m = new T.Mesh(new T.SphereGeometry(1, 12, 8), drift);
       m.scale.set(0.55 + Math.random() * 0.4, 0.25 + Math.random() * 0.2, 1.1 + Math.random() * 1.2);
@@ -119,7 +119,7 @@
     }
     // ели по краям сцены
     var pineMat = new T.MeshStandardMaterial({ color: 0x0e5c3c, roughness: 0.9, flatShading: true });
-    var pineSnow = new T.MeshStandardMaterial({ color: 0xa6c6ec, roughness: 1, flatShading: true });
+    var pineSnow = new T.MeshStandardMaterial({ color: 0xd2e2f4, roughness: 1, flatShading: true });
     function pine(x, z, s) {
       var g = new T.Group();
       for (var j = 0; j < 3; j++) {
@@ -172,7 +172,7 @@
       g.lineWidth = 6; g.strokeRect(0, 0, w, h);
     });
     var trimMat = new T.MeshStandardMaterial({ color: 0xeef2f0, roughness: 0.6 });
-    var snowMat = new T.MeshStandardMaterial({ color: 0xb6d0f0, roughness: 0.9, flatShading: true });
+    var snowMat = new T.MeshStandardMaterial({ color: 0xdce8f6, roughness: 0.9, flatShading: true });
     var doorMat = new T.MeshStandardMaterial({ color: 0x3a2418, roughness: 0.7 });
     var bulbGeo = new T.SphereGeometry(0.09, 8, 6);
 

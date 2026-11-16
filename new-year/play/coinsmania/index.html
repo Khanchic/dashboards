@@ -82,10 +82,21 @@ footer a{color:var(--ink2)}
 <script src="shared/coins.js"></script>
 <script src="client/piggy.js"></script>
 <script src="client/sort-game.js"></script>
+<script src="../3d/vendor/three.min.js"></script>
+<script src="../3d/ny3d.js"></script>
+<script src="client/coinsmas3d.js"></script>
 <script>
 (function () {
   var $ = function (id) { return document.getElementById(id); };
   var P = null, ME = null, game = null, cur = null;
+  // 3D-сцена (облачный остров, копилка, банки), если есть WebGL; иначе прежний 2D CoinPiggy.
+  // В 3D заголовок переезжает поверх сцены.
+  var Piggy = window.CoinPiggy3D && CoinPiggy3D.supported() ? CoinPiggy3D : window.CoinPiggy;
+  function title3d() {
+    if (Piggy !== window.CoinPiggy3D || $('piggy').querySelector('.c3d-title')) return;
+    var t3 = document.createElement('div'); t3.className = 'c3d-title'; t3.appendChild(document.querySelector('h1'));
+    $('piggy').appendChild(t3);
+  }
   try { P = localStorage.getItem('coinsort_p'); } catch (e) {}
 
   function post(url, data) { return fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) }).then(function (r) { return r.json(); }); }
@@ -101,7 +112,8 @@ footer a{color:var(--ink2)}
       ? 'Rehearsal · ' + (ph[me.phase] || me.phase) + '<br>1–3 ' + fmt(me.sched.wave1) + ' · 4–6 ' + fmt(me.sched.wave2) + ' · golden ' + fmt(me.sched.golden) + ' · end ' + fmt(me.sched.closesAt)
       : 'Playtest · everything is open<br>' + esc(me.nick);
     $('foot').textContent = me.nick;
-    CoinPiggy.render($('piggy'), me.jars, { current: cur, onOpen: open, progress: me.progress });
+    title3d();
+    Piggy.render($('piggy'), me.jars, { current: cur, onOpen: open, progress: me.progress });
     $('tiers').innerHTML = me.tiers.map(function (t) {
       var st = !t.got ? '' : t.got.code ? 'got' : 'ready';
       var right = !t.got ? t.prize : t.got.code ? esc(t.got.code) : t.prize + ' · ready';
@@ -147,10 +159,10 @@ footer a{color:var(--ink2)}
       if (game) game.destroy();
       game = CoinSort.mount($('game'), {
         move: function (input) { return post('api/move', { p: P, jar: id, input: input }); },
-        onDone: function () { load().then(function () { CoinPiggy.flick($('piggy')); suggest(); }); }
+        onDone: function () { load().then(function () { Piggy.flick($('piggy'), id); suggest(); }); }
       });
       game.load(r.attempt);
-      CoinPiggy.render($('piggy'), ME.jars, { current: cur, onOpen: open, progress: ME.progress });
+      Piggy.render($('piggy'), ME.jars, { current: cur, onOpen: open, progress: ME.progress });
     });
   }
   function suggest() {

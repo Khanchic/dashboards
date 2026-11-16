@@ -144,6 +144,8 @@ http.createServer(async (req, res) => {
       if (pth === '/hub-core.js' || pth === '/hub.css') return sendFile(res, APP_PUBLIC, pth.slice(1));
       if (pth === '/vault.js' || pth === '/vault.css') return sendFile(res, path.join(F7, 'client'), pth.slice(1));
       if (pth.startsWith('/assets/')) return sendFile(res, path.join(F7, 'assets'), pth.slice(8));
+      if (pth.startsWith('/client/')) return sendFile(res, path.join(F7, 'client'), pth.slice(8)); // vault3d.js
+      if (pth.startsWith('/3d/')) return sendFile(res, path.join(F7, '..', '_3d'), pth.slice(4)); // ядро NY3D + three
       if (pth === '/api/stats') return sendJson(res, 200, stats());
       if (pth === '/api/state') {
         const pl = db.players[url.searchParams.get('p')];

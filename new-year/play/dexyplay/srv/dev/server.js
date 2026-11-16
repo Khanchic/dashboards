@@ -292,6 +292,7 @@ const server = http.createServer(async (req, res) => {
       if (pth.startsWith('/client/')) return sendFile(res, path.join(ROOT, 'client'), pth.slice(8));
       if (pth.startsWith('/shared/')) return sendFile(res, path.join(ROOT, 'shared'), pth.slice(8));
       if (pth.startsWith('/assets/')) return sendFile(res, BRAND_ASSETS, pth.slice(8));
+      if (pth.startsWith('/3d/')) return sendFile(res, path.join(ROOT, '..', '..', '_3d'), pth.slice(4)); // 3D-ядро ивентов
       if (pth === '/promo') return sendFile(res, PROMO, 'posts.html');
       if (pth.startsWith('/promo/')) return sendFile(res, PROMO, pth.slice(7));
       // только стенд: картинки пулов для рендера постов (в прод этот маршрут не переносить — там решения секретны)

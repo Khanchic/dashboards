@@ -13,7 +13,7 @@
 :root{--night:#00131A;--night-2:#03202B;--red:#FF2B39;--cyan:#01C9FF;--gold:#BCAA74;--gold-deep:#7B5F33;--bulb:#FFDA0A;--ink-2:#B9CDD4;--ink-3:#7F98A2;--line:rgba(188,170,116,.28);color-scheme:dark}
 *{box-sizing:border-box}
 html,body{margin:0;background:var(--night);color:#fff;font:16px/1.5 Raleway,system-ui,"Segoe UI",Arial,sans-serif;-webkit-font-smoothing:antialiased}
-.stage{position:relative;min-height:100vh;min-height:100dvh;background:var(--night) url(assets/bg-sky.jpg) center 30%/cover no-repeat;isolation:isolate;overflow:hidden}
+.stage{position:relative;min-height:100vh;min-height:100dvh;background:var(--night) url(../../vegasway/assets/bg-sky.jpg) center 30%/cover no-repeat;isolation:isolate;overflow:hidden}
 .stage::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,19,26,.55),rgba(0,19,26,.25) 30%,rgba(0,19,26,.85) 70%,var(--night));z-index:-1}
 #sky{position:fixed;inset:0;width:100%;height:100%;z-index:5;pointer-events:none}
 .top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:14px max(16px,env(safe-area-inset-left,0px)) 0}
@@ -81,7 +81,7 @@ html,body{margin:0;background:var(--night);color:#fff;font:16px/1.5 Raleway,syst
 <div class="stage">
   <canvas id="sky" aria-hidden="true"></canvas>
   <div class="top">
-    <img src="assets/logo.png" alt="Vegas Way" width="700" height="350">
+    <img src="../../vegasway/assets/logo.png" alt="Vegas Way" width="700" height="350">
     <div class="pills" id="pills" hidden>
       <span class="pill" id="who"></span>
       <span class="pill">Points <b id="tot">0</b> / 54</span>
@@ -93,6 +93,7 @@ html,body{margin:0;background:var(--night);color:#fff;font:16px/1.5 Raleway,syst
       <h1>Countdown <em>on the</em> Strip</h1>
     </div>
     <div class="banner" id="banner" hidden aria-live="polite"></div>
+    <div id="strip3d" hidden></div>
 
     <form class="panel join" id="join" hidden>
       <p style="margin:0;font-weight:700">Six acts. One rocket with your name on it.</p>
@@ -131,11 +132,21 @@ html,body{margin:0;background:var(--night);color:#fff;font:16px/1.5 Raleway,syst
 </div>
 <script src="client/strip-game.js"></script>
 <script src="client/salute.js"></script>
+<script src="../3d/vendor/three.min.js"></script>
+<script src="../3d/ny3d.js"></script>
+<script src="client/strip3d.js"></script>
 <script>
 (function () {
   'use strict';
   var $ = function (s) { return document.querySelector(s); };
   var P = null, me = null, game = null, sky = Salute.create($('#sky'));
+  // 3D-бульвар над лобби (нет WebGL — лобби как было: сетка актов)
+  var use3d = !!(window.Strip3D && Strip3D.supported());
+  if (use3d) {
+    var t3 = document.createElement('div'); t3.className = 'v3d-title';
+    t3.innerHTML = '<div class="marquee">' + $('#marquee').innerHTML + '</div>';
+    $('#strip3d').appendChild(t3);
+  }
   try { P = localStorage.getItem('strip.p'); } catch (e) {}
   var TYPE = { shell: 'Follow the chip', cards: 'Remember the cards', riddle: 'Solve the riddle' };
   var COLOR = { spark: '#fff3b0', red: '#FF2B39', blue: '#01C9FF', gold: '#FFDA0A' };
@@ -145,7 +156,11 @@ html,body{margin:0;background:var(--night);color:#fff;font:16px/1.5 Raleway,syst
     return fetch(path, data ? { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) } : undefined)
       .then(function (r) { return r.json(); });
   }
-  function show(id) { ['#join', '#lobby', '#game'].forEach(function (s) { $(s).hidden = s !== id; }); $('#marquee').hidden = id === '#game'; }
+  function show(id) {
+    ['#join', '#lobby', '#game'].forEach(function (s) { $(s).hidden = s !== id; });
+    $('#strip3d').hidden = !(use3d && id === '#lobby');
+    $('#marquee').hidden = id === '#game' || (use3d && id === '#lobby');
+  }
 
   function refresh() {
     return api('api/me?p=' + encodeURIComponent(P)).then(function (s) {
@@ -162,6 +177,7 @@ html,body{margin:0;background:var(--night);color:#fff;font:16px/1.5 Raleway,syst
       $('#nextTxt').textContent = s.next ? s.next.need + ' more ' + (s.next.need === 1 ? 'point' : 'points') + ' to the ' + s.next.name : 'Top rocket. Nothing bigger on the Strip.';
       skew = s.now ? s.now - Date.now() : 0;
       renderActs();
+      if (use3d) Strip3D.render($('#strip3d'), s, { onOpen: startAct });
       renderReward();
       tick();
       if (!game) show('#lobby');
@@ -256,13 +272,15 @@ html,body{margin:0;background:var(--night);color:#fff;font:16px/1.5 Raleway,syst
 
   $('#acts').addEventListener('click', function (e) {
     var b = e.target.closest('.actc'); if (!b || b.disabled) return;
-    var act = Number(b.getAttribute('data-act'));
+    startAct(Number(b.getAttribute('data-act')));
+  });
+  function startAct(act) {
     api('api/start', { p: P, act: act }).then(function (r) {
       if (!r.attempt || r.error) { refresh(); return; }
       show('#game');
       if (game) game.destroy();
       game = StripGame.mount($('#game'), {
-        assets: { magician: 'assets/magician.png', harlequin: 'assets/harlequin.png' },
+        assets: { magician: '../../vegasway/assets/magician.png', harlequin: '../../vegasway/assets/harlequin.png' },
         move: function (input) { return api('api/move', { p: P, act: act, input: input }); },
         onRound: function (v, gain, el) {
           if (!gain || !el) return;
@@ -275,7 +293,7 @@ html,body{margin:0;background:var(--night);color:#fff;font:16px/1.5 Raleway,syst
       game.load(r.attempt);
       window.scrollTo(0, 0);
     });
-  });
+  }
 
   $('#join').addEventListener('submit', function (e) {
     e.preventDefault();
@@ -287,6 +305,7 @@ html,body{margin:0;background:var(--night);color:#fff;font:16px/1.5 Raleway,syst
   });
 
   $('#midnight').addEventListener('click', function () {
+    if (use3d) { Strip3D.launch($('#strip3d')); $('#strip3d').scrollIntoView({ behavior: 'smooth', block: 'center' }); }
     api('api/rockets').then(function (r) {
       sky.fire(r.rockets, { me: me && me.nick });
       if (!me || !me.tier || me.mode === 'show') return; // в репетиции награда — кнопкой Get my reward

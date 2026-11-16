@@ -82,10 +82,15 @@ footer a{color:var(--ink2)}
 
 <script src="shared/picross.js"></script>
 <script src="client/city.js"></script>
+<script src="../3d/vendor/three.min.js"></script>
+<script src="../3d/ny3d.js"></script>
+<script src="client/city3d.js"></script>
 <script src="client/tag-game.js"></script>
 <script>
 (function () {
   var $ = function (id) { return document.getElementById(id); };
+  // 3D-улица, если есть WebGL (иначе прежняя 2D TagCity)
+  var City = window.TagCity3D && TagCity3D.supported() ? TagCity3D : window.TagCity;
   var P = null, ME = null, game = null, cur = null;
   try { P = localStorage.getItem('tagwall_p'); } catch (e) {}
 
@@ -102,7 +107,7 @@ footer a{color:var(--ink2)}
       ? 'Rehearsal · ' + (ph[me.phase] || me.phase) + '<br>LIVE ' + fmt(me.sched.wave1) + ' · 4–6 ' + fmt(me.sched.wave2) + ' · mural ' + fmt(me.sched.mural) + ' · end ' + fmt(me.sched.closesAt)
       : 'Playtest · everything is open<br>' + esc(me.nick);
     $('foot').textContent = me.nick;
-    TagCity.render($('city'), me.walls, { current: cur, onOpen: open });
+    City.render($('city'), me.walls, { current: cur, onOpen: open });
     $('tiers').innerHTML = me.tiers.map(function (t) {
       var st = !t.got ? '' : t.got.code ? 'got' : 'ready';
       var right = !t.got ? t.prize : t.got.code ? esc(t.got.code) : t.prize + ' · ready';
@@ -148,10 +153,10 @@ footer a{color:var(--ink2)}
       if (game) game.destroy();
       game = TagWall.mount($('game'), {
         move: function (input) { return post('api/move', { p: P, wall: id, input: input }); },
-        onDone: function () { load().then(function () { TagCity.flick($('city'), id); suggest(); }); }
+        onDone: function () { load().then(function () { City.flick($('city'), id); suggest(); }); }
       });
       game.load(r.attempt);
-      TagCity.render($('city'), ME.walls, { current: cur, onOpen: open });
+      City.render($('city'), ME.walls, { current: cur, onOpen: open });
       // телефон: улица над игрой занимает весь экран — прокрутить к открытой стене
       if (window.matchMedia('(max-width:980px)').matches) $('game').scrollIntoView({ behavior: 'smooth', block: 'start' });
     });

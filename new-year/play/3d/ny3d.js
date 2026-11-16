@@ -31,6 +31,9 @@ window.NY3D = (function () {
     opts = opts || {};
     var T = window.THREE;
     if (!T || !supported()) return null;
+    // hex-цвета брендов = sRGB: без этого r147 берёт их как линейные и всё выходит пастельным (16.11, по CoinsMania).
+    // Глобально для страницы; сравнить со старым видом — ?ny3d=legacy
+    if (T.ColorManagement && 'legacyMode' in T.ColorManagement) T.ColorManagement.legacyMode = /[?&]ny3d=[\w,]*legacy/.test(location.search);
     var mobile = Math.min(window.innerWidth, window.innerHeight) < 600 || /Mobi|Android/i.test(navigator.userAgent);
     var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -241,7 +244,7 @@ window.NY3D = (function () {
     function look(pos, target, sec) {
       camFrom = camPos.clone(); lookFrom = camLook.clone();
       camTo = new T.Vector3().fromArray(pos); lookTo = new T.Vector3().fromArray(target);
-      camT = 0; camDur = reduced ? 0.01 : (sec || 1.4);
+      camT = 0; camDur = reduced || sec === 0 ? 0.001 : (sec || 1.4); // look(..., 0) — сразу, без перелёта
     }
     var ease = function (x) { return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; };
 
@@ -254,12 +257,14 @@ window.NY3D = (function () {
     }
     function loop(now) {
       raf = requestAnimationFrame(loop);
-      var dt = Math.min(0.05, (now - last) / 1000); last = now;
+      // метка rAF первого кадра бывает раньше performance.now() из create → dt < 0 уводил камеру/лерпы в бесконечность
+      var raw = Math.max(0, (now - last) / 1000), dt = Math.min(0.05, raw); last = now;
       if (!onScreen || document.hidden) return;
-      var t = (now - t0) / 1000;
+      var t = Math.max(0, (now - t0) / 1000);
       if (reduced) dt *= 0.35;
       if (camT < 1) {
-        camT = Math.min(1, camT + dt / camDur);
+        camT = Math.min(1, camT + Math.min(0.25, raw) / camDur); // перелёт по реальному времени: на слабом телефоне не растягивается
+
         var e = ease(camT);
         camPos.lerpVectors(camFrom, camTo, e); camLook.lerpVectors(lookFrom, lookTo, e);
       }

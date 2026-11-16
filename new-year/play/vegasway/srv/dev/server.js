@@ -224,6 +224,7 @@ function create(opts = {}) {
         if (pth === '/stats') return sendFile(res, __dirname, 'stats.html');
         if (pth.startsWith('/client/')) return sendFile(res, path.join(ROOT, 'client'), pth.slice(8));
         if (pth.startsWith('/assets/')) return sendFile(res, BRAND_ASSETS, pth.slice(8));
+        if (pth.startsWith('/3d/')) return sendFile(res, path.join(ROOT, '..', '..', '_3d'), pth.slice(4)); // общее 3D-ядро
         if (pth === '/api/me') { const p = player(url.searchParams.get('p')); return p ? sendJson(res, 200, summary(p)) : sendJson(res, 404, { error: 'no_player' }); }
         if (pth === '/api/rockets') {
           if (SHOW && now() < sched.midnight) return sendJson(res, 200, { rockets: [], locked: true, at: sched.midnight });

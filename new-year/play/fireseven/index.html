@@ -74,6 +74,11 @@
   };
 </script>
 <script src="vault.js"></script>
+<!-- 3D-зал за игрой (фон .stage): ядро NY3D + сцена сейфа; нет WebGL — остаётся градиент .stage -->
+<script src="../3d/vendor/three.min.js"></script>
+<script src="../3d/ny3d.js"></script>
+<script src="client/vault3d.js"></script>
+<script>if (window.Vault3D && Vault3D.supported()) Vault3D.mount(document.getElementById('gl'), { assetBase: '../../fireseven/assets/' });</script>
 <script>
 (function () {
   'use strict';

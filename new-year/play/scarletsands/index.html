@@ -49,6 +49,7 @@
   </div>
 
   <div id="app" hidden>
+    <div id="world"><div class="scs3d-title"><h1>The North Star Expedition</h1><p>Follow the North Star. Tap a stop on the route to open it.</p></div></div>
     <div class="row switch" id="switch"></div>
     <div class="cols">
       <div id="game"><p class="muted" id="gameNote"></p></div>
@@ -63,6 +64,9 @@
   </div>
 </div>
 <script src="client/north-star-game.js"></script>
+<script src="../3d/vendor/three.min.js"></script>
+<script src="../3d/ny3d.js"></script>
+<script src="client/expedition3d.js"></script>
 <script>
 (function () {
   var $ = function (s) { return document.querySelector(s); };
@@ -105,15 +109,31 @@
     } else {
       $('#gameNote').textContent = '';
       var k = kind + ':' + a.startedAt;
-      if (k !== gameKey) { if (game) game.destroy(); gameKey = k; game = NorthStar.mount($('#game'), { move: move, assets: ASSETS }); }
+      if (k !== gameKey) { if (game) game.destroy(); gameKey = k; game = NorthStar.mount($('#game'), { move: move, assets: ASSETS, onChange: world }); }
       game.load(a);
     }
+    world();
     $('#watch').innerHTML = me.watchers.length ? me.watchers.map(function (w) { return '<p>🐾 ' + esc(w.text) + '<small>drop ' + w.drop + (w.at ? ' · ' + fmt(w.at) : '') + '</small></p>'; }).join('') : '<p class="muted">Saffron hasn\'t shown up yet.</p>';
     $('#tiers').innerHTML = me.tiers.map(function (t) { return '<li>' + (t.got ? '● ' : '○ ') + t.name + ' → <b>' + t.prize + '</b>' + (t.got ? (t.got.code ? ' · ' + esc(t.got.code) : ' · ready') : '') + '</li>'; }).join('');
     var c = me.claim;
     $('#pid').hidden = Boolean(c.pid && c.pid.status !== 'rejected');
     $('#claimNote').textContent = c.pid ? 'Player ID: ' + c.pid.status + (c.unclaimed ? ' · rewards waiting: ' + c.unclaimed : '') : c.unclaimed ? 'Rewards waiting: ' + c.unclaimed + '. Your player ID is asked only now.' : 'Reach 3 stamps for your first reward.';
     $('#dms').innerHTML = me.dms.map(function (d) { return '<p><span class="muted">' + fmt(d.at) + '</span> ' + esc(d.text) + '</p>'; }).join('') || '<p class="muted">No messages yet.</p>';
+  }
+  // 3D-мир экспедиции над игрой (нет WebGL — блок скрыт, игра как раньше)
+  var W3 = window.NorthStar3D && NorthStar3D.supported() ? NorthStar3D : null;
+  if (W3) document.querySelector('header h1').hidden = true; else $('#world').hidden = true;
+  function world() {
+    if (!W3 || !me) return;
+    var tab = document.querySelector('#game .ns-tabs button[aria-pressed="true"]');
+    var ev = kind === 'expedition' && game ? game.view() : me.expedition && me.expedition.view;
+    var tv = kind === 'training' && game ? game.view() : me.training && me.training.view;
+    W3.render($('#world'), { expedition: ev || null, training: tv || null }, { kind: kind, current: tab ? tab.getAttribute('data-k') : null, onSelect: pick3d });
+  }
+  function pick3d(k2, key) {
+    if (k2 !== kind) { kind = k2; gameKey = ''; render(); }
+    if (game && key !== 't') game.select(key);
+    var g = $('#switch'); if (g && g.scrollIntoView) g.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
   function open(k) { post('api/open', { p: P, kind: k }).then(load); }
   function move(input) { return post('api/move', { p: P, kind: kind, input: input }).then(function (r) { setTimeout(load, 50); return r; }); }
