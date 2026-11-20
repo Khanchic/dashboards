@@ -1,330 +1,331 @@
 {
-  "generated_at": "2026-11-20T10:56:37.485Z",
+  "generated_at": "2026-11-20T21:51:18.741Z",
   "last_collect_date": "2026-11-20",
   "sources_report": [
     {
       "id": "anthropic",
+      "name": "Anthropic news",
       "tier": "T1",
       "type": "html",
-      "fetched": 19,
-      "kept": 1,
-      "new": 0,
+      "url": "https://www.anthropic.com/news",
+      "fetched": 20,
+      "kept": 2,
+      "new": 1,
       "error": null,
-      "note": "",
-      "name": "Anthropic news",
-      "url": "https://www.anthropic.com/news"
+      "note": ""
     },
     {
       "id": "anthropic-changelog",
+      "name": "Anthropic release notes",
       "tier": "T1",
       "type": "changelog",
-      "fetched": 176,
-      "kept": 10,
+      "url": "https://docs.anthropic.com/en/release-notes/overview",
+      "fetched": 175,
+      "kept": 9,
       "new": 0,
       "error": null,
-      "note": "",
-      "name": "Anthropic release notes",
-      "url": "https://docs.anthropic.com/en/release-notes/overview"
+      "note": ""
     },
     {
       "id": "anthropic-sdk",
+      "name": "anthropic-sdk-python releases",
       "tier": "T1",
       "type": "rss",
+      "url": "https://github.com/anthropics/anthropic-sdk-python/releases.atom",
       "fetched": 10,
-      "kept": 3,
-      "new": 0,
+      "kept": 4,
+      "new": 1,
       "error": null,
-      "note": "",
-      "name": "anthropic-sdk-python releases",
-      "url": "https://github.com/anthropics/anthropic-sdk-python/releases.atom"
-    },
-    {
-      "id": "bensbites",
-      "tier": "T3",
-      "type": "rss",
-      "fetched": 20,
-      "kept": 2,
-      "new": 0,
-      "error": null,
-      "note": "",
-      "name": "Ben's Bites",
-      "url": "https://www.bensbites.com/feed"
+      "note": ""
     },
     {
       "id": "deepmind",
+      "name": "Google DeepMind",
       "tier": "T1",
       "type": "rss",
+      "url": "https://deepmind.google/blog/rss.xml",
       "fetched": 100,
       "kept": 2,
       "new": 0,
       "error": null,
-      "note": "",
-      "name": "Google DeepMind",
-      "url": "https://deepmind.google/blog/rss.xml"
+      "note": ""
     },
     {
       "id": "gemini-changelog",
+      "name": "Gemini API changelog",
       "tier": "T1",
       "type": "changelog",
+      "url": "https://ai.google.dev/gemini-api/docs/changelog",
       "fetched": 0,
       "kept": 0,
       "new": 0,
       "error": null,
-      "note": "no links found (JS-only page?)",
-      "name": "Gemini API changelog",
-      "url": "https://ai.google.dev/gemini-api/docs/changelog"
+      "note": "no links found (JS-only page?)"
     },
     {
       "id": "google-ai",
+      "name": "Google AI blog",
       "tier": "T1",
       "type": "rss",
+      "url": "https://blog.google/technology/ai/rss/",
       "fetched": 20,
       "kept": 5,
       "new": 0,
       "error": null,
-      "note": "",
-      "name": "Google AI blog",
-      "url": "https://blog.google/technology/ai/rss/"
+      "note": ""
     },
     {
       "id": "hf-changelog",
+      "name": "Hugging Face changelog",
       "tier": "T1",
       "type": "changelog",
+      "url": "https://huggingface.co/changelog",
       "fetched": 0,
       "kept": 0,
       "new": 0,
       "error": null,
-      "note": "no links found (JS-only page?)",
-      "name": "Hugging Face changelog",
-      "url": "https://huggingface.co/changelog"
-    },
-    {
-      "id": "hn",
-      "tier": "T3",
-      "type": "hn",
-      "fetched": 200,
-      "kept": 37,
-      "new": 0,
-      "error": null,
-      "note": "",
-      "name": "Hacker News",
-      "url": "https://hn.algolia.com/api/v1/search_by_date"
+      "note": "no links found (JS-only page?)"
     },
     {
       "id": "huggingface",
+      "name": "Hugging Face blog",
       "tier": "T1",
       "type": "rss",
-      "fetched": 913,
-      "kept": 9,
-      "new": 0,
-      "error": null,
-      "note": "",
-      "name": "Hugging Face blog",
-      "url": "https://huggingface.co/blog/feed.xml"
-    },
-    {
-      "id": "igb",
-      "tier": "T4",
-      "type": "rss",
-      "fetched": 100,
-      "kept": 4,
-      "new": 0,
-      "error": null,
-      "note": "",
-      "name": "iGaming Business",
-      "url": "https://igamingbusiness.com/feed/"
-    },
-    {
-      "id": "importai",
-      "tier": "T2",
-      "type": "rss",
-      "fetched": 20,
-      "kept": 1,
-      "new": 0,
-      "error": null,
-      "note": "",
-      "name": "Import AI",
-      "url": "https://importai.substack.com/feed"
-    },
-    {
-      "id": "lastweekinai",
-      "tier": "T2",
-      "type": "rss",
-      "fetched": 20,
-      "kept": 0,
-      "new": 0,
-      "error": null,
-      "note": "",
-      "name": "Last Week in AI",
-      "url": "https://lastweekin.ai/feed"
-    },
-    {
-      "id": "latent-space",
-      "tier": "T2",
-      "type": "rss",
-      "fetched": 20,
+      "url": "https://huggingface.co/blog/feed.xml",
+      "fetched": 915,
       "kept": 8,
-      "new": 0,
+      "new": 2,
       "error": null,
-      "note": "",
-      "name": "Latent Space",
-      "url": "https://www.latent.space/feed"
-    },
-    {
-      "id": "maii",
-      "tier": "T4",
-      "type": "rss",
-      "fetched": 10,
-      "kept": 3,
-      "new": 0,
-      "error": null,
-      "note": "",
-      "name": "Marketing AI Institute",
-      "url": "https://www.marketingaiinstitute.com/blog/rss.xml"
-    },
-    {
-      "id": "martech",
-      "tier": "T4",
-      "type": "rss",
-      "fetched": 10,
-      "kept": 9,
-      "new": 0,
-      "error": null,
-      "note": "",
-      "name": "MarTech",
-      "url": "https://martech.org/feed/"
+      "note": ""
     },
     {
       "id": "meta-ai",
+      "name": "Meta AI blog",
       "tier": "T1",
       "type": "html",
-      "fetched": 5,
+      "url": "https://ai.meta.com/blog/",
+      "fetched": 0,
       "kept": 0,
       "new": 0,
-      "error": null,
-      "note": "",
-      "name": "Meta AI blog",
-      "url": "https://ai.meta.com/blog/"
+      "error": "HTTP 400",
+      "note": ""
     },
     {
       "id": "mistral",
+      "name": "Mistral news",
       "tier": "T1",
       "type": "html",
+      "url": "https://mistral.ai/news/",
       "fetched": 71,
       "kept": 71,
       "new": 0,
       "error": null,
-      "note": "",
-      "name": "Mistral news",
-      "url": "https://mistral.ai/news/"
+      "note": ""
     },
     {
       "id": "mistral-changelog",
+      "name": "Mistral changelog",
       "tier": "T1",
       "type": "changelog",
+      "url": "https://docs.mistral.ai/resources/changelogs",
       "fetched": 97,
       "kept": 97,
       "new": 0,
       "error": null,
-      "note": "",
-      "name": "Mistral changelog",
-      "url": "https://docs.mistral.ai/resources/changelogs"
+      "note": ""
     },
     {
       "id": "openai",
+      "name": "OpenAI News",
       "tier": "T1",
       "type": "rss",
-      "fetched": 1418,
-      "kept": 30,
-      "new": 0,
+      "url": "https://openai.com/news/rss.xml",
+      "fetched": 1421,
+      "kept": 32,
+      "new": 3,
       "error": null,
-      "note": "",
-      "name": "OpenAI News",
-      "url": "https://openai.com/news/rss.xml"
+      "note": ""
     },
     {
       "id": "openai-changelog",
+      "name": "OpenAI API changelog",
       "tier": "T1",
       "type": "changelog",
+      "url": "https://platform.openai.com/docs/changelog",
       "fetched": 146,
       "kept": 146,
       "new": 0,
       "error": null,
-      "note": "",
-      "name": "OpenAI API changelog",
-      "url": "https://platform.openai.com/docs/changelog"
+      "note": ""
     },
     {
       "id": "openai-sdk",
+      "name": "openai-python releases",
       "tier": "T1",
       "type": "rss",
+      "url": "https://github.com/openai/openai-python/releases.atom",
       "fetched": 10,
-      "kept": 8,
-      "new": 0,
-      "error": null,
-      "note": "",
-      "name": "openai-python releases",
-      "url": "https://github.com/openai/openai-python/releases.atom"
-    },
-    {
-      "id": "rundown",
-      "tier": "T3",
-      "type": "rss",
-      "fetched": 50,
       "kept": 7,
       "new": 0,
       "error": null,
-      "note": "",
+      "note": ""
+    },
+    {
+      "id": "importai",
+      "name": "Import AI",
+      "tier": "T2",
+      "type": "rss",
+      "url": "https://importai.substack.com/feed",
+      "fetched": 0,
+      "kept": 0,
+      "new": 0,
+      "error": "HTTP 403",
+      "note": ""
+    },
+    {
+      "id": "lastweekinai",
+      "name": "Last Week in AI",
+      "tier": "T2",
+      "type": "rss",
+      "url": "https://lastweekin.ai/feed",
+      "fetched": 20,
+      "kept": 0,
+      "new": 0,
+      "error": null,
+      "note": ""
+    },
+    {
+      "id": "latent-space",
+      "name": "Latent Space",
+      "tier": "T2",
+      "type": "rss",
+      "url": "https://www.latent.space/feed",
+      "fetched": 20,
+      "kept": 9,
+      "new": 1,
+      "error": null,
+      "note": ""
+    },
+    {
+      "id": "the-batch",
+      "name": "The Batch",
+      "tier": "T2",
+      "type": "rss",
+      "url": "https://charonhub.deeplearning.ai/rss/",
+      "fetched": 0,
+      "kept": 0,
+      "new": 0,
+      "error": "HTTP 403",
+      "note": ""
+    },
+    {
+      "id": "bensbites",
+      "name": "Ben's Bites",
+      "tier": "T3",
+      "type": "rss",
+      "url": "https://www.bensbites.com/feed",
+      "fetched": 20,
+      "kept": 2,
+      "new": 0,
+      "error": null,
+      "note": ""
+    },
+    {
+      "id": "hn",
+      "name": "Hacker News",
+      "tier": "T3",
+      "type": "hn",
+      "url": "https://hn.algolia.com/api/v1/search_by_date",
+      "fetched": 200,
+      "kept": 44,
+      "new": 8,
+      "error": null,
+      "note": ""
+    },
+    {
+      "id": "rundown",
       "name": "The Rundown AI",
-      "url": "https://www.therundown.ai/feed"
+      "tier": "T3",
+      "type": "rss",
+      "url": "https://www.therundown.ai/feed",
+      "fetched": 50,
+      "kept": 8,
+      "new": 2,
+      "error": null,
+      "note": ""
+    },
+    {
+      "id": "tldr-ai",
+      "name": "TLDR AI",
+      "tier": "T3",
+      "type": "rss",
+      "url": "https://tldr.tech/api/rss/ai",
+      "fetched": 20,
+      "kept": 5,
+      "new": 1,
+      "error": null,
+      "note": ""
+    },
+    {
+      "id": "igb",
+      "name": "iGaming Business",
+      "tier": "T4",
+      "type": "rss",
+      "url": "https://igamingbusiness.com/feed/",
+      "fetched": 100,
+      "kept": 4,
+      "new": 0,
+      "error": null,
+      "note": ""
+    },
+    {
+      "id": "maii",
+      "name": "Marketing AI Institute",
+      "tier": "T4",
+      "type": "rss",
+      "url": "https://www.marketingaiinstitute.com/blog/rss.xml",
+      "fetched": 10,
+      "kept": 3,
+      "new": 0,
+      "error": null,
+      "note": ""
+    },
+    {
+      "id": "martech",
+      "name": "MarTech",
+      "tier": "T4",
+      "type": "rss",
+      "url": "https://martech.org/feed/",
+      "fetched": 10,
+      "kept": 7,
+      "new": 0,
+      "error": null,
+      "note": ""
     },
     {
       "id": "sbc",
+      "name": "SBC News",
       "tier": "T4",
       "type": "rss",
+      "url": "https://sbcnews.co.uk/feed/",
       "fetched": 10,
       "kept": 0,
       "new": 0,
       "error": null,
-      "note": "",
-      "name": "SBC News",
-      "url": "https://sbcnews.co.uk/feed/"
-    },
-    {
-      "id": "the-batch",
-      "tier": "T2",
-      "type": "rss",
-      "fetched": 15,
-      "kept": 8,
-      "new": 0,
-      "error": null,
-      "note": "",
-      "name": "The Batch",
-      "url": "https://charonhub.deeplearning.ai/rss/"
-    },
-    {
-      "id": "tldr-ai",
-      "tier": "T3",
-      "type": "rss",
-      "fetched": 20,
-      "kept": 4,
-      "new": 0,
-      "error": null,
-      "note": "",
-      "name": "TLDR AI",
-      "url": "https://tldr.tech/api/rss/ai"
+      "note": ""
     }
   ],
   "totals": {
     "sources": 26,
-    "failed": 0,
+    "failed": 3,
     "empty": 2,
-    "fetched": 3480,
-    "new_items": 0,
-    "stories_total": 120,
-    "stories_confirmed": 55,
-    "stories_eligible": 3,
-    "raw_total": 246
+    "fetched": 3445,
+    "kept": 465,
+    "new_items": 19,
+    "stories_total": 138,
+    "stories_confirmed": 61,
+    "stories_eligible": 9,
+    "raw_total": 265
   },
   "stories": [
     {
@@ -485,6 +486,215 @@
       "summary_ru": "OpenAI представила плагин продаж, а также более 30 новых и расширенных партнерских плагинов в ChatGPT для исследования потенциальных клиентов, подготовки презентаций, обновления CRM и продвижения сделок.",
       "so_what_ru": "Непосредственное использование для CRM/удержания и рабочих процессов, связанных с продажами, которыми управляют команды маркетинга и эксплуатации продуктов.",
       "rating": 5
+    },
+    {
+      "story_id": "anthropic-announces-closing-initial-public",
+      "first_seen": "2026-11-20",
+      "title": "Anthropic announces closing of initial public offering, including full exercise of underwriters’ option to purchase additional shares, and closing of concurrent private placement",
+      "summary": "",
+      "so_what": "",
+      "tags": [
+        "anthropic"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "e7354365dbd8",
+          "url": "https://anthropic.com/news/ipo-close",
+          "title": "Anthropic announces closing of initial public offering, including full exercise of underwriters’ option to purchase additional shares, and closing of concurrent private placement",
+          "source": "Anthropic news",
+          "tier": "T1",
+          "domain": "anthropic.com",
+          "published_at": "2026-11-20T12:00:00.000Z",
+          "summary": "",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "anthropic.com"
+      ],
+      "has_t1": true,
+      "status": "confirmed",
+      "last_update": "2026-11-20T12:00:00.000Z",
+      "total": 3.5,
+      "rating": 5,
+      "title_ru": ""
+    },
+    {
+      "story_id": "combatting-adversarial-distillation",
+      "first_seen": "2026-11-20",
+      "title": "Combatting adversarial distillation",
+      "summary": "OpenAI’s layered approach to adversarial distillation combines model training, safeguards, detection, and enforcement to protect against capability extraction.",
+      "so_what": "",
+      "tags": [
+        "openai"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "3ea993db7e3c",
+          "url": "https://openai.com/index/combatting-adversarial-distillation",
+          "title": "Combatting adversarial distillation",
+          "source": "OpenAI News",
+          "tier": "T1",
+          "domain": "openai.com",
+          "published_at": "2026-11-20T10:00:00.000Z",
+          "summary": "OpenAI’s layered approach to adversarial distillation combines model training, safeguards, detection, and enforcement to protect against capability extraction.",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "openai.com"
+      ],
+      "has_t1": true,
+      "status": "confirmed",
+      "last_update": "2026-11-20T10:00:00.000Z",
+      "total": 3.5,
+      "rating": 5,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
+      "story_id": "hebbia-sees-improvements-financial-research",
+      "first_seen": "2026-11-20",
+      "title": "Hebbia sees improvements in financial research with GPT-6 Astra",
+      "summary": "Hebbia tested GPT-6 Astra for financial research. Its prerelease evaluations found gains in source coverage, citation relevance, and presentation quality.",
+      "so_what": "",
+      "tags": [
+        "openai"
+      ],
+      "kind": "research",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "d15c45643214",
+          "url": "https://openai.com/business/customer-stories/hebbia",
+          "title": "Hebbia sees improvements in financial research with GPT-6 Astra",
+          "source": "OpenAI News",
+          "tier": "T1",
+          "domain": "openai.com",
+          "published_at": "2026-11-20T00:00:00.000Z",
+          "summary": "Hebbia tested GPT-6 Astra for financial research. Its prerelease evaluations found gains in source coverage, citation relevance, and presentation quality.",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "openai.com"
+      ],
+      "has_t1": true,
+      "status": "confirmed",
+      "last_update": "2026-11-20T00:00:00.000Z",
+      "total": 3.5,
+      "rating": 5,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
+      "story_id": "help-scientists-identify-promising-drug",
+      "first_seen": "2026-11-20",
+      "title": "Can AI help scientists identify promising drug candidates?",
+      "summary": "MedChemBench evaluates how well AI models interpret molecular structures, reason from experimental evidence, and select compounds in early drug discovery.",
+      "so_what": "",
+      "tags": [],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "f4784c304003",
+          "url": "https://openai.com/index/introducing-medchembench",
+          "title": "Can AI help scientists identify promising drug candidates?",
+          "source": "OpenAI News",
+          "tier": "T1",
+          "domain": "openai.com",
+          "published_at": "2026-11-20T00:00:00.000Z",
+          "summary": "MedChemBench evaluates how well AI models interpret molecular structures, reason from experimental evidence, and select compounds in early drug discovery.",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "openai.com"
+      ],
+      "has_t1": true,
+      "status": "confirmed",
+      "last_update": "2026-11-20T00:00:00.000Z",
+      "total": 3.5,
+      "rating": 5,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
+      "story_id": "welcome-inkling-mini-cutting-edge-performance",
+      "first_seen": "2026-11-20",
+      "title": "Welcome Inkling 2 Mini, Cutting-edge Performance for your Local Setup",
+      "summary": "",
+      "so_what": "",
+      "tags": [
+        "open-weights"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "80d31a6dee29",
+          "url": "https://huggingface.co/blog/inkling2mini",
+          "title": "Welcome Inkling 2 Mini, Cutting-edge Performance for your Local Setup",
+          "source": "Hugging Face blog",
+          "tier": "T1",
+          "domain": "huggingface.co",
+          "published_at": "2026-11-20T00:00:00.000Z",
+          "summary": "",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "huggingface.co"
+      ],
+      "has_t1": true,
+      "status": "confirmed",
+      "last_update": "2026-11-20T00:00:00.000Z",
+      "total": 3.5,
+      "rating": 5,
+      "title_ru": ""
+    },
+    {
+      "story_id": "introducing-harness-adapters-adapt-favorite",
+      "first_seen": "2026-11-20",
+      "title": "Introducing harness adapters: adapt your favorite model to your harness to improve performance and cost",
+      "summary": "",
+      "so_what": "",
+      "tags": [],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "211fbe8009a4",
+          "url": "https://huggingface.co/blog/harness-adapters-at-scale",
+          "title": "Introducing harness adapters: adapt your favorite model to your harness to improve performance and cost",
+          "source": "Hugging Face blog",
+          "tier": "T1",
+          "domain": "huggingface.co",
+          "published_at": "2026-11-20T00:00:00.000Z",
+          "summary": "",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "huggingface.co"
+      ],
+      "has_t1": true,
+      "status": "confirmed",
+      "last_update": "2026-11-20T00:00:00.000Z",
+      "total": 3.5,
+      "rating": 5,
+      "title_ru": ""
     },
     {
       "story_id": "google-openai-search-wars",
@@ -1685,6 +1895,40 @@
       "rating": 4
     },
     {
+      "story_id": "frostbite-cpu-architecture-discovered-designed",
+      "first_seen": "2026-11-20",
+      "title": "Frostbite: A new CPU architecture discovered, designed and verified by AI",
+      "summary": "HN: 577 points, 307 comments. https://news.ycombinator.com/item?id=50572503",
+      "so_what": "",
+      "tags": [],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "000028228240",
+          "url": "https://architectlabs.com/blog/frostbite",
+          "title": "Frostbite: A new CPU architecture discovered, designed and verified by AI",
+          "source": "Hacker News",
+          "tier": "T3",
+          "domain": "architectlabs.com",
+          "published_at": "2026-11-20T10:01:41Z",
+          "summary": "HN: 577 points, 307 comments. https://news.ycombinator.com/item?id=50572503",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "architectlabs.com"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-20T10:01:41Z",
+      "total": 3.25,
+      "rating": 4,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
       "story_id": "brave-search-x402-payments",
       "first_seen": "2026-11-16",
       "items": [
@@ -2849,6 +3093,180 @@
       "rating": 3
     },
     {
+      "story_id": "war-against-slop-emerging-weapon",
+      "first_seen": "2026-11-20",
+      "title": "The War Against Slop and an Emerging Weapon to Fight it: Formal Verification",
+      "summary": "Proving software correct with math has traditionally required specialist work. Now AI and Lean are helping automate the process.",
+      "so_what": "",
+      "tags": [],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "c989db0d32fd",
+          "url": "https://latent.space/p/formal-verification",
+          "title": "The War Against Slop and an Emerging Weapon to Fight it: Formal Verification",
+          "source": "Latent Space",
+          "tier": "T2",
+          "domain": "latent.space",
+          "published_at": "2026-11-20T21:18:41.000Z",
+          "summary": "Proving software correct with math has traditionally required specialist work. Now AI and Lean are helping automate the process.",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "latent.space"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-20T21:18:41.000Z",
+      "total": 3.1,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
+      "story_id": "gemini-tool-retrieval-stripe-evals",
+      "first_seen": "2026-11-20",
+      "title": "Gemini tool retrieval 🔧, Stripe evals methods 👨‍💻, agent swarms 🐝",
+      "summary": "",
+      "so_what": "",
+      "tags": [
+        "google",
+        "agents"
+      ],
+      "kind": "tool",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "afb95c970652",
+          "url": "https://tldr.tech/ai/2026-11-20",
+          "title": "Gemini tool retrieval 🔧, Stripe evals methods 👨‍💻, agent swarms 🐝",
+          "source": "TLDR AI",
+          "tier": "T3",
+          "domain": "tldr.tech",
+          "published_at": "2026-11-20T00:00:00.000Z",
+          "summary": "",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "tldr.tech"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-20T00:00:00.000Z",
+      "total": 3.1,
+      "rating": 3,
+      "title_ru": ""
+    },
+    {
+      "story_id": "google-workers-tell-employer-punish",
+      "first_seen": "2026-11-20",
+      "title": "Google Workers Tell Their Employer Not to Punish Schools That Don't Want AI",
+      "summary": "HN: 207 points, 142 comments. https://news.ycombinator.com/item?id=50577901",
+      "so_what": "",
+      "tags": [
+        "google"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "83f2b5d135af",
+          "url": "https://motherjones.com/politics/2026/11/google-alphabet-union-school-ai-protest-gemini-workers-petition",
+          "title": "Google Workers Tell Their Employer Not to Punish Schools That Don't Want AI",
+          "source": "Hacker News",
+          "tier": "T3",
+          "domain": "motherjones.com",
+          "published_at": "2026-11-20T16:59:27Z",
+          "summary": "HN: 207 points, 142 comments. https://news.ycombinator.com/item?id=50577901",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "motherjones.com"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-20T16:59:27Z",
+      "total": 3.05,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
+      "story_id": "language-models-rewrite-own-weights",
+      "first_seen": "2026-11-20",
+      "title": "Language Models Can Rewrite Their Own Weights",
+      "summary": "HN: 288 points, 97 comments. https://news.ycombinator.com/item?id=50577265",
+      "so_what": "",
+      "tags": [],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "9fe3e937f57a",
+          "url": "https://arxiv.org/abs/2611.21885",
+          "title": "Language Models Can Rewrite Their Own Weights",
+          "source": "Hacker News",
+          "tier": "T3",
+          "domain": "arxiv.org",
+          "published_at": "2026-11-20T16:29:06Z",
+          "summary": "HN: 288 points, 97 comments. https://news.ycombinator.com/item?id=50577265",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "arxiv.org"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-20T16:29:06Z",
+      "total": 3.05,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
+      "story_id": "show-made-audio-to-midi-model-60x",
+      "first_seen": "2026-11-20",
+      "title": "Show HN: I made an audio-to-MIDI model 60x more efficient",
+      "summary": "HN: 207 points, 43 comments. https://news.ycombinator.com/item?id=50526023",
+      "so_what": "",
+      "tags": [],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "9e9229586485",
+          "url": "https://kobi.music/research/dettato",
+          "title": "Show HN: I made an audio-to-MIDI model 60x more efficient",
+          "source": "Hacker News",
+          "tier": "T3",
+          "domain": "kobi.music",
+          "published_at": "2026-11-17T01:03:05Z",
+          "summary": "HN: 207 points, 43 comments. https://news.ycombinator.com/item?id=50526023",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "kobi.music"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-17T01:03:05Z",
+      "total": 3.05,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
       "story_id": "kambi-sportsbook-ai-vision",
       "first_seen": "2026-11-17",
       "items": [
@@ -3040,6 +3458,148 @@
       "summary_ru": "GPT-6 Cyber ​​от OpenAI с настроенной безопасностью обнаружил, использовал и исправил почти 950 серьезных уязвимостей ядра Linux за один запуск по цене примерно 1280 долларов США за исправление корневого уровня.",
       "so_what_ru": "Конкретные данные об агентном ИИ, выполняющем крупномасштабную техническую работу автономно и дешево, полезный контекст при определении того, что агенты могут реально автоматизировать, помимо задач по содержанию.",
       "rating": 3
+    },
+    {
+      "story_id": "anthropic-shares-tank-ipo-nasdaq",
+      "first_seen": "2026-11-20",
+      "title": "Anthropic shares tank after IPO as the Nasdaq erases 2026 gains",
+      "summary": "HN: 165 points, 154 comments. https://news.ycombinator.com/item?id=50578794",
+      "so_what": "",
+      "tags": [
+        "anthropic"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "99527486f11f",
+          "url": "https://nbcnews.com/business/markets/anthropic-shares-markets-selloff-nasdaq-rcna610394",
+          "title": "Anthropic shares tank after IPO as the Nasdaq erases 2026 gains",
+          "source": "Hacker News",
+          "tier": "T3",
+          "domain": "nbcnews.com",
+          "published_at": "2026-11-20T17:44:01Z",
+          "summary": "HN: 165 points, 154 comments. https://news.ycombinator.com/item?id=50578794",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "nbcnews.com"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-20T17:44:01Z",
+      "total": 2.85,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
+      "story_id": "global-stock-markets-slump-anthropic",
+      "first_seen": "2026-11-20",
+      "title": "Global stock markets slump as Anthropic's record IPO fails to stem AI sell-off",
+      "summary": "HN: 186 points, 221 comments. https://news.ycombinator.com/item?id=50574383",
+      "so_what": "",
+      "tags": [
+        "anthropic"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "fda5004e845f",
+          "url": "https://theguardian.com/business/2026/nov/20/global-stock-markets-slump-anthropic-ipo-ai-sell-off",
+          "title": "Global stock markets slump as Anthropic's record IPO fails to stem AI sell-off",
+          "source": "Hacker News",
+          "tier": "T3",
+          "domain": "theguardian.com",
+          "published_at": "2026-11-20T13:29:59Z",
+          "summary": "HN: 186 points, 221 comments. https://news.ycombinator.com/item?id=50574383",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "theguardian.com"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-20T13:29:59Z",
+      "total": 2.85,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
+      "story_id": "chatgpt-snes",
+      "first_seen": "2026-11-20",
+      "title": "ChatGPT for SNES",
+      "summary": "HN: 119 points, 36 comments. https://news.ycombinator.com/item?id=50568548",
+      "so_what": "",
+      "tags": [
+        "openai"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "d6421e349b9b",
+          "url": "https://bxfoundry.com/chatgpt_snes",
+          "title": "ChatGPT for SNES",
+          "source": "Hacker News",
+          "tier": "T3",
+          "domain": "bxfoundry.com",
+          "published_at": "2026-11-20T00:25:59Z",
+          "summary": "HN: 119 points, 36 comments. https://news.ycombinator.com/item?id=50568548",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "bxfoundry.com"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-20T00:25:59Z",
+      "total": 2.85,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
+      "story_id": "weight-space-programming-builds-neural-networks",
+      "first_seen": "2026-11-20",
+      "title": "Weight-Space Programming builds neural networks like a 1990s researcher",
+      "summary": "HN: 118 points, 11 comments. https://news.ycombinator.com/item?id=50538977",
+      "so_what": "",
+      "tags": [],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "e40d9b875049",
+          "url": "https://notesbylex.com/weight-space-programming-1990s",
+          "title": "Weight-Space Programming builds neural networks like a 1990s researcher",
+          "source": "Hacker News",
+          "tier": "T3",
+          "domain": "notesbylex.com",
+          "published_at": "2026-11-17T22:11:46Z",
+          "summary": "HN: 118 points, 11 comments. https://news.ycombinator.com/item?id=50538977",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "notesbylex.com"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-17T22:11:46Z",
+      "total": 2.85,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
     },
     {
       "story_id": "llm-weight-editing-finetune",
@@ -3279,6 +3839,76 @@
       "summary_ru": "United Airlines объявила о запрете агентам искусственного интеллекта бронировать рейсы от имени путешественников, что вызвало широкую дискуссию.",
       "so_what_ru": "Крупный потребительский бренд, отказывающийся от агентской коммерции, является сигналом к ​​тому, чтобы следить за тем, создаете ли вы агентов, которые совершают транзакции или бронируют услуги от имени клиентов.",
       "rating": 3
+    },
+    {
+      "story_id": "anthropic-pulls-off-biggest-ipo",
+      "first_seen": "2026-11-20",
+      "title": "Anthropic pulls off the biggest IPO ever",
+      "summary": "PLUS: Use AI to find a job and prepare to get hired",
+      "so_what": "",
+      "tags": [
+        "anthropic"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "c39c08a515b5",
+          "url": "https://therundown.ai/articles/anthropic-pulls-off-the-biggest-ipo-ever",
+          "title": "Anthropic pulls off the biggest IPO ever",
+          "source": "The Rundown AI",
+          "tier": "T3",
+          "domain": "therundown.ai",
+          "published_at": "2026-11-20T10:00:00.000Z",
+          "summary": "PLUS: Use AI to find a job and prepare to get hired",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "therundown.ai"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-20T10:00:00.000Z",
+      "total": 2.7,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
+      "story_id": "waymo-shuts-down-freeway-rides",
+      "first_seen": "2026-11-20",
+      "title": "Waymo shuts down freeway rides everywhere",
+      "summary": "PLUS: Atlas gets a new gig at a chip factory",
+      "so_what": "",
+      "tags": [],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "f89cdcc05d4d",
+          "url": "https://therundown.ai/articles/waymo-shuts-down-freeway-rides-everywhere",
+          "title": "Waymo shuts down freeway rides everywhere",
+          "source": "The Rundown AI",
+          "tier": "T3",
+          "domain": "therundown.ai",
+          "published_at": "2026-11-19T15:30:00.000Z",
+          "summary": "PLUS: Atlas gets a new gig at a chip factory",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "therundown.ai"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-19T15:30:00.000Z",
+      "total": 2.7,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
     },
     {
       "story_id": "martech-marketing-ops-agent-readiness",
@@ -6522,6 +7152,136 @@
   ],
   "raw_items": [
     {
+      "id": "c989db0d32fd",
+      "source_id": "latent-space",
+      "source_name": "Latent Space",
+      "tier": "T2",
+      "signal_only": false,
+      "title": "The War Against Slop and an Emerging Weapon to Fight it: Formal Verification",
+      "url": "https://latent.space/p/formal-verification",
+      "domain": "latent.space",
+      "published_at": "2026-11-20T21:18:41.000Z",
+      "collected_on": "2026-11-20",
+      "summary": "Proving software correct with math has traditionally required specialist work. Now AI and Lean are helping automate the process."
+    },
+    {
+      "id": "99527486f11f",
+      "source_id": "hn",
+      "source_name": "Hacker News",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "Anthropic shares tank after IPO as the Nasdaq erases 2026 gains",
+      "url": "https://nbcnews.com/business/markets/anthropic-shares-markets-selloff-nasdaq-rcna610394",
+      "domain": "nbcnews.com",
+      "published_at": "2026-11-20T17:44:01Z",
+      "collected_on": "2026-11-20",
+      "summary": "HN: 165 points, 154 comments. https://news.ycombinator.com/item?id=50578794"
+    },
+    {
+      "id": "83f2b5d135af",
+      "source_id": "hn",
+      "source_name": "Hacker News",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "Google Workers Tell Their Employer Not to Punish Schools That Don't Want AI",
+      "url": "https://motherjones.com/politics/2026/11/google-alphabet-union-school-ai-protest-gemini-workers-petition",
+      "domain": "motherjones.com",
+      "published_at": "2026-11-20T16:59:27Z",
+      "collected_on": "2026-11-20",
+      "summary": "HN: 207 points, 142 comments. https://news.ycombinator.com/item?id=50577901"
+    },
+    {
+      "id": "9fe3e937f57a",
+      "source_id": "hn",
+      "source_name": "Hacker News",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "Language Models Can Rewrite Their Own Weights",
+      "url": "https://arxiv.org/abs/2611.21885",
+      "domain": "arxiv.org",
+      "published_at": "2026-11-20T16:29:06Z",
+      "collected_on": "2026-11-20",
+      "summary": "HN: 288 points, 97 comments. https://news.ycombinator.com/item?id=50577265"
+    },
+    {
+      "id": "7c7a283819e5",
+      "source_id": "anthropic-sdk",
+      "source_name": "anthropic-sdk-python releases",
+      "tier": "T1",
+      "signal_only": true,
+      "title": "v2.12.0",
+      "url": "https://github.com/anthropics/anthropic-sdk-python/releases/tag/v2.12.0",
+      "domain": "github.com",
+      "published_at": "2026-11-20T15:56:21.000Z",
+      "collected_on": "2026-11-20",
+      "summary": "Features api: add the image_dimensions_too_large error code Bug Fixes bedrock: send the user profile ID in the request body Amazon Bedrock reads user_profile_id from the request body and ignores the anthropic-user-profile-id header, so a profile ID given to AnthropicBedrock or AsyncAnthropicBedrock was not applied. Both clients now move it into the body of Messages requests and no longer send the header. A user_profile_id already in the body takes priority over the header. Some models on Bedrock do not support user profiles. A request to one of them with a profile ID now fails with a 400 error"
+    },
+    {
+      "id": "fda5004e845f",
+      "source_id": "hn",
+      "source_name": "Hacker News",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "Global stock markets slump as Anthropic's record IPO fails to stem AI sell-off",
+      "url": "https://theguardian.com/business/2026/nov/20/global-stock-markets-slump-anthropic-ipo-ai-sell-off",
+      "domain": "theguardian.com",
+      "published_at": "2026-11-20T13:29:59Z",
+      "collected_on": "2026-11-20",
+      "summary": "HN: 186 points, 221 comments. https://news.ycombinator.com/item?id=50574383"
+    },
+    {
+      "id": "e7354365dbd8",
+      "source_id": "anthropic",
+      "source_name": "Anthropic news",
+      "tier": "T1",
+      "signal_only": false,
+      "title": "Anthropic announces closing of initial public offering, including full exercise of underwriters’ option to purchase additional shares, and closing of concurrent private placement",
+      "url": "https://anthropic.com/news/ipo-close",
+      "domain": "anthropic.com",
+      "published_at": "2026-11-20T12:00:00.000Z",
+      "collected_on": "2026-11-20",
+      "summary": ""
+    },
+    {
+      "id": "000028228240",
+      "source_id": "hn",
+      "source_name": "Hacker News",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "Frostbite: A new CPU architecture discovered, designed and verified by AI",
+      "url": "https://architectlabs.com/blog/frostbite",
+      "domain": "architectlabs.com",
+      "published_at": "2026-11-20T10:01:41Z",
+      "collected_on": "2026-11-20",
+      "summary": "HN: 577 points, 307 comments. https://news.ycombinator.com/item?id=50572503"
+    },
+    {
+      "id": "3ea993db7e3c",
+      "source_id": "openai",
+      "source_name": "OpenAI News",
+      "tier": "T1",
+      "signal_only": false,
+      "title": "Combatting adversarial distillation",
+      "url": "https://openai.com/index/combatting-adversarial-distillation",
+      "domain": "openai.com",
+      "published_at": "2026-11-20T10:00:00.000Z",
+      "collected_on": "2026-11-20",
+      "summary": "OpenAI’s layered approach to adversarial distillation combines model training, safeguards, detection, and enforcement to protect against capability extraction."
+    },
+    {
+      "id": "c39c08a515b5",
+      "source_id": "rundown",
+      "source_name": "The Rundown AI",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "Anthropic pulls off the biggest IPO ever",
+      "url": "https://therundown.ai/articles/anthropic-pulls-off-the-biggest-ipo-ever",
+      "domain": "therundown.ai",
+      "published_at": "2026-11-20T10:00:00.000Z",
+      "collected_on": "2026-11-20",
+      "summary": "PLUS: Use AI to find a job and prepare to get hired"
+    },
+    {
       "id": "1177dfbd92c1",
       "url": "https://latent.space/p/ainews-anthropic-successfully-completes-largest-ipo-in-history-valued-at-1-5t/",
       "canonical_url": "https://latent.space/p/ainews-anthropic-successfully-completes-largest-ipo-in-history-valued-at-1-5t",
@@ -6568,6 +7328,84 @@
       "summary": "3.57.0 (2026-11-19) Features api: support Live WebRTC standby ( #4296 ) ( 18d10c3 )",
       "collected_at": "2026-11-20T10:30:17.204Z",
       "title_ru": "v3.57.0"
+    },
+    {
+      "id": "d6421e349b9b",
+      "source_id": "hn",
+      "source_name": "Hacker News",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "ChatGPT for SNES",
+      "url": "https://bxfoundry.com/chatgpt_snes",
+      "domain": "bxfoundry.com",
+      "published_at": "2026-11-20T00:25:59Z",
+      "collected_on": "2026-11-20",
+      "summary": "HN: 119 points, 36 comments. https://news.ycombinator.com/item?id=50568548"
+    },
+    {
+      "id": "d15c45643214",
+      "source_id": "openai",
+      "source_name": "OpenAI News",
+      "tier": "T1",
+      "signal_only": false,
+      "title": "Hebbia sees improvements in financial research with GPT-6 Astra",
+      "url": "https://openai.com/business/customer-stories/hebbia",
+      "domain": "openai.com",
+      "published_at": "2026-11-20T00:00:00.000Z",
+      "collected_on": "2026-11-20",
+      "summary": "Hebbia tested GPT-6 Astra for financial research. Its prerelease evaluations found gains in source coverage, citation relevance, and presentation quality."
+    },
+    {
+      "id": "f4784c304003",
+      "source_id": "openai",
+      "source_name": "OpenAI News",
+      "tier": "T1",
+      "signal_only": false,
+      "title": "Can AI help scientists identify promising drug candidates?",
+      "url": "https://openai.com/index/introducing-medchembench",
+      "domain": "openai.com",
+      "published_at": "2026-11-20T00:00:00.000Z",
+      "collected_on": "2026-11-20",
+      "summary": "MedChemBench evaluates how well AI models interpret molecular structures, reason from experimental evidence, and select compounds in early drug discovery."
+    },
+    {
+      "id": "80d31a6dee29",
+      "source_id": "huggingface",
+      "source_name": "Hugging Face blog",
+      "tier": "T1",
+      "signal_only": false,
+      "title": "Welcome Inkling 2 Mini, Cutting-edge Performance for your Local Setup",
+      "url": "https://huggingface.co/blog/inkling2mini",
+      "domain": "huggingface.co",
+      "published_at": "2026-11-20T00:00:00.000Z",
+      "collected_on": "2026-11-20",
+      "summary": ""
+    },
+    {
+      "id": "211fbe8009a4",
+      "source_id": "huggingface",
+      "source_name": "Hugging Face blog",
+      "tier": "T1",
+      "signal_only": false,
+      "title": "Introducing harness adapters: adapt your favorite model to your harness to improve performance and cost",
+      "url": "https://huggingface.co/blog/harness-adapters-at-scale",
+      "domain": "huggingface.co",
+      "published_at": "2026-11-20T00:00:00.000Z",
+      "collected_on": "2026-11-20",
+      "summary": ""
+    },
+    {
+      "id": "afb95c970652",
+      "source_id": "tldr-ai",
+      "source_name": "TLDR AI",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "Gemini tool retrieval 🔧, Stripe evals methods 👨‍💻, agent swarms 🐝",
+      "url": "https://tldr.tech/ai/2026-11-20",
+      "domain": "tldr.tech",
+      "published_at": "2026-11-20T00:00:00.000Z",
+      "collected_on": "2026-11-20",
+      "summary": ""
     },
     {
       "id": "222a3317cded",
@@ -6776,6 +7614,19 @@
       "summary": "HN: 249 points, 220 comments. https://news.ycombinator.com/item?id=50561508",
       "collected_at": "2026-11-20T10:30:19.946Z",
       "title_ru": "Пит Уорден о локальном искусственном интеллекте, открытых моделях, голосовых интерфейсах, будущем аппаратного обеспечения"
+    },
+    {
+      "id": "f89cdcc05d4d",
+      "source_id": "rundown",
+      "source_name": "The Rundown AI",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "Waymo shuts down freeway rides everywhere",
+      "url": "https://therundown.ai/articles/waymo-shuts-down-freeway-rides-everywhere",
+      "domain": "therundown.ai",
+      "published_at": "2026-11-19T15:30:00.000Z",
+      "collected_on": "2026-11-20",
+      "summary": "PLUS: Atlas gets a new gig at a chip factory"
     },
     {
       "id": "3241cc096e6e",
@@ -7642,6 +8493,19 @@
       "title_ru": "v3.54.0"
     },
     {
+      "id": "e40d9b875049",
+      "source_id": "hn",
+      "source_name": "Hacker News",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "Weight-Space Programming builds neural networks like a 1990s researcher",
+      "url": "https://notesbylex.com/weight-space-programming-1990s",
+      "domain": "notesbylex.com",
+      "published_at": "2026-11-17T22:11:46Z",
+      "collected_on": "2026-11-20",
+      "summary": "HN: 118 points, 11 comments. https://news.ycombinator.com/item?id=50538977"
+    },
+    {
       "id": "6e090bb95c89",
       "url": "https://complexdiscovery.com/harvard-researchers-find-ai-coding-agents-shifted-the-bottleneck-to-code-review/",
       "canonical_url": "https://complexdiscovery.com/harvard-researchers-find-ai-coding-agents-shifted-the-bottleneck-to-code-review",
@@ -7976,6 +8840,19 @@
       "summary": "HN: 121 points, 103 comments. https://news.ycombinator.com/item?id=50526152",
       "collected_at": "2026-11-17T14:47:37.795Z",
       "title_ru": "Запуск агентов кодирования без передачи им моих учетных данных"
+    },
+    {
+      "id": "9e9229586485",
+      "source_id": "hn",
+      "source_name": "Hacker News",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "Show HN: I made an audio-to-MIDI model 60x more efficient",
+      "url": "https://kobi.music/research/dettato",
+      "domain": "kobi.music",
+      "published_at": "2026-11-17T01:03:05Z",
+      "collected_on": "2026-11-20",
+      "summary": "HN: 207 points, 43 comments. https://news.ycombinator.com/item?id=50526023"
     },
     {
       "id": "0604bc2b50fc",
