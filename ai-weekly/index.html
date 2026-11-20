@@ -188,7 +188,8 @@ table.tbl { width: 100%; border-collapse: collapse; background: var(--panel); bo
 (function () {
   "use strict";
   var EMBED = null;
-  var FEED_URL = "./feed.json";
+  var FEED_URL = "https://raw.githubusercontent.com/Khanchic/dashboards/main/ai-weekly/feed.json";
+  var FEED_FALLBACK = "./feed.json";
   var WORKFLOW_API = "https://api.github.com/repos/Khanchic/dashboards/actions/workflows/ai-weekly-collect.yml/dispatches";
   var LS_PICK = "aiweekly.picked", LS_TOK = "codewords.gh";
 
@@ -407,8 +408,10 @@ table.tbl { width: 100%; border-collapse: collapse; background: var(--panel); bo
 
   function loadFeed(bust) {
     if (EMBED && !bust) { state.data = EMBED; renderAll(); return; }
-    fetch(FEED_URL + (bust ? "?t=" + Date.now() : ""), { cache: "no-store" })
-      .then(function (r) { return r.json(); })
+    var q = bust ? "?t=" + Date.now() : "";
+    fetch(FEED_URL + q, { cache: "no-store" })
+      .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
+      .catch(function () { return fetch(FEED_FALLBACK + q, { cache: "no-store" }).then(function (r) { return r.json(); }); })
       .then(function (d) { state.data = d; renderAll(); if (bust) toast("Лента обновлена"); })
       .catch(function (e) { toast("Ошибка загрузки: " + e.message); });
   }
