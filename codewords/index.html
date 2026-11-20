@@ -98,6 +98,18 @@ h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .08em; color: v
 details { margin-top: 22px; }
 details summary { cursor: pointer; color: var(--dim); font-weight: 600; padding: 8px 0; }
 .empty { color: var(--faint); padding: 30px 0; text-align: center; }
+.acts { display: flex; gap: 8px; flex-wrap: wrap; }
+.act { border-radius: 9px; padding: 8px 12px; font-size: 13px; font-weight: 700; border: 1px solid var(--line-strong); background: var(--panel-2); color: var(--fg); }
+.act.go { background: var(--ok-soft); border-color: var(--ok); color: var(--ok); }
+.act.close { background: transparent; color: var(--dim); }
+.act.close:hover { color: var(--fg); border-color: var(--fg); }
+.act[disabled] { opacity: .5; cursor: wait; }
+dialog { background: var(--panel); color: var(--fg); border: 1px solid var(--line-strong); border-radius: var(--r); padding: 22px; width: min(420px, calc(100vw - 32px)); }
+dialog::backdrop { background: rgba(0,0,0,.55); }
+dialog h3 { margin: 0 0 8px; font-size: 17px; }
+dialog p { margin: 0 0 12px; color: var(--dim); font-size: 13px; }
+dialog input { width: 100%; background: var(--panel-2); border: 1px solid var(--line-strong); border-radius: 9px; padding: 10px 12px; margin-bottom: 12px; }
+dialog .row { justify-content: flex-end; }
 .toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); background: var(--fg); color: var(--bg); padding: 9px 14px; border-radius: 9px; font-size: 13px; z-index: 50; }
 </style>
 
@@ -127,13 +139,23 @@ details summary { cursor: pointer; color: var(--dim); font-weight: 600; padding:
   <main class="gutter"><div class="inner" id="list"></div></main>
 </div>
 <div id="toast" class="toast" hidden></div>
+<dialog id="tokDlg">
+  <form method="dialog" id="tokForm">
+    <h3>GitHub-токен для сохранения</h3>
+    <p>Нужен один раз: кнопки сохраняют статус прямо в репозиторий Khanchic/dashboards. Токен с правом Contents: Read and write на этот репо (твой DS_PS подходит). Хранится только в этом браузере.</p>
+    <input id="tokInput" type="password" placeholder="github_pat_…" autocomplete="off">
+    <div class="row"><button class="act close" value="cancel" type="submit">Отмена</button><button class="act go" value="ok" type="submit">Сохранить</button></div>
+  </form>
+</dialog>
 
 <script>
 (function () {
   "use strict";
   var EMBED = null;
   var DATA_URL = "./data.enc.json";
-  var LS_KEY = "planhub.key";
+  var API_URL = "https://api.github.com/repos/Khanchic/dashboards/contents/codewords/data.enc.json";
+  var LS_KEY = "planhub.key", LS_TOK = "codewords.gh";
+  var PASS = null;
   var ST = { active: "В работе", waiting: "Ждём", paused: "На паузе", done: "Готово" };
   var COL = { active: "var(--ok)", waiting: "var(--warn)", paused: "var(--pause)", done: "var(--line-strong)" };
   var $ = function (id) { return document.getElementById(id); };
@@ -171,16 +193,78 @@ details summary { cursor: pointer; color: var(--dim); font-weight: 600; padding:
       .then(function (k) { return s.decrypt({ name: "AES-GCM", iv: b64(enc.iv) }, k, b64(enc.ct)); })
       .then(function (buf) { return JSON.parse(new TextDecoder().decode(buf)); });
   }
-  function load(pass) {
+  function u8b64(u) { var s = ""; for (var i = 0; i < u.length; i += 8192) s += String.fromCharCode.apply(null, u.subarray(i, i + 8192)); return btoa(s); }
+  function encrypt(obj, pass) {
+    var s = crypto.subtle, salt = crypto.getRandomValues(new Uint8Array(16)), iv = crypto.getRandomValues(new Uint8Array(12)), ITER = 250000;
+    return s.importKey("raw", new TextEncoder().encode(pass), "PBKDF2", false, ["deriveKey"])
+      .then(function (base) { return s.deriveKey({ name: "PBKDF2", salt: salt, iterations: ITER, hash: "SHA-256" }, base, { name: "AES-GCM", length: 256 }, false, ["encrypt"]); })
+      .then(function (k) { return s.encrypt({ name: "AES-GCM", iv: iv }, k, new TextEncoder().encode(JSON.stringify(obj))); })
+      .then(function (ct) { return { v: 1, iter: ITER, salt: u8b64(salt), iv: u8b64(iv), ct: u8b64(new Uint8Array(ct)) }; });
+  }
+  function ghHeaders(tok) { return { Authorization: "Bearer " + tok, Accept: "application/vnd.github+json" }; }
+  // свежие данные: через API, если есть токен (Pages-кэш отстаёт на минуты), иначе с Pages
+  function fetchEnc() {
+    var tok = lsGet(LS_TOK);
+    if (tok) {
+      return fetch(API_URL + "?t=" + Date.now(), { headers: ghHeaders(tok), cache: "no-store" }).then(function (r) {
+        if (!r.ok) throw new Error("api " + r.status);
+        return r.json().then(function (j) { return { sha: j.sha, enc: JSON.parse(atob(j.content.replace(/\n/g, ""))) }; });
+      }).catch(function () { return fetchPages(); });
+    }
+    return fetchPages();
+  }
+  function fetchPages() {
     return fetch(DATA_URL + "?t=" + Date.now(), { cache: "no-store" })
       .then(function (r) { if (!r.ok) throw new Error("Не удалось загрузить данные: HTTP " + r.status); return r.json(); })
-      .then(function (enc) { return decrypt(enc, pass).catch(function () { throw new Error("Ключ не подходит"); }); });
+      .then(function (enc) { return { sha: null, enc: enc }; });
+  }
+  function load(pass) {
+    return fetchEnc().then(function (x) { return decrypt(x.enc, pass).catch(function () { throw new Error("Ключ не подходит"); }); });
+  }
+  function askToken() {
+    return new Promise(function (res) {
+      var d = $("tokDlg"); $("tokInput").value = "";
+      d.onclose = function () { var v = $("tokInput").value.trim(); if (d.returnValue === "ok" && v) { lsSet(LS_TOK, v); res(v); } else res(null); };
+      d.showModal(); $("tokInput").focus();
+    });
+  }
+  function nowKyiv() { return todayKey(); }
+  // сохранить изменение одной задачи: берём свежую версию из репо, правим, шифруем, PUT
+  function save(code, patch) {
+    var tok = lsGet(LS_TOK);
+    var ready = tok ? Promise.resolve(tok) : askToken();
+    return ready.then(function (t) {
+      if (!t) throw new Error("Без токена не сохранить");
+      return fetch(API_URL + "?t=" + Date.now(), { headers: ghHeaders(t), cache: "no-store" }).then(function (r) {
+        if (r.status === 401 || r.status === 403) { lsSet(LS_TOK, ""); throw new Error("Токен не подошёл (" + r.status + ")"); }
+        if (!r.ok) throw new Error("GitHub " + r.status);
+        return r.json();
+      }).then(function (j) {
+        return decrypt(JSON.parse(atob(j.content.replace(/\n/g, ""))), PASS).then(function (data) {
+          var task = data.tasks.filter(function (x) { return x.code === code; })[0];
+          if (!task) throw new Error("Задача не найдена в репо");
+          Object.keys(patch).forEach(function (k) { task[k] = patch[k]; });
+          task.updated = nowKyiv(); task.changedAt = new Date().toISOString(); task.changedBy = "page";
+          data.generatedAt = new Date().toISOString();
+          return encrypt(data, PASS).then(function (enc) {
+            return fetch(API_URL, {
+              method: "PUT", headers: Object.assign(ghHeaders(t), { "Content-Type": "application/json" }),
+              body: JSON.stringify({ message: "codewords: " + code + " → " + (patch.status || "edit"), content: btoa(JSON.stringify(enc)), sha: j.sha, branch: "main" })
+            });
+          }).then(function (r) {
+            if (r.status === 401 || r.status === 403) { lsSet(LS_TOK, ""); throw new Error("Токен без права записи (" + r.status + ")"); }
+            if (!r.ok) throw new Error("GitHub " + r.status);
+            return data;
+          });
+        });
+      });
+    });
   }
   function showGate(err) { $("app").hidden = true; $("gate").hidden = false; $("gateErr").textContent = err || ""; $("gateKey").focus(); }
   $("gateForm").addEventListener("submit", function (e) {
     e.preventDefault(); var v = $("gateKey").value.trim(); if (!v) return;
     $("gateErr").textContent = "Открываю…";
-    load(v).then(function (d) { lsSet(LS_KEY, v); start(d); }, function (er) { $("gateErr").textContent = er.message; });
+    load(v).then(function (d) { lsSet(LS_KEY, v); PASS = v; start(d); }, function (er) { $("gateErr").textContent = er.message; });
   });
 
   function card(t) {
@@ -192,6 +276,12 @@ details summary { cursor: pointer; color: var(--dim); font-weight: 600; padding:
         (t.deadline ? '<span class="b dl">Срок ' + human(t.deadline) + "</span>" : "") + "</div>" +
       '<p class="sum">' + esc(t.summary) + "</p>" +
       (t.next ? '<p class="next"><b>Дальше:</b> ' + esc(t.next) + "</p>" : "") +
+      '<div class="acts">' +
+        (t.status === "done"
+          ? '<button class="act go" type="button" data-act="active" data-code="' + esc(t.code) + '">Вернуть в работу</button>'
+          : (t.status !== "active" ? '<button class="act go" type="button" data-act="active" data-code="' + esc(t.code) + '">Взять в работу</button>' : "") +
+            '<button class="act close" type="button" data-act="done" data-code="' + esc(t.code) + '">Закрыто</button>') +
+      "</div>" +
       '<div class="foot">' + (t.handoff ? "<code>" + esc(t.handoff) + "</code>" : "") + (links ? "<div>" + links + "</div>" : "") +
         "<div>Обновлено " + esc(t.updated ? human(t.updated) : "—") + "</div></div>" +
       "</article>";
@@ -228,13 +318,25 @@ details summary { cursor: pointer; color: var(--dim); font-weight: 600; padding:
   }
   $("q").addEventListener("input", function (e) { st.q = e.target.value.trim(); render(); });
   $("chips").addEventListener("click", function (e) { var b = e.target.closest("button[data-s]"); if (!b) return; st.s = b.dataset.s; render(); });
-  $("list").addEventListener("click", function (e) { var b = e.target.closest("[data-copy]"); if (b) copy(b.dataset.copy); });
+  $("list").addEventListener("click", function (e) {
+    var b = e.target.closest("[data-copy]"); if (b) { copy(b.dataset.copy); return; }
+    var a = e.target.closest("[data-act]"); if (!a) return;
+    if (EMBED) { toast("В превью не сохраняется"); return; }
+    var code = a.dataset.code, status = a.dataset.act;
+    var patch = { status: status }; if (status === "done") patch["return"] = null;
+    a.disabled = true; a.textContent = "Сохраняю…";
+    save(code, patch).then(function (data) {
+      D.tasks = data.tasks; render();
+      toast(status === "done" ? "Закрыто" : "Взято в работу");
+    }, function (er) { a.disabled = false; render(); toast(er.message); });
+  });
 
   if (EMBED) { start(EMBED); return; }
   var m = location.hash.match(/key=([^&]+)/);
   if (m) { lsSet(LS_KEY, decodeURIComponent(m[1])); history.replaceState(null, "", location.pathname); }
   var saved = lsGet(LS_KEY);
   if (!saved) { showGate(); return; }
+  PASS = saved;
   load(saved).then(start, function (er) { showGate(er.message); });
 })();
 </script>
