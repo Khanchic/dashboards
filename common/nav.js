@@ -23,7 +23,9 @@
 
     // Determine active tab key
     let activeKey = 'home';
-    if (path.includes('/codewords/')) {
+    if (path.includes('/ai-weekly/')) {
+      activeKey = 'ai-weekly';
+    } else     if (path.includes('/codewords/')) {
       activeKey = 'codewords';
     } else if (path.includes('chat-plan')) {
       activeKey = 'chat-plan';
@@ -59,6 +61,7 @@
 
     const tabs = [
       { key: 'home', title: 'Главная (Хаб)', icon: '🏠', href: `${base}` },
+      { key: 'ai-weekly', title: 'AI Weekly', icon: '📰', href: `${base}ai-weekly/` },
       { key: 'codewords', title: 'Кодовые слова', icon: '🔑', href: `${base}codewords/` },
       { key: 'plan', title: 'План SMM', icon: '🗓️', href: `${base}plan/` },
       { key: 'chat-plan', title: 'План чатов', icon: '💬', href: `${base}chat-plan/` },
