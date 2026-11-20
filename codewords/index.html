@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="stylesheet" href="../common/nav.css">
+</head>
+<body>
+<title>Кодовые слова</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #070a13; --panel: #0e1526; --panel-2: #121b30;
+  --line: rgba(255,255,255,.08); --line-strong: rgba(255,255,255,.16);
+  --fg: #f0f4fc; --dim: #8f9dbb; --faint: #66748f;
+  --brand: #00e5ff; --brand-soft: rgba(0,229,255,.12);
+  --ok: #2fd59a; --ok-soft: rgba(47,213,154,.12);
+  --warn: #ffc53d; --warn-soft: rgba(255,197,61,.13);
+  --bad: #ff6b7a; --bad-soft: rgba(255,107,122,.13);
+  --pause: #8f86ff; --pause-soft: rgba(143,134,255,.14);
+  --font: 'Plus Jakarta Sans', -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, Consolas, monospace;
+  --r: 12px; color-scheme: dark;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --bg: #f3f6fb; --panel: #ffffff; --panel-2: #eef2f8; --line: rgba(10,25,60,.10); --line-strong: rgba(10,25,60,.2);
+    --fg: #0d1830; --dim: #4a5874; --faint: #7c879d; --brand: #0090a8; --brand-soft: rgba(0,144,168,.10);
+    --ok: #12825c; --ok-soft: rgba(18,130,92,.10); --warn: #9a6400; --warn-soft: rgba(196,128,0,.12); --bad: #c42c3d; --bad-soft: rgba(196,44,61,.10);
+    --pause: #5b4fe0; --pause-soft: rgba(91,79,224,.10); color-scheme: light;
+  }
+}
+:root[data-theme="light"] {
+  --bg: #f3f6fb; --panel: #ffffff; --panel-2: #eef2f8; --line: rgba(10,25,60,.10); --line-strong: rgba(10,25,60,.2);
+  --fg: #0d1830; --dim: #4a5874; --faint: #7c879d; --brand: #0090a8; --brand-soft: rgba(0,144,168,.10);
+  --ok: #12825c; --ok-soft: rgba(18,130,92,.10); --warn: #9a6400; --warn-soft: rgba(196,128,0,.12); --bad: #c42c3d; --bad-soft: rgba(196,44,61,.10);
+  --pause: #5b4fe0; --pause-soft: rgba(91,79,224,.10); color-scheme: light;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 14px/1.5 var(--font); -webkit-font-smoothing: antialiased; }
+button, input { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+.gutter { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.inner { max-width: 1180px; margin: 0 auto; }
+
+.gate { min-height: 80vh; display: grid; place-items: center; padding-block: 40px; }
+.gate form { width: min(360px, 100%); display: flex; flex-direction: column; gap: 12px; background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); padding: 24px; }
+.gate h1 { margin: 0; font-size: 20px; font-weight: 800; }
+.gate p { margin: 0; color: var(--dim); font-size: 13px; }
+.gate input { background: var(--panel-2); border: 1px solid var(--line-strong); border-radius: 9px; padding: 11px 12px; }
+.gate button { background: var(--brand); color: #04121a; border: 0; border-radius: 9px; padding: 11px; font-weight: 700; }
+.gate .err { color: var(--bad); font-size: 13px; min-height: 1.2em; }
+
+.top { position: sticky; top: 0; z-index: 20; background: color-mix(in srgb, var(--bg) 92%, transparent); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+.top .inner { display: flex; flex-direction: column; gap: 10px; padding-block: 14px; }
+.row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.title { font-size: 20px; font-weight: 800; letter-spacing: -.01em; margin: 0; }
+.meta { color: var(--faint); font-size: 12px; }
+.search { flex: 1 1 220px; min-width: 0; background: var(--panel); border: 1px solid var(--line-strong); border-radius: 9px; padding: 9px 12px; }
+.chips { display: flex; gap: 6px; flex-wrap: wrap; }
+.chips button { background: var(--panel); border: 1px solid var(--line); border-radius: 999px; padding: 6px 12px; font-size: 13px; color: var(--dim); }
+.chips button[aria-pressed="true"] { background: var(--brand-soft); border-color: var(--brand); color: var(--fg); }
+.chips b { font-weight: 700; margin-left: 4px; color: var(--faint); }
+
+main { padding-block: 18px 80px; }
+h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .08em; color: var(--dim); margin: 22px 0 10px; font-weight: 700; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 12px; }
+@media (max-width: 420px) { .grid { grid-template-columns: 1fr; } }
+
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); padding: 16px; display: flex; flex-direction: column; gap: 10px; border-top: 3px solid var(--c, var(--line-strong)); min-width: 0; }
+.code { display: flex; align-items: center; gap: 8px; }
+.code span { font: 700 15px/1.3 var(--mono); color: var(--brand); word-break: break-word; flex: 1; }
+.copy { flex: none; background: var(--panel-2); border: 1px solid var(--line-strong); border-radius: 8px; padding: 5px 10px; font-size: 12px; color: var(--dim); }
+.copy:hover { color: var(--fg); border-color: var(--brand); }
+.t { font-size: 16px; font-weight: 700; margin: 0; }
+.badges { display: flex; gap: 6px; flex-wrap: wrap; }
+.b { font-size: 12px; font-weight: 600; border-radius: 999px; padding: 3px 9px; background: var(--panel-2); color: var(--dim); }
+.b.active { background: var(--ok-soft); color: var(--ok); }
+.b.waiting { background: var(--warn-soft); color: var(--warn); }
+.b.paused { background: var(--pause-soft); color: var(--pause); }
+.b.done { background: var(--panel-2); color: var(--faint); }
+.b.ret { background: var(--brand-soft); color: var(--brand); }
+.b.ret.late { background: var(--bad-soft); color: var(--bad); }
+.b.ret.today { background: var(--warn-soft); color: var(--warn); }
+.b.ret.none { background: transparent; border: 1px dashed var(--line-strong); color: var(--faint); }
+.b.dl { background: var(--panel-2); color: var(--fg); }
+.sum { margin: 0; color: var(--fg); }
+.next { margin: 0; color: var(--dim); }
+.next b { color: var(--fg); font-weight: 600; }
+.foot { display: flex; flex-direction: column; gap: 4px; padding-top: 8px; border-top: 1px solid var(--line); font-size: 12px; color: var(--faint); }
+.foot code { font-family: var(--mono); font-size: 11.5px; color: var(--dim); word-break: break-all; }
+.foot a { color: var(--brand); text-decoration: none; }
+.foot a:hover { text-decoration: underline; }
+details { margin-top: 22px; }
+details summary { cursor: pointer; color: var(--dim); font-weight: 600; padding: 8px 0; }
+.empty { color: var(--faint); padding: 30px 0; text-align: center; }
+.toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); background: var(--fg); color: var(--bg); padding: 9px 14px; border-radius: 9px; font-size: 13px; z-index: 50; }
+</style>
+
+<div id="gate" class="gate gutter" hidden>
+  <form id="gateForm">
+    <h1>Кодовые слова</h1>
+    <p>Введи ключ доступа хаба (тот же, что для «План SMM»).</p>
+    <input id="gateKey" type="password" autocomplete="current-password" placeholder="Ключ">
+    <button type="submit">Открыть</button>
+    <div id="gateErr" class="err"></div>
+  </form>
+</div>
+
+<div id="app" hidden>
+  <header class="top gutter">
+    <div class="inner">
+      <div class="row">
+        <h1 class="title">Кодовые слова</h1>
+        <span class="meta" id="meta"></span>
+      </div>
+      <div class="row">
+        <input id="q" class="search" type="search" placeholder="Поиск: слово, задача, файл…" aria-label="Поиск">
+      </div>
+      <div class="chips" id="chips" role="group" aria-label="Статус"></div>
+    </div>
+  </header>
+  <main class="gutter"><div class="inner" id="list"></div></main>
+</div>
+<div id="toast" class="toast" hidden></div>
+
+<script>
+(function () {
+  "use strict";
+  var EMBED = null;
+  var DATA_URL = "./data.enc.json";
+  var LS_KEY = "planhub.key";
+  var ST = { active: "В работе", waiting: "Ждём", paused: "На паузе", done: "Готово" };
+  var COL = { active: "var(--ok)", waiting: "var(--warn)", paused: "var(--pause)", done: "var(--line-strong)" };
+  var $ = function (id) { return document.getElementById(id); };
+  var D = null, st = { q: "", s: "all" };
+
+  function lsGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+  function lsSet(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+  function esc(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  function toast(m) { var t = $("toast"); t.textContent = m; t.hidden = false; clearTimeout(toast._t); toast._t = setTimeout(function () { t.hidden = true; }, 1600); }
+  function copy(text) {
+    function fb() { var ta = document.createElement("textarea"); ta.value = text; ta.style.cssText = "position:fixed;opacity:0;top:0"; document.body.appendChild(ta); ta.select(); var ok = false; try { ok = document.execCommand("copy"); } catch (e) {} document.body.removeChild(ta); toast(ok ? "Скопировано" : "Не удалось скопировать"); }
+    if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(function () { toast("Скопировано"); }, fb); else fb();
+  }
+
+  // dates (Kyiv calendar day)
+  function todayKey() { return new Date().toLocaleDateString("sv-SE", { timeZone: "Europe/Kyiv" }); }
+  function days(a, b) { return Math.round((Date.UTC(+b.slice(0, 4), +b.slice(5, 7) - 1, +b.slice(8, 10)) - Date.UTC(+a.slice(0, 4), +a.slice(5, 7) - 1, +a.slice(8, 10))) / 864e5); }
+  var WD = ["вс", "пн", "вт", "ср", "чт", "пт", "сб"];
+  function human(k) { var d = new Date(Date.UTC(+k.slice(0, 4), +k.slice(5, 7) - 1, +k.slice(8, 10), 12)); return k.slice(8, 10) + "." + k.slice(5, 7) + " " + WD[d.getUTCDay()]; }
+  function retBadge(t) {
+    if (t.status === "done") return "";
+    if (!t.return) return '<span class="b ret none">Вернуться: не задано</span>';
+    var n = days(todayKey(), t.return);
+    var cls = n < 0 ? " late" : n === 0 ? " today" : "";
+    var tail = n < 0 ? " · просрочено " + (-n) + " дн." : n === 0 ? " · сегодня" : n === 1 ? " · завтра" : " · через " + n + " дн.";
+    return '<span class="b ret' + cls + '">Вернуться ' + human(t.return) + tail + "</span>";
+  }
+
+  // decrypt (same format as plan hub)
+  function b64(s) { var bin = atob(s), u = new Uint8Array(bin.length); for (var i = 0; i < bin.length; i++) u[i] = bin.charCodeAt(i); return u; }
+  function decrypt(enc, pass) {
+    var s = crypto.subtle;
+    return s.importKey("raw", new TextEncoder().encode(pass), "PBKDF2", false, ["deriveKey"])
+      .then(function (base) { return s.deriveKey({ name: "PBKDF2", salt: b64(enc.salt), iterations: enc.iter, hash: "SHA-256" }, base, { name: "AES-GCM", length: 256 }, false, ["decrypt"]); })
+      .then(function (k) { return s.decrypt({ name: "AES-GCM", iv: b64(enc.iv) }, k, b64(enc.ct)); })
+      .then(function (buf) { return JSON.parse(new TextDecoder().decode(buf)); });
+  }
+  function load(pass) {
+    return fetch(DATA_URL + "?t=" + Date.now(), { cache: "no-store" })
+      .then(function (r) { if (!r.ok) throw new Error("Не удалось загрузить данные: HTTP " + r.status); return r.json(); })
+      .then(function (enc) { return decrypt(enc, pass).catch(function () { throw new Error("Ключ не подходит"); }); });
+  }
+  function showGate(err) { $("app").hidden = true; $("gate").hidden = false; $("gateErr").textContent = err || ""; $("gateKey").focus(); }
+  $("gateForm").addEventListener("submit", function (e) {
+    e.preventDefault(); var v = $("gateKey").value.trim(); if (!v) return;
+    $("gateErr").textContent = "Открываю…";
+    load(v).then(function (d) { lsSet(LS_KEY, v); start(d); }, function (er) { $("gateErr").textContent = er.message; });
+  });
+
+  function card(t) {
+    var links = (t.links || []).map(function (l) { return '<a href="' + esc(l.u) + '" target="_blank" rel="noopener">' + esc(l.t) + "</a>"; }).join(" · ");
+    return '<article class="card" style="--c:' + COL[t.status] + '">' +
+      '<div class="code"><span>«' + esc(t.code) + '»</span><button class="copy" type="button" data-copy="' + esc(t.code) + '">Копировать</button></div>' +
+      '<h3 class="t">' + esc(t.title) + "</h3>" +
+      '<div class="badges"><span class="b ' + t.status + '">' + ST[t.status] + "</span>" + retBadge(t) +
+        (t.deadline ? '<span class="b dl">Срок ' + human(t.deadline) + "</span>" : "") + "</div>" +
+      '<p class="sum">' + esc(t.summary) + "</p>" +
+      (t.next ? '<p class="next"><b>Дальше:</b> ' + esc(t.next) + "</p>" : "") +
+      '<div class="foot">' + (t.handoff ? "<code>" + esc(t.handoff) + "</code>" : "") + (links ? "<div>" + links + "</div>" : "") +
+        "<div>Обновлено " + esc(t.updated ? human(t.updated) : "—") + "</div></div>" +
+      "</article>";
+  }
+  function match(t) {
+    if (st.s !== "all" && t.status !== st.s) return false;
+    if (!st.q) return true;
+    var h = [t.code, t.title, t.summary, t.next, t.handoff].join(" ").toLowerCase();
+    return st.q.toLowerCase().split(/\s+/).every(function (w) { return h.indexOf(w) >= 0; });
+  }
+  function render() {
+    var all = D.tasks;
+    var counts = { all: all.length }; all.forEach(function (t) { counts[t.status] = (counts[t.status] || 0) + 1; });
+    $("chips").innerHTML = ["all", "active", "waiting", "paused", "done"].map(function (k) {
+      return '<button type="button" data-s="' + k + '" aria-pressed="' + (st.s === k) + '">' + (k === "all" ? "Все" : ST[k]) + "<b>" + (counts[k] || 0) + "</b></button>";
+    }).join("");
+    var vis = all.filter(match);
+    var withRet = vis.filter(function (t) { return t.return && t.status !== "done"; }).sort(function (a, b) { return a.return < b.return ? -1 : 1; });
+    var order = { active: 0, waiting: 1, paused: 2 };
+    var rest = vis.filter(function (t) { return !t.return && t.status !== "done"; }).sort(function (a, b) { return (order[a.status] - order[b.status]) || (a.updated < b.updated ? 1 : -1); });
+    var done = vis.filter(function (t) { return t.status === "done"; });
+    var html = "";
+    if (withRet.length) html += "<h2>Возвращаемся</h2><div class=\"grid\">" + withRet.map(card).join("") + "</div>";
+    if (rest.length) html += "<h2>" + (withRet.length ? "Без даты возврата" : "Задачи") + "</h2><div class=\"grid\">" + rest.map(card).join("") + "</div>";
+    if (done.length) html += (st.s === "done" ? "<h2>Готово</h2><div class=\"grid\">" + done.map(card).join("") + "</div>" :
+      "<details><summary>Готово · " + done.length + "</summary><div class=\"grid\">" + done.map(card).join("") + "</div></details>");
+    if (!vis.length) html = '<div class="empty">Ничего не нашлось</div>';
+    $("list").innerHTML = html;
+  }
+  function start(d) {
+    D = d; $("gate").hidden = true; $("app").hidden = false;
+    $("meta").textContent = d.tasks.length + " задач · данные на " + human(d.generatedAt.slice(0, 10));
+    render();
+  }
+  $("q").addEventListener("input", function (e) { st.q = e.target.value.trim(); render(); });
+  $("chips").addEventListener("click", function (e) { var b = e.target.closest("button[data-s]"); if (!b) return; st.s = b.dataset.s; render(); });
+  $("list").addEventListener("click", function (e) { var b = e.target.closest("[data-copy]"); if (b) copy(b.dataset.copy); });
+
+  if (EMBED) { start(EMBED); return; }
+  var m = location.hash.match(/key=([^&]+)/);
+  if (m) { lsSet(LS_KEY, decodeURIComponent(m[1])); history.replaceState(null, "", location.pathname); }
+  var saved = lsGet(LS_KEY);
+  if (!saved) { showGate(); return; }
+  load(saved).then(start, function (er) { showGate(er.message); });
+})();
+</script>
+
+<script src="../common/nav.js" defer></script>
+</body>
+</html>
