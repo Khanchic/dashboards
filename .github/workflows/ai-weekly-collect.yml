@@ -1,0 +1,41 @@
+name: AI Weekly Cloud News Collector
+
+on:
+  schedule:
+    # 3 раза в сутки (06:18, 14:18, 22:18 UTC = 08:18, 16:18, 00:18 Kyiv)
+    - cron: '18 6,14,22 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ai-weekly-collect
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Collect & cluster AI news from 26 sources
+        run: node ai-weekly/collector.js
+
+      - name: Commit updated feed.json and seen.json
+        run: |
+          git config user.name "ai-weekly-bot"
+          git config user.email "ai-weekly-bot@users.noreply.github.com"
+          git add ai-weekly/feed.json ai-weekly/seen.json
+          if git diff --staged --quiet; then
+            echo "No new changes to commit."
+          else
+            git commit -m "ai-weekly: auto-collect $(date -u +'%Y-%m-%d %H:%M UTC')"
+            git pull --rebase origin main || true
+            git push origin main
+          fi
