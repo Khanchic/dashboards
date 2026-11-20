@@ -1,326 +1,325 @@
 {
-  "generated_at": "2026-11-20T10:30:54.417Z",
+  "generated_at": "2026-11-20T10:44:52.653Z",
   "last_collect_date": "2026-11-20",
   "sources_report": [
     {
       "id": "anthropic",
-      "name": "Anthropic news",
       "tier": "T1",
       "type": "html",
-      "url": "https://www.anthropic.com/news",
       "fetched": 19,
       "kept": 1,
       "new": 0,
       "error": null,
-      "note": ""
+      "note": "",
+      "name": "Anthropic news",
+      "url": "https://www.anthropic.com/news"
     },
     {
       "id": "anthropic-changelog",
-      "name": "Anthropic release notes",
       "tier": "T1",
       "type": "changelog",
-      "url": "https://docs.anthropic.com/en/release-notes/overview",
-      "fetched": 175,
-      "kept": 9,
+      "fetched": 176,
+      "kept": 10,
       "new": 0,
       "error": null,
-      "note": ""
+      "note": "",
+      "name": "Anthropic release notes",
+      "url": "https://docs.anthropic.com/en/release-notes/overview"
     },
     {
       "id": "anthropic-sdk",
-      "name": "anthropic-sdk-python releases",
       "tier": "T1",
       "type": "rss",
-      "url": "https://github.com/anthropics/anthropic-sdk-python/releases.atom",
       "fetched": 10,
       "kept": 3,
       "new": 0,
       "error": null,
-      "note": ""
+      "note": "",
+      "name": "anthropic-sdk-python releases",
+      "url": "https://github.com/anthropics/anthropic-sdk-python/releases.atom"
+    },
+    {
+      "id": "bensbites",
+      "tier": "T3",
+      "type": "rss",
+      "fetched": 20,
+      "kept": 2,
+      "new": 0,
+      "error": null,
+      "note": "",
+      "name": "Ben's Bites",
+      "url": "https://www.bensbites.com/feed"
     },
     {
       "id": "deepmind",
-      "name": "Google DeepMind",
       "tier": "T1",
       "type": "rss",
-      "url": "https://deepmind.google/blog/rss.xml",
       "fetched": 100,
       "kept": 2,
       "new": 0,
       "error": null,
-      "note": ""
+      "note": "",
+      "name": "Google DeepMind",
+      "url": "https://deepmind.google/blog/rss.xml"
     },
     {
       "id": "gemini-changelog",
-      "name": "Gemini API changelog",
       "tier": "T1",
       "type": "changelog",
-      "url": "https://ai.google.dev/gemini-api/docs/changelog",
       "fetched": 0,
       "kept": 0,
       "new": 0,
       "error": null,
-      "note": "no links found (JS-only page?)"
+      "note": "no links found (JS-only page?)",
+      "name": "Gemini API changelog",
+      "url": "https://ai.google.dev/gemini-api/docs/changelog"
     },
     {
       "id": "google-ai",
-      "name": "Google AI blog",
       "tier": "T1",
       "type": "rss",
-      "url": "https://blog.google/technology/ai/rss/",
       "fetched": 20,
       "kept": 5,
       "new": 0,
       "error": null,
-      "note": ""
+      "note": "",
+      "name": "Google AI blog",
+      "url": "https://blog.google/technology/ai/rss/"
     },
     {
       "id": "hf-changelog",
+      "tier": "T1",
+      "type": "changelog",
+      "fetched": 0,
+      "kept": 0,
+      "new": 0,
+      "error": null,
+      "note": "no links found (JS-only page?)",
       "name": "Hugging Face changelog",
-      "tier": "T1",
-      "type": "changelog",
-      "url": "https://huggingface.co/changelog",
-      "fetched": 0,
-      "kept": 0,
-      "new": 0,
-      "error": null,
-      "note": "no links found (JS-only page?)"
-    },
-    {
-      "id": "huggingface",
-      "name": "Hugging Face blog",
-      "tier": "T1",
-      "type": "rss",
-      "url": "https://huggingface.co/blog/feed.xml",
-      "fetched": 913,
-      "kept": 9,
-      "new": 0,
-      "error": null,
-      "note": ""
-    },
-    {
-      "id": "meta-ai",
-      "name": "Meta AI blog",
-      "tier": "T1",
-      "type": "html",
-      "url": "https://ai.meta.com/blog/",
-      "fetched": 0,
-      "kept": 0,
-      "new": 0,
-      "error": "HTTP 400",
-      "note": ""
-    },
-    {
-      "id": "mistral",
-      "name": "Mistral news",
-      "tier": "T1",
-      "type": "html",
-      "url": "https://mistral.ai/news/",
-      "fetched": 71,
-      "kept": 71,
-      "new": 0,
-      "error": null,
-      "note": ""
-    },
-    {
-      "id": "mistral-changelog",
-      "name": "Mistral changelog",
-      "tier": "T1",
-      "type": "changelog",
-      "url": "https://docs.mistral.ai/resources/changelogs",
-      "fetched": 97,
-      "kept": 97,
-      "new": 0,
-      "error": null,
-      "note": ""
-    },
-    {
-      "id": "openai",
-      "name": "OpenAI News",
-      "tier": "T1",
-      "type": "rss",
-      "url": "https://openai.com/news/rss.xml",
-      "fetched": 1418,
-      "kept": 30,
-      "new": 0,
-      "error": null,
-      "note": ""
-    },
-    {
-      "id": "openai-changelog",
-      "name": "OpenAI API changelog",
-      "tier": "T1",
-      "type": "changelog",
-      "url": "https://platform.openai.com/docs/changelog",
-      "fetched": 146,
-      "kept": 146,
-      "new": 0,
-      "error": null,
-      "note": ""
-    },
-    {
-      "id": "openai-sdk",
-      "name": "openai-python releases",
-      "tier": "T1",
-      "type": "rss",
-      "url": "https://github.com/openai/openai-python/releases.atom",
-      "fetched": 10,
-      "kept": 8,
-      "new": 0,
-      "error": null,
-      "note": ""
-    },
-    {
-      "id": "importai",
-      "name": "Import AI",
-      "tier": "T2",
-      "type": "rss",
-      "url": "https://importai.substack.com/feed",
-      "fetched": 0,
-      "kept": 0,
-      "new": 0,
-      "error": "HTTP 403",
-      "note": ""
-    },
-    {
-      "id": "lastweekinai",
-      "name": "Last Week in AI",
-      "tier": "T2",
-      "type": "rss",
-      "url": "https://lastweekin.ai/feed",
-      "fetched": 20,
-      "kept": 0,
-      "new": 0,
-      "error": null,
-      "note": ""
-    },
-    {
-      "id": "latent-space",
-      "name": "Latent Space",
-      "tier": "T2",
-      "type": "rss",
-      "url": "https://www.latent.space/feed",
-      "fetched": 20,
-      "kept": 8,
-      "new": 0,
-      "error": null,
-      "note": ""
-    },
-    {
-      "id": "the-batch",
-      "name": "The Batch",
-      "tier": "T2",
-      "type": "rss",
-      "url": "https://charonhub.deeplearning.ai/rss/",
-      "fetched": 0,
-      "kept": 0,
-      "new": 0,
-      "error": "HTTP 403",
-      "note": ""
-    },
-    {
-      "id": "bensbites",
-      "name": "Ben's Bites",
-      "tier": "T3",
-      "type": "rss",
-      "url": "https://www.bensbites.com/feed",
-      "fetched": 20,
-      "kept": 2,
-      "new": 0,
-      "error": null,
-      "note": ""
+      "url": "https://huggingface.co/changelog"
     },
     {
       "id": "hn",
-      "name": "Hacker News",
       "tier": "T3",
       "type": "hn",
-      "url": "https://hn.algolia.com/api/v1/search_by_date",
       "fetched": 200,
       "kept": 37,
       "new": 0,
       "error": null,
-      "note": ""
+      "note": "",
+      "name": "Hacker News",
+      "url": "https://hn.algolia.com/api/v1/search_by_date"
     },
     {
-      "id": "rundown",
-      "name": "The Rundown AI",
-      "tier": "T3",
+      "id": "huggingface",
+      "tier": "T1",
       "type": "rss",
-      "url": "https://www.therundown.ai/feed",
-      "fetched": 50,
-      "kept": 7,
+      "fetched": 913,
+      "kept": 9,
       "new": 0,
       "error": null,
-      "note": ""
-    },
-    {
-      "id": "tldr-ai",
-      "name": "TLDR AI",
-      "tier": "T3",
-      "type": "rss",
-      "url": "https://tldr.tech/api/rss/ai",
-      "fetched": 20,
-      "kept": 4,
-      "new": 0,
-      "error": null,
-      "note": ""
+      "note": "",
+      "name": "Hugging Face blog",
+      "url": "https://huggingface.co/blog/feed.xml"
     },
     {
       "id": "igb",
-      "name": "iGaming Business",
       "tier": "T4",
       "type": "rss",
-      "url": "https://igamingbusiness.com/feed/",
       "fetched": 100,
       "kept": 4,
       "new": 0,
       "error": null,
-      "note": ""
+      "note": "",
+      "name": "iGaming Business",
+      "url": "https://igamingbusiness.com/feed/"
+    },
+    {
+      "id": "importai",
+      "tier": "T2",
+      "type": "rss",
+      "fetched": 20,
+      "kept": 1,
+      "new": 0,
+      "error": null,
+      "note": "",
+      "name": "Import AI",
+      "url": "https://importai.substack.com/feed"
+    },
+    {
+      "id": "lastweekinai",
+      "tier": "T2",
+      "type": "rss",
+      "fetched": 20,
+      "kept": 0,
+      "new": 0,
+      "error": null,
+      "note": "",
+      "name": "Last Week in AI",
+      "url": "https://lastweekin.ai/feed"
+    },
+    {
+      "id": "latent-space",
+      "tier": "T2",
+      "type": "rss",
+      "fetched": 20,
+      "kept": 8,
+      "new": 0,
+      "error": null,
+      "note": "",
+      "name": "Latent Space",
+      "url": "https://www.latent.space/feed"
     },
     {
       "id": "maii",
-      "name": "Marketing AI Institute",
       "tier": "T4",
       "type": "rss",
-      "url": "https://www.marketingaiinstitute.com/blog/rss.xml",
       "fetched": 10,
       "kept": 3,
       "new": 0,
       "error": null,
-      "note": ""
+      "note": "",
+      "name": "Marketing AI Institute",
+      "url": "https://www.marketingaiinstitute.com/blog/rss.xml"
     },
     {
       "id": "martech",
-      "name": "MarTech",
       "tier": "T4",
       "type": "rss",
-      "url": "https://martech.org/feed/",
       "fetched": 10,
       "kept": 9,
       "new": 0,
       "error": null,
-      "note": ""
+      "note": "",
+      "name": "MarTech",
+      "url": "https://martech.org/feed/"
+    },
+    {
+      "id": "meta-ai",
+      "tier": "T1",
+      "type": "html",
+      "fetched": 5,
+      "kept": 0,
+      "new": 0,
+      "error": null,
+      "note": "",
+      "name": "Meta AI blog",
+      "url": "https://ai.meta.com/blog/"
+    },
+    {
+      "id": "mistral",
+      "tier": "T1",
+      "type": "html",
+      "fetched": 71,
+      "kept": 71,
+      "new": 0,
+      "error": null,
+      "note": "",
+      "name": "Mistral news",
+      "url": "https://mistral.ai/news/"
+    },
+    {
+      "id": "mistral-changelog",
+      "tier": "T1",
+      "type": "changelog",
+      "fetched": 97,
+      "kept": 97,
+      "new": 0,
+      "error": null,
+      "note": "",
+      "name": "Mistral changelog",
+      "url": "https://docs.mistral.ai/resources/changelogs"
+    },
+    {
+      "id": "openai",
+      "tier": "T1",
+      "type": "rss",
+      "fetched": 1418,
+      "kept": 30,
+      "new": 0,
+      "error": null,
+      "note": "",
+      "name": "OpenAI News",
+      "url": "https://openai.com/news/rss.xml"
+    },
+    {
+      "id": "openai-changelog",
+      "tier": "T1",
+      "type": "changelog",
+      "fetched": 146,
+      "kept": 146,
+      "new": 0,
+      "error": null,
+      "note": "",
+      "name": "OpenAI API changelog",
+      "url": "https://platform.openai.com/docs/changelog"
+    },
+    {
+      "id": "openai-sdk",
+      "tier": "T1",
+      "type": "rss",
+      "fetched": 10,
+      "kept": 8,
+      "new": 0,
+      "error": null,
+      "note": "",
+      "name": "openai-python releases",
+      "url": "https://github.com/openai/openai-python/releases.atom"
+    },
+    {
+      "id": "rundown",
+      "tier": "T3",
+      "type": "rss",
+      "fetched": 50,
+      "kept": 7,
+      "new": 0,
+      "error": null,
+      "note": "",
+      "name": "The Rundown AI",
+      "url": "https://www.therundown.ai/feed"
     },
     {
       "id": "sbc",
-      "name": "SBC News",
       "tier": "T4",
       "type": "rss",
-      "url": "https://sbcnews.co.uk/feed/",
       "fetched": 10,
       "kept": 0,
       "new": 0,
       "error": null,
-      "note": ""
+      "note": "",
+      "name": "SBC News",
+      "url": "https://sbcnews.co.uk/feed/"
+    },
+    {
+      "id": "the-batch",
+      "tier": "T2",
+      "type": "rss",
+      "fetched": 15,
+      "kept": 8,
+      "new": 0,
+      "error": null,
+      "note": "",
+      "name": "The Batch",
+      "url": "https://charonhub.deeplearning.ai/rss/"
+    },
+    {
+      "id": "tldr-ai",
+      "tier": "T3",
+      "type": "rss",
+      "fetched": 20,
+      "kept": 4,
+      "new": 0,
+      "error": null,
+      "note": "",
+      "name": "TLDR AI",
+      "url": "https://tldr.tech/api/rss/ai"
     }
   ],
   "totals": {
     "sources": 26,
-    "failed": 3,
+    "failed": 0,
     "empty": 2,
-    "fetched": 3439,
-    "kept": 455,
+    "fetched": 3480,
     "new_items": 0,
     "stories_total": 120,
     "stories_confirmed": 55,
@@ -381,7 +380,10 @@
       "has_t1": true,
       "status": "confirmed",
       "total": 4.15,
-      "last_update": "2026-11-11T10:00:00.000Z"
+      "last_update": "2026-11-11T10:00:00.000Z",
+      "title_ru": "OpenAI запускает «Бизнес в ChatGPT» для управления присутствием бренда",
+      "summary_ru": "",
+      "so_what_ru": "Это эквивалент профиля компании в Google для поиска с помощью искусственного интеллекта — заявка и оптимизация вашего листинга в ChatGPT теперь должны быть включены в контрольный список промо-операций."
     },
     {
       "story_id": "openai-chatgpt-wallet",
@@ -425,7 +427,10 @@
       "has_t1": true,
       "status": "confirmed",
       "total": 4,
-      "last_update": "2026-11-13T15:00:00.000Z"
+      "last_update": "2026-11-13T15:00:00.000Z",
+      "title_ru": "OpenAI запускает кошелек ChatGPT для покупок через агентов",
+      "summary_ru": "Кошелек ChatGPT позволяет агентам ChatGPT Work, Codex и dots совершать покупки с одобрения пользователя, используя существующие средства защиты карт.",
+      "so_what_ru": "Агентская проверка теперь является настоящим продуктом OpenAI, который актуален, если вашим ботам необходимо совершать транзакции (расходы на рекламу, платежи поставщикам, подписки на инструменты) от вашего имени."
     },
     {
       "story_id": "everymatrix-bonus-guardian-ai",
@@ -469,7 +474,10 @@
       "has_t1": false,
       "status": "unconfirmed",
       "total": 3.55,
-      "last_update": "2026-11-17T10:06:05.000Z"
+      "last_update": "2026-11-17T10:06:05.000Z",
+      "title_ru": "EveryMatrix CCO подробно описывает инструмент обнаружения злоупотреблений бонусами на базе искусственного интеллекта Bonus Guardian",
+      "summary_ru": "",
+      "so_what_ru": "Непосредственно актуальные инструменты промо-операций iGaming для обнаружения и предотвращения злоупотреблений бонусами с помощью ИИ."
     },
     {
       "story_id": "raphie-cs-automation-cost-igaming",
@@ -513,7 +521,10 @@
       "has_t1": false,
       "status": "unconfirmed",
       "total": 3.55,
-      "last_update": "2026-11-17T10:00:00.000Z"
+      "last_update": "2026-11-17T10:00:00.000Z",
+      "title_ru": "",
+      "summary_ru": "По данным SBC News, бывшие операторы поддержки букмекерских брендов, которые сейчас создают искусственный интеллект для обслуживания клиентов, утверждают, что индустрия автоматизирует поддержку игроков быстрее, чем операторы понимают, для чего нужна поддержка.",
+      "so_what_ru": "Прямое предупреждение операторам iGaming, создающим поддержку игроков с помощью искусственного интеллекта: скорость автоматизации опережает ясность в отношении того, чего должна достичь поддержка."
     },
     {
       "story_id": "openai-chatgpt-for-sales",
@@ -557,7 +568,10 @@
       "has_t1": true,
       "status": "confirmed",
       "total": 3.55,
-      "last_update": "2026-11-17T08:00:00.000Z"
+      "last_update": "2026-11-17T08:00:00.000Z",
+      "title_ru": "OpenAI запускает ChatGPT для продаж с более чем 30 партнерскими плагинами",
+      "summary_ru": "OpenAI представила плагин продаж, а также более 30 новых и расширенных партнерских плагинов в ChatGPT для исследования потенциальных клиентов, подготовки презентаций, обновления CRM и продвижения сделок.",
+      "so_what_ru": "Непосредственное использование для CRM/удержания и рабочих процессов, связанных с продажами, которыми управляют команды маркетинга и эксплуатации продуктов."
     },
     {
       "story_id": "designing-for-agents-resend-talk",
@@ -601,7 +615,10 @@
       "has_t1": false,
       "status": "unconfirmed",
       "total": 3.55,
-      "last_update": "2026-11-10T20:05:17.000Z"
+      "last_update": "2026-11-10T20:05:17.000Z",
+      "title_ru": "В докладе Resend обсуждаются «проектирование для агентов» и оптимизация системы ответов.",
+      "summary_ru": "В докладе Зено Роча из Resend на конференции было рассмотрено, где заканчивается оптимизация системы ответов (AEO) и начинается проектирование «опыта агента», в том числе то, как документация Resend помогает Claude Code выбрать API электронной почты.",
+      "so_what_ru": "Прямая выгода для маркетологов: оптимизация документов и контента, чтобы агенты ИИ, а не только поисковые системы, выбирали ваш продукт, — это новая дисциплина, связанная с SEO, которую стоит начать прямо сейчас."
     },
     {
       "story_id": "google-openai-search-wars",
@@ -656,7 +673,10 @@
       "has_t1": false,
       "status": "confirmed",
       "total": 3.4,
-      "last_update": "2026-11-18T00:17:58Z"
+      "last_update": "2026-11-18T00:17:58Z",
+      "title_ru": "Отчет: ответы Google на основе искусственного интеллекта сокращают поисковый трафик на 40 %",
+      "summary_ru": "В широко обсуждаемом отчете Hacker News говорится, что ответы Google, генерируемые искусственным интеллектом, сокращают поисковый трафик на 40%, усиливая стирание границ между поиском и чатом с OpenAI.",
+      "so_what_ru": "Главный количественный сигнал о том, что ответы ИИ сокращают органический поисковый трафик, что имеет прямое отношение к SEO/контент-стратегии."
     },
     {
       "story_id": "agentic-document-retrieval-vs-rag",
@@ -697,7 +717,10 @@
       "has_t1": false,
       "status": "unconfirmed",
       "total": 3.4,
-      "last_update": "2026-11-13T16:15:00.000Z"
+      "last_update": "2026-11-13T16:15:00.000Z",
+      "title_ru": "Поиск документов с помощью агента превосходит RAG по частям и встраиванию в сложных документах",
+      "summary_ru": "Подход к поиску, при котором агент ищет, структурирует и читает целые документы, превосходит стандартный RAG с фрагментированием и встраиванием, особенно когда значение зависит от контекста в другом месте страницы (например, единиц таблицы).",
+      "so_what_ru": "Если вы создаете агенты чтения документов для отчетов или данных CRM, агентный поиск всего документа может заменить наивное разбиение на фрагменты таблиц и структурированных документов."
     },
     {
       "story_id": "google-gemini-4-neon-launch",
@@ -795,7 +818,10 @@
       "has_t1": true,
       "status": "confirmed",
       "total": 3.35,
-      "last_update": "2026-11-19T10:00:00.000Z"
+      "last_update": "2026-11-19T10:00:00.000Z",
+      "title_ru": "Google запускает Gemini 4 Neon, модель среднего уровня, получившую хороший отклик на первых порах",
+      "summary_ru": "",
+      "so_what_ru": "Новая модель среднего уровня по конкурентоспособной цене, достойная сравнения с точки зрения автоматизации и рабочих процессов с контентом."
     },
     {
       "story_id": "gemini-4-hydrogen-launch",
@@ -882,7 +908,10 @@
       "has_t1": true,
       "status": "confirmed",
       "total": 3.35,
-      "last_update": "2026-11-13T00:00:00.000Z"
+      "last_update": "2026-11-13T00:00:00.000Z",
+      "title_ru": "Gemini 4 Hydrogen выходит в поиск Google по всему миру с новыми возможностями Orchestrator",
+      "summary_ru": "Google добавляет Gemini 4 Hydrogen в поиск Google по всему миру, чтобы получить более наглядные и интуитивно понятные ответы, при этом в обсуждении также подчеркивается сопутствующая функция «Оркестратор».",
+      "so_what_ru": "Глобальное внедрение в поиск означает, что визуальные ответы, генерируемые ИИ, будут все чаще влиять на то, как клиенты находят ваш бренд или рекламные акции, поэтому стоит проверить свое присутствие в результатах, основанных на ИИ."
     },
     {
       "story_id": "martech-ai-agents-b2b-vendor-evaluation",
@@ -926,7 +955,10 @@
       "has_t1": false,
       "status": "unconfirmed",
       "total": 3.3,
-      "last_update": "2026-11-17T12:46:00.000Z"
+      "last_update": "2026-11-17T12:46:00.000Z",
+      "title_ru": "MarTech: что заставляет поставщиков B2B заслужить внимание оценщиков ИИ-агентов",
+      "summary_ru": "",
+      "so_what_ru": "Тактическое руководство по структурированию контента продукта, чтобы агенты искусственного интеллекта и системы ответов появлялись на свет и рекомендовали ваш бренд."
     },
     {
       "story_id": "nvidia-jensen-huang-situation",
@@ -1011,7 +1043,10 @@
       "has_t1": false,
       "status": "confirmed",
       "total": 3.3,
-      "last_update": "2026-11-16T10:00:00.000Z"
+      "last_update": "2026-11-16T10:00:00.000Z",
+      "title_ru": "Дженсен Хуанг уходит с поста генерального директора Nvidia после 33 лет работы; Колетт Кресс назначена временным генеральным директором",
+      "summary_ru": "",
+      "so_what_ru": "Смена руководства в Nvidia может повлиять на поставки графических процессоров, цены и более широкий стек инфраструктуры искусственного интеллекта, от которого зависят инструменты, которые вы используете."
     },
     {
       "story_id": "google-gemini-tasks-free-expansion",
@@ -1054,7 +1089,10 @@
       "has_t1": true,
       "status": "confirmed",
       "total": 3.25,
-      "last_update": "2026-11-17T17:00:00.000Z"
+      "last_update": "2026-11-17T17:00:00.000Z",
+      "title_ru": "Google делает Tasks in Gemini бесплатным в шести странах благодаря более глубокой интеграции с Workspace",
+      "summary_ru": "Google объявил, что Tasks in Gemini теперь бесплатен в шести странах, с новыми функциями в США и более глубокой интеграцией с Google Workspace для выполнения задач от имени пользователя.",
+      "so_what_ru": "Бесплатная агентская функция задач внутри Workspace, которую стоит протестировать для автоматизации производительности операций."
     },
     {
       "story_id": "brave-search-x402-payments",
@@ -1098,7 +1136,10 @@
       "has_t1": false,
       "status": "unconfirmed",
       "total": 3.25,
-      "last_update": "2026-11-13T03:08:08Z"
+      "last_update": "2026-11-13T03:08:08Z",
+      "title_ru": "Brave Search API добавляет агентские платежи по протоколу x402",
+      "summary_ru": "",
+      "so_what_ru": "Рабочий пример микроплатежей между агентами и службами, который подойдет, если вы создаете автономных агентов, которым необходимо самостоятельно платить за данные или API."
     },
     {
       "story_id": "google-gemini-decisions-api",
@@ -1154,7 +1195,10 @@
       "has_t1": true,
       "status": "confirmed",
       "total": 3.25,
-      "last_update": "2026-11-12T05:26:54.000Z"
+      "last_update": "2026-11-12T05:26:54.000Z",
+      "title_ru": "",
+      "summary_ru": "Компания Google представила API Gemini Decisions API, основанный на модели Gemini Decision, для быстрого и калиброванного мультимодального принятия решений, ознаменовав выход Google на рынок «моделей принятия решений», о котором говорилось на Дне моделей решений AI Engineer.",
+      "so_what_ru": "Специальный API принятия решений может заменить специальные правила или классификаторы в процессах автоматизации, например выявление злоупотреблений в рамках промо-акций или утверждение бонусных выплат с помощью одного калиброванного модельного звонка."
     },
     {
       "story_id": "claude-code-verification-approach",
@@ -1198,7 +1242,10 @@
       "has_t1": false,
       "status": "unconfirmed",
       "total": 3.15,
-      "last_update": "2026-11-17T10:20:40Z"
+      "last_update": "2026-11-17T10:20:40Z",
+      "title_ru": "",
+      "summary_ru": "В широко обсуждаемом сообщении Hacker News подробно описано, как команда Claude Code думает о проверке выходных данных агента.",
+      "so_what_ru": ""
     },
     {
       "story_id": "coding-agents-credential-security",
@@ -1241,7 +1288,10 @@
       "has_t1": false,
       "status": "unconfirmed",
       "total": 3.15,
-      "last_update": "2026-11-17T01:18:56Z"
+      "last_update": "2026-11-17T01:18:56Z",
+      "title_ru": "",
+      "summary_ru": "В сообщении Hacker News (121 балл, 103 комментария) обсуждаются методы запуска агентов кодирования без раскрытия им личных учетных данных.",
+      "so_what_ru": "Практичный шаблон безопасности, непосредственно подходящий для всех, кто использует Claude Code или другие агенты кодирования, имеющие доступ к реальным учетным данным."
     },
     {
       "story_id": "bloomreach-athenahq-acquisition",
@@ -1285,7 +1335,10 @@
       "has_t1": false,
       "status": "unconfirmed",
       "total": 3.15,
-      "last_update": "2026-11-16T22:49:50.000Z"
+      "last_update": "2026-11-16T22:49:50.000Z",
+      "title_ru": "Bloomreach приобретает AthenaHQ, чтобы связать обнаружение результатов поиска с помощью ИИ с доходом",
+      "summary_ru": "Bloomreach приобрела AthenaHQ с целью напрямую связать диалоговые исследования ИИ с доходами клиентов и обеспечить измерение рентабельности инвестиций в поиск с использованием ИИ.",
+      "so_what_ru": "Сигнализирует о том, что поставщики маркетинговых технологий объединяются вокруг измерения доходов с помощью ИИ-поиска — разрыв, который многие команды маркетинговых операций также пытаются закрыть."
     },
     {
       "story_id": "openai-dots-proactive-agents",
@@ -1330,7 +1383,10 @@
       "has_t1": true,
       "status": "confirmed",
       "total": 3.15,
-      "last_update": "2026-11-16T00:00:00.000Z"
+      "last_update": "2026-11-16T00:00:00.000Z",
+      "title_ru": "История клиента OpenAI: агенты «точки» активно доставляют отчеты в Holiday Extras",
+      "summary_ru": "OpenAI рассказала, как ее «точечные» агенты в Holiday Extras доставляют отчеты о запуске без подсказки, отмечают проблемы и информируют людей о предстоящих встречах, прежде чем их спросят.",
+      "so_what_ru": "Упреждающие отчеты агентов без запроса — это шаблон, который индивидуальный разработчик автоматизации может воспроизвести с помощью агентов Claude Code для отчетов об операциях."
     },
     {
       "story_id": "ai-slop-manifesto",
@@ -1384,7 +1440,10 @@
       "has_t1": false,
       "status": "confirmed",
       "total": 3.15,
-      "last_update": "2026-11-14T08:31:02.000Z"
+      "last_update": "2026-11-14T08:31:02.000Z",
+      "title_ru": "Спикеры AI Engineer публикуют манифест «No AI Slop»",
+      "summary_ru": "Спикеры AI Engineer объединились вокруг манифеста «No AI Slop», в котором изложены принципы борьбы с низкокачественным контентом, созданным ИИ, что вызвало серьезную дискуссию.",
+      "so_what_ru": ""
     },
     {
       "story_id": "kambi-sportsbook-ai-vision",
@@ -1427,7 +1486,10 @@
       "has_t1": false,
       "status": "unconfirmed",
       "total": 3.05,
-      "last_update": "2026-11-16T10:21:14.000Z"
+      "last_update": "2026-11-16T10:21:14.000Z",
+      "title_ru": "Камби CPO обрисовывает видение букмекерской торговли и персонализации на основе искусственного интеллекта",
+      "summary_ru": "Директор по продукту Kambi Эрик Лёгдберг описывает, как ИИ-трейдинг расширяет предложения спортивных букмекерских контор и как компания создает более гибкий и интеллектуальный опыт спортивных букмекерских контор.",
+      "so_what_ru": "Прямая актуальность для iGaming: стоит обратить внимание на дорожную карту AI-торговли и персонализации поставщика букмекерской платформы, чтобы найти идеи для продуктов и CRM."
     },
     {
       "story_id": "harvard-ai-coding-agents-bottleneck-review",
@@ -1470,7 +1532,10 @@
       "has_t1": false,
       "status": "unconfirmed",
       "total": 3,
-      "last_update": "2026-11-17T21:16:12Z"
+      "last_update": "2026-11-17T21:16:12Z",
+      "title_ru": "Гарвардское исследование: агенты ИИ-кодирования устранили узкое место в области проверки кода",
+      "summary_ru": "Исследователи из Гарварда обнаружили, что по мере того, как ИИ-агенты кодирования производят больше кода, проверка кода становится новым узким местом в разработке программного обеспечения.",
+      "so_what_ru": "Предупреждение для тех, кто масштабирует Claude Code/автоматизацию на базе агентов, чтобы планировать возможности проверки, а не только скорость генерации."
     },
     {
       "story_id": "openai-codex-new-features-aie-summit",
@@ -1514,7 +1579,10 @@
       "has_t1": false,
       "status": "unconfirmed",
       "total": 3,
-      "last_update": "2026-11-11T04:49:48.000Z"
+      "last_update": "2026-11-11T04:49:48.000Z",
+      "title_ru": "OpenAI демонстрирует новые рабочие процессы Кодекса на саммите AI Engineer Code Summit",
+      "summary_ru": "",
+      "so_what_ru": "Голосовое управление и облачная передача для агентов кодирования могут упростить процесс делегирования задач по автоматизации в Codex или Claude Code."
     },
     {
       "story_id": "openai-gpt6-cyber-linux-patching",
@@ -1557,7 +1625,10 @@
       "has_t1": false,
       "status": "unconfirmed",
       "total": 2.95,
-      "last_update": "2026-11-13T16:00:00.000Z"
+      "last_update": "2026-11-13T16:00:00.000Z",
+      "title_ru": "GPT-6 Cyber ​​от OpenAI исправляет недостатки безопасности ядра Linux примерно за 1280 долларов за штуку",
+      "summary_ru": "GPT-6 Cyber ​​от OpenAI с настроенной безопасностью обнаружил, использовал и исправил почти 950 серьезных уязвимостей ядра Linux за один запуск по цене примерно 1280 долларов США за исправление корневого уровня.",
+      "so_what_ru": "Конкретные данные об агентном ИИ, выполняющем крупномасштабную техническую работу автономно и дешево, полезный контекст при определении того, что агенты могут реально автоматизировать, помимо задач по содержанию."
     },
     {
       "story_id": "llm-weight-editing-finetune",
@@ -1600,7 +1671,10 @@
       "has_t1": false,
       "status": "unconfirmed",
       "total": 2.85,
-      "last_update": "2026-11-13T16:05:00.000Z"
+      "last_update": "2026-11-13T16:05:00.000Z",
+      "title_ru": "Исследователи используют GPT-6 Astra, чтобы улучшить небольшую модель, напрямую редактируя ее вес.",
+      "summary_ru": "",
+      "so_what_ru": "Сегодня это не применимо напрямую, но сигнализирует о будущем, в котором LLM будут настраивать более мелкие модели автоматизации без традиционного процесса обучения."
     },
     {
       "story_id": "llamacpp-v1-release",
@@ -1642,7 +1716,10 @@
       "has_t1": true,
       "status": "confirmed",
       "total": 2.85,
-      "last_update": "2026-11-13T14:05:22.000Z"
+      "last_update": "2026-11-13T14:05:22.000Z",
+      "title_ru": "",
+      "summary_ru": "Проект llama.cpp выпустил версию 1.0.0, которую описывают как более прочную основу для локальной экосистемы искусственного интеллекта с открытым исходным кодом.",
+      "so_what_ru": "Если вы используете локальные модели по соображениям автоматизации или конфиденциальности, стоит обратить внимание на этот этап стабильности."
     },
     {
       "story_id": "google-adobe-integration",
@@ -1687,7 +1764,10 @@
       "has_t1": true,
       "status": "confirmed",
       "total": 2.85,
-      "last_update": "2026-11-10T14:00:00.000Z"
+      "last_update": "2026-11-10T14:00:00.000Z",
+      "title_ru": "Google и Adobe интегрируют творческие инструменты, в результате чего Adobe AI в Gemini",
+      "summary_ru": "Google и Adobe сотрудничают для интеграции инструментов для творчества и повышения производительности, включая редактирование PDF-файлов на Диске и использование функций Adobe AI в Gemini.",
+      "so_what_ru": "Если ваша команда уже использует Adobe для творческих ресурсов, это сокращает путь от приглашения Gemini до готового креатива, не оставляя привычных инструментов."
     },
     {
       "story_id": "mai-five-sins-marketing-agent",
@@ -1729,7 +1809,10 @@
       "has_t1": false,
       "status": "unconfirmed",
       "total": 2.8,
-      "last_update": "2026-11-19T14:00:05.000Z"
+      "last_update": "2026-11-19T14:00:05.000Z",
+      "title_ru": "Marketing AI Institute: уроки маркетингового агента, которые сократили время на подготовку в 3 раза",
+      "summary_ru": "Институт маркетингового искусственного интеллекта сообщил, что после трех попыток сделать все правильно, время подготовки подкаста для руководителей сократилось с девяти часов до трех, а время бронирования гостей — с четырех недель до двух часов.",
+      "so_what_ru": "Конкретные цифры «до» и «после» по рабочим процессам, созданным агентами, которые стоит смоделировать для создания собственных маркетинговых агентов."
     },
     {
       "story_id": "mai-reusable-ai-skills-guide",
@@ -1772,7 +1855,10 @@
       "has_t1": false,
       "status": "unconfirmed",
       "total": 2.8,
-      "last_update": "2026-11-18T14:00:03.000Z"
+      "last_update": "2026-11-18T14:00:03.000Z",
+      "title_ru": "Институт маркетингового искусственного интеллекта: создавайте многоразовые навыки искусственного интеллекта вместо повторного объяснения инструкций",
+      "summary_ru": "Институт маркетингового искусственного интеллекта опубликовал руководство по созданию многоразовых «навыков» искусственного интеллекта, чтобы пользователи перестали каждый раз объяснять одни и те же инструкции.",
+      "so_what_ru": "Непосредственно способствует созданию многоразовых навыков Клода для повторяющихся маркетинговых/операционных задач."
     },
     {
       "story_id": "openworker-agent-harness-sdk",
@@ -1815,7 +1901,10 @@
       "has_t1": false,
       "status": "unconfirmed",
       "total": 2.8,
-      "last_update": "2026-11-13T15:30:00.000Z"
+      "last_update": "2026-11-13T15:30:00.000Z",
+      "title_ru": "OpenWorker Agent Harness SDK с открытым исходным кодом позволяет разработчикам создавать пакеты агентов с помощью одной подсказки.",
+      "summary_ru": "В учебном пособии показано, как создать собственный комплект агентов для любого LLM с помощью OpenWorker Agent Harness SDK с открытым исходным кодом.",
+      "so_what_ru": "Быстрый и простой способ создания прототипа пользовательского агента, полезный, если вы расширяете свою собственную автоматизацию на основе кода Claude за пределы существующих SDK."
     },
     {
       "story_id": "openai-revolut-case-study",
@@ -1861,7 +1950,10 @@
       "has_t1": true,
       "status": "confirmed",
       "total": 2.75,
-      "last_update": "2026-11-16T09:30:00.000Z"
+      "last_update": "2026-11-16T09:30:00.000Z",
+      "title_ru": "Кейс Revolut: модели OpenAI и Codex сокращают время кодирования на 30–60 %",
+      "summary_ru": "",
+      "so_what_ru": "Предоставляет разработчикам средств автоматизации конкретный ориентир для сравнения экономии времени при кодировании с помощью ИИ."
     },
     {
       "story_id": "united-airlines-bans-ai-agents",
@@ -1904,7 +1996,10 @@
       "has_t1": false,
       "status": "unconfirmed",
       "total": 2.75,
-      "last_update": "2026-11-11T21:24:35Z"
+      "last_update": "2026-11-11T21:24:35Z",
+      "title_ru": "",
+      "summary_ru": "United Airlines объявила о запрете агентам искусственного интеллекта бронировать рейсы от имени путешественников, что вызвало широкую дискуссию.",
+      "so_what_ru": "Крупный потребительский бренд, отказывающийся от агентской коммерции, является сигналом к ​​тому, чтобы следить за тем, создаете ли вы агентов, которые совершают транзакции или бронируют услуги от имени клиентов."
     },
     {
       "story_id": "anthropic-ipo-roadshow",
@@ -1966,7 +2061,10 @@
       "has_t1": true,
       "status": "confirmed",
       "total": 2.7,
-      "last_update": "2026-11-18T12:00:00.000Z"
+      "last_update": "2026-11-18T12:00:00.000Z",
+      "title_ru": "Anthropic оценила IPO в $83 за акцию",
+      "summary_ru": "Anthropic оценила свое первичное публичное размещение в $83 за акцию после роуд-шоу, которое привлекло большое внимание.",
+      "so_what_ru": "Конкретная ценовая веха в IPO Anthropic, полезная информация для отслеживания инвестиционной ситуации в области искусственного интеллекта."
     },
     {
       "story_id": "martech-marketing-ops-agent-readiness",
@@ -2009,7 +2107,10 @@
       "has_t1": false,
       "status": "unconfirmed",
       "total": 2.7,
-      "last_update": "2026-11-16T13:18:00.000Z"
+      "last_update": "2026-11-16T13:18:00.000Z",
+      "title_ru": "MarTech: маркетинговые операции могут превратить готовность агентов ИИ в преимущество",
+      "summary_ru": "В статье MarTech утверждается, что разрозненные данные о клиентах подрывают то, что агенты ИИ могут обещать клиентам, рассматривая это как возможность маркетинговых операций, позволяющую связать путешествие.",
+      "so_what_ru": ""
     },
     {
       "story_id": "axom-gaming-ai-opportunities",
@@ -2053,7 +2154,10 @@
       "has_t1": false,
       "status": "unconfirmed",
       "total": 2.7,
-      "last_update": "2026-11-16T10:00:00.000Z"
+      "last_update": "2026-11-16T10:00:00.000Z",
+      "title_ru": "В статье Axom Gaming задается вопрос, в чем заключаются самые большие возможности искусственного интеллекта в iGaming",
+      "summary_ru": "В статье SBC News от Axom Gaming обсуждаются возможности и риски искусственного интеллекта для операторов азартных игр по мере изменения технологий и поведения игроков, призывая бизнес пройти этап экспериментирования.",
+      "so_what_ru": "Прямо на вашем пути — предложение сравнить ваши собственные усилия по искусственному интеллекту/автоматизации с «прошлыми экспериментами» в iGaming."
     },
     {
       "story_id": "edge0-145b-launch",
@@ -2095,7 +2199,10 @@
       "has_t1": false,
       "status": "unconfirmed",
       "total": 2.7,
-      "last_update": "2026-11-12T23:06:17Z"
+      "last_update": "2026-11-12T23:06:17Z",
+      "title_ru": "Выпущен Edge0-145B, заявляющий о передовых возможностях искусственного интеллекта на персональных компьютерах",
+      "summary_ru": "Была выпущена новая открытая модель Edge0-145B, в которой утверждалось, что возможности искусственного интеллекта передового уровня могут быть запущены на персональном компьютере.",
+      "so_what_ru": "Модели с локальными возможностями снижают планку для запуска ИИ без затрат на облачные API, и их стоит протестировать для автономной или частной автоматизации."
     },
     {
       "story_id": "ai-killing-all-about-berlin-blog",
@@ -2138,7 +2245,10 @@
       "has_t1": false,
       "status": "unconfirmed",
       "total": 2.65,
-      "last_update": "2026-11-18T06:47:26Z"
+      "last_update": "2026-11-18T06:47:26Z",
+      "title_ru": "Независимый блог All About Berlin утверждает, что ИИ разрушает его бизнес",
+      "summary_ru": "В широко обсуждаемом сообщении Hacker News описывается, как ответы и контент, генерируемые искусственным интеллектом, сокращают трафик и доходы независимого блога All About Berlin.",
+      "so_what_ru": "Конкретный случай, когда ИИ-поиск сжимает контент-ориентированный трафик, что имеет непосредственное отношение к любому, кто полагается на органический контент/SEO для роста."
     },
     {
       "story_id": "anthropic-service-outage-nov2026",
@@ -2192,7 +2302,10 @@
       "has_t1": false,
       "status": "unconfirmed",
       "total": 2.65,
-      "last_update": "2026-11-13T10:20:09Z"
+      "last_update": "2026-11-13T10:20:09Z",
+      "title_ru": "Claude.ai, Claude Code и Platform.claude.com столкнулись с повышенным уровнем ошибок из-за сбоя",
+      "summary_ru": "В Anthropic произошел сбой с повышенным уровнем ошибок на сайтах claude.ai, Claude Code и Platform.claude.com, что вызвало бурное обсуждение среди пользователей.",
+      "so_what_ru": ""
     },
     {
       "story_id": "agentrun-self-improving-agents",
@@ -2234,7 +2347,10 @@
       "has_t1": false,
       "status": "unconfirmed",
       "total": 2.65,
-      "last_update": "2026-11-12T18:15:48Z"
+      "last_update": "2026-11-12T18:15:48Z",
+      "title_ru": "AgentRun с открытым исходным кодом поставляет самоусовершенствующиеся управляемые агенты",
+      "summary_ru": "В сообщении Show HN была представлена ​​AgentRun, платформа с открытым исходным кодом, описываемая как самоусовершенствующиеся управляемые агенты.",
+      "so_what_ru": "Еще один вариант с открытым исходным кодом, позволяющий оценить, создаете ли вы или улучшаете свой собственный стек агентов для автоматизации маркетинга или операций."
     },
     {
       "story_id": "atuin-threads-launch",
@@ -2276,7 +2392,10 @@
       "has_t1": false,
       "status": "unconfirmed",
       "total": 2.65,
-      "last_update": "2026-11-11T14:10:46Z"
+      "last_update": "2026-11-11T14:10:46Z",
+      "title_ru": "Atuin Threads запускается для синхронизации сеансов агентов между компьютерами",
+      "summary_ru": "Был представлен новый инструмент Atuin Threads, позволяющий синхронизировать сеансы агента AI пользователя на всех его компьютерах.",
+      "so_what_ru": ""
     },
     {
       "story_id": "openai-gpt-6.2-astra-sol-launch",
@@ -2378,7 +2497,10 @@
       "has_t1": true,
       "status": "confirmed",
       "total": 2.6,
-      "last_update": "2026-11-18T16:40:45.000Z"
+      "last_update": "2026-11-18T16:40:45.000Z",
+      "title_ru": "OpenAI запускает GPT-6.2 Astra и Sol с более низкой стоимостью и неоднозначными ранними отзывами",
+      "summary_ru": "",
+      "so_what_ru": "Если цены на Astra/Sol теперь совпадают с ценами Claude, еще раз проверьте предположения о стоимости модели, прежде чем назначать поставщика для рабочих нагрузок автоматизации в этом месяце."
     },
     {
       "story_id": "microsoft-seven-new-models-launch",
@@ -2420,7 +2542,10 @@
       "has_t1": false,
       "status": "unconfirmed",
       "total": 2.6,
-      "last_update": "2026-11-18T16:08:24Z"
+      "last_update": "2026-11-18T16:08:24Z",
+      "title_ru": "Microsoft выпускает семь новых моделей, ориентированных на масштабируемое соотношение цены и качества",
+      "summary_ru": "По данным Hacker News и TLDR AI, Microsoft выпустила семь новых моделей с масштабируемой ценой и производительностью.",
+      "so_what_ru": "Еще одно семейство недорогих моделей, которое стоит отслеживать для более дешевых задач автоматизации, хотя подробности пока неясны."
     },
     {
       "story_id": "ai-agents-kpmg-audit-trial",
@@ -2462,7 +2587,10 @@
       "has_t1": false,
       "status": "unconfirmed",
       "total": 2.6,
-      "last_update": "2026-11-18T15:49:34Z"
+      "last_update": "2026-11-18T15:49:34Z",
+      "title_ru": "",
+      "summary_ru": "Широко обсуждаемый отчет показал, что агенты искусственного интеллекта во время аудиторского испытания задавали лучшие вопросы, чем бухгалтеры КПМГ.",
+      "so_what_ru": "Агенты по работе с сигналами становятся конкурентоспособными при выполнении сложных профессиональных задач, что является важным контекстом для автоматизации масштабирования."
     },
     {
       "story_id": "openai-research-acceleration-jagged-frontier",
@@ -2505,7 +2633,10 @@
       "has_t1": true,
       "status": "confirmed",
       "total": 2.6,
-      "last_update": "2026-11-18T08:00:00.000Z"
+      "last_update": "2026-11-18T08:00:00.000Z",
+      "title_ru": "OpenAI измеряет, насколько агенты кодирования ускоряют собственные исследования в области ИИ",
+      "summary_ru": "OpenAI опубликовала данные о том, как агенты кодирования ускоряют свои исследования, отметив неравномерную («неровную») производительность и последствия для рекурсивного самосовершенствования.",
+      "so_what_ru": "Агенты кодирования сигналов становятся основной инфраструктурой исследований и разработок, полезным контекстом для создателей автоматизации агентов."
     },
     {
       "story_id": "jev-system-one-models",
@@ -2557,7 +2688,10 @@
       "has_t1": false,
       "status": "unconfirmed",
       "total": 2.6,
-      "last_update": "2026-11-17T15:00:00.000Z"
+      "last_update": "2026-11-17T15:00:00.000Z",
+      "title_ru": "Cloudflare создает модели System One, присоединяясь к тенденции моделей быстрого принятия решений",
+      "summary_ru": "Cloudflare создает модели System One для принятия решений и сбора данных с миллисекундной скоростью, присоединяясь к другим развертываниям производственных моделей System One в так называемой «Jevolution».",
+      "so_what_ru": "Демонстрирует упрощенные модели принятия решений «System One», распространяющиеся на поставщиков инфраструктуры, соответствующие потребностям автоматизации с малой задержкой."
     },
     {
       "story_id": "martech-ai-personas-psychology",
@@ -2599,7 +2733,10 @@
       "has_t1": false,
       "status": "unconfirmed",
       "total": 2.55,
-      "last_update": "2026-11-19T12:42:00.000Z"
+      "last_update": "2026-11-19T12:42:00.000Z",
+      "title_ru": "MarTech: психология может сделать портреты клиентов, основанные на искусственном интеллекте, более полезными",
+      "summary_ru": "MarTech утверждает, что для прогнозирования того, как личность клиента будет действовать в незнакомых ситуациях, необходимо освоить личность ИИ в поведенческой психологии, а не только в общении в чате.",
+      "so_what_ru": "Практический подход к созданию портретов клиентов с помощью искусственного интеллекта для CRM или работы по сегментации игроков."
     },
     {
       "story_id": "martech-ai-governance-brand-protection",
@@ -2641,7 +2778,10 @@
       "has_t1": false,
       "status": "unconfirmed",
       "total": 2.55,
-      "last_update": "2026-11-18T12:52:00.000Z"
+      "last_update": "2026-11-18T12:52:00.000Z",
+      "title_ru": "MarTech: управление корпоративным искусственным интеллектом само по себе не сможет защитить ваш бренд",
+      "summary_ru": "MarTech утверждает, что для предотвращения попадания чужого контента, созданного с помощью ИИ, в публику необходимы специальные маркетинговые барьеры, а не только управление ИИ на предприятии.",
+      "so_what_ru": "Напоминание о необходимости добавить защитные меры на уровне маркетинга в дополнение к управлению ИТ, прежде чем масштабировать контент ИИ."
     },
     {
       "story_id": "martech-conference-nov2026-ai-agents",
@@ -2704,7 +2844,10 @@
       "has_t1": false,
       "status": "unconfirmed",
       "total": 2.55,
-      "last_update": "2026-11-16T14:51:52.000Z"
+      "last_update": "2026-11-16T14:51:52.000Z",
+      "title_ru": "Ноябрьская конференция MarTech: агенты искусственного интеллекта и смена руководства для внедрения",
+      "summary_ru": "Сессии ноябрьской конференции MarTech были посвящены использованию ИИ-агентов в маркетинговых рабочих процессах и тому, как руководить организационными изменениями, чтобы внедрение ИИ продолжалось, отмечая при этом, что внедрение инструментов останавливается, когда команды чувствуют себя небезопасно.",
+      "so_what_ru": "Для внутреннего внедрения агентов ИИ требуется управление изменениями, а не только инструменты, если мы хотим, чтобы внедрение продолжалось."
     },
     {
       "story_id": "martech-brand-reputation-ai-era",
@@ -2747,7 +2890,10 @@
       "has_t1": false,
       "status": "unconfirmed",
       "total": 2.55,
-      "last_update": "2026-11-16T13:21:00.000Z"
+      "last_update": "2026-11-16T13:21:00.000Z",
+      "title_ru": "MarTech: как защитить репутацию бренда, когда ИИ рассказывает вашу историю",
+      "summary_ru": "В статье MarTech утверждается, что репутация бренда все больше формируется искусственным интеллектом, поиском и сторонними источниками, а не собственными каналами, и описывается, как построить репутацию через них.",
+      "so_what_ru": ""
     },
     {
       "story_id": "martech-optimizely-agentic-cms",
@@ -2791,7 +2937,10 @@
       "has_t1": false,
       "status": "unconfirmed",
       "total": 2.55,
-      "last_update": "2026-11-16T12:00:00.000Z"
+      "last_update": "2026-11-16T12:00:00.000Z",
+      "title_ru": "",
+      "summary_ru": "Кевин Ли из Optimizely утверждает через MarTech, что «кодирование вибрации» не может сохранить голос бренда, и обрисовывает, что покупатели должны требовать от агентской CMS.",
+      "so_what_ru": "Полезный контрольный список, если вы оцениваете или создаете инструменты управления контентом, управляемые агентами, которые должны оставаться фирменными."
     },
     {
       "story_id": "martech-agents-measurement-gap",
@@ -2834,7 +2983,10 @@
       "has_t1": false,
       "status": "unconfirmed",
       "total": 2.55,
-      "last_update": "2026-11-13T13:34:00.000Z"
+      "last_update": "2026-11-13T13:34:00.000Z",
+      "title_ru": "Опрос: маркетологи внедряют агенты искусственного интеллекта быстрее, чем успевают их измерить",
+      "summary_ru": "",
+      "so_what_ru": "Встраивайте атрибуцию/измерение в любое развертывание агента до его масштабирования, а не после."
     },
     {
       "story_id": "anthropic-recursive-self-improvement-warning",
@@ -2876,7 +3028,10 @@
       "has_t1": false,
       "status": "rumor",
       "total": 2.55,
-      "last_update": "2026-11-11T14:21:42.000Z"
+      "last_update": "2026-11-11T14:21:42.000Z",
+      "title_ru": "Anthropic предупреждает, что, возможно, приближается к способности рекурсивного самосовершенствования",
+      "summary_ru": "В обзоре новостей об искусственном интеллекте, охватывающем пять недель, Anthropic предупредила, что, возможно, она приближается к рекурсивному самосовершенствованию, наряду с беспорядками в руководстве Nvidia и оценками IPO Anthropic (1,4 трлн долларов) и OpenAI (1,25 трлн долларов).",
+      "so_what_ru": "Заметный сигнал безопасности, на который стоит обратить внимание, хотя он сообщается из вторых рук в сводке новостей, а не в основном антропном заявлении."
     },
     {
       "story_id": "windows11-telemetry-coding-agents",
@@ -2920,7 +3075,10 @@
       "has_t1": false,
       "status": "rumor",
       "total": 2.5,
-      "last_update": "2026-11-16T22:58:20Z"
+      "last_update": "2026-11-16T22:58:20Z",
+      "title_ru": "Сообщается, что Windows 11 собирает данные о том, какие агенты кодирования и инструменты разработки запускают пользователи.",
+      "summary_ru": "Широко обсуждаемая публикация Hacker News (671 балл, 530 комментариев) сообщает, что Windows 11 собирает телеметрию, на которой пользователи установили агенты кодирования и инструменты разработчика.",
+      "so_what_ru": "Если это правда, это влияет на ожидания конфиденциальности для всех, кто использует Claude Code или аналогичные агенты на компьютерах Windows для работы с клиентами."
     },
     {
       "story_id": "openai-healthcare-computer-use-agents",
@@ -2974,7 +3132,10 @@
       "has_t1": true,
       "status": "confirmed",
       "total": 2.45,
-      "last_update": "2026-11-16T06:00:00.000Z"
+      "last_update": "2026-11-16T06:00:00.000Z",
+      "title_ru": "ChatGPT for Healthcare добавляет агенты для использования на компьютере и новые клинические плагины.",
+      "summary_ru": "OpenAI представила агенты для использования компьютеров, улучшенные клинические ответы и новые медицинские плагины для ChatGPT for Healthcare, которые работают с медицинским программным обеспечением.",
+      "so_what_ru": "Показывает, как агенты, использующие компьютеры, переходят к регулируемым вертикальным рабочим процессам - образец, который стоит посмотреть в таких отраслях, где требуется соблюдение требований, таких как iGaming."
     },
     {
       "story_id": "alphaproof-code-launch",
@@ -3018,7 +3179,10 @@
       "has_t1": true,
       "status": "confirmed",
       "total": 2.45,
-      "last_update": "2026-11-10T12:02:28.000Z"
+      "last_update": "2026-11-10T12:02:28.000Z",
+      "title_ru": "Код AlphaProof от DeepMind проверяет шифрование Signal с помощью 3 миллионов строк доказательств",
+      "summary_ru": "По данным DeepMind, агенты AlphaProof Code написали три миллиона строк формальных доказательств Lean для проверки основного шифрования Signal.",
+      "so_what_ru": "Показывает зрелость агентской проверки кода, но не то, что специалист по маркетингу/операционной деятельности мог бы использовать напрямую."
     },
     {
       "story_id": "openai-codex-sandbox-explainer",
@@ -3062,7 +3226,10 @@
       "has_t1": true,
       "status": "confirmed",
       "total": 2.4,
-      "last_update": "2026-11-18T08:00:00.000Z"
+      "last_update": "2026-11-18T08:00:00.000Z",
+      "title_ru": "OpenAI объясняет, как Codex изолирует выполнение локальных команд в песочнице",
+      "summary_ru": "OpenAI опубликовала техническое объяснение того, как Кодекс выполняет команды с настраиваемой файловой системой и сетевыми ограничениями в macOS, Linux и Windows.",
+      "so_what_ru": "Полезно для тех, кто использует Codex локально и хочет иметь предсказуемые элементы управления песочницей для автоматизации."
     },
     {
       "story_id": "claude-code-jeep-ecu-reverse-engineering",
@@ -3106,7 +3273,10 @@
       "has_t1": false,
       "status": "unconfirmed",
       "total": 2.4,
-      "last_update": "2026-11-12T05:29:24Z"
+      "last_update": "2026-11-12T05:29:24Z",
+      "title_ru": "Разработчик использует Claude Code и Codex для обратного проектирования блока управления двигателем Jeep 1994 года.",
+      "summary_ru": "Широко обсуждаемый проект использовал Claude Code и Codex вместе с Arduino за 3 доллара для реверс-инжиниринга блока управления двигателем Jeep 1994 года.",
+      "so_what_ru": "Конкретное напоминание о том, насколько далеко можно использовать инструменты агентного кодирования для решения нетрадиционных практических задач, и стоит расширить свои собственные варианты использования Claude Code."
     },
     {
       "story_id": "perplexity-1b-revenue-run-rate",
@@ -3149,7 +3319,10 @@
       "has_t1": false,
       "status": "unconfirmed",
       "total": 2.35,
-      "last_update": "2026-11-17T09:24:56.000Z"
+      "last_update": "2026-11-17T09:24:56.000Z",
+      "title_ru": "Выручка Perplexity достигнет $1 млрд, что в 4 раза больше в 2026 году",
+      "summary_ru": "В обзоре AI News от Latent Space сообщается, что доход Perplexity достиг 1 миллиарда долларов, что в 4 раза больше в 2026 году.",
+      "so_what_ru": "Быстрый рост доходов конкурента в области искусственного поиска показывает, насколько быстро диалоговый поиск монетизируется, что актуально для всех, кто наблюдает за изменением поисковых систем и систем ответов."
     },
     {
       "story_id": "anthropic-fable-5-2-pacing",
@@ -3215,7 +3388,10 @@
       "has_t1": false,
       "status": "confirmed",
       "total": 2.35,
-      "last_update": "2026-11-10T10:00:00.000Z"
+      "last_update": "2026-11-10T10:00:00.000Z",
+      "title_ru": "Claude Fable 5.2 возвращает себе первое место в рейтинге LLM после начала роуд-шоу Anthropic по IPO",
+      "summary_ru": "Claude Fable 5.2 вернул себе первое место в рейтинге LLM в тот же день, когда началось IPO Anthropic.",
+      "so_what_ru": "Если вы выбираете передовую модель для работы по автоматизации, лидерство Fable 5.2 в рейтинге — это показатель, который стоит проверить по вашим собственным критериям."
     },
     {
       "story_id": "martech-marketer-value-decisions-opinion",
@@ -3257,7 +3433,10 @@
       "has_t1": false,
       "status": "unconfirmed",
       "total": 2.3,
-      "last_update": "2026-11-18T12:36:00.000Z"
+      "last_update": "2026-11-18T12:36:00.000Z",
+      "title_ru": "",
+      "summary_ru": "MarTech утверждает, что, поскольку ИИ снижает стоимость реализации, ценность для маркетологов все больше зависит от выбора правильных проблем и получения результатов, а не от выполнения большего объема работы.",
+      "so_what_ru": "Стоит усвоить, решая, что автоматизировать, а где потратить время на обдумывание."
     },
     {
       "story_id": "martech-ai-agents-cx-ownership",
@@ -3300,7 +3479,10 @@
       "has_t1": false,
       "status": "unconfirmed",
       "total": 2.3,
-      "last_update": "2026-11-16T13:14:00.000Z"
+      "last_update": "2026-11-16T13:14:00.000Z",
+      "title_ru": "MarTech: агенты искусственного интеллекта превращают CX в проблему маркетинга",
+      "summary_ru": "",
+      "so_what_ru": "Если агенты ИИ оценивают продукты по фактической производительности, а не по копиям, оперативное качество также становится маркетинговым результатом."
     },
     {
       "story_id": "uk-gambling-commission-world-cup-ai-report",
@@ -3343,7 +3525,10 @@
       "has_t1": false,
       "status": "unconfirmed",
       "total": 2.3,
-      "last_update": "2026-11-11T11:03:42.000Z"
+      "last_update": "2026-11-11T11:03:42.000Z",
+      "title_ru": "Комиссия по азартным играм: игроки, впервые делающие ставки на чемпионат мира, чувствовали себя недостаточно информированными, мало кто использовал искусственный интеллект",
+      "summary_ru": "Отчет Комиссии по азартным играм показал, что большинство игроков, впервые делающих ставки на чемпионат мира, полагались при размещении ставок на инстинкт, а не на информацию, и только 7% использовали искусственный интеллект.",
+      "so_what_ru": "Низкое использование искусственного интеллекта среди игроков указывает на то, что у операторов iGaming есть возможность встроить руководство с помощью искусственного интеллекта в процесс ставок для недостаточно информированных новичков."
     },
     {
       "story_id": "openai-sumitomo-life-case-study",
@@ -3386,7 +3571,10 @@
       "has_t1": true,
       "status": "confirmed",
       "total": 2.25,
-      "last_update": "2026-11-18T08:00:00.000Z"
+      "last_update": "2026-11-18T08:00:00.000Z",
+      "title_ru": "Практический пример Sumitomo Life: использование ChatGPT Enterprise под руководством руководителей привело к внедрению ChatGPT Enterprise",
+      "summary_ru": "OpenAI опубликовала историю клиента на Sumitomo Life, используя ChatGPT Enterprise для исследований страховщиков, предложений и кодирования инвестиционного анализа, а использование руководителями помогло стимулировать внедрение.",
+      "so_what_ru": "Подчеркивает, что использование лидерства, а не мандатов, способствует внедрению ИИ на предприятиях."
     },
     {
       "story_id": "best-harness-per-model-discussion",
@@ -3426,7 +3614,10 @@
       "has_t1": false,
       "status": "unconfirmed",
       "total": 2.25,
-      "last_update": "2026-11-17T14:53:43Z"
+      "last_update": "2026-11-17T14:53:43Z",
+      "title_ru": "В обсуждении Hacker News сравниваются лучшие агентские средства для каждой модели.",
+      "summary_ru": "",
+      "so_what_ru": "Справочник для строителей, выбирающих комплект агентов для сопряжения с конкретной моделью для проектов автоматизации."
     },
     {
       "story_id": "naiveai-2100-tps-launch",
@@ -3469,7 +3660,10 @@
       "has_t1": false,
       "status": "unconfirmed",
       "total": 2.25,
-      "last_update": "2026-11-10T18:56:32.000Z"
+      "last_update": "2026-11-10T18:56:32.000Z",
+      "title_ru": "",
+      "summary_ru": "Новый сервис вывода NaiveAI заявляет о скорости 2100 токенов в секунду, что может превзойти рейтинг скорости; Практическое тестирование показывает, что качество его кодирования не уступает DeepSeek.",
+      "so_what_ru": "Более быстрый вывод при сопоставимом качестве кодирования может сократить задержки и затраты на крупномасштабные рабочие процессы автоматизации, если претензии подтвердятся."
     },
     {
       "story_id": "openai-enterprise-aws-marketplace",
@@ -3513,7 +3707,10 @@
       "has_t1": true,
       "status": "confirmed",
       "total": 2.25,
-      "last_update": "2026-11-09T19:00:00.000Z"
+      "last_update": "2026-11-09T19:00:00.000Z",
+      "title_ru": "ChatGPT Enterprise теперь доступен через AWS Marketplace",
+      "summary_ru": "OpenAI сделала ChatGPT Enterprise доступным через AWS Marketplace, упростив закупки для организаций с существующими отношениями по выставлению счетов AWS.",
+      "so_what_ru": "Если ваша организация уже совершает покупки через AWS, приобрести ChatGPT Enterprise стало проще — стоит пометить финансы/ИТ."
     },
     {
       "story_id": "google-genie-4-launch",
@@ -3556,7 +3753,10 @@
       "has_t1": true,
       "status": "confirmed",
       "total": 2.2,
-      "last_update": "2026-11-18T18:13:42.000Z"
+      "last_update": "2026-11-18T18:13:42.000Z",
+      "title_ru": "Модель мира Genie 4 от Google DeepMind теперь общедоступна",
+      "summary_ru": "Google DeepMind объявила о доступности Genie 4, своей модели мирового поколения.",
+      "so_what_ru": "Интересная веха в исследовании, не имеющая краткосрочного применения в маркетинговой/операционной работе."
     },
     {
       "story_id": "openai-chip-design-jalapeno",
@@ -3599,7 +3799,10 @@
       "has_t1": true,
       "status": "confirmed",
       "total": 2.2,
-      "last_update": "2026-11-18T00:00:00.000Z"
+      "last_update": "2026-11-18T00:00:00.000Z",
+      "title_ru": "",
+      "summary_ru": "OpenAI заявила, что ее модели, в том числе GPT-6 Astra, помогли оптимизировать схемы для ее кремния Jalapeño и улучшить конструкцию ядра RISC-V.",
+      "so_what_ru": "Разработка чипов с помощью искусственного интеллекта становится все более зрелой, но она в основном актуальна для команд, занимающихся аппаратным обеспечением, а не для маркетинга/операций."
     },
     {
       "story_id": "openai-nato-cyber-defense",
@@ -3643,7 +3846,10 @@
       "has_t1": true,
       "status": "confirmed",
       "total": 2.2,
-      "last_update": "2026-11-17T00:00:00.000Z"
+      "last_update": "2026-11-17T00:00:00.000Z",
+      "title_ru": "OpenAI сотрудничает с НАТО и союзными агентствами в области киберзащиты с помощью ИИ",
+      "summary_ru": "OpenAI работает с НАТО и союзными агентствами по киберзащите, чтобы помочь проверенным защитникам находить уязвимости, тестировать исправления и защищать критически важные системы.",
+      "so_what_ru": "Показывает, что поставщики ИИ вступают в партнерские отношения по обеспечению безопасности критически важной инфраструктуры — тенденцию, которую стоит отслеживать даже без прямого применения маркетинговых операций."
     },
     {
       "story_id": "openai-embedded-safety-assessments",
@@ -3690,7 +3896,10 @@
       "has_t1": true,
       "status": "confirmed",
       "total": 2.2,
-      "last_update": "2026-11-16T08:00:00.000Z"
+      "last_update": "2026-11-16T08:00:00.000Z",
+      "title_ru": "OpenAI начинает встроенные сторонние оценки безопасности с Apollo, METR, Transluce, Goodfire",
+      "summary_ru": "OpenAI начала свой первый этап встроенных оценок, привлекая Apollo Research, METR, Transluce и Goodfire для независимой оценки согласованности моделей, мер безопасности и мониторинга.",
+      "so_what_ru": "Сигналы о развитии практики независимой оценки в области передовой безопасности ИИ; фоновый контекст, не имеющий прямого действия."
     },
     {
       "story_id": "nvidia-gpu-scarcity-allegation",
@@ -3733,7 +3942,10 @@
       "has_t1": false,
       "status": "rumor",
       "total": 2.2,
-      "last_update": "2026-11-14T02:52:59Z"
+      "last_update": "2026-11-14T02:52:59Z",
+      "title_ru": "В отчете утверждается, что Nvidia финансировала стартапы в области искусственного интеллекта, чтобы восполнить дефицит графических процессоров.",
+      "summary_ru": "В широко обсуждаемом отчете утверждается, что Nvidia якобы спровоцировала дефицит графических процессоров, финансируя стартапы в области искусственного интеллекта, чтобы они, в свою очередь, покупали ее чипы.",
+      "so_what_ru": "Если это правда, это может повлиять на цены и доступность графических процессоров, что косвенно влияет на стоимость инструментов искусственного интеллекта и выводов, на которые вы полагаетесь."
     },
     {
       "story_id": "openai-disbands-robotics-team",
@@ -3776,7 +3988,10 @@
       "has_t1": false,
       "status": "unconfirmed",
       "total": 2.2,
-      "last_update": "2026-11-13T17:55:23Z"
+      "last_update": "2026-11-13T17:55:23Z",
+      "title_ru": "OpenAI распускает свою команду по робототехнике, поскольку обычные модели начинают использовать роботов",
+      "summary_ru": "",
+      "so_what_ru": "Сигналы OpenAI делает ставку на то, что общие модели обобщают не только текст/код, но и физический контроль, что стоит отметить как направление стратегии «одна модель, множество областей»."
     },
     {
       "story_id": "chinese-models-export-controlled-gpu-fingerprint",
@@ -3819,7 +4034,10 @@
       "has_t1": false,
       "status": "unconfirmed",
       "total": 2.2,
-      "last_update": "2026-11-12T21:56:11Z"
+      "last_update": "2026-11-12T21:56:11Z",
+      "title_ru": "Китайские передовые модели искусственного интеллекта демонстрируют отпечатки графических процессоров, находящихся под экспортным контролем",
+      "summary_ru": "Анализ показывает, что китайские передовые модели искусственного интеллекта имеют технические характеристики, связывающие их с графическими процессорами, подпадающими под экспортный контроль США.",
+      "so_what_ru": "Подчеркивает, что политика экспорта чипов продолжает формировать глобальный ландшафт искусственного интеллекта, что со временем может повлиять на цены и доступность оборудования."
     },
     {
       "story_id": "alphagenome-2-launch",
@@ -3873,7 +4091,10 @@
       "has_t1": true,
       "status": "confirmed",
       "total": 2.2,
-      "last_update": "2026-11-12T00:00:00.000Z"
+      "last_update": "2026-11-12T00:00:00.000Z",
+      "title_ru": "Google DeepMind выпускает AlphaGenome 2 для прогнозирования вариантов ДНК",
+      "summary_ru": "По данным Google DeepMind, AlphaGenome 2 предсказывает, как последовательности и варианты ДНК влияют на конкретные типы клеток человека и заболевания.",
+      "so_what_ru": "Никакого прямого применения в маркетинге или автоматизации iGaming."
     },
     {
       "story_id": "gemini-robotics-2-5",
@@ -3915,7 +4136,10 @@
       "has_t1": true,
       "status": "confirmed",
       "total": 2.2,
-      "last_update": "2026-11-09T19:51:47.000Z"
+      "last_update": "2026-11-09T19:51:47.000Z",
+      "title_ru": "Google DeepMind выпускает Gemini Robotics 2.5 для улучшения ловкости роботов",
+      "summary_ru": "",
+      "so_what_ru": "Никакого прямого отношения к маркетингу или работе по автоматизации iGaming не имеет."
     },
     {
       "story_id": "openai-gpt-6-rosalind-signal",
@@ -3959,7 +4183,10 @@
       "has_t1": true,
       "status": "rumor",
       "total": 2.2,
-      "last_update": "2026-11-09T16:12:58.000Z"
+      "last_update": "2026-11-09T16:12:58.000Z",
+      "title_ru": "Журнал изменений OpenAI SDK показывает бета-поддержку модели gpt-6-rosalind",
+      "summary_ru": "В журнале изменений openai-python SDK v3.48.0 отмечается, что библиотека теперь распознает «gpt-6-rosalind» в бета-ответах, необъявленной ссылке, предполагающей, что разработка GPT-6 ведется.",
+      "so_what_ru": "Ранний, неподтвержденный сигнал о том, что работа над GPT-6 уже ведется; пока не применимо, но стоит отслеживать, основан ли ваш стек на OpenAI."
     },
     {
       "story_id": "openai-lvmh-partnership",
@@ -4002,7 +4229,10 @@
       "has_t1": true,
       "status": "confirmed",
       "total": 2.15,
-      "last_update": "2026-11-16T09:00:00.000Z"
+      "last_update": "2026-11-16T09:00:00.000Z",
+      "title_ru": "Медиа-подразделение LVMH сотрудничает с OpenAI для распространения журналистики через ChatGPT.",
+      "summary_ru": "",
+      "so_what_ru": "Еще один сигнал о том, что распространение контента смещается в интерфейсы чата. Его стоит отслеживать, если вам важно, где аудитория находит контент бренда."
     },
     {
       "story_id": "openai-upwork-freelance-research",
@@ -4045,7 +4275,10 @@
       "has_t1": true,
       "status": "confirmed",
       "total": 2.15,
-      "last_update": "2026-11-10T07:00:00.000Z"
+      "last_update": "2026-11-10T07:00:00.000Z",
+      "title_ru": "Исследование OpenAI и Upwork выявило меняющийся спрос на внештатную работу в области ИИ",
+      "summary_ru": "Совместное исследование OpenAI и Upwork выявило меняющийся спрос на внештатную работу, новые комбинации навыков, а также увеличение бюджетов и большего количества часов для проектов, связанных с ИИ.",
+      "so_what_ru": "Полезно, если вы нанимаете внештатных помощников для маркетинговой работы, связанной с искусственным интеллектом — заявленные бюджеты и часы для таких проектов растут."
     },
     {
       "story_id": "huggingface-moe-inference-180b",
@@ -4088,7 +4321,10 @@
       "has_t1": true,
       "status": "confirmed",
       "total": 2.1,
-      "last_update": "2026-11-18T00:00:00.000Z"
+      "last_update": "2026-11-18T00:00:00.000Z",
+      "title_ru": "Hugging Face выполняет вывод модели MoE со 180B параметрами в 32 ГБ ОЗУ.",
+      "summary_ru": "Hugging Face детально раздвигает границы умозаключений, проводимых экспертами, запуская модель со 180B параметрами в 32 ГБ оперативной памяти с помощью Transformers.",
+      "so_what_ru": "Снижает аппаратную планку для локального запуска больших открытых моделей, что в основном актуально для разработчиков, ориентированных на инфраструктуру."
     },
     {
       "story_id": "ai-unlocks-godel-notebooks",
@@ -4130,7 +4366,10 @@
       "has_t1": false,
       "status": "rumor",
       "total": 2.1,
-      "last_update": "2026-11-13T17:30:10Z"
+      "last_update": "2026-11-13T17:30:10Z",
+      "title_ru": "",
+      "summary_ru": "Сообщается, что исследователи использовали ИИ, чтобы разблокировать записные книжки Курта Гёделя, которые, как утверждается, содержат сотни ранее неизвестных доказанных теорем.",
+      "so_what_ru": "Никакого прямого маркетингового применения, но яркий пример того, как ИИ извлекает пользу из неструктурированных исторических архивов."
     },
     {
       "story_id": "llmon-markup-language-release",
@@ -4173,7 +4412,10 @@
       "has_t1": true,
       "status": "confirmed",
       "total": 2.1,
-      "last_update": "2026-11-12T19:07:35.000Z"
+      "last_update": "2026-11-12T19:07:35.000Z",
+      "title_ru": "LLMON, собственный язык разметки LLM, входит в состав IBM Granite 4.1.",
+      "summary_ru": "В Hugging Face подробно описан LLMON, новый собственный язык разметки LLM, который теперь доступен в моделях Granite 4.1 3B и 8B.",
+      "so_what_ru": "Нишевый выпуск инструментов для структурирования результатов LLM; стоит взглянуть, если вы строите конвейеры подсказок/анализа."
     },
     {
       "story_id": "botpsy-on-device-assistant",
@@ -4216,7 +4458,10 @@
       "has_t1": true,
       "status": "confirmed",
       "total": 2.1,
-      "last_update": "2026-11-11T05:01:16.000Z"
+      "last_update": "2026-11-11T05:01:16.000Z",
+      "title_ru": "BotPsy: выпущена модель личного помощника на устройстве с субмиллиардными параметрами",
+      "summary_ru": "Hugging Face опубликовала BotPsy, модель агентного языка с субмиллиардом параметров, предназначенную для личных помощников на устройствах.",
+      "so_what_ru": "Актуально, если вы изучаете легкие агенты на устройстве, а не облачные вызовы LLM."
     },
     {
       "story_id": "huggingface-rumble-2-flash-speech-model",
@@ -4259,7 +4504,10 @@
       "has_t1": true,
       "status": "confirmed",
       "total": 2,
-      "last_update": "2026-11-18T00:00:00.000Z"
+      "last_update": "2026-11-18T00:00:00.000Z",
+      "title_ru": "Hugging Face выпускает Rumble-2-Flash, открытую речевую модель 0,5B для более чем 40 языков.",
+      "summary_ru": "",
+      "so_what_ru": "Облегченная многоязычная речевая модель, достойная тестирования для голосовой автоматизации CX/локализации."
     },
     {
       "story_id": "google-gemini-intelligence-devices",
@@ -4303,7 +4551,10 @@
       "has_t1": true,
       "status": "confirmed",
       "total": 2,
-      "last_update": "2026-11-10T19:00:00.000Z"
+      "last_update": "2026-11-10T19:00:00.000Z",
+      "title_ru": "Gemini Intelligence распространяется на большее количество устройств с новыми функциями",
+      "summary_ru": "Google внедряет Gemini Intelligence с новыми функциями для более широкого круга устройств.",
+      "so_what_ru": "Более широкое распространение помощников Gemini расширяет области, где открытия и рекомендации на основе искусственного интеллекта могут коснуться ваших клиентов."
     },
     {
       "story_id": "ai-gun-detection-doritos-lawsuit",
@@ -4344,7 +4595,10 @@
       "has_t1": false,
       "status": "unconfirmed",
       "total": 1.95,
-      "last_update": "2026-11-19T00:57:20Z"
+      "last_update": "2026-11-19T00:57:20Z",
+      "title_ru": "Студенты подали в суд после того, как система обнаружения оружия с помощью искусственного интеллекта приняла сумку Doritos за пистолет",
+      "summary_ru": "Согласно широко обсуждаемому отчету, чернокожие старшеклассники подали иск после того, как система обнаружения оружия с искусственным интеллектом пометила сумку Doritos как оружие.",
+      "so_what_ru": "Предостерегающий пример ложноположительных результатов ИИ и риска ответственности за дискриминацию в реальных условиях."
     },
     {
       "story_id": "anthropic-safety-coalition-challenge",
@@ -4386,7 +4640,10 @@
       "has_t1": false,
       "status": "unconfirmed",
       "total": 1.95,
-      "last_update": "2026-11-18T16:41:22Z"
+      "last_update": "2026-11-18T16:41:22Z",
+      "title_ru": "Коалиция публично оспаривает показатели безопасности Anthropic",
+      "summary_ru": "Коалиция опубликовала критику, в которой утверждается, что «Anthropic не является безопасной компанией в области искусственного интеллекта», что вызвало значительную дискуссию в Hacker News.",
+      "so_what_ru": "Добавляет к постоянному изучению заявлений Anthropic о безопасности; фон, а не действие."
     },
     {
       "story_id": "anthropic-rubio-lobbying-payment",
@@ -4429,7 +4686,10 @@
       "has_t1": false,
       "status": "unconfirmed",
       "total": 1.95,
-      "last_update": "2026-11-17T19:08:45Z"
+      "last_update": "2026-11-17T19:08:45Z",
+      "title_ru": "Отчет: Anthropic заплатила 740 тысяч долларов лоббистской фирме, связанной с бывшим руководителем аппарата Рубио",
+      "summary_ru": "В обсуждении Hacker News сообщалось, что Anthropic заплатила 740 000 долларов фирме, основанной бывшим руководителем аппарата госсекретаря Рубио, которая лоббировала Совет национальной безопасности.",
+      "so_what_ru": "Часть более широкой схемы расходов лаборатории искусственного интеллекта на политическое влияние; Базовая информация о нормативно-правовой среде."
     },
     {
       "story_id": "california-sues-openai",
@@ -4473,7 +4733,10 @@
       "has_t1": false,
       "status": "rumor",
       "total": 1.95,
-      "last_update": "2026-11-17T11:00:00.000Z"
+      "last_update": "2026-11-17T11:00:00.000Z",
+      "title_ru": "Сообщается, что Калифорния подает в суд на OpenAI",
+      "summary_ru": "В сводке информационных бюллетеней сообщается, что Калифорния подала на OpenAI в суд, без каких-либо дополнительных подробностей.",
+      "so_what_ru": "Судебный иск на государственном уровне против ведущего поставщика ИИ свидетельствует о том, что регуляторные риски стоит отслеживать, хотя детали неясны."
     },
     {
       "story_id": "openai-chile-partnership",
@@ -4517,7 +4780,10 @@
       "has_t1": true,
       "status": "confirmed",
       "total": 1.95,
-      "last_update": "2026-11-17T00:00:00.000Z"
+      "last_update": "2026-11-17T00:00:00.000Z",
+      "title_ru": "OpenAI запускает партнерство «OpenAI for Чили» с правительством Чили",
+      "summary_ru": "",
+      "so_what_ru": "Часть схемы расширения OpenAI на уровне страны; нет прямого приложения для маркетинговых операций."
     },
     {
       "story_id": "openai-child-safety-research-funding",
@@ -4570,7 +4836,10 @@
       "has_t1": true,
       "status": "confirmed",
       "total": 1.95,
-      "last_update": "2026-11-16T17:00:00.000Z"
+      "last_update": "2026-11-16T17:00:00.000Z",
+      "title_ru": "OpenAI расширяет инструменты, рекомендации и партнерство по обеспечению безопасности детей в борьбе с онлайн-CSAE",
+      "summary_ru": "Выполняя обязательство по финансированию исследований в размере 2 миллионов долларов, OpenAI представила новые инструменты, практические рекомендации и партнерские отношения, чтобы помочь предотвратить, обнаружить и отреагировать на сексуальную эксплуатацию и насилие над детьми в Интернете.",
+      "so_what_ru": "Подобные обязательства по доверию и безопасности формируют нормы политики платформы, которые стоит отслеживать любой команде, использующей инструменты искусственного интеллекта в больших масштабах."
     },
     {
       "story_id": "openai-academic-researchers-expansion",
@@ -4614,7 +4883,10 @@
       "has_t1": true,
       "status": "confirmed",
       "total": 1.95,
-      "last_update": "2026-11-16T17:00:00.000Z"
+      "last_update": "2026-11-16T17:00:00.000Z",
+      "title_ru": "",
+      "summary_ru": "OpenAI расширяет свою программу ChatGPT для академических исследователей, чтобы предложить 200 000 исследователям по всему миру бесплатный доступ к своим передовым моделям.",
+      "so_what_ru": "Переход к расширению каналов в академических кругах неэффективен для маркетинговых операций."
     },
     {
       "story_id": "mercor-series-d-funding",
@@ -4656,7 +4928,10 @@
       "has_t1": false,
       "status": "unconfirmed",
       "total": 1.95,
-      "last_update": "2026-11-11T09:34:28.000Z"
+      "last_update": "2026-11-11T09:34:28.000Z",
+      "title_ru": "Mercor привлекает 750 миллионов долларов США серии D при оценке в 20 миллиардов долларов и скорости реализации в 3 миллиарда долларов",
+      "summary_ru": "Рынок данных искусственного интеллекта и рынка труда Mercor привлек $750 млн в серии D при оценке в $20 млрд, сообщив о доходе в $3 млрд.",
+      "so_what_ru": "Компания Signals продолжала инвестировать значительные средства в инфраструктуру данных искусственного интеллекта и рабочую силу, что является фактором затрат, определяющим качество передовых моделей."
     },
     {
       "story_id": "maicon-2026-ai-leadership-opinion",
@@ -4701,7 +4976,10 @@
       "has_t1": false,
       "status": "unconfirmed",
       "total": 1.9,
-      "last_update": "2026-11-16T13:30:01.000Z"
+      "last_update": "2026-11-16T13:30:01.000Z",
+      "title_ru": "В докладе MAICON 2026 задается вопрос, кто станет следующими лидерами маркетинга, если ИИ будет выполнять работу начального уровня.",
+      "summary_ru": "Основатель SmarterX Пол Ретцер открыл MAICON 2026, отметив, что, если бы ChatGPT существовал в 2000 году, он, вероятно, не начал бы свою карьеру в маркетинге, что вызывает обеспокоенность по поводу того, что ИИ вытесняет карьерные пути начального уровня.",
+      "so_what_ru": "Стоит рассмотреть каждому, кто создает команду: автоматизация ИИ может закрыть путь начального уровня, на котором обучались сегодняшние лидеры маркетинга."
     },
     {
       "story_id": "llm-assisted-reverse-engineering-discussion",
@@ -4741,7 +5019,10 @@
       "has_t1": false,
       "status": "unconfirmed",
       "total": 1.85,
-      "last_update": "2026-11-18T22:29:13Z"
+      "last_update": "2026-11-18T22:29:13Z",
+      "title_ru": "Обсуждение Hacker News об обратном инжиниринге с помощью LLM",
+      "summary_ru": "",
+      "so_what_ru": "Технический опыт для строителей, изучающих реверс-инжиниринг с помощью LLM, выходящий за рамки основной сферы маркетинга."
     },
     {
       "story_id": "anthropic-claude-protein-training",
@@ -4784,7 +5065,10 @@
       "has_t1": false,
       "status": "unconfirmed",
       "total": 1.85,
-      "last_update": "2026-11-18T03:47:43Z"
+      "last_update": "2026-11-18T03:47:43Z",
+      "title_ru": "В отчете говорится, что Клод обучался изучению белковых последовательностей в больших масштабах.",
+      "summary_ru": "В обсуждении Hacker News сообщалось, что Клод обучался изучению белковых последовательностей в больших масштабах, что привлекло значительное внимание.",
+      "so_what_ru": "Интересное направление исследований для Anthropic, не требующее прямого маркетинга или операционной деятельности."
     },
     {
       "story_id": "openai-astra-for-law",
@@ -4827,7 +5111,10 @@
       "has_t1": true,
       "status": "confirmed",
       "total": 1.85,
-      "last_update": "2026-11-17T00:00:00.000Z"
+      "last_update": "2026-11-17T00:00:00.000Z",
+      "title_ru": "Astra for Law от OpenAI возглавляет оценку юридической разведки и распространяется на предприятия",
+      "summary_ru": "OpenAI сообщила, что Astra for Law заняла первое место в оценке запуска, охватывающей 24 области права, и теперь каждый клиент ChatGPT Enterprise может запросить доступ.",
+      "so_what_ru": ""
     },
     {
       "story_id": "runway-praxis-1-robotics-benchmark",
@@ -4870,7 +5157,10 @@
       "has_t1": false,
       "status": "unconfirmed",
       "total": 1.85,
-      "last_update": "2026-11-16T17:11:28.000Z"
+      "last_update": "2026-11-16T17:11:28.000Z",
+      "title_ru": "Praxis-1 от Runway лидирует в новом эталонном моделировании робототехники",
+      "summary_ru": "The Batch сообщает, что модель Praxis-1 от Runway лидирует в тестах по моделированию робототехники, согласно еженедельному обзору.",
+      "so_what_ru": "Результат теста робототехнического моделирования, имеющий низкую прямую связь с работой по автоматизации маркетинга или iGaming."
     },
     {
       "story_id": "openai-scientists-chatgpt-survey",
@@ -4914,7 +5204,10 @@
       "has_t1": true,
       "status": "confirmed",
       "total": 1.85,
-      "last_update": "2026-11-16T12:00:00.000Z"
+      "last_update": "2026-11-16T12:00:00.000Z",
+      "title_ru": "Опрос OpenAI: более 1800 ученых сообщают о том, как они используют ChatGPT в исследованиях",
+      "summary_ru": "OpenAI опубликовала результаты опроса более 1800 ученых, охватывающего повседневные рабочие процессы, сообщила о повышении производительности и ожиданиях открытий.",
+      "so_what_ru": "Реальные данные о производительности, хотя и относящиеся к научным исследованиям, а не к маркетинговым операциям."
     },
     {
       "story_id": "huggingface-openrouter-partnership",
@@ -4958,7 +5251,10 @@
       "has_t1": true,
       "status": "confirmed",
       "total": 1.85,
-      "last_update": "2026-11-16T00:00:00.000Z"
+      "last_update": "2026-11-16T00:00:00.000Z",
+      "title_ru": "Партнер Hugging Face и OpenRouter упростит использование моделей с открытым весом",
+      "summary_ru": "Hugging Face и OpenRouter объявили о партнерстве, направленном на упрощение использования моделей с открытым весом.",
+      "so_what_ru": ""
     },
     {
       "story_id": "google-search-ai-free-schools-cutoff",
@@ -5001,7 +5297,10 @@
       "has_t1": false,
       "status": "rumor",
       "total": 1.85,
-      "last_update": "2026-11-13T15:29:10Z"
+      "last_update": "2026-11-13T15:29:10Z",
+      "title_ru": "Сообщается, что Google прекращает доступ к поиску для школ без внедрения ИИ",
+      "summary_ru": "В дискуссионной статье сообщается, что Google отрезает доступ к поиску школам, которые не внедрили ИИ, а комментаторы предлагают конкурирующие теории, объясняющие, почему.",
+      "so_what_ru": ""
     },
     {
       "story_id": "artcraft-rebuild-everything",
@@ -5044,7 +5343,10 @@
       "has_t1": false,
       "status": "unconfirmed",
       "total": 1.85,
-      "last_update": "2026-11-13T04:17:25.000Z"
+      "last_update": "2026-11-13T04:17:25.000Z",
+      "title_ru": "ArtCraft, клонировавший Photoshop с помощью ИИ, стремится «перестроить все заново»",
+      "summary_ru": "ArtCraft, которая использовала искусственный интеллект для воссоздания Photoshop как программного обеспечения с открытым исходным кодом, говорит, что генеральный директор Брэндон Томас хочет расширить этот подход и восстановить гораздо большую часть Интернета.",
+      "so_what_ru": "Сигналы о том, что воссоздание устоявшихся категорий программного обеспечения с помощью ИИ становится жизнеспособной стратегией стартапа, заслуживающей внимания в поисках альтернатив творческих инструментов."
     },
     {
       "story_id": "huggingface-decision-models",
@@ -5085,7 +5387,10 @@
       "has_t1": true,
       "status": "confirmed",
       "total": 1.85,
-      "last_update": "2026-11-10T00:00:00.000Z"
+      "last_update": "2026-11-10T00:00:00.000Z",
+      "title_ru": "Hugging Face представляет «Модели принятия решений»",
+      "summary_ru": "Hugging Face анонсировала на своей платформе новую категорию или функцию под названием «Модели решений».",
+      "so_what_ru": "Стоит кратко взглянуть, если вы используете Hugging Face для развертывания модели в стиле принятия решений/классификации."
     },
     {
       "story_id": "handshake-ai-data-deep-dive",
@@ -5127,7 +5432,10 @@
       "has_t1": false,
       "status": "unconfirmed",
       "total": 1.85,
-      "last_update": "2026-11-09T17:15:53.000Z"
+      "last_update": "2026-11-09T17:15:53.000Z",
+      "title_ru": "",
+      "summary_ru": "Подробный обзор Handshake AI, специализированного поставщика данных для передовых лабораторий, который с момента запуска заработал до 1 миллиарда долларов за год, с примерами из финансовых, биологических данных и данных о согласовании.",
+      "so_what_ru": "Полезный контекст о том, как передовые лаборатории получают данные для специализированного обучения, хотя и не имеет прямого практического значения для маркетинговых операций."
     },
     {
       "story_id": "openai-le-figaro-partnership",
@@ -5170,7 +5478,10 @@
       "has_t1": true,
       "status": "confirmed",
       "total": 1.75,
-      "last_update": "2026-11-18T00:00:00.000Z"
+      "last_update": "2026-11-18T00:00:00.000Z",
+      "title_ru": "Le Figaro сотрудничает с OpenAI, чтобы перенести свою журналистику в ChatGPT",
+      "summary_ru": "Le Groupe Figaro и OpenAI объявили о партнерстве, которое позволит перенести журналистику Le Figaro в ChatGPT посредством резюме, выдержек и ссылок на оригинальные статьи.",
+      "so_what_ru": "Еще один признак того, что распространение СМИ смещается в сторону чатов с искусственным интеллектом."
     },
     {
       "story_id": "baidu-xiaomi-ai-hype-warning",
@@ -5213,7 +5524,10 @@
       "has_t1": false,
       "status": "unconfirmed",
       "total": 1.75,
-      "last_update": "2026-11-17T14:19:59Z"
+      "last_update": "2026-11-17T14:19:59Z",
+      "title_ru": "Руководители Baidu и Xiaomi предупреждают о растущем разрыве между шумихой вокруг искусственного интеллекта и реальной прибылью",
+      "summary_ru": "Как сообщается, генеральные директора Baidu и Xiaomi предупредили, что разрыв между шумихой вокруг искусственного интеллекта и реальной прибылью увеличивается, согласно широко обсуждаемому сообщению Hacker News.",
+      "so_what_ru": "Напоминание о необходимости внутренней проверки заявлений о рентабельности инвестиций в ИИ, прежде чем совершать дальнейшие расходы на автоматизацию."
     },
     {
       "story_id": "huggingface-timeseries-streamhouse",
@@ -5255,7 +5569,10 @@
       "has_t1": true,
       "status": "confirmed",
       "total": 1.65,
-      "last_update": "2026-11-18T15:00:23.000Z"
+      "last_update": "2026-11-18T15:00:23.000Z",
+      "title_ru": "",
+      "summary_ru": "Hugging Face опубликовал пост о моделях временных рядов и новых вариантах использования в рамках так называемой архитектуры данных «Streamhouse».",
+      "so_what_ru": "Может использоваться для анализа удержания в стиле прогнозирования, но это нишевая инфраструктурная тема."
     },
     {
       "story_id": "huggingface-daisyrose-27b",
@@ -5298,7 +5615,10 @@
       "has_t1": true,
       "status": "confirmed",
       "total": 1.6,
-      "last_update": "2026-11-18T19:54:56.000Z"
+      "last_update": "2026-11-18T19:54:56.000Z",
+      "title_ru": "Детали Hugging Face DaisyRose-27B, модель эффективности после тренировки",
+      "summary_ru": "Компания Hugging Face опубликовала технический пост о DaisyRose-27B, который призван расширить границы эффективности после обучения.",
+      "so_what_ru": "Исследования технической эффективности, имеющие низкую прямую значимость для специалистов по маркетингу/автоматизации."
     },
     {
       "story_id": "google-gemini-app-lowmem-android",
@@ -5341,7 +5661,10 @@
       "has_t1": true,
       "status": "confirmed",
       "total": 1.6,
-      "last_update": "2026-11-18T17:00:00.000Z"
+      "last_update": "2026-11-18T17:00:00.000Z",
+      "title_ru": "Приложение Gemini теперь поддерживает устройства Android с меньшим объемом памяти",
+      "summary_ru": "В Google заявили, что приложение Gemini теперь работает на устройствах Android с меньшим объемом памяти, что расширяет доступ к Gemini Live и созданию собственных изображений.",
+      "so_what_ru": "Расширяет возможности Gemini на бюджетные устройства; незначительная значимость за пределами контекста распространения."
     },
     {
       "story_id": "openai-silent-consensus-essay",
@@ -5384,7 +5707,10 @@
       "has_t1": true,
       "status": "confirmed",
       "total": 1.6,
-      "last_update": "2026-11-18T10:00:00.000Z"
+      "last_update": "2026-11-18T10:00:00.000Z",
+      "title_ru": "Руководитель стратегии OpenAI публикует эссе о росте возможностей ИИ и институциональном контроле",
+      "summary_ru": "Глава отдела стратегического будущего OpenAI Дин Болл опубликовал эссе, в котором изучает, как более способный ИИ может изменить общество и как люди могут сохранить контроль над своими институтами.",
+      "so_what_ru": "Макро-аналитическая статья, не имеющая прямого действия для практиков маркетинга и эксплуатации в этом месяце."
     },
     {
       "story_id": "anthropic-metr-regulatory-capture-critique",
@@ -5428,7 +5754,10 @@
       "has_t1": false,
       "status": "rumor",
       "total": 1.6,
-      "last_update": "2026-11-17T12:21:57Z"
+      "last_update": "2026-11-17T12:21:57Z",
+      "title_ru": "В обсуждении HN говорится о захвате регулирующих органов со стороны Anthropic через METR",
+      "summary_ru": "Обсуждение в Hacker News (125 баллов, 58 комментариев) вызывает обеспокоенность по поводу захвата нормативных требований со стороны Anthropic из-за ее отношений с оценщиком безопасности METR.",
+      "so_what_ru": "Стоит знать всем, кто отслеживает, как ставится под сомнение независимость оценщиков безопасности ИИ, хотя это обсуждение сообщества, а не подтвержденные отчеты."
     },
     {
       "story_id": "huggingface-xybench-benchmark",
@@ -5471,7 +5800,10 @@
       "has_t1": true,
       "status": "confirmed",
       "total": 1.6,
-      "last_update": "2026-11-13T17:02:35.000Z"
+      "last_update": "2026-11-13T17:02:35.000Z",
+      "title_ru": "Hugging Face представляет тест XYBench",
+      "summary_ru": "Компания Hugging Face опубликовала XYBench, который, по описанию, помогает решить «проблему, лежащую в основе вопроса».",
+      "so_what_ru": "Новый оценочный тест для разработчиков моделей; ограниченное прямое использование для маркетинговой/операционной работы."
     },
     {
       "story_id": "amazon-home-robotics-push",
@@ -5524,7 +5856,10 @@
       "has_t1": false,
       "status": "unconfirmed",
       "total": 1.6,
-      "last_update": "2026-11-12T15:30:00.000Z"
+      "last_update": "2026-11-12T15:30:00.000Z",
+      "title_ru": "Amazon продвигается в сфере домашней робототехники, превращая камеры Ring в роботов",
+      "summary_ru": "Сообщается, что Amazon превращает камеры Ring в роботов и создает специальную команду домашних роботов.",
+      "so_what_ru": "За пределами автоматизации маркетинга/iGaming; в основном следует отметить тенденцию в области потребительского оборудования."
     },
     {
       "story_id": "google-gemini-healthcare",
@@ -5568,7 +5903,10 @@
       "has_t1": true,
       "status": "confirmed",
       "total": 1.6,
-      "last_update": "2026-11-10T13:00:00.000Z"
+      "last_update": "2026-11-10T13:00:00.000Z",
+      "title_ru": "Google Cloud запускает Gemini для здравоохранения",
+      "summary_ru": "Google Cloud запустил предложение для здравоохранения на базе Gemini, направленное на объединение клинических данных и автоматизацию рабочих процессов для снижения административной нагрузки.",
+      "so_what_ru": "Не имеет прямого отношения к iGaming или маркетингу, но демонстрирует модель упаковки Gemini от Google для регулируемых вертикалей, модель, которую можно распространить и на другие рынки."
     },
     {
       "story_id": "deepmind-weather-datasets",
@@ -5610,7 +5948,10 @@
       "has_t1": true,
       "status": "confirmed",
       "total": 1.6,
-      "last_update": "2026-11-10T11:13:04.000Z"
+      "last_update": "2026-11-10T11:13:04.000Z",
+      "title_ru": "DeepMind публикует наборы данных с открытым исходным кодом, лежащие в основе своих моделей погоды с использованием искусственного интеллекта",
+      "summary_ru": "",
+      "so_what_ru": "Низкая актуальность вне контекста исследований климата/МО."
     },
     {
       "story_id": "martech-ai-business-knowledge",
@@ -5652,7 +5993,10 @@
       "has_t1": false,
       "status": "unconfirmed",
       "total": 1.55,
-      "last_update": "2026-11-18T12:38:00.000Z"
+      "last_update": "2026-11-18T12:38:00.000Z",
+      "title_ru": "MarTech: чтобы искусственный интеллект мог быть полезным, ему нужны собственные бизнес-знания вашей компании",
+      "summary_ru": "MarTech утверждает, что ценная информация о клиентах, спрятанная во внутренних файлах компании, должна быть обнаружена, чтобы ИИ мог принимать более эффективные бизнес-решения.",
+      "so_what_ru": "Усиливает подачу внутренних документов/данных CRM в рабочие процессы ИИ, а не полагается на общие знания моделей."
     },
     {
       "story_id": "huggingface-finetuning-flops-explainer",
@@ -5694,7 +6038,10 @@
       "has_t1": true,
       "status": "confirmed",
       "total": 1.5,
-      "last_update": "2026-11-18T18:53:43.000Z"
+      "last_update": "2026-11-18T18:53:43.000Z",
+      "title_ru": "Hugging Face объясняет, почему работы по тонкой настройке выполняются дольше, чем предсказывают FLOP",
+      "summary_ru": "Hugging Face опубликовал техническое объяснение разницы между теоретическими показателями FLOP и фактической продолжительностью работы по точной настройке.",
+      "so_what_ru": "Полезно в основном для команд, непосредственно настраивающих модели самостоятельно."
     },
     {
       "story_id": "huggingface-gcp-billing",
@@ -5736,7 +6083,10 @@
       "has_t1": true,
       "status": "confirmed",
       "total": 1.5,
-      "last_update": "2026-11-10T00:00:00.000Z"
+      "last_update": "2026-11-10T00:00:00.000Z",
+      "title_ru": "Hugging Face Hub добавляет поддержку выставления счетов в Google Cloud",
+      "summary_ru": "",
+      "so_what_ru": "Незначительное удобство закупок для команд, уже выставляющих счета через GCP."
     },
     {
       "story_id": "llm-overuse-opinion",
@@ -5776,7 +6126,10 @@
       "has_t1": false,
       "status": "unconfirmed",
       "total": 1.4,
-      "last_update": "2026-11-17T18:16:18Z"
+      "last_update": "2026-11-17T18:16:18Z",
+      "title_ru": "Обсуждение Hacker News утверждает, что не всем нужна LLM",
+      "summary_ru": "Сообщение Hacker News выступило против отказа от LLM для решения проблем, которые в них не нуждаются, что вызвало заметную дискуссию.",
+      "so_what_ru": "Проверку работоспособности перед добавлением ИИ в рабочий процесс можно выполнить и с помощью более простого инструмента."
     },
     {
       "story_id": "openai-frontier-risk-management-overview",
@@ -5817,7 +6170,10 @@
       "has_t1": true,
       "status": "confirmed",
       "total": 1.35,
-      "last_update": "2026-11-18T06:00:00.000Z"
+      "last_update": "2026-11-18T06:00:00.000Z",
+      "title_ru": "OpenAI описывает передовое управление рисками ИИ от обучения до развертывания",
+      "summary_ru": "",
+      "so_what_ru": "Общие сведения о процессе обеспечения безопасности OpenAI; ограниченное прямое действие для практиков."
     },
     {
       "story_id": "gemini-4-carbon-launch",
@@ -5882,7 +6238,10 @@
       "has_t1": true,
       "status": "confirmed",
       "total": 1.35,
-      "last_update": "2026-11-18T04:14:04Z"
+      "last_update": "2026-11-18T04:14:04Z",
+      "title_ru": "Gemini 4 Carbon теперь общедоступен; вопросы обсуждения, его отложенное внедрение",
+      "summary_ru": "После того, как Gemini 4 Carbon стала общедоступной, в дискуссии Hacker News был задан вопрос, почему доставка модели заняла так много времени.",
+      "so_what_ru": "Фоновая болтовня о частоте выпусков Google; никаких новых действий не требуется."
     }
   ],
   "raw_items": [
@@ -9585,7 +9944,8 @@
       "published_at": null,
       "post_urn": null,
       "linkedin_url": null,
-      "post_md": "Three things landed this week that change how I build automation: agents that can pay, Search that answers visually, and a manifesto against AI slop.\n\n1) OpenAI ships ChatGPT Wallet\nAgents in ChatGPT Work, Codex and dots can now complete purchases with user approval, using existing card protections.\nThat moves agents from drafting to doing. Approval is the control point, so I'd scope it tightly before a bot touches any budget.\n\n2) Gemini 4 Hydrogen in Google Search\nGoogle is bringing Gemini 4 Hydrogen to Google Search globally for more helpful, visual and intuitive responses.\nIf AI answers mediate discovery, I'm auditing how my pages show up in them, not just in blue links.\n\n3) Speakers publish No AI Slop manifesto\nSpeakers at AI Engineer published a manifesto with principles against low-quality AI-generated content. It drew a lot of discussion.\nUseful to me as shared language for saying no to low-effort AI output before it ships.\n\nSo what: Two of these pull in opposite directions. Agents can now act and buy, which rewards speed. The slop manifesto is a reminder that volume without a quality bar costs trust. This week I'm adding approval steps to my agents and a review gate to anything they write.\n\nTool of the week: llama.cpp hits v1.0.0\nllama.cpp released v1.0.0, described as a stronger foundation for the local and open-source AI ecosystem. It runs open models on your own machine.\nOne practical use: keep a local model for first-pass work on data you'd rather not send anywhere — cleaning exports, tagging feedback, drafting internal summaries. Slower than a frontier model, but it stays on your laptop.\n\nWhat's the first task you'd let an agent pay for on its own, and what guardrail would you put around it?\n\n#AI #MarketingOps #Automation #ClaudeCode #AIAgents\n\nSources:\n1) https://openai.com/index/introducing-chatgpt-wallet\n2) https://deepmind.google/blog/introducing-gemini-4-hydrogen/\n3) https://www.slopmanifesto.com/\n4) https://huggingface.co/blog/ggml-org/llama-cpp-v1\n"
+      "post_md": "Three things landed this week that change how I build automation: agents that can pay, Search that answers visually, and a manifesto against AI slop.\n\n1) OpenAI ships ChatGPT Wallet\nAgents in ChatGPT Work, Codex and dots can now complete purchases with user approval, using existing card protections.\nThat moves agents from drafting to doing. Approval is the control point, so I'd scope it tightly before a bot touches any budget.\n\n2) Gemini 4 Hydrogen in Google Search\nGoogle is bringing Gemini 4 Hydrogen to Google Search globally for more helpful, visual and intuitive responses.\nIf AI answers mediate discovery, I'm auditing how my pages show up in them, not just in blue links.\n\n3) Speakers publish No AI Slop manifesto\nSpeakers at AI Engineer published a manifesto with principles against low-quality AI-generated content. It drew a lot of discussion.\nUseful to me as shared language for saying no to low-effort AI output before it ships.\n\nSo what: Two of these pull in opposite directions. Agents can now act and buy, which rewards speed. The slop manifesto is a reminder that volume without a quality bar costs trust. This week I'm adding approval steps to my agents and a review gate to anything they write.\n\nTool of the week: llama.cpp hits v1.0.0\nllama.cpp released v1.0.0, described as a stronger foundation for the local and open-source AI ecosystem. It runs open models on your own machine.\nOne practical use: keep a local model for first-pass work on data you'd rather not send anywhere — cleaning exports, tagging feedback, drafting internal summaries. Slower than a frontier model, but it stays on your laptop.\n\nWhat's the first task you'd let an agent pay for on its own, and what guardrail would you put around it?\n\n#AI #MarketingOps #Automation #ClaudeCode #AIAgents\n\nSources:\n1) https://openai.com/index/introducing-chatgpt-wallet\n2) https://deepmind.google/blog/introducing-gemini-4-hydrogen/\n3) https://www.slopmanifesto.com/\n4) https://huggingface.co/blog/ggml-org/llama-cpp-v1\n",
+      "post_ru": "На этой неделе вышли три вещи, которые меняют то, как я строю автоматизацию: агенты, которые умеют платить, Поиск с визуальными ответами и манифест против ИИ-шлака (AI slop).\n\n1) OpenAI выкатила ChatGPT Wallet\nАгенты в ChatGPT Work, Codex и dots теперь могут совершать покупки с подтверждением пользователя, используя существующую защиту банковских карт.\nЭто переводит агентов от подготовки черновиков к реальным действиям. Точка контроля здесь — апрув, поэтому я бы жёстко ограничил лимиты и рамки, прежде чем подпускать бота к любому бюджету.\n\n2) Gemini 4 Hydrogen в Google Поиске\nGoogle глобально внедряет Gemini 4 Hydrogen в Поиск для более полезных, визуальных и интуитивных ответов.\nЕсли ИИ-ответы становятся посредником в поиске информации, я проверяю, как мои страницы отображаются внутри них, а не только в классических синих ссылках.\n\n3) Спикеры опубликовали манифест «No AI Slop»\nСпикеры конференции AI Engineer выпустили манифест с принципами против низкокачественного ИИ-контента. Он вызвал бурное обсуждение.\nДля меня это отличный общий язык внутри команды, чтобы говорить «нет» сырому ИИ-контенту ещё до того, как он уйдёт в продакшн.\n\nИ что с того (So what): Две из этих новостей тянут в противоположные стороны. Агенты теперь умеют действовать и покупать — это поощряет скорость. А манифест против ИИ-шлака напоминает, что объём без планки качества стоит доверия. На этой неделе я добавляю шаги апрува для своих агентов и обязательное ревью для всего, что они пишут.\n\nИнструмент недели: llama.cpp достиг версии v1.0.0\nВышел релиз llama.cpp v1.0.0 — более крепкий фундамент для экосистемы локального и open-source ИИ. Он позволяет запускать открытые модели прямо на своём компьютере.\nПрактическое применение: держать локальную модель для черновой обработки данных, которые не хочется отправлять в облако — чистка выгрузок, тегирование фидбека, драфты внутренних сводок. Медленнее, чем флагманские облачные модели, зато всё остаётся на твоём ноутбуке.\n\nКакую первую задачу с оплатой вы бы доверили агенту самостоятельно, и какое ограничение (guardrail) поставили бы вокруг неё?\n\n#AI #MarketingOps #Automation #ClaudeCode #AIAgents\n\nИсточники:\n1) https://openai.com/index/introducing-chatgpt-wallet\n2) https://deepmind.google/blog/introducing-gemini-4-hydrogen/\n3) https://www.slopmanifesto.com/\n4) https://huggingface.co/blog/ggml-org/llama-cpp-v1\n"
     },
     {
       "issue": 1,
@@ -9594,7 +9954,8 @@
       "published_at": "2026-11-20T09:30:10.691Z",
       "post_urn": "urn:li:share:7529476162994122752",
       "linkedin_url": "https://www.linkedin.com/feed/update/urn:li:share:7529476162994122752/",
-      "post_md": "Three things happened this week that change how I plan content and how I let agents spend money. None of them needed a new model.\n\n1) ChatGPT for Sales goes live\nOpenAI shipped a Sales plugin in ChatGPT, plus 30+ new and expanded partner plugins: research prospects, prepare pitches, update CRM, move deals forward.\nThat is the same shape of work as lifecycle and retention ops. I'd automate the CRM update step first.\n\n2) Report: search traffic down 40%\nAn SEO analysis by Revscope, one of the most discussed posts on Hacker News this week, puts the drop in search traffic from Google's AI answers at 40%. The Batch sums up the bigger shift: Google is turning its search engine into a chatbot, OpenAI is turning its chatbot into a search engine.\nI'm planning content to be read inside answers, not only clicked.\n\n3) ChatGPT Wallet opens agent checkout\nChatGPT Wallet lets agents in ChatGPT Work, Codex and dots complete purchases with user approval and existing card protections.\nAgentic checkout is a shipped product now. Before my bots touch a payment, I want approval steps and limits written down.\n\nSo what: Two of my three stories are about agents doing work that used to need a human login: a CRM, a card. The third says my traffic arrives less often as a click. This week I'm auditing where my content actually gets read and where my agents need approval.\n\nTool of the week: Rumble-2-Flash: open 0.5B speech model, 40+ languages\nHugging Face released Rumble-2-Flash, a small open-weight speech model supporting more than 40 languages. Open weights mean you can run it on your own machine.\nPractical use: transcribe webinars, calls and support recordings in the languages your market actually speaks, then pipe the text into your own summaries and tagging. Small model, so it runs without a serious GPU budget.\n\nWhat is the first workflow you would hand to an agent with a budget, and what guardrail would you put on it before you did?\n\n#AI #MarketingOps #Automation #ClaudeCode #AIAgents\n\nSources:\n1) https://openai.com/index/introducing-chatgpt-for-sales\n2) https://revscope.co/blog/search-seo-geo-2026/ | https://charonhub.deeplearning.ai/search-engine-wars-ai-edition/\n3) https://openai.com/index/introducing-chatgpt-wallet\n4) https://huggingface.co/blog/rumble-2-flash\n"
+      "post_md": "Three things happened this week that change how I plan content and how I let agents spend money. None of them needed a new model.\n\n1) ChatGPT for Sales goes live\nOpenAI shipped a Sales plugin in ChatGPT, plus 30+ new and expanded partner plugins: research prospects, prepare pitches, update CRM, move deals forward.\nThat is the same shape of work as lifecycle and retention ops. I'd automate the CRM update step first.\n\n2) Report: search traffic down 40%\nAn SEO analysis by Revscope, one of the most discussed posts on Hacker News this week, puts the drop in search traffic from Google's AI answers at 40%. The Batch sums up the bigger shift: Google is turning its search engine into a chatbot, OpenAI is turning its chatbot into a search engine.\nI'm planning content to be read inside answers, not only clicked.\n\n3) ChatGPT Wallet opens agent checkout\nChatGPT Wallet lets agents in ChatGPT Work, Codex and dots complete purchases with user approval and existing card protections.\nAgentic checkout is a shipped product now. Before my bots touch a payment, I want approval steps and limits written down.\n\nSo what: Two of my three stories are about agents doing work that used to need a human login: a CRM, a card. The third says my traffic arrives less often as a click. This week I'm auditing where my content actually gets read and where my agents need approval.\n\nTool of the week: Rumble-2-Flash: open 0.5B speech model, 40+ languages\nHugging Face released Rumble-2-Flash, a small open-weight speech model supporting more than 40 languages. Open weights mean you can run it on your own machine.\nPractical use: transcribe webinars, calls and support recordings in the languages your market actually speaks, then pipe the text into your own summaries and tagging. Small model, so it runs without a serious GPU budget.\n\nWhat is the first workflow you would hand to an agent with a budget, and what guardrail would you put on it before you did?\n\n#AI #MarketingOps #Automation #ClaudeCode #AIAgents\n\nSources:\n1) https://openai.com/index/introducing-chatgpt-for-sales\n2) https://revscope.co/blog/search-seo-geo-2026/ | https://charonhub.deeplearning.ai/search-engine-wars-ai-edition/\n3) https://openai.com/index/introducing-chatgpt-wallet\n4) https://huggingface.co/blog/rumble-2-flash\n",
+      "post_ru": "На этой неделе произошли три вещи, которые меняют то, как я планирую контент и как позволяю агентам тратить деньги. И ни для одной из них не понадобилась новая модель.\n\n1) Запустился ChatGPT for Sales\nOpenAI выкатила плагин Sales в ChatGPT плюс более 30 новых и расширенных партнёрских плагинов: ресёрч лидов, подготовка питчей, обновление CRM и продвижение сделок по воронке.\nПо структуре это ровно та же работа, что и в lifecycle / retention-операциях. В первую очередь я бы автоматизировал шаг обновления CRM.\n\n2) Отчёт: поисковый трафик упал на 40%\nSEO-анализ от Revscope — один из самых обсуждаемых постов на Hacker News на этой неделе — оценивает падение поискового трафика из-за ИИ-ответов Google в 40%. The Batch точно резюмирует глобальный сдвиг: Google превращает поисковик в чат-бота, а OpenAI превращает чат-бота в поисковик.\nТеперь я планирую контент так, чтобы его читали прямо внутри ИИ-ответов, а не только переходили по клику.\n\n3) ChatGPT Wallet открывает покупки для агентов\nChatGPT Wallet позволяет агентам в ChatGPT Work, Codex и dots совершать покупки с подтверждением пользователя и стандартной защитой банковских карт.\nАгентский чекаут — это уже готовый продукт в проде. Прежде чем мои боты прикоснутся к платежам, я хочу чётко прописать шаги апрува и лимиты.\n\nИ что с того (So what): Две из трёх новостей — про то, как агенты делают работу, для которой раньше нужен был логин живого человека: в CRM и в платёжную карту. Третья говорит о том, что трафик всё реже приходит в виде клика. На этой неделе я провожу аудит того, где реально читают мой контент и на каких шагах моим агентам нужен апрув.\n\nИнструмент недели: Rumble-2-Flash — открытая речевая модель на 0.5B параметров, 40+ языков\nНа Hugging Face вышла Rumble-2-Flash — компактная open-weight модель распознавания речи с поддержкой более 40 языков. Открытые веса означают, что её можно крутить локально на своей машине.\nПрактическое применение: расшифровывать вебинары, созвоны и записи саппорта на языках, на которых реально говорит твой рынок, а затем прогонять текст через свои саммари и тегирование. Модель маленькая, поэтому работает без серьёзного GPU-бюджета.\n\nКакой первый процесс с бюджетом вы бы передали агенту, и какой защитный лимит (guardrail) поставили бы перед этим?\n\n#AI #MarketingOps #Automation #ClaudeCode #AIAgents\n\nИсточники:\n1) https://openai.com/index/introducing-chatgpt-for-sales\n2) https://revscope.co/blog/search-seo-geo-2026/ | https://charonhub.deeplearning.ai/search-engine-wars-ai-edition/\n3) https://openai.com/index/introducing-chatgpt-wallet\n4) https://huggingface.co/blog/rumble-2-flash\n"
     }
   ]
 }
