@@ -252,6 +252,19 @@ function scoreStoryCard(card) {
   return card;
 }
 
+async function translateToRu(text) {
+  if (!text || !String(text).trim()) return '';
+  try {
+    const u = 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=ru&dt=t&q=' + encodeURIComponent(String(text));
+    const r = await fetch(u, { headers: { 'User-Agent': UA } });
+    if (!r.ok) return '';
+    const j = await r.json();
+    return ((j && j[0]) || []).map(seg => (seg && seg[0]) || '').join('').trim();
+  } catch {
+    return '';
+  }
+}
+
 async function main() {
   const conf = readJSON(SOURCES_PATH, { sources: [], max_age_days: 7, blocked_tlds: ['.ru', '.su', '.by'], ai_keywords: [] });
   const maxAge = conf.max_age_days || 7;
@@ -407,6 +420,16 @@ async function main() {
       return age <= keepDays;
     })
     .sort((a, b) => (b.total || 0) - (a.total || 0) || String(b.last_update || '').localeCompare(String(a.last_update || '')));
+
+  // Auto-translate untranslated stories in batches of 8
+  const needTrans = allStories.filter(s => (s.title && !s.title_ru) || (s.summary && !s.summary_ru) || (s.so_what && !s.so_what_ru));
+  for (let i = 0; i < needTrans.length; i += 8) {
+    await Promise.all(needTrans.slice(i, i + 8).map(async s => {
+      if (s.title && !s.title_ru) s.title_ru = await translateToRu(s.title);
+      if (s.summary && !s.summary_ru) s.summary_ru = await translateToRu(s.summary);
+      if (s.so_what && !s.so_what_ru) s.so_what_ru = await translateToRu(s.so_what);
+    }));
+  }
 
   feed.generated_at = new Date().toISOString();
   feed.last_collect_date = today;
