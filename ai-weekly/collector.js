@@ -223,6 +223,28 @@ function inferTags(title, summary, srcId) {
   if (['maii', 'martech'].includes(srcId)) tags.add('marketing');
   return [...tags].slice(0, 5);
 }
+const PEOPLE_RX = /\b(ceo|cto|cfo|coo|cmo|co-?founder|steps? down|stepping down|resign\w*|appoint\w*|hire[sd]? as|fired|ousted|departs?|departure|leaves (the )?company|joins as|interim ceo|successor|comeback)\b/i;
+function isPeopleStory(c) {
+  return PEOPLE_RX.test([c.title || '', c.summary || '', ...(c.tags || [])].join(' '));
+}
+function calcRating(s) {
+  const t = Number(s.total) || 0;
+  const conf = s.status === 'confirmed';
+  const peopleNoT1 = isPeopleStory(s) && !s.has_t1;
+  if (s.status === 'rumor') return 1;
+  if (conf && !peopleNoT1) {
+    if (t >= 3.25) return 5;
+    if (t >= 2.50) return 4;
+    if (t >= 2.00) return 3;
+    if (t >= 1.65) return 2;
+    return 1;
+  }
+  if (t >= 3.25) return 4;
+  if (t >= 2.60) return 3;
+  if (t >= 2.00) return 2;
+  return 1;
+}
+
 function scoreStoryCard(card) {
   const tiers = new Set((card.items || []).map(i => i.tier));
   const domains = new Set((card.items || []).map(i => i.domain).filter(Boolean));
@@ -232,23 +254,24 @@ function scoreStoryCard(card) {
   card.last_update = (card.items || []).map(i => i.published_at).filter(Boolean).sort().pop() || card.first_seen;
 
   // Keep LLM score if already scored by Claude locally
-  if (card.total && card.scores && card.scores.significance) return card;
-
-  let base = tiers.has('T1') ? 3.5 : tiers.has('T4') ? 3.2 : tiers.has('T2') ? 3.1 : 2.7;
-  if (domains.size >= 2) base += 0.45;
-  if (domains.size >= 3) base += 0.25;
-  const fullText = `${card.title} ${card.summary || ''} ${(card.items || []).map(x => x.summary || '').join(' ')}`;
-  const hnMatch = fullText.match(/HN:\s*(\d+)\s*points/i);
-  if (hnMatch) {
-    const pts = Number(hnMatch[1]);
-    if (pts >= 400) base += 0.55;
-    else if (pts >= 200) base += 0.35;
-    else base += 0.15;
+  if (!(card.total && card.scores && card.scores.significance)) {
+    let base = tiers.has('T1') ? 3.5 : tiers.has('T4') ? 3.2 : tiers.has('T2') ? 3.1 : 2.7;
+    if (domains.size >= 2) base += 0.45;
+    if (domains.size >= 3) base += 0.25;
+    const fullText = `${card.title} ${card.summary || ''} ${(card.items || []).map(x => x.summary || '').join(' ')}`;
+    const hnMatch = fullText.match(/HN:\s*(\d+)\s*points/i);
+    if (hnMatch) {
+      const pts = Number(hnMatch[1]);
+      if (pts >= 400) base += 0.55;
+      else if (pts >= 200) base += 0.35;
+      else base += 0.15;
+    }
+    if (/\b(agents?|agentic|mcp|automation|workflow|marketing|crm|seo|igaming|casino|claude code)\b/i.test(fullText)) {
+      base += 0.4;
+    }
+    card.total = Math.min(5, Math.round(base * 100) / 100);
   }
-  if (/\b(agents?|agentic|mcp|automation|workflow|marketing|crm|seo|igaming|casino|claude code)\b/i.test(fullText)) {
-    base += 0.4;
-  }
-  card.total = Math.min(5, Math.round(base * 100) / 100);
+  card.rating = calcRating(card);
   return card;
 }
 
@@ -419,15 +442,28 @@ async function main() {
       const age = s.last_update ? (nowMs - Date.parse(s.last_update)) / 864e5 : 0;
       return age <= keepDays;
     })
-    .sort((a, b) => (b.total || 0) - (a.total || 0) || String(b.last_update || '').localeCompare(String(a.last_update || '')));
+    .sort((a, b) => {
+      const ra = calcRating(a), rb = calcRating(b);
+      const ca = (a.status === 'confirmed' && !(isPeopleStory(a) && !a.has_t1)) ? 1 : 0;
+      const cb = (b.status === 'confirmed' && !(isPeopleStory(b) && !b.has_t1)) ? 1 : 0;
+      return (rb - ra) || (cb - ca) || ((b.total || 0) - (a.total || 0)) || ((b.has_t1 ? 1 : 0) - (a.has_t1 ? 1 : 0)) || String(b.last_update || '').localeCompare(String(a.last_update || ''));
+    });
 
   // Auto-translate untranslated stories in batches of 8
-  const needTrans = allStories.filter(s => (s.title && !s.title_ru) || (s.summary && !s.summary_ru) || (s.so_what && !s.so_what_ru));
+  const needTrans = allStories.filter(s =>
+    (s.title && !s.title_ru) ||
+    (s.summary && !s.summary_ru) ||
+    (s.so_what && !s.so_what_ru) ||
+    (s.items || []).some(it => it.title && !it.title_ru)
+  );
   for (let i = 0; i < needTrans.length; i += 8) {
     await Promise.all(needTrans.slice(i, i + 8).map(async s => {
       if (s.title && !s.title_ru) s.title_ru = await translateToRu(s.title);
       if (s.summary && !s.summary_ru) s.summary_ru = await translateToRu(s.summary);
       if (s.so_what && !s.so_what_ru) s.so_what_ru = await translateToRu(s.so_what);
+      for (const it of (s.items || [])) {
+        if (it.title && !it.title_ru) it.title_ru = await translateToRu(it.title);
+      }
     }));
   }
 
