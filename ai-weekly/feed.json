@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-21T03:15:51.201Z",
+  "generated_at": "2026-11-21T14:43:35.164Z",
   "last_collect_date": "2026-11-21",
   "sources_report": [
     {
@@ -189,8 +189,8 @@
       "type": "rss",
       "url": "https://lastweekin.ai/feed",
       "fetched": 20,
-      "kept": 0,
-      "new": 0,
+      "kept": 1,
+      "new": 1,
       "error": null,
       "note": ""
     },
@@ -202,7 +202,7 @@
       "url": "https://www.latent.space/feed",
       "fetched": 20,
       "kept": 9,
-      "new": 0,
+      "new": 1,
       "error": null,
       "note": ""
     },
@@ -238,7 +238,7 @@
       "url": "https://hn.algolia.com/api/v1/search_by_date",
       "fetched": 200,
       "kept": 45,
-      "new": 1,
+      "new": 2,
       "error": null,
       "note": ""
     },
@@ -249,8 +249,8 @@
       "type": "rss",
       "url": "https://www.therundown.ai/feed",
       "fetched": 50,
-      "kept": 8,
-      "new": 0,
+      "kept": 9,
+      "new": 1,
       "error": null,
       "note": ""
     },
@@ -320,12 +320,12 @@
     "failed": 3,
     "empty": 2,
     "fetched": 3445,
-    "kept": 465,
-    "new_items": 1,
-    "stories_total": 139,
+    "kept": 467,
+    "new_items": 5,
+    "stories_total": 144,
     "stories_confirmed": 61,
     "stories_eligible": 9,
-    "raw_total": 266
+    "raw_total": 271
   },
   "stories": [
     {
@@ -1931,6 +1931,43 @@
       "rating": 4
     },
     {
+      "story_id": "clawdos-coding-agent-dos",
+      "first_seen": "2026-11-21",
+      "title": "ClawDOS – An AI coding agent for DOS",
+      "summary": "HN: 118 points, 34 comments. https://news.ycombinator.com/item?id=50586292",
+      "so_what": "",
+      "tags": [
+        "agents",
+        "coding"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "56c8c69722c8",
+          "url": "https://ricapar.net/ClawDOS",
+          "title": "ClawDOS – An AI coding agent for DOS",
+          "source": "Hacker News",
+          "tier": "T3",
+          "domain": "ricapar.net",
+          "published_at": "2026-11-21T05:38:01Z",
+          "summary": "HN: 118 points, 34 comments. https://news.ycombinator.com/item?id=50586292",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "ricapar.net"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-21T05:38:01Z",
+      "total": 3.25,
+      "rating": 4,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
       "story_id": "frostbite-cpu-architecture-discovered-designed",
       "first_seen": "2026-11-20",
       "title": "Frostbite: A new CPU architecture discovered, designed and verified by AI",
@@ -3129,6 +3166,76 @@
       "rating": 3
     },
     {
+      "story_id": "last-week-348-ipo--correction",
+      "first_seen": "2026-11-21",
+      "title": "Last Week in AI #348 - IPO->Correction, new GPTs and Geminis, Nvidia’s Fate",
+      "summary": "Anthropic's $81B IPO, AI stocks enter a correction, Huang resigns from Nvidia, Trump and Xi agree on military AI",
+      "so_what": "",
+      "tags": [
+        "anthropic"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "411f6e2d31f4",
+          "url": "https://lastweekin.ai/p/last-week-in-ai-348-ipo-correction",
+          "title": "Last Week in AI #348 - IPO->Correction, new GPTs and Geminis, Nvidia’s Fate",
+          "source": "Last Week in AI",
+          "tier": "T2",
+          "domain": "lastweekin.ai",
+          "published_at": "2026-11-21T08:41:43.000Z",
+          "summary": "Anthropic's $81B IPO, AI stocks enter a correction, Huang resigns from Nvidia, Trump and Xi agree on military AI",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "lastweekin.ai"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-21T08:41:43.000Z",
+      "total": 3.1,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
+      "story_id": "ainews-riemann-hypothesis-proved-twice",
+      "first_seen": "2026-11-21",
+      "title": "[AINews] Riemann Hypothesis proved...twice independently",
+      "summary": "November 20 2026 —",
+      "so_what": "",
+      "tags": [],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "2b32d4b379bc",
+          "url": "https://latent.space/p/ainews-riemann-hypothesis-proved-twice-independently",
+          "title": "[AINews] Riemann Hypothesis proved...twice independently",
+          "source": "Latent Space",
+          "tier": "T2",
+          "domain": "latent.space",
+          "published_at": "2026-11-21T05:02:13.000Z",
+          "summary": "November 20 2026 —",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "latent.space"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-21T05:02:13.000Z",
+      "total": 3.1,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
       "story_id": "war-against-slop-emerging-weapon",
       "first_seen": "2026-11-20",
       "title": "The War Against Slop and an Emerging Weapon to Fight it: Formal Verification",
@@ -3532,6 +3639,40 @@
       "summary_ru": ""
     },
     {
+      "story_id": "giving-everyone-same-advice",
+      "first_seen": "2026-11-21",
+      "title": "AI is giving everyone the same advice",
+      "summary": "HN: 102 points, 42 comments. https://news.ycombinator.com/item?id=50577872",
+      "so_what": "",
+      "tags": [],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "9d9e2c9f2c65",
+          "url": "https://a90.com/experiments/same-advice",
+          "title": "AI is giving everyone the same advice",
+          "source": "Hacker News",
+          "tier": "T3",
+          "domain": "a90.com",
+          "published_at": "2026-11-20T16:58:05Z",
+          "summary": "HN: 102 points, 42 comments. https://news.ycombinator.com/item?id=50577872",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "a90.com"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-20T16:58:05Z",
+      "total": 2.85,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
       "story_id": "global-stock-markets-slump-anthropic",
       "first_seen": "2026-11-20",
       "title": "Global stock markets slump as Anthropic's record IPO fails to stem AI sell-off",
@@ -3875,6 +4016,42 @@
       "summary_ru": "United Airlines объявила о запрете агентам искусственного интеллекта бронировать рейсы от имени путешественников, что вызвало широкую дискуссию.",
       "so_what_ru": "Крупный потребительский бренд, отказывающийся от агентской коммерции, является сигналом к ​​тому, чтобы следить за тем, создаете ли вы агентов, которые совершают транзакции или бронируют услуги от имени клиентов.",
       "rating": 3
+    },
+    {
+      "story_id": "gta-rakes-overnight",
+      "first_seen": "2026-11-21",
+      "title": "GTA 6 rakes in $2.4B overnight",
+      "summary": "PLUS: Google’s space data centers find a ride",
+      "so_what": "",
+      "tags": [
+        "google"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "acacef7466e7",
+          "url": "https://therundown.ai/articles/gta-6-rakes-in-2-4b-overnight",
+          "title": "GTA 6 rakes in $2.4B overnight",
+          "source": "The Rundown AI",
+          "tier": "T3",
+          "domain": "therundown.ai",
+          "published_at": "2026-11-20T15:30:00.000Z",
+          "summary": "PLUS: Google’s space data centers find a ride",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "therundown.ai"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-20T15:30:00.000Z",
+      "total": 2.7,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
     },
     {
       "story_id": "anthropic-pulls-off-biggest-ipo",
@@ -7188,6 +7365,45 @@
   ],
   "raw_items": [
     {
+      "id": "411f6e2d31f4",
+      "source_id": "lastweekinai",
+      "source_name": "Last Week in AI",
+      "tier": "T2",
+      "signal_only": false,
+      "title": "Last Week in AI #348 - IPO->Correction, new GPTs and Geminis, Nvidia’s Fate",
+      "url": "https://lastweekin.ai/p/last-week-in-ai-348-ipo-correction",
+      "domain": "lastweekin.ai",
+      "published_at": "2026-11-21T08:41:43.000Z",
+      "collected_on": "2026-11-21",
+      "summary": "Anthropic's $81B IPO, AI stocks enter a correction, Huang resigns from Nvidia, Trump and Xi agree on military AI"
+    },
+    {
+      "id": "56c8c69722c8",
+      "source_id": "hn",
+      "source_name": "Hacker News",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "ClawDOS – An AI coding agent for DOS",
+      "url": "https://ricapar.net/ClawDOS",
+      "domain": "ricapar.net",
+      "published_at": "2026-11-21T05:38:01Z",
+      "collected_on": "2026-11-21",
+      "summary": "HN: 118 points, 34 comments. https://news.ycombinator.com/item?id=50586292"
+    },
+    {
+      "id": "2b32d4b379bc",
+      "source_id": "latent-space",
+      "source_name": "Latent Space",
+      "tier": "T2",
+      "signal_only": false,
+      "title": "[AINews] Riemann Hypothesis proved...twice independently",
+      "url": "https://latent.space/p/ainews-riemann-hypothesis-proved-twice-independently",
+      "domain": "latent.space",
+      "published_at": "2026-11-21T05:02:13.000Z",
+      "collected_on": "2026-11-21",
+      "summary": "November 20 2026 —"
+    },
+    {
       "id": "c989db0d32fd",
       "source_id": "latent-space",
       "source_name": "Latent Space",
@@ -7227,6 +7443,19 @@
       "summary": "HN: 207 points, 142 comments. https://news.ycombinator.com/item?id=50577901"
     },
     {
+      "id": "9d9e2c9f2c65",
+      "source_id": "hn",
+      "source_name": "Hacker News",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "AI is giving everyone the same advice",
+      "url": "https://a90.com/experiments/same-advice",
+      "domain": "a90.com",
+      "published_at": "2026-11-20T16:58:05Z",
+      "collected_on": "2026-11-21",
+      "summary": "HN: 102 points, 42 comments. https://news.ycombinator.com/item?id=50577872"
+    },
+    {
       "id": "9fe3e937f57a",
       "source_id": "hn",
       "source_name": "Hacker News",
@@ -7251,6 +7480,19 @@
       "published_at": "2026-11-20T15:56:21.000Z",
       "collected_on": "2026-11-20",
       "summary": "Features api: add the image_dimensions_too_large error code Bug Fixes bedrock: send the user profile ID in the request body Amazon Bedrock reads user_profile_id from the request body and ignores the anthropic-user-profile-id header, so a profile ID given to AnthropicBedrock or AsyncAnthropicBedrock was not applied. Both clients now move it into the body of Messages requests and no longer send the header. A user_profile_id already in the body takes priority over the header. Some models on Bedrock do not support user profiles. A request to one of them with a profile ID now fails with a 400 error"
+    },
+    {
+      "id": "acacef7466e7",
+      "source_id": "rundown",
+      "source_name": "The Rundown AI",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "GTA 6 rakes in $2.4B overnight",
+      "url": "https://therundown.ai/articles/gta-6-rakes-in-2-4b-overnight",
+      "domain": "therundown.ai",
+      "published_at": "2026-11-20T15:30:00.000Z",
+      "collected_on": "2026-11-21",
+      "summary": "PLUS: Google’s space data centers find a ride"
     },
     {
       "id": "fda5004e845f",
