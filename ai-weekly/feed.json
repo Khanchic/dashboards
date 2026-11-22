@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-22T02:16:57.183Z",
+  "generated_at": "2026-11-22T14:39:51.061Z",
   "last_collect_date": "2026-11-22",
   "sources_report": [
     {
@@ -237,8 +237,8 @@
       "type": "hn",
       "url": "https://hn.algolia.com/api/v1/search_by_date",
       "fetched": 200,
-      "kept": 46,
-      "new": 1,
+      "kept": 45,
+      "new": 2,
       "error": null,
       "note": ""
     },
@@ -320,12 +320,12 @@
     "failed": 3,
     "empty": 2,
     "fetched": 3445,
-    "kept": 468,
-    "new_items": 1,
-    "stories_total": 145,
+    "kept": 467,
+    "new_items": 2,
+    "stories_total": 147,
     "stories_confirmed": 61,
     "stories_eligible": 9,
-    "raw_total": 272
+    "raw_total": 274
   },
   "stories": [
     {
@@ -1931,6 +1931,42 @@
       "rating": 4
     },
     {
+      "story_id": "pandex-official-european-law-agents",
+      "first_seen": "2026-11-22",
+      "title": "Pandex – Official European Law for AI Agents, over MCP",
+      "summary": "HN: 116 points, 29 comments. https://news.ycombinator.com/item?id=50593481",
+      "so_what": "",
+      "tags": [
+        "agents"
+      ],
+      "kind": "tool",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "b77be25502fd",
+          "url": "https://pandex.io",
+          "title": "Pandex – Official European Law for AI Agents, over MCP",
+          "source": "Hacker News",
+          "tier": "T3",
+          "domain": "pandex.io",
+          "published_at": "2026-11-21T20:47:41Z",
+          "summary": "HN: 116 points, 29 comments. https://news.ycombinator.com/item?id=50593481",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "pandex.io"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-21T20:47:41Z",
+      "total": 3.25,
+      "rating": 4,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
       "story_id": "clawdos-coding-agent-dos",
       "first_seen": "2026-11-21",
       "title": "ClawDOS – An AI coding agent for DOS",
@@ -3304,6 +3340,42 @@
       "total": 3.1,
       "rating": 3,
       "title_ru": ""
+    },
+    {
+      "story_id": "anthropic-power-come-gas-coal",
+      "first_seen": "2026-11-22",
+      "title": "87% of the Anthropic power will come from gas and 11% from coal in 2028",
+      "summary": "HN: 310 points, 423 comments. https://news.ycombinator.com/item?id=50597612",
+      "so_what": "",
+      "tags": [
+        "anthropic"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "38c61351fe0d",
+          "url": "https://betterdatacenterproject.com/2026/11/16/how-ai-is-powered-a-breakdown-of-byop-and-grid-power",
+          "title": "87% of the Anthropic power will come from gas and 11% from coal in 2028",
+          "source": "Hacker News",
+          "tier": "T3",
+          "domain": "betterdatacenterproject.com",
+          "published_at": "2026-11-22T08:57:34Z",
+          "summary": "HN: 310 points, 423 comments. https://news.ycombinator.com/item?id=50597612",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "betterdatacenterproject.com"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-22T08:57:34Z",
+      "total": 3.05,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
     },
     {
       "story_id": "google-workers-tell-employer-punish",
@@ -7398,6 +7470,32 @@
     }
   ],
   "raw_items": [
+    {
+      "id": "38c61351fe0d",
+      "source_id": "hn",
+      "source_name": "Hacker News",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "87% of the Anthropic power will come from gas and 11% from coal in 2028",
+      "url": "https://betterdatacenterproject.com/2026/11/16/how-ai-is-powered-a-breakdown-of-byop-and-grid-power",
+      "domain": "betterdatacenterproject.com",
+      "published_at": "2026-11-22T08:57:34Z",
+      "collected_on": "2026-11-22",
+      "summary": "HN: 310 points, 423 comments. https://news.ycombinator.com/item?id=50597612"
+    },
+    {
+      "id": "b77be25502fd",
+      "source_id": "hn",
+      "source_name": "Hacker News",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "Pandex – Official European Law for AI Agents, over MCP",
+      "url": "https://pandex.io",
+      "domain": "pandex.io",
+      "published_at": "2026-11-21T20:47:41Z",
+      "collected_on": "2026-11-22",
+      "summary": "HN: 116 points, 29 comments. https://news.ycombinator.com/item?id=50593481"
+    },
     {
       "id": "411f6e2d31f4",
       "source_id": "lastweekinai",
