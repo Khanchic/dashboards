@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-21T14:43:35.164Z",
-  "last_collect_date": "2026-11-21",
+  "generated_at": "2026-11-22T02:16:57.183Z",
+  "last_collect_date": "2026-11-22",
   "sources_report": [
     {
       "id": "anthropic",
@@ -190,7 +190,7 @@
       "url": "https://lastweekin.ai/feed",
       "fetched": 20,
       "kept": 1,
-      "new": 1,
+      "new": 0,
       "error": null,
       "note": ""
     },
@@ -202,7 +202,7 @@
       "url": "https://www.latent.space/feed",
       "fetched": 20,
       "kept": 9,
-      "new": 1,
+      "new": 0,
       "error": null,
       "note": ""
     },
@@ -237,8 +237,8 @@
       "type": "hn",
       "url": "https://hn.algolia.com/api/v1/search_by_date",
       "fetched": 200,
-      "kept": 45,
-      "new": 2,
+      "kept": 46,
+      "new": 1,
       "error": null,
       "note": ""
     },
@@ -250,7 +250,7 @@
       "url": "https://www.therundown.ai/feed",
       "fetched": 50,
       "kept": 9,
-      "new": 1,
+      "new": 0,
       "error": null,
       "note": ""
     },
@@ -320,12 +320,12 @@
     "failed": 3,
     "empty": 2,
     "fetched": 3445,
-    "kept": 467,
-    "new_items": 5,
-    "stories_total": 144,
+    "kept": 468,
+    "new_items": 1,
+    "stories_total": 145,
     "stories_confirmed": 61,
     "stories_eligible": 9,
-    "raw_total": 271
+    "raw_total": 272
   },
   "stories": [
     {
@@ -3739,6 +3739,40 @@
       "has_t1": false,
       "status": "unconfirmed",
       "last_update": "2026-11-20T00:25:59Z",
+      "total": 2.85,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
+      "story_id": "llms-read-write-executables-byte",
+      "first_seen": "2026-11-22",
+      "title": "LLMs can read and write executables byte by byte from a hex dump",
+      "summary": "HN: 193 points, 127 comments. https://news.ycombinator.com/item?id=50546587",
+      "so_what": "",
+      "tags": [],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "3e6ca39e7005",
+          "url": "https://sgiannopoulos.github.io/blog/machine-code-programming",
+          "title": "LLMs can read and write executables byte by byte from a hex dump",
+          "source": "Hacker News",
+          "tier": "T3",
+          "domain": "github.io",
+          "published_at": "2026-11-18T14:15:58Z",
+          "summary": "HN: 193 points, 127 comments. https://news.ycombinator.com/item?id=50546587",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "github.io"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-18T14:15:58Z",
       "total": 2.85,
       "rating": 3,
       "title_ru": "",
@@ -8414,6 +8448,19 @@
       "summary": "",
       "collected_at": "2026-11-19T15:47:47.546Z",
       "title_ru": "Модели временных рядов в Streamhouse: новый рубеж и варианты использования"
+    },
+    {
+      "id": "3e6ca39e7005",
+      "source_id": "hn",
+      "source_name": "Hacker News",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "LLMs can read and write executables byte by byte from a hex dump",
+      "url": "https://sgiannopoulos.github.io/blog/machine-code-programming",
+      "domain": "github.io",
+      "published_at": "2026-11-18T14:15:58Z",
+      "collected_on": "2026-11-22",
+      "summary": "HN: 193 points, 127 comments. https://news.ycombinator.com/item?id=50546587"
     },
     {
       "id": "e15126fc16f6",
