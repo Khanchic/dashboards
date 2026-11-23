@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-23T02:51:20.334Z",
+  "generated_at": "2026-11-23T09:50:27.618Z",
   "last_collect_date": "2026-11-23",
   "sources_report": [
     {
@@ -141,8 +141,8 @@
       "type": "rss",
       "url": "https://openai.com/news/rss.xml",
       "fetched": 1422,
-      "kept": 29,
-      "new": 1,
+      "kept": 24,
+      "new": 0,
       "error": null,
       "note": ""
     },
@@ -238,7 +238,7 @@
       "url": "https://hn.algolia.com/api/v1/search_by_date",
       "fetched": 200,
       "kept": 44,
-      "new": 6,
+      "new": 0,
       "error": null,
       "note": ""
     },
@@ -320,8 +320,8 @@
     "failed": 3,
     "empty": 2,
     "fetched": 3446,
-    "kept": 461,
-    "new_items": 7,
+    "kept": 456,
+    "new_items": 0,
     "stories_total": 154,
     "stories_confirmed": 62,
     "stories_eligible": 10,
