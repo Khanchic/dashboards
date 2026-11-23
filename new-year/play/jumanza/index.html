@@ -10,6 +10,8 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Smooch+Sans:wght@800&family=Work+Sans:wght@400;500;700&display=swap">
 <link rel="stylesheet" href="client/mountain.css">
 <link rel="stylesheet" href="client/trail-game.css">
+<link rel="stylesheet" href="client/bridges-game.css">
+<link rel="stylesheet" href="client/camps-game.css">
 <style>
 :root{--bg:#100128;--card:#2a0f5c;--card2:#3a1a78;--text:#fff;--muted:rgba(255,255,255,.72);--faint:rgba(255,255,255,.45);--y:#F1D627;--g:#49F623;--p:#5C05E5;color-scheme:dark}
 *{box-sizing:border-box}
@@ -47,6 +49,11 @@ h1 span{color:var(--y)}
 .dm{background:rgba(16,1,40,.55);border-left:3px solid var(--y);padding:9px 12px;font-size:.88rem;border-radius:0 8px 8px 0}
 .dm small{display:block;color:var(--faint);font-size:.72rem}
 .next{margin-top:14px;text-align:center}
+.pracs{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:14px 0 0}
+.pracs span{color:var(--muted);font-size:.9rem;margin-right:4px}
+.pracs .btn{font-size:17px;padding:8px 14px}
+.pracs .btn.got{background:linear-gradient(#71F854,#2FDC09)}
+.pracs .btn.cur{outline:3px solid var(--y);outline-offset:2px}
 footer{color:var(--faint);font-size:.8rem;padding:20px 0 40px}
 footer a{color:var(--muted)}
 </style>
@@ -55,7 +62,7 @@ footer a{color:var(--muted)}
 <div class="wrap">
   <header><img src="../../jumanza/assets/sprites/logo.webp" alt="Jumanza"><div class="mode" id="mode"></div></header>
   <h1>Christmas on <span>Kilimanjaro</span></h1>
-  <p class="lede">The gifts are going up to the Christmas tree on the snowy peak, but the animals have blocked every trail. Drag them out of the way along their path and get the safari 4x4 through. Clear 4 trails and the summit opens.</p>
+  <p class="lede">The gifts are going up to the Christmas tree on the snowy peak. Three stages to the top: clear the animal jams on the lower trails, lay logs across the mountain river, then pitch the camps on the glacier. Clear 4 trails and the summit opens.</p>
 
   <form class="join" id="join">
     <input id="nick" maxlength="24" placeholder="Your name" autocomplete="nickname" required>
@@ -64,6 +71,7 @@ footer a{color:var(--muted)}
 
   <div id="app" hidden>
     <div id="mountain"></div>
+    <div class="pracs" id="pracs"></div>
     <div class="play">
       <div class="panel"><div id="game"><div class="empty">Pick a trail on the mountain.</div></div><div class="next" id="next"></div></div>
       <div class="panel">
@@ -81,9 +89,22 @@ footer a{color:var(--muted)}
 <script src="shared/jam.js"></script>
 <script src="client/mountain.js"></script>
 <script src="../3d/vendor/three.min.js"></script>
+<script src="../3d/vendor/CopyShader.js"></script>
+<script src="../3d/vendor/LuminosityHighPassShader.js"></script>
+<script src="../3d/vendor/Pass.js"></script>
+<script src="../3d/vendor/EffectComposer.js"></script>
+<script src="../3d/vendor/MaskPass.js"></script>
+<script src="../3d/vendor/ShaderPass.js"></script>
+<script src="../3d/vendor/RenderPass.js"></script>
+<script src="../3d/vendor/UnrealBloomPass.js"></script>
+<script src="../3d/vendor/Reflector.js"></script>
 <script src="../3d/ny3d.js"></script>
 <script src="client/mountain3d.js"></script>
 <script src="client/trail-game.js"></script>
+<script src="shared/bridges.js"></script>
+<script src="client/bridges-game.js"></script>
+<script src="shared/camps.js"></script>
+<script src="client/camps-game.js"></script>
 <script>
 (function () {
   var $ = function (id) { return document.getElementById(id); };
@@ -106,6 +127,7 @@ footer a{color:var(--muted)}
       : 'Playtest · everything is open<br>' + esc(me.nick);
     $('foot').textContent = me.nick;
     Mountain.render($('mountain'), me.levels, { current: cur, onOpen: open });
+    renderPracs();
     $('tiers').innerHTML = me.tiers.map(function (t) {
       var st = !t.got ? '' : t.got.code ? 'got' : 'ready';
       var right = !t.got ? t.prize : t.got.code ? t.got.code : t.prize + ' · ready';
@@ -127,7 +149,7 @@ footer a{color:var(--muted)}
       $('claimBtn').onclick = function () { doClaim({}); };
       return;
     }
-    box.innerHTML = '<p>' + (c.pid && c.pid.status === 'rejected' ? 'We couldn\'t find that player ID. Check it and try again.' : 'First claim: add your Jumanza player ID. We check it once, then every reward comes instantly.') + '</p>' +
+    box.innerHTML = '<p>' + (c.pid && c.pid.status === 'rejected' ? 'We couldn\'t find that player ID. Check it and try again.' : 'First claim: add your Jumanza player ID. We check it once; after that, rewards arrive automatically.') + '</p>' +
       '<form id="claimForm"><input id="pid" inputmode="numeric" placeholder="Player ID" autocomplete="off"><button class="btn" type="submit">Claim prize</button></form>' +
       (claimMsg ? '<p class="err">' + claimMsg + '</p>' : '');
     $('claimForm').onsubmit = function (e) { e.preventDefault(); doClaim({ playerId: $('pid').value }); };
@@ -146,14 +168,28 @@ footer a{color:var(--muted)}
       if (!r.attempt) { $('game').innerHTML = '<div class="empty">' + (MSG[r.error] || r.error) + '</div>'; return; }
       cur = id; $('next').innerHTML = '';
       if (game) game.destroy();
-      game = Trail.mount($('game'), {
+      // 3 карты: экран по механике уровня (trail · bridges · camps)
+      var g = r.attempt.view.game, Screen = g === 'bridges' ? window.Bridges : g === 'camps' ? window.CampsGame : Trail;
+      game = Screen.mount($('game'), {
         sprites: '../../jumanza/assets/sprites/',
         move: function (input) { return post('api/move', { p: P, level: id, input: input }); },
         onDone: function () { load().then(function () { Mountain.cheer($('mountain'), id); suggest(); }); }
       });
       game.load(r.attempt);
       Mountain.render($('mountain'), ME.levels, { current: cur, onOpen: open });
+      renderPracs();
       if (r.attempt.view.done) suggest();
+    });
+  }
+  // тренировки всех трёх игр (без призов): лагерь у подножия на горе + кнопки здесь
+  var PRAC = { practice: 'Jams', practice2: 'River', practice3: 'Camps' };
+  function renderPracs() {
+    var list = (ME && ME.levels || []).filter(function (l) { return l.training; });
+    $('pracs').innerHTML = list.length ? '<span>Practice, no prize:</span>' + list.map(function (l) {
+      return '<button class="btn ghost' + (l.status === 'clear' ? ' got' : '') + (cur === l.id ? ' cur' : '') + '" type="button" data-id="' + l.id + '">' + esc(PRAC[l.id] || l.title) + (l.status === 'clear' ? ' ✓' : '') + '</button>';
+    }).join('') : '';
+    Array.prototype.forEach.call($('pracs').querySelectorAll('button'), function (b) {
+      b.onclick = function () { var id = b.getAttribute('data-id'); open(id, ME.levels.find(function (l) { return l.id === id; })); };
     });
   }
   function suggest() {

@@ -31,7 +31,7 @@
     logTitle: 'My expedition',
     rules: function () {
       return 'Every explorer has their own map and their own six finds. Read the diary page, tap the square where it points. ' +
-        'Three pins per find, with hot and cold after a miss. Saffron\'s hints are in the Watchers chat. No timer, no race.';
+        'Three tries per find (three lanterns), with hot and cold after a miss. Saffron\'s hints are in the Watchers chat. No timer, no race.';
     },
     sync: sync,
     off: function () { if (game) { game.destroy(); game = null; } key = null; },

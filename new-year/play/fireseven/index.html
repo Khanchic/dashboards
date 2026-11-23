@@ -16,7 +16,8 @@
   .stage{background:radial-gradient(90% 70% at 50% 30%,#123226,#020806 70%)}
   .pt-bar{position:fixed;left:50%;top:14px;transform:translateX(-50%);z-index:50;display:flex;gap:8px;align-items:center;padding:5px 8px 5px 14px;
     background:rgba(2,8,6,.9);border:1px solid rgba(211,144,69,.4);border-radius:999px;font:500 12px/1.3 "Manrope",system-ui,sans-serif;color:#cfd8d4;white-space:nowrap}
-  @media (max-width:900px){.pt-bar{top:auto;bottom:8px}.pt-bar span{display:none}}
+  /* телефон: плашка в потоке над шапкой, а не поверх контента (плейтест AG 18.11: перекрывала заголовок) */
+  @media (max-width:900px){.pt-bar{position:relative;left:auto;top:auto;transform:none;margin:8px auto 0;width:max-content;max-width:calc(100% - 16px);flex-wrap:wrap;justify-content:center}.pt-bar span{display:none}}
   .pt-bar b{color:#E9C78F}
   .pt-bar button{font:inherit;color:#E9C78F;background:none;border:1px solid rgba(211,144,69,.4);border-radius:999px;padding:4px 10px;cursor:pointer}
   .pt-bar button[hidden]{display:none}
@@ -29,6 +30,11 @@
 </head>
 <body>
 <div class="stage"><div id="gl"></div></div>
+<div class="pt-bar">
+  <span title="In the real event a lock opens every hour from 12 PM ET.">Playtest: all 7 locks open, 90 min</span>
+  <button type="button" id="ptOpen" hidden>Done? Open my vault now</button>
+  <button type="button" id="ptTut">Show tutorial</button>
+</div>
 <div class="ui">
   <header class="top">
     <div class="brand"><span id="brandName" class="brand-name">Fire Seven</span><span class="div" aria-hidden="true"></span><span class="eyebrow">Christmas Day</span></div>
@@ -41,6 +47,7 @@
     <p class="night" id="night">&nbsp;</p>
     <h1 id="title">Crack the 777 Vault</h1>
     <p id="rules"></p>
+    <button type="button" class="rules-more" id="rulesMore" aria-expanded="false" onclick="var i=this.parentNode,o=i.classList.toggle('open');this.setAttribute('aria-expanded',o);this.textContent=o?'Show less':'How it works';">How it works</button>
     <div class="legend" id="legend" hidden></div>
     <p class="meta" id="meta"></p>
   </section>
@@ -59,11 +66,6 @@
   </section>
   <ol class="track panel" id="track" aria-label="Today"></ol>
 </div>
-<div class="pt-bar">
-  <span title="In the real event a lock opens every hour from 12 PM ET.">Playtest: all 7 locks open, 90 min</span>
-  <button type="button" id="ptOpen" hidden>Done? Open my vault now</button>
-  <button type="button" id="ptTut">Show tutorial</button>
-</div>
 
 <script src="hub-core.js"></script>
 <script>
@@ -76,6 +78,15 @@
 <script src="vault.js"></script>
 <!-- 3D-зал за игрой (фон .stage): ядро NY3D + сцена сейфа; нет WebGL — остаётся градиент .stage -->
 <script src="../3d/vendor/three.min.js"></script>
+<script src="../3d/vendor/CopyShader.js"></script>
+<script src="../3d/vendor/LuminosityHighPassShader.js"></script>
+<script src="../3d/vendor/Pass.js"></script>
+<script src="../3d/vendor/EffectComposer.js"></script>
+<script src="../3d/vendor/MaskPass.js"></script>
+<script src="../3d/vendor/ShaderPass.js"></script>
+<script src="../3d/vendor/RenderPass.js"></script>
+<script src="../3d/vendor/UnrealBloomPass.js"></script>
+<script src="../3d/vendor/Reflector.js"></script>
 <script src="../3d/ny3d.js"></script>
 <script src="client/vault3d.js"></script>
 <script>if (window.Vault3D && Vault3D.supported()) Vault3D.mount(document.getElementById('gl'), { assetBase: '../../fireseven/assets/' });</script>
@@ -166,7 +177,8 @@
     var c = st.contest, a = st.attempt, html = gateHtml(), gate = $('#gate');
     if (gate.getAttribute('data-html') !== html) { gate.innerHTML = html; gate.setAttribute('data-html', html); }
     var playing = Boolean(a && a.status === 'active' && c && c.open), cur = c && c.ready ? WH.gameFor(c.mechanic) : null;
-    Object.keys(WH.games).forEach(function (id) { var gm = WH.games[id], on = playing && gm === cur; $(gm.panel).hidden = !on; if (!on && gm.off) gm.off(); });
+    var tutOpen = Boolean(window.F7V && F7V.state.tut >= 0); // окно обучения открыто кнопкой — панель не прячем
+    Object.keys(WH.games).forEach(function (id) { var gm = WH.games[id], on = playing && gm === cur; if (!(tutOpen && !on)) $(gm.panel).hidden = !on; if (!on && gm.off) gm.off(); });
     if (cur) cur.sync(c, a); else WH.logEmpty('Your tries show up here.');
   }
   $('#gate').addEventListener('click', function (e) {
@@ -191,7 +203,11 @@
     if (!confirm('Open your vault now? Locks you have not finished stay as they are.')) return;
     WH.api('/open-now', {}).then(function () { if (window.F7V) window.F7V.state.revealLoad = false; load(); });
   });
-  document.getElementById('ptTut').addEventListener('click', function () { try { localStorage.removeItem('f7v-tut'); } catch (x) {} location.reload(); });
+  // открыть обучение сразу (и до Start), без перезагрузки страницы
+  document.getElementById('ptTut').addEventListener('click', function () {
+    try { localStorage.removeItem('f7v-tut'); } catch (x) {}
+    if (window.F7V && F7V.tutorial) F7V.tutorial(); else location.reload();
+  });
 
   var nick = P.get('nick') || P.get('name');
   if (nick) join(nick).then(load).catch(loginForm);

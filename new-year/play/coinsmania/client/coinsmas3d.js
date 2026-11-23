@@ -13,18 +13,26 @@
   var BR = { y: 0xfdd717, b: 0x1818f5, pk: 0xff4fa3, gr: 0x27c93f };
   // цвета монет — те же, что в игре (sort-game.css .cs-c0…c8)
   var COINS = [0xfdd717, 0xff4fa3, 0x27c93f, 0x3d6bff, 0xff4136, 0x9b5cff, 0xc9d1e3, 0xff8a1f, 0x22d3ee];
-  var PIGGINS = '../../coinsmania/assets/piggins-cut.png';
+  var PIGGINS = '../../coinsmania/assets/piggins-cut.png';          // фолбэк: по пояс, низ прячут облака
+  // графика Flow (18.11, assets/gen): Piggins целиком, нарисованное небо, фактура облаков; нет файла — процедурный вид
+  var GEN = { pig: '../../coinsmania/assets/gen/pig-hero-full.png', sky: '../../coinsmania/assets/gen/sky-coins.jpg', puffs: '../../coinsmania/assets/gen/cloud-puffs.png', faces: '../../coinsmania/assets/gen/coin-faces.png' };
+  // атласы Flow (batch 2): прямоугольники [x0, y0, x1, y1] в пикселях исходника 1376×768
+  var PUFFS = [[69, 62, 473, 289], [938, 74, 1308, 280], [447, 217, 960, 500], [860, 475, 1282, 709], [100, 489, 477, 698]];
+  var FACES = { 0xfdd717: [320, 26, 542, 248], 0xc9d1e3: [578, 26, 799, 248], 0xff4136: [833, 25, 1056, 249], 0x3d6bff: [320, 273, 543, 495], 0x27c93f: [578, 274, 798, 495],
+    0x9b5cff: [833, 273, 1056, 496], 0xff4fa3: [320, 520, 543, 743], 0xff8a1f: [577, 520, 799, 743], 0x22d3ee: [835, 521, 1055, 742] };
+  // картинка есть? cb(true|false) — без ошибок в консоли ядра (k.image ошибки не ловит)
+  function probe(url, cb) { var im = new Image(); im.onload = function () { cb(true); }; im.onerror = function () { cb(false); }; im.src = url; }
 
   // места банок: [x, z] — дуга перед копилкой; практика слева спереди, золотая — сзади справа на высоком облаке
   var SPOTS = { practice: [-3.9, -3.0], j1: [-6.7, 2.6], j2: [-4.05, 4.3], j3: [-1.36, 5.2], j4: [1.36, 5.2], j5: [4.05, 4.3], j6: [6.7, 2.6], golden: [5.6, -5.2] };
   var PIG_AT = [0, 0, -0.6];
-  var CAM = { pos: [0, 8.6, 20.5], look: [0, 2.3, -0.5] };
-  var CAM_TALL = { pos: [0, 20, 13.5], look: [0, 1.4, -0.8] }; // телефон: сверху и ближе — банки ±6.7 по ширине, края острова за кадром
+  var CAM = { pos: [0, 6.6, 19.0], look: [0, 2.7, -0.8] }; // премиум: ниже и ближе, копилка — герой кадра
+  var CAM_TALL = { pos: [0, 17, 15.5], look: [0, 1.8, -0.6] }; // телефон: сверху и ближе — банки ±6.7 по ширине, края острова за кадром
 
   function frame(a) {
     var t = Math.max(0, Math.min(1, (1.9 - a) / 1.0));
     function mix(p, q) { return p.map(function (v, i) { return v + (q[i] - v) * t; }); }
-    return { t: t, pos: mix(CAM.pos, CAM_TALL.pos), look: mix(CAM.look, CAM_TALL.look), fov: 40 + 18 * t, zoom: Math.max(0.8, Math.min(1, a / 0.7)) };
+    return { t: t, pos: mix(CAM.pos, CAM_TALL.pos), look: mix(CAM.look, CAM_TALL.look), fov: 40 + 18 * t, zoom: Math.max(0.58, Math.min(1, a / 0.82)) }; // телефон 390×844 (a≈0.49): банки ±6.7 с подписями влезают по ширине (AG 18.11)
   }
 
   function supported() { return !!(window.NY3D && window.THREE && NY3D.supported()); }
@@ -74,20 +82,73 @@
   // ======================================================================================================
   function build(box) {
     var k = NY3D.create(box, {
-      bg: 0x1418a8, fog: [0x4a4fd8, 34, 90], exposure: 0.9,
-      // окружение тёмное и цветное: светлое окружение даёт сильный рассеянный свет и выбеливает цвета
-      env: [0x23289a, 0x7a6438, 0x7a2a6c, 0x0a0a40], cam: { pos: CAM.pos, look: CAM.look, fov: 40 }, designAspect: 2, minZoom: 0.42, parallax: 0.7,
+      premium: true, bg: 0x1418a8, fogExp: [0x5a5ee0, 0.012],
+      // bloom с высоким порогом: светятся огоньки, звёзды, золото — светлые облака не «плывут»
+      bloom: [0.7, 0.45, 0.93],
+      // env по раскладке зала WH: слева, справа, сверху, сзади, пол — синий, розовый, тёплый белый, фиолет, ночь
+      env: [0x3d4bff, 0xff4fa3, 0xfff0d0, 0x6a2ac0, 0x14127a], cam: { pos: CAM.pos, look: CAM.look, fov: 40 }, designAspect: 2, minZoom: 0.42, parallax: 0.7,
     });
     if (!k) return null;
-    var T = k.T, scene = k.scene, S = { k: k, jars: {}, t: 0, fill: 0, fillTo: 0, golden: 0, flyers: [] };
+    var T = k.T, scene = k.scene, S = { k: k, jars: {}, t: 0, fill: 0, fillTo: 0, golden: 0, flyers: [] }, HQ = k.HQ;
     k.renderer.localClippingEnabled = true;
+    // кусок атласа → своя текстура; inset — доля, срезаемая с краёв (лицо монеты без прозрачной кромки).
+    // pm: премультипликация при загрузке — мягкие края без тёмной каймы (RGB под прозрачными пикселями — мусор хромакея)
+    // iso: оставить только связную фигуру у центра — рамки облаков в атласе перекрываются, иначе в угол попадает
+    // кусок соседнего облака с прямым краем
+    function isolate(cv) {
+      var w = cv.width, h = cv.height, g = cv.getContext('2d'), d = g.getImageData(0, 0, w, h), a = d.data, keep = new Uint8Array(w * h), st = [], best = -1, bd = 1e9;
+      for (var y = 0; y < h; y += 2) for (var x = 0; x < w; x += 2) { if (a[(y * w + x) * 4 + 3] > 128) { var dd = (x - w / 2) * (x - w / 2) + (y - h / 2) * (y - h / 2); if (dd < bd) { bd = dd; best = y * w + x; } } }
+      if (best < 0) return;
+      keep[best] = 1; st.push(best);
+      while (st.length) {
+        var p = st.pop(), px = p % w, py = (p - px) / w;
+        for (var k2 = 0; k2 < 4; k2++) {
+          var nx = px + (k2 === 0 ? 1 : k2 === 1 ? -1 : 0), ny = py + (k2 === 2 ? 1 : k2 === 3 ? -1 : 0);
+          if (nx < 0 || ny < 0 || nx >= w || ny >= h) continue;
+          var q = ny * w + nx; if (!keep[q] && a[q * 4 + 3] > 0) { keep[q] = 1; st.push(q); }
+        }
+      }
+      for (var i = 0; i < w * h; i++) if (!keep[i]) a[i * 4 + 3] = 0;
+      g.putImageData(d, 0, 0);
+    }
+    function cutTex(img, r, pm, inset, iso) {
+      var w = r[2] - r[0], h = r[3] - r[1], ix = (inset || 0) * w, iy = (inset || 0) * h;
+      var cv = document.createElement('canvas'); cv.width = Math.round(w - 2 * ix); cv.height = Math.round(h - 2 * iy);
+      cv.getContext('2d').drawImage(img, r[0] + ix, r[1] + iy, cv.width, cv.height, 0, 0, cv.width, cv.height);
+      if (iso) { try { isolate(cv); } catch (e) { /* канва «заражена» (file://) — без изоляции */ } }
+      var t = new T.CanvasTexture(cv); t.anisotropy = k.aniso; if (pm) t.premultiplyAlpha = true;
+      if (T.sRGBEncoding && !k.premium) t.encoding = T.sRGBEncoding;
+      t.aspect = cv.height / cv.width; return t;
+    }
+    // смешивание для премультиплицированной текстуры: цвет уже умножен на альфу
+    function pmBlend(m) { m.blending = T.CustomBlending; m.blendSrc = T.OneFactor; m.blendDst = T.OneMinusSrcAlphaFactor; m.needsUpdate = true; return m; }
 
-    // ---------- небо ----------
-    scene.background = k.tex(4, 512, function (g, w, h) {
+    // ---------- небо: нарисованная панорама по ключевому арту ----------
+    var skyTex = k.tex(1024, 1024, function (g, w, h) {
       var gr = g.createLinearGradient(0, 0, 0, h);
-      gr.addColorStop(0, '#2a0b78'); gr.addColorStop(0.32, '#2214b8'); gr.addColorStop(0.62, '#1b38e6'); gr.addColorStop(0.85, '#4a6af2'); gr.addColorStop(1, '#8d8ef5');
+      gr.addColorStop(0, '#1a0758'); gr.addColorStop(0.28, '#2a12a8'); gr.addColorStop(0.55, '#1f3ae8'); gr.addColorStop(0.78, '#5a6ef4'); gr.addColorStop(1, '#b4a6fa');
       g.fillStyle = gr; g.fillRect(0, 0, w, h);
-    });
+      // мягкие туманности: розовая и фиолетовая
+      [[0.22, 0.3, 0.38, 'rgba(255,79,163,.22)'], [0.78, 0.22, 0.42, 'rgba(155,92,255,.28)'], [0.5, 0.62, 0.55, 'rgba(120,160,255,.22)'], [0.12, 0.7, 0.35, 'rgba(255,160,230,.18)']].forEach(function (n) {
+        var rg = g.createRadialGradient(n[0] * w, n[1] * h, 0, n[0] * w, n[1] * h, n[2] * w); rg.addColorStop(0, n[3]); rg.addColorStop(1, 'rgba(0,0,0,0)');
+        g.fillStyle = rg; g.fillRect(0, 0, w, h);
+      });
+      // россыпь звёзд, гуще вверху
+      for (var i0 = 0; i0 < 900; i0++) {
+        var y = Math.pow(Math.random(), 1.6) * h * 0.8, r0 = Math.random() < 0.06 ? 1.6 : 0.7;
+        g.fillStyle = 'rgba(255,' + (230 + Math.random() * 25 | 0) + ',190,' + (0.35 + Math.random() * 0.6).toFixed(2) + ')';
+        g.beginPath(); g.arc(Math.random() * w, y, r0, 0, Math.PI * 2); g.fill();
+      }
+      // облачная полоса у горизонта
+      for (var c0 = 0; c0 < 60; c0++) {
+        var x = Math.random() * w, yy = h * (0.8 + Math.random() * 0.2), rr0 = 30 + Math.random() * 80;
+        var cg = g.createRadialGradient(x, yy, 0, x, yy, rr0); cg.addColorStop(0, 'rgba(225,215,255,.35)'); cg.addColorStop(1, 'rgba(225,215,255,0)');
+        g.fillStyle = cg; g.beginPath(); g.arc(x, yy, rr0, 0, Math.PI * 2); g.fill();
+      }
+    }, HQ);
+    scene.background = skyTex;
+    // нарисованное небо (Flow): цилиндр за островом, повтор зеркальный; пока грузится или файла нет — процедурное
+    probe(GEN.sky, function (ok) { if (ok) k.panorama({ src: GEN.sky, r: 96, h: 92, span: 3.9, y0: -30, z: -4, repeat: 2, color: 0xdcd6ff }); });
     // звёзды-точки
     var starN = 420, sp = new Float32Array(starN * 3);
     for (var i = 0; i < starN; i++) { var a = -Math.PI * 0.95 + Math.random() * Math.PI * 0.9, el = 0.12 + Math.random() * 0.85, R = 110; sp[i * 3] = Math.cos(a) * Math.cos(el) * R; sp[i * 3 + 1] = Math.sin(el) * R * 0.55 + 4; sp[i * 3 + 2] = Math.sin(a) * Math.cos(el) * R; }
@@ -111,21 +172,39 @@
     }
 
     // ---------- свет ----------
-    scene.add(new T.HemisphereLight(0x9f8cff, 0x24247a, 0.5));
-    var key = new T.DirectionalLight(0xfff0d6, 0.95); key.position.set(-8, 16, 14); scene.add(key);
-    var rim = new T.DirectionalLight(0xff5fc8, 0.5); rim.position.set(10, 8, -14); scene.add(rim);
-    var fill = new T.DirectionalLight(0x5f7cff, 0.3); fill.position.set(12, 5, 10); scene.add(fill);
+    scene.add(new T.HemisphereLight(0x8a7cf0, 0x1a1a6a, 0.32));
+    var key = new T.DirectionalLight(0xfff0d6, 0.62); key.position.set(-8, 16, 14); scene.add(key);
+    var rim = new T.DirectionalLight(0xff5fc8, 0.42); rim.position.set(10, 8, -14); scene.add(rim);
+    var fill = new T.DirectionalLight(0x5f7cff, 0.22); fill.position.set(12, 5, 10); scene.add(fill);
     var pigLight = new T.PointLight(0xffd34a, 0, 14, 2); pigLight.position.set(PIG_AT[0], 3.6, PIG_AT[2] + 3); scene.add(pigLight);
 
     // ---------- облака ----------
-    var cloudMats = [0xd2c8ff, 0xb8b0ff, 0xf0b8ff, 0xa8b8ff].map(function (c) { return new T.MeshStandardMaterial({ color: c, roughness: 1, metalness: 0 }); });
-    var puffGeo = new T.SphereGeometry(1, 18, 12);
+    // облачная фактура: мягкие пятна светлее/темнее — убирает «пластик»; emissive — лёгкое подповерхностное свечение
+    var cloudTex = k.tex(256, 256, function (g, w, h) {
+      g.fillStyle = '#ffffff'; g.fillRect(0, 0, w, h);
+      for (var i1 = 0; i1 < 140; i1++) {
+        var x = Math.random() * w, y = Math.random() * h, r = 8 + Math.random() * 34, dk = Math.random() < 0.5;
+        var cg = g.createRadialGradient(x, y, 0, x, y, r); cg.addColorStop(0, dk ? 'rgba(150,140,220,.16)' : 'rgba(255,255,255,.5)'); cg.addColorStop(1, 'rgba(255,255,255,0)');
+        g.fillStyle = cg; g.fillRect(x - r, y - r, r * 2, r * 2);
+      }
+    }, HQ);
+    cloudTex.wrapS = cloudTex.wrapT = T.RepeatWrapping; cloudTex.repeat.set(2, 1);
+    var cloudMats = [[0xb0a4f0, 0x5a3ab8], [0x9a92ea, 0x3a3ac8], [0xd2a0ec, 0x8a2a8a], [0x92a2ee, 0x2a4ac8]].map(function (c) {
+      return new T.MeshStandardMaterial({ color: c[0], map: cloudTex, roughness: 1, metalness: 0, emissive: c[1], emissiveIntensity: 0.12, envMapIntensity: 0.35 });
+    });
+    // cloud-surface.jpg (Flow) не подключён: на шарах-облаках его складки читаются как «извилины», процедурные пятна мягче (18.11)
+    var puffGeo = new T.SphereGeometry(1, 28, 18);
     function puff(x, y, z, sx, sy, sz, mi) {
       var m = new T.Mesh(puffGeo, cloudMats[mi % cloudMats.length]); m.position.set(x, y, z); m.scale.set(sx, sy, sz); scene.add(m); return m;
     }
-    // остров: плоская «подушка» и пухлые края
+    // остров: плоская «подушка» и пухлые края; поверх подушки — россыпь низких пухлых бугорков, чтобы не было «стола»
     var r1 = rng(7);
     puff(0, -1.6, 0.4, 13, 1.6, 8.6, 0); // верх «подушки» — y = 0
+    for (var bm0 = 0; bm0 < 34; bm0++) {
+      var ba = r1() * Math.PI * 2, brr = Math.sqrt(r1()), bx = Math.cos(ba) * brr * 10.5, bz = 0.4 + Math.sin(ba) * brr * 6.6;
+      if (Math.abs(bx - PIG_AT[0]) < 3.2 && Math.abs(bz - PIG_AT[2]) < 2.6) continue; // под копилкой ровно
+      var bs0 = 0.9 + r1() * 1.3; puff(bx, -0.75 - r1() * 0.15, bz, bs0 * 1.15, bs0 * 0.7, bs0, bm0);
+    }
     for (var c = 0; c < 46; c++) {
       var ang = (c / 46) * Math.PI * 2, front = Math.sin(ang) > 0.3, rx = 12.4 + r1() * 1.2, rz = 8.0 + r1() * 0.8, s = (front ? 1.0 : 1.4) + r1() * 1.2;
       puff(Math.cos(ang) * rx, -0.9 - (front ? 0.3 : 0) + r1() * 0.3, 0.4 + Math.sin(ang) * rz, s * 1.3, s * (front ? 0.5 : 0.7), s, c);
@@ -144,6 +223,16 @@
     var gx = SPOTS.golden[0], gz = SPOTS.golden[1], GOLD_Y = 1.7;
     puff(gx, GOLD_Y - 0.9, gz, 2.6, 1.1, 2.2, 2); puff(gx - 1.8, GOLD_Y - 1.4, gz + 0.4, 1.6, 1.0, 1.5, 0); puff(gx + 1.9, GOLD_Y - 1.5, gz - 0.2, 1.5, 0.9, 1.4, 1);
     puff(gx, 0.2, gz + 0.6, 2.2, 1.2, 1.8, 3);
+    // ореол-лучи за Золотой банкой (медленно вращаются)
+    var raysTex = k.tex(256, 256, function (g, w) {
+      var c1 = w / 2; g.translate(c1, c1);
+      for (var ry = 0; ry < 16; ry++) {
+        g.rotate(Math.PI / 8); var lg2 = g.createLinearGradient(0, 0, c1, 0); lg2.addColorStop(0, 'rgba(255,220,90,.9)'); lg2.addColorStop(1, 'rgba(255,220,90,0)');
+        g.fillStyle = lg2; g.beginPath(); g.moveTo(0, 0); g.lineTo(c1, -c1 * 0.09); g.lineTo(c1, c1 * 0.09); g.closePath(); g.fill();
+      }
+    });
+    var goldRays = new T.Mesh(new T.PlaneGeometry(7.5, 7.5), new T.MeshBasicMaterial({ map: raysTex, transparent: true, depthWrite: false, blending: T.AdditiveBlending, fog: false }));
+    goldRays.position.set(gx, GOLD_Y + 1.9, gz - 1.2); scene.add(goldRays);
     // облачное море внизу и дальние облака — мягкие спрайты
     var softTex = k.tex(256, 128, function (g, w, h) {
       for (var i2 = 0; i2 < 30; i2++) {
@@ -158,35 +247,71 @@
      [0xc4c8ff, -24, -7, -14, 34], [0xd8c8ff, 26, -7, -12, 34], [0xaab8ff, 0, -9, -30, 60]].forEach(function (d) {
       var cs = new T.Sprite(new T.SpriteMaterial({ map: softTex, color: d[0], transparent: true, opacity: 0.85, depthWrite: false, fog: false }));
       cs.scale.set(d[4], d[4] * 0.42, 1); cs.position.set(d[1], d[2], d[3]); scene.add(cs);
-      farClouds.push({ s: cs, x0: d[1], sp: 0.2 + Math.random() * 0.3 });
+      farClouds.push({ s: cs, x0: d[1], sp: 0.2 + Math.random() * 0.3, tint: d[0], w: d[4] });
+    });
+    // нарисованные облака Flow (cloud-puffs.png, 5 штук) вместо процедурных пятен; нет файла — остаются пятна
+    probe(GEN.puffs, function (ok) {
+      if (!ok) return;
+      k.image(GEN.puffs, function (t0, img) {
+        var cuts = PUFFS.map(function (r) { return cutTex(img, r, true, 0, true); }), white = new T.Color(0xffffff);
+        farClouds.forEach(function (c4, i) {
+          var tx = cuts[i % cuts.length], m = c4.s.material, op = 0.92;
+          m.map = tx; m.opacity = op; m.color.set(c4.tint).lerp(white, 0.55).multiplyScalar(op); pmBlend(m); // премульт.: цвет × прозрачность
+          c4.s.scale.set(c4.w * 0.8, c4.w * 0.8 * tx.aspect, 1);
+        });
+      });
     });
 
     // ---------- монеты (общие) ----------
-    var coinGeo = new T.CylinderGeometry(0.2, 0.2, 0.09, 24);
+    // монета-Lathe: приподнятый кант по краю, утопленное поле — читается как настоящая монета, без цифр и букв
+    function coinLathe(R, H) {
+      var p = [[0, H * 0.32], [R * 0.78, H * 0.32], [R * 0.84, H * 0.5], [R, H * 0.5], [R, -H * 0.5], [R * 0.84, -H * 0.5], [R * 0.78, -H * 0.32], [0, -H * 0.32]];
+      return new T.LatheGeometry(p.map(function (q) { return new T.Vector2(q[0], q[1]); }), 32);
+    }
+    var coinGeo = coinLathe(0.2, 0.09);
     var faceCache = {};
+    // один материал на цвет: глянцевая эмаль, золото — металл; карта — тиснёная звезда в поле
+    var coinFace = k.tex(128, 128, function (g, w) {
+      var c0 = w / 2; g.fillStyle = '#ffffff'; g.fillRect(0, 0, w, w);
+      g.translate(c0, c0); g.fillStyle = 'rgba(0,0,0,.14)'; g.beginPath();
+      for (var s0 = 0; s0 < 10; s0++) { var an0 = -Math.PI / 2 + s0 * Math.PI / 5, r0 = s0 % 2 ? 14 : 34; g.lineTo(Math.cos(an0) * r0, Math.sin(an0) * r0); }
+      g.closePath(); g.fill();
+      g.strokeStyle = 'rgba(0,0,0,.16)'; g.lineWidth = 3; g.beginPath(); g.arc(0, 0, 46, 0, Math.PI * 2); g.stroke();
+    }, HQ);
     function coinMats(col) {
       if (faceCache[col]) return faceCache[col];
-      var hex = '#' + ('000000' + col.toString(16)).slice(-6);
-      var face = k.tex(64, 64, function (g, w) {
-        var c0 = w / 2, gr = g.createRadialGradient(c0 * 0.7, c0 * 0.6, 2, c0, c0, c0);
-        gr.addColorStop(0, 'rgba(255,255,255,1)'); gr.addColorStop(0.12, hex); gr.addColorStop(1, hex);
-        g.fillStyle = gr; g.fillRect(0, 0, w, w);
-        g.strokeStyle = 'rgba(0,0,0,.28)'; g.lineWidth = 4; g.beginPath(); g.arc(c0, c0, c0 - 9, 0, Math.PI * 2); g.stroke();
-        g.strokeStyle = 'rgba(255,255,255,.45)'; g.lineWidth = 2; g.beginPath(); g.arc(c0, c0, c0 - 14, Math.PI * 1.05, Math.PI * 1.6); g.stroke();
-      });
-      var side = new T.MeshStandardMaterial({ color: col, roughness: 0.35, metalness: col === 0xfdd717 ? 0.6 : 0.15 });
-      var top = new T.MeshStandardMaterial({ map: face, roughness: 0.3, metalness: col === 0xfdd717 ? 0.5 : 0.1 });
-      return (faceCache[col] = [side, top, top]);
+      var gold = col === 0xfdd717;
+      return (faceCache[col] = new T.MeshStandardMaterial({ color: gold ? 0xffd23a : col, map: coinFace, roughness: gold ? 0.3 : 0.28, metalness: gold ? 0.35 : 0.25, envMapIntensity: gold ? 0.8 : 1.1, emissive: gold ? 0xb07400 : 0x000000, emissiveIntensity: gold ? 0.6 : 0 }));
     }
     // парящие монеты в небе
     var skyCoins = [];
-    var bigCoinGeo = new T.CylinderGeometry(1, 1, 0.22, 36);
+    var bigCoinGeo = coinLathe(1, 0.22);
     [[0xfdd717, -15, 10, -14, 1.4], [0xff4fa3, 14, 12, -18, 1.2], [0x27c93f, 19, 6, -10, 1.0], [0xfdd717, -21, 15, -26, 1.6], [0x3d6bff, -9, 16, -28, 0.9],
      [0xfdd717, 9, 17, -30, 1.1], [0x9b5cff, 25, 15, -32, 1.2], [0xff8a1f, -26, 7, -20, 0.9]].forEach(function (d, i3) {
       var m = new T.Mesh(bigCoinGeo, coinMats(d[0])); m.scale.setScalar(d[4]); m.position.set(d[1], d[2], d[3]);
       m.rotation.set(Math.PI / 2 - 0.3, 0, i3); scene.add(m);
       var gl = k.glow(d[0], d[4] * 4.2); gl.material.opacity = 0.35; gl.position.copy(m.position); scene.add(gl);
-      skyCoins.push({ m: m, y0: d[2], ph: i3 * 1.7 });
+      skyCoins.push({ m: m, y0: d[2], ph: i3 * 1.7, col: d[0] });
+    });
+    // лица крупных монет — нарисованные Flow (coin-faces.png: 9 цветов, тиснёная звезда, без цифр) на дисках поверх Lathe;
+    // у мелких монет в банках оставляем процедурную звезду — там картинку не разглядеть
+    probe(GEN.faces, function (ok) {
+      if (!ok) return;
+      k.image(GEN.faces, function (t0, img) {
+        var mats = {}, disc = new T.CircleGeometry(0.985, 48);
+        skyCoins.forEach(function (sc) {
+          var r = FACES[sc.col]; if (!r) return;
+          var gold = sc.col === 0xfdd717;
+          // золото: лиловое небо в отражениях делало его бронзовым — меньше металла, тёплый тон и свечение по самой картинке
+          var ft = mats[sc.col] ? null : cutTex(img, r, false, 0.012);
+          var fm = mats[sc.col] || (mats[sc.col] = gold
+            ? new T.MeshStandardMaterial({ map: ft, color: 0xffd860, roughness: 0.36, metalness: 0.25, envMapIntensity: 0.6, emissive: 0xd09a18, emissiveMap: ft, emissiveIntensity: 0.9 })
+            : new T.MeshStandardMaterial({ map: ft, roughness: 0.32, metalness: 0.2, envMapIntensity: 0.9 }));
+          [1, -1].forEach(function (sd) {
+            var f = new T.Mesh(disc, fm); f.rotation.x = -sd * Math.PI / 2; f.position.y = sd * 0.113; sc.m.add(f);
+          });
+        });
+      });
     });
 
     // ---------- гирлянда из еловых лап по краю острова ----------
@@ -228,14 +353,16 @@
 
     // ---------- копилка ----------
     var pig = new T.Group(); pig.position.fromArray(PIG_AT); pig.rotation.y = -0.55; scene.add(pig);
-    var pink = new T.MeshStandardMaterial({ color: 0xff6aa8, roughness: 0.38, metalness: 0, envMapIntensity: 0.6 });
-    var pinkDeep = new T.MeshStandardMaterial({ color: 0xe8407f, roughness: 0.45 });
-    var dark = new T.MeshStandardMaterial({ color: 0x3a0a1e, roughness: 0.3 });
-    var white = new T.MeshStandardMaterial({ color: 0xffffff, roughness: 0.9 });
-    var red = new T.MeshStandardMaterial({ color: 0xd8121f, roughness: 0.7, envMapIntensity: 0.4 });
+    // глазурованная керамика: лак поверх розового — блики окружения как у настоящей копилки
+    var pink = new T.MeshPhysicalMaterial({ color: 0xf0458e, roughness: 0.34, metalness: 0, clearcoat: 1, clearcoatRoughness: 0.06, envMapIntensity: 0.9, sheen: 0.3, sheenColor: new T.Color(0xffc0dc) });
+    var pinkDeep = new T.MeshPhysicalMaterial({ color: 0xe8407f, roughness: 0.4, clearcoat: 0.8, clearcoatRoughness: 0.1 });
+    var dark = new T.MeshPhysicalMaterial({ color: 0x2a0614, roughness: 0.15, clearcoat: 1, clearcoatRoughness: 0.03, envMapIntensity: 1.6 });
+    var white = new T.MeshStandardMaterial({ color: 0xffffff, roughness: 0.95, emissive: 0x3a3060, emissiveIntensity: 0.15 });
+    // бархат колпака: красный с блеском по краю (sheen)
+    var red = new T.MeshPhysicalMaterial({ color: 0xc8101c, roughness: 0.85, sheen: 1, sheenRoughness: 0.4, sheenColor: new T.Color(0xff6a6a), envMapIntensity: 0.6 });
     // золото — копия формы, обрезанная плоскостью «уровня»: свин снизу вверх покрывается золотом
     var fillPlane = new T.Plane(new T.Vector3(0, -1, 0), 0);
-    var goldMat = new T.MeshStandardMaterial({ color: 0xffd84a, metalness: 0.85, roughness: 0.22, emissive: 0x8a5a00, emissiveIntensity: 0.8, clippingPlanes: [fillPlane] });
+    var goldMat = new T.MeshStandardMaterial({ color: 0xffc828, metalness: 0.9, roughness: 0.3, envMapIntensity: 2.2, emissive: 0x8a5600, emissiveIntensity: 0.5, clippingPlanes: [fillPlane] });
     var goldParts = [];
     function part(geo, mat, x, y, z, sx, sy, sz, rx, ry, rz, gilded) {
       var m = new T.Mesh(geo, mat); m.position.set(x, y, z); m.scale.set(sx, sy, sz); m.rotation.set(rx || 0, ry || 0, rz || 0); pig.add(m);
@@ -259,8 +386,16 @@
     // колпак
     var hat = new T.Group(); hat.position.set(0.95, 3.55, 0); hat.rotation.z = 0.55; pig.add(hat);
     var cone = new T.Mesh(new T.ConeGeometry(0.75, 1.7, 28), red); cone.position.y = 0.85; cone.rotation.z = 0.25; hat.add(cone);
-    var brim = new T.Mesh(new T.TorusGeometry(0.72, 0.2, 12, 30), white); brim.rotation.x = Math.PI / 2; brim.position.y = 0.05; hat.add(brim);
-    var pom = new T.Mesh(new T.SphereGeometry(0.26, 16, 12), white); pom.position.set(-0.42, 1.68, 0); hat.add(pom);
+    var brim = new T.Mesh(new T.TorusGeometry(0.72, 0.17, 12, 30), white); brim.rotation.x = Math.PI / 2; brim.position.y = 0.05; hat.add(brim);
+    var pom = new T.Mesh(new T.SphereGeometry(0.22, 16, 12), white); pom.position.set(-0.42, 1.68, 0); hat.add(pom);
+    // мех: сотни мелких шариков вокруг опушки и помпона (InstancedMesh, один вызов отрисовки)
+    var furN = 260, fur = new T.InstancedMesh(new T.IcosahedronGeometry(0.075, 1), white, furN), fm = new T.Matrix4(), fv = new T.Vector3(), fsc = new T.Vector3(), fqq = new T.Quaternion();
+    for (var fi = 0; fi < furN; fi++) {
+      if (fi < 190) { var fa = Math.random() * Math.PI * 2, fb2 = Math.random() * Math.PI * 2; fv.set(Math.cos(fa) * (0.72 + Math.cos(fb2) * 0.17), 0.05 + Math.sin(fb2) * 0.17, Math.sin(fa) * (0.72 + Math.cos(fb2) * 0.17)); }
+      else { fv.set(Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5).normalize().multiplyScalar(0.22); fv.x += -0.42; fv.y += 1.68; }
+      var fs0 = 0.7 + Math.random() * 0.7; fsc.set(fs0, fs0, fs0); fm.compose(fv, fqq, fsc); fur.setMatrixAt(fi, fm);
+    }
+    hat.add(fur);
     // звезда над копилкой (Золотая банка разобрана)
     var starShape = new T.Shape();
     for (var st = 0; st < 10; st++) { var an2 = Math.PI / 2 + st * Math.PI / 5, rr = st % 2 ? 0.34 : 0.8; if (st) starShape.lineTo(Math.cos(an2) * rr, Math.sin(an2) * rr); else starShape.moveTo(Math.cos(an2) * rr, Math.sin(an2) * rr); }
@@ -270,17 +405,31 @@
     var pigStarGlow = k.glow(0xfdd717, 5); pigStarGlow.position.copy(pigStar.position); pigStarGlow.material.opacity = 0; scene.add(pigStarGlow);
     var pigHalo = k.glow(0xffd34a, 9); pigHalo.position.set(PIG_AT[0], 2.2, PIG_AT[2] + 1); pigHalo.material.opacity = 0; scene.add(pigHalo);
     // кучка монет у копыт растёт вместе с прогрессом
-    var pile = [];
+    // горка монет: InstancedMesh, порядок — от края к центру и вверх, поэтому растёт горкой (count = доля прогресса)
+    var PILE_N = 220, pileMesh = new T.InstancedMesh(coinGeo, coinMats(0xfdd717), PILE_N), pmx = new T.Matrix4(), pq = new T.Quaternion(), pe = new T.Euler(), pv = new T.Vector3(), ps = new T.Vector3(1.15, 1.15, 1.15);
     var r2 = rng(3);
-    for (var pc = 0; pc < 30; pc++) {
-      var pa = r2() * Math.PI * 2, prr = 2.4 + r2() * 1.4;
-      var cm = new T.Mesh(coinGeo, coinMats(0xfdd717)); cm.position.set(PIG_AT[0] + Math.cos(pa) * prr * 1.1, 0.06 + (pc % 3) * 0.08, PIG_AT[2] + 1.0 + Math.sin(pa) * prr * 0.55);
-      cm.rotation.set((r2() - 0.5) * 0.5, r2() * 6, (r2() - 0.5) * 0.5); cm.visible = false; scene.add(cm); pile.push(cm);
+    for (var pc = 0; pc < PILE_N; pc++) {
+      var u0 = pc / PILE_N, side0 = pc % 2 ? 1 : -1, pa = r2() * Math.PI * 2, prr = (1 - u0) * 1.3 + r2() * 0.35;
+      pv.set(PIG_AT[0] + side0 * 2.4 + Math.cos(pa) * prr, 0.05 + u0 * 0.75 * (1 - prr / 1.7) + r2() * 0.04, PIG_AT[2] + 1.6 + Math.sin(pa) * prr * 0.7);
+      pe.set((r2() - 0.5) * 0.7, r2() * 6, (r2() - 0.5) * 0.7); pq.setFromEuler(pe); pmx.compose(pv, pq, ps); pileMesh.setMatrixAt(pc, pmx);
     }
+    pileMesh.count = 0; scene.add(pileMesh);
     S.meter = k.label(pig, [0, 5.0, 0], '', null); S.meter.cls('meter', true);
 
-    // ---------- Piggins (настоящий PNG; низ спрятан в облаках, края растушёваны) ----------
+    // ---------- Piggins ----------
     var piggins = new T.Group(); piggins.position.set(-6.8, -0.6, -7.6); scene.add(piggins);
+    // целиком (Flow): стоит на своём облаке слева-сзади, лицом к зрителю; ноги чуть утоплены в облако
+    function pigFull() {
+      piggins.position.set(-6.6, 0.95, -7.2);
+      puff(-6.6, 0.55, -7.0, 2.3, 0.95, 1.7, 0); puff(-8.2, 0.25, -7.4, 1.6, 0.8, 1.3, 2); puff(-5.1, 0.2, -7.3, 1.5, 0.75, 1.2, 1);
+      k.image(GEN.pig, function (t0, img) {
+        var H = 6.0, Wd = H * img.width / img.height;
+        var m = new T.Mesh(new T.PlaneGeometry(Wd, H), new T.MeshBasicMaterial({ map: t0, transparent: true, alphaTest: 0.03, depthWrite: true, toneMapped: false, fog: false }));
+        m.position.y = H / 2; piggins.add(m); S.pigginsMesh = m;
+      });
+    }
+    probe(GEN.pig, function (ok) { if (ok) pigFull(); else pigCut(); });
+    function pigCut() {
     k.image(PIGGINS, function (t0, img) {
       var cv = document.createElement('canvas'); cv.width = img.width; cv.height = img.height;
       var g = cv.getContext('2d'); g.drawImage(img, 0, 0);
@@ -289,38 +438,56 @@
       g.fillStyle = fb; g.fillRect(0, cv.height * 0.8, cv.width, cv.height * 0.2);
       var fr = g.createLinearGradient(cv.width * 0.93, 0, cv.width, 0); fr.addColorStop(0, 'rgba(0,0,0,0)'); fr.addColorStop(1, 'rgba(0,0,0,1)');
       g.fillStyle = fr; g.fillRect(cv.width * 0.93, 0, cv.width * 0.07, cv.height);
-      var tx = new T.CanvasTexture(cv); if (T.sRGBEncoding) tx.encoding = T.sRGBEncoding;
+      var tx = new T.CanvasTexture(cv); if (T.sRGBEncoding && !k.premium) tx.encoding = T.sRGBEncoding;
       var H = 8.2, Wd = H * img.width / img.height;
       var m = new T.Mesh(new T.PlaneGeometry(Wd, H), new T.MeshBasicMaterial({ map: tx, transparent: true, alphaTest: 0.03, depthWrite: true, toneMapped: false, fog: false }));
       m.position.y = H / 2; piggins.add(m); S.pigginsMesh = m;
     });
     // облака перед Piggins (прячут срез PNG по поясу)
     puff(-6.8, 0.2, -6.0, 3.4, 1.3, 1.6, 0); puff(-9.4, 0.0, -6.4, 2.4, 1.1, 1.4, 2); puff(-4.4, -0.1, -6.2, 2.4, 1.0, 1.4, 1); puff(-7.2, 1.0, -5.4, 2.0, 0.9, 1.1, 3);
+    }
 
     // ---------- банка ----------
     var glassGeo = new T.CylinderGeometry(0.72, 0.72, 1.9, 40, 1, true);
     var glassBottom = new T.CircleGeometry(0.72, 40);
     var lidGeo = new T.CylinderGeometry(0.78, 0.78, 0.26, 40);
     var neckGeo = new T.TorusGeometry(0.72, 0.06, 8, 40);
-    var shineGeo = new T.CylinderGeometry(0.735, 0.735, 1.6, 12, 1, true, 0.5, 0.35);
-    var goldLid = new T.MeshStandardMaterial({ color: 0xffe066, metalness: 0.8, roughness: 0.28, emissive: 0xc08400, emissiveIntensity: 0.75 });
+    var shineGeo = new T.CylinderGeometry(0.735, 0.735, 1.6, 12, 1, true, 0.35, 0.42);
+    var goldLid = new T.MeshStandardMaterial({ color: 0xffd04a, metalness: 0.9, roughness: 0.26, envMapIntensity: 2.0, emissive: 0x7a4c00, emissiveIntensity: 0.45, side: T.DoubleSide });
     var silverLid = new T.MeshStandardMaterial({ color: 0x6f7ab8, metalness: 0.8, roughness: 0.4 });
-    var jarCoinGeo = new T.CylinderGeometry(0.27, 0.27, 0.12, 28);
-    var GLASS = { lock: new T.Color(0x8f9ad8).convertSRGBToLinear(), gold: new T.Color(0xffe27a).convertSRGBToLinear(), norm: new T.Color(0xdfe8ff).convertSRGBToLinear() };
-    var shineMat = new T.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.32, depthWrite: false, side: T.DoubleSide });
+    var jarCoinGeo = coinLathe(0.27, 0.12);
+    var GLASS = { lock: new T.Color(0x8f9ad8), gold: new T.Color(0xffe27a), norm: new T.Color(0xe8eeff) };
+    // блик стекла: вертикальная полоса с мягкими краями (как отражение окна) — главное, что делает стекло стеклом
+    var shineTex = k.tex(64, 256, function (g, w, h) {
+      var lg = g.createLinearGradient(0, 0, w, 0); lg.addColorStop(0, 'rgba(255,255,255,0)'); lg.addColorStop(0.35, 'rgba(255,255,255,.9)'); lg.addColorStop(0.55, 'rgba(255,255,255,.25)'); lg.addColorStop(0.75, 'rgba(255,255,255,.7)'); lg.addColorStop(1, 'rgba(255,255,255,0)');
+      g.fillStyle = lg; g.fillRect(0, 0, w, h);
+      var vg = g.createLinearGradient(0, 0, 0, h); vg.addColorStop(0, 'rgba(0,0,0,1)'); vg.addColorStop(0.15, 'rgba(0,0,0,0)'); vg.addColorStop(0.85, 'rgba(0,0,0,0)'); vg.addColorStop(1, 'rgba(0,0,0,1)');
+      g.globalCompositeOperation = 'destination-out'; g.fillStyle = vg; g.fillRect(0, 0, w, h);
+    });
+    var shineMat = new T.MeshBasicMaterial({ map: shineTex, color: 0xffffff, transparent: true, opacity: 0.55, depthWrite: false, side: T.DoubleSide, blending: T.AdditiveBlending });
+    // крышка-Lathe: купол, резьба кольцами, бортик
+    // 18.11: ниже и уже — была «шляпка гриба»; снизу закрыта диском, чтобы не светилась тёмная изнанка
+    var lidProfile = [[0, 0.1], [0.4, 0.097], [0.62, 0.08], [0.74, 0.05]];
+    for (var th = 0; th < 3; th++) { var yy0 = 0.03 - th * 0.05; lidProfile.push([0.76, yy0 + 0.018], [0.735, yy0 - 0.008]); }
+    lidProfile.push([0.76, -0.14], [0.725, -0.14]);
+    var lidGeoL = new T.LatheGeometry(lidProfile.map(function (q) { return new T.Vector2(q[0], q[1]); }), 48);
+    var lidUnder = new T.CircleGeometry(0.73, 40); lidUnder.rotateX(Math.PI / 2); lidUnder.translate(0, -0.138, 0);
 
     function jarObj(J) {
       var g = new T.Group(), inner = new T.Group(); g.add(inner);
       var golden = !!J.golden;
-      var glass = new T.MeshStandardMaterial({ color: golden ? 0xffe27a : 0xdfe8ff, transparent: true, opacity: golden ? 0.32 : 0.2, roughness: 0.04, metalness: 0.1, side: T.DoubleSide, depthWrite: false });
+      // стекло: прозрачный слой с лаком и сильным отражением окружения (transmission тяжёл для телефонов)
+      var glass = new T.MeshPhysicalMaterial({ color: golden ? 0xffe27a : 0xe8eeff, transparent: true, opacity: golden ? 0.3 : 0.18, roughness: 0.03, metalness: 0, clearcoat: 1, clearcoatRoughness: 0.04, envMapIntensity: 2.6, side: T.DoubleSide, depthWrite: false });
       var body = new T.Mesh(glassGeo, glass); body.position.y = 0.95; body.renderOrder = 2; inner.add(body);
       var bot = new T.Mesh(glassBottom, glass); bot.rotation.x = -Math.PI / 2; bot.position.y = 0.02; inner.add(bot);
       var shine = new T.Mesh(shineGeo, shineMat); shine.position.y = 1.0; shine.renderOrder = 3; inner.add(shine);
+      var shine2 = new T.Mesh(shineGeo, shineMat); shine2.position.y = 1.0; shine2.rotation.y = 1.9; shine2.scale.set(1.002, 0.8, 1.002); shine2.renderOrder = 3; inner.add(shine2);
       var neck = new T.Mesh(neckGeo, glass); neck.rotation.x = Math.PI / 2; neck.position.y = 1.9; inner.add(neck);
       var lid = new T.Group(); lid.position.y = 2.02; inner.add(lid);
-      var lidM = new T.Mesh(lidGeo, goldLid); lid.add(lidM);
-      var lidRim = new T.Mesh(new T.TorusGeometry(0.78, 0.05, 8, 40), goldLid); lidRim.rotation.x = Math.PI / 2; lidRim.position.y = -0.1; lid.add(lidRim);
-      if (golden) { var ls = new T.Mesh(starGeo, pigStarMat); ls.scale.setScalar(0.5); ls.position.set(0, 0.55, -0.05); lid.add(ls); }
+      var lidM = new T.Mesh(lidGeoL, goldLid); lid.add(lidM);
+      lid.add(new T.Mesh(lidUnder, goldLid));
+      var knob = new T.Mesh(new T.SphereGeometry(0.1, 18, 12), goldLid); knob.position.y = 0.12; knob.scale.y = 0.7; lid.add(knob);
+      if (golden) { var ls = new T.Mesh(starGeo, pigStarMat); ls.scale.setScalar(0.5); ls.position.set(0, 0.42, -0.05); lid.add(ls); }
       // монеты: 3 стопки внутри
       var stacks = [], seed = rng((J.n || 0) * 13 + 5);
       for (var s2 = 0; s2 < 3; s2++) {
@@ -352,6 +519,7 @@
     // Цвета в коде — sRGB (как в макетах), а рендер с outputEncoding = sRGB считает их линейными и высветляет:
     // всё выходит пастельным. Переводим цвета материалов в линейные один раз (спрайты-свечения не трогаем — им нужна яркость).
     S.linearize = function () {
+      if (k.premium) return; // премиум-конвейер берёт hex как есть
       if (T.ColorManagement && T.ColorManagement.legacyMode === false) return; // ядро уже читает hex как sRGB
       scene.traverse(function (o) {
         if (!o.isMesh) return;
@@ -367,8 +535,9 @@
     [[-2.6, 1.6, 0xff4fa3, 0xfdd717, 0.75], [2.9, 1.2, 0x27c93f, 0xff4136, 0.62], [-8.6, 0.4, 0x3d6bff, 0xfdd717, 0.85], [8.9, 0.0, 0x9b5cff, 0xfdd717, 0.7],
      [3.8, -1.6, 0xfdd717, 0xff4fa3, 0.55], [-1.2, -2.6, 0x22d3ee, 0xff4136, 0.5], [7.2, -2.8, 0xff4136, 0xfdd717, 0.6]].forEach(function (d, i7) {
       var s3 = d[4], gift = new T.Group(); gift.position.set(d[0], s3 / 2, d[1]); gift.rotation.y = i7 * 0.7; scene.add(gift);
-      gift.add(new T.Mesh(new T.BoxGeometry(s3, s3, s3), new T.MeshStandardMaterial({ color: d[2], roughness: 0.45, envMapIntensity: 0.5 })));
-      var ribMat = new T.MeshStandardMaterial({ color: d[3], roughness: 0.3, metalness: 0.4 });
+      // фольга: металлик с отражениями; лента — атлас (лак + блеск)
+      gift.add(new T.Mesh(new T.BoxGeometry(s3, s3, s3, 1, 1, 1), new T.MeshStandardMaterial({ color: d[2], roughness: 0.28, metalness: 0.55, envMapIntensity: 1.3 })));
+      var ribMat = new T.MeshPhysicalMaterial({ color: d[3], roughness: 0.25, metalness: 0.3, clearcoat: 1, clearcoatRoughness: 0.1, sheen: 0.6, envMapIntensity: 1.4 });
       gift.add(new T.Mesh(new T.BoxGeometry(s3 + 0.02, s3 + 0.02, s3 * 0.18), ribMat));
       gift.add(new T.Mesh(new T.BoxGeometry(s3 * 0.18, s3 + 0.02, s3 + 0.02), ribMat));
       [-1, 1].forEach(function (sd2) { var bow = new T.Mesh(new T.TorusGeometry(s3 * 0.2, s3 * 0.06, 8, 16), ribMat); bow.position.set(sd2 * s3 * 0.16, s3 * 0.58, 0); bow.rotation.set(0, Math.PI / 2, sd2 * 0.6); gift.add(bow); });
@@ -410,7 +579,8 @@
       twinkles.forEach(function (w) { var v = 0.5 + 0.5 * Math.sin(t * w.sp + w.ph); w.s.material.opacity = 0.35 + 0.65 * v; });
       farClouds.forEach(function (c3) { c3.s.position.x = c3.x0 + Math.sin(t * 0.04 * c3.sp + c3.x0) * 4; });
       skyCoins.forEach(function (sc) { sc.m.rotation.z += dt * 0.5; sc.m.position.y = sc.y0 + Math.sin(t * 0.8 + sc.ph) * 0.4; });
-      garBulbs.forEach(function (gb2) { var v2 = 0.65 + 0.35 * Math.sin(t * 2.4 + gb2.ph); gb2.m.emissiveIntensity = 2.2 * v2; gb2.gl.material.opacity = 0.75 * v2; });
+      garBulbs.forEach(function (gb2) { var v2 = 0.65 + 0.35 * Math.sin(t * 2.4 + gb2.ph); gb2.m.emissiveIntensity = 3.2 * v2; gb2.gl.material.opacity = 0.55 * v2; });
+      if (goldRays) { goldRays.rotation.z = t * 0.15; goldRays.material.opacity = 0.25 + 0.15 * Math.sin(t * 1.3); }
       // золото в копилке
       S.fill += (S.fillTo - S.fill) * Math.min(1, dt * 1.6);
       fillPlane.constant = PIG_AT[1] + 0.02 + S.fill * 3.72;
@@ -418,18 +588,18 @@
       S.golden += ((S.goldenTo || 0) - S.golden) * Math.min(1, dt * 1.5);
       pigStar.visible = S.golden > 0.02;
       pigStar.rotation.y = t * 0.9; pigStar.scale.setScalar(0.4 + 0.6 * S.golden);
-      pigStarMat.emissiveIntensity = 0.6 + S.golden * 1.6;
-      pigStarGlow.material.opacity = S.golden * (0.75 + 0.2 * Math.sin(t * 2.2));
-      pigHalo.material.opacity = S.fill * 0.22 + S.golden * 0.25;
-      pigLight.intensity = S.fill * 1.2 + S.golden * 1.2;
-      pile.forEach(function (cm3, i5) { cm3.visible = i5 < Math.round(S.fill * pile.length); });
+      pigStarMat.emissiveIntensity = 0.4 + S.golden * 0.9;
+      pigStarGlow.material.opacity = S.golden * (0.4 + 0.12 * Math.sin(t * 2.2));
+      pigHalo.material.opacity = S.fill * 0.08 + S.golden * 0.1;
+      pigLight.intensity = S.fill * 0.5 + S.golden * 0.5;
+      pileMesh.count = Math.round(S.fill * PILE_N);
       S.bump = Math.max(0, (S.bump || 0) - dt * 1.6);
       var bs = 1 + Math.sin(S.bump * Math.PI) * 0.06; pig.scale.set(bs, 1 / bs * 0.98 + 0.02 * bs, bs);
       // банки
       Object.keys(S.jars).forEach(function (id) {
         var o = S.jars[id], cur = S.current === id;
         o.sorted += ((o.state === 'sorted' ? 1 : 0) - o.sorted) * Math.min(1, dt * 2);
-        o.glow.material.opacity = o.sorted * (0.5 + 0.15 * Math.sin(t * 2 + o.seed)) + (o.golden && o.ready ? 0.35 + 0.25 * Math.sin(t * 3) : 0);
+        o.glow.material.opacity = o.sorted * (0.24 + 0.08 * Math.sin(t * 2 + o.seed)) + (o.golden && o.ready ? 0.35 + 0.25 * Math.sin(t * 3) : 0);
         o.ring.material.opacity += ((cur ? 0.9 : o.hover ? 0.45 : 0) - o.ring.material.opacity) * Math.min(1, dt * 6);
         o.ring.scale.setScalar(1 + Math.sin(t * 3) * 0.04);
         var active = o.state === 'active' || cur;

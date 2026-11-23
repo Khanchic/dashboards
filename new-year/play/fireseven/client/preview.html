@@ -135,11 +135,11 @@ var ENGINE = (function () {
     { id: 'VI', name: 'The Fireplace', symbols: 8, repeats: true, tries: 6 },
     { id: 'VII', name: 'Midnight', symbols: 8, repeats: true, tries: 5 },
   ];
-  var REST = { bonus: { fp: 5, gc: 100000, sc: 0 } };
+  var REST = { discount: 30 }; // утешительный приз 23.11: −30% на личный оффер
   var OFFERS = [
-    { min: 1, max: 2, offer: { name: "Butler's Nightcap", price: 9.99, extra: 100, hours: 48 } },
-    { min: 3, max: 6, offer: { name: 'Velvet Combination', price: 19.99, extra: 40, hours: 48 } },
-    { min: 7, max: 7, offer: { name: 'Seven Sevens Case', price: 39.99, extra: 50, hours: 48 } },
+    { min: 1, max: 2, offer: { name: "Butler's Nightcap", price: 6.99, was: 9.99, discount: 30, extra: 100, hours: 48 } },
+    { min: 3, max: 6, offer: { name: 'Velvet Combination', price: 13.99, was: 19.99, discount: 30, extra: 40, hours: 48 } },
+    { min: 7, max: 7, offer: { name: 'Seven Sevens Case', price: 27.99, was: 39.99, discount: 30, extra: 50, hours: 48 } },
   ];
   function makeSchedule() {
     var t0 = new Date('2026-12-25T12:00:00-05:00').getTime();
@@ -220,7 +220,7 @@ var ENGINE = (function () {
   }
   function prizeFor(st) { // без топ-3 (их проверяют вручную днём 26.12): все с ≥ 1 замком — REST + оффер
     var s = summarize(st);
-    return s.cracked ? Object.assign({ kind: 'rest', bonus: REST.bonus, offer: offerFor(s.cracked) }, s) : Object.assign({ kind: 'none' }, s);
+    return s.cracked ? Object.assign({ kind: 'rest', discount: REST.discount, offer: offerFor(s.cracked) }, s) : Object.assign({ kind: 'none' }, s);
   }
   // решатель для превью: случайный код, согласный со всеми подсказками (как «обычный внимательный игрок» в макете)
   function consistentPick(s) {

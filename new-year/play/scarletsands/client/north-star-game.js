@@ -24,6 +24,27 @@
   var inGrid = function (c, r) { return c >= 0 && c < 12 && r >= 0 && r < 9 && !(c >= 10 && r <= 1); };
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
 
+  // Попытки = латунные фонари (промах гасит один); найдено = штамп «Found»: золото с 1-й попытки, серебро со 2-й,
+  // бронза с 3-й (утв. 23.11). Только вид: логика попыток и призы не меняются; номер попытки = max − tries.
+  function grade(t) {
+    if (!t || !t.done) return null;
+    var used = (t.max || 0) - (t.tries || 0);
+    return used <= 1 ? 'gold' : used === 2 ? 'silver' : 'bronze';
+  }
+  function lantern(on) {
+    var b = on ? '#C9962E' : '#8A6A44', g = on ? '#FFD66B' : '#3A2418';
+    return '<svg viewBox="0 0 12 16" aria-hidden="true"><circle cx="6" cy="2.2" r="1.5" fill="none" stroke="' + b + '" stroke-width=".9"/>' +
+      '<path d="M3.2 3.9h5.6l1.1 1.5H2.1z" fill="' + b + '"/><rect x="2.6" y="5.4" width="6.8" height="7.4" rx="1.7" fill="' + g + '" stroke="' + b + '" stroke-width=".9"/>' +
+      (on ? '<path d="M6 7.1c1.2 1.3 1.2 2.7 0 3.9c-1.2-1.2-1.2-2.6 0-3.9z" fill="#FF7A1A"/>' : '') +
+      '<path d="M2.1 12.8h7.8l-1 1.7H3.1z" fill="' + b + '"/></svg>';
+  }
+  function lanterns(t) {
+    var h = '', max = t && t.max || 0, left = t && t.tries || 0;
+    for (var i = 0; i < max; i++) h += '<i class="' + (i < left ? 'on' : '') + '">' + lantern(i < left) + '</i>';
+    return '<span class="ns-lanterns" role="img" aria-label="' + left + ' of ' + max + ' tries left">' + h + '</span>';
+  }
+  function stampHtml(t, word) { var g = grade(t); return '<span class="ns-stamp ' + g + '" title="' + g + ' stamp">' + (word || 'Found') + '</span>'; }
+
   function icon(k, x, y) {
     switch (k) {
       case 'camp': return '<path d="M' + (x - 30) + ' ' + (y + 22) + 'L' + x + ' ' + (y - 24) + 'L' + (x + 30) + ' ' + (y + 22) + 'Z" fill="#E4B473" stroke="' + INK + '" stroke-width="3"/><path d="M' + x + ' ' + (y - 24) + 'L' + (x - 6) + ' ' + (y + 22) + '" stroke="' + INK + '" stroke-width="2"/><path d="M' + (x + 36) + ' ' + (y + 22) + 'q4 -16 10 -6q4 -14 8 0q2 8 -18 6z" fill="' + RED + '"/>';
@@ -135,11 +156,15 @@
       else { date = 'Dec 26 · super game · 2 tries · no hints'; text = t.text || ''; }
       $('.ns-date').innerHTML = date;
       $('.ns-text').innerHTML = text ? (x.cat ? text : '“' + esc(text) + '”') : '';
-      var tries = '<span class="ns-tries">' + t.tries + ' / ' + t.max + '</span>', s = '', cls = '';
+      var tries = t.done ? stampHtml(t, x.cat ? 'Paw' : 'Found') : lanterns(t), s = '', cls = '';
       var lt = lockText(x);
       if (msg && msg.k === cur) { s = msg.html; cls = msg.cls; }
       else if (lt) s = lt;
-      else if (t.done) { s = x.cat ? 'Paw print collected.' : x.key === 'super' ? 'You found the Golden Compass! You\'re in the draw for 50 SC on Dec 27.' : 'Found. Stamp in your passport.'; cls = 'good'; }
+      else if (t.done) {
+        var gw = { gold: 'Gold stamp: first try!', silver: 'Silver stamp: second try.', bronze: 'Bronze stamp: third try.' }[grade(t)] || '';
+        s = x.cat ? 'Paw print collected. ' + gw : x.key === 'super' ? 'You found the Golden Compass! You\'re in the draw for 50 SC on Dec 27.' : 'Found. ' + gw;
+        cls = 'good';
+      }
       else if (t.revealed) { s = x.cat || x.key === 'super' ? 'No tries left.' : 'No tries left. The spot is marked on your map: no stamp, but it still counts for the oasis.'; cls = 'bad'; }
       else if ((x.task && v.task && v.task.hint) || t.hint) s = 'Margin note: ' + esc(t.hint || v.task.hint);
       else s = x.key === 'super' ? 'Two tries. No hot or cold this time.' : 'Tap the square where the page points.';
@@ -190,10 +215,16 @@
         return;
       }
       var pr = v.progress, stamp = function (t, i) {
-        return '<div class="ns-slot' + (t.done ? ' on' : '') + (t.revealed ? ' miss' : '') + '"><span>' + (t.revealed ? '✗' : i) + '</span></div>';
+        var g = grade(t);
+        return '<div class="ns-slot' + (t.done ? ' on ' + g : '') + (t.revealed ? ' miss' : '') + '"' + (g ? ' title="' + g + ' stamp"' : '') + '><span>' + (t.revealed ? '✗' : i) + '</span></div>';
       };
+      // итог по качеству штампов (находки + лапки): «4 gold · 1 silver · 1 bronze»
+      var cnt = { gold: 0, silver: 0, bronze: 0 };
+      v.tasks.concat(v.cats).forEach(function (t) { var g = grade(t); if (g) cnt[g]++; });
+      var finish = ['gold', 'silver', 'bronze'].filter(function (g) { return cnt[g]; }).map(function (g) { return '<span class="ns-q ' + g + '">' + cnt[g] + ' ' + g + '</span>'; }).join(' · ');
       var tiers = [[pr.stamps >= 3, '3 stamps', '2 FP + 20K GC'], [pr.stamps >= 6, '6 stamps', '3 FP + 30K GC'], [pr.oasis, 'Oasis', '1 SC + 50K GC'], [pr.golden, 'Golden Compass', 'draw for 50 SC']];
       $('.ns-passport').innerHTML = '<h3>Expedition Passport</h3><div class="ns-sub">Stamps: <b>' + pr.stamps + '</b> of 10</div>' +
+        (finish ? '<div class="ns-sub ns-finish">' + finish + ' stamps</div>' : '') +
         '<div class="ns-label">Finds</div><div class="ns-slots">' + v.tasks.map(function (t, i) { return stamp(t, i + 1); }).join('') + '</div>' +
         '<div class="ns-label">Saffron\'s paw prints</div><div class="ns-slots four">' + v.cats.map(function (t, i) { return stamp(t, '🐾'); }).join('') + '</div>' +
         '<div class="ns-big' + (pr.oasis ? ' on' : '') + '">' + (pr.oasis ? '★ Oasis found' : 'Oasis · Dec 26') + '</div>' +

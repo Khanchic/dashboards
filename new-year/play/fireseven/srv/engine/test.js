@@ -155,7 +155,11 @@ t('топ-3: больше замков, меньше счёт, ничья — р
   assert.deepEqual(E.rankTop(players.filter((p) => 'cd'.includes(p.userId))).map((x) => x.userId), ['c', 'd']);
   assert.equal(E.prizeFor('c', players[2].results, top).kind, 'top');
   const d = E.prizeFor('d', players[3].results, top);
-  assert.equal(d.kind, 'rest'); assert.deepEqual(d.bonus, { fp: 5, gc: 100000, sc: 0 }); assert.equal(d.offer.price, 19.99);
+  // утешительный приз 23.11: −30% на оффер по числу замков (6 замков → Velvet Combination 13.99 вместо 19.99)
+  assert.equal(d.kind, 'rest'); assert.equal(d.discount, 30); assert.equal(d.bonus, undefined);
+  assert.equal(d.offer.price, 13.99); assert.equal(d.offer.was, 19.99); assert.equal(d.offer.name, 'Velvet Combination');
+  assert.deepEqual([1, 3, 7].map((n) => E.restOffer(n).price), [6.99, 13.99, 27.99]);
+  for (const o of E.OFFERS) assert.ok(Math.abs(o.offer.sale - o.offer.price * 0.7) < 0.03, o.offer.name + ': sale ≈ −30%');
   assert.equal(E.prizeFor('z', [null, null, null, null, null, null, null], top).kind, 'none');
 });
 

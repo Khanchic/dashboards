@@ -25,6 +25,7 @@
     del: function (p) { try { localStorage.removeItem(KEY + p); } catch (e) {} delete mem[p]; },
   };
   var mem = {};
+  var LOCAL_ONLY = /(^|\/)(data[^\/]*\.json|codes[^\/]*\.csv|[^\/]*\.sqlite[^\/]*)$/i;
   if (/[?&]reset=1/.test(location.search)) {
     try { Object.keys(localStorage).forEach(function (k) { if (k.indexOf(KEY) === 0) localStorage.removeItem(k); }); } catch (e) {}
   }
@@ -61,6 +62,9 @@
     existsSync: function (p) { return store.get(p) != null || p in mem; },
     readFileSync: function (p, enc) {
       var v = store.get(p); if (v == null && p in mem) v = mem[p];
+      // данные стенда (data.json, codes.csv, sqlite) на сайт не выкладываются — живут только в localStorage; без XHR,
+      // иначе в консоли красный 404/503 на каждом входе (плейтест AG 18.11)
+      if (v == null && LOCAL_ONLY.test(p)) throw enoent(p);
       if (v == null) { v = xhr(p); if (v == null) throw enoent(p); }
       return v;
     },

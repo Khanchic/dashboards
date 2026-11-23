@@ -15,11 +15,12 @@
   var LEN = 4;
   var REVEAL_AFTER_CLOSE = (CFG.revealAfterCloseMin || 30) * 60000; // запасной вариант, если сервер не прислал reveal
   // запасные призы, если сервер не прислал view.prize (зеркало engine/vault-event.js REST / OFFERS)
-  var REST = { fp: 5, gc: 100000 };
+  // утешительный приз (23.11): −30% на личный оффер, без Claim
+  var REST = { discount: 30 };
   var OFFERS = [
-    { min: 1, max: 2, offer: { name: "Butler's Nightcap", price: 9.99, extra: 100, hours: 48 } },
-    { min: 3, max: 6, offer: { name: 'Velvet Combination', price: 19.99, extra: 40, hours: 48 } },
-    { min: 7, max: 7, offer: { name: 'Seven Sevens Case', price: 39.99, extra: 50, hours: 48 } },
+    { min: 1, max: 2, offer: { name: "Butler's Nightcap", price: 9.99, sale: 6.99, extra: 100, hours: 48 } },
+    { min: 3, max: 6, offer: { name: 'Velvet Combination', price: 19.99, sale: 13.99, extra: 40, hours: 48 } },
+    { min: 7, max: 7, offer: { name: 'Seven Sevens Case', price: 39.99, sale: 27.99, extra: 50, hours: 48 } },
   ];
 
   var S = {
@@ -128,7 +129,7 @@
   function timeEt(ms) { return WH.timeEt ? WH.timeEt(ms) : new Date(ms).toLocaleTimeString('en-US', { timeZone: 'America/New_York', hour: 'numeric', minute: '2-digit' }); }
   function tries(n) { return n === 1 ? '1 try' : n + ' tries'; }
   function money(x) { return '$' + Number(x).toFixed(2); }
-  function offerText(o) { return o ? o.name + ' · ' + money(o.price) + ' · +' + o.extra + '%' : ''; }
+  function offerText(o) { return o ? o.name + ' · ' + money(o.price) + (o.was ? ' instead of ' + money(o.was) : '') + ' · +' + o.extra + '%' : ''; }
 
   // ---------- сборка панели ----------
   function mount() {
@@ -170,8 +171,9 @@
 
   // ---------- выбор замка и ввод ----------
   function pickLock() {
+    // первый открытый и ещё не взломанный замок (плейтест AG 18.11: открывался VII вместо I); все решены — последний открытый
     var n = openCount(), i;
-    for (i = n - 1; i >= 0; i--) if (S.view.locks[i].status === 'open') return i;
+    for (i = 0; i < n; i++) if (S.view.locks[i].status === 'open') return i;
     return Math.max(0, n - 1);
   }
   function resetInput() {
@@ -358,7 +360,7 @@
     q('.f7v-dial').style.transform = 'rotate(' + S.spin + 'deg)';
     q('[data-f="locks"]').textContent = n + ' of 7';
     q('[data-f="count"]').textContent = count();
-    q('.f7v-tier').innerHTML = n ? 'In your vault so far: <em>' + REST.fp + ' FP + ' + REST.gc / 1000 + 'K GC</em>' : 'No sevens lit yet.';
+    q('.f7v-tier').innerHTML = n ? 'In your vault so far: <em>' + REST.discount + '% off your private offer</em>' : 'No sevens lit yet.';
     countdown();
   }
   function countdown() {
@@ -424,7 +426,8 @@
     var v = S.view, n = lit();
     if (v.prize) return v.prize; // сервер: vault-event.prizeFor(...) после вскрытия
     var o = OFFERS.filter(function (t) { return n >= t.min && n <= t.max; })[0];
-    return n ? { kind: 'rest', bonus: REST, offer: o ? o.offer : null, cracked: n } : { kind: 'none', cracked: 0 };
+    var ro = o ? { name: o.offer.name, price: o.offer.sale, was: o.offer.price, discount: REST.discount, extra: o.offer.extra, hours: o.offer.hours } : null;
+    return n ? { kind: 'rest', discount: REST.discount, offer: ro, cracked: n } : { kind: 'none', cracked: 0 };
   }
   function renderCard(ph) {
     var card = q('.f7v-card'), n = lit(), html = '';
@@ -434,13 +437,12 @@
       if (pz.kind === 'top') {
         html += '<p>You are among the three steadiest hands of Christmas night. Your prize: <b>' + esc((pz.bonus && pz.bonus.sc) || '') + ' SC</b>.</p>';
       } else if (pz.kind === 'rest') {
-        var b = pz.bonus || REST;
-        html += '<p>Your gift: <b>' + (b.fp || 0) + ' FP + ' + Math.round((b.gc || 0) / 1000) + 'K GC</b>.</p>';
+        html += '<p>Your gift: <b>' + (pz.discount || REST.discount) + '% off your private offer</b>. The code is in your messages, no claim needed.</p>';
       }
       if (pz.kind !== 'none') {
         html += '<div class="f7v-row"><span>Your count</span><b>' + count() + '</b></div>';
         if (pz.offer) html += '<p class="offer">A private offer for your vault: <b>' + esc(offerText(pz.offer)) + '</b>. Valid for 48 hours. Buying it never changes your count.</p>';
-        html += '<div class="f7v-acts">' + claimButton() + offerButton(pz.offer) + '</div>';
+        html += '<div class="f7v-acts">' + (pz.kind === 'top' ? claimButton() : '') + offerButton(pz.offer) + '</div>';
         if (pz.kind === 'rest') html += '<p class="fine">The top three will be announced after the house checks the count, later today.</p>';
       } else {
         html += '<p>No sevens were lit this time. Thank you for spending Christmas with us.</p>';
@@ -519,7 +521,7 @@
       return '<div class="step">Step 1 of 3</div><h4>Every lock hides a code of four symbols</h4>' +
         '<div class="demo-keys"><span>' + ic(0) + '</span><span>' + ic(3) + '</span><span>' + ic(6) + '</span><span>' + ic(4) + '</span></div>' +
         '<p>Tap the symbols above and they fill the dials in order. Tap a dial to change it.</p>' +
-        '<p>When all four are set, <b>turn the handle</b>. There is no timer, and speed does not count.</p>';
+        '<p>When all four are set, <b>turn the handle</b>. No rush between tries, and speed does not count.</p>';
     },
     function () {
       return '<div class="step">Step 2 of 3</div><h4>The dials will tell you</h4>' +
@@ -550,8 +552,17 @@
     el.hidden = false;
     var nx = el.querySelector('[data-act="tut-next"]'); if (nx) nx.focus({ preventScroll: true });
   }
+  // обучение по кнопке (в т.ч. до Start, когда панели сейфа ещё нет): панель показывается только с окном обучения
+  function tutorial() {
+    mount();
+    var r = root(); if (!r) return;
+    if (r.hidden) { r.hidden = false; r.classList.add('f7v-tutonly'); }
+    showTut(0);
+  }
   function hideTut() {
     var el = q('.f7v-tut'); if (el) el.hidden = true;
+    var r = root();
+    if (r && r.classList.contains('f7v-tutonly')) { r.classList.remove('f7v-tutonly'); if (!S.view) r.hidden = true; }
     S.tut = -1; tutMark();
     var h = q('[data-act="help"]'); if (h) h.focus({ preventScroll: true });
   }
@@ -561,7 +572,7 @@
     mount();
     var v = a && a.view, el = root();
     S.c = c; S.a = a;
-    if (!v || !v.locks) { el.hidden = true; if (S.gateHidden) setGate(true); return; }
+    if (!v || !v.locks) { if (S.tut < 0) el.hidden = true; if (S.gateHidden) setGate(true); return; }
     if (S.key !== c.id) { S.key = c.id; S.view = null; S.cur = -1; S.sig = ''; S.revealLoad = false; }
     // ответ опроса мог уйти до хода и прийти после — более старый вид не берём
     if (!S.busy && (!S.view || progress(v) >= progress(S.view))) S.view = v;
@@ -615,5 +626,5 @@
 
   mount(); // панель нужна хабу сразу: renderDock() прячет/показывает её по id
   WH.register(GAME);
-  window.F7V = { state: S, render: render }; // для preview.html и отладки
+  window.F7V = { state: S, render: render, tutorial: tutorial }; // для preview.html и отладки
 })();

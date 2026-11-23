@@ -11,8 +11,8 @@ const DM = {
   t6: () => '🏔️ All six trails are clear! Your reward is ready: 5 FP. Hit Claim to get your code.',
   summit: () => '🎄 You made it to the top of Kilimanjaro! Your gift under the tree: 1 SC. Hit Claim to get your code. Merry Christmas from the lion!',
 
-  idPending: () => "Got it! We're checking your player ID now. Your codes land here as soon as it's approved, usually within a day. Keep climbing in the meantime.",
-  idApproved: (v) => `✅ Your player ID is approved. Your codes: ${v.codes}. From now on, every new reward comes instantly when you hit Claim.`,
+  idPending: () => "Got it! We're checking your player ID now. Your codes land here as soon as it's approved, usually within 48 hours. Keep climbing in the meantime.",
+  idApproved: (v) => `✅ Your player ID is approved. Your codes: ${v.codes}. From now on, new rewards arrive automatically when you hit Claim, no extra checks.`,
   idRejected: () => "Hmm, we couldn't find that player ID. Check it in your Jumanza profile and hit Claim again. Your rewards are safe.",
   claimed: (v) => `Here you go: ${v.codes}. Enjoy!`,
 

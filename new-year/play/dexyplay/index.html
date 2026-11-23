@@ -83,6 +83,15 @@ footer a{color:var(--ink2)}
 <script src="shared/picross.js"></script>
 <script src="client/city.js"></script>
 <script src="../3d/vendor/three.min.js"></script>
+<script src="../3d/vendor/CopyShader.js"></script>
+<script src="../3d/vendor/LuminosityHighPassShader.js"></script>
+<script src="../3d/vendor/Pass.js"></script>
+<script src="../3d/vendor/EffectComposer.js"></script>
+<script src="../3d/vendor/MaskPass.js"></script>
+<script src="../3d/vendor/ShaderPass.js"></script>
+<script src="../3d/vendor/RenderPass.js"></script>
+<script src="../3d/vendor/UnrealBloomPass.js"></script>
+<script src="../3d/vendor/Reflector.js"></script>
 <script src="../3d/ny3d.js"></script>
 <script src="client/city3d.js"></script>
 <script src="client/tag-game.js"></script>
@@ -130,7 +139,7 @@ footer a{color:var(--ink2)}
       $('claimBtn').onclick = function () { doClaim({}); };
       return;
     }
-    box.innerHTML = '<p>' + (c.pid && c.pid.status === 'rejected' ? 'We couldn’t find that player ID. Check it and try again.' : 'First claim: add your DexyPlay player ID. We check it once, then every reward comes instantly.') + '</p>' +
+    box.innerHTML = '<p>' + (c.pid && c.pid.status === 'rejected' ? 'We couldn’t find that player ID. Check it and try again.' : 'First claim: add your DexyPlay player ID. We check it once; after that, rewards arrive automatically.') + '</p>' +
       '<form id="claimForm"><input id="pid" inputmode="numeric" placeholder="Player ID" autocomplete="off"><button class="btn" type="submit">Claim prize</button></form>' +
       (claimMsg ? '<p class="err">' + claimMsg + '</p>' : '');
     $('claimForm').onsubmit = function (e) { e.preventDefault(); doClaim({ playerId: $('pid').value }); };

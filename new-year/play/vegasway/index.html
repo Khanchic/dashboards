@@ -119,6 +119,7 @@ html,body{margin:0;background:var(--night);color:#fff;font:16px/1.5 Raleway,syst
       </div>
     </div>
 
+    <button class="btn ghost" type="button" id="backStrip" hidden style="margin:0 0 12px">← Back to the Strip</button>
     <div class="panel game" id="game" hidden></div>
   </div>
   <div class="panel claim" id="claim" hidden>
@@ -133,6 +134,15 @@ html,body{margin:0;background:var(--night);color:#fff;font:16px/1.5 Raleway,syst
 <script src="client/strip-game.js"></script>
 <script src="client/salute.js"></script>
 <script src="../3d/vendor/three.min.js"></script>
+<script src="../3d/vendor/CopyShader.js"></script>
+<script src="../3d/vendor/LuminosityHighPassShader.js"></script>
+<script src="../3d/vendor/Pass.js"></script>
+<script src="../3d/vendor/EffectComposer.js"></script>
+<script src="../3d/vendor/MaskPass.js"></script>
+<script src="../3d/vendor/ShaderPass.js"></script>
+<script src="../3d/vendor/RenderPass.js"></script>
+<script src="../3d/vendor/UnrealBloomPass.js"></script>
+<script src="../3d/vendor/Reflector.js"></script>
 <script src="../3d/ny3d.js"></script>
 <script src="client/strip3d.js"></script>
 <script>
@@ -158,6 +168,7 @@ html,body{margin:0;background:var(--night);color:#fff;font:16px/1.5 Raleway,syst
   }
   function show(id) {
     ['#join', '#lobby', '#game'].forEach(function (s) { $(s).hidden = s !== id; });
+    $('#backStrip').hidden = id !== '#game'; // из акта можно вернуться на Strip, прогресс акта сохранён на сервере
     $('#strip3d').hidden = !(use3d && id === '#lobby');
     $('#marquee').hidden = id === '#game' || (use3d && id === '#lobby');
   }
@@ -270,6 +281,8 @@ html,body{margin:0;background:var(--night);color:#fff;font:16px/1.5 Raleway,syst
     });
   });
 
+  $('#backStrip').addEventListener('click', function () { if (game) { game.destroy(); game = null; } refresh(); });
+
   $('#acts').addEventListener('click', function (e) {
     var b = e.target.closest('.actc'); if (!b || b.disabled) return;
     startAct(Number(b.getAttribute('data-act')));
@@ -283,6 +296,8 @@ html,body{margin:0;background:var(--night);color:#fff;font:16px/1.5 Raleway,syst
         assets: { magician: '../../vegasway/assets/magician.png', harlequin: '../../vegasway/assets/harlequin.png' },
         move: function (input) { return api('api/move', { p: P, act: act, input: input }); },
         onRound: function (v, gain, el) {
+          // очки в шапке — сразу после раунда, а не только после трёх (плейтест AG 18.11)
+          if (gain && me) { me.total += gain; $('#tot').textContent = me.total; $('#tot2').textContent = me.total; }
           if (!gain || !el) return;
           var r = el.getBoundingClientRect();
           var tierNow = me && me.tier ? me.tier.id : 'red';

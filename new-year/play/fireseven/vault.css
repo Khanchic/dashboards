@@ -271,8 +271,24 @@
   .f7v-msg{margin-top:6px;font-size:.8rem}
   .f7v-hrow{grid-template-columns:24px repeat(4,minmax(0,30px)) minmax(0,1fr)}
 }
+/* десктоп: левая панель-описание компактная (2 строки правил + «How it works»), чтобы дворецкий в 3D-зале под ней
+   был виден целиком; полный текст — по кнопке. Телефон (≤820px) — как было, текст целиком, кнопки нет. */
+.rules-more{display:none}
+@media (min-width:821px){
+  .info{align-self:start}
+  .info #rules{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .info.open #rules{display:block;-webkit-line-clamp:unset;overflow:visible}
+  .rules-more{display:inline-block;justify-self:start;font:600 12px/1 var(--f-ui,"Manrope",system-ui,sans-serif);letter-spacing:.04em;color:var(--f7-gold-hi,#E9C78F);
+    background:none;border:1px solid rgba(211,144,69,.45);border-radius:999px;padding:6px 12px;cursor:pointer}
+  .rules-more:hover{border-color:rgba(233,199,143,.8)}
+}
 @media (prefers-reduced-motion:reduce){.f7v *{transition:none!important;animation:none!important}}
 
 /* reveal media: clip or stop-frame above the prize card */
 .f7v-media{margin:-4px -4px 14px;border-radius:8px;overflow:hidden;border:1px solid rgba(211,144,69,.35);background:#050a08}
 .f7v-media img,.f7v-media video{display:block;width:100%;height:auto}
+
+/* обучение по кнопке до Start: от панели сейфа видно только окно обучения (F7V.tutorial) */
+.f7v-tutonly .f7v-tabs,.f7v-tutonly .f7v-side,.f7v-tutonly .f7v-card,.f7v-tutonly .f7v-lp > :not(.f7v-tut){display:none!important}
+.f7v-tutonly .f7v-grid{display:block}
+.f7v-tutonly .f7v-lp{position:relative;min-height:400px}

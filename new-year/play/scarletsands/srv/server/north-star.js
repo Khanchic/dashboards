@@ -58,8 +58,16 @@ function create(params = {}, rng, ctx = {}) {
 /** (Пере)строить карту из seed. Ответы лежат только в состоянии на сервере. */
 function build(st) {
   if (st.mode === 'training') {
-    const x = E.buildExpedition(`${SALT}:training:${st.seed}:${st.round}`);
-    const t = x.tasks[0];
+    // тренировка не должна повторять загадку/ответ экспедиции этого игрока (плейтест AG 18.11: Practice = Find 1, D8):
+    // перебираем варианты, пока текст и ответ не отличаются от всех находок его экспедиции (детерминированно по seed)
+    const ex = E.buildExpedition(`${SALT}:${st.seed}`);
+    const texts = new Set(ex.tasks.map((k) => k.text)), answers = new Set(Object.values(ex.answers));
+    let x = null, t = null;
+    for (let v = 0; v < 40; v++) {
+      x = E.buildExpedition(`${SALT}:training:${st.seed}:${st.round}${v ? ':' + v : ''}`);
+      t = x.tasks[0];
+      if (!texts.has(t.text) && !answers.has(x.answers.s1)) break;
+    }
     st.map = { landmarks: x.landmarks, answers: { t: x.answers.s1 }, task: { item: t.item, type: t.type, text: t.text, hint: t.hint } };
     st.keys = ['t'];
   } else {

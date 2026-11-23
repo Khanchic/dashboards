@@ -1,0 +1,70 @@
+/* Карта 2 «Safari Bridges»: река в деревянной раме, камни с числами, брёвна. Jumanza: #F1D627 / #49F623 / #5C05E5 / #100128. */
+.brg{display:grid;gap:12px;max-width:440px;margin:0 auto;user-select:none;-webkit-user-select:none}
+.brg-head{display:flex;justify-content:space-between;align-items:flex-end;gap:10px}
+.brg-title{margin:0;font:800 28px/1 "Smooch Sans",sans-serif;text-transform:uppercase;color:#F1D627}
+.brg-zone{color:rgba(255,255,255,.7);font-size:13px}
+.brg-count{text-align:right;font:500 14px/1.2 "Work Sans",sans-serif;color:rgba(255,255,255,.8);white-space:nowrap}
+.brg-count b{font:800 26px/1 "Smooch Sans",sans-serif;color:#fff;margin-left:4px}
+.brg-count small{display:block;font-size:11px;color:rgba(255,255,255,.55)}
+
+.brg-board{--w:5;--h:5;position:relative;aspect-ratio:1;border-radius:14px;padding:3.2%;overflow:hidden;
+  background:linear-gradient(165deg,#2bb3c9 0%,#1580a8 45%,#0d5585 100%);
+  box-shadow:inset 0 0 0 4px #512410,inset 0 0 0 8px #8a4a22,inset 0 0 40px 10px rgba(5,30,60,.55),0 10px 30px rgba(0,0,0,.45)}
+/* течение: две полосы бликов, медленно плывут */
+.brg-water{position:absolute;inset:8px;border-radius:8px;pointer-events:none;opacity:.32;
+  background:
+    repeating-linear-gradient(100deg,transparent 0 26px,rgba(255,255,255,.10) 26px 30px,transparent 30px 58px),
+    repeating-linear-gradient(80deg,transparent 0 40px,rgba(190,250,255,.08) 40px 43px,transparent 43px 90px);
+  background-size:220px 100%,300px 100%;animation:brgFlow 14s linear infinite}
+@keyframes brgFlow{to{background-position:220px 0,-300px 0}}
+@media (prefers-reduced-motion:reduce){.brg-water{animation:none}}
+.brg-field{position:relative;width:100%;height:100%}
+.brg-logs,.brg-rocks{position:absolute;inset:0}
+
+/* брёвна */
+.brg-log{position:absolute;display:flex;align-items:center;justify-content:center;gap:9%;cursor:pointer;z-index:1}
+.brg-log.h{flex-direction:column}
+.brg-log.v{flex-direction:row}
+.brg-log span{display:block;border-radius:999px;box-shadow:0 3px 0 rgba(16,1,40,.35),inset 0 0 0 1.5px rgba(60,25,8,.55);
+  background:linear-gradient(180deg,#c98a4b 0%,#a8652d 45%,#7a4419 100%)}
+.brg-log.h span{width:100%;height:20%;
+  background:repeating-linear-gradient(90deg,transparent 0 18px,rgba(70,30,8,.35) 18px 20px),linear-gradient(180deg,#d29453 0%,#a8652d 50%,#73401a 100%)}
+.brg-log.v span{height:100%;width:20%;
+  background:repeating-linear-gradient(180deg,transparent 0 18px,rgba(70,30,8,.35) 18px 20px),linear-gradient(90deg,#d29453 0%,#a8652d 50%,#73401a 100%)}
+.brg-log.dbl.h span{height:15%}
+.brg-log.dbl.v span{width:15%}
+.brg-log.bad span{background:linear-gradient(180deg,#ff8a8a,#d23c3c);animation:brgShake .3s ease-in-out 2}
+.brg-log.hint span{animation:brgGlow 1s ease-in-out infinite}
+@keyframes brgShake{25%{transform:translate(2px,1px)}75%{transform:translate(-2px,-1px)}}
+@keyframes brgGlow{0%,100%{box-shadow:0 0 0 2px #49F623}50%{box-shadow:0 0 0 3px #49F623,0 0 16px 4px rgba(73,246,35,.9)}}
+
+/* камни */
+.brg-rock{position:absolute;transform:translate(-50%,-50%);width:min(calc(100% / var(--w) * .74),68px);aspect-ratio:1;min-width:40px;min-height:40px;
+  border:0;padding:0;border-radius:46% 54% 50% 50% / 52% 48% 52% 48%;cursor:pointer;z-index:2;touch-action:none;
+  background:radial-gradient(circle at 35% 30%,#f3ead9 0%,#cbb89a 38%,#8f7a5e 78%,#6b5843 100%);
+  box-shadow:0 5px 0 #4a3a28,0 8px 14px rgba(5,25,50,.55),inset 0 -4px 0 rgba(0,0,0,.12);
+  display:grid;place-items:center;transition:box-shadow .15s ease,transform .15s ease}
+/* пена вокруг камня */
+.brg-rock::before{content:"";position:absolute;left:-14%;right:-14%;top:22%;bottom:-18%;border-radius:50%;z-index:-1;pointer-events:none;
+  background:radial-gradient(ellipse at center,rgba(230,252,255,.0) 52%,rgba(230,252,255,.45) 60%,rgba(230,252,255,.0) 74%)}
+.brg-rock b{font:800 clamp(22px,6.4vw,32px)/1 "Smooch Sans",sans-serif;color:#100128;pointer-events:none}
+.brg-rock::after{content:"";position:absolute;inset:-5px;border-radius:inherit;pointer-events:none;box-shadow:0 0 0 0 transparent;transition:box-shadow .15s ease}
+.brg-rock.ok{background:radial-gradient(circle at 35% 30%,#f4ffe9 0%,#c6e6a6 38%,#7fb35a 78%,#56853a 100%);box-shadow:0 5px 0 #2f5a1c,0 8px 14px rgba(5,25,50,.55)}
+.brg-rock.ok::after{box-shadow:0 0 0 3px #49F623,0 0 14px rgba(73,246,35,.7)}
+.brg-rock.over{background:radial-gradient(circle at 35% 30%,#fff0ee 0%,#f2b0a6 40%,#c9665a 80%,#9c4237 100%);box-shadow:0 5px 0 #6e2a22,0 8px 14px rgba(5,25,50,.55)}
+.brg-rock.over::after{box-shadow:0 0 0 3px #ff5a4f}
+.brg-rock.sel{transform:translate(-50%,-50%) scale(1.08)}
+.brg-rock.sel::after{box-shadow:0 0 0 4px #F1D627,0 0 18px rgba(241,214,39,.9)}
+.brg-rock.nb::after{box-shadow:0 0 0 3px rgba(241,214,39,.0);outline:3px dashed rgba(241,214,39,.9);outline-offset:2px;border-radius:inherit}
+.brg-rock.hint::after{animation:brgGlow 1s ease-in-out infinite}
+.brg-board.won .brg-log span{box-shadow:0 3px 0 rgba(16,1,40,.35),0 0 12px rgba(241,214,39,.75)}
+
+.brg-tip{min-height:42px;font:500 14px/1.4 "Work Sans",sans-serif;color:rgba(255,255,255,.85);text-align:center}
+.brg-tip b{color:#F1D627}
+.brg-tools{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.brg-btn{display:inline-flex;align-items:center;gap:8px;font:800 20px/1 "Smooch Sans",sans-serif;text-transform:uppercase;border:0;border-radius:8px;cursor:pointer;
+  padding:8px 14px;background:linear-gradient(#71F854,#2FDC09);color:#100128;box-shadow:0 4px 0 #1f9a06}
+.brg-btn img{width:30px;height:30px;object-fit:contain;margin:-6px 0}
+.brg-btn i{font-style:normal;background:#100128;color:#F1D627;border-radius:999px;min-width:24px;padding:3px 6px;font-size:15px}
+.brg-btn.ghost{background:#F9F5FF;box-shadow:0 4px 0 #b9a8d6}
+.brg-btn:disabled{opacity:.45;cursor:default}

@@ -23,19 +23,23 @@ const LOCKS = [
 ];
 
 /**
- * Призы (Александр 11.11): топ-3 — крупные, все остальные, кто открыл хотя бы один замок, — один промокод 5 FP + 100K GC.
- * Суммы топ-3 50/30/20 SC — решено 11.11. Офферы (решено 11.11): лесенка по числу замков, лимит 1, 48 ч, пакеты = SMM-офферы F7 с новыми названиями; при вскрытии участнику — только личный оффер, без сезонных офферов.
+ * Призы: топ-3 — крупные (50/30/20 SC, решено 11.11). Все остальные, кто открыл хотя бы один замок, — утешительный приз
+ * = скидка −30% на свой личный оффер (Александр 23.11, вместо прежних 5 FP + 100K GC): 6.99 / 13.99 / 27.99 вместо
+ * 9.99 / 19.99 / 39.99, бонус +% тот же, 48 ч, приходит сразу при вскрытии — без Claim и без проверки player ID
+ * (это цена оффера в кассе, а не деньги). Офферы (решено 11.11): лесенка по числу замков, лимит 1, 48 ч, пакеты = SMM-офферы
+ * F7 с новыми названиями; при вскрытии участнику — только личный оффер, без сезонных офферов.
  */
 const TOP = [
   { place: 1, bonus: { sc: 50 }, offer: { name: 'The Private Vault', price: 59.99, extra: 50, hours: 48 } },
   { place: 2, bonus: { sc: 30 }, offer: { name: 'The Private Vault', price: 59.99, extra: 50, hours: 48 } },
   { place: 3, bonus: { sc: 20 }, offer: { name: 'The Private Vault', price: 59.99, extra: 50, hours: 48 } },
 ];
-const REST = { bonus: { fp: 5, gc: 100000, sc: 0 } };
+const REST = { discount: 30 }; // утешительный приз: −30% на личный оффер (23.11)
+// sale — цена со скидкой REST (отдельный пресет в кассе; пул кодов offer_<slug>30)
 const OFFERS = [
-  { min: 1, max: 2, offer: { name: "Butler's Nightcap", price: 9.99, extra: 100, hours: 48 } },
-  { min: 3, max: 6, offer: { name: 'Velvet Combination', price: 19.99, extra: 40, hours: 48 } },
-  { min: 7, max: 7, offer: { name: 'Seven Sevens Case', price: 39.99, extra: 50, hours: 48 } },
+  { min: 1, max: 2, offer: { name: "Butler's Nightcap", price: 9.99, sale: 6.99, extra: 100, hours: 48 } },
+  { min: 3, max: 6, offer: { name: 'Velvet Combination', price: 19.99, sale: 13.99, extra: 40, hours: 48 } },
+  { min: 7, max: 7, offer: { name: 'Seven Sevens Case', price: 39.99, sale: 27.99, extra: 50, hours: 48 } },
 ];
 
 const MIN = 60 * 1000;
@@ -64,7 +68,7 @@ function eventPhase(schedule, now) {
   if (now < schedule.reveal) return 'closed';
   return 'opened';
 }
-/** Сдвиг при простое > 30 минут (план Б; если не поднялись к 22:00 — промокод REST всем вошедшим, топ-3 по факту): close и вскрытие сдвигаются на простой, но вскрытие не позже 01:00 ET 26.12. */
+/** Сдвиг при простое > 30 минут (план Б; если не поднялись к 22:00 — скидка REST на оффер всем вошедшим, топ-3 по факту): close и вскрытие сдвигаются на простой, но вскрытие не позже 01:00 ET 26.12. */
 function extendForOutage(schedule, outageMin, hardStop = new Date('2026-12-26T01:00:00-05:00').getTime()) {
   if (outageMin <= 30) return schedule;
   const shift = outageMin * MIN;
@@ -90,6 +94,11 @@ function playerSummary(results) {
 }
 
 const offerFor = (cracked) => (OFFERS.find((t) => cracked >= t.min && cracked <= t.max) || {}).offer || null;
+/** Оффер утешительного приза: тот же пакет по числу замков, цена со скидкой REST.discount; was — обычная цена. */
+function restOffer(cracked) {
+  const o = offerFor(cracked);
+  return o ? { name: o.name, price: o.sale, was: o.price, discount: REST.discount, extra: o.extra, hours: o.hours } : null;
+}
 
 /**
  * Топ-3: больше замков — выше; среди равных меньше счёт — выше; при равенстве выше тот, кто раньше открыл
@@ -106,13 +115,13 @@ function rankTop(players, exclude = new Set()) {
     .map((p, i) => ({ ...TOP[i], ...p }));
 }
 
-/** Приз игрока в полночь: топ-3 — своё место; остальные с ≥ 1 замком — 5 FP + 100K GC; оффер — по числу замков. */
+/** Приз игрока в полночь: топ-3 — своё место; остальные с ≥ 1 замком — −30% на оффер по числу замков (restOffer). */
 function prizeFor(userId, results, top) {
   const s = playerSummary(results);
   const t = top.find((x) => x.userId === userId);
   if (t) return { kind: 'top', place: t.place, bonus: t.bonus, offer: t.offer, ...s };
-  if (s.cracked > 0) return { kind: 'rest', bonus: REST.bonus, offer: offerFor(s.cracked), ...s };
+  if (s.cracked > 0) return { kind: 'rest', discount: REST.discount, offer: restOffer(s.cracked), ...s };
   return { kind: 'none', ...s };
 }
 
-module.exports = { LOCKS, TOP, REST, OFFERS, makeSchedule, rehearsalSchedule, lockPhase, eventPhase, extendForOutage, playerSummary, offerFor, rankTop, prizeFor };
+module.exports = { LOCKS, TOP, REST, OFFERS, makeSchedule, rehearsalSchedule, lockPhase, eventPhase, extendForOutage, playerSummary, offerFor, restOffer, rankTop, prizeFor };

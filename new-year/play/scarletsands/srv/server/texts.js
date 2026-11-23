@@ -17,8 +17,8 @@ const DM = {
   golden_won: () => '🏆 The Golden Compass picked you! You won 50 SC. Hit Claim to get your code. Merry Christmas from me and Saffron!',
 
   // Claim / player ID
-  idPending: () => "Got it! We're checking your player ID now. Your codes land here as soon as it's approved, usually within a day. Keep exploring in the meantime.",
-  idApproved: (v) => `✅ Your player ID is approved. Your codes: ${v.codes}. From now on, every new reward comes instantly when you hit Claim.`,
+  idPending: () => "Got it! We're checking your player ID now. Your codes land here as soon as it's approved, usually within 48 hours. Keep exploring in the meantime.",
+  idApproved: (v) => `✅ Your player ID is approved. Your codes: ${v.codes}. From now on, new rewards arrive automatically when you hit Claim, no extra checks.`,
   idRejected: () => "Hmm, we couldn't find that player ID. Check it in your Scarlet Sands profile and hit Claim again. Your rewards are safe.",
   claimed: (v) => `Here you go: ${v.codes}. Enjoy!`,
 

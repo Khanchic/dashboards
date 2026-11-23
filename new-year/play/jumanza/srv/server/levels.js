@@ -8,15 +8,21 @@
  */
 const HINTS = 3; // подсказок льва на тропу: показывает один следующий ход; бесплатно, на приз не влияют
 
+// 3 карты (утв. 20.11, jumanza\MAPS-DESIGN.md): game = экран/механика уровня, kind = уровень сложности внутри неё.
+//   trail   — Safari Rush Hour (moves/pieces — сложность пула pool.json)
+//   bridges — River crossing (kind b1 5×5 · b2 6×6), camps — Kilimanjaro Camps (kind c1 6×6 · c2 7×7 · summit 8×8)
+// moves/pieces у t3..summit оставлены: trail.js умеет и эти уровни (тесты пула), но в маршруте их ведут bridges/camps.
 const LEVELS = [
-  { id: 'practice', n: 0, title: 'Practice trail', zone: 'Base camp', moves: 3, pieces: [4, 6], training: true },
-  { id: 't1', n: 1, title: 'Trail 1', zone: 'Savanna', moves: 4, pieces: [5, 7] },
-  { id: 't2', n: 2, title: 'Trail 2', zone: 'Rainforest', moves: 6, pieces: [6, 8] },
-  { id: 't3', n: 3, title: 'Trail 3', zone: 'Heather slopes', moves: 8, pieces: [7, 9] },
-  { id: 't4', n: 4, title: 'Trail 4', zone: 'Moorland', moves: 11, pieces: [8, 10] },
-  { id: 't5', n: 5, title: 'Trail 5', zone: 'Alpine desert', moves: 14, pieces: [9, 11] },
-  { id: 't6', n: 6, title: 'Trail 6', zone: 'Glacier', moves: 17, pieces: [9, 12] },
-  { id: 'summit', n: 7, title: 'The summit', zone: 'Christmas tree on the peak', moves: 20, pieces: [10, 12], summit: true, needTrails: 4 },
+  { id: 'practice', n: 0, title: 'Practice trail', zone: 'Base camp', moves: 3, pieces: [4, 6], training: true, game: 'trail' },
+  { id: 'practice2', n: 0, title: 'Practice river', zone: 'Base camp river', training: true, game: 'bridges', kind: 'practice' },
+  { id: 'practice3', n: 0, title: 'Practice camp', zone: 'Base camp', training: true, game: 'camps', kind: 'practice' },
+  { id: 't1', n: 1, title: 'Trail 1', zone: 'Savanna', moves: 4, pieces: [5, 7], game: 'trail' },
+  { id: 't2', n: 2, title: 'Trail 2', zone: 'Rainforest', moves: 6, pieces: [6, 8], game: 'trail' },
+  { id: 't3', n: 3, title: 'Trail 3', zone: 'Mountain river', moves: 8, pieces: [7, 9], game: 'bridges', kind: 'b1' },
+  { id: 't4', n: 4, title: 'Trail 4', zone: 'Waterfall gorge', moves: 11, pieces: [8, 10], game: 'bridges', kind: 'b2' },
+  { id: 't5', n: 5, title: 'Trail 5', zone: 'Alpine desert', moves: 14, pieces: [9, 11], game: 'camps', kind: 'c1' },
+  { id: 't6', n: 6, title: 'Trail 6', zone: 'Glacier', moves: 17, pieces: [9, 12], game: 'camps', kind: 'c2' },
+  { id: 'summit', n: 7, title: 'The summit', zone: 'Christmas tree on the peak', moves: 20, pieces: [10, 12], summit: true, needTrails: 4, game: 'camps', kind: 'summit' },
 ].map((l) => ({ hints: HINTS, ...l }));
 
 const TRAILS = LEVELS.filter((l) => !l.training && !l.summit).map((l) => l.id);

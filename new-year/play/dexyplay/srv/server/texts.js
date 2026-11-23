@@ -15,8 +15,8 @@ const DM = {
   t6: () => '🏙️ the whole street is glowing. reward ready: 3 FP. hit Claim prize.',
   mural: () => '🎄 YOU FINISHED THE MURAL. chat, look at this. your gift: 1 SC, hit Claim prize. merry christmas 💜',
 
-  idPending: () => 'got it! we’re checking your player ID now. your codes land here as soon as it’s approved, usually within a day. keep tagging meanwhile.',
-  idApproved: (v) => `✅ player ID approved. your codes: ${v.codes}. from now on every new reward comes instantly when you hit Claim.`,
+  idPending: () => 'got it! we’re checking your player ID now. your codes land here as soon as it’s approved, usually within 48 hours. keep tagging meanwhile.',
+  idApproved: (v) => `✅ player ID approved. your codes: ${v.codes}. from now on new rewards arrive automatically when you hit Claim, no extra checks.`,
   idRejected: () => 'hmm, we couldn’t find that player ID. check it in your DexyPlay profile and hit Claim again. your rewards are safe.',
   claimed: (v) => `here you go: ${v.codes}. enjoy!`,
 

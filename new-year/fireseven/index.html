@@ -521,8 +521,8 @@ footer{padding-block:48px 64px;color:var(--faint);font-size:.82rem;display:flex;
       <div class="step"><div class="n">I</div><h3>Вход с 14.12</h3><p>Попап на сайте или бродкаст → страница → вход через Discord, игрок сразу на сервере (<span class="en">guilds.join</span>). Видит свой сейф: семь тёмных семёрок и отсчёт до полуночи.</p></div>
       <div class="step"><div class="n">II</div><h3>Замок каждый час</h3><p>25.12, в Рождество, с 12:00 до 18:00 ET, на каждый замок — пост в Discord. Пришёл в 20:00 — не опоздал: все открытые замки ломаются до 23:30.</p></div>
       <div class="step"><div class="n">III</div><h3>Взлом</h3><p>4 символа, подсказка на каждом барабане. Замки дорожают: от 8 попыток без повторов до 5 попыток с повторами. Когда осталось 3 попытки, можно позвать дворецкого: он откроет один символ, но к счёту прибавится +2.</p></div>
-      <div class="step"><div class="n">IV</div><h3>Полночь</h3><p>26.12, 00:00 ET: андроид открывает сейф. Промокод 5 FP + 100K GC и персональный оффер на 48 ч по числу семёрок. Топ-3 — пост в Discord после проверки.</p></div>
-      <div class="step"><div class="n">V</div><h3>Claim prize</h3><p>Player ID проверяется при вводе и привязывается только при получении приза. Код приходит сразу. 26.12 — личное напоминание тем, кто не забрал.</p></div>
+      <div class="step"><div class="n">IV</div><h3>Полночь</h3><p>26.12, 00:00 ET: андроид открывает сейф. Персональный оффер на 48 ч по числу семёрок со скидкой −30% (утешительный приз, 23.11 — вместо 5 FP + 100K GC), без Claim. Топ-3 — пост в Discord после проверки.</p></div>
+      <div class="step"><div class="n">V</div><h3>Claim prize</h3><p>Player ID вводится при первом Claim, staff проверяет вручную, код приходит после одобрения. Claim до 03.01 23:59 ET. 26.12 — личное напоминание тем, кто не забрал.</p></div>
     </div>
   </section>
 </div>
@@ -661,7 +661,7 @@ footer{padding-block:48px 64px;color:var(--faint);font-size:.82rem;display:flex;
           <tr class="toprow"><td>1 место</td><td>50 SC <span class="tag ok">решено</span></td><td>The Private Vault · 59.99 · +50%</td></tr>
           <tr class="toprow"><td>2 место</td><td>30 SC <span class="tag ok">решено</span></td><td>The Private Vault · 59.99 · +50%</td></tr>
           <tr class="toprow"><td>3 место</td><td>20 SC <span class="tag ok">решено</span></td><td>The Private Vault · 59.99 · +50%</td></tr>
-          <tr><td>Все остальные<small>открыл хотя бы 1 замок</small></td><td>5 FP + 100K GC <span class="tag ok">решено</span></td><td>по числу замков ↓</td></tr>
+          <tr><td>Все остальные<small>открыл хотя бы 1 замок</small></td><td>−30% на личный оффер <span class="tag ok">решено 23.11</span></td><td>по числу замков ↓, 6.99 / 13.99 / 27.99</td></tr>
           <tr><td>&nbsp;&nbsp;1–2 замка<span class="pips"><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i></span></td><td></td><td>Butler's Nightcap · 9.99 · +100%</td></tr>
           <tr><td>&nbsp;&nbsp;3–6 замков<span class="pips"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></td><td></td><td>Velvet Combination · 19.99 · +40%</td></tr>
           <tr><td>&nbsp;&nbsp;все 7<span class="pips"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></td><td></td><td>Seven Sevens Case · 39.99 · +50%</td></tr>
@@ -852,7 +852,7 @@ footer{padding-block:48px 64px;color:var(--faint);font-size:.82rem;display:flex;
       </ul></div>
       <div class="blk"><ul>
         <li><b>Скрипты-решатели.</b> Не чаще 1 попытки в секунду. Топ-3 проверяем руками: возраст Discord-аккаунта, один Discord ↔ один player ID, ритм попыток. Флаг — повод посмотреть, не автобан.</li>
-        <li><b>41 неверный player ID на FWL.</b> Проверка при вводе, привязка только при получении приза.</li>
+        <li><b>41 неверный player ID на FWL.</b> Player ID при первом Claim проверяет staff вручную (правило 8), код — после одобрения.</li>
         <li><b>119 не нажали Join.</b> <span class="en">guilds.join</span> добавляет на сервер при входе.</li>
       </ul></div>
     </div>
@@ -949,7 +949,7 @@ Shh. Keep it between us.</pre>
     {t:"12:10",open:1},{t:"13:10",open:2},{t:"14:20",open:3},{t:"15:10",open:4},{t:"16:10",open:5},
     {t:"17:10",open:6},{t:"18:10",open:7},{t:"21:00",open:7,dm:1},{t:"23:30",open:7,closed:1},{t:"00:00",open:7,closed:1,mid:1}
   ];
-  var REST="5 FP + 100K GC", TOP_SC="50 / 30 / 20 SC";
+  var REST="−30% на оффер", TOP_SC="50 / 30 / 20 SC";
   var OFFERS=[
     {min:1,o:"Butler's Nightcap · 9.99 · +100%"},
     {min:3,o:"Velvet Combination · 19.99 · +40%"},
@@ -1193,11 +1193,11 @@ Shh. Keep it between us.</pre>
       pz.classList.add("show");
       pz.innerHTML=of
         ? '<div class="label">26.12 · 00:00 ET · сейф открыт</div><h4>'+n+' из 7 семёрок горят</h4>'+
-          '<div class="row"><span>Бонус, промокод в Claim prize</span><b>'+REST+'</b></div>'+
+          '<div class="row"><span>Утешительный приз, код оффера в ЛС</span><b>'+REST+'</b></div>'+
           '<div class="row"><span>Персональный оффер · лимит 1</span><b>'+of+'</b></div>'+
           '<div class="row"><span>Твой счёт</span><b>'+totalScore()+' попыток</b></div>'+
           '<div class="acts"><button class="btn" type="button" disabled>Claim prize</button><button class="btn ghost" type="button" disabled>Оффер · 47:59:59</button></div>'+
-          '<p class="fine">Топ-3 (больше замков, потом меньше попыток) получают '+TOP_SC+' вместо этого бонуса — итог в посте после проверки. Player ID проверяется при вводе и привязывается к призу. Покупка оффера на результат не влияет.</p>'
+          '<p class="fine">Топ-3 (больше замков, потом меньше попыток) получают '+TOP_SC+' вместо этого бонуса — итог в посте после проверки. Player ID вводится при первом Claim и проверяется командой. Покупка оффера на результат не влияет.</p>'
         : '<div class="label">26.12 · 00:00 ET · сейф открыт</div><h4>Ни одной семёрки</h4><p class="fine" style="font-size:.9rem;color:var(--muted)">Приза нет. Андроид всё равно здоровается и зовёт на следующий ивент.</p>';
     } else { pz.classList.remove("show"); pz.innerHTML=""; }
   }

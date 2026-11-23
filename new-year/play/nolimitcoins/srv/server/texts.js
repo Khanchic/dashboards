@@ -14,8 +14,8 @@ const DM = {
   t6: () => '🌟 The whole tree is shining! Your reward is ready: 5 FP. Hit Claim to get your code.',
   star: () => '♾️ You lit the Infinity Star! Your Christmas gift: 1 SC. Hit Claim to get your code. Merry Christmas from Coiny!',
 
-  idPending: () => "Got it! We're checking your player ID now. Your codes land here as soon as it's approved, usually within a day. Keep decorating in the meantime.",
-  idApproved: (v) => `✅ Your player ID is approved. Your codes: ${v.codes}. From now on, every new reward comes instantly when you hit Claim.`,
+  idPending: () => "Got it! We're checking your player ID now. Your codes land here as soon as it's approved, usually within 48 hours. Keep decorating in the meantime.",
+  idApproved: (v) => `✅ Your player ID is approved. Your codes: ${v.codes}. From now on, new rewards arrive automatically when you hit Claim, no extra checks.`,
   idRejected: () => "Hmm, we couldn't find that player ID. Check it in your NoLimitCoins profile and hit Claim again. Your rewards are safe.",
   claimed: (v) => `Here you go: ${v.codes}. Enjoy!`,
 
