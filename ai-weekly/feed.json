@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-22T14:39:51.061Z",
-  "last_collect_date": "2026-11-22",
+  "generated_at": "2026-11-23T02:51:20.334Z",
+  "last_collect_date": "2026-11-23",
   "sources_report": [
     {
       "id": "anthropic",
@@ -93,7 +93,7 @@
       "type": "rss",
       "url": "https://huggingface.co/blog/feed.xml",
       "fetched": 915,
-      "kept": 8,
+      "kept": 7,
       "new": 0,
       "error": null,
       "note": ""
@@ -140,9 +140,9 @@
       "tier": "T1",
       "type": "rss",
       "url": "https://openai.com/news/rss.xml",
-      "fetched": 1421,
-      "kept": 32,
-      "new": 0,
+      "fetched": 1422,
+      "kept": 29,
+      "new": 1,
       "error": null,
       "note": ""
     },
@@ -237,8 +237,8 @@
       "type": "hn",
       "url": "https://hn.algolia.com/api/v1/search_by_date",
       "fetched": 200,
-      "kept": 45,
-      "new": 2,
+      "kept": 44,
+      "new": 6,
       "error": null,
       "note": ""
     },
@@ -261,7 +261,7 @@
       "type": "rss",
       "url": "https://tldr.tech/api/rss/ai",
       "fetched": 20,
-      "kept": 5,
+      "kept": 4,
       "new": 0,
       "error": null,
       "note": ""
@@ -319,13 +319,13 @@
     "sources": 26,
     "failed": 3,
     "empty": 2,
-    "fetched": 3445,
-    "kept": 467,
-    "new_items": 2,
-    "stories_total": 147,
-    "stories_confirmed": 61,
-    "stories_eligible": 9,
-    "raw_total": 274
+    "fetched": 3446,
+    "kept": 461,
+    "new_items": 7,
+    "stories_total": 154,
+    "stories_confirmed": 62,
+    "stories_eligible": 10,
+    "raw_total": 281
   },
   "stories": [
     {
@@ -486,6 +486,40 @@
       "summary_ru": "OpenAI представила плагин продаж, а также более 30 новых и расширенных партнерских плагинов в ChatGPT для исследования потенциальных клиентов, подготовки презентаций, обновления CRM и продвижения сделок.",
       "so_what_ru": "Непосредственное использование для CRM/удержания и рабочих процессов, связанных с продажами, которыми управляют команды маркетинга и эксплуатации продуктов.",
       "rating": 5
+    },
+    {
+      "story_id": "perplexity-intelligence",
+      "first_seen": "2026-11-23",
+      "title": "Perplexity and Intelligence",
+      "summary": "How perplexity measures progress in AI models, and why it could help developers establish a shared approach to evaluating emerging capabilities.",
+      "so_what": "",
+      "tags": [],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "de5cd1a6d51d",
+          "url": "https://openai.com/index/perplexity-and-intelligence",
+          "title": "Perplexity and Intelligence",
+          "source": "OpenAI News",
+          "tier": "T1",
+          "domain": "openai.com",
+          "published_at": "2026-11-22T00:00:00.000Z",
+          "summary": "How perplexity measures progress in AI models, and why it could help developers establish a shared approach to evaluating emerging capabilities.",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "openai.com"
+      ],
+      "has_t1": true,
+      "status": "confirmed",
+      "last_update": "2026-11-22T00:00:00.000Z",
+      "total": 3.5,
+      "rating": 5,
+      "title_ru": "",
+      "summary_ru": ""
     },
     {
       "story_id": "anthropic-announces-closing-initial-public",
@@ -1931,6 +1965,42 @@
       "rating": 4
     },
     {
+      "story_id": "agent-swarm-trying-solve",
+      "first_seen": "2026-11-23",
+      "title": "Agent swarm trying to solve P vs. NP",
+      "summary": "HN: 118 points, 106 comments. https://news.ycombinator.com/item?id=50604314",
+      "so_what": "",
+      "tags": [
+        "agents"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "d8eff3477af0",
+          "url": "https://pequalnp.com",
+          "title": "Agent swarm trying to solve P vs. NP",
+          "source": "Hacker News",
+          "tier": "T3",
+          "domain": "pequalnp.com",
+          "published_at": "2026-11-22T21:53:45Z",
+          "summary": "HN: 118 points, 106 comments. https://news.ycombinator.com/item?id=50604314",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "pequalnp.com"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-22T21:53:45Z",
+      "total": 3.25,
+      "rating": 4,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
       "story_id": "pandex-official-european-law-agents",
       "first_seen": "2026-11-22",
       "title": "Pandex – Official European Law for AI Agents, over MCP",
@@ -3342,6 +3412,76 @@
       "title_ru": ""
     },
     {
+      "story_id": "beginner-guide-local-inkling-qwen",
+      "first_seen": "2026-11-23",
+      "title": "A Beginner's Guide to Local AI with Inkling, Qwen, and Unsloth",
+      "summary": "HN: 271 points, 119 comments. https://news.ycombinator.com/item?id=50603845",
+      "so_what": "",
+      "tags": [
+        "open-weights"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "1ba4d31258de",
+          "url": "https://gpupartner.com/blog/beginners-guide-local-ai-inkling-qwen-unsloth",
+          "title": "A Beginner's Guide to Local AI with Inkling, Qwen, and Unsloth",
+          "source": "Hacker News",
+          "tier": "T3",
+          "domain": "gpupartner.com",
+          "published_at": "2026-11-22T21:01:16Z",
+          "summary": "HN: 271 points, 119 comments. https://news.ycombinator.com/item?id=50603845",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "gpupartner.com"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-22T21:01:16Z",
+      "total": 3.05,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
+      "story_id": "show-built-game-llm-subagent",
+      "first_seen": "2026-11-23",
+      "title": "Show HN: I built a game where you are an LLM's subagent",
+      "summary": "HN: 279 points, 65 comments. https://news.ycombinator.com/item?id=50599762",
+      "so_what": "",
+      "tags": [],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "3c4f4993adca",
+          "url": "https://github.com/gulivan/worker755",
+          "title": "Show HN: I built a game where you are an LLM's subagent",
+          "source": "Hacker News",
+          "tier": "T3",
+          "domain": "github.com",
+          "published_at": "2026-11-22T13:56:58Z",
+          "summary": "HN: 279 points, 65 comments. https://news.ycombinator.com/item?id=50599762",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "github.com"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-22T13:56:58Z",
+      "total": 3.05,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
       "story_id": "anthropic-power-come-gas-coal",
       "first_seen": "2026-11-22",
       "title": "87% of the Anthropic power will come from gas and 11% from coal in 2028",
@@ -3673,6 +3813,108 @@
       "summary_ru": "GPT-6 Cyber ​​от OpenAI с настроенной безопасностью обнаружил, использовал и исправил почти 950 серьезных уязвимостей ядра Linux за один запуск по цене примерно 1280 долларов США за исправление корневого уровня.",
       "so_what_ru": "Конкретные данные об агентном ИИ, выполняющем крупномасштабную техническую работу автономно и дешево, полезный контекст при определении того, что агенты могут реально автоматизировать, помимо задач по содержанию.",
       "rating": 3
+    },
+    {
+      "story_id": "becoming-disaster-climate",
+      "first_seen": "2026-11-23",
+      "title": "AI is becoming a disaster for the climate",
+      "summary": "HN: 108 points, 46 comments. https://news.ycombinator.com/item?id=50598961",
+      "so_what": "",
+      "tags": [],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "315e82c2f910",
+          "url": "https://bloodinthemachine.com/p/ai-is-becoming-a-disaster-for-the",
+          "title": "AI is becoming a disaster for the climate",
+          "source": "Hacker News",
+          "tier": "T3",
+          "domain": "bloodinthemachine.com",
+          "published_at": "2026-11-22T12:19:46Z",
+          "summary": "HN: 108 points, 46 comments. https://news.ycombinator.com/item?id=50598961",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "bloodinthemachine.com"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-22T12:19:46Z",
+      "total": 2.85,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
+      "story_id": "supply-chain-security-canary-tokens",
+      "first_seen": "2026-11-23",
+      "title": "AI Supply Chain Security: What Canary Tokens Found",
+      "summary": "HN: 101 points, 22 comments. https://news.ycombinator.com/item?id=50596511",
+      "so_what": "",
+      "tags": [],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "ce0bcf2918b4",
+          "url": "https://dragos.com/blog/ai-supply-chain-security-canary-tokens",
+          "title": "AI Supply Chain Security: What Canary Tokens Found",
+          "source": "Hacker News",
+          "tier": "T3",
+          "domain": "dragos.com",
+          "published_at": "2026-11-22T05:11:43Z",
+          "summary": "HN: 101 points, 22 comments. https://news.ycombinator.com/item?id=50596511",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "dragos.com"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-22T05:11:43Z",
+      "total": 2.85,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
+      "story_id": "mythology-conscious",
+      "first_seen": "2026-11-23",
+      "title": "The Mythology of Conscious AI",
+      "summary": "HN: 170 points, 486 comments. https://news.ycombinator.com/item?id=50595537",
+      "so_what": "",
+      "tags": [],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "528d6924cf9a",
+          "url": "https://noemamag.com/the-mythology-of-conscious-ai",
+          "title": "The Mythology of Conscious AI",
+          "source": "Hacker News",
+          "tier": "T3",
+          "domain": "noemamag.com",
+          "published_at": "2026-11-22T02:10:02Z",
+          "summary": "HN: 170 points, 486 comments. https://news.ycombinator.com/item?id=50595537",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "noemamag.com"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-22T02:10:02Z",
+      "total": 2.85,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
     },
     {
       "story_id": "anthropic-shares-tank-ipo-nasdaq",
@@ -7471,6 +7713,58 @@
   ],
   "raw_items": [
     {
+      "id": "d8eff3477af0",
+      "source_id": "hn",
+      "source_name": "Hacker News",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "Agent swarm trying to solve P vs. NP",
+      "url": "https://pequalnp.com",
+      "domain": "pequalnp.com",
+      "published_at": "2026-11-22T21:53:45Z",
+      "collected_on": "2026-11-23",
+      "summary": "HN: 118 points, 106 comments. https://news.ycombinator.com/item?id=50604314"
+    },
+    {
+      "id": "1ba4d31258de",
+      "source_id": "hn",
+      "source_name": "Hacker News",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "A Beginner's Guide to Local AI with Inkling, Qwen, and Unsloth",
+      "url": "https://gpupartner.com/blog/beginners-guide-local-ai-inkling-qwen-unsloth",
+      "domain": "gpupartner.com",
+      "published_at": "2026-11-22T21:01:16Z",
+      "collected_on": "2026-11-23",
+      "summary": "HN: 271 points, 119 comments. https://news.ycombinator.com/item?id=50603845"
+    },
+    {
+      "id": "3c4f4993adca",
+      "source_id": "hn",
+      "source_name": "Hacker News",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "Show HN: I built a game where you are an LLM's subagent",
+      "url": "https://github.com/gulivan/worker755",
+      "domain": "github.com",
+      "published_at": "2026-11-22T13:56:58Z",
+      "collected_on": "2026-11-23",
+      "summary": "HN: 279 points, 65 comments. https://news.ycombinator.com/item?id=50599762"
+    },
+    {
+      "id": "315e82c2f910",
+      "source_id": "hn",
+      "source_name": "Hacker News",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "AI is becoming a disaster for the climate",
+      "url": "https://bloodinthemachine.com/p/ai-is-becoming-a-disaster-for-the",
+      "domain": "bloodinthemachine.com",
+      "published_at": "2026-11-22T12:19:46Z",
+      "collected_on": "2026-11-23",
+      "summary": "HN: 108 points, 46 comments. https://news.ycombinator.com/item?id=50598961"
+    },
+    {
       "id": "38c61351fe0d",
       "source_id": "hn",
       "source_name": "Hacker News",
@@ -7482,6 +7776,45 @@
       "published_at": "2026-11-22T08:57:34Z",
       "collected_on": "2026-11-22",
       "summary": "HN: 310 points, 423 comments. https://news.ycombinator.com/item?id=50597612"
+    },
+    {
+      "id": "ce0bcf2918b4",
+      "source_id": "hn",
+      "source_name": "Hacker News",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "AI Supply Chain Security: What Canary Tokens Found",
+      "url": "https://dragos.com/blog/ai-supply-chain-security-canary-tokens",
+      "domain": "dragos.com",
+      "published_at": "2026-11-22T05:11:43Z",
+      "collected_on": "2026-11-23",
+      "summary": "HN: 101 points, 22 comments. https://news.ycombinator.com/item?id=50596511"
+    },
+    {
+      "id": "528d6924cf9a",
+      "source_id": "hn",
+      "source_name": "Hacker News",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "The Mythology of Conscious AI",
+      "url": "https://noemamag.com/the-mythology-of-conscious-ai",
+      "domain": "noemamag.com",
+      "published_at": "2026-11-22T02:10:02Z",
+      "collected_on": "2026-11-23",
+      "summary": "HN: 170 points, 486 comments. https://news.ycombinator.com/item?id=50595537"
+    },
+    {
+      "id": "de5cd1a6d51d",
+      "source_id": "openai",
+      "source_name": "OpenAI News",
+      "tier": "T1",
+      "signal_only": false,
+      "title": "Perplexity and Intelligence",
+      "url": "https://openai.com/index/perplexity-and-intelligence",
+      "domain": "openai.com",
+      "published_at": "2026-11-22T00:00:00.000Z",
+      "collected_on": "2026-11-23",
+      "summary": "How perplexity measures progress in AI models, and why it could help developers establish a shared approach to evaluating emerging capabilities."
     },
     {
       "id": "b77be25502fd",
