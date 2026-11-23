@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="stylesheet" href="../common/nav.css">
+</head>
+<body>
+<title>Vegas Way · КП декабрь</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: ночной Стрип — неделя = ряд из 7 карточек-дней, в каждом дне три полосы (FB / миссии / Discord); клик по дню → детали.
+   Единая тёмная тема намеренно (бренд Vegas Way живёт ночью): фон и все цвета заданы явно. */
+:root {
+  color-scheme: dark;
+  --ink: #0e0c1d;        /* фон страницы */
+  --panel: #17142b;      /* карточка дня */
+  --panel-2: #1f1b38;    /* вложенные блоки */
+  --line: #2e2950;       /* разделители */
+  --text: #ecebf7;
+  --muted: #a19dc2;
+  --neon: #ff3d63;       /* FB, красный неон лого */
+  --cyan: #33e0ee;       /* миссии, cyan лого */
+  --gold: #f3c75a;       /* фичи, НГ, акценты */
+  --ds: #8f9bff;         /* Discord */
+  --today: #33e0ee;
+  --f-display: 'Anton', 'Impact', 'Arial Narrow', sans-serif;
+  --f-body: 'Manrope', 'Segoe UI', system-ui, sans-serif;
+  --f-mono: 'JetBrains Mono', ui-monospace, 'Consolas', monospace;
+}
+html { background: var(--ink); }
+[hidden] { display: none !important; }
+body { background: var(--ink); color: var(--text); font: 14px/1.45 var(--f-body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 20px 48px; }
+.wrap { max-width: 1480px; margin: 0 auto; display: grid; gap: 28px; }
+a { color: var(--cyan); }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
+
+header.top { display: grid; gap: 14px; }
+.brand { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 16px; }
+.brand h1 { margin: 0; font: 400 clamp(30px, 4.4vw, 52px)/1 var(--f-display); letter-spacing: .5px; text-wrap: balance;
+  background: linear-gradient(180deg, #fff6c8, var(--gold) 55%, #c9800f); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.brand .sub { color: var(--muted); font-weight: 600; }
+.meta { display: flex; flex-wrap: wrap; gap: 8px 18px; color: var(--muted); font-size: 13px; }
+.meta a { font-weight: 600; }
+
+.bar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.bar .lbl { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; margin-right: 4px; }
+.chip { display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border-radius: 999px; border: 1px solid var(--line);
+  background: var(--panel); font-size: 13px; font-weight: 600; cursor: pointer; }
+.chip .dot { width: 8px; height: 8px; border-radius: 50%; }
+.chip[aria-pressed="false"] { opacity: .45; }
+.chip.fb .dot { background: var(--neon); } .chip.mis .dot { background: var(--cyan); } .chip.ds .dot { background: var(--ds); } .chip.ny .dot { background: var(--gold); }
+
+.week { display: grid; gap: 12px; }
+.week-h { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; border-bottom: 1px solid var(--line); padding-bottom: 8px; }
+.week-h h2 { margin: 0; font: 400 24px/1 var(--f-display); letter-spacing: .5px; }
+.week-h .range { color: var(--muted); font-weight: 600; }
+.week-h .word { font-family: var(--f-mono); font-size: 12px; color: var(--cyan); border: 1px solid color-mix(in srgb, var(--cyan) 45%, transparent);
+  padding: 2px 8px; border-radius: 6px; }
+.week-h .word.none { color: var(--gold); border-color: color-mix(in srgb, var(--gold) 45%, transparent); }
+
+.days { display: grid; gap: 10px; grid-template-columns: repeat(7, minmax(0, 1fr)); }
+@media (max-width: 1240px) { .days { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+@media (max-width: 860px) { .days { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .days { grid-template-columns: minmax(0, 1fr); } }
+
+.day { min-width: 0; text-align: left; display: grid; gap: 10px; align-content: start; padding: 12px; border-radius: 14px;
+  background: var(--panel); border: 1px solid var(--line); cursor: pointer; transition: border-color .15s, transform .15s; }
+.day:hover { border-color: color-mix(in srgb, var(--cyan) 55%, var(--line)); }
+@media (prefers-reduced-motion: no-preference) { .day:hover { transform: translateY(-1px); } }
+.day.today { border-color: var(--today); box-shadow: 0 0 0 1px var(--today), 0 0 22px color-mix(in srgb, var(--today) 25%, transparent); }
+.day.past { opacity: .55; }
+.dh { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.dh .dw { font: 400 26px/1 var(--f-display); letter-spacing: .5px; }
+.dh .dw.strong { color: var(--neon); }
+.dh .dt { color: var(--muted); font-weight: 700; font-variant-numeric: tabular-nums; }
+.dh .hol { margin-left: auto; font-size: 11px; font-weight: 700; color: var(--gold); border: 1px solid color-mix(in srgb, var(--gold) 45%, transparent);
+  padding: 1px 7px; border-radius: 999px; }
+.dh .tag-today { font-size: 11px; font-weight: 700; color: var(--ink); background: var(--today); padding: 1px 7px; border-radius: 999px; }
+
+.lane { display: grid; gap: 6px; padding-left: 9px; border-left: 2px solid var(--c); }
+.lane > .lt { font-size: 10.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--c); }
+.lane.fb { --c: var(--neon); } .lane.mis { --c: var(--cyan); } .lane.ds { --c: var(--ds); } .lane.ny { --c: var(--gold); }
+.it { display: grid; gap: 1px; min-width: 0; }
+.it .a { display: flex; gap: 6px; align-items: baseline; min-width: 0; font-weight: 700; }
+.it .a .t { min-width: 0; overflow-wrap: anywhere; }
+.it .a .tm { margin-left: auto; flex: none; font: 500 11px/1.4 var(--f-mono); color: var(--muted); font-variant-numeric: tabular-nums; }
+.it .b { color: var(--muted); font-size: 12.5px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.pill { display: inline-block; font-size: 10.5px; font-weight: 700; padding: 0 6px; border-radius: 5px; line-height: 17px; white-space: nowrap; }
+.pill.vid { background: color-mix(in srgb, var(--neon) 22%, transparent); color: #ffb3c2; }
+.pill.feat { background: color-mix(in srgb, var(--gold) 20%, transparent); color: var(--gold); }
+.pills { display: flex; flex-wrap: wrap; gap: 4px; }
+.mp { font-size: 11.5px; font-weight: 700; padding: 2px 7px; border-radius: 6px; background: var(--panel-2); border: 1px solid var(--line); white-space: nowrap; }
+.mp.front, .mp.puzzle { color: var(--cyan); } .mp.story { color: #fff; border-color: color-mix(in srgb, var(--cyan) 50%, var(--line)); }
+.mp.ou { color: #c9b6ff; } .mp.weekly { color: var(--gold); }
+.miss { color: var(--gold); }
+.hide-fb .lane.fb, .hide-mis .lane.mis, .hide-ds .lane.ds, .hide-ny .lane.ny { display: none; }
+
+/* детали дня */
+dialog { width: min(760px, calc(100vw - 24px)); max-height: calc(100dvh - 24px); padding: 0; border: 1px solid var(--line); border-radius: 16px;
+  background: var(--panel); color: var(--text); }
+dialog::backdrop { background: rgba(6, 5, 14, .72); }
+.dlg { display: grid; gap: 16px; padding: 18px; }
+.dlg-h { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.dlg-h h3 { margin: 0; font: 400 30px/1 var(--f-display); letter-spacing: .5px; }
+.dlg-h .x { margin-left: auto; background: var(--panel-2); border: 1px solid var(--line); border-radius: 8px; padding: 4px 10px; cursor: pointer; }
+.post { display: grid; gap: 10px; padding: 14px; border-radius: 12px; background: var(--panel-2); border: 1px solid var(--line); min-width: 0; }
+.post h4 { margin: 0; font-size: 16px; display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: baseline; }
+.kv { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 4px 12px; font-size: 13px; }
+.kv dt { color: var(--muted); } .kv dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+.code { font: 500 14px var(--f-mono); color: var(--gold); letter-spacing: .04em; }
+.tabs { display: flex; gap: 6px; flex-wrap: wrap; }
+.tab, .copy { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 4px 10px; cursor: pointer; font-size: 12.5px; font-weight: 700; }
+.tab[aria-selected="true"] { border-color: var(--neon); color: #ffb3c2; }
+.copy.ok { border-color: var(--cyan); color: var(--cyan); }
+pre.txt { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; font: 13px/1.5 var(--f-body); background: var(--ink); border: 1px solid var(--line);
+  border-radius: 10px; padding: 12px; max-height: 320px; overflow: auto; }
+.sec { display: grid; gap: 8px; }
+.sec > .lt { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.row { display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; font-size: 13.5px; }
+.row .tm { font: 500 12px var(--f-mono); color: var(--muted); }
+.note { color: var(--muted); font-size: 12.5px; }
+.gate { display: grid; gap: 10px; max-width: 460px; padding: 18px; border-radius: 14px; background: var(--panel); border: 1px solid var(--line); }
+.gate h2 { margin: 0; font: 400 24px/1 var(--f-display); }
+.gate input { flex: 1; min-width: 0; padding: 7px 10px; border-radius: 8px; border: 1px solid var(--line); background: var(--ink); color: var(--text); font: inherit; }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="brand"><h1>Vegas Way · КП декабрь</h1><span class="sub">30.11 – 03.01 · FB + Discord + місії</span></div>
+    <div class="meta" id="meta"></div>
+    <div class="bar" role="group" aria-label="Что показывать">
+      <span class="lbl">Показать</span>
+      <button class="chip fb" data-lane="fb" aria-pressed="true"><span class="dot"></span>Facebook</button>
+      <button class="chip mis" data-lane="mis" aria-pressed="true"><span class="dot"></span>Миссии</button>
+      <button class="chip ds" data-lane="ds" aria-pressed="true"><span class="dot"></span>Discord</button>
+      <button class="chip ny" data-lane="ny" aria-pressed="true"><span class="dot"></span>НГ-ивент</button>
+    </div>
+  </header>
+  <form id="gate-form" class="gate" hidden aria-labelledby="gate-t">
+    <h2 id="gate-t">Нужен ключ доступа</h2>
+    <p class="note">Тот же ключ, что у «Плана SMM». После входа браузер его запомнит.</p>
+    <div class="bar"><input id="gate-key" type="password" autocomplete="current-password" placeholder="ключ" aria-label="Ключ доступа">
+      <button class="chip" type="submit">Открыть</button></div>
+    <p class="note" id="gate-err" role="status"></p>
+  </form>
+  <main id="weeks" class="wrap"></main>
+</div>
+
+<dialog id="dlg" aria-labelledby="dlg-title"><div class="dlg" id="dlg-body"></div></dialog>
+
+<script id="kp-data" type="application/json">/*__DATA__*/null</script>
+<script>
+const renderKP = (DATA) => {
+  const MECH = { 'Знайди без пари': 'Без пары', 'Тінь': 'Тень', 'Вгадай слово': 'Угадай слово', 'Хрестики-нулики': 'Крестики-нолики', 'Сокет': 'Сокет',
+    'Фіча сайту': 'Фича', 'Пазл': 'Пазл', 'Порахуй кількість': 'Посчитай', 'Лабіринт': 'Лабиринт', 'Який з 3 відрізняється': 'Который из 3' };
+  const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const now = new Date(); const todayIso = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+  const byDate = {};
+  DATA.weeks.forEach((w) => w.days.forEach((d) => { byDate[d.date] = d; }));
+
+  document.getElementById('meta').innerHTML = `<span>Дата = день поста по США · FB выходит в ночь на следующий день по Киеву</span>
+    <span>Вт и Пт: видео (рилс + сторис) → Front Row</span><span>Собрано ${esc(DATA.built)}</span><a href="${esc(DATA.sheet)}" target="_blank" rel="noopener">Открыть КП в таблице ↗</a>`;
+
+  const fbItem = (p) => `<div class="it"><div class="a"><span class="t">${p.feature ? 'Фича' : esc(MECH[p.mech] || p.mech)}</span>
+      ${p.video ? '<span class="pill vid">Рилс + сторис</span>' : ''}${p.feature ? '<span class="pill feat">Слот 2</span>' : ''}<span class="tm">→ ${esc(p.pub)}</span></div>
+    <div class="b">${esc(p.obj)}</div></div>`;
+  const misPill = (m) => `<span class="mp ${m.kind}">${m.kind === 'story' ? 'Story · ' + esc(m.word || 'слово?') : esc(m.label)}</span>`;
+  const dsItem = (x) => `<div class="it"><div class="a"><span class="t ${x.kind === 'quiz-missing' ? 'miss' : ''}">${esc(x.label)}</span><span class="tm">${esc(x.when)}</span></div>
+    ${x.kind === 'quiz' ? '' : `<div class="b">${esc(x.title)}${x.limit ? ' · лимит ' + x.limit : ''}</div>`}</div>`;
+  const nyItem = (n) => `<div class="it"><div class="a"><span class="t">Countdown on the Strip</span><span class="tm">${esc(n.kyiv)} Kyiv</span></div><div class="b">${esc(n.label)}</div></div>`;
+
+  const dayCard = (d) => {
+    const cls = ['day']; if (d.date === todayIso) cls.push('today'); else if (d.date < todayIso) cls.push('past');
+    const strong = d.dow === 'Вт' || d.dow === 'Пт';
+    return `<button class="${cls.join(' ')}" data-date="${d.date}" aria-label="${esc(d.dow)} ${esc(d.dm)}: открыть детали">
+      <div class="dh"><span class="dw ${strong ? 'strong' : ''}">${esc(d.dow)}</span><span class="dt">${esc(d.dm)}</span>
+        ${d.date === todayIso ? '<span class="tag-today">сегодня</span>' : ''}${d.holiday ? `<span class="hol">${esc(d.holiday)}</span>` : ''}</div>
+      ${d.fb.length ? `<div class="lane fb"><span class="lt">Facebook</span>${d.fb.map(fbItem).join('')}</div>` : ''}
+      ${d.ny.length ? `<div class="lane ny"><span class="lt">НГ-ивент · FB</span>${d.ny.map(nyItem).join('')}</div>` : ''}
+      ${d.mis.length ? `<div class="lane mis"><span class="lt">Миссии</span><div class="pills">${d.mis.map(misPill).join('')}</div></div>` : ''}
+      ${d.ds.length ? `<div class="lane ds"><span class="lt">Discord</span>${d.ds.map(dsItem).join('')}</div>` : ''}
+    </button>`;
+  };
+
+  document.getElementById('weeks').innerHTML = DATA.weeks.map((w) => `<section class="week" aria-labelledby="w${w.n}">
+      <div class="week-h"><h2 id="w${w.n}">Неделя ${w.n}</h2><span class="range">${esc(w.from)} – ${esc(w.to)}</span>
+        ${w.word ? `<span class="word">Story: ${esc(w.word)}</span>` : '<span class="word none">Story: слово не задано</span>'}</div>
+      <div class="days">${w.days.map(dayCard).join('')}</div></section>`).join('');
+
+  // фильтры полос
+  const LS = 'vw-kp-lanes';
+  let hidden = []; try { hidden = JSON.parse(localStorage.getItem(LS) || '[]'); } catch (e) { hidden = []; }
+  const applyLanes = () => {
+    document.querySelectorAll('.chip[data-lane]').forEach((c) => {
+      const off = hidden.includes(c.dataset.lane);
+      c.setAttribute('aria-pressed', String(!off));
+      document.body.classList.toggle('hide-' + c.dataset.lane, off);
+    });
+  };
+  document.querySelectorAll('.chip[data-lane]').forEach((c) => c.addEventListener('click', () => {
+    const l = c.dataset.lane; hidden = hidden.includes(l) ? hidden.filter((x) => x !== l) : [...hidden, l];
+    try { localStorage.setItem(LS, JSON.stringify(hidden)); } catch (e) { /* без хранилища — просто не запоминаем */ }
+    applyLanes();
+  }));
+  applyLanes();
+
+  // детали дня
+  const dlg = document.getElementById('dlg'), body = document.getElementById('dlg-body');
+  const copy = async (btn, text) => {
+    try { await navigator.clipboard.writeText(text); btn.textContent = 'Скопировано'; btn.classList.add('ok'); }
+    catch (e) { const pre = btn.closest('.post')?.querySelector('pre.txt'); if (pre) { const r = document.createRange(); r.selectNodeContents(pre); const s = getSelection(); s.removeAllRanges(); s.addRange(r); } btn.textContent = 'Выделено, Ctrl+C'; }
+    setTimeout(() => { btn.classList.remove('ok'); btn.textContent = btn.dataset.label; }, 1600);
+  };
+  const postBlock = (p, i) => `<div class="post" data-i="${i}">
+      <h4>${p.feature ? 'Фича сайта' : esc(MECH[p.mech] || p.mech)} ${p.video ? '<span class="pill vid">Рилс + сторис</span>' : ''}
+        <span class="note">выход ${esc(p.pub)} Kyiv · строка ${p.row}</span></h4>
+      <dl class="kv"><dt>Сцена</dt><dd>${esc(p.obj)}</dd><dt>Ответ</dt><dd>${esc(p.ans)}</dd>
+        <dt>Код</dt><dd><span class="code">${esc(p.code)}</span> · ${p.act} активаций</dd><dt>Миссия</dt><dd>${esc(p.mission)}</dd></dl>
+      <div class="tabs" role="tablist"><button class="tab" role="tab" aria-selected="true" data-lang="en">EN (в пост)</button>
+        <button class="tab" role="tab" aria-selected="false" data-lang="ru">RU (перевод)</button>
+        <button class="copy" data-copy="text" data-label="Копировать текст">Копировать текст</button>
+        <button class="copy" data-copy="code" data-label="Копировать код">Копировать код</button></div>
+      <pre class="txt">${esc(p.en)}</pre></div>`;
+  const openDay = (date) => {
+    const d = byDate[date]; if (!d) return;
+    body.innerHTML = `<div class="dlg-h"><h3 id="dlg-title">${esc(d.dow)} ${esc(d.dm)}</h3>${d.holiday ? `<span class="hol" style="color:var(--gold)">${esc(d.holiday)}</span>` : ''}
+        <button class="x" id="dlg-x">Закрыть</button></div>
+      ${d.fb.length ? `<div class="sec"><span class="lt">Facebook</span>${d.fb.map(postBlock).join('')}</div>` : ''}
+      ${d.ny.length ? `<div class="sec"><span class="lt">НГ-ивент Countdown on the Strip · FB</span>${d.ny.map((n) => `<div class="row"><span class="tm">${esc(n.et)} ET · ${esc(n.kyiv)} Kyiv</span>${esc(n.label)}</div>`).join('')}
+        <span class="note">Тексты в launch/comms.md папки «VS + gemini».</span></div>` : ''}
+      ${d.mis.length ? `<div class="sec"><span class="lt">Миссии</span><div class="pills">${d.mis.map(misPill).join('')}</div></div>` : ''}
+      ${d.ds.length ? `<div class="sec"><span class="lt">Discord</span>${d.ds.map((x) => `<div class="row"><span class="tm">${esc(x.when)} Kyiv</span><b>${esc(x.label)}</b>${x.kind === 'quiz' ? ' ' + esc(x.title) : ' · ' + esc(x.title)}${x.limit ? ' · лимит ' + x.limit : ''}</div>`).join('')}</div>` : ''}`;
+    body.querySelectorAll('.post').forEach((el) => {
+      const p = d.fb[+el.dataset.i]; let lang = 'en';
+      el.querySelectorAll('.tab').forEach((t) => t.addEventListener('click', () => {
+        lang = t.dataset.lang; el.querySelectorAll('.tab').forEach((x) => x.setAttribute('aria-selected', String(x === t)));
+        el.querySelector('pre.txt').textContent = p[lang];
+      }));
+      el.querySelectorAll('.copy').forEach((b) => b.addEventListener('click', () => copy(b, b.dataset.copy === 'code' ? p.code : p[lang])));
+    });
+    document.getElementById('dlg-x').addEventListener('click', () => dlg.close());
+    dlg.showModal();
+  };
+  document.getElementById('weeks').addEventListener('click', (e) => { const b = e.target.closest('.day'); if (b) openDay(b.dataset.date); });
+  dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); });
+};
+
+// Запуск: в Artifact данные встроены; на хабе (GitHub Pages) — data.enc.json, ключ как у «Плана SMM» (#key=… или localStorage planhub.key)
+(() => {
+  const EMB = JSON.parse(document.getElementById('kp-data').textContent);
+  if (EMB) { renderKP(EMB); return; }
+  const gate = document.getElementById('gate'), err = document.getElementById('gate-err');
+  const ls = (k, v) => { try { if (v === undefined) return localStorage.getItem(k); if (v === null) localStorage.removeItem(k); else localStorage.setItem(k, v); } catch (e) { return null; } };
+  const b64 = (s) => Uint8Array.from(atob(s), (c) => c.charCodeAt(0));
+  const load = async (pass) => {
+    const r = await fetch('data.enc.json?t=' + Date.now(), { cache: 'no-store' });
+    if (!r.ok) throw new Error('Не удалось загрузить данные: HTTP ' + r.status);
+    const enc = await r.json();
+    try {
+      const base = await crypto.subtle.importKey('raw', new TextEncoder().encode(pass), 'PBKDF2', false, ['deriveKey']);
+      const k = await crypto.subtle.deriveKey({ name: 'PBKDF2', salt: b64(enc.salt), iterations: enc.iter, hash: 'SHA-256' }, base, { name: 'AES-GCM', length: 256 }, false, ['decrypt']);
+      return JSON.parse(new TextDecoder().decode(await crypto.subtle.decrypt({ name: 'AES-GCM', iv: b64(enc.iv) }, k, b64(enc.ct))));
+    } catch (e) { throw new Error('Ключ не подходит'); }
+  };
+  const open = (pass) => load(pass).then((d) => { ls('planhub.key', pass); gate.hidden = true; renderKP(d); });
+  const showGate = (m) => { gate.hidden = false; err.textContent = m || ''; document.getElementById('gate-key').focus(); };
+  document.getElementById('gate-form').addEventListener('submit', (e) => {
+    e.preventDefault(); const v = document.getElementById('gate-key').value.trim(); if (!v) return;
+    err.textContent = 'Открываю…'; open(v).catch((er) => { err.textContent = er.message; });
+  });
+  const m = location.hash.match(/key=([^&]+)/);
+  if (m) { ls('planhub.key', decodeURIComponent(m[1])); history.replaceState(null, '', location.pathname); }
+  const saved = ls('planhub.key');
+  if (!saved) { showGate(); return; }
+  open(saved).catch((er) => { ls('planhub.key', null); showGate(er.message); });
+})();
+</script>
+
+<script src="../common/nav.js" defer></script>
+</body>
+</html>
