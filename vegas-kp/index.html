@@ -268,7 +268,10 @@ const renderKP = (DATA) => {
       return JSON.parse(new TextDecoder().decode(await crypto.subtle.decrypt({ name: 'AES-GCM', iv: b64(enc.iv) }, k, b64(enc.ct))));
     } catch (e) { throw new Error('Ключ не подходит'); }
   };
-  const open = (pass) => load(pass).then((d) => { ls('planhub.key', pass); gate.hidden = true; renderKP(d); });
+  const open = (pass) => load(pass).then((d) => {
+    ls('planhub.key', pass); gate.hidden = true;
+    try { renderKP(d); } catch (e) { throw new Error('Ошибка отрисовки: ' + e.message); }
+  });
   const showGate = (m) => { gate.hidden = false; err.textContent = m || ''; document.getElementById('gate-key').focus(); };
   document.getElementById('gate-form').addEventListener('submit', (e) => {
     e.preventDefault(); const v = document.getElementById('gate-key').value.trim(); if (!v) return;
@@ -278,7 +281,13 @@ const renderKP = (DATA) => {
   if (m) { ls('planhub.key', decodeURIComponent(m[1])); history.replaceState(null, '', location.pathname); }
   const saved = ls('planhub.key');
   if (!saved) { showGate(); return; }
-  open(saved).catch((er) => { ls('planhub.key', null); showGate(er.message); });
+  const weeks = document.getElementById('weeks');
+  weeks.innerHTML = '<p class="note" role="status">Открываю КП… (расшифровка занимает пару секунд)</p>';
+  open(saved).catch((er) => {
+    weeks.innerHTML = '';
+    if (/Ключ/.test(er.message)) ls('planhub.key', null);
+    showGate(er.message);
+  });
 })();
 </script>
 
