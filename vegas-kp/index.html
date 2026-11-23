@@ -254,7 +254,7 @@ const renderKP = (DATA) => {
 (() => {
   const EMB = JSON.parse(document.getElementById('kp-data').textContent);
   if (EMB) { renderKP(EMB); return; }
-  const gate = document.getElementById('gate'), err = document.getElementById('gate-err');
+  const gate = document.getElementById('gate-form'), err = document.getElementById('gate-err');
   const ls = (k, v) => { try { if (v === undefined) return localStorage.getItem(k); if (v === null) localStorage.removeItem(k); else localStorage.setItem(k, v); } catch (e) { return null; } };
   const b64 = (s) => Uint8Array.from(atob(s), (c) => c.charCodeAt(0));
   const load = async (pass) => {
