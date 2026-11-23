@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-23T09:54:06.814Z",
+  "generated_at": "2026-11-23T18:18:49.892Z",
   "last_collect_date": "2026-11-23",
   "sources_report": [
     {
@@ -20,7 +20,7 @@
       "tier": "T1",
       "type": "changelog",
       "url": "https://docs.anthropic.com/en/release-notes/overview",
-      "fetched": 175,
+      "fetched": 176,
       "kept": 9,
       "new": 0,
       "error": null,
@@ -33,7 +33,7 @@
       "type": "rss",
       "url": "https://github.com/anthropics/anthropic-sdk-python/releases.atom",
       "fetched": 10,
-      "kept": 4,
+      "kept": 3,
       "new": 0,
       "error": null,
       "note": ""
@@ -45,8 +45,8 @@
       "type": "rss",
       "url": "https://deepmind.google/blog/rss.xml",
       "fetched": 100,
-      "kept": 2,
-      "new": 0,
+      "kept": 3,
+      "new": 1,
       "error": null,
       "note": ""
     },
@@ -70,7 +70,7 @@
       "url": "https://blog.google/technology/ai/rss/",
       "fetched": 20,
       "kept": 5,
-      "new": 0,
+      "new": 1,
       "error": null,
       "note": ""
     },
@@ -92,9 +92,9 @@
       "tier": "T1",
       "type": "rss",
       "url": "https://huggingface.co/blog/feed.xml",
-      "fetched": 915,
-      "kept": 7,
-      "new": 0,
+      "fetched": 916,
+      "kept": 9,
+      "new": 2,
       "error": null,
       "note": ""
     },
@@ -141,7 +141,7 @@
       "type": "rss",
       "url": "https://openai.com/news/rss.xml",
       "fetched": 1422,
-      "kept": 24,
+      "kept": 21,
       "new": 0,
       "error": null,
       "note": ""
@@ -176,10 +176,10 @@
       "tier": "T2",
       "type": "rss",
       "url": "https://importai.substack.com/feed",
-      "fetched": 0,
-      "kept": 0,
-      "new": 0,
-      "error": "HTTP 403",
+      "fetched": 20,
+      "kept": 1,
+      "new": 1,
+      "error": null,
       "note": ""
     },
     {
@@ -212,10 +212,10 @@
       "tier": "T2",
       "type": "rss",
       "url": "https://charonhub.deeplearning.ai/rss/",
-      "fetched": 0,
-      "kept": 0,
-      "new": 0,
-      "error": "HTTP 403",
+      "fetched": 15,
+      "kept": 7,
+      "new": 6,
+      "error": null,
       "note": ""
     },
     {
@@ -237,8 +237,8 @@
       "type": "hn",
       "url": "https://hn.algolia.com/api/v1/search_by_date",
       "fetched": 200,
-      "kept": 44,
-      "new": 0,
+      "kept": 39,
+      "new": 1,
       "error": null,
       "note": ""
     },
@@ -249,8 +249,8 @@
       "type": "rss",
       "url": "https://www.therundown.ai/feed",
       "fetched": 50,
-      "kept": 9,
-      "new": 0,
+      "kept": 8,
+      "new": 1,
       "error": null,
       "note": ""
     },
@@ -261,8 +261,8 @@
       "type": "rss",
       "url": "https://tldr.tech/api/rss/ai",
       "fetched": 20,
-      "kept": 4,
-      "new": 0,
+      "kept": 5,
+      "new": 1,
       "error": null,
       "note": ""
     },
@@ -273,7 +273,7 @@
       "type": "rss",
       "url": "https://igamingbusiness.com/feed/",
       "fetched": 100,
-      "kept": 3,
+      "kept": 2,
       "new": 0,
       "error": null,
       "note": ""
@@ -286,7 +286,7 @@
       "url": "https://www.marketingaiinstitute.com/blog/rss.xml",
       "fetched": 10,
       "kept": 3,
-      "new": 0,
+      "new": 1,
       "error": null,
       "note": ""
     },
@@ -297,8 +297,8 @@
       "type": "rss",
       "url": "https://martech.org/feed/",
       "fetched": 10,
-      "kept": 7,
-      "new": 0,
+      "kept": 8,
+      "new": 4,
       "error": null,
       "note": ""
     },
@@ -317,15 +317,15 @@
   ],
   "totals": {
     "sources": 26,
-    "failed": 3,
+    "failed": 1,
     "empty": 2,
-    "fetched": 3446,
-    "kept": 456,
-    "new_items": 0,
-    "stories_total": 154,
-    "stories_confirmed": 62,
-    "stories_eligible": 10,
-    "raw_total": 281
+    "fetched": 3483,
+    "kept": 458,
+    "new_items": 19,
+    "stories_total": 169,
+    "stories_confirmed": 66,
+    "stories_eligible": 14,
+    "raw_total": 297
   },
   "stories": [
     {
@@ -439,6 +439,77 @@
       "rating": 5
     },
     {
+      "story_id": "finding-faster-quantum-algorithms-agents",
+      "first_seen": "2026-11-23",
+      "title": "Finding faster quantum algorithms with agents and formal verification",
+      "summary": "Using agent teams and formal verification to improve quantum algorithms for fusion and chemistry.",
+      "so_what": "",
+      "tags": [
+        "agents"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "61dcf1169479",
+          "url": "https://deepmind.google/blog/finding-faster-quantum-algorithms-with-agents-and-formal-verification",
+          "title": "Finding faster quantum algorithms with agents and formal verification",
+          "source": "Google DeepMind",
+          "tier": "T1",
+          "domain": "deepmind.google",
+          "published_at": "2026-11-23T16:59:40.000Z",
+          "summary": "Using agent teams and formal verification to improve quantum algorithms for fusion and chemistry.",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "deepmind.google"
+      ],
+      "has_t1": true,
+      "status": "confirmed",
+      "last_update": "2026-11-23T16:59:40.000Z",
+      "total": 3.9,
+      "rating": 5,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
+      "story_id": "build-maintain-agentic-evaluation",
+      "first_seen": "2026-11-23",
+      "title": "How to build and maintain an agentic evaluation",
+      "summary": "",
+      "so_what": "",
+      "tags": [
+        "agents"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "6fd4c32fe34a",
+          "url": "https://huggingface.co/blog/agentic-evals",
+          "title": "How to build and maintain an agentic evaluation",
+          "source": "Hugging Face blog",
+          "tier": "T1",
+          "domain": "huggingface.co",
+          "published_at": "2026-11-23T00:00:00.000Z",
+          "summary": "",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "huggingface.co"
+      ],
+      "has_t1": true,
+      "status": "confirmed",
+      "last_update": "2026-11-23T00:00:00.000Z",
+      "total": 3.9,
+      "rating": 5,
+      "title_ru": ""
+    },
+    {
       "story_id": "openai-chatgpt-for-sales",
       "first_seen": "2026-11-19",
       "items": [
@@ -486,6 +557,76 @@
       "summary_ru": "OpenAI представила плагин продаж, а также более 30 новых и расширенных партнерских плагинов в ChatGPT для исследования потенциальных клиентов, подготовки презентаций, обновления CRM и продвижения сделок.",
       "so_what_ru": "Непосредственное использование для CRM/удержания и рабочих процессов, связанных с продажами, которыми управляют команды маркетинга и эксплуатации продуктов.",
       "rating": 5
+    },
+    {
+      "story_id": "robotrack-point-tracking-real-world-robotic",
+      "first_seen": "2026-11-23",
+      "title": "RoboTrack: Point tracking for real-world robotic manipulation",
+      "summary": "",
+      "so_what": "",
+      "tags": [],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "ca38829e7312",
+          "url": "https://huggingface.co/blog/allenai/robotrack",
+          "title": "RoboTrack: Point tracking for real-world robotic manipulation",
+          "source": "Hugging Face blog",
+          "tier": "T1",
+          "domain": "huggingface.co",
+          "published_at": "2026-11-23T17:20:37.000Z",
+          "summary": "",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "huggingface.co"
+      ],
+      "has_t1": true,
+      "status": "confirmed",
+      "last_update": "2026-11-23T17:20:37.000Z",
+      "total": 3.5,
+      "rating": 5,
+      "title_ru": ""
+    },
+    {
+      "story_id": "tailored-google-search-uniquely-yours",
+      "first_seen": "2026-11-23",
+      "title": "A more tailored Google Search that’s uniquely yours",
+      "summary": "Get more helpful Search responses by securely opting in to connect Google Wallet, Drive, and the Gemini app to Personal Intelligence in AI Mode.",
+      "so_what": "",
+      "tags": [
+        "google",
+        "marketing"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "39c2da17cef6",
+          "url": "https://blog.google/products-and-platforms/products/search/google-search-personal-intelligence-apps",
+          "title": "A more tailored Google Search that’s uniquely yours",
+          "source": "Google AI blog",
+          "tier": "T1",
+          "domain": "blog.google",
+          "published_at": "2026-11-23T17:00:00.000Z",
+          "summary": "Get more helpful Search responses by securely opting in to connect Google Wallet, Drive, and the Gemini app to Personal Intelligence in AI Mode.",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "blog.google"
+      ],
+      "has_t1": true,
+      "status": "confirmed",
+      "last_update": "2026-11-23T17:00:00.000Z",
+      "total": 3.5,
+      "rating": 5,
+      "title_ru": "",
+      "summary_ru": ""
     },
     {
       "story_id": "perplexity-intelligence",
@@ -1629,6 +1770,114 @@
       "summary_ru": ""
     },
     {
+      "story_id": "re-shaping-mid-market-marketing",
+      "first_seen": "2026-11-23",
+      "title": "How AI is re-shaping mid-market marketing",
+      "summary": "AI should give mid-market teams a boost as a force multiplier and eliminator of busywork. But is it? The post How AI is re-shaping mid-market marketing appeared first on MarTech .",
+      "so_what": "",
+      "tags": [
+        "marketing"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "451e51372bbf",
+          "url": "https://martech.org/how-ai-is-re-shaping-mid-market-marketing",
+          "title": "How AI is re-shaping mid-market marketing",
+          "source": "MarTech",
+          "tier": "T4",
+          "domain": "martech.org",
+          "published_at": "2026-11-23T14:25:11.000Z",
+          "summary": "AI should give mid-market teams a boost as a force multiplier and eliminator of busywork. But is it? The post How AI is re-shaping mid-market marketing appeared first on MarTech .",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "martech.org"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-23T14:25:11.000Z",
+      "total": 3.6,
+      "rating": 4,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
+      "story_id": "vet-capabilities-during-martech-rfps",
+      "first_seen": "2026-11-23",
+      "title": "How to vet AI capabilities during martech RFPs",
+      "summary": "Six questions can tell you whether a vendor’s “AI” is genuinely new or just old automation with a fresh label. The post How to vet AI capabilities during martech RFPs appeared first on MarTech .",
+      "so_what": "",
+      "tags": [
+        "marketing"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "99bd0cf495bf",
+          "url": "https://martech.org/how-to-vet-ai-capabilities-during-martech-rfps",
+          "title": "How to vet AI capabilities during martech RFPs",
+          "source": "MarTech",
+          "tier": "T4",
+          "domain": "martech.org",
+          "published_at": "2026-11-23T13:19:00.000Z",
+          "summary": "Six questions can tell you whether a vendor’s “AI” is genuinely new or just old automation with a fresh label. The post How to vet AI capabilities during martech RFPs appeared first on MarTech .",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "martech.org"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-23T13:19:00.000Z",
+      "total": 3.6,
+      "rating": 4,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
+      "story_id": "missing-2027-marketing-budget",
+      "first_seen": "2026-11-23",
+      "title": "What’s missing from your 2027 marketing AI budget?",
+      "summary": "Buying AI tools is easy. Getting teams to use them is harder. Here's how to fund the people and processes that turn AI spending into results. The post What’s missing from your 2027 marketing AI budget? appeared first on MarTech .",
+      "so_what": "",
+      "tags": [
+        "marketing"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "0a8eee8d4999",
+          "url": "https://martech.org/whats-missing-from-your-2027-marketing-ai-budget",
+          "title": "What’s missing from your 2027 marketing AI budget?",
+          "source": "MarTech",
+          "tier": "T4",
+          "domain": "martech.org",
+          "published_at": "2026-11-23T12:25:00.000Z",
+          "summary": "Buying AI tools is easy. Getting teams to use them is harder. Here's how to fund the people and processes that turn AI spending into results. The post What’s missing from your 2027 marketing AI budget? appeared first on MarTech .",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "martech.org"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-23T12:25:00.000Z",
+      "total": 3.6,
+      "rating": 4,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
       "story_id": "everymatrix-bonus-guardian-ai",
       "first_seen": "2026-11-19",
       "items": [
@@ -1776,6 +2025,44 @@
       "rating": 4
     },
     {
+      "story_id": "adaptive-memory-management-researchers-ucla",
+      "first_seen": "2026-11-23",
+      "title": "Adaptive Memory Management: Researchers at UCLA, Washington, and Northwestern release MEMCON for agents",
+      "summary": "Many agents save past experiences as text in an external store, and most search and update such memories using settings the agent’s developer chose by hand, such as the number of memories to retrieve or the schedule for removing them.",
+      "so_what": "",
+      "tags": [
+        "agents",
+        "marketing",
+        "coding"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "10d342ee1b71",
+          "url": "https://charonhub.deeplearning.ai/adaptive-memory-management",
+          "title": "Adaptive Memory Management: Researchers at UCLA, Washington, and Northwestern release MEMCON for agents",
+          "source": "The Batch",
+          "tier": "T2",
+          "domain": "deeplearning.ai",
+          "published_at": "2026-11-20T16:15:00.000Z",
+          "summary": "Many agents save past experiences as text in an external store, and most search and update such memories using settings the agent’s developer chose by hand, such as the number of memories to retrieve or the schedule for removing them.",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "deeplearning.ai"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-20T16:15:00.000Z",
+      "total": 3.5,
+      "rating": 4,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
       "story_id": "agentic-document-retrieval-vs-rag",
       "first_seen": "2026-11-16",
       "items": [
@@ -1819,55 +2106,6 @@
       "title_ru": "Поиск документов с помощью агента превосходит RAG по частям и встраиванию в сложных документах",
       "summary_ru": "Подход к поиску, при котором агент ищет, структурирует и читает целые документы, превосходит стандартный RAG с фрагментированием и встраиванием, особенно когда значение зависит от контекста в другом месте страницы (например, единиц таблицы).",
       "so_what_ru": "Если вы создаете агенты чтения документов для отчетов или данных CRM, агентный поиск всего документа может заменить наивное разбиение на фрагменты таблиц и структурированных документов.",
-      "rating": 4
-    },
-    {
-      "story_id": "martech-ai-agents-b2b-vendor-evaluation",
-      "first_seen": "2026-11-17",
-      "items": [
-        {
-          "id": "bfe0ba634f14",
-          "url": "https://martech.org/when-ai-agents-evaluate-b2b-vendors-what-earns-consideration/",
-          "title": "When AI agents evaluate B2B vendors, what earns consideration?",
-          "source": "MarTech",
-          "tier": "T4",
-          "domain": "martech.org",
-          "published_at": "2026-11-17T12:46:00.000Z",
-          "summary": "Similar B2B solutions need more than competitive features. Clear product information and credible evidence can turn AI discovery into buyer consideration. The post When AI agents evaluate B2B vendors, what earns consideration? appeared first on MarTech .",
-          "title_ru": "Когда агенты ИИ оценивают поставщиков B2B, что заслуживает внимания?"
-        }
-      ],
-      "title": "MarTech: what makes B2B vendors earn consideration from AI agent evaluators",
-      "summary": "MarTech argues that as AI agents evaluate B2B vendors, clear product information and credible evidence - not just competitive features - determine whether a vendor gets considered.",
-      "tags": [
-        "marketing",
-        "geo",
-        "aeo",
-        "b2b",
-        "content"
-      ],
-      "entities": [
-        "MarTech"
-      ],
-      "kind": "opinion",
-      "rumor": false,
-      "scores": {
-        "significance": 3,
-        "novelty": 2,
-        "practicality": 4,
-        "relevance": 5
-      },
-      "so_what": "Tactical guidance for structuring product content so AI agents and answer engines surface and recommend your brand.",
-      "domains": [
-        "martech.org"
-      ],
-      "has_t1": false,
-      "status": "unconfirmed",
-      "total": 3.3,
-      "last_update": "2026-11-17T12:46:00.000Z",
-      "title_ru": "MarTech: что заставляет поставщиков B2B заслужить внимание оценщиков ИИ-агентов",
-      "summary_ru": "MarTech утверждает, что, когда агенты ИИ оценивают поставщиков B2B, ясная информация о продукте и достоверные доказательства, а не только конкурентные характеристики, определяют, будет ли рассматриваться поставщик.",
-      "so_what_ru": "Тактическое руководство по структурированию контента продукта, чтобы агенты искусственного интеллекта и системы ответов появлялись на свет и рекомендовали ваш бренд.",
       "rating": 4
     },
     {
@@ -1928,6 +2166,17 @@
           "published_at": "2026-11-13T09:04:13.000Z",
           "summary": "November 12, 2026 — Colette Kress takes over as interim CEO. What happens to open source/American AI leadership?",
           "title_ru": "[ANews] Дженсен Хуанг уходит в отставку после 33 лет руководства NVIDIA"
+        },
+        {
+          "id": "462b2d61b57b",
+          "url": "https://charonhub.deeplearning.ai/jensen-huang-resigns-as-nvidia-ceo",
+          "title": "Jensen Huang Resigns as Nvidia CEO: Nvidia founder Jensen Huang steps down after scandal, succeeded by CFO Colette Kress",
+          "source": "The Batch",
+          "tier": "T2",
+          "domain": "deeplearning.ai",
+          "published_at": "2026-11-20T16:00:00.000Z",
+          "summary": "Nvidia founder Jensen Huang’s relationship with a possible asset for China’s intelligence agency threw the GPU giant into turmoil, leading to Huang’s apologetic resignation and the Nvidia board’s appointments of Chief Financial Officer Colette Kress as interim CEO and Harvey Jones as its first...",
+          "title_ru": ""
         }
       ],
       "title": "Jensen Huang resigns as Nvidia CEO after 33 years; Colette Kress named interim CEO",
@@ -1953,16 +2202,102 @@
       "so_what": "A leadership change at Nvidia could ripple into GPU supply, pricing, and the broader AI infrastructure stack that the tools you use depend on.",
       "domains": [
         "therundown.ai",
-        "latent.space"
+        "latent.space",
+        "deeplearning.ai"
       ],
       "has_t1": false,
       "status": "confirmed",
       "total": 3.3,
-      "last_update": "2026-11-16T10:00:00.000Z",
+      "last_update": "2026-11-20T16:00:00.000Z",
       "title_ru": "Дженсен Хуанг уходит с поста генерального директора Nvidia после 33 лет работы; Колетт Кресс назначена временным генеральным директором",
       "summary_ru": "После более ранних сообщений о расследовании и падении акций Дженсен Хуанг ушел с поста генерального директора Nvidia после 33 лет руководства компанией, а временным генеральным директором стала Колетт Кресс.",
       "so_what_ru": "Смена руководства в Nvidia может повлиять на поставки графических процессоров, цены и более широкий стек инфраструктуры искусственного интеллекта, от которого зависят инструменты, которые вы используете.",
       "rating": 4
+    },
+    {
+      "story_id": "martech-ai-agents-b2b-vendor-evaluation",
+      "first_seen": "2026-11-17",
+      "items": [
+        {
+          "id": "bfe0ba634f14",
+          "url": "https://martech.org/when-ai-agents-evaluate-b2b-vendors-what-earns-consideration/",
+          "title": "When AI agents evaluate B2B vendors, what earns consideration?",
+          "source": "MarTech",
+          "tier": "T4",
+          "domain": "martech.org",
+          "published_at": "2026-11-17T12:46:00.000Z",
+          "summary": "Similar B2B solutions need more than competitive features. Clear product information and credible evidence can turn AI discovery into buyer consideration. The post When AI agents evaluate B2B vendors, what earns consideration? appeared first on MarTech .",
+          "title_ru": "Когда агенты ИИ оценивают поставщиков B2B, что заслуживает внимания?"
+        }
+      ],
+      "title": "MarTech: what makes B2B vendors earn consideration from AI agent evaluators",
+      "summary": "MarTech argues that as AI agents evaluate B2B vendors, clear product information and credible evidence - not just competitive features - determine whether a vendor gets considered.",
+      "tags": [
+        "marketing",
+        "geo",
+        "aeo",
+        "b2b",
+        "content"
+      ],
+      "entities": [
+        "MarTech"
+      ],
+      "kind": "opinion",
+      "rumor": false,
+      "scores": {
+        "significance": 3,
+        "novelty": 2,
+        "practicality": 4,
+        "relevance": 5
+      },
+      "so_what": "Tactical guidance for structuring product content so AI agents and answer engines surface and recommend your brand.",
+      "domains": [
+        "martech.org"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "total": 3.3,
+      "last_update": "2026-11-17T12:46:00.000Z",
+      "title_ru": "MarTech: что заставляет поставщиков B2B заслужить внимание оценщиков ИИ-агентов",
+      "summary_ru": "MarTech утверждает, что, когда агенты ИИ оценивают поставщиков B2B, ясная информация о продукте и достоверные доказательства, а не только конкурентные характеристики, определяют, будет ли рассматриваться поставщик.",
+      "so_what_ru": "Тактическое руководство по структурированию контента продукта, чтобы агенты искусственного интеллекта и системы ответов появлялись на свет и рекомендовали ваш бренд.",
+      "rating": 4
+    },
+    {
+      "story_id": "glm-5-toward-generalized-coding-first",
+      "first_seen": "2026-11-23",
+      "title": "GLM-5.4: Toward Generalized Coding with Our First Loop Transformer",
+      "summary": "HN: 816 points, 296 comments. https://news.ycombinator.com/item?id=50609685",
+      "so_what": "",
+      "tags": [
+        "coding"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "5094532b4e2e",
+          "url": "https://z.ai/blog/glm-5.4",
+          "title": "GLM-5.4: Toward Generalized Coding with Our First Loop Transformer",
+          "source": "Hacker News",
+          "tier": "T3",
+          "domain": "z.ai",
+          "published_at": "2026-11-23T10:06:43Z",
+          "summary": "HN: 816 points, 296 comments. https://news.ycombinator.com/item?id=50609685",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "z.ai"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-23T10:06:43Z",
+      "total": 3.25,
+      "rating": 4,
+      "title_ru": "",
+      "summary_ru": ""
     },
     {
       "story_id": "agent-swarm-trying-solve",
@@ -3126,6 +3461,78 @@
       "rating": 3
     },
     {
+      "story_id": "stands-replace-jobs-here-plan",
+      "first_seen": "2026-11-23",
+      "title": "AI Stands to Replace Jobs. Here’s a Plan to Put People First",
+      "summary": "Nearly half of American jobs fall into five categories that sit directly in AI’s path, and Andrew Yang says the economy isn’t ready for it.",
+      "so_what": "",
+      "tags": [
+        "marketing"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "56477f0e76a9",
+          "url": "https://marketingaiinstitute.com/blog/people-first-approach-to-ai-maicon-2026",
+          "title": "AI Stands to Replace Jobs. Here’s a Plan to Put People First",
+          "source": "Marketing AI Institute",
+          "tier": "T4",
+          "domain": "marketingaiinstitute.com",
+          "published_at": "2026-11-23T14:15:00.000Z",
+          "summary": "Nearly half of American jobs fall into five categories that sit directly in AI’s path, and Andrew Yang says the economy isn’t ready for it.",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "marketingaiinstitute.com"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-23T14:15:00.000Z",
+      "total": 3.2,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
+      "story_id": "build-reliable-client-reporting-agencyanalytics",
+      "first_seen": "2026-11-23",
+      "title": "How to build reliable client reporting with AI by AgencyAnalytics",
+      "summary": "Give AI the right client data, and it’ll give you answers you can trust. The post How to build reliable client reporting with AI appeared first on MarTech .",
+      "so_what": "",
+      "tags": [
+        "marketing"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "d9aa14c3eb2a",
+          "url": "https://martech.org/how-to-build-reliable-client-reporting-with-ai",
+          "title": "How to build reliable client reporting with AI by AgencyAnalytics",
+          "source": "MarTech",
+          "tier": "T4",
+          "domain": "martech.org",
+          "published_at": "2026-11-23T12:00:00.000Z",
+          "summary": "Give AI the right client data, and it’ll give you answers you can trust. The post How to build reliable client reporting with AI appeared first on MarTech .",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "martech.org"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-23T12:00:00.000Z",
+      "total": 3.2,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
       "story_id": "claude-code-verification-approach",
       "first_seen": "2026-11-19",
       "items": [
@@ -3272,6 +3679,40 @@
       "rating": 3
     },
     {
+      "story_id": "import-482-huawei-kernel-benchmarks",
+      "first_seen": "2026-11-23",
+      "title": "Import AI 482: Huawei kernel benchmarks; airborne drone detection; and a national lab's AI science benchmark",
+      "summary": "Could the scientific method be emergent?",
+      "so_what": "",
+      "tags": [],
+      "kind": "tool",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "3120537bb3c8",
+          "url": "https://importai.substack.com/p/import-ai-482-huawei-kernel-benchmarks",
+          "title": "Import AI 482: Huawei kernel benchmarks; airborne drone detection; and a national lab's AI science benchmark",
+          "source": "Import AI",
+          "tier": "T2",
+          "domain": "substack.com",
+          "published_at": "2026-11-23T14:11:17.000Z",
+          "summary": "Could the scientific method be emergent?",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "substack.com"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-23T14:11:17.000Z",
+      "total": 3.1,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
       "story_id": "last-week-348-ipo--correction",
       "first_seen": "2026-11-21",
       "title": "Last Week in AI #348 - IPO->Correction, new GPTs and Geminis, Nvidia’s Fate",
@@ -3370,6 +3811,121 @@
       "has_t1": false,
       "status": "unconfirmed",
       "last_update": "2026-11-20T21:18:41.000Z",
+      "total": 3.1,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
+      "story_id": "amd-world-model-arrives-world",
+      "first_seen": "2026-11-23",
+      "title": "AMD’s World Model Arrives: World Labs' Atlas gives developers 3D video and graphics generation for games, robotics, more",
+      "summary": "World Labs has opened Atlas, its latest world model, to the public, offering developers a self-serve API that lets them turn text prompts into 3D scenes and camera-controllable video that they can then export.",
+      "so_what": "",
+      "tags": [],
+      "kind": "tool",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "b76fb75afd2b",
+          "url": "https://charonhub.deeplearning.ai/amds-world-model-arrives",
+          "title": "AMD’s World Model Arrives: World Labs' Atlas gives developers 3D video and graphics generation for games, robotics, more",
+          "source": "The Batch",
+          "tier": "T2",
+          "domain": "deeplearning.ai",
+          "published_at": "2026-11-20T16:10:00.000Z",
+          "summary": "World Labs has opened Atlas, its latest world model, to the public, offering developers a self-serve API that lets them turn text prompts into 3D scenes and camera-controllable video that they can then export.",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "deeplearning.ai"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-20T16:10:00.000Z",
+      "total": 3.1,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
+      "story_id": "claude-fable-gets-price-cut",
+      "first_seen": "2026-11-23",
+      "title": "Claude Fable Gets a Price Cut: Anthropic releases Claude Fable and Mythos 5.2 shortly before record-breaking IPO",
+      "summary": "Anthropic updated its most capable public model and removed safeguards for its private twin, opening Claude Mythos to more organizations that apply for access.",
+      "so_what": "",
+      "tags": [
+        "anthropic"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "f8d287ffbb01",
+          "url": "https://charonhub.deeplearning.ai/claude-fable-gets-a-price-cut",
+          "title": "Claude Fable Gets a Price Cut: Anthropic releases Claude Fable and Mythos 5.2 shortly before record-breaking IPO",
+          "source": "The Batch",
+          "tier": "T2",
+          "domain": "deeplearning.ai",
+          "published_at": "2026-11-20T16:05:00.000Z",
+          "summary": "Anthropic updated its most capable public model and removed safeguards for its private twin, opening Claude Mythos to more organizations that apply for access.",
+          "title_ru": ""
+        },
+        {
+          "id": "61af2d917776",
+          "url": "https://charonhub.deeplearning.ai/issue-380",
+          "title": "Jensen Huang’s Nvidia legacy, Claude Fable 5.2 and Anthropic’s IPO, World Labs Releases Atlas to Developers",
+          "source": "The Batch",
+          "tier": "T2",
+          "domain": "deeplearning.ai",
+          "published_at": "2026-11-20T15:00:00.000Z",
+          "summary": "The Batch News & Insights: I was saddened to hear about Jensen Huang resigning from Nvidia last week. Yes, Jensen made serious mistakes.",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "deeplearning.ai"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-20T16:05:00.000Z",
+      "total": 3.1,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
+      "story_id": "jensen-huang-legacy-future-nvidia",
+      "first_seen": "2026-11-23",
+      "title": "Jensen Huang's Legacy and Future: How Nvidia's founder saw opportunities other people couldn't",
+      "summary": "I was saddened to hear about Jensen Huang resigning from Nvidia last week",
+      "so_what": "",
+      "tags": [],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "d14b33618c5b",
+          "url": "https://charonhub.deeplearning.ai/jensen-huangs-legacy-and-future",
+          "title": "Jensen Huang's Legacy and Future: How Nvidia's founder saw opportunities other people couldn't",
+          "source": "The Batch",
+          "tier": "T2",
+          "domain": "deeplearning.ai",
+          "published_at": "2026-11-20T15:30:00.000Z",
+          "summary": "I was saddened to hear about Jensen Huang resigning from Nvidia last week",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "deeplearning.ai"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-20T15:30:00.000Z",
       "total": 3.1,
       "rating": 3,
       "title_ru": "",
@@ -4364,6 +4920,78 @@
       "summary_ru": "United Airlines объявила о запрете агентам искусственного интеллекта бронировать рейсы от имени путешественников, что вызвало широкую дискуссию.",
       "so_what_ru": "Крупный потребительский бренд, отказывающийся от агентской коммерции, является сигналом к ​​тому, чтобы следить за тем, создаете ли вы агентов, которые совершают транзакции или бронируют услуги от имени клиентов.",
       "rating": 3
+    },
+    {
+      "story_id": "claude-helps-solve-math-biggest",
+      "first_seen": "2026-11-23",
+      "title": "Claude helps solve math's biggest open problem",
+      "summary": "PLUS: Test Gemini 4 Neon on finding billing errors",
+      "so_what": "",
+      "tags": [
+        "anthropic",
+        "google"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "0cba78bb17cb",
+          "url": "https://therundown.ai/articles/claude-helps-solve-math-s-biggest-open-problem",
+          "title": "Claude helps solve math's biggest open problem",
+          "source": "The Rundown AI",
+          "tier": "T3",
+          "domain": "therundown.ai",
+          "published_at": "2026-11-23T11:00:00.000Z",
+          "summary": "PLUS: Test Gemini 4 Neon on finding billing errors",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "therundown.ai"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-23T11:00:00.000Z",
+      "total": 2.7,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
+      "story_id": "openai-publishes-progress-inkling-mini",
+      "first_seen": "2026-11-23",
+      "title": "OpenAI publishes progress 🧠, Inkling 2 Mini 💧, Riemann proof 📐",
+      "summary": "",
+      "so_what": "",
+      "tags": [
+        "openai"
+      ],
+      "kind": "research",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "6a33865deb84",
+          "url": "https://tldr.tech/ai/2026-11-23",
+          "title": "OpenAI publishes progress 🧠, Inkling 2 Mini 💧, Riemann proof 📐",
+          "source": "TLDR AI",
+          "tier": "T3",
+          "domain": "tldr.tech",
+          "published_at": "2026-11-23T00:00:00.000Z",
+          "summary": "",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "tldr.tech"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-23T00:00:00.000Z",
+      "total": 2.7,
+      "rating": 3,
+      "title_ru": ""
     },
     {
       "story_id": "gta-rakes-overnight",
@@ -6748,55 +7376,6 @@
       "rating": 1
     },
     {
-      "story_id": "openai-gpt-6-rosalind-signal",
-      "first_seen": "2026-11-16",
-      "items": [
-        {
-          "id": "e089b56dda6c",
-          "url": "https://github.com/openai/openai-python/releases/tag/v3.48.0",
-          "title": "v3.48.0",
-          "source": "openai-python releases",
-          "tier": "T1",
-          "domain": "github.com",
-          "published_at": "2026-11-09T16:12:58.000Z",
-          "summary": "3.48.0 (2026-11-09) Features api: add stream options for agent sessions ( #4251 ) ( c6fc264 ) api: recognize gpt-6-rosalind in beta Responses ( #4257 ) ( 3774b7e ) Chores api: retain agent scheduling support ( #4255 ) ( a1175a3 ) deps: bump locked multidict from 6.9.1 to 7.1.0 ( #4259 ) ( 28cdb1b ) deps-dev: bump the python-maintenance group with 5 updates ( #4258 ) ( 4b10e22 ) deps-dev: bump type",
-          "title_ru": "v3.48.0"
-        }
-      ],
-      "title": "OpenAI SDK changelog reveals beta support for a 'gpt-6-rosalind' model",
-      "summary": "The openai-python SDK v3.48.0 changelog notes the library now recognizes 'gpt-6-rosalind' in beta Responses, an unannounced reference suggesting GPT-6 development is underway.",
-      "tags": [
-        "openai",
-        "gpt-6",
-        "rumor",
-        "sdk"
-      ],
-      "entities": [
-        "OpenAI",
-        "GPT-6"
-      ],
-      "kind": "business",
-      "rumor": true,
-      "scores": {
-        "significance": 3,
-        "novelty": 3,
-        "practicality": 1,
-        "relevance": 1
-      },
-      "so_what": "An early, unconfirmed signal that GPT-6 work is underway; not actionable yet but worth tracking if your stack is OpenAI-based.",
-      "domains": [
-        "github.com"
-      ],
-      "has_t1": true,
-      "status": "rumor",
-      "total": 2.2,
-      "last_update": "2026-11-09T16:12:58.000Z",
-      "title_ru": "Журнал изменений OpenAI SDK показывает бета-поддержку модели gpt-6-rosalind",
-      "summary_ru": "В журнале изменений openai-python SDK v3.48.0 отмечается, что библиотека теперь распознает «gpt-6-rosalind» в бета-ответах, необъявленной ссылке, предполагающей, что разработка GPT-6 ведется.",
-      "so_what_ru": "Ранний, неподтвержденный сигнал о том, что работа над GPT-6 уже ведется; пока не применимо, но стоит отслеживать, основан ли ваш стек на OpenAI.",
-      "rating": 1
-    },
-    {
       "story_id": "nvidia-gpu-scarcity-allegation",
       "first_seen": "2026-11-16",
       "items": [
@@ -7416,53 +7995,6 @@
       "rating": 1
     },
     {
-      "story_id": "handshake-ai-data-deep-dive",
-      "first_seen": "2026-11-16",
-      "items": [
-        {
-          "id": "8433ae49482a",
-          "url": "https://latent.space/p/handshake/",
-          "title": "What Frontier Labs Buy: A Data Deep Dive with Handshake AI — Garrett Lord & Team",
-          "source": "Latent Space",
-          "tier": "T2",
-          "domain": "latent.space",
-          "published_at": "2026-11-09T17:15:53.000Z",
-          "summary": "Handshake went from launch to $1B in one year pushing the envelope of specialized data for frontier labs. Our first deep dive into a data lab with specific examples across Finance, Bio, and Alignment",
-          "title_ru": "Что покупают Frontier Labs: глубокий анализ данных с помощью искусственного интеллекта рукопожатия — Гарретт Лорд и его команда"
-        }
-      ],
-      "title": "Handshake AI data deep dive shows what frontier labs buy for training data",
-      "summary": "A deep-dive profiles Handshake AI, a specialized data provider to frontier labs that went from launch to $1B in a year, with examples across finance, bio, and alignment data.",
-      "tags": [
-        "data",
-        "frontier-labs",
-        "business"
-      ],
-      "entities": [
-        "Handshake AI"
-      ],
-      "kind": "business",
-      "rumor": false,
-      "scores": {
-        "significance": 2,
-        "novelty": 3,
-        "practicality": 1,
-        "relevance": 1
-      },
-      "so_what": "Useful context on how frontier labs source specialized training data, though not directly actionable for marketing ops.",
-      "domains": [
-        "latent.space"
-      ],
-      "has_t1": false,
-      "status": "unconfirmed",
-      "total": 1.85,
-      "last_update": "2026-11-09T17:15:53.000Z",
-      "title_ru": "",
-      "summary_ru": "Подробный обзор Handshake AI, специализированного поставщика данных для передовых лабораторий, который с момента запуска заработал до 1 миллиарда долларов за год, с примерами из финансовых, биологических данных и данных о согласовании.",
-      "so_what_ru": "Полезный контекст о том, как передовые лаборатории получают данные для специализированного обучения, хотя и не имеет прямого практического значения для маркетинговых операций.",
-      "rating": 1
-    },
-    {
       "story_id": "baidu-xiaomi-ai-hype-warning",
       "first_seen": "2026-11-19",
       "items": [
@@ -7713,6 +8245,175 @@
   ],
   "raw_items": [
     {
+      "id": "ca38829e7312",
+      "source_id": "huggingface",
+      "source_name": "Hugging Face blog",
+      "tier": "T1",
+      "signal_only": false,
+      "title": "RoboTrack: Point tracking for real-world robotic manipulation",
+      "url": "https://huggingface.co/blog/allenai/robotrack",
+      "domain": "huggingface.co",
+      "published_at": "2026-11-23T17:20:37.000Z",
+      "collected_on": "2026-11-23",
+      "summary": ""
+    },
+    {
+      "id": "39c2da17cef6",
+      "source_id": "google-ai",
+      "source_name": "Google AI blog",
+      "tier": "T1",
+      "signal_only": false,
+      "title": "A more tailored Google Search that’s uniquely yours",
+      "url": "https://blog.google/products-and-platforms/products/search/google-search-personal-intelligence-apps",
+      "domain": "blog.google",
+      "published_at": "2026-11-23T17:00:00.000Z",
+      "collected_on": "2026-11-23",
+      "summary": "Get more helpful Search responses by securely opting in to connect Google Wallet, Drive, and the Gemini app to Personal Intelligence in AI Mode."
+    },
+    {
+      "id": "61dcf1169479",
+      "source_id": "deepmind",
+      "source_name": "Google DeepMind",
+      "tier": "T1",
+      "signal_only": false,
+      "title": "Finding faster quantum algorithms with agents and formal verification",
+      "url": "https://deepmind.google/blog/finding-faster-quantum-algorithms-with-agents-and-formal-verification",
+      "domain": "deepmind.google",
+      "published_at": "2026-11-23T16:59:40.000Z",
+      "collected_on": "2026-11-23",
+      "summary": "Using agent teams and formal verification to improve quantum algorithms for fusion and chemistry."
+    },
+    {
+      "id": "451e51372bbf",
+      "source_id": "martech",
+      "source_name": "MarTech",
+      "tier": "T4",
+      "signal_only": false,
+      "title": "How AI is re-shaping mid-market marketing",
+      "url": "https://martech.org/how-ai-is-re-shaping-mid-market-marketing",
+      "domain": "martech.org",
+      "published_at": "2026-11-23T14:25:11.000Z",
+      "collected_on": "2026-11-23",
+      "summary": "AI should give mid-market teams a boost as a force multiplier and eliminator of busywork. But is it? The post How AI is re-shaping mid-market marketing appeared first on MarTech ."
+    },
+    {
+      "id": "56477f0e76a9",
+      "source_id": "maii",
+      "source_name": "Marketing AI Institute",
+      "tier": "T4",
+      "signal_only": false,
+      "title": "AI Stands to Replace Jobs. Here’s a Plan to Put People First",
+      "url": "https://marketingaiinstitute.com/blog/people-first-approach-to-ai-maicon-2026",
+      "domain": "marketingaiinstitute.com",
+      "published_at": "2026-11-23T14:15:00.000Z",
+      "collected_on": "2026-11-23",
+      "summary": "Nearly half of American jobs fall into five categories that sit directly in AI’s path, and Andrew Yang says the economy isn’t ready for it."
+    },
+    {
+      "id": "3120537bb3c8",
+      "source_id": "importai",
+      "source_name": "Import AI",
+      "tier": "T2",
+      "signal_only": false,
+      "title": "Import AI 482: Huawei kernel benchmarks; airborne drone detection; and a national lab's AI science benchmark",
+      "url": "https://importai.substack.com/p/import-ai-482-huawei-kernel-benchmarks",
+      "domain": "substack.com",
+      "published_at": "2026-11-23T14:11:17.000Z",
+      "collected_on": "2026-11-23",
+      "summary": "Could the scientific method be emergent?"
+    },
+    {
+      "id": "99bd0cf495bf",
+      "source_id": "martech",
+      "source_name": "MarTech",
+      "tier": "T4",
+      "signal_only": false,
+      "title": "How to vet AI capabilities during martech RFPs",
+      "url": "https://martech.org/how-to-vet-ai-capabilities-during-martech-rfps",
+      "domain": "martech.org",
+      "published_at": "2026-11-23T13:19:00.000Z",
+      "collected_on": "2026-11-23",
+      "summary": "Six questions can tell you whether a vendor’s “AI” is genuinely new or just old automation with a fresh label. The post How to vet AI capabilities during martech RFPs appeared first on MarTech ."
+    },
+    {
+      "id": "0a8eee8d4999",
+      "source_id": "martech",
+      "source_name": "MarTech",
+      "tier": "T4",
+      "signal_only": false,
+      "title": "What’s missing from your 2027 marketing AI budget?",
+      "url": "https://martech.org/whats-missing-from-your-2027-marketing-ai-budget",
+      "domain": "martech.org",
+      "published_at": "2026-11-23T12:25:00.000Z",
+      "collected_on": "2026-11-23",
+      "summary": "Buying AI tools is easy. Getting teams to use them is harder. Here's how to fund the people and processes that turn AI spending into results. The post What’s missing from your 2027 marketing AI budget? appeared first on MarTech ."
+    },
+    {
+      "id": "d9aa14c3eb2a",
+      "source_id": "martech",
+      "source_name": "MarTech",
+      "tier": "T4",
+      "signal_only": false,
+      "title": "How to build reliable client reporting with AI by AgencyAnalytics",
+      "url": "https://martech.org/how-to-build-reliable-client-reporting-with-ai",
+      "domain": "martech.org",
+      "published_at": "2026-11-23T12:00:00.000Z",
+      "collected_on": "2026-11-23",
+      "summary": "Give AI the right client data, and it’ll give you answers you can trust. The post How to build reliable client reporting with AI appeared first on MarTech ."
+    },
+    {
+      "id": "0cba78bb17cb",
+      "source_id": "rundown",
+      "source_name": "The Rundown AI",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "Claude helps solve math's biggest open problem",
+      "url": "https://therundown.ai/articles/claude-helps-solve-math-s-biggest-open-problem",
+      "domain": "therundown.ai",
+      "published_at": "2026-11-23T11:00:00.000Z",
+      "collected_on": "2026-11-23",
+      "summary": "PLUS: Test Gemini 4 Neon on finding billing errors"
+    },
+    {
+      "id": "5094532b4e2e",
+      "source_id": "hn",
+      "source_name": "Hacker News",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "GLM-5.4: Toward Generalized Coding with Our First Loop Transformer",
+      "url": "https://z.ai/blog/glm-5.4",
+      "domain": "z.ai",
+      "published_at": "2026-11-23T10:06:43Z",
+      "collected_on": "2026-11-23",
+      "summary": "HN: 816 points, 296 comments. https://news.ycombinator.com/item?id=50609685"
+    },
+    {
+      "id": "6fd4c32fe34a",
+      "source_id": "huggingface",
+      "source_name": "Hugging Face blog",
+      "tier": "T1",
+      "signal_only": false,
+      "title": "How to build and maintain an agentic evaluation",
+      "url": "https://huggingface.co/blog/agentic-evals",
+      "domain": "huggingface.co",
+      "published_at": "2026-11-23T00:00:00.000Z",
+      "collected_on": "2026-11-23",
+      "summary": ""
+    },
+    {
+      "id": "6a33865deb84",
+      "source_id": "tldr-ai",
+      "source_name": "TLDR AI",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "OpenAI publishes progress 🧠, Inkling 2 Mini 💧, Riemann proof 📐",
+      "url": "https://tldr.tech/ai/2026-11-23",
+      "domain": "tldr.tech",
+      "published_at": "2026-11-23T00:00:00.000Z",
+      "collected_on": "2026-11-23",
+      "summary": ""
+    },
+    {
       "id": "d8eff3477af0",
       "source_id": "hn",
       "source_name": "Hacker News",
@@ -7934,6 +8635,58 @@
       "summary": "HN: 288 points, 97 comments. https://news.ycombinator.com/item?id=50577265"
     },
     {
+      "id": "10d342ee1b71",
+      "source_id": "the-batch",
+      "source_name": "The Batch",
+      "tier": "T2",
+      "signal_only": false,
+      "title": "Adaptive Memory Management: Researchers at UCLA, Washington, and Northwestern release MEMCON for agents",
+      "url": "https://charonhub.deeplearning.ai/adaptive-memory-management",
+      "domain": "deeplearning.ai",
+      "published_at": "2026-11-20T16:15:00.000Z",
+      "collected_on": "2026-11-23",
+      "summary": "Many agents save past experiences as text in an external store, and most search and update such memories using settings the agent’s developer chose by hand, such as the number of memories to retrieve or the schedule for removing them."
+    },
+    {
+      "id": "b76fb75afd2b",
+      "source_id": "the-batch",
+      "source_name": "The Batch",
+      "tier": "T2",
+      "signal_only": false,
+      "title": "AMD’s World Model Arrives: World Labs' Atlas gives developers 3D video and graphics generation for games, robotics, more",
+      "url": "https://charonhub.deeplearning.ai/amds-world-model-arrives",
+      "domain": "deeplearning.ai",
+      "published_at": "2026-11-20T16:10:00.000Z",
+      "collected_on": "2026-11-23",
+      "summary": "World Labs has opened Atlas, its latest world model, to the public, offering developers a self-serve API that lets them turn text prompts into 3D scenes and camera-controllable video that they can then export."
+    },
+    {
+      "id": "f8d287ffbb01",
+      "source_id": "the-batch",
+      "source_name": "The Batch",
+      "tier": "T2",
+      "signal_only": false,
+      "title": "Claude Fable Gets a Price Cut: Anthropic releases Claude Fable and Mythos 5.2 shortly before record-breaking IPO",
+      "url": "https://charonhub.deeplearning.ai/claude-fable-gets-a-price-cut",
+      "domain": "deeplearning.ai",
+      "published_at": "2026-11-20T16:05:00.000Z",
+      "collected_on": "2026-11-23",
+      "summary": "Anthropic updated its most capable public model and removed safeguards for its private twin, opening Claude Mythos to more organizations that apply for access."
+    },
+    {
+      "id": "462b2d61b57b",
+      "source_id": "the-batch",
+      "source_name": "The Batch",
+      "tier": "T2",
+      "signal_only": false,
+      "title": "Jensen Huang Resigns as Nvidia CEO: Nvidia founder Jensen Huang steps down after scandal, succeeded by CFO Colette Kress",
+      "url": "https://charonhub.deeplearning.ai/jensen-huang-resigns-as-nvidia-ceo",
+      "domain": "deeplearning.ai",
+      "published_at": "2026-11-20T16:00:00.000Z",
+      "collected_on": "2026-11-23",
+      "summary": "Nvidia founder Jensen Huang’s relationship with a possible asset for China’s intelligence agency threw the GPU giant into turmoil, leading to Huang’s apologetic resignation and the Nvidia board’s appointments of Chief Financial Officer Colette Kress as interim CEO and Harvey Jones as its first..."
+    },
+    {
       "id": "7c7a283819e5",
       "source_id": "anthropic-sdk",
       "source_name": "anthropic-sdk-python releases",
@@ -7947,6 +8700,19 @@
       "summary": "Features api: add the image_dimensions_too_large error code Bug Fixes bedrock: send the user profile ID in the request body Amazon Bedrock reads user_profile_id from the request body and ignores the anthropic-user-profile-id header, so a profile ID given to AnthropicBedrock or AsyncAnthropicBedrock was not applied. Both clients now move it into the body of Messages requests and no longer send the header. A user_profile_id already in the body takes priority over the header. Some models on Bedrock do not support user profiles. A request to one of them with a profile ID now fails with a 400 error"
     },
     {
+      "id": "d14b33618c5b",
+      "source_id": "the-batch",
+      "source_name": "The Batch",
+      "tier": "T2",
+      "signal_only": false,
+      "title": "Jensen Huang's Legacy and Future: How Nvidia's founder saw opportunities other people couldn't",
+      "url": "https://charonhub.deeplearning.ai/jensen-huangs-legacy-and-future",
+      "domain": "deeplearning.ai",
+      "published_at": "2026-11-20T15:30:00.000Z",
+      "collected_on": "2026-11-23",
+      "summary": "I was saddened to hear about Jensen Huang resigning from Nvidia last week"
+    },
+    {
       "id": "acacef7466e7",
       "source_id": "rundown",
       "source_name": "The Rundown AI",
@@ -7958,6 +8724,19 @@
       "published_at": "2026-11-20T15:30:00.000Z",
       "collected_on": "2026-11-21",
       "summary": "PLUS: Google’s space data centers find a ride"
+    },
+    {
+      "id": "61af2d917776",
+      "source_id": "the-batch",
+      "source_name": "The Batch",
+      "tier": "T2",
+      "signal_only": false,
+      "title": "Jensen Huang’s Nvidia legacy, Claude Fable 5.2 and Anthropic’s IPO, World Labs Releases Atlas to Developers",
+      "url": "https://charonhub.deeplearning.ai/issue-380",
+      "domain": "deeplearning.ai",
+      "published_at": "2026-11-20T15:00:00.000Z",
+      "collected_on": "2026-11-23",
+      "summary": "The Batch News & Insights: I was saddened to hear about Jensen Huang resigning from Nvidia last week. Yes, Jensen made serious mistakes."
     },
     {
       "id": "fda5004e845f",
@@ -12054,54 +12833,6 @@
       "summary": "Features api: accept user_profile.program_status_updated on organization webhook endpoints api: add claude-fable-5-2 and claude-mythos-5-2 api: add parent organization filtering and grouping to the usage and cost reports api: add the sandbox_egress_restricted error to Admin API write methods api: add the user_profile.program_status_updated webhook event Bug Fixes bedrock,vertex: add the parse and count_tokens methods missing from beta.messages.with_raw_response and with_streaming_response bedrock,vertex: send the X-Stainless-Async header and stream raw requests that name no stream class bedroc",
       "collected_at": "2026-11-16T13:33:48.382Z",
       "title_ru": "v2.7.0"
-    },
-    {
-      "id": "8433ae49482a",
-      "url": "https://latent.space/p/handshake/",
-      "canonical_url": "https://latent.space/p/handshake",
-      "title": "What Frontier Labs Buy: A Data Deep Dive with Handshake AI — Garrett Lord & Team",
-      "source": "latent-space",
-      "source_name": "Latent Space",
-      "tier": "T2",
-      "signal_only": false,
-      "domain": "latent.space",
-      "published_at": "2026-11-09T17:15:53.000Z",
-      "date_from": "source",
-      "summary": "Handshake went from launch to $1B in one year pushing the envelope of specialized data for frontier labs. Our first deep dive into a data lab with specific examples across Finance, Bio, and Alignment",
-      "collected_at": "2026-11-16T13:33:49.138Z",
-      "title_ru": "Что покупают Frontier Labs: глубокий анализ данных с помощью искусственного интеллекта рукопожатия — Гарретт Лорд и его команда"
-    },
-    {
-      "id": "e089b56dda6c",
-      "url": "https://github.com/openai/openai-python/releases/tag/v3.48.0",
-      "canonical_url": "https://github.com/openai/openai-python/releases/tag/v3.48.0",
-      "title": "v3.48.0",
-      "source": "openai-sdk",
-      "source_name": "openai-python releases",
-      "tier": "T1",
-      "signal_only": true,
-      "domain": "github.com",
-      "published_at": "2026-11-09T16:12:58.000Z",
-      "date_from": "source",
-      "summary": "3.48.0 (2026-11-09) Features api: add stream options for agent sessions ( #4251 ) ( c6fc264 ) api: recognize gpt-6-rosalind in beta Responses ( #4257 ) ( 3774b7e ) Chores api: retain agent scheduling support ( #4255 ) ( a1175a3 ) deps: bump locked multidict from 6.9.1 to 7.1.0 ( #4259 ) ( 28cdb1b ) deps-dev: bump the python-maintenance group with 5 updates ( #4258 ) ( 4b10e22 ) deps-dev: bump types-requests from 2.33.0.20261006 to 2.33.0.20261030 ( #4260 ) ( de498d7 ) Documentation consolidate AGENTS.md guidance ( #4254 ) ( 44b1555 )",
-      "collected_at": "2026-11-16T13:33:48.680Z",
-      "title_ru": "v3.48.0"
-    },
-    {
-      "id": "3fe924a17fbf",
-      "url": "https://www.therundown.ai/articles/amazon-builds-its-home-robot-team",
-      "canonical_url": "https://therundown.ai/articles/amazon-builds-its-home-robot-team",
-      "title": "Amazon builds its home robot team",
-      "source": "rundown",
-      "source_name": "The Rundown AI",
-      "tier": "T3",
-      "signal_only": false,
-      "domain": "therundown.ai",
-      "published_at": "2026-11-09T15:30:00.000Z",
-      "date_from": "source",
-      "summary": "PLUS: Zipline nearly triples its valuation",
-      "collected_at": "2026-11-16T13:33:48.195Z",
-      "title_ru": "Amazon создает команду домашних роботов"
     }
   ],
   "issues": [
