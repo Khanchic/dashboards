@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-23T18:18:49.892Z",
-  "last_collect_date": "2026-11-23",
+  "generated_at": "2026-11-24T06:06:34.668Z",
+  "last_collect_date": "2026-11-24",
   "sources_report": [
     {
       "id": "anthropic",
@@ -33,8 +33,8 @@
       "type": "rss",
       "url": "https://github.com/anthropics/anthropic-sdk-python/releases.atom",
       "fetched": 10,
-      "kept": 3,
-      "new": 0,
+      "kept": 4,
+      "new": 1,
       "error": null,
       "note": ""
     },
@@ -46,7 +46,7 @@
       "url": "https://deepmind.google/blog/rss.xml",
       "fetched": 100,
       "kept": 3,
-      "new": 1,
+      "new": 0,
       "error": null,
       "note": ""
     },
@@ -70,7 +70,7 @@
       "url": "https://blog.google/technology/ai/rss/",
       "fetched": 20,
       "kept": 5,
-      "new": 1,
+      "new": 0,
       "error": null,
       "note": ""
     },
@@ -94,7 +94,7 @@
       "url": "https://huggingface.co/blog/feed.xml",
       "fetched": 916,
       "kept": 9,
-      "new": 2,
+      "new": 0,
       "error": null,
       "note": ""
     },
@@ -140,9 +140,9 @@
       "tier": "T1",
       "type": "rss",
       "url": "https://openai.com/news/rss.xml",
-      "fetched": 1422,
+      "fetched": 1425,
       "kept": 21,
-      "new": 0,
+      "new": 3,
       "error": null,
       "note": ""
     },
@@ -166,7 +166,7 @@
       "url": "https://github.com/openai/openai-python/releases.atom",
       "fetched": 10,
       "kept": 7,
-      "new": 0,
+      "new": 1,
       "error": null,
       "note": ""
     },
@@ -176,10 +176,10 @@
       "tier": "T2",
       "type": "rss",
       "url": "https://importai.substack.com/feed",
-      "fetched": 20,
-      "kept": 1,
-      "new": 1,
-      "error": null,
+      "fetched": 0,
+      "kept": 0,
+      "new": 0,
+      "error": "HTTP 403",
       "note": ""
     },
     {
@@ -202,7 +202,7 @@
       "url": "https://www.latent.space/feed",
       "fetched": 20,
       "kept": 9,
-      "new": 0,
+      "new": 1,
       "error": null,
       "note": ""
     },
@@ -212,10 +212,10 @@
       "tier": "T2",
       "type": "rss",
       "url": "https://charonhub.deeplearning.ai/rss/",
-      "fetched": 15,
-      "kept": 7,
-      "new": 6,
-      "error": null,
+      "fetched": 0,
+      "kept": 0,
+      "new": 0,
+      "error": "HTTP 403",
       "note": ""
     },
     {
@@ -250,7 +250,7 @@
       "url": "https://www.therundown.ai/feed",
       "fetched": 50,
       "kept": 8,
-      "new": 1,
+      "new": 0,
       "error": null,
       "note": ""
     },
@@ -261,8 +261,8 @@
       "type": "rss",
       "url": "https://tldr.tech/api/rss/ai",
       "fetched": 20,
-      "kept": 5,
-      "new": 1,
+      "kept": 4,
+      "new": 0,
       "error": null,
       "note": ""
     },
@@ -273,8 +273,8 @@
       "type": "rss",
       "url": "https://igamingbusiness.com/feed/",
       "fetched": 100,
-      "kept": 2,
-      "new": 0,
+      "kept": 3,
+      "new": 1,
       "error": null,
       "note": ""
     },
@@ -286,7 +286,7 @@
       "url": "https://www.marketingaiinstitute.com/blog/rss.xml",
       "fetched": 10,
       "kept": 3,
-      "new": 1,
+      "new": 0,
       "error": null,
       "note": ""
     },
@@ -298,7 +298,7 @@
       "url": "https://martech.org/feed/",
       "fetched": 10,
       "kept": 8,
-      "new": 4,
+      "new": 0,
       "error": null,
       "note": ""
     },
@@ -317,14 +317,14 @@
   ],
   "totals": {
     "sources": 26,
-    "failed": 1,
+    "failed": 3,
     "empty": 2,
-    "fetched": 3483,
-    "kept": 458,
-    "new_items": 19,
-    "stories_total": 169,
-    "stories_confirmed": 66,
-    "stories_eligible": 14,
+    "fetched": 3451,
+    "kept": 451,
+    "new_items": 8,
+    "stories_total": 171,
+    "stories_confirmed": 65,
+    "stories_eligible": 17,
     "raw_total": 297
   },
   "stories": [
@@ -475,6 +475,43 @@
       "summary_ru": ""
     },
     {
+      "story_id": "richpanel-helps-companies-automate-support",
+      "first_seen": "2026-11-24",
+      "title": "Richpanel helps companies automate 50% of support in 30 days",
+      "summary": "Richpanel uses GPT-6 Astra and GPT-6.1 Sol to equip its AI support agents with tools and procedures, and GPT-6 Luna for their conversations.",
+      "so_what": "",
+      "tags": [
+        "openai",
+        "agents"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "680b35173b97",
+          "url": "https://openai.com/business/customer-stories/richpanel-ai-customer-support",
+          "title": "Richpanel helps companies automate 50% of support in 30 days",
+          "source": "OpenAI News",
+          "tier": "T1",
+          "domain": "openai.com",
+          "published_at": "2026-11-23T08:00:00.000Z",
+          "summary": "Richpanel uses GPT-6 Astra and GPT-6.1 Sol to equip its AI support agents with tools and procedures, and GPT-6 Luna for their conversations.",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "openai.com"
+      ],
+      "has_t1": true,
+      "status": "confirmed",
+      "last_update": "2026-11-23T08:00:00.000Z",
+      "total": 3.9,
+      "rating": 5,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
       "story_id": "build-maintain-agentic-evaluation",
       "first_seen": "2026-11-23",
       "title": "How to build and maintain an agentic evaluation",
@@ -559,6 +596,43 @@
       "rating": 5
     },
     {
+      "story_id": "openai-cisco-introduce-shirudo",
+      "first_seen": "2026-11-24",
+      "title": "OpenAI and Cisco introduce Shirudo",
+      "summary": "OpenAI and Cisco introduce Shirudo, an open-source runtime for Linux. It helps teams protect running systems while they roll out patches.",
+      "so_what": "",
+      "tags": [
+        "openai",
+        "open-weights"
+      ],
+      "kind": "launch",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "1d0c151fefed",
+          "url": "https://openai.com/index/introducing-shirudo",
+          "title": "OpenAI and Cisco introduce Shirudo",
+          "source": "OpenAI News",
+          "tier": "T1",
+          "domain": "openai.com",
+          "published_at": "2026-11-23T21:20:00.000Z",
+          "summary": "OpenAI and Cisco introduce Shirudo, an open-source runtime for Linux. It helps teams protect running systems while they roll out patches.",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "openai.com"
+      ],
+      "has_t1": true,
+      "status": "confirmed",
+      "last_update": "2026-11-23T21:20:00.000Z",
+      "total": 3.5,
+      "rating": 5,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
       "story_id": "robotrack-point-tracking-real-world-robotic",
       "first_seen": "2026-11-23",
       "title": "RoboTrack: Point tracking for real-world robotic manipulation",
@@ -623,6 +697,42 @@
       "has_t1": true,
       "status": "confirmed",
       "last_update": "2026-11-23T17:00:00.000Z",
+      "total": 3.5,
+      "rating": 5,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
+      "story_id": "connected-intelligence-in-house-legal",
+      "first_seen": "2026-11-24",
+      "title": "Connected intelligence for in-house legal",
+      "summary": "Watch OpenAI’s Stacey Wang and Craig Bruney, Mary O’Carroll of LECG, and Cooley’s Richard Segal explore how AI can help in-house legal teams connect business context, build reusable workflows and get more from outside counsel.",
+      "so_what": "",
+      "tags": [
+        "openai"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "f8a4e02f4212",
+          "url": "https://openai.com/business/learn/connected-intelligence-for-in-house-legal",
+          "title": "Connected intelligence for in-house legal",
+          "source": "OpenAI News",
+          "tier": "T1",
+          "domain": "openai.com",
+          "published_at": "2026-11-23T08:00:00.000Z",
+          "summary": "Watch OpenAI’s Stacey Wang and Craig Bruney, Mary O’Carroll of LECG, and Cooley’s Richard Segal explore how AI can help in-house legal teams connect business context, build reusable workflows and get more from outside counsel.",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "openai.com"
+      ],
+      "has_t1": true,
+      "status": "confirmed",
+      "last_update": "2026-11-23T08:00:00.000Z",
       "total": 3.5,
       "rating": 5,
       "title_ru": "",
@@ -1806,6 +1916,42 @@
       "summary_ru": ""
     },
     {
+      "story_id": "compliance-intelligence-geolocation-expanding-role",
+      "first_seen": "2026-11-24",
+      "title": "From compliance to intelligence: Geolocation’s expanding role in iGaming",
+      "summary": "Geolocation is evolving from a regulatory necessity into a strategic tool for iGaming operators. Will Whitehead, commercial director at mkodo and GeoLocs, explains how advances in geo-intelligence and AI are opening up new opportunities for customer engagement, fraud prevention and commercial growth, while reshaping th",
+      "so_what": "",
+      "tags": [
+        "igaming"
+      ],
+      "kind": "tool",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "d22274b536c2",
+          "url": "https://igamingbusiness.com/tech-innovation/geointelligence-geolocation-expanding-igaming-mkodo",
+          "title": "From compliance to intelligence: Geolocation’s expanding role in iGaming",
+          "source": "iGaming Business",
+          "tier": "T4",
+          "domain": "igamingbusiness.com",
+          "published_at": "2026-11-23T13:53:52.000Z",
+          "summary": "Geolocation is evolving from a regulatory necessity into a strategic tool for iGaming operators. Will Whitehead, commercial director at mkodo and GeoLocs, explains how advances in geo-intelligence and AI are opening up new opportunities for customer engagement, fraud prevention and commercial growth, while reshaping the relationship between operators and their technology partners.",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "igamingbusiness.com"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-23T13:53:52.000Z",
+      "total": 3.6,
+      "rating": 4,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
       "story_id": "vet-capabilities-during-martech-rfps",
       "first_seen": "2026-11-23",
       "title": "How to vet AI capabilities during martech RFPs",
@@ -2262,6 +2408,40 @@
       "summary_ru": "MarTech утверждает, что, когда агенты ИИ оценивают поставщиков B2B, ясная информация о продукте и достоверные доказательства, а не только конкурентные характеристики, определяют, будет ли рассматриваться поставщик.",
       "so_what_ru": "Тактическое руководство по структурированию контента продукта, чтобы агенты искусственного интеллекта и системы ответов появлялись на свет и рекомендовали ваш бренд.",
       "rating": 4
+    },
+    {
+      "story_id": "dario-hyping-dangers-oss-models",
+      "first_seen": "2026-11-24",
+      "title": "\"Dario is hyping the dangers so OSS models are illegal and he stays in control\"",
+      "summary": "HN: 1445 points, 816 comments. https://news.ycombinator.com/item?id=50615308",
+      "so_what": "",
+      "tags": [],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "3c69fd56490c",
+          "url": "https://twitter.com/ylecun/status/2124550037912920090",
+          "title": "\"Dario is hyping the dangers so OSS models are illegal and he stays in control\"",
+          "source": "Hacker News",
+          "tier": "T3",
+          "domain": "twitter.com",
+          "published_at": "2026-11-23T17:07:26Z",
+          "summary": "HN: 1445 points, 816 comments. https://news.ycombinator.com/item?id=50615308",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "twitter.com"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-23T17:07:26Z",
+      "total": 3.25,
+      "rating": 4,
+      "title_ru": "",
+      "summary_ru": ""
     },
     {
       "story_id": "glm-5-toward-generalized-coding-first",
@@ -2771,55 +2951,6 @@
       "rating": 3
     },
     {
-      "story_id": "openai-enterprise-aws-marketplace",
-      "first_seen": "2026-11-16",
-      "items": [
-        {
-          "id": "9c331579e229",
-          "url": "https://openai.com/index/chatgpt-enterprise-aws-marketplace",
-          "title": "ChatGPT Enterprise now available in AWS Marketplace",
-          "source": "OpenAI News",
-          "tier": "T1",
-          "domain": "openai.com",
-          "published_at": "2026-11-09T19:00:00.000Z",
-          "summary": "ChatGPT Enterprise is now available through AWS Marketplace, helping organizations simplify procurement through existing AWS purchasing and billing relationships.",
-          "title_ru": "ChatGPT Enterprise теперь доступен в AWS Marketplace"
-        }
-      ],
-      "title": "ChatGPT Enterprise now available via AWS Marketplace",
-      "summary": "OpenAI made ChatGPT Enterprise available through AWS Marketplace, simplifying procurement for organizations with existing AWS billing relationships.",
-      "tags": [
-        "enterprise",
-        "procurement",
-        "distribution"
-      ],
-      "entities": [
-        "OpenAI",
-        "AWS",
-        "ChatGPT Enterprise"
-      ],
-      "kind": "business",
-      "rumor": false,
-      "scores": {
-        "significance": 2,
-        "novelty": 2,
-        "practicality": 3,
-        "relevance": 2
-      },
-      "so_what": "If your org already buys through AWS, procuring ChatGPT Enterprise just got simpler — worth flagging to finance/IT.",
-      "domains": [
-        "openai.com"
-      ],
-      "has_t1": true,
-      "status": "confirmed",
-      "total": 2.25,
-      "last_update": "2026-11-09T19:00:00.000Z",
-      "title_ru": "ChatGPT Enterprise теперь доступен через AWS Marketplace",
-      "summary_ru": "OpenAI сделала ChatGPT Enterprise доступным через AWS Marketplace, упростив закупки для организаций с существующими отношениями по выставлению счетов AWS.",
-      "so_what_ru": "Если ваша организация уже совершает покупки через AWS, приобрести ChatGPT Enterprise стало проще — стоит пометить финансы/ИТ.",
-      "rating": 3
-    },
-    {
       "story_id": "google-genie-4-launch",
       "first_seen": "2026-11-19",
       "items": [
@@ -3074,53 +3205,6 @@
       "title_ru": "Google DeepMind выпускает AlphaGenome 2 для прогнозирования вариантов ДНК",
       "summary_ru": "По данным Google DeepMind, AlphaGenome 2 предсказывает, как последовательности и варианты ДНК влияют на конкретные типы клеток человека и заболевания.",
       "so_what_ru": "Никакого прямого применения в маркетинге или автоматизации iGaming.",
-      "rating": 3
-    },
-    {
-      "story_id": "gemini-robotics-2-5",
-      "first_seen": "2026-11-16",
-      "items": [
-        {
-          "id": "7da1b2b4758f",
-          "url": "https://deepmind.google/blog/gemini-robotics-2-5-accelerates-real-world-physical-intelligence/",
-          "title": "Gemini Robotics 2.5 accelerates real-world general dexterity",
-          "source": "Google DeepMind",
-          "tier": "T1",
-          "domain": "deepmind.google",
-          "published_at": "2026-11-09T19:51:47.000Z",
-          "summary": "Our most capable vision-language-action model enhances robot dexterity, reliability, and safety",
-          "title_ru": ""
-        }
-      ],
-      "title": "Google DeepMind ships Gemini Robotics 2.5 for robot dexterity",
-      "summary": "Gemini Robotics 2.5 is DeepMind's most capable vision-language-action model yet, improving robot dexterity, reliability, and safety.",
-      "tags": [
-        "robotics",
-        "deepmind"
-      ],
-      "entities": [
-        "Google DeepMind",
-        "Gemini Robotics 2.5"
-      ],
-      "kind": "launch",
-      "rumor": false,
-      "scores": {
-        "significance": 3,
-        "novelty": 3,
-        "practicality": 1,
-        "relevance": 1
-      },
-      "so_what": "No direct bearing on marketing or iGaming automation work.",
-      "domains": [
-        "deepmind.google"
-      ],
-      "has_t1": true,
-      "status": "confirmed",
-      "total": 2.2,
-      "last_update": "2026-11-09T19:51:47.000Z",
-      "title_ru": "Google DeepMind выпускает Gemini Robotics 2.5 для улучшения ловкости роботов",
-      "summary_ru": "Gemini Robotics 2.5 — это самая эффективная модель видения, языка и действий от DeepMind, улучшающая ловкость, надежность и безопасность роботов.",
-      "so_what_ru": "Никакого прямого отношения к маркетингу или работе по автоматизации iGaming не имеет.",
       "rating": 3
     },
     {
@@ -3677,6 +3761,42 @@
       "summary_ru": "Bloomreach приобрела AthenaHQ с целью напрямую связать диалоговые исследования ИИ с доходами клиентов и обеспечить измерение рентабельности инвестиций в поиск с использованием ИИ.",
       "so_what_ru": "Сигнализирует о том, что поставщики маркетинговых технологий объединяются вокруг измерения доходов с помощью ИИ-поиска — разрыв, который многие команды маркетинговых операций также пытаются закрыть.",
       "rating": 3
+    },
+    {
+      "story_id": "ainews-jensen-back-openai-shows",
+      "first_seen": "2026-11-24",
+      "title": "[AINews] Jensen Is Back! and OpenAI Shows Its Pretraining Curve, joined by Microsoft",
+      "summary": "November 23, 2026 — Nvidia reinstates its founder, and OpenAI publishes its internal loss curve and proposes a shared training limit.",
+      "so_what": "",
+      "tags": [
+        "openai"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "a43a2373bab7",
+          "url": "https://latent.space/p/ainews-jensen-is-back-and-openai-shows-its-pretraining-curve-joined-by-microsoft",
+          "title": "[AINews] Jensen Is Back! and OpenAI Shows Its Pretraining Curve, joined by Microsoft",
+          "source": "Latent Space",
+          "tier": "T2",
+          "domain": "latent.space",
+          "published_at": "2026-11-24T04:14:16.000Z",
+          "summary": "November 23, 2026 — Nvidia reinstates its founder, and OpenAI publishes its internal loss curve and proposes a shared training limit.",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "latent.space"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-24T04:14:16.000Z",
+      "total": 3.1,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
     },
     {
       "story_id": "import-482-huawei-kernel-benchmarks",
@@ -5901,52 +6021,6 @@
       "rating": 2
     },
     {
-      "story_id": "huggingface-decision-models",
-      "first_seen": "2026-11-16",
-      "items": [
-        {
-          "id": "3229de0d9192",
-          "url": "https://huggingface.co/blog/decision",
-          "title": "Decision Models in Hugging Face",
-          "source": "Hugging Face blog",
-          "tier": "T1",
-          "domain": "huggingface.co",
-          "published_at": "2026-11-10T00:00:00.000Z",
-          "summary": "",
-          "title_ru": "Модели принятия решений в «Обнимающем лице»"
-        }
-      ],
-      "title": "Hugging Face introduces 'Decision Models'",
-      "summary": "Hugging Face announced a new category or feature called Decision Models on its platform.",
-      "tags": [
-        "huggingface",
-        "tooling"
-      ],
-      "entities": [
-        "Hugging Face"
-      ],
-      "kind": "tool",
-      "rumor": false,
-      "scores": {
-        "significance": 2,
-        "novelty": 2,
-        "practicality": 2,
-        "relevance": 1
-      },
-      "so_what": "Worth a brief look if you use Hugging Face for decision/classification-style model deployment.",
-      "domains": [
-        "huggingface.co"
-      ],
-      "has_t1": true,
-      "status": "confirmed",
-      "total": 1.85,
-      "last_update": "2026-11-10T00:00:00.000Z",
-      "title_ru": "Hugging Face представляет «Модели принятия решений»",
-      "summary_ru": "Hugging Face анонсировала на своей платформе новую категорию или функцию под названием «Модели решений».",
-      "so_what_ru": "Стоит кратко взглянуть, если вы используете Hugging Face для развертывания модели в стиле принятия решений/классификации.",
-      "rating": 2
-    },
-    {
       "story_id": "openai-le-figaro-partnership",
       "first_seen": "2026-11-19",
       "items": [
@@ -7115,53 +7189,6 @@
       "rating": 1
     },
     {
-      "story_id": "huggingface-gcp-billing",
-      "first_seen": "2026-11-16",
-      "items": [
-        {
-          "id": "724fae925148",
-          "url": "https://huggingface.co/blog/hub-gcp-marketplace",
-          "title": "Pay for Hugging Face Hub with your Google Cloud Account",
-          "source": "Hugging Face blog",
-          "tier": "T1",
-          "domain": "huggingface.co",
-          "published_at": "2026-11-10T00:00:00.000Z",
-          "summary": "",
-          "title_ru": "Оплатите Hugging Face Hub с помощью своей учетной записи Google Cloud"
-        }
-      ],
-      "title": "Hugging Face Hub adds Google Cloud billing support",
-      "summary": "Hugging Face now lets users pay for Hugging Face Hub through their Google Cloud account.",
-      "tags": [
-        "billing",
-        "infrastructure"
-      ],
-      "entities": [
-        "Hugging Face",
-        "Google Cloud"
-      ],
-      "kind": "business",
-      "rumor": false,
-      "scores": {
-        "significance": 1,
-        "novelty": 2,
-        "practicality": 2,
-        "relevance": 1
-      },
-      "so_what": "A minor procurement convenience for teams already billing through GCP.",
-      "domains": [
-        "huggingface.co"
-      ],
-      "has_t1": true,
-      "status": "confirmed",
-      "total": 1.5,
-      "last_update": "2026-11-10T00:00:00.000Z",
-      "title_ru": "Hugging Face Hub добавляет поддержку выставления счетов в Google Cloud",
-      "summary_ru": "Hugging Face теперь позволяет пользователям платить за Hugging Face Hub через свою учетную запись Google Cloud.",
-      "so_what_ru": "Незначительное удобство закупок для команд, уже выставляющих счета через GCP.",
-      "rating": 1
-    },
-    {
       "story_id": "openai-frontier-risk-management-overview",
       "first_seen": "2026-11-19",
       "items": [
@@ -8245,6 +8272,58 @@
   ],
   "raw_items": [
     {
+      "id": "a43a2373bab7",
+      "source_id": "latent-space",
+      "source_name": "Latent Space",
+      "tier": "T2",
+      "signal_only": false,
+      "title": "[AINews] Jensen Is Back! and OpenAI Shows Its Pretraining Curve, joined by Microsoft",
+      "url": "https://latent.space/p/ainews-jensen-is-back-and-openai-shows-its-pretraining-curve-joined-by-microsoft",
+      "domain": "latent.space",
+      "published_at": "2026-11-24T04:14:16.000Z",
+      "collected_on": "2026-11-24",
+      "summary": "November 23, 2026 — Nvidia reinstates its founder, and OpenAI publishes its internal loss curve and proposes a shared training limit."
+    },
+    {
+      "id": "1d0c151fefed",
+      "source_id": "openai",
+      "source_name": "OpenAI News",
+      "tier": "T1",
+      "signal_only": false,
+      "title": "OpenAI and Cisco introduce Shirudo",
+      "url": "https://openai.com/index/introducing-shirudo",
+      "domain": "openai.com",
+      "published_at": "2026-11-23T21:20:00.000Z",
+      "collected_on": "2026-11-24",
+      "summary": "OpenAI and Cisco introduce Shirudo, an open-source runtime for Linux. It helps teams protect running systems while they roll out patches."
+    },
+    {
+      "id": "af1f23762346",
+      "source_id": "openai-sdk",
+      "source_name": "openai-python releases",
+      "tier": "T1",
+      "signal_only": true,
+      "title": "v3.58.0",
+      "url": "https://github.com/openai/openai-python/releases/tag/v3.58.0",
+      "domain": "github.com",
+      "published_at": "2026-11-23T19:00:21.000Z",
+      "collected_on": "2026-11-24",
+      "summary": "3.58.0 (2026-11-23) Features api: set and read agent session spending limits ( #4315 ) ( fc36aef ) Bug Fixes api: clarify when to omit completion choice count ( #4298 ) ( f63f14b )"
+    },
+    {
+      "id": "cca0357f31d4",
+      "source_id": "anthropic-sdk",
+      "source_name": "anthropic-sdk-python releases",
+      "tier": "T1",
+      "signal_only": true,
+      "title": "v2.13.0",
+      "url": "https://github.com/anthropics/anthropic-sdk-python/releases/tag/v2.13.0",
+      "domain": "github.com",
+      "published_at": "2026-11-23T18:34:26.000Z",
+      "collected_on": "2026-11-24",
+      "summary": "Features api: add an error code to Message Batches creation api: add External Storage to the Admin API beta api: add webhook events for external storage failure and recovery Bug Fixes client: build the right class for tool results with unknown values Chores api: mark Claude Opus 4.5 as deprecated (end-of-life January 22, 2027) client: read deprecated models from generated data and stop warning on retired ones docs: clarify when plugin archive downloads are recorded and who gave a share docs: correct organization-type notes in usage and cost reports docs: describe the user profile endpoints and"
+    },
+    {
       "id": "ca38829e7312",
       "source_id": "huggingface",
       "source_name": "Hugging Face blog",
@@ -8256,6 +8335,19 @@
       "published_at": "2026-11-23T17:20:37.000Z",
       "collected_on": "2026-11-23",
       "summary": ""
+    },
+    {
+      "id": "3c69fd56490c",
+      "source_id": "hn",
+      "source_name": "Hacker News",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "\"Dario is hyping the dangers so OSS models are illegal and he stays in control\"",
+      "url": "https://twitter.com/ylecun/status/2124550037912920090",
+      "domain": "twitter.com",
+      "published_at": "2026-11-23T17:07:26Z",
+      "collected_on": "2026-11-24",
+      "summary": "HN: 1445 points, 816 comments. https://news.ycombinator.com/item?id=50615308"
     },
     {
       "id": "39c2da17cef6",
@@ -8323,6 +8415,19 @@
       "summary": "Could the scientific method be emergent?"
     },
     {
+      "id": "d22274b536c2",
+      "source_id": "igb",
+      "source_name": "iGaming Business",
+      "tier": "T4",
+      "signal_only": false,
+      "title": "From compliance to intelligence: Geolocation’s expanding role in iGaming",
+      "url": "https://igamingbusiness.com/tech-innovation/geointelligence-geolocation-expanding-igaming-mkodo",
+      "domain": "igamingbusiness.com",
+      "published_at": "2026-11-23T13:53:52.000Z",
+      "collected_on": "2026-11-24",
+      "summary": "Geolocation is evolving from a regulatory necessity into a strategic tool for iGaming operators. Will Whitehead, commercial director at mkodo and GeoLocs, explains how advances in geo-intelligence and AI are opening up new opportunities for customer engagement, fraud prevention and commercial growth, while reshaping the relationship between operators and their technology partners."
+    },
+    {
       "id": "99bd0cf495bf",
       "source_id": "martech",
       "source_name": "MarTech",
@@ -8386,6 +8491,32 @@
       "published_at": "2026-11-23T10:06:43Z",
       "collected_on": "2026-11-23",
       "summary": "HN: 816 points, 296 comments. https://news.ycombinator.com/item?id=50609685"
+    },
+    {
+      "id": "f8a4e02f4212",
+      "source_id": "openai",
+      "source_name": "OpenAI News",
+      "tier": "T1",
+      "signal_only": false,
+      "title": "Connected intelligence for in-house legal",
+      "url": "https://openai.com/business/learn/connected-intelligence-for-in-house-legal",
+      "domain": "openai.com",
+      "published_at": "2026-11-23T08:00:00.000Z",
+      "collected_on": "2026-11-24",
+      "summary": "Watch OpenAI’s Stacey Wang and Craig Bruney, Mary O’Carroll of LECG, and Cooley’s Richard Segal explore how AI can help in-house legal teams connect business context, build reusable workflows and get more from outside counsel."
+    },
+    {
+      "id": "680b35173b97",
+      "source_id": "openai",
+      "source_name": "OpenAI News",
+      "tier": "T1",
+      "signal_only": false,
+      "title": "Richpanel helps companies automate 50% of support in 30 days",
+      "url": "https://openai.com/business/customer-stories/richpanel-ai-customer-support",
+      "domain": "openai.com",
+      "published_at": "2026-11-23T08:00:00.000Z",
+      "collected_on": "2026-11-24",
+      "summary": "Richpanel uses GPT-6 Astra and GPT-6.1 Sol to equip its AI support agents with tools and procedures, and GPT-6 Luna for their conversations."
     },
     {
       "id": "6fd4c32fe34a",
@@ -12705,134 +12836,6 @@
       "summary": "November 9, 2026 — Claude Fable 5.2 and Mythos 5.2 arrive on Anthropic’s IPO roadshow day. How much thinking is worth paying for?",
       "collected_at": "2026-11-16T13:33:49.138Z",
       "title_ru": "[ANews] Fable 5.2 возвращает себе первое место в мире LLM после начала роуд-шоу $ANT IPO"
-    },
-    {
-      "id": "1ff74ee2cb10",
-      "url": "https://openai.com/index/cogent-security",
-      "canonical_url": "https://openai.com/index/cogent-security",
-      "title": "Cogent and OpenAI build cyber defense factories for enterprises",
-      "source": "openai",
-      "source_name": "OpenAI News",
-      "tier": "T1",
-      "signal_only": false,
-      "domain": "openai.com",
-      "published_at": "2026-11-10T00:00:00.000Z",
-      "date_from": "source",
-      "summary": "Cogent combines OpenAI models with enterprise context to help automatically remediate vulnerabilities with agents.",
-      "collected_at": "2026-11-16T13:33:48.078Z",
-      "title_ru": "Cogent и OpenAI строят фабрики киберзащиты для предприятий"
-    },
-    {
-      "id": "724fae925148",
-      "url": "https://huggingface.co/blog/hub-gcp-marketplace",
-      "canonical_url": "https://huggingface.co/blog/hub-gcp-marketplace",
-      "title": "Pay for Hugging Face Hub with your Google Cloud Account",
-      "source": "huggingface",
-      "source_name": "Hugging Face blog",
-      "tier": "T1",
-      "signal_only": false,
-      "domain": "huggingface.co",
-      "published_at": "2026-11-10T00:00:00.000Z",
-      "date_from": "source",
-      "summary": "",
-      "collected_at": "2026-11-16T13:33:48.264Z",
-      "title_ru": "Оплатите Hugging Face Hub с помощью своей учетной записи Google Cloud"
-    },
-    {
-      "id": "3229de0d9192",
-      "url": "https://huggingface.co/blog/decision",
-      "canonical_url": "https://huggingface.co/blog/decision",
-      "title": "Decision Models in Hugging Face",
-      "source": "huggingface",
-      "source_name": "Hugging Face blog",
-      "tier": "T1",
-      "signal_only": false,
-      "domain": "huggingface.co",
-      "published_at": "2026-11-10T00:00:00.000Z",
-      "date_from": "source",
-      "summary": "",
-      "collected_at": "2026-11-16T13:33:48.264Z",
-      "title_ru": "Модели принятия решений в «Обнимающем лице»"
-    },
-    {
-      "id": "5691f7bd8061",
-      "url": "https://tldr.tech/ai/2026-11-10",
-      "canonical_url": "https://tldr.tech/ai/2026-11-10",
-      "title": "Claude Fable 5.2 ✨, Meta Ember 🤖, Google’s new TPUs ⚡",
-      "source": "tldr-ai",
-      "source_name": "TLDR AI",
-      "tier": "T3",
-      "signal_only": false,
-      "domain": "tldr.tech",
-      "published_at": "2026-11-10T00:00:00.000Z",
-      "date_from": "source",
-      "summary": "",
-      "collected_at": "2026-11-16T13:33:48.270Z",
-      "title_ru": "Claude Fable 5.2 ✨, Meta Ember 🤖, новые TPU от Google ⚡"
-    },
-    {
-      "id": "a0d1ec7fc7e8",
-      "url": "https://charonhub.deeplearning.ai/all-the-fallout-so-far-from-nvidia-ceos-affair/",
-      "canonical_url": "https://charonhub.deeplearning.ai/all-the-fallout-so-far-from-nvidia-ceos-affair",
-      "title": "All the fallout so far from Nvidia CEO’s affair: Inkling 2 Small jumps 18 points on Intelligence Index",
-      "source": "the-batch",
-      "source_name": "The Batch",
-      "tier": "T2",
-      "signal_only": false,
-      "domain": "deeplearning.ai",
-      "published_at": "2026-11-09T20:00:00.000Z",
-      "date_from": "source",
-      "summary": "GPT-6 Cyber scores 48.5 percent on ExploitGym. Decision Index v2 weighs decision models’ accuracy, cost. Pangram releases its first AI image, video detectors. Nous reveals open Alibaba models’ shallow political alignment.",
-      "collected_at": "2026-11-16T13:33:49.152Z",
-      "title_ru": "Все последствия дела генерального директора Nvidia: Inkling 2 Small подскочила на 18 пунктов в индексе интеллекта"
-    },
-    {
-      "id": "7da1b2b4758f",
-      "url": "https://deepmind.google/blog/gemini-robotics-2-5-accelerates-real-world-physical-intelligence/",
-      "canonical_url": "https://deepmind.google/blog/gemini-robotics-2-5-accelerates-real-world-physical-intelligence",
-      "title": "Gemini Robotics 2.5 accelerates real-world general dexterity",
-      "source": "deepmind",
-      "source_name": "Google DeepMind",
-      "tier": "T1",
-      "signal_only": false,
-      "domain": "deepmind.google",
-      "published_at": "2026-11-09T19:51:47.000Z",
-      "date_from": "source",
-      "summary": "Our most capable vision-language-action model enhances robot dexterity, reliability, and safety",
-      "collected_at": "2026-11-16T13:33:47.990Z",
-      "title_ru": "Gemini Robotics 2.5 ускоряет развитие общей ловкости в реальном мире"
-    },
-    {
-      "id": "9c331579e229",
-      "url": "https://openai.com/index/chatgpt-enterprise-aws-marketplace",
-      "canonical_url": "https://openai.com/index/chatgpt-enterprise-aws-marketplace",
-      "title": "ChatGPT Enterprise now available in AWS Marketplace",
-      "source": "openai",
-      "source_name": "OpenAI News",
-      "tier": "T1",
-      "signal_only": false,
-      "domain": "openai.com",
-      "published_at": "2026-11-09T19:00:00.000Z",
-      "date_from": "source",
-      "summary": "ChatGPT Enterprise is now available through AWS Marketplace, helping organizations simplify procurement through existing AWS purchasing and billing relationships.",
-      "collected_at": "2026-11-16T13:33:48.078Z",
-      "title_ru": "ChatGPT Enterprise теперь доступен в AWS Marketplace"
-    },
-    {
-      "id": "ed676a60e9cf",
-      "url": "https://github.com/anthropics/anthropic-sdk-python/releases/tag/v2.7.0",
-      "canonical_url": "https://github.com/anthropics/anthropic-sdk-python/releases/tag/v2.7.0",
-      "title": "v2.7.0",
-      "source": "anthropic-sdk",
-      "source_name": "anthropic-sdk-python releases",
-      "tier": "T1",
-      "signal_only": true,
-      "domain": "github.com",
-      "published_at": "2026-11-09T18:52:17.000Z",
-      "date_from": "source",
-      "summary": "Features api: accept user_profile.program_status_updated on organization webhook endpoints api: add claude-fable-5-2 and claude-mythos-5-2 api: add parent organization filtering and grouping to the usage and cost reports api: add the sandbox_egress_restricted error to Admin API write methods api: add the user_profile.program_status_updated webhook event Bug Fixes bedrock,vertex: add the parse and count_tokens methods missing from beta.messages.with_raw_response and with_streaming_response bedrock,vertex: send the X-Stainless-Async header and stream raw requests that name no stream class bedroc",
-      "collected_at": "2026-11-16T13:33:48.382Z",
-      "title_ru": "v2.7.0"
     }
   ],
   "issues": [
