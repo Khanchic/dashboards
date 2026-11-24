@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-24T06:06:34.668Z",
+  "generated_at": "2026-11-24T17:52:02.765Z",
   "last_collect_date": "2026-11-24",
   "sources_report": [
     {
@@ -21,7 +21,7 @@
       "type": "changelog",
       "url": "https://docs.anthropic.com/en/release-notes/overview",
       "fetched": 176,
-      "kept": 9,
+      "kept": 8,
       "new": 0,
       "error": null,
       "note": ""
@@ -34,7 +34,7 @@
       "url": "https://github.com/anthropics/anthropic-sdk-python/releases.atom",
       "fetched": 10,
       "kept": 4,
-      "new": 1,
+      "new": 0,
       "error": null,
       "note": ""
     },
@@ -70,7 +70,7 @@
       "url": "https://blog.google/technology/ai/rss/",
       "fetched": 20,
       "kept": 5,
-      "new": 0,
+      "new": 1,
       "error": null,
       "note": ""
     },
@@ -93,8 +93,8 @@
       "type": "rss",
       "url": "https://huggingface.co/blog/feed.xml",
       "fetched": 916,
-      "kept": 9,
-      "new": 0,
+      "kept": 10,
+      "new": 1,
       "error": null,
       "note": ""
     },
@@ -128,10 +128,10 @@
       "tier": "T1",
       "type": "changelog",
       "url": "https://docs.mistral.ai/resources/changelogs",
-      "fetched": 97,
-      "kept": 97,
+      "fetched": 0,
+      "kept": 0,
       "new": 0,
-      "error": null,
+      "error": "HTTP 404",
       "note": ""
     },
     {
@@ -141,8 +141,8 @@
       "type": "rss",
       "url": "https://openai.com/news/rss.xml",
       "fetched": 1425,
-      "kept": 21,
-      "new": 3,
+      "kept": 19,
+      "new": 0,
       "error": null,
       "note": ""
     },
@@ -166,7 +166,7 @@
       "url": "https://github.com/openai/openai-python/releases.atom",
       "fetched": 10,
       "kept": 7,
-      "new": 1,
+      "new": 0,
       "error": null,
       "note": ""
     },
@@ -201,8 +201,8 @@
       "type": "rss",
       "url": "https://www.latent.space/feed",
       "fetched": 20,
-      "kept": 9,
-      "new": 1,
+      "kept": 7,
+      "new": 0,
       "error": null,
       "note": ""
     },
@@ -226,7 +226,7 @@
       "url": "https://www.bensbites.com/feed",
       "fetched": 20,
       "kept": 2,
-      "new": 0,
+      "new": 1,
       "error": null,
       "note": ""
     },
@@ -237,8 +237,8 @@
       "type": "hn",
       "url": "https://hn.algolia.com/api/v1/search_by_date",
       "fetched": 200,
-      "kept": 39,
-      "new": 1,
+      "kept": 34,
+      "new": 4,
       "error": null,
       "note": ""
     },
@@ -250,7 +250,7 @@
       "url": "https://www.therundown.ai/feed",
       "fetched": 50,
       "kept": 8,
-      "new": 0,
+      "new": 2,
       "error": null,
       "note": ""
     },
@@ -261,8 +261,8 @@
       "type": "rss",
       "url": "https://tldr.tech/api/rss/ai",
       "fetched": 20,
-      "kept": 4,
-      "new": 0,
+      "kept": 5,
+      "new": 1,
       "error": null,
       "note": ""
     },
@@ -273,8 +273,8 @@
       "type": "rss",
       "url": "https://igamingbusiness.com/feed/",
       "fetched": 100,
-      "kept": 3,
-      "new": 1,
+      "kept": 2,
+      "new": 0,
       "error": null,
       "note": ""
     },
@@ -297,8 +297,8 @@
       "type": "rss",
       "url": "https://martech.org/feed/",
       "fetched": 10,
-      "kept": 8,
-      "new": 0,
+      "kept": 7,
+      "new": 1,
       "error": null,
       "note": ""
     },
@@ -309,23 +309,23 @@
       "type": "rss",
       "url": "https://sbcnews.co.uk/feed/",
       "fetched": 10,
-      "kept": 0,
-      "new": 0,
+      "kept": 2,
+      "new": 2,
       "error": null,
       "note": ""
     }
   ],
   "totals": {
     "sources": 26,
-    "failed": 3,
+    "failed": 4,
     "empty": 2,
-    "fetched": 3451,
-    "kept": 451,
-    "new_items": 8,
-    "stories_total": 171,
-    "stories_confirmed": 65,
-    "stories_eligible": 17,
-    "raw_total": 297
+    "fetched": 3354,
+    "kept": 346,
+    "new_items": 13,
+    "stories_total": 176,
+    "stories_confirmed": 62,
+    "stories_eligible": 20,
+    "raw_total": 293
   },
   "stories": [
     {
@@ -439,6 +439,41 @@
       "rating": 5
     },
     {
+      "story_id": "microduck-obstacle-avoidance-sim2real-workflow",
+      "first_seen": "2026-11-24",
+      "title": "Microduck Obstacle Avoidance: A Sim2Real Workflow with Isaac Lab and Newton",
+      "summary": "",
+      "so_what": "",
+      "tags": [
+        "agents"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "16565a3f5dc0",
+          "url": "https://huggingface.co/blog/nvidia/microduck-obstacle-avoidance",
+          "title": "Microduck Obstacle Avoidance: A Sim2Real Workflow with Isaac Lab and Newton",
+          "source": "Hugging Face blog",
+          "tier": "T1",
+          "domain": "huggingface.co",
+          "published_at": "2026-11-24T16:34:13.000Z",
+          "summary": "",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "huggingface.co"
+      ],
+      "has_t1": true,
+      "status": "confirmed",
+      "last_update": "2026-11-24T16:34:13.000Z",
+      "total": 3.9,
+      "rating": 5,
+      "title_ru": ""
+    },
+    {
       "story_id": "finding-faster-quantum-algorithms-agents",
       "first_seen": "2026-11-23",
       "title": "Finding faster quantum algorithms with agents and formal verification",
@@ -547,6 +582,65 @@
       "title_ru": ""
     },
     {
+      "story_id": "claude-fable-gets-price-cut",
+      "first_seen": "2026-11-23",
+      "title": "Claude Fable Gets a Price Cut: Anthropic releases Claude Fable and Mythos 5.2 shortly before record-breaking IPO",
+      "summary": "Anthropic updated its most capable public model and removed safeguards for its private twin, opening Claude Mythos to more organizations that apply for access.",
+      "so_what": "",
+      "tags": [
+        "anthropic"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "f8d287ffbb01",
+          "url": "https://charonhub.deeplearning.ai/claude-fable-gets-a-price-cut",
+          "title": "Claude Fable Gets a Price Cut: Anthropic releases Claude Fable and Mythos 5.2 shortly before record-breaking IPO",
+          "source": "The Batch",
+          "tier": "T2",
+          "domain": "deeplearning.ai",
+          "published_at": "2026-11-20T16:05:00.000Z",
+          "summary": "Anthropic updated its most capable public model and removed safeguards for its private twin, opening Claude Mythos to more organizations that apply for access.",
+          "title_ru": ""
+        },
+        {
+          "id": "61af2d917776",
+          "url": "https://charonhub.deeplearning.ai/issue-380",
+          "title": "Jensen Huang’s Nvidia legacy, Claude Fable 5.2 and Anthropic’s IPO, World Labs Releases Atlas to Developers",
+          "source": "The Batch",
+          "tier": "T2",
+          "domain": "deeplearning.ai",
+          "published_at": "2026-11-20T15:00:00.000Z",
+          "summary": "The Batch News & Insights: I was saddened to hear about Jensen Huang resigning from Nvidia last week. Yes, Jensen made serious mistakes.",
+          "title_ru": ""
+        },
+        {
+          "id": "204a3b5c5043",
+          "url": "https://msn.com/en-us/money/top-stocks/anthropic-stock-sinks-below-ipo-price-why-that-s-happened-so-fast/ar-AA2i7rqa",
+          "title": "Anthropic is below its IPO price",
+          "source": "Hacker News",
+          "tier": "T3",
+          "domain": "msn.com",
+          "published_at": "2026-11-24T14:41:15Z",
+          "summary": "HN: 122 points, 120 comments. https://news.ycombinator.com/item?id=50628932",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "deeplearning.ai",
+        "msn.com"
+      ],
+      "has_t1": false,
+      "status": "confirmed",
+      "last_update": "2026-11-24T14:41:15Z",
+      "total": 3.7,
+      "rating": 5,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
       "story_id": "openai-chatgpt-for-sales",
       "first_seen": "2026-11-19",
       "items": [
@@ -594,6 +688,42 @@
       "summary_ru": "OpenAI представила плагин продаж, а также более 30 новых и расширенных партнерских плагинов в ChatGPT для исследования потенциальных клиентов, подготовки презентаций, обновления CRM и продвижения сделок.",
       "so_what_ru": "Непосредственное использование для CRM/удержания и рабочих процессов, связанных с продажами, которыми управляют команды маркетинга и эксплуатации продуктов.",
       "rating": 5
+    },
+    {
+      "story_id": "gemini-changing-game-golden-state",
+      "first_seen": "2026-11-24",
+      "title": "How Gemini is changing the game for Golden State's organization and fans.",
+      "summary": "Google Gemini partners with Golden State to power fan experiences and business operations for the Warriors, Valkyries, and Chase Center. See the news.",
+      "so_what": "",
+      "tags": [
+        "google"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "e2544bc1aeb2",
+          "url": "https://blog.google/products-and-platforms/products/gemini/gemini-golden-state",
+          "title": "How Gemini is changing the game for Golden State's organization and fans.",
+          "source": "Google AI blog",
+          "tier": "T1",
+          "domain": "blog.google",
+          "published_at": "2026-11-24T16:00:00.000Z",
+          "summary": "Google Gemini partners with Golden State to power fan experiences and business operations for the Warriors, Valkyries, and Chase Center. See the news.",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "blog.google"
+      ],
+      "has_t1": true,
+      "status": "confirmed",
+      "last_update": "2026-11-24T16:00:00.000Z",
+      "total": 3.5,
+      "rating": 5,
+      "title_ru": "",
+      "summary_ru": ""
     },
     {
       "story_id": "openai-cisco-introduce-shirudo",
@@ -1514,56 +1644,6 @@
       "rating": 4
     },
     {
-      "story_id": "google-adobe-integration",
-      "first_seen": "2026-11-16",
-      "items": [
-        {
-          "id": "66ed14c6418f",
-          "url": "https://blog.google/company-news/inside-google/company-announcements/adobe-google-partnership-integration/",
-          "title": "We’re bringing Adobe’s creative and productivity tools closer to your everyday Google apps.",
-          "source": "Google AI blog",
-          "tier": "T1",
-          "domain": "blog.google",
-          "published_at": "2026-11-10T14:00:00.000Z",
-          "summary": "Google and Adobe are integrating creative and productivity tools. Edit PDFs in Drive and use Adobe AI in Gemini. See what’s new in this partnership.",
-          "title_ru": "Мы приближаем инструменты Adobe для творчества и повышения производительности к вашим повседневным приложениям Google."
-        }
-      ],
-      "title": "Google and Adobe integrate creative tools, bringing Adobe AI into Gemini",
-      "summary": "Google and Adobe are partnering to integrate creative and productivity tools, including editing PDFs in Drive and using Adobe AI features inside Gemini.",
-      "tags": [
-        "google",
-        "adobe",
-        "partnership",
-        "creative-tools"
-      ],
-      "entities": [
-        "Google",
-        "Adobe",
-        "Gemini"
-      ],
-      "kind": "business",
-      "rumor": false,
-      "scores": {
-        "significance": 3,
-        "novelty": 3,
-        "practicality": 3,
-        "relevance": 2
-      },
-      "so_what": "If your team already uses Adobe for creative assets, this shortens the path from a Gemini prompt to finished creative without leaving familiar tools.",
-      "domains": [
-        "blog.google"
-      ],
-      "has_t1": true,
-      "status": "confirmed",
-      "total": 2.85,
-      "last_update": "2026-11-10T14:00:00.000Z",
-      "title_ru": "Google и Adobe интегрируют творческие инструменты, в результате чего Adobe AI в Gemini",
-      "summary_ru": "Google и Adobe сотрудничают для интеграции инструментов для творчества и повышения производительности, включая редактирование PDF-файлов на Диске и использование функций Adobe AI в Gemini.",
-      "so_what_ru": "Если ваша команда уже использует Adobe для творческих ресурсов, это сокращает путь от приглашения Gemini до готового креатива, не оставляя привычных инструментов.",
-      "rating": 4
-    },
-    {
       "story_id": "openai-revolut-case-study",
       "first_seen": "2026-11-17",
       "items": [
@@ -1844,6 +1924,42 @@
       "rating": 4
     },
     {
+      "story_id": "llm-agents-work-parent-companies",
+      "first_seen": "2026-11-24",
+      "title": "LLM agents work for their parent companies, not for you",
+      "summary": "HN: 645 points, 265 comments. https://news.ycombinator.com/item?id=50627340",
+      "so_what": "",
+      "tags": [
+        "agents"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "ef8096d74f5d",
+          "url": "https://michaelharley.net/posts/2026/11/01/llm-agents-work-for-their-parent-companies-not-for-you",
+          "title": "LLM agents work for their parent companies, not for you",
+          "source": "Hacker News",
+          "tier": "T3",
+          "domain": "michaelharley.net",
+          "published_at": "2026-11-24T12:40:15Z",
+          "summary": "HN: 645 points, 265 comments. https://news.ycombinator.com/item?id=50627340",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "michaelharley.net"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-24T12:40:15Z",
+      "total": 3.65,
+      "rating": 4,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
       "story_id": "restricting-agents-mobile-operating-systems",
       "first_seen": "2026-11-21",
       "title": "Restricting AI agents in mobile operating systems platforms from capturing data",
@@ -1875,6 +1991,43 @@
       "status": "unconfirmed",
       "last_update": "2026-11-20T09:42:16Z",
       "total": 3.65,
+      "rating": 4,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
+      "story_id": "solas-compliance-unveils-rebrand-tackle",
+      "first_seen": "2026-11-24",
+      "title": "Solas Compliance unveils rebrand to tackle marketing compliance friction",
+      "summary": "Solas Compliance has unveiled a new brand identity and product suite as the AI-powered marketing compliance platform seeks to reduce the time and costs associated with approving marketing campaigns. The rebrand is accompanied by four short films showcasing the capabilities of Solas Spark, Solas Core and Solas Radar, wh",
+      "so_what": "",
+      "tags": [
+        "marketing",
+        "igaming"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "9f259edda91e",
+          "url": "https://sbcnews.co.uk/latestnews/2026/11/24/solas-compliance-rebrand",
+          "title": "Solas Compliance unveils rebrand to tackle marketing compliance friction",
+          "source": "SBC News",
+          "tier": "T4",
+          "domain": "sbcnews.co.uk",
+          "published_at": "2026-11-24T09:00:00.000Z",
+          "summary": "Solas Compliance has unveiled a new brand identity and product suite as the AI-powered marketing compliance platform seeks to reduce the time and costs associated with approving marketing campaigns. The rebrand is accompanied by four short films showcasing the capabilities of Solas Spark, Solas Core and Solas Radar, which address compliance throughout the marketing lifecycle, […]",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "sbcnews.co.uk"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-24T09:00:00.000Z",
+      "total": 3.6,
       "rating": 4,
       "title_ru": "",
       "summary_ru": ""
@@ -2323,6 +2476,17 @@
           "published_at": "2026-11-20T16:00:00.000Z",
           "summary": "Nvidia founder Jensen Huang’s relationship with a possible asset for China’s intelligence agency threw the GPU giant into turmoil, leading to Huang’s apologetic resignation and the Nvidia board’s appointments of Chief Financial Officer Colette Kress as interim CEO and Harvey Jones as its first...",
           "title_ru": ""
+        },
+        {
+          "id": "f5a512a135d8",
+          "url": "https://therundown.ai/articles/jensen-huang-returns-to-nvidia",
+          "title": "Jensen Huang returns to Nvidia",
+          "source": "The Rundown AI",
+          "tier": "T3",
+          "domain": "therundown.ai",
+          "published_at": "2026-11-24T11:00:00.000Z",
+          "summary": "PLUS: Go beyond the browser with the Claude desktop app",
+          "title_ru": ""
         }
       ],
       "title": "Jensen Huang resigns as Nvidia CEO after 33 years; Colette Kress named interim CEO",
@@ -2354,7 +2518,7 @@
       "has_t1": false,
       "status": "confirmed",
       "total": 3.3,
-      "last_update": "2026-11-20T16:00:00.000Z",
+      "last_update": "2026-11-24T11:00:00.000Z",
       "title_ru": "Дженсен Хуанг уходит с поста генерального директора Nvidia после 33 лет работы; Колетт Кресс назначена временным генеральным директором",
       "summary_ru": "После более ранних сообщений о расследовании и падении акций Дженсен Хуанг ушел с поста генерального директора Nvidia после 33 лет руководства компанией, а временным генеральным директором стала Колетт Кресс.",
       "so_what_ru": "Смена руководства в Nvidia может повлиять на поставки графических процессоров, цены и более широкий стек инфраструктуры искусственного интеллекта, от которого зависят инструменты, которые вы используете.",
@@ -2732,55 +2896,6 @@
       "rating": 3
     },
     {
-      "story_id": "alphaproof-code-launch",
-      "first_seen": "2026-11-16",
-      "items": [
-        {
-          "id": "f8c1a7370c13",
-          "url": "https://deepmind.google/blog/introducing-alphaproof-code/",
-          "title": "Introducing AlphaProof Code: a breakthrough in verifying complex software at depth",
-          "source": "Google DeepMind",
-          "tier": "T1",
-          "domain": "deepmind.google",
-          "published_at": "2026-11-10T12:02:28.000Z",
-          "summary": "AlphaProof Code agents wrote three million lines of proofs in Lean to verify Signal’s core encryption.",
-          "title_ru": "Представляем код AlphaProof: прорыв в глубокой проверке сложного программного обеспечения"
-        }
-      ],
-      "title": "DeepMind's AlphaProof Code verifies Signal's encryption with 3M lines of proofs",
-      "summary": "AlphaProof Code agents wrote three million lines of formal Lean proofs to verify Signal's core encryption, DeepMind says.",
-      "tags": [
-        "coding",
-        "research",
-        "formal-verification"
-      ],
-      "entities": [
-        "Google DeepMind",
-        "AlphaProof Code",
-        "Signal"
-      ],
-      "kind": "research",
-      "rumor": false,
-      "scores": {
-        "significance": 3,
-        "novelty": 4,
-        "practicality": 1,
-        "relevance": 1
-      },
-      "so_what": "Shows agentic code verification maturing, but not something a marketing/ops practitioner would use directly.",
-      "domains": [
-        "deepmind.google"
-      ],
-      "has_t1": true,
-      "status": "confirmed",
-      "total": 2.45,
-      "last_update": "2026-11-10T12:02:28.000Z",
-      "title_ru": "Код AlphaProof от DeepMind проверяет шифрование Signal с помощью 3 миллионов строк доказательств",
-      "summary_ru": "По данным DeepMind, агенты AlphaProof Code написали три миллиона строк формальных доказательств Lean для проверки основного шифрования Signal.",
-      "so_what_ru": "Показывает зрелость агентской проверки кода, но не то, что специалист по маркетингу/операционной деятельности мог бы использовать напрямую.",
-      "rating": 3
-    },
-    {
       "story_id": "openai-codex-sandbox-explainer",
       "first_seen": "2026-11-19",
       "items": [
@@ -2827,79 +2942,6 @@
       "title_ru": "OpenAI объясняет, как Codex изолирует выполнение локальных команд в песочнице",
       "summary_ru": "OpenAI опубликовала техническое объяснение того, как Кодекс выполняет команды с настраиваемой файловой системой и сетевыми ограничениями в macOS, Linux и Windows.",
       "so_what_ru": "Полезно для тех, кто использует Codex локально и хочет иметь предсказуемые элементы управления песочницей для автоматизации.",
-      "rating": 3
-    },
-    {
-      "story_id": "anthropic-fable-5-2-pacing",
-      "first_seen": "2026-11-16",
-      "items": [
-        {
-          "id": "f59c78f5f2e4",
-          "url": "https://www.therundown.ai/articles/anthropic-says-pacing-not-pausing-with-fable-5-2",
-          "title": "Anthropic says ‘pacing, not pausing’ with Fable 5.2",
-          "source": "The Rundown AI",
-          "tier": "T3",
-          "domain": "therundown.ai",
-          "published_at": "2026-11-10T10:00:00.000Z",
-          "summary": "PLUS: Clean up a messy Excel report with Claude",
-          "title_ru": "Anthropic говорит, что в Fable 5.2 нужно «шагать, а не останавливаться»"
-        },
-        {
-          "id": "5691f7bd8061",
-          "url": "https://tldr.tech/ai/2026-11-10",
-          "title": "Claude Fable 5.2 ✨, Meta Ember 🤖, Google’s new TPUs ⚡",
-          "source": "TLDR AI",
-          "tier": "T3",
-          "domain": "tldr.tech",
-          "published_at": "2026-11-10T00:00:00.000Z",
-          "summary": "",
-          "title_ru": "Claude Fable 5.2 ✨, Meta Ember 🤖, новые TPU от Google ⚡"
-        },
-        {
-          "id": "62d6b023e1f9",
-          "url": "https://latent.space/p/ainews-fable-5-2-retakes-world-1-llm-spot-as-ant-ipo-roadshow-begins/",
-          "title": "[AINews] Fable 5.2 retakes World #1 LLM spot as $ANT IPO roadshow begins",
-          "source": "Latent Space",
-          "tier": "T2",
-          "domain": "latent.space",
-          "published_at": "2026-11-10T06:34:44.000Z",
-          "summary": "November 9, 2026 — Claude Fable 5.2 and Mythos 5.2 arrive on Anthropic’s IPO roadshow day. How much thinking is worth paying for?",
-          "title_ru": "[ANews] Fable 5.2 возвращает себе первое место в мире LLM после начала роуд-шоу $ANT IPO"
-        }
-      ],
-      "title": "Claude Fable 5.2 retakes #1 LLM ranking spot as Anthropic's IPO roadshow begins",
-      "summary": "Claude Fable 5.2 reclaimed the top spot in LLM rankings the same day Anthropic's IPO roadshow began.",
-      "tags": [
-        "anthropic",
-        "claude",
-        "fable-5.2",
-        "benchmarks"
-      ],
-      "entities": [
-        "Anthropic",
-        "Claude Fable 5.2"
-      ],
-      "kind": "launch",
-      "rumor": false,
-      "scores": {
-        "significance": 3,
-        "novelty": 2,
-        "practicality": 2,
-        "relevance": 2
-      },
-      "so_what": "If you're choosing a frontier model for automation work, Fable 5.2's ranking lead is a data point worth checking against your own benchmarks.",
-      "domains": [
-        "therundown.ai",
-        "tldr.tech",
-        "latent.space"
-      ],
-      "has_t1": false,
-      "status": "confirmed",
-      "total": 2.35,
-      "last_update": "2026-11-10T10:00:00.000Z",
-      "title_ru": "Claude Fable 5.2 возвращает себе первое место в рейтинге LLM после начала роуд-шоу Anthropic по IPO",
-      "summary_ru": "Claude Fable 5.2 вернул себе первое место в рейтинге LLM в тот же день, когда началось IPO Anthropic.",
-      "so_what_ru": "Если вы выбираете передовую модель для работы по автоматизации, лидерство Fable 5.2 в рейтинге — это показатель, который стоит проверить по вашим собственным критериям.",
       "rating": 3
     },
     {
@@ -3256,54 +3298,6 @@
       "rating": 3
     },
     {
-      "story_id": "openai-upwork-freelance-research",
-      "first_seen": "2026-11-16",
-      "items": [
-        {
-          "id": "3588ceed4155",
-          "url": "https://openai.com/index/ai-effect-on-freelance-work",
-          "title": "Work at the Frontier: AI’s effect on freelance work",
-          "source": "OpenAI News",
-          "tier": "T1",
-          "domain": "openai.com",
-          "published_at": "2026-11-10T07:00:00.000Z",
-          "summary": "New research from OpenAI and Upwork finds shifting demand for freelance work, new skill combinations, and larger budgets and more hours for AI-related projects.",
-          "title_ru": "Работа на переднем крае: влияние ИИ на работу фрилансера"
-        }
-      ],
-      "title": "OpenAI and Upwork research finds shifting demand for freelance AI work",
-      "summary": "Joint research from OpenAI and Upwork found shifting demand for freelance work, new skill combinations, and larger budgets and more hours for AI-related projects.",
-      "tags": [
-        "future-of-work",
-        "freelance",
-        "research"
-      ],
-      "entities": [
-        "OpenAI",
-        "Upwork"
-      ],
-      "kind": "research",
-      "rumor": false,
-      "scores": {
-        "significance": 2,
-        "novelty": 2,
-        "practicality": 2,
-        "relevance": 3
-      },
-      "so_what": "Useful if you hire freelance help for AI-related marketing work — reported budgets and hours for such projects are growing.",
-      "domains": [
-        "openai.com"
-      ],
-      "has_t1": true,
-      "status": "confirmed",
-      "total": 2.15,
-      "last_update": "2026-11-10T07:00:00.000Z",
-      "title_ru": "Исследование OpenAI и Upwork выявило меняющийся спрос на внештатную работу в области ИИ",
-      "summary_ru": "Совместное исследование OpenAI и Upwork выявило меняющийся спрос на внештатную работу, новые комбинации навыков, а также увеличение бюджетов и большего количества часов для проектов, связанных с ИИ.",
-      "so_what_ru": "Полезно, если вы нанимаете внештатных помощников для маркетинговой работы, связанной с искусственным интеллектом — заявленные бюджеты и часы для таких проектов растут.",
-      "rating": 3
-    },
-    {
       "story_id": "huggingface-moe-inference-180b",
       "first_seen": "2026-11-19",
       "items": [
@@ -3543,6 +3537,82 @@
       "summary_ru": "Google внедряет Gemini Intelligence с новыми функциями для более широкого круга устройств.",
       "so_what_ru": "Более широкое распространение помощников Gemini расширяет области, где открытия и рекомендации на основе искусственного интеллекта могут коснуться ваших клиентов.",
       "rating": 3
+    },
+    {
+      "story_id": "need-know-chatgpt-ads-google",
+      "first_seen": "2026-11-24",
+      "title": "What you need to know about ChatGPT ads vs. Google Ads",
+      "summary": "B2B tests show comparable CPCs to Google but weaker engagement, limited conversions, and less control of targeting and optimization. The post What you need to know about ChatGPT ads vs. Google Ads appeared first on MarTech .",
+      "so_what": "",
+      "tags": [
+        "openai",
+        "google",
+        "marketing"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "db590a401aea",
+          "url": "https://martech.org/what-you-need-to-know-about-chatgpt-ads-vs-google-ads",
+          "title": "What you need to know about ChatGPT ads vs. Google Ads",
+          "source": "MarTech",
+          "tier": "T4",
+          "domain": "martech.org",
+          "published_at": "2026-11-24T13:55:41.000Z",
+          "summary": "B2B tests show comparable CPCs to Google but weaker engagement, limited conversions, and less control of targeting and optimization. The post What you need to know about ChatGPT ads vs. Google Ads appeared first on MarTech .",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "martech.org"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-24T13:55:41.000Z",
+      "total": 3.2,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
+      "story_id": "bulgaria-uses-claude-challenge-gambling",
+      "first_seen": "2026-11-24",
+      "title": "Bulgaria MP uses Claude to challenge gambling ad monitoring standards",
+      "summary": "Bozhidar Bozhinov, Former Electronic Governance Minister of Bulgaria, has questioned the quality of illegal gambling ad monitoring after conducting a test with AI LLM platform Claude. Bozhinov, the Deputy Chair of the We Continue the Change party, prompted Claude to list the top 500 most visited websites in Bulgaria an",
+      "so_what": "",
+      "tags": [
+        "anthropic",
+        "marketing",
+        "igaming"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "fe78ed7d6b80",
+          "url": "https://sbcnews.co.uk/marketing/2026/11/24/bulgaria-gambling-ads",
+          "title": "Bulgaria MP uses Claude to challenge gambling ad monitoring standards",
+          "source": "SBC News",
+          "tier": "T4",
+          "domain": "sbcnews.co.uk",
+          "published_at": "2026-11-24T12:43:35.000Z",
+          "summary": "Bozhidar Bozhinov, Former Electronic Governance Minister of Bulgaria, has questioned the quality of illegal gambling ad monitoring after conducting a test with AI LLM platform Claude. Bozhinov, the Deputy Chair of the We Continue the Change party, prompted Claude to list the top 500 most visited websites in Bulgaria and analyse all types of advertisements […]",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "sbcnews.co.uk"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-24T12:43:35.000Z",
+      "total": 3.2,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
     },
     {
       "story_id": "stands-replace-jobs-here-plan",
@@ -3971,53 +4041,6 @@
       "summary_ru": ""
     },
     {
-      "story_id": "claude-fable-gets-price-cut",
-      "first_seen": "2026-11-23",
-      "title": "Claude Fable Gets a Price Cut: Anthropic releases Claude Fable and Mythos 5.2 shortly before record-breaking IPO",
-      "summary": "Anthropic updated its most capable public model and removed safeguards for its private twin, opening Claude Mythos to more organizations that apply for access.",
-      "so_what": "",
-      "tags": [
-        "anthropic"
-      ],
-      "kind": "business",
-      "rumor": false,
-      "auto_clustered": true,
-      "items": [
-        {
-          "id": "f8d287ffbb01",
-          "url": "https://charonhub.deeplearning.ai/claude-fable-gets-a-price-cut",
-          "title": "Claude Fable Gets a Price Cut: Anthropic releases Claude Fable and Mythos 5.2 shortly before record-breaking IPO",
-          "source": "The Batch",
-          "tier": "T2",
-          "domain": "deeplearning.ai",
-          "published_at": "2026-11-20T16:05:00.000Z",
-          "summary": "Anthropic updated its most capable public model and removed safeguards for its private twin, opening Claude Mythos to more organizations that apply for access.",
-          "title_ru": ""
-        },
-        {
-          "id": "61af2d917776",
-          "url": "https://charonhub.deeplearning.ai/issue-380",
-          "title": "Jensen Huang’s Nvidia legacy, Claude Fable 5.2 and Anthropic’s IPO, World Labs Releases Atlas to Developers",
-          "source": "The Batch",
-          "tier": "T2",
-          "domain": "deeplearning.ai",
-          "published_at": "2026-11-20T15:00:00.000Z",
-          "summary": "The Batch News & Insights: I was saddened to hear about Jensen Huang resigning from Nvidia last week. Yes, Jensen made serious mistakes.",
-          "title_ru": ""
-        }
-      ],
-      "domains": [
-        "deeplearning.ai"
-      ],
-      "has_t1": false,
-      "status": "unconfirmed",
-      "last_update": "2026-11-20T16:05:00.000Z",
-      "total": 3.1,
-      "rating": 3,
-      "title_ru": "",
-      "summary_ru": ""
-    },
-    {
       "story_id": "jensen-huang-legacy-future-nvidia",
       "first_seen": "2026-11-23",
       "title": "Jensen Huang's Legacy and Future: How Nvidia's founder saw opportunities other people couldn't",
@@ -4086,6 +4109,40 @@
       "total": 3.1,
       "rating": 3,
       "title_ru": ""
+    },
+    {
+      "story_id": "tidal-bans-ai-generated-music",
+      "first_seen": "2026-11-24",
+      "title": "Tidal bans AI-generated music",
+      "summary": "HN: 220 points, 184 comments. https://news.ycombinator.com/item?id=50630309",
+      "so_what": "",
+      "tags": [],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "e213ef04a870",
+          "url": "https://variety.com/2026/music/news/tidal-bans-ai-generated-music-1236956924",
+          "title": "Tidal bans AI-generated music",
+          "source": "Hacker News",
+          "tier": "T3",
+          "domain": "variety.com",
+          "published_at": "2026-11-24T16:12:38Z",
+          "summary": "HN: 220 points, 184 comments. https://news.ycombinator.com/item?id=50630309",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "variety.com"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-24T16:12:38Z",
+      "total": 3.05,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
     },
     {
       "story_id": "beginner-guide-local-inkling-qwen",
@@ -4489,6 +4546,42 @@
       "summary_ru": "GPT-6 Cyber ​​от OpenAI с настроенной безопасностью обнаружил, использовал и исправил почти 950 серьезных уязвимостей ядра Linux за один запуск по цене примерно 1280 долларов США за исправление корневого уровня.",
       "so_what_ru": "Конкретные данные об агентном ИИ, выполняющем крупномасштабную техническую работу автономно и дешево, полезный контекст при определении того, что агенты могут реально автоматизировать, помимо задач по содержанию.",
       "rating": 3
+    },
+    {
+      "story_id": "anthropic-breaks-below-ipo-price",
+      "first_seen": "2026-11-24",
+      "title": "Anthropic Breaks Below $83 IPO Price in Premarket Trading",
+      "summary": "HN: 141 points, 230 comments. https://news.ycombinator.com/item?id=50627836",
+      "so_what": "",
+      "tags": [
+        "anthropic"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "e628c0b2649e",
+          "url": "https://bloomberg.com/news/articles/2026-11-24/anthropic-breaks-below-83-ipo-price-in-premarket-trading",
+          "title": "Anthropic Breaks Below $83 IPO Price in Premarket Trading",
+          "source": "Hacker News",
+          "tier": "T3",
+          "domain": "bloomberg.com",
+          "published_at": "2026-11-24T13:23:47Z",
+          "summary": "HN: 141 points, 230 comments. https://news.ycombinator.com/item?id=50627836",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "bloomberg.com"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-24T13:23:47Z",
+      "total": 2.85,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
     },
     {
       "story_id": "becoming-disaster-climate",
@@ -5040,6 +5133,110 @@
       "summary_ru": "United Airlines объявила о запрете агентам искусственного интеллекта бронировать рейсы от имени путешественников, что вызвало широкую дискуссию.",
       "so_what_ru": "Крупный потребительский бренд, отказывающийся от агентской коммерции, является сигналом к ​​тому, чтобы следить за тем, создаете ли вы агентов, которые совершают транзакции или бронируют услуги от имени клиентов.",
       "rating": 3
+    },
+    {
+      "story_id": "commitment-issues-app-edition",
+      "first_seen": "2026-11-24",
+      "title": "Commitment issues (app edition)",
+      "summary": "It’s not me, it’s you",
+      "so_what": "",
+      "tags": [],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "5e63ab2d37b6",
+          "url": "https://bensbites.com/p/commitment-issues-app-edition",
+          "title": "Commitment issues (app edition)",
+          "source": "Ben's Bites",
+          "tier": "T3",
+          "domain": "bensbites.com",
+          "published_at": "2026-11-24T14:04:45.000Z",
+          "summary": "It’s not me, it’s you",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "bensbites.com"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-24T14:04:45.000Z",
+      "total": 2.7,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
+      "story_id": "glm-5-loops-claude-ship-openai",
+      "first_seen": "2026-11-24",
+      "title": "GLM-5.4 loops 🔁, Claude Ship 🚢, OpenAI secures Linux 🔒",
+      "summary": "",
+      "so_what": "",
+      "tags": [
+        "openai",
+        "anthropic"
+      ],
+      "kind": "launch",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "2116b3b26534",
+          "url": "https://tldr.tech/ai/2026-11-24",
+          "title": "GLM-5.4 loops 🔁, Claude Ship 🚢, OpenAI secures Linux 🔒",
+          "source": "TLDR AI",
+          "tier": "T3",
+          "domain": "tldr.tech",
+          "published_at": "2026-11-24T00:00:00.000Z",
+          "summary": "",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "tldr.tech"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-24T00:00:00.000Z",
+      "total": 2.7,
+      "rating": 3,
+      "title_ru": ""
+    },
+    {
+      "story_id": "nvidia-robot-king-returns",
+      "first_seen": "2026-11-24",
+      "title": "Nvidia’s robot king returns",
+      "summary": "PLUS: China's newest humanoid hits $1.6B",
+      "so_what": "",
+      "tags": [],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "d518e036318c",
+          "url": "https://therundown.ai/articles/nvidia-robot-king-returns",
+          "title": "Nvidia’s robot king returns",
+          "source": "The Rundown AI",
+          "tier": "T3",
+          "domain": "therundown.ai",
+          "published_at": "2026-11-23T15:30:00.000Z",
+          "summary": "PLUS: China's newest humanoid hits $1.6B",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "therundown.ai"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-23T15:30:00.000Z",
+      "total": 2.7,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
     },
     {
       "story_id": "claude-helps-solve-math-biggest",
@@ -7046,102 +7243,6 @@
       "rating": 1
     },
     {
-      "story_id": "google-gemini-healthcare",
-      "first_seen": "2026-11-16",
-      "items": [
-        {
-          "id": "02e4a20d191a",
-          "url": "https://blog.google/innovation-and-ai/infrastructure-and-cloud/google-cloud/gemini-for-healthcare/",
-          "title": "Google Cloud launches Gemini for healthcare.",
-          "source": "Google AI blog",
-          "tier": "T1",
-          "domain": "blog.google",
-          "published_at": "2026-11-10T13:00:00.000Z",
-          "summary": "Google Cloud launches Gemini for healthcare to unify clinical data and automate workflows. Reduce administrative burnout. See how it works.",
-          "title_ru": "Google Cloud запускает Gemini для здравоохранения."
-        }
-      ],
-      "title": "Google Cloud launches Gemini for healthcare",
-      "summary": "Google Cloud launched a Gemini-based offering for healthcare aimed at unifying clinical data and automating workflows to reduce administrative burden.",
-      "tags": [
-        "google",
-        "gemini",
-        "healthcare",
-        "enterprise"
-      ],
-      "entities": [
-        "Google Cloud",
-        "Gemini"
-      ],
-      "kind": "launch",
-      "rumor": false,
-      "scores": {
-        "significance": 2,
-        "novelty": 2,
-        "practicality": 1,
-        "relevance": 1
-      },
-      "so_what": "Not directly relevant to iGaming or marketing, but shows Google's pattern of packaging Gemini for regulated verticals, a model that could extend elsewhere.",
-      "domains": [
-        "blog.google"
-      ],
-      "has_t1": true,
-      "status": "confirmed",
-      "total": 1.6,
-      "last_update": "2026-11-10T13:00:00.000Z",
-      "title_ru": "Google Cloud запускает Gemini для здравоохранения",
-      "summary_ru": "Google Cloud запустил предложение для здравоохранения на базе Gemini, направленное на объединение клинических данных и автоматизацию рабочих процессов для снижения административной нагрузки.",
-      "so_what_ru": "Не имеет прямого отношения к iGaming или маркетингу, но демонстрирует модель упаковки Gemini от Google для регулируемых вертикалей, модель, которую можно распространить и на другие рынки.",
-      "rating": 1
-    },
-    {
-      "story_id": "deepmind-weather-datasets",
-      "first_seen": "2026-11-16",
-      "items": [
-        {
-          "id": "cd88f6cf71e0",
-          "url": "https://deepmind.google/blog/opening-the-datasets-behind-our-ai-weather-models/",
-          "title": "Opening the datasets behind our AI weather models",
-          "source": "Google DeepMind",
-          "tier": "T1",
-          "domain": "deepmind.google",
-          "published_at": "2026-11-10T11:13:04.000Z",
-          "summary": "Foundational precipitation and geostationary satellite datasets to observe the planet clearly.",
-          "title_ru": "Открытие наборов данных, лежащих в основе наших моделей погоды с использованием искусственного интеллекта"
-        }
-      ],
-      "title": "DeepMind open-sources datasets behind its AI weather models",
-      "summary": "Google DeepMind opened foundational precipitation and geostationary satellite datasets used to train its weather models.",
-      "tags": [
-        "open-data",
-        "climate",
-        "research"
-      ],
-      "entities": [
-        "Google DeepMind"
-      ],
-      "kind": "research",
-      "rumor": false,
-      "scores": {
-        "significance": 2,
-        "novelty": 2,
-        "practicality": 1,
-        "relevance": 1
-      },
-      "so_what": "Low relevance outside climate/ML research contexts.",
-      "domains": [
-        "deepmind.google"
-      ],
-      "has_t1": true,
-      "status": "confirmed",
-      "total": 1.6,
-      "last_update": "2026-11-10T11:13:04.000Z",
-      "title_ru": "DeepMind публикует наборы данных с открытым исходным кодом, лежащие в основе своих моделей погоды с использованием искусственного интеллекта",
-      "summary_ru": "Google DeepMind открыл фундаментальные наборы данных об осадках и геостационарных спутниках, которые используются для обучения его погодных моделей.",
-      "so_what_ru": "Низкая актуальность вне контекста исследований климата/МО.",
-      "rating": 1
-    },
-    {
       "story_id": "huggingface-finetuning-flops-explainer",
       "first_seen": "2026-11-19",
       "items": [
@@ -8272,6 +8373,149 @@
   ],
   "raw_items": [
     {
+      "id": "16565a3f5dc0",
+      "source_id": "huggingface",
+      "source_name": "Hugging Face blog",
+      "tier": "T1",
+      "signal_only": false,
+      "title": "Microduck Obstacle Avoidance: A Sim2Real Workflow with Isaac Lab and Newton",
+      "url": "https://huggingface.co/blog/nvidia/microduck-obstacle-avoidance",
+      "domain": "huggingface.co",
+      "published_at": "2026-11-24T16:34:13.000Z",
+      "collected_on": "2026-11-24",
+      "summary": ""
+    },
+    {
+      "id": "e213ef04a870",
+      "source_id": "hn",
+      "source_name": "Hacker News",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "Tidal bans AI-generated music",
+      "url": "https://variety.com/2026/music/news/tidal-bans-ai-generated-music-1236956924",
+      "domain": "variety.com",
+      "published_at": "2026-11-24T16:12:38Z",
+      "collected_on": "2026-11-24",
+      "summary": "HN: 220 points, 184 comments. https://news.ycombinator.com/item?id=50630309"
+    },
+    {
+      "id": "e2544bc1aeb2",
+      "source_id": "google-ai",
+      "source_name": "Google AI blog",
+      "tier": "T1",
+      "signal_only": false,
+      "title": "How Gemini is changing the game for Golden State's organization and fans.",
+      "url": "https://blog.google/products-and-platforms/products/gemini/gemini-golden-state",
+      "domain": "blog.google",
+      "published_at": "2026-11-24T16:00:00.000Z",
+      "collected_on": "2026-11-24",
+      "summary": "Google Gemini partners with Golden State to power fan experiences and business operations for the Warriors, Valkyries, and Chase Center. See the news."
+    },
+    {
+      "id": "204a3b5c5043",
+      "source_id": "hn",
+      "source_name": "Hacker News",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "Anthropic is below its IPO price",
+      "url": "https://msn.com/en-us/money/top-stocks/anthropic-stock-sinks-below-ipo-price-why-that-s-happened-so-fast/ar-AA2i7rqa",
+      "domain": "msn.com",
+      "published_at": "2026-11-24T14:41:15Z",
+      "collected_on": "2026-11-24",
+      "summary": "HN: 122 points, 120 comments. https://news.ycombinator.com/item?id=50628932"
+    },
+    {
+      "id": "5e63ab2d37b6",
+      "source_id": "bensbites",
+      "source_name": "Ben's Bites",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "Commitment issues (app edition)",
+      "url": "https://bensbites.com/p/commitment-issues-app-edition",
+      "domain": "bensbites.com",
+      "published_at": "2026-11-24T14:04:45.000Z",
+      "collected_on": "2026-11-24",
+      "summary": "It’s not me, it’s you"
+    },
+    {
+      "id": "db590a401aea",
+      "source_id": "martech",
+      "source_name": "MarTech",
+      "tier": "T4",
+      "signal_only": false,
+      "title": "What you need to know about ChatGPT ads vs. Google Ads",
+      "url": "https://martech.org/what-you-need-to-know-about-chatgpt-ads-vs-google-ads",
+      "domain": "martech.org",
+      "published_at": "2026-11-24T13:55:41.000Z",
+      "collected_on": "2026-11-24",
+      "summary": "B2B tests show comparable CPCs to Google but weaker engagement, limited conversions, and less control of targeting and optimization. The post What you need to know about ChatGPT ads vs. Google Ads appeared first on MarTech ."
+    },
+    {
+      "id": "e628c0b2649e",
+      "source_id": "hn",
+      "source_name": "Hacker News",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "Anthropic Breaks Below $83 IPO Price in Premarket Trading",
+      "url": "https://bloomberg.com/news/articles/2026-11-24/anthropic-breaks-below-83-ipo-price-in-premarket-trading",
+      "domain": "bloomberg.com",
+      "published_at": "2026-11-24T13:23:47Z",
+      "collected_on": "2026-11-24",
+      "summary": "HN: 141 points, 230 comments. https://news.ycombinator.com/item?id=50627836"
+    },
+    {
+      "id": "fe78ed7d6b80",
+      "source_id": "sbc",
+      "source_name": "SBC News",
+      "tier": "T4",
+      "signal_only": false,
+      "title": "Bulgaria MP uses Claude to challenge gambling ad monitoring standards",
+      "url": "https://sbcnews.co.uk/marketing/2026/11/24/bulgaria-gambling-ads",
+      "domain": "sbcnews.co.uk",
+      "published_at": "2026-11-24T12:43:35.000Z",
+      "collected_on": "2026-11-24",
+      "summary": "Bozhidar Bozhinov, Former Electronic Governance Minister of Bulgaria, has questioned the quality of illegal gambling ad monitoring after conducting a test with AI LLM platform Claude. Bozhinov, the Deputy Chair of the We Continue the Change party, prompted Claude to list the top 500 most visited websites in Bulgaria and analyse all types of advertisements […]"
+    },
+    {
+      "id": "ef8096d74f5d",
+      "source_id": "hn",
+      "source_name": "Hacker News",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "LLM agents work for their parent companies, not for you",
+      "url": "https://michaelharley.net/posts/2026/11/01/llm-agents-work-for-their-parent-companies-not-for-you",
+      "domain": "michaelharley.net",
+      "published_at": "2026-11-24T12:40:15Z",
+      "collected_on": "2026-11-24",
+      "summary": "HN: 645 points, 265 comments. https://news.ycombinator.com/item?id=50627340"
+    },
+    {
+      "id": "f5a512a135d8",
+      "source_id": "rundown",
+      "source_name": "The Rundown AI",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "Jensen Huang returns to Nvidia",
+      "url": "https://therundown.ai/articles/jensen-huang-returns-to-nvidia",
+      "domain": "therundown.ai",
+      "published_at": "2026-11-24T11:00:00.000Z",
+      "collected_on": "2026-11-24",
+      "summary": "PLUS: Go beyond the browser with the Claude desktop app"
+    },
+    {
+      "id": "9f259edda91e",
+      "source_id": "sbc",
+      "source_name": "SBC News",
+      "tier": "T4",
+      "signal_only": false,
+      "title": "Solas Compliance unveils rebrand to tackle marketing compliance friction",
+      "url": "https://sbcnews.co.uk/latestnews/2026/11/24/solas-compliance-rebrand",
+      "domain": "sbcnews.co.uk",
+      "published_at": "2026-11-24T09:00:00.000Z",
+      "collected_on": "2026-11-24",
+      "summary": "Solas Compliance has unveiled a new brand identity and product suite as the AI-powered marketing compliance platform seeks to reduce the time and costs associated with approving marketing campaigns. The rebrand is accompanied by four short films showcasing the capabilities of Solas Spark, Solas Core and Solas Radar, which address compliance throughout the marketing lifecycle, […]"
+    },
+    {
       "id": "a43a2373bab7",
       "source_id": "latent-space",
       "source_name": "Latent Space",
@@ -8283,6 +8527,19 @@
       "published_at": "2026-11-24T04:14:16.000Z",
       "collected_on": "2026-11-24",
       "summary": "November 23, 2026 — Nvidia reinstates its founder, and OpenAI publishes its internal loss curve and proposes a shared training limit."
+    },
+    {
+      "id": "2116b3b26534",
+      "source_id": "tldr-ai",
+      "source_name": "TLDR AI",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "GLM-5.4 loops 🔁, Claude Ship 🚢, OpenAI secures Linux 🔒",
+      "url": "https://tldr.tech/ai/2026-11-24",
+      "domain": "tldr.tech",
+      "published_at": "2026-11-24T00:00:00.000Z",
+      "collected_on": "2026-11-24",
+      "summary": ""
     },
     {
       "id": "1d0c151fefed",
@@ -8374,6 +8631,19 @@
       "published_at": "2026-11-23T16:59:40.000Z",
       "collected_on": "2026-11-23",
       "summary": "Using agent teams and formal verification to improve quantum algorithms for fusion and chemistry."
+    },
+    {
+      "id": "d518e036318c",
+      "source_id": "rundown",
+      "source_name": "The Rundown AI",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "Nvidia’s robot king returns",
+      "url": "https://therundown.ai/articles/nvidia-robot-king-returns",
+      "domain": "therundown.ai",
+      "published_at": "2026-11-23T15:30:00.000Z",
+      "collected_on": "2026-11-24",
+      "summary": "PLUS: China's newest humanoid hits $1.6B"
     },
     {
       "id": "451e51372bbf",
@@ -12564,278 +12834,6 @@
       "summary": "NaiveAI could potentially top Artificial Analysis’s speed rankings. Our hands-on test suggests its coding quality holds up against DeepSeek.",
       "collected_at": "2026-11-16T13:33:49.138Z",
       "title_ru": "NaiveAI обещает 2100 токенов в секунду. Насколько хорошо он кодирует?"
-    },
-    {
-      "id": "8ffaadf3c0bb",
-      "url": "https://github.com/anthropics/anthropic-sdk-python/releases/tag/v2.8.0",
-      "canonical_url": "https://github.com/anthropics/anthropic-sdk-python/releases/tag/v2.8.0",
-      "title": "v2.8.0",
-      "source": "anthropic-sdk",
-      "source_name": "anthropic-sdk-python releases",
-      "tier": "T1",
-      "signal_only": true,
-      "domain": "github.com",
-      "published_at": "2026-11-10T16:32:58.000Z",
-      "date_from": "source",
-      "summary": "Features api: add Claude Tag metrics to the analytics summaries and users reports api: add reply_mode to Claude Tag Slack channel settings Bug Fixes bedrock: send \";\" in a model ID as is, and refuse a model ID whose part before the first \";\" is empty, \".\" or \"..\" google-cloud: percent-encode the project, location and workspace ID in the workspace and organization base URL paths google-cloud: refuse an empty project, location or workspace ID that would be written into a derived base URL vertex: refuse an empty model, project ID or region instead of writing it into the request path vertex: send ",
-      "collected_at": "2026-11-16T13:33:48.382Z",
-      "title_ru": "v2.8.0"
-    },
-    {
-      "id": "fc6b6a56df7b",
-      "url": "https://deepmind.google/blog/gemini-4-carbon-is-now-available/",
-      "canonical_url": "https://deepmind.google/blog/gemini-4-carbon-is-now-available",
-      "title": "Gemini 4 Carbon is now available",
-      "source": "deepmind",
-      "source_name": "Google DeepMind",
-      "tier": "T1",
-      "signal_only": false,
-      "domain": "deepmind.google",
-      "published_at": "2026-11-10T16:03:47.000Z",
-      "date_from": "source",
-      "summary": "",
-      "collected_at": "2026-11-16T13:33:47.990Z",
-      "title_ru": "Gemini 4 Carbon уже доступен"
-    },
-    {
-      "id": "2d9146be9160",
-      "url": "https://www.bensbites.com/p/how-i-got-seduced",
-      "canonical_url": "https://bensbites.com/p/how-i-got-seduced",
-      "title": "How I got seduced",
-      "source": "bensbites",
-      "source_name": "Ben's Bites",
-      "tier": "T3",
-      "signal_only": false,
-      "domain": "bensbites.com",
-      "published_at": "2026-11-10T15:35:49.000Z",
-      "date_from": "source",
-      "summary": "It took them 5 years",
-      "collected_at": "2026-11-16T13:33:48.139Z",
-      "title_ru": "Как меня соблазнили"
-    },
-    {
-      "id": "587cba734c44",
-      "url": "https://www.therundown.ai/articles/huang-s-bad-week-just-got-a-lot-worse",
-      "canonical_url": "https://therundown.ai/articles/huang-s-bad-week-just-got-a-lot-worse",
-      "title": "Huang's bad week just got a lot worse",
-      "source": "rundown",
-      "source_name": "The Rundown AI",
-      "tier": "T3",
-      "signal_only": false,
-      "domain": "therundown.ai",
-      "published_at": "2026-11-10T15:30:00.000Z",
-      "date_from": "source",
-      "summary": "PLUS: Park your car with your Uber app",
-      "collected_at": "2026-11-16T13:33:48.195Z",
-      "title_ru": "Плохая неделя Хуана стала намного хуже"
-    },
-    {
-      "id": "66ed14c6418f",
-      "url": "https://blog.google/company-news/inside-google/company-announcements/adobe-google-partnership-integration/",
-      "canonical_url": "https://blog.google/company-news/inside-google/company-announcements/adobe-google-partnership-integration",
-      "title": "We’re bringing Adobe’s creative and productivity tools closer to your everyday Google apps.",
-      "source": "google-ai",
-      "source_name": "Google AI blog",
-      "tier": "T1",
-      "signal_only": false,
-      "domain": "blog.google",
-      "published_at": "2026-11-10T14:00:00.000Z",
-      "date_from": "source",
-      "summary": "Google and Adobe are integrating creative and productivity tools. Edit PDFs in Drive and use Adobe AI in Gemini. See what’s new in this partnership.",
-      "collected_at": "2026-11-16T13:33:48.485Z",
-      "title_ru": "Мы приближаем инструменты Adobe для творчества и повышения производительности к вашим повседневным приложениям Google."
-    },
-    {
-      "id": "02e4a20d191a",
-      "url": "https://blog.google/innovation-and-ai/infrastructure-and-cloud/google-cloud/gemini-for-healthcare/",
-      "canonical_url": "https://blog.google/innovation-and-ai/infrastructure-and-cloud/google-cloud/gemini-for-healthcare",
-      "title": "Google Cloud launches Gemini for healthcare.",
-      "source": "google-ai",
-      "source_name": "Google AI blog",
-      "tier": "T1",
-      "signal_only": false,
-      "domain": "blog.google",
-      "published_at": "2026-11-10T13:00:00.000Z",
-      "date_from": "source",
-      "summary": "Google Cloud launches Gemini for healthcare to unify clinical data and automate workflows. Reduce administrative burnout. See how it works.",
-      "collected_at": "2026-11-16T13:33:48.485Z",
-      "title_ru": "Google Cloud запускает Gemini для здравоохранения."
-    },
-    {
-      "id": "f8c1a7370c13",
-      "url": "https://deepmind.google/blog/introducing-alphaproof-code/",
-      "canonical_url": "https://deepmind.google/blog/introducing-alphaproof-code",
-      "title": "Introducing AlphaProof Code: a breakthrough in verifying complex software at depth",
-      "source": "deepmind",
-      "source_name": "Google DeepMind",
-      "tier": "T1",
-      "signal_only": false,
-      "domain": "deepmind.google",
-      "published_at": "2026-11-10T12:02:28.000Z",
-      "date_from": "source",
-      "summary": "AlphaProof Code agents wrote three million lines of proofs in Lean to verify Signal’s core encryption.",
-      "collected_at": "2026-11-16T13:33:47.990Z",
-      "title_ru": "Представляем код AlphaProof: прорыв в глубокой проверке сложного программного обеспечения"
-    },
-    {
-      "id": "46ecb159c153",
-      "url": "https://openai.com/index/helping-caregivers-use-ai-in-everyday-life",
-      "canonical_url": "https://openai.com/index/helping-caregivers-use-ai-in-everyday-life",
-      "title": "Helping caregivers use AI in everyday life",
-      "source": "openai",
-      "source_name": "OpenAI News",
-      "tier": "T1",
-      "signal_only": false,
-      "domain": "openai.com",
-      "published_at": "2026-11-10T12:00:00.000Z",
-      "date_from": "source",
-      "summary": "OpenAI Academy is bringing free, hands-on ChatGPT workshops to caregivers in five U.S. cities, helping them build practical AI skills for everyday life.",
-      "collected_at": "2026-11-16T13:33:48.078Z",
-      "title_ru": "Помощь лицам, осуществляющим уход, в использовании ИИ в повседневной жизни"
-    },
-    {
-      "id": "26b496ffaa34",
-      "url": "https://www.anthropic.com/news/roadshow-launch",
-      "canonical_url": "https://anthropic.com/news/roadshow-launch",
-      "title": "Anthropic launches roadshow for proposed initial public offering",
-      "source": "anthropic",
-      "source_name": "Anthropic news",
-      "tier": "T1",
-      "signal_only": false,
-      "domain": "anthropic.com",
-      "published_at": "2026-11-10T12:00:00.000Z",
-      "date_from": "source",
-      "summary": "",
-      "collected_at": "2026-11-16T13:33:48.281Z",
-      "title_ru": "Anthropic запускает роуд-шоу для предлагаемого первичного публичного размещения акций"
-    },
-    {
-      "id": "cd88f6cf71e0",
-      "url": "https://deepmind.google/blog/opening-the-datasets-behind-our-ai-weather-models/",
-      "canonical_url": "https://deepmind.google/blog/opening-the-datasets-behind-our-ai-weather-models",
-      "title": "Opening the datasets behind our AI weather models",
-      "source": "deepmind",
-      "source_name": "Google DeepMind",
-      "tier": "T1",
-      "signal_only": false,
-      "domain": "deepmind.google",
-      "published_at": "2026-11-10T11:13:04.000Z",
-      "date_from": "source",
-      "summary": "Foundational precipitation and geostationary satellite datasets to observe the planet clearly.",
-      "collected_at": "2026-11-16T13:33:47.990Z",
-      "title_ru": "Открытие наборов данных, лежащих в основе наших моделей погоды с использованием искусственного интеллекта"
-    },
-    {
-      "id": "5ca4dc7b6d88",
-      "url": "https://openai.com/index/introducing-businesses-chatgpt",
-      "canonical_url": "https://openai.com/index/introducing-businesses-chatgpt",
-      "title": "Introducing Businesses in ChatGPT",
-      "source": "openai",
-      "source_name": "OpenAI News",
-      "tier": "T1",
-      "signal_only": false,
-      "domain": "openai.com",
-      "published_at": "2026-11-10T10:00:00.000Z",
-      "date_from": "source",
-      "summary": "Manage your business information, get insights about how your business shows up, and turn interest into action in ChatGPT.",
-      "collected_at": "2026-11-16T13:33:48.078Z",
-      "title_ru": "Представляем бизнес в ChatGPT"
-    },
-    {
-      "id": "f59c78f5f2e4",
-      "url": "https://www.therundown.ai/articles/anthropic-says-pacing-not-pausing-with-fable-5-2",
-      "canonical_url": "https://therundown.ai/articles/anthropic-says-pacing-not-pausing-with-fable-5-2",
-      "title": "Anthropic says ‘pacing, not pausing’ with Fable 5.2",
-      "source": "rundown",
-      "source_name": "The Rundown AI",
-      "tier": "T3",
-      "signal_only": false,
-      "domain": "therundown.ai",
-      "published_at": "2026-11-10T10:00:00.000Z",
-      "date_from": "source",
-      "summary": "PLUS: Clean up a messy Excel report with Claude",
-      "collected_at": "2026-11-16T13:33:48.195Z",
-      "title_ru": "Anthropic говорит, что в Fable 5.2 нужно «шагать, а не останавливаться»"
-    },
-    {
-      "id": "01a8528fa117",
-      "url": "https://openai.com/index/closing-ai-guidance-gap-education",
-      "canonical_url": "https://openai.com/index/closing-ai-guidance-gap-education",
-      "title": "Closing the AI guidance gap in education",
-      "source": "openai",
-      "source_name": "OpenAI News",
-      "tier": "T1",
-      "signal_only": false,
-      "domain": "openai.com",
-      "published_at": "2026-11-10T09:00:00.000Z",
-      "date_from": "source",
-      "summary": "New ThinkYoung research and lessons from OpenAI’s EMEA education partnerships on supporting teachers, AI literacy, and independent learning.",
-      "collected_at": "2026-11-16T13:33:48.078Z",
-      "title_ru": "Устранение пробелов в руководстве ИИ в образовании"
-    },
-    {
-      "id": "4e3e5904c85a",
-      "url": "https://openai.com/index/singapore-airlines-travel-work",
-      "canonical_url": "https://openai.com/index/singapore-airlines-travel-work",
-      "title": "Singapore Airlines elevates travel & work with OpenAI technology",
-      "source": "openai",
-      "source_name": "OpenAI News",
-      "tier": "T1",
-      "signal_only": false,
-      "domain": "openai.com",
-      "published_at": "2026-11-10T08:00:00.000Z",
-      "date_from": "source",
-      "summary": "Discover how Singapore Airlines uses OpenAI models and API to enhance customer support, travel discovery, and employee productivity, doubling CSAT for its Kris chatbot.",
-      "collected_at": "2026-11-16T13:33:48.078Z",
-      "title_ru": "Singapore Airlines повышает качество путешествий и работы с помощью технологии OpenAI"
-    },
-    {
-      "id": "3588ceed4155",
-      "url": "https://openai.com/index/ai-effect-on-freelance-work",
-      "canonical_url": "https://openai.com/index/ai-effect-on-freelance-work",
-      "title": "Work at the Frontier: AI’s effect on freelance work",
-      "source": "openai",
-      "source_name": "OpenAI News",
-      "tier": "T1",
-      "signal_only": false,
-      "domain": "openai.com",
-      "published_at": "2026-11-10T07:00:00.000Z",
-      "date_from": "source",
-      "summary": "New research from OpenAI and Upwork finds shifting demand for freelance work, new skill combinations, and larger budgets and more hours for AI-related projects.",
-      "collected_at": "2026-11-16T13:33:48.078Z",
-      "title_ru": "Работа на переднем крае: влияние ИИ на работу фрилансера"
-    },
-    {
-      "id": "9329c9bd2109",
-      "url": "https://github.com/openai/openai-python/releases/tag/v3.49.0",
-      "canonical_url": "https://github.com/openai/openai-python/releases/tag/v3.49.0",
-      "title": "v3.49.0",
-      "source": "openai-sdk",
-      "source_name": "openai-python releases",
-      "tier": "T1",
-      "signal_only": true,
-      "domain": "github.com",
-      "published_at": "2026-11-10T06:47:04.000Z",
-      "date_from": "source",
-      "summary": "3.49.0 (2026-11-10) Features api: add typed async function tools ( #4264 ) ( ea07983 ) Bug Fixes encode microphone recordings as valid PCM WAV ( #3900 ) ( 13c000d )",
-      "collected_at": "2026-11-16T13:33:48.680Z",
-      "title_ru": "v3.49.0"
-    },
-    {
-      "id": "62d6b023e1f9",
-      "url": "https://latent.space/p/ainews-fable-5-2-retakes-world-1-llm-spot-as-ant-ipo-roadshow-begins/",
-      "canonical_url": "https://latent.space/p/ainews-fable-5-2-retakes-world-1-llm-spot-as-ant-ipo-roadshow-begins",
-      "title": "[AINews] Fable 5.2 retakes World #1 LLM spot as $ANT IPO roadshow begins",
-      "source": "latent-space",
-      "source_name": "Latent Space",
-      "tier": "T2",
-      "signal_only": false,
-      "domain": "latent.space",
-      "published_at": "2026-11-10T06:34:44.000Z",
-      "date_from": "source",
-      "summary": "November 9, 2026 — Claude Fable 5.2 and Mythos 5.2 arrive on Anthropic’s IPO roadshow day. How much thinking is worth paying for?",
-      "collected_at": "2026-11-16T13:33:49.138Z",
-      "title_ru": "[ANews] Fable 5.2 возвращает себе первое место в мире LLM после начала роуд-шоу $ANT IPO"
     }
   ],
   "issues": [

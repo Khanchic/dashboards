@@ -381,7 +381,20 @@
     "https://github.com/openai/openai-python/releases/tag/v3.58.0": "2026-11-24",
     "https://latent.space/p/ainews-jensen-is-back-and-openai-shows-its-pretraining-curve-joined-by-microsoft": "2026-11-24",
     "https://twitter.com/ylecun/status/2124550037912920090": "2026-11-24",
-    "https://igamingbusiness.com/tech-innovation/geointelligence-geolocation-expanding-igaming-mkodo": "2026-11-24"
+    "https://igamingbusiness.com/tech-innovation/geointelligence-geolocation-expanding-igaming-mkodo": "2026-11-24",
+    "https://huggingface.co/blog/nvidia/microduck-obstacle-avoidance": "2026-11-24",
+    "https://bensbites.com/p/commitment-issues-app-edition": "2026-11-24",
+    "https://tldr.tech/ai/2026-11-24": "2026-11-24",
+    "https://therundown.ai/articles/jensen-huang-returns-to-nvidia": "2026-11-24",
+    "https://therundown.ai/articles/nvidia-robot-king-returns": "2026-11-24",
+    "https://blog.google/products-and-platforms/products/gemini/gemini-golden-state": "2026-11-24",
+    "https://variety.com/2026/music/news/tidal-bans-ai-generated-music-1236956924": "2026-11-24",
+    "https://msn.com/en-us/money/top-stocks/anthropic-stock-sinks-below-ipo-price-why-that-s-happened-so-fast/ar-AA2i7rqa": "2026-11-24",
+    "https://bloomberg.com/news/articles/2026-11-24/anthropic-breaks-below-83-ipo-price-in-premarket-trading": "2026-11-24",
+    "https://michaelharley.net/posts/2026/11/01/llm-agents-work-for-their-parent-companies-not-for-you": "2026-11-24",
+    "https://martech.org/what-you-need-to-know-about-chatgpt-ads-vs-google-ads": "2026-11-24",
+    "https://sbcnews.co.uk/marketing/2026/11/24/bulgaria-gambling-ads": "2026-11-24",
+    "https://sbcnews.co.uk/latestnews/2026/11/24/solas-compliance-rebrand": "2026-11-24"
   },
   "baselined": [
     "mistral",
