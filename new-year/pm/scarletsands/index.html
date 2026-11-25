@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Scarlet Sands · The North Star Expedition</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz:wght@600;700&family=Onest:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+:root{
+  --c:#FF2058;
+  --night:#0B1020; --night-2:#121933; --frost:#E8EEFA; --frost-dim:#9AA6C4; --rule:#26304F;
+  --f-display:"Yanone Kaffeesatz","Arial Narrow",sans-serif; --f-body:"Onest",system-ui,sans-serif; --f-mono:"JetBrains Mono",ui-monospace,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--night);color:var(--frost);font-family:var(--f-body);font-size:15px;line-height:1.55}
+.wrap{max-width:1040px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+a{color:var(--c)}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--c)}
+
+header.top{position:relative;padding-block:36px 8px;display:grid;grid-template-columns:1fr 280px;gap:24px;align-items:end}
+header.top::before{content:"";position:absolute;inset:-40px -50vw auto;height:420px;z-index:-1;background:radial-gradient(60% 70% at 78% 40%,color-mix(in srgb,var(--c) 22%,transparent),transparent 70%)}
+.logo{height:34px;width:auto;max-width:180px;object-fit:contain;display:block;margin-bottom:22px}
+h1{font-family:var(--f-display);font-weight:700;font-size:clamp(48px,8vw,92px);line-height:.9;margin:8px 0 14px;letter-spacing:.01em;text-wrap:balance}
+.pitch{max-width:60ch;color:var(--frost-dim);font-size:17px;margin:0}
+.hero{width:100%;max-height:320px;object-fit:contain;object-position:bottom;filter:drop-shadow(0 18px 40px rgba(0,0,0,.45))}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);margin-top:26px;border:1px solid var(--rule);border-radius:8px;background:var(--night-2)}
+.facts div{padding:12px 16px;font-size:12px;color:var(--frost-dim);font-family:var(--f-mono);min-width:0}
+.facts div+div{border-left:1px solid var(--rule)}
+.facts b{display:block;margin-top:3px;font-family:var(--f-body);font-size:14px;font-weight:600;color:var(--frost);overflow-wrap:anywhere}
+
+.play{margin-top:22px;display:grid;grid-template-columns:auto 1fr;gap:18px 28px;align-items:center;padding:22px 24px;border-radius:10px;border:1px solid color-mix(in srgb,var(--c) 55%,var(--rule));background:color-mix(in srgb,var(--c) 9%,var(--night-2))}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 22px;border-radius:8px;background:var(--c);color:#0B1020;font-weight:700;font-size:16px;text-decoration:none;white-space:nowrap}
+.btn:hover,.btn:focus-visible{filter:brightness(1.08);outline:2px solid var(--frost);outline-offset:2px}
+.play ul{margin:0;padding-left:18px;color:var(--frost-dim);font-size:14px;display:grid;gap:3px}
+.play ul b{color:var(--frost)}
+.play .url{grid-column:1/-1;font-family:var(--f-mono);font-size:12px;color:var(--frost-dim);overflow-wrap:anywhere;margin-top:-6px}
+
+section{padding-block:30px 6px}
+h2{font-family:var(--f-display);font-weight:700;font-size:38px;line-height:1;margin:0 0 14px;letter-spacing:.02em}
+.sub{color:var(--frost-dim);margin:-6px 0 16px;max-width:70ch;font-size:14px}
+ol.mech{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:12px;counter-reset:m}
+ol.mech li{counter-increment:m;position:relative;padding:16px 18px 16px 58px;border:1px solid var(--rule);border-radius:8px;background:var(--night-2);font-size:14.5px}
+ol.mech li::before{content:counter(m);position:absolute;left:18px;top:12px;font-family:var(--f-display);font-size:34px;line-height:1;color:var(--c)}
+
+.tbl{overflow-x:auto;border:1px solid var(--rule);border-radius:8px}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{padding:10px 14px;border-bottom:1px solid var(--rule);text-align:left;vertical-align:top}
+tr:last-child td{border-bottom:0}
+th{font-family:var(--f-mono);font-size:11px;font-weight:600;color:var(--frost-dim);text-transform:uppercase;letter-spacing:.06em;background:var(--night-2)}
+td.t{font-family:var(--f-mono);font-size:13px;white-space:nowrap;color:var(--frost)}
+td.k{font-family:var(--f-mono);font-size:12.5px;white-space:nowrap;color:var(--frost-dim)}
+td.lvl{font-weight:600}
+td.bonus{color:var(--c);font-weight:600}
+td s{color:var(--frost-dim)}
+.note{color:var(--frost-dim);font-size:13.5px;margin:10px 0 0;max-width:80ch}
+
+.common{display:grid;grid-template-columns:repeat(2,1fr);gap:0 28px;border-top:1px solid var(--rule)}
+.common div{padding:13px 0;border-bottom:1px solid var(--rule);font-size:14px;color:var(--frost-dim)}
+.common b:first-child{display:block;color:var(--frost);font-size:14.5px;margin-bottom:2px}
+.common div b{color:var(--frost)}
+
+ul.asks{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+ul.asks li{display:grid;grid-template-columns:96px 1fr;gap:14px;padding:12px 16px;border:1px solid var(--rule);border-left:3px solid var(--c);border-radius:6px;background:var(--night-2);font-size:14.5px}
+ul.asks .d{font-family:var(--f-mono);font-size:12px;color:var(--c);padding-top:2px}
+footer{padding-block:34px 48px;color:var(--frost-dim);font-size:12.5px;font-family:var(--f-mono)}
+
+@media (max-width:760px){
+  header.top{grid-template-columns:1fr;padding-top:24px}
+  .hero{max-height:200px;order:-1;object-position:left bottom;width:auto;max-width:60%}
+  .facts{grid-template-columns:1fr}
+  .facts div+div{border-left:0;border-top:1px solid var(--rule)}
+  .play{grid-template-columns:1fr;padding:18px}
+  .btn{justify-content:center}
+  ol.mech,.common{grid-template-columns:1fr}
+  ul.asks li{grid-template-columns:1fr;gap:2px}
+  h2{font-size:32px}
+}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <header class="top">
+    <div>
+      <img class="logo" src="../../assets/logo-scarletsands.png" alt="Scarlet Sands">
+      <div class="eyebrow">Праздничный ивент · Рождество · 25–26.12</div>
+      <h1>The North Star Expedition</h1>
+      <p class="pitch">Буря раскидала по пустыне рождественские вещи исследовательницы. У каждого игрока своя карта и свои 6 находок, а кот Safran подсказывает в чате.</p>
+    </div>
+    <img class="hero" src="../../scarletsands/assets/gen/cat-sit.png" alt="">
+  </header>
+
+  <div class="facts"><div>Окно<b>25.12 11:00 → 26.12 23:59 ET</b></div><div>Где<b>страница ивента + чат Watchers</b></div><div>Приз<b>гарантирован по уровню + один розыгрыш 50 SC</b></div></div>
+
+  <div class="play">
+    <a class="btn" href="https://christmas-2026-production.up.railway.app/scarletsands/" target="_blank" rel="noopener">Открыть плейтест →</a>
+    <ul>
+      <li>Вход по имени (на тесте без Discord), <b>все уровни открыты сразу</b>, без расписания.</li>
+      <li>Claim одобряется сам, коды вида PLAYTEST-… ненастоящие.</li>
+      <li>Пройди всё и напиши нам: где застрял, сколько минут ушло, что непонятно. Фидбек нужен <b>до 10.12</b>.</li>
+    </ul>
+    <div class="url">https://christmas-2026-production.up.railway.app/scarletsands/</div>
+  </div>
+
+  <section>
+    <h2>Механика</h2>
+    <ol class="mech"><li>Каждому достаются 6 находок из пула в 20: 2 лёгкие, 2 средние, 2 трудные. По текстовой подсказке нужно найти место на своей карте.</li><li>На находку 3 попытки (фонари). Промах — «горячо / тепло / холодно», после 2-го подсказка на полях. Штамп золотой, серебряный или бронзовый — по числу попыток.</li><li>Кот Safran 4 раза публикует подсказку в чате Watchers: фраза одна на всех, клетка у каждого своя. Нашёл — лапка.</li><li>26.12 при 4+ штампах открывается оазис. Кто сам нашёл все 6 + 4 лапки + оазис, проходит в супер-игру Golden Compass — розыгрыш 50 SC.</li></ol>
+  </section>
+
+  <section>
+    <h2>Расписание</h2>
+    <p class="sub">Для игроков время ET (США). Киев = ET + 7 часов. Анонс, попап и баннер на сайте — с 14.12.</p>
+    <div class="tbl"><table>
+      <thead><tr><th>ET</th><th>Киев</th><th>Что происходит</th></tr></thead>
+      <tbody><tr><td class="t">18.12 · 12:00</td><td class="k">18.12 · 19:00</td><td>Тренировочная страница (без приза)</td></tr><tr><td class="t">25.12 · 11:00</td><td class="k">25.12 · 18:00</td><td>Глава 1: 2 лёгкие находки · 11:30 кот в Watchers</td></tr><tr><td class="t">25.12 · 15:00</td><td class="k">25.12 · 22:00</td><td>Глава 2: 2 средние · 15:30 кот</td></tr><tr><td class="t">25.12 · 19:00</td><td class="k">26.12 · 02:00</td><td>Глава 3: 2 трудные · 19:30 кот</td></tr><tr><td class="t">26.12 · 11:00</td><td class="k">26.12 · 18:00</td><td>Оазис (4+ штампа) · 14:00 последний кот → Golden Compass</td></tr><tr><td class="t">26.12 · 23:59</td><td class="k">27.12 · 06:59</td><td>Всё закрывается</td></tr><tr><td class="t">27.12 · 00:05</td><td class="k">27.12 · 07:05</td><td>Персональные офферы промокодом, 72 ч</td></tr><tr><td class="t">27.12 · 05:00</td><td class="k">27.12 · 12:00</td><td>Розыгрыш Golden Compass, 1 победитель</td></tr></tbody>
+    </table></div>
+  </section>
+
+  <section>
+    <h2>Призы и офферы</h2>
+    <div class="tbl"><table>
+      <thead><tr><th>Уровень</th><th>Бонус (промокод)</th><th>Персональный оффер · лимит 1</th></tr></thead>
+      <tbody><tr><td class="lvl">3 штампа</td><td class="bonus">2 FP + 20K GC</td><td>Ginger Cat's Stash · 9.99 · +100% (1–2 штампа)<br>Explorer's Supply Crate · 19.99 · +40% (3–5 штампов)</td></tr><tr><td class="lvl">6 штампов</td><td class="bonus">3 FP + 30K GC</td><td>Star Map Chest · 39.99 · +40%</td></tr><tr><td class="lvl">Оазис</td><td class="bonus">1 SC + 50K GC</td><td>Oasis Treasure Chest · 59.99 · +50%</td></tr><tr><td class="lvl">Golden Compass</td><td class="bonus">розыгрыш 50 SC, 1 победитель</td><td>тот же, что у оазиса</td></tr></tbody>
+    </table></div>
+    <p class="note">Гарантированные бонусы суммируются. Розыгрыш один, с бесплатным способом участия (AMOE) в правилах; один такой приз на человека по всем брендам.</p>
+  </section>
+
+  <section>
+    <h2>Общие правила</h2>
+    <div class="common"><div><b>Вход</b>Через Discord, одной кнопкой: игрока сразу добавляет на сервер бренда. Заявки до игры нет — играть можно сразу.</div><div><b>Забрать приз</b>Кнопка Claim. При первом Claim игрок вводит player ID, телефон и почту, мы проверяем ID вручную и выдаём все накопленные коды. Дальше Claim срабатывает сразу. Забрать можно до <b>03.01 23:59 ET</b>.</div><div><b>Покупка</b>Не даёт прогресса и не повышает шансы: правило sweepstakes, No purchase necessary. Возраст 21+.</div><div><b>Свой контент у каждого</b>Задания генерируются под игрока, поэтому ответы из чата не помогают. Скорость не влияет на приз.</div></div>
+  </section>
+
+  <section>
+    <h2>Что нужно от проекта</h2>
+    <ul class="asks"><li><span class="d">до 20.12</span><span>Промокоды призов в админке: 2 FP + 20K GC × 150, 3 FP + 30K GC × 120, 1 SC + 50K GC × 100.</span></li><li><span class="d">до 20.12</span><span>Одноразовые промокоды на 4 оффера: Ginger Cat's Stash, Explorer's Supply Crate, Star Map Chest, Oasis Treasure Chest.</span></li><li><span class="d">до 18.12</span><span>Операторы чата Watchers публикуют подсказки кота 25–26.12 по расписанию — туториал с текстами готовим мы.</span></li>
+      <li><span class="d">с 14.12</span><span>Попап и баннер на сайте проекта — графику и тексты готовим мы, нужно разместить.</span></li>
+      <li><span class="d">до 10.12</span><span>Пройти плейтест и прислать замечания.</span></li>
+    </ul>
+  </section>
+
+  <footer>Scarlet Sands · The North Star Expedition · обновлено 25.11.2026 · вопросы — Александру</footer>
+</main>
+</body>
+</html>
