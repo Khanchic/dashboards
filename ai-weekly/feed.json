@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-25T04:54:58.650Z",
+  "generated_at": "2026-11-25T17:19:15.203Z",
   "last_collect_date": "2026-11-25",
   "sources_report": [
     {
@@ -9,7 +9,7 @@
       "type": "html",
       "url": "https://www.anthropic.com/news",
       "fetched": 20,
-      "kept": 2,
+      "kept": 1,
       "new": 0,
       "error": null,
       "note": ""
@@ -34,7 +34,7 @@
       "url": "https://github.com/anthropics/anthropic-sdk-python/releases.atom",
       "fetched": 10,
       "kept": 4,
-      "new": 1,
+      "new": 0,
       "error": null,
       "note": ""
     },
@@ -45,8 +45,8 @@
       "type": "rss",
       "url": "https://deepmind.google/blog/rss.xml",
       "fetched": 100,
-      "kept": 3,
-      "new": 0,
+      "kept": 4,
+      "new": 1,
       "error": null,
       "note": ""
     },
@@ -69,7 +69,7 @@
       "type": "rss",
       "url": "https://blog.google/technology/ai/rss/",
       "fetched": 20,
-      "kept": 5,
+      "kept": 4,
       "new": 0,
       "error": null,
       "note": ""
@@ -92,9 +92,9 @@
       "tier": "T1",
       "type": "rss",
       "url": "https://huggingface.co/blog/feed.xml",
-      "fetched": 916,
-      "kept": 8,
-      "new": 0,
+      "fetched": 917,
+      "kept": 9,
+      "new": 2,
       "error": null,
       "note": ""
     },
@@ -141,8 +141,8 @@
       "type": "rss",
       "url": "https://openai.com/news/rss.xml",
       "fetched": 1430,
-      "kept": 22,
-      "new": 5,
+      "kept": 17,
+      "new": 0,
       "error": null,
       "note": ""
     },
@@ -165,8 +165,8 @@
       "type": "rss",
       "url": "https://github.com/openai/openai-python/releases.atom",
       "fetched": 10,
-      "kept": 6,
-      "new": 1,
+      "kept": 4,
+      "new": 0,
       "error": null,
       "note": ""
     },
@@ -201,8 +201,8 @@
       "type": "rss",
       "url": "https://www.latent.space/feed",
       "fetched": 20,
-      "kept": 8,
-      "new": 1,
+      "kept": 7,
+      "new": 0,
       "error": null,
       "note": ""
     },
@@ -237,8 +237,8 @@
       "type": "hn",
       "url": "https://hn.algolia.com/api/v1/search_by_date",
       "fetched": 200,
-      "kept": 35,
-      "new": 5,
+      "kept": 30,
+      "new": 3,
       "error": null,
       "note": ""
     },
@@ -249,8 +249,8 @@
       "type": "rss",
       "url": "https://www.therundown.ai/feed",
       "fetched": 50,
-      "kept": 8,
-      "new": 0,
+      "kept": 9,
+      "new": 2,
       "error": null,
       "note": ""
     },
@@ -261,8 +261,8 @@
       "type": "rss",
       "url": "https://tldr.tech/api/rss/ai",
       "fetched": 20,
-      "kept": 4,
-      "new": 0,
+      "kept": 5,
+      "new": 1,
       "error": null,
       "note": ""
     },
@@ -274,7 +274,7 @@
       "url": "https://igamingbusiness.com/feed/",
       "fetched": 100,
       "kept": 4,
-      "new": 2,
+      "new": 0,
       "error": null,
       "note": ""
     },
@@ -285,8 +285,8 @@
       "type": "rss",
       "url": "https://www.marketingaiinstitute.com/blog/rss.xml",
       "fetched": 10,
-      "kept": 3,
-      "new": 0,
+      "kept": 4,
+      "new": 2,
       "error": null,
       "note": ""
     },
@@ -297,8 +297,8 @@
       "type": "rss",
       "url": "https://martech.org/feed/",
       "fetched": 10,
-      "kept": 7,
-      "new": 0,
+      "kept": 8,
+      "new": 3,
       "error": null,
       "note": ""
     },
@@ -309,8 +309,8 @@
       "type": "rss",
       "url": "https://sbcnews.co.uk/feed/",
       "fetched": 10,
-      "kept": 2,
-      "new": 0,
+      "kept": 1,
+      "new": 1,
       "error": null,
       "note": ""
     }
@@ -319,76 +319,15 @@
     "sources": 26,
     "failed": 4,
     "empty": 2,
-    "fetched": 3361,
-    "kept": 350,
+    "fetched": 3362,
+    "kept": 340,
     "new_items": 15,
-    "stories_total": 185,
-    "stories_confirmed": 66,
-    "stories_eligible": 25,
-    "raw_total": 301
+    "stories_total": 194,
+    "stories_confirmed": 67,
+    "stories_eligible": 27,
+    "raw_total": 305
   },
   "stories": [
-    {
-      "story_id": "openai-businesses-in-chatgpt",
-      "first_seen": "2026-11-16",
-      "items": [
-        {
-          "id": "5ca4dc7b6d88",
-          "url": "https://openai.com/index/introducing-businesses-chatgpt",
-          "title": "Introducing Businesses in ChatGPT",
-          "source": "OpenAI News",
-          "tier": "T1",
-          "domain": "openai.com",
-          "published_at": "2026-11-10T10:00:00.000Z",
-          "summary": "Manage your business information, get insights about how your business shows up, and turn interest into action in ChatGPT.",
-          "title_ru": "Представляем бизнес в ChatGPT"
-        },
-        {
-          "id": "f0af7cf446e6",
-          "url": "https://www.therundown.ai/articles/openai-invites-brands-to-set-up-shop-in-chatgpt",
-          "title": "OpenAI invites brands to set up shop in ChatGPT",
-          "source": "The Rundown AI",
-          "tier": "T3",
-          "domain": "therundown.ai",
-          "published_at": "2026-11-11T10:00:00.000Z",
-          "summary": "PLUS: Put your open Chrome tabs to work with AI",
-          "title_ru": "OpenAI приглашает бренды открыть магазин в ChatGPT"
-        }
-      ],
-      "title": "OpenAI launches 'Businesses in ChatGPT' for brand presence management",
-      "summary": "OpenAI introduced a feature for businesses to manage their information, see how they show up in ChatGPT, and convert interest into action, inviting brands to set up shop in ChatGPT.",
-      "tags": [
-        "marketing",
-        "smm",
-        "search",
-        "agents"
-      ],
-      "entities": [
-        "OpenAI",
-        "ChatGPT"
-      ],
-      "kind": "launch",
-      "rumor": false,
-      "scores": {
-        "significance": 4,
-        "novelty": 4,
-        "practicality": 4,
-        "relevance": 5
-      },
-      "so_what": "This is the AI-search equivalent of a Google Business Profile — claiming and optimizing your listing in ChatGPT should go on the promo-ops checklist now.",
-      "domains": [
-        "openai.com",
-        "therundown.ai"
-      ],
-      "has_t1": true,
-      "status": "confirmed",
-      "total": 4.15,
-      "last_update": "2026-11-11T10:00:00.000Z",
-      "title_ru": "OpenAI запускает «Бизнес в ChatGPT» для управления присутствием бренда",
-      "summary_ru": "OpenAI представила возможность компаниям управлять своей информацией, видеть, как они отображаются в ChatGPT, и превращать интерес в действия, предлагая брендам открыть магазин в ChatGPT.",
-      "so_what_ru": "Это эквивалент профиля компании в Google для поиска с помощью искусственного интеллекта — заявка и оптимизация вашего листинга в ChatGPT теперь должны быть включены в контрольный список промо-операций.",
-      "rating": 5
-    },
     {
       "story_id": "openai-chatgpt-wallet",
       "first_seen": "2026-11-16",
@@ -437,6 +376,41 @@
       "summary_ru": "Кошелек ChatGPT позволяет агентам ChatGPT Work, Codex и dots совершать покупки с одобрения пользователя, используя существующие средства защиты карт.",
       "so_what_ru": "Агентская проверка теперь является настоящим продуктом OpenAI, который актуален, если вашим ботам необходимо совершать транзакции (расходы на рекламу, платежи поставщикам, подписки на инструменты) от вашего имени.",
       "rating": 5
+    },
+    {
+      "story_id": "indic-voice-agent-cuga",
+      "first_seen": "2026-11-25",
+      "title": "An Indic Voice Agent with CUGA",
+      "summary": "",
+      "so_what": "",
+      "tags": [
+        "agents"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "d0a3a7f662b5",
+          "url": "https://huggingface.co/blog/ibm-research/an-indic-voice-agent-with-cuga",
+          "title": "An Indic Voice Agent with CUGA",
+          "source": "Hugging Face blog",
+          "tier": "T1",
+          "domain": "huggingface.co",
+          "published_at": "2026-11-25T10:22:09.000Z",
+          "summary": "",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "huggingface.co"
+      ],
+      "has_t1": true,
+      "status": "confirmed",
+      "last_update": "2026-11-25T10:22:09.000Z",
+      "total": 3.9,
+      "rating": 5,
+      "title_ru": ""
     },
     {
       "story_id": "microduck-obstacle-avoidance-sim2real-workflow",
@@ -726,6 +700,39 @@
       "rating": 5
     },
     {
+      "story_id": "hill-climbing-inkling-mini-inference-one",
+      "first_seen": "2026-11-25",
+      "title": "Hill-climbing Inkling 2 Mini inference on one RTX PRO 6000",
+      "summary": "",
+      "so_what": "",
+      "tags": [],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "d8d6777ecf09",
+          "url": "https://huggingface.co/blog/inkling-2-mini-inference-hillclimb",
+          "title": "Hill-climbing Inkling 2 Mini inference on one RTX PRO 6000",
+          "source": "Hugging Face blog",
+          "tier": "T1",
+          "domain": "huggingface.co",
+          "published_at": "2026-11-25T00:00:00.000Z",
+          "summary": "",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "huggingface.co"
+      ],
+      "has_t1": true,
+      "status": "confirmed",
+      "last_update": "2026-11-25T00:00:00.000Z",
+      "total": 3.5,
+      "rating": 5,
+      "title_ru": ""
+    },
+    {
       "story_id": "gemini-changing-game-golden-state",
       "first_seen": "2026-11-24",
       "title": "How Gemini is changing the game for Golden State's organization and fans.",
@@ -756,6 +763,42 @@
       "has_t1": true,
       "status": "confirmed",
       "last_update": "2026-11-24T16:00:00.000Z",
+      "total": 3.5,
+      "rating": 5,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
+      "story_id": "spectrum-structure-identifying-molecules-mass",
+      "first_seen": "2026-11-25",
+      "title": "From spectrum to structure: Identifying molecules with Mass Spec Skills for Google Antigravity",
+      "summary": "Mass Spec Skills empowers scientists using Google Antigravity to interpret tandem mass spectra.",
+      "so_what": "",
+      "tags": [
+        "google"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "f14a6f6dfd19",
+          "url": "https://deepmind.google/blog/interpreting-mass-spectra-with-google-antigravity",
+          "title": "From spectrum to structure: Identifying molecules with Mass Spec Skills for Google Antigravity",
+          "source": "Google DeepMind",
+          "tier": "T1",
+          "domain": "deepmind.google",
+          "published_at": "2026-11-24T13:07:53.000Z",
+          "summary": "Mass Spec Skills empowers scientists using Google Antigravity to interpret tandem mass spectra.",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "deepmind.google"
+      ],
+      "has_t1": true,
+      "status": "confirmed",
+      "last_update": "2026-11-24T13:07:53.000Z",
       "total": 3.5,
       "rating": 5,
       "title_ru": "",
@@ -3525,54 +3568,6 @@
       "rating": 3
     },
     {
-      "story_id": "botpsy-on-device-assistant",
-      "first_seen": "2026-11-16",
-      "items": [
-        {
-          "id": "b22522d14a17",
-          "url": "https://huggingface.co/blog/qvac/botpsy",
-          "title": "BotPsy: On-Device Personal Assistant with a Sub-Billion-Parameter Agentic Language Model",
-          "source": "Hugging Face blog",
-          "tier": "T1",
-          "domain": "huggingface.co",
-          "published_at": "2026-11-11T05:01:16.000Z",
-          "summary": "",
-          "title_ru": "BotPsy: персональный помощник на устройстве с агентной языковой моделью с субмиллиардом параметров"
-        }
-      ],
-      "title": "BotPsy: sub-billion-parameter on-device personal assistant model released",
-      "summary": "Hugging Face published BotPsy, a sub-billion-parameter agentic language model designed for on-device personal assistants.",
-      "tags": [
-        "on-device",
-        "small-models",
-        "agents"
-      ],
-      "entities": [
-        "Hugging Face",
-        "BotPsy"
-      ],
-      "kind": "launch",
-      "rumor": false,
-      "scores": {
-        "significance": 2,
-        "novelty": 3,
-        "practicality": 2,
-        "relevance": 1
-      },
-      "so_what": "Relevant if you're exploring lightweight, on-device agents rather than cloud LLM calls.",
-      "domains": [
-        "huggingface.co"
-      ],
-      "has_t1": true,
-      "status": "confirmed",
-      "total": 2.1,
-      "last_update": "2026-11-11T05:01:16.000Z",
-      "title_ru": "BotPsy: выпущена модель личного помощника на устройстве с субмиллиардными параметрами",
-      "summary_ru": "Hugging Face опубликовала BotPsy, модель агентного языка с субмиллиардом параметров, предназначенную для личных помощников на устройствах.",
-      "so_what_ru": "Актуально, если вы изучаете легкие агенты на устройстве, а не облачные вызовы LLM.",
-      "rating": 3
-    },
-    {
       "story_id": "huggingface-rumble-2-flash-speech-model",
       "first_seen": "2026-11-19",
       "items": [
@@ -3619,6 +3614,222 @@
       "summary_ru": "Hugging Face выпустила Rumble-2-Flash, небольшую речевую модель с открытым весом, поддерживающую более 40 языков.",
       "so_what_ru": "Облегченная многоязычная речевая модель, достойная тестирования для голосовой автоматизации CX/локализации.",
       "rating": 3
+    },
+    {
+      "story_id": "visibility-isn-finish-line-here",
+      "first_seen": "2026-11-25",
+      "title": "AI Visibility Isn’t the Finish Line. Here’s What Wins Buyers",
+      "summary": "Showing up in an AI answer doesn’t mean a buyer will pick you. Wil Reynolds knows this firsthand. His agency refused to mass-produce self-serving “best of” listicles and lost to competitors who did so for 18 months.",
+      "so_what": "",
+      "tags": [
+        "marketing"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "7e520ccc6caa",
+          "url": "https://marketingaiinstitute.com/blog/ai-that-wins-buyers-maicon-2026",
+          "title": "AI Visibility Isn’t the Finish Line. Here’s What Wins Buyers",
+          "source": "Marketing AI Institute",
+          "tier": "T4",
+          "domain": "marketingaiinstitute.com",
+          "published_at": "2026-11-25T14:30:00.000Z",
+          "summary": "Showing up in an AI answer doesn’t mean a buyer will pick you. Wil Reynolds knows this firsthand. His agency refused to mass-produce self-serving “best of” listicles and lost to competitors who did so for 18 months.",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "marketingaiinstitute.com"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-25T14:30:00.000Z",
+      "total": 3.2,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
+      "story_id": "build-content-research-database",
+      "first_seen": "2026-11-25",
+      "title": "How to Build a Content Research Database Using AI",
+      "summary": "We're in the process of scaling our AI Transformations series, a special series of our podcast, The Artificial Intelligence Show, where we interview leaders about how they're putting AI to work in their companies. We already have a strong network of potential guests, but we wanted to know what we were missing across di",
+      "so_what": "",
+      "tags": [
+        "marketing"
+      ],
+      "kind": "research",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "8350d573b344",
+          "url": "https://marketingaiinstitute.com/blog/build-a-content-research-database-with-ai",
+          "title": "How to Build a Content Research Database Using AI",
+          "source": "Marketing AI Institute",
+          "tier": "T4",
+          "domain": "marketingaiinstitute.com",
+          "published_at": "2026-11-25T14:00:00.000Z",
+          "summary": "We're in the process of scaling our AI Transformations series, a special series of our podcast, The Artificial Intelligence Show, where we interview leaders about how they're putting AI to work in their companies. We already have a strong network of potential guests, but we wanted to know what we were missing across different stories and industries that we hadn’t discovered.",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "marketingaiinstitute.com"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-25T14:00:00.000Z",
+      "total": 3.2,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
+      "story_id": "marketers-need-know",
+      "first_seen": "2026-11-25",
+      "title": "The more AI can do, the more marketers need to know",
+      "summary": "Faster execution comes with new risks. Here's why marketers need strategic thinking, AI guardrails, and technical knowledge to make better decisions. The post The more AI can do, the more marketers need to know appeared first on MarTech .",
+      "so_what": "",
+      "tags": [
+        "marketing"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "92748a87c21f",
+          "url": "https://martech.org/the-more-ai-can-do-the-more-marketers-need-to-know",
+          "title": "The more AI can do, the more marketers need to know",
+          "source": "MarTech",
+          "tier": "T4",
+          "domain": "martech.org",
+          "published_at": "2026-11-25T13:18:00.000Z",
+          "summary": "Faster execution comes with new risks. Here's why marketers need strategic thinking, AI guardrails, and technical knowledge to make better decisions. The post The more AI can do, the more marketers need to know appeared first on MarTech .",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "martech.org"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-25T13:18:00.000Z",
+      "total": 3.2,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
+      "story_id": "create-expert-content-competitors-copy",
+      "first_seen": "2026-11-25",
+      "title": "How to create expert content your competitors can’t copy",
+      "summary": "Use video interviews to capture the professional judgment, real customer stories, and personal perspectives that AI cannot provide. The post How to create expert content your competitors can’t copy appeared first on MarTech .",
+      "so_what": "",
+      "tags": [
+        "marketing"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "61a660bcba15",
+          "url": "https://martech.org/how-to-create-expert-content-your-competitors-cant-copy",
+          "title": "How to create expert content your competitors can’t copy",
+          "source": "MarTech",
+          "tier": "T4",
+          "domain": "martech.org",
+          "published_at": "2026-11-25T13:18:00.000Z",
+          "summary": "Use video interviews to capture the professional judgment, real customer stories, and personal perspectives that AI cannot provide. The post How to create expert content your competitors can’t copy appeared first on MarTech .",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "martech.org"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-25T13:18:00.000Z",
+      "total": 3.2,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
+      "story_id": "latest-ai-powered-martech-news-releases",
+      "first_seen": "2026-11-25",
+      "title": "The latest AI-powered martech news and releases",
+      "summary": "Does anyone like the chatbots on B2B websites? They're nothing more than over-powered search bars, but somehow nowhere near as useful. The post The latest AI-powered martech news and releases appeared first on MarTech .",
+      "so_what": "",
+      "tags": [
+        "marketing"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "2f84b815ac62",
+          "url": "https://martech.org/the-latest-ai-powered-martech-news-and-releases",
+          "title": "The latest AI-powered martech news and releases",
+          "source": "MarTech",
+          "tier": "T4",
+          "domain": "martech.org",
+          "published_at": "2026-11-25T13:02:00.000Z",
+          "summary": "Does anyone like the chatbots on B2B websites? They're nothing more than over-powered search bars, but somehow nowhere near as useful. The post The latest AI-powered martech news and releases appeared first on MarTech .",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "martech.org"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-25T13:02:00.000Z",
+      "total": 3.2,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
+      "story_id": "beyond-bet-paysafe-five-major",
+      "first_seen": "2026-11-25",
+      "title": "Beyond the Bet with Paysafe: the five major 2027 sports betting trends",
+      "summary": "Zak Cutler, President of Global Gaming at Paysafe, outlines his five picks for trends that will shape the sportsbook business in 2027. From AI engagement to payment technology evolution, Cutler predicts that next year will be about deeper insights and interactions with audiences. The global sports betting industry has ",
+      "so_what": "",
+      "tags": [
+        "igaming"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "a413cc085120",
+          "url": "https://sbcnews.co.uk/features/2026/11/25/paysafe-five-major-2027-sportsbook-trends",
+          "title": "Beyond the Bet with Paysafe: the five major 2027 sports betting trends",
+          "source": "SBC News",
+          "tier": "T4",
+          "domain": "sbcnews.co.uk",
+          "published_at": "2026-11-25T10:30:00.000Z",
+          "summary": "Zak Cutler, President of Global Gaming at Paysafe, outlines his five picks for trends that will shape the sportsbook business in 2027. From AI engagement to payment technology evolution, Cutler predicts that next year will be about deeper insights and interactions with audiences. The global sports betting industry has experienced extraordinary transformation over the past […]",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "sbcnews.co.uk"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-25T10:30:00.000Z",
+      "total": 3.2,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
     },
     {
       "story_id": "need-know-chatgpt-ads-google",
@@ -4299,6 +4510,112 @@
       "total": 3.1,
       "rating": 3,
       "title_ru": ""
+    },
+    {
+      "story_id": "gemini-refused-give-lyrics-twinkle",
+      "first_seen": "2026-11-25",
+      "title": "Gemini refused to give me the lyrics to Twinkle Twinkle Little Star",
+      "summary": "HN: 203 points, 161 comments. https://news.ycombinator.com/item?id=50638320",
+      "so_what": "",
+      "tags": [
+        "google"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "5f305d13d7da",
+          "url": "https://comentr.com/technology/01M88DWQ0R4NCMYR17AFEWRG1F",
+          "title": "Gemini refused to give me the lyrics to Twinkle Twinkle Little Star",
+          "source": "Hacker News",
+          "tier": "T3",
+          "domain": "comentr.com",
+          "published_at": "2026-11-25T04:03:33Z",
+          "summary": "HN: 203 points, 161 comments. https://news.ycombinator.com/item?id=50638320",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "comentr.com"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-25T04:03:33Z",
+      "total": 3.05,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
+      "story_id": "marginalia-search-money-rust-stuff",
+      "first_seen": "2026-11-25",
+      "title": "Marginalia Search, Money, C++, Rust, AI, Stuff",
+      "summary": "HN: 201 points, 79 comments. https://news.ycombinator.com/item?id=50638220",
+      "so_what": "",
+      "tags": [
+        "marketing"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "fa8097569f7c",
+          "url": "https://marginalia.nu/log/a_141_marginalia_update",
+          "title": "Marginalia Search, Money, C++, Rust, AI, Stuff",
+          "source": "Hacker News",
+          "tier": "T3",
+          "domain": "marginalia.nu",
+          "published_at": "2026-11-25T03:47:42Z",
+          "summary": "HN: 201 points, 79 comments. https://news.ycombinator.com/item?id=50638220",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "marginalia.nu"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-25T03:47:42Z",
+      "total": 3.05,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
+      "story_id": "models-communicate-inference-servers-despite",
+      "first_seen": "2026-11-25",
+      "title": "Models Can Communicate via Inference Servers Despite Being Sandboxed",
+      "summary": "HN: 387 points, 163 comments. https://news.ycombinator.com/item?id=50637686",
+      "so_what": "",
+      "tags": [],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "c89d4bfb36a9",
+          "url": "https://lesswrong.com/posts/7wzWuLP3HhyBLmKfo/models-can-communicate-via-inference-servers-despite-being",
+          "title": "Models Can Communicate via Inference Servers Despite Being Sandboxed",
+          "source": "Hacker News",
+          "tier": "T3",
+          "domain": "lesswrong.com",
+          "published_at": "2026-11-25T02:34:21Z",
+          "summary": "HN: 387 points, 163 comments. https://news.ycombinator.com/item?id=50637686",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "lesswrong.com"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-25T02:34:21Z",
+      "total": 3.05,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
     },
     {
       "story_id": "anthropic-staff-openly-talk-taking",
@@ -5452,6 +5769,111 @@
       "rating": 3
     },
     {
+      "story_id": "three-xai-founders-want-predict",
+      "first_seen": "2026-11-25",
+      "title": "Three xAI founders want AI to predict the future",
+      "summary": "PLUS: How to put Microsoft Copilot to work",
+      "so_what": "",
+      "tags": [
+        "coding"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "a58a26b3dd52",
+          "url": "https://therundown.ai/articles/three-xai-founders-want-ai-to-predict-the-future",
+          "title": "Three xAI founders want AI to predict the future",
+          "source": "The Rundown AI",
+          "tier": "T3",
+          "domain": "therundown.ai",
+          "published_at": "2026-11-25T11:00:00.000Z",
+          "summary": "PLUS: How to put Microsoft Copilot to work",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "therundown.ai"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-25T11:00:00.000Z",
+      "total": 2.7,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
+      "story_id": "openai-solves-matrix-math-swe-2",
+      "first_seen": "2026-11-25",
+      "title": "OpenAI solves matrix math 🔢, SWE-2.1 💻, swarm limitations 🐝",
+      "summary": "",
+      "so_what": "",
+      "tags": [
+        "openai"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "4e090e84d5a0",
+          "url": "https://tldr.tech/ai/2026-11-25",
+          "title": "OpenAI solves matrix math 🔢, SWE-2.1 💻, swarm limitations 🐝",
+          "source": "TLDR AI",
+          "tier": "T3",
+          "domain": "tldr.tech",
+          "published_at": "2026-11-25T00:00:00.000Z",
+          "summary": "",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "tldr.tech"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-25T00:00:00.000Z",
+      "total": 2.7,
+      "rating": 3,
+      "title_ru": ""
+    },
+    {
+      "story_id": "cybersecurity-gets-44b-merger",
+      "first_seen": "2026-11-25",
+      "title": "Cybersecurity gets a $44B merger",
+      "summary": "PLUS: Nothing to launch its AI mystery product",
+      "so_what": "",
+      "tags": [],
+      "kind": "launch",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "0631b7fe52d9",
+          "url": "https://therundown.ai/articles/cybersecurity-gets-a-44b-merger",
+          "title": "Cybersecurity gets a $44B merger",
+          "source": "The Rundown AI",
+          "tier": "T3",
+          "domain": "therundown.ai",
+          "published_at": "2026-11-24T15:30:00.000Z",
+          "summary": "PLUS: Nothing to launch its AI mystery product",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "therundown.ai"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-24T15:30:00.000Z",
+      "total": 2.7,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
       "story_id": "commitment-issues-app-edition",
       "first_seen": "2026-11-24",
       "title": "Commitment issues (app edition)",
@@ -6030,53 +6452,6 @@
       "title_ru": "AgentRun с открытым исходным кодом поставляет самоусовершенствующиеся управляемые агенты",
       "summary_ru": "В сообщении Show HN была представлена ​​AgentRun, платформа с открытым исходным кодом, описываемая как самоусовершенствующиеся управляемые агенты.",
       "so_what_ru": "Еще один вариант с открытым исходным кодом, позволяющий оценить, создаете ли вы или улучшаете свой собственный стек агентов для автоматизации маркетинга или операций.",
-      "rating": 3
-    },
-    {
-      "story_id": "atuin-threads-launch",
-      "first_seen": "2026-11-16",
-      "items": [
-        {
-          "id": "f3e91f75ed13",
-          "url": "https://blog.atuin.sh/threads-agent-sessions/",
-          "title": "Atuin Threads: All your agent sessions on every machine",
-          "source": "Hacker News",
-          "tier": "T3",
-          "domain": "atuin.sh",
-          "published_at": "2026-11-11T14:10:46Z",
-          "summary": "HN: 240 points, 84 comments. https://news.ycombinator.com/item?id=50453637",
-          "title_ru": "Atuin Threads: все сеансы вашего агента на каждом компьютере."
-        }
-      ],
-      "title": "Atuin Threads launches to sync agent sessions across machines",
-      "summary": "A new tool, Atuin Threads, was introduced to keep a user's AI agent sessions synced across all their machines.",
-      "tags": [
-        "agents",
-        "tooling",
-        "automation"
-      ],
-      "entities": [
-        "Atuin"
-      ],
-      "kind": "tool",
-      "rumor": false,
-      "scores": {
-        "significance": 2,
-        "novelty": 3,
-        "practicality": 3,
-        "relevance": 3
-      },
-      "so_what": "Useful if you run Claude Code or other agent sessions across multiple devices and want continuity between them.",
-      "domains": [
-        "atuin.sh"
-      ],
-      "has_t1": false,
-      "status": "unconfirmed",
-      "total": 2.65,
-      "last_update": "2026-11-11T14:10:46Z",
-      "title_ru": "Atuin Threads запускается для синхронизации сеансов агентов между компьютерами",
-      "summary_ru": "Был представлен новый инструмент Atuin Threads, позволяющий синхронизировать сеансы агента AI пользователя на всех его компьютерах.",
-      "so_what_ru": "Полезно, если вы запускаете сеансы Claude Code или других агентов на нескольких устройствах и хотите обеспечить непрерывность между ними.",
       "rating": 3
     },
     {
@@ -7131,54 +7506,6 @@
       "rating": 2
     },
     {
-      "story_id": "uk-gambling-commission-world-cup-ai-report",
-      "first_seen": "2026-11-16",
-      "items": [
-        {
-          "id": "110fbd2a6e80",
-          "url": "https://igamingbusiness.com/sports-betting/world-cup-first-time-bettors-felt-under-informed-says-gambling-commission/",
-          "title": "World Cup first-time bettors felt under-informed, says Gambling Commission",
-          "source": "iGaming Business",
-          "tier": "T4",
-          "domain": "igamingbusiness.com",
-          "published_at": "2026-11-11T11:03:42.000Z",
-          "summary": "The Gambling Commission's report found that the majority of respondents relied on their instincts when placing bets, with 7% using AI.",
-          "title_ru": "Комиссия по азартным играм заявила, что игроки, впервые делающие ставки на чемпионат мира, чувствовали себя недостаточно информированными"
-        }
-      ],
-      "title": "Gambling Commission: World Cup first-time bettors felt under-informed, few used AI",
-      "summary": "A Gambling Commission report found most first-time World Cup bettors relied on instinct rather than information when placing bets, with only 7% using AI.",
-      "tags": [
-        "igaming",
-        "gambling",
-        "regulation",
-        "research"
-      ],
-      "entities": [
-        "Gambling Commission"
-      ],
-      "kind": "industry",
-      "rumor": false,
-      "scores": {
-        "significance": 2,
-        "novelty": 2,
-        "practicality": 2,
-        "relevance": 4
-      },
-      "so_what": "Low AI usage among bettors shows room for iGaming operators to build AI-assisted guidance into the betting experience for underinformed first-timers.",
-      "domains": [
-        "igamingbusiness.com"
-      ],
-      "has_t1": false,
-      "status": "unconfirmed",
-      "total": 2.3,
-      "last_update": "2026-11-11T11:03:42.000Z",
-      "title_ru": "Комиссия по азартным играм: игроки, впервые делающие ставки на чемпионат мира, чувствовали себя недостаточно информированными, мало кто использовал искусственный интеллект",
-      "summary_ru": "Отчет Комиссии по азартным играм показал, что большинство игроков, впервые делающих ставки на чемпионат мира, полагались при размещении ставок на инстинкт, а не на информацию, и только 7% использовали искусственный интеллект.",
-      "so_what_ru": "Низкое использование искусственного интеллекта среди игроков указывает на то, что у операторов iGaming есть возможность встроить руководство с помощью искусственного интеллекта в процесс ставок для недостаточно информированных новичков.",
-      "rating": 2
-    },
-    {
       "story_id": "best-harness-per-model-discussion",
       "first_seen": "2026-11-19",
       "items": [
@@ -7677,53 +8004,6 @@
       "rating": 1
     },
     {
-      "story_id": "anthropic-recursive-self-improvement-warning",
-      "first_seen": "2026-11-16",
-      "items": [
-        {
-          "id": "9a109a2f46a7",
-          "url": "https://lastweekin.ai/p/last-week-month-in-ai-347-nvidias",
-          "title": "Last Week (Month) in AI #347 - Nvidia's spy, Anthropic's $1.4T IPO, AI's blue wave",
-          "source": "Last Week in AI",
-          "tier": "T2",
-          "domain": "lastweekin.ai",
-          "published_at": "2026-11-11T14:21:42.000Z",
-          "summary": "Catching up on five weeks: Huang under investigation, Anthropic and OpenAI priced at $1.4T and $1.25T as spending stalls, Anthropic warns it may be nearing recursive self-improvement, Gemini 4 Carbon",
-          "title_ru": "Прошлая неделя (месяц) в AI № 347 — шпион Nvidia, IPO Anthropic на сумму 1,4 трлн долларов, синяя волна AI"
-        }
-      ],
-      "title": "Anthropic warns it may be nearing recursive self-improvement capability",
-      "summary": "A roundup covering five weeks of AI news reports Anthropic warned it may be approaching recursive self-improvement, alongside Nvidia leadership turmoil and IPO valuations for Anthropic ($1.4T) and OpenAI ($1.25T).",
-      "tags": [
-        "safety",
-        "research",
-        "anthropic"
-      ],
-      "entities": [
-        "Anthropic"
-      ],
-      "kind": "research",
-      "rumor": true,
-      "scores": {
-        "significance": 4,
-        "novelty": 3,
-        "practicality": 1,
-        "relevance": 1
-      },
-      "so_what": "A notable safety signal to watch, though reported secondhand via a roundup rather than a primary Anthropic statement.",
-      "domains": [
-        "lastweekin.ai"
-      ],
-      "has_t1": false,
-      "status": "rumor",
-      "total": 2.55,
-      "last_update": "2026-11-11T14:21:42.000Z",
-      "title_ru": "Anthropic предупреждает, что, возможно, приближается к способности рекурсивного самосовершенствования",
-      "summary_ru": "В обзоре новостей об искусственном интеллекте, охватывающем пять недель, Anthropic предупредила, что, возможно, она приближается к рекурсивному самосовершенствованию, наряду с беспорядками в руководстве Nvidia и оценками IPO Anthropic (1,4 трлн долларов) и OpenAI (1,25 трлн долларов).",
-      "so_what_ru": "Заметный сигнал безопасности, на который стоит обратить внимание, хотя он сообщается из вторых рук в сводке новостей, а не в основном антропном заявлении.",
-      "rating": 1
-    },
-    {
       "story_id": "windows11-telemetry-coding-agents",
       "first_seen": "2026-11-17",
       "items": [
@@ -8055,53 +8335,6 @@
       "title_ru": "Сообщается, что Калифорния подает в суд на OpenAI",
       "summary_ru": "В сводке информационных бюллетеней сообщается, что Калифорния подала на OpenAI в суд, без каких-либо дополнительных подробностей.",
       "so_what_ru": "Судебный иск на государственном уровне против ведущего поставщика ИИ свидетельствует о том, что регуляторные риски стоит отслеживать, хотя детали неясны.",
-      "rating": 1
-    },
-    {
-      "story_id": "mercor-series-d-funding",
-      "first_seen": "2026-11-16",
-      "items": [
-        {
-          "id": "f18c0fa24109",
-          "url": "https://latent.space/p/ainews-mercor-750m-series-d-at-20b-valuation-3b-run-rate/",
-          "title": "[AINews] Mercor $750m Series D at $20B valuation, $3B run rate",
-          "source": "Latent Space",
-          "tier": "T2",
-          "domain": "latent.space",
-          "published_at": "2026-11-11T09:34:28.000Z",
-          "summary": "November 10, 2026 — Google GA's Gemini 4 Carbon.",
-          "title_ru": "[ANews] Mercor $750 млн в серии D при оценке в $20 млрд, пробег в $3 млрд"
-        }
-      ],
-      "title": "Mercor raises $750M Series D at $20B valuation, $3B run rate",
-      "summary": "AI data and labor marketplace Mercor raised a $750 million Series D at a $20 billion valuation, reporting a $3 billion run rate.",
-      "tags": [
-        "funding",
-        "data-labeling",
-        "business"
-      ],
-      "entities": [
-        "Mercor"
-      ],
-      "kind": "business",
-      "rumor": false,
-      "scores": {
-        "significance": 3,
-        "novelty": 2,
-        "practicality": 1,
-        "relevance": 1
-      },
-      "so_what": "Signals continued heavy investment in AI data and labor infrastructure, a cost driver behind frontier model quality.",
-      "domains": [
-        "latent.space"
-      ],
-      "has_t1": false,
-      "status": "unconfirmed",
-      "total": 1.95,
-      "last_update": "2026-11-11T09:34:28.000Z",
-      "title_ru": "Mercor привлекает 750 миллионов долларов США серии D при оценке в 20 миллиардов долларов и скорости реализации в 3 миллиарда долларов",
-      "summary_ru": "Рынок данных искусственного интеллекта и рынка труда Mercor привлек $750 млн в серии D при оценке в $20 млрд, сообщив о доходе в $3 млрд.",
-      "so_what_ru": "Компания Signals продолжала инвестировать значительные средства в инфраструктуру данных искусственного интеллекта и рабочую силу, что является фактором затрат, определяющим качество передовых моделей.",
       "rating": 1
     },
     {
@@ -8642,6 +8875,110 @@
   ],
   "raw_items": [
     {
+      "id": "7e520ccc6caa",
+      "source_id": "maii",
+      "source_name": "Marketing AI Institute",
+      "tier": "T4",
+      "signal_only": false,
+      "title": "AI Visibility Isn’t the Finish Line. Here’s What Wins Buyers",
+      "url": "https://marketingaiinstitute.com/blog/ai-that-wins-buyers-maicon-2026",
+      "domain": "marketingaiinstitute.com",
+      "published_at": "2026-11-25T14:30:00.000Z",
+      "collected_on": "2026-11-25",
+      "summary": "Showing up in an AI answer doesn’t mean a buyer will pick you. Wil Reynolds knows this firsthand. His agency refused to mass-produce self-serving “best of” listicles and lost to competitors who did so for 18 months."
+    },
+    {
+      "id": "8350d573b344",
+      "source_id": "maii",
+      "source_name": "Marketing AI Institute",
+      "tier": "T4",
+      "signal_only": false,
+      "title": "How to Build a Content Research Database Using AI",
+      "url": "https://marketingaiinstitute.com/blog/build-a-content-research-database-with-ai",
+      "domain": "marketingaiinstitute.com",
+      "published_at": "2026-11-25T14:00:00.000Z",
+      "collected_on": "2026-11-25",
+      "summary": "We're in the process of scaling our AI Transformations series, a special series of our podcast, The Artificial Intelligence Show, where we interview leaders about how they're putting AI to work in their companies. We already have a strong network of potential guests, but we wanted to know what we were missing across different stories and industries that we hadn’t discovered."
+    },
+    {
+      "id": "92748a87c21f",
+      "source_id": "martech",
+      "source_name": "MarTech",
+      "tier": "T4",
+      "signal_only": false,
+      "title": "The more AI can do, the more marketers need to know",
+      "url": "https://martech.org/the-more-ai-can-do-the-more-marketers-need-to-know",
+      "domain": "martech.org",
+      "published_at": "2026-11-25T13:18:00.000Z",
+      "collected_on": "2026-11-25",
+      "summary": "Faster execution comes with new risks. Here's why marketers need strategic thinking, AI guardrails, and technical knowledge to make better decisions. The post The more AI can do, the more marketers need to know appeared first on MarTech ."
+    },
+    {
+      "id": "61a660bcba15",
+      "source_id": "martech",
+      "source_name": "MarTech",
+      "tier": "T4",
+      "signal_only": false,
+      "title": "How to create expert content your competitors can’t copy",
+      "url": "https://martech.org/how-to-create-expert-content-your-competitors-cant-copy",
+      "domain": "martech.org",
+      "published_at": "2026-11-25T13:18:00.000Z",
+      "collected_on": "2026-11-25",
+      "summary": "Use video interviews to capture the professional judgment, real customer stories, and personal perspectives that AI cannot provide. The post How to create expert content your competitors can’t copy appeared first on MarTech ."
+    },
+    {
+      "id": "2f84b815ac62",
+      "source_id": "martech",
+      "source_name": "MarTech",
+      "tier": "T4",
+      "signal_only": false,
+      "title": "The latest AI-powered martech news and releases",
+      "url": "https://martech.org/the-latest-ai-powered-martech-news-and-releases",
+      "domain": "martech.org",
+      "published_at": "2026-11-25T13:02:00.000Z",
+      "collected_on": "2026-11-25",
+      "summary": "Does anyone like the chatbots on B2B websites? They're nothing more than over-powered search bars, but somehow nowhere near as useful. The post The latest AI-powered martech news and releases appeared first on MarTech ."
+    },
+    {
+      "id": "a58a26b3dd52",
+      "source_id": "rundown",
+      "source_name": "The Rundown AI",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "Three xAI founders want AI to predict the future",
+      "url": "https://therundown.ai/articles/three-xai-founders-want-ai-to-predict-the-future",
+      "domain": "therundown.ai",
+      "published_at": "2026-11-25T11:00:00.000Z",
+      "collected_on": "2026-11-25",
+      "summary": "PLUS: How to put Microsoft Copilot to work"
+    },
+    {
+      "id": "a413cc085120",
+      "source_id": "sbc",
+      "source_name": "SBC News",
+      "tier": "T4",
+      "signal_only": false,
+      "title": "Beyond the Bet with Paysafe: the five major 2027 sports betting trends",
+      "url": "https://sbcnews.co.uk/features/2026/11/25/paysafe-five-major-2027-sportsbook-trends",
+      "domain": "sbcnews.co.uk",
+      "published_at": "2026-11-25T10:30:00.000Z",
+      "collected_on": "2026-11-25",
+      "summary": "Zak Cutler, President of Global Gaming at Paysafe, outlines his five picks for trends that will shape the sportsbook business in 2027. From AI engagement to payment technology evolution, Cutler predicts that next year will be about deeper insights and interactions with audiences. The global sports betting industry has experienced extraordinary transformation over the past […]"
+    },
+    {
+      "id": "d0a3a7f662b5",
+      "source_id": "huggingface",
+      "source_name": "Hugging Face blog",
+      "tier": "T1",
+      "signal_only": false,
+      "title": "An Indic Voice Agent with CUGA",
+      "url": "https://huggingface.co/blog/ibm-research/an-indic-voice-agent-with-cuga",
+      "domain": "huggingface.co",
+      "published_at": "2026-11-25T10:22:09.000Z",
+      "collected_on": "2026-11-25",
+      "summary": ""
+    },
+    {
       "id": "190619a69a1b",
       "source_id": "latent-space",
       "source_name": "Latent Space",
@@ -8655,6 +8992,45 @@
       "summary": "November 24, 2026 — Neon beats Astra and Fable on LiveBench and cuts Theo’s TS Rust benchmark runtime by 48.6%."
     },
     {
+      "id": "5f305d13d7da",
+      "source_id": "hn",
+      "source_name": "Hacker News",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "Gemini refused to give me the lyrics to Twinkle Twinkle Little Star",
+      "url": "https://comentr.com/technology/01M88DWQ0R4NCMYR17AFEWRG1F",
+      "domain": "comentr.com",
+      "published_at": "2026-11-25T04:03:33Z",
+      "collected_on": "2026-11-25",
+      "summary": "HN: 203 points, 161 comments. https://news.ycombinator.com/item?id=50638320"
+    },
+    {
+      "id": "fa8097569f7c",
+      "source_id": "hn",
+      "source_name": "Hacker News",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "Marginalia Search, Money, C++, Rust, AI, Stuff",
+      "url": "https://marginalia.nu/log/a_141_marginalia_update",
+      "domain": "marginalia.nu",
+      "published_at": "2026-11-25T03:47:42Z",
+      "collected_on": "2026-11-25",
+      "summary": "HN: 201 points, 79 comments. https://news.ycombinator.com/item?id=50638220"
+    },
+    {
+      "id": "c89d4bfb36a9",
+      "source_id": "hn",
+      "source_name": "Hacker News",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "Models Can Communicate via Inference Servers Despite Being Sandboxed",
+      "url": "https://lesswrong.com/posts/7wzWuLP3HhyBLmKfo/models-can-communicate-via-inference-servers-despite-being",
+      "domain": "lesswrong.com",
+      "published_at": "2026-11-25T02:34:21Z",
+      "collected_on": "2026-11-25",
+      "summary": "HN: 387 points, 163 comments. https://news.ycombinator.com/item?id=50637686"
+    },
+    {
       "id": "a58808d0bc10",
       "source_id": "hn",
       "source_name": "Hacker News",
@@ -8666,6 +9042,32 @@
       "published_at": "2026-11-25T00:54:49Z",
       "collected_on": "2026-11-25",
       "summary": "HN: 137 points, 23 comments. https://news.ycombinator.com/item?id=50637056"
+    },
+    {
+      "id": "d8d6777ecf09",
+      "source_id": "huggingface",
+      "source_name": "Hugging Face blog",
+      "tier": "T1",
+      "signal_only": false,
+      "title": "Hill-climbing Inkling 2 Mini inference on one RTX PRO 6000",
+      "url": "https://huggingface.co/blog/inkling-2-mini-inference-hillclimb",
+      "domain": "huggingface.co",
+      "published_at": "2026-11-25T00:00:00.000Z",
+      "collected_on": "2026-11-25",
+      "summary": ""
+    },
+    {
+      "id": "4e090e84d5a0",
+      "source_id": "tldr-ai",
+      "source_name": "TLDR AI",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "OpenAI solves matrix math 🔢, SWE-2.1 💻, swarm limitations 🐝",
+      "url": "https://tldr.tech/ai/2026-11-25",
+      "domain": "tldr.tech",
+      "published_at": "2026-11-25T00:00:00.000Z",
+      "collected_on": "2026-11-25",
+      "summary": ""
     },
     {
       "id": "2ae8e8089de9",
@@ -8759,6 +9161,19 @@
       "summary": "Google Gemini partners with Golden State to power fan experiences and business operations for the Warriors, Valkyries, and Chase Center. See the news."
     },
     {
+      "id": "0631b7fe52d9",
+      "source_id": "rundown",
+      "source_name": "The Rundown AI",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "Cybersecurity gets a $44B merger",
+      "url": "https://therundown.ai/articles/cybersecurity-gets-a-44b-merger",
+      "domain": "therundown.ai",
+      "published_at": "2026-11-24T15:30:00.000Z",
+      "collected_on": "2026-11-25",
+      "summary": "PLUS: Nothing to launch its AI mystery product"
+    },
+    {
       "id": "197dc8b3ac4d",
       "source_id": "hn",
       "source_name": "Hacker News",
@@ -8822,6 +9237,19 @@
       "published_at": "2026-11-24T13:23:47Z",
       "collected_on": "2026-11-24",
       "summary": "HN: 141 points, 230 comments. https://news.ycombinator.com/item?id=50627836"
+    },
+    {
+      "id": "f14a6f6dfd19",
+      "source_id": "deepmind",
+      "source_name": "Google DeepMind",
+      "tier": "T1",
+      "signal_only": false,
+      "title": "From spectrum to structure: Identifying molecules with Mass Spec Skills for Google Antigravity",
+      "url": "https://deepmind.google/blog/interpreting-mass-spectra-with-google-antigravity",
+      "domain": "deepmind.google",
+      "published_at": "2026-11-24T13:07:53.000Z",
+      "collected_on": "2026-11-25",
+      "summary": "Mass Spec Skills empowers scientists using Google Antigravity to interpret tandem mass spectra."
     },
     {
       "id": "3c6728c1bfd1",
@@ -13010,182 +13438,6 @@
       "summary": "Meet the Gemini Decisions API, powered by our state-of-the-art model Gemini Decision for fast, calibrated multimodal decisions.",
       "collected_at": "2026-11-16T13:33:48.484Z",
       "title_ru": "Gemini Decisions API: быстрые, калиброванные мультимодальные решения"
-    },
-    {
-      "id": "e05d76cd3360",
-      "url": "https://cabird.com/talks/shipping-faster/",
-      "canonical_url": "https://cabird.com/talks/shipping-faster",
-      "title": "AI, activity, and outcomes in software engineering",
-      "source": "hn",
-      "source_name": "Hacker News",
-      "tier": "T3",
-      "signal_only": false,
-      "domain": "cabird.com",
-      "published_at": "2026-11-11T16:33:28Z",
-      "date_from": "source",
-      "summary": "HN: 131 points, 112 comments. https://news.ycombinator.com/item?id=50455332",
-      "collected_at": "2026-11-16T13:33:48.729Z",
-      "title_ru": "ИИ, деятельность и результаты в разработке программного обеспечения"
-    },
-    {
-      "id": "bad6ee94c356",
-      "url": "https://blog.google/innovation-and-ai/models-and-research/google-labs/tabletop/",
-      "canonical_url": "https://blog.google/innovation-and-ai/models-and-research/google-labs/tabletop",
-      "title": "Try Tabletop: Customizable, collaborative spaces for groups to plan, play and do more together.",
-      "source": "google-ai",
-      "source_name": "Google AI blog",
-      "tier": "T1",
-      "signal_only": false,
-      "domain": "blog.google",
-      "published_at": "2026-11-11T16:00:00.000Z",
-      "date_from": "source",
-      "summary": "Tabletop is a new Google Labs experiment for group collaboration. Build interactive itineraries, polls, and brackets with your team. Join the waitlist.",
-      "collected_at": "2026-11-16T13:33:48.484Z",
-      "title_ru": ""
-    },
-    {
-      "id": "e879c6fc35d4",
-      "url": "https://deepmind.google/blog/alphagenome-2-deciphering-how-cells-read-dna-to-better-understand-disease/",
-      "canonical_url": "https://deepmind.google/blog/alphagenome-2-deciphering-how-cells-read-dna-to-better-understand-disease",
-      "title": "AlphaGenome 2: Deciphering how cells read DNA to better understand disease",
-      "source": "deepmind",
-      "source_name": "Google DeepMind",
-      "tier": "T1",
-      "signal_only": false,
-      "domain": "deepmind.google",
-      "published_at": "2026-11-11T15:00:15.000Z",
-      "date_from": "source",
-      "summary": "Predicting how DNA sequences and their variations impact specific human cell types and disease.",
-      "collected_at": "2026-11-16T13:33:47.990Z",
-      "title_ru": "AlphaGenome 2: расшифровка того, как клетки считывают ДНК, чтобы лучше понять болезнь"
-    },
-    {
-      "id": "9a109a2f46a7",
-      "url": "https://lastweekin.ai/p/last-week-month-in-ai-347-nvidias",
-      "canonical_url": "https://lastweekin.ai/p/last-week-month-in-ai-347-nvidias",
-      "title": "Last Week (Month) in AI #347 - Nvidia's spy, Anthropic's $1.4T IPO, AI's blue wave",
-      "source": "lastweekinai",
-      "source_name": "Last Week in AI",
-      "tier": "T2",
-      "signal_only": false,
-      "domain": "lastweekin.ai",
-      "published_at": "2026-11-11T14:21:42.000Z",
-      "date_from": "source",
-      "summary": "Catching up on five weeks: Huang under investigation, Anthropic and OpenAI priced at $1.4T and $1.25T as spending stalls, Anthropic warns it may be nearing recursive self-improvement, Gemini 4 Carbon",
-      "collected_at": "2026-11-16T13:33:48.103Z",
-      "title_ru": "Прошлая неделя (месяц) в AI № 347 — шпион Nvidia, IPO Anthropic на сумму 1,4 трлн долларов, синяя волна AI"
-    },
-    {
-      "id": "f3e91f75ed13",
-      "url": "https://blog.atuin.sh/threads-agent-sessions/",
-      "canonical_url": "https://blog.atuin.sh/threads-agent-sessions",
-      "title": "Atuin Threads: All your agent sessions on every machine",
-      "source": "hn",
-      "source_name": "Hacker News",
-      "tier": "T3",
-      "signal_only": false,
-      "domain": "atuin.sh",
-      "published_at": "2026-11-11T14:10:46Z",
-      "date_from": "source",
-      "summary": "HN: 240 points, 84 comments. https://news.ycombinator.com/item?id=50453637",
-      "collected_at": "2026-11-16T13:33:48.729Z",
-      "title_ru": "Atuin Threads: все сеансы вашего агента на каждом компьютере."
-    },
-    {
-      "id": "110fbd2a6e80",
-      "url": "https://igamingbusiness.com/sports-betting/world-cup-first-time-bettors-felt-under-informed-says-gambling-commission/",
-      "canonical_url": "https://igamingbusiness.com/sports-betting/world-cup-first-time-bettors-felt-under-informed-says-gambling-commission",
-      "title": "World Cup first-time bettors felt under-informed, says Gambling Commission",
-      "source": "igb",
-      "source_name": "iGaming Business",
-      "tier": "T4",
-      "signal_only": false,
-      "domain": "igamingbusiness.com",
-      "published_at": "2026-11-11T11:03:42.000Z",
-      "date_from": "source",
-      "summary": "The Gambling Commission's report found that the majority of respondents relied on their instincts when placing bets, with 7% using AI.",
-      "collected_at": "2026-11-16T13:33:48.361Z",
-      "title_ru": "Комиссия по азартным играм заявила, что игроки, впервые делающие ставки на чемпионат мира, чувствовали себя недостаточно информированными"
-    },
-    {
-      "id": "f0af7cf446e6",
-      "url": "https://www.therundown.ai/articles/openai-invites-brands-to-set-up-shop-in-chatgpt",
-      "canonical_url": "https://therundown.ai/articles/openai-invites-brands-to-set-up-shop-in-chatgpt",
-      "title": "OpenAI invites brands to set up shop in ChatGPT",
-      "source": "rundown",
-      "source_name": "The Rundown AI",
-      "tier": "T3",
-      "signal_only": false,
-      "domain": "therundown.ai",
-      "published_at": "2026-11-11T10:00:00.000Z",
-      "date_from": "source",
-      "summary": "PLUS: Put your open Chrome tabs to work with AI",
-      "collected_at": "2026-11-16T13:33:48.195Z",
-      "title_ru": "OpenAI приглашает бренды открыть магазин в ChatGPT"
-    },
-    {
-      "id": "f18c0fa24109",
-      "url": "https://latent.space/p/ainews-mercor-750m-series-d-at-20b-valuation-3b-run-rate/",
-      "canonical_url": "https://latent.space/p/ainews-mercor-750m-series-d-at-20b-valuation-3b-run-rate",
-      "title": "[AINews] Mercor $750m Series D at $20B valuation, $3B run rate",
-      "source": "latent-space",
-      "source_name": "Latent Space",
-      "tier": "T2",
-      "signal_only": false,
-      "domain": "latent.space",
-      "published_at": "2026-11-11T09:34:28.000Z",
-      "date_from": "source",
-      "summary": "November 10, 2026 — Google GA's Gemini 4 Carbon.",
-      "collected_at": "2026-11-16T13:33:49.138Z",
-      "title_ru": "[ANews] Mercor $750 млн в серии D при оценке в $20 млрд, пробег в $3 млрд"
-    },
-    {
-      "id": "14eef01dc0f4",
-      "url": "https://blog.google/company-news/outreach-and-initiatives/arts-culture/esther-mahlangu/",
-      "canonical_url": "https://blog.google/company-news/outreach-and-initiatives/arts-culture/esther-mahlangu",
-      "title": "Experience the art and legacy of Dr. Esther Mahlangu",
-      "source": "google-ai",
-      "source_name": "Google AI blog",
-      "tier": "T1",
-      "signal_only": false,
-      "domain": "blog.google",
-      "published_at": "2026-11-11T09:00:00.000Z",
-      "date_from": "source",
-      "summary": "A new online archive of Esther Mahlangu’s life and art is now on Google Arts & Culture.",
-      "collected_at": "2026-11-16T13:33:48.484Z",
-      "title_ru": "Познакомьтесь с искусством и наследием доктора Эстер Махлангу."
-    },
-    {
-      "id": "80b38ea7da37",
-      "url": "https://openai.com/index/chatgpt-plus-for-veterans",
-      "canonical_url": "https://openai.com/index/chatgpt-plus-for-veterans",
-      "title": "ChatGPT Plus for veterans and servicemembers",
-      "source": "openai",
-      "source_name": "OpenAI News",
-      "tier": "T1",
-      "signal_only": false,
-      "domain": "openai.com",
-      "published_at": "2026-11-11T08:00:00.000Z",
-      "date_from": "source",
-      "summary": "More than 20,000 veterans and transitioning service members have claimed a free year of ChatGPT Plus. See how they use it to prepare for civilian careers.",
-      "collected_at": "2026-11-16T13:33:48.078Z",
-      "title_ru": "ChatGPT Plus для ветеранов и военнослужащих"
-    },
-    {
-      "id": "b22522d14a17",
-      "url": "https://huggingface.co/blog/qvac/botpsy",
-      "canonical_url": "https://huggingface.co/blog/qvac/botpsy",
-      "title": "BotPsy: On-Device Personal Assistant with a Sub-Billion-Parameter Agentic Language Model",
-      "source": "huggingface",
-      "source_name": "Hugging Face blog",
-      "tier": "T1",
-      "signal_only": false,
-      "domain": "huggingface.co",
-      "published_at": "2026-11-11T05:01:16.000Z",
-      "date_from": "source",
-      "summary": "",
-      "collected_at": "2026-11-16T13:33:48.263Z",
-      "title_ru": "BotPsy: персональный помощник на устройстве с агентной языковой моделью с субмиллиардом параметров"
     }
   ],
   "issues": [
