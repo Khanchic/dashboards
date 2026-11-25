@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-24T17:52:02.765Z",
-  "last_collect_date": "2026-11-24",
+  "generated_at": "2026-11-25T04:54:58.650Z",
+  "last_collect_date": "2026-11-25",
   "sources_report": [
     {
       "id": "anthropic",
@@ -20,8 +20,8 @@
       "tier": "T1",
       "type": "changelog",
       "url": "https://docs.anthropic.com/en/release-notes/overview",
-      "fetched": 176,
-      "kept": 8,
+      "fetched": 178,
+      "kept": 9,
       "new": 0,
       "error": null,
       "note": ""
@@ -34,7 +34,7 @@
       "url": "https://github.com/anthropics/anthropic-sdk-python/releases.atom",
       "fetched": 10,
       "kept": 4,
-      "new": 0,
+      "new": 1,
       "error": null,
       "note": ""
     },
@@ -70,7 +70,7 @@
       "url": "https://blog.google/technology/ai/rss/",
       "fetched": 20,
       "kept": 5,
-      "new": 1,
+      "new": 0,
       "error": null,
       "note": ""
     },
@@ -93,8 +93,8 @@
       "type": "rss",
       "url": "https://huggingface.co/blog/feed.xml",
       "fetched": 916,
-      "kept": 10,
-      "new": 1,
+      "kept": 8,
+      "new": 0,
       "error": null,
       "note": ""
     },
@@ -140,9 +140,9 @@
       "tier": "T1",
       "type": "rss",
       "url": "https://openai.com/news/rss.xml",
-      "fetched": 1425,
-      "kept": 19,
-      "new": 0,
+      "fetched": 1430,
+      "kept": 22,
+      "new": 5,
       "error": null,
       "note": ""
     },
@@ -165,8 +165,8 @@
       "type": "rss",
       "url": "https://github.com/openai/openai-python/releases.atom",
       "fetched": 10,
-      "kept": 7,
-      "new": 0,
+      "kept": 6,
+      "new": 1,
       "error": null,
       "note": ""
     },
@@ -201,8 +201,8 @@
       "type": "rss",
       "url": "https://www.latent.space/feed",
       "fetched": 20,
-      "kept": 7,
-      "new": 0,
+      "kept": 8,
+      "new": 1,
       "error": null,
       "note": ""
     },
@@ -226,7 +226,7 @@
       "url": "https://www.bensbites.com/feed",
       "fetched": 20,
       "kept": 2,
-      "new": 1,
+      "new": 0,
       "error": null,
       "note": ""
     },
@@ -237,8 +237,8 @@
       "type": "hn",
       "url": "https://hn.algolia.com/api/v1/search_by_date",
       "fetched": 200,
-      "kept": 34,
-      "new": 4,
+      "kept": 35,
+      "new": 5,
       "error": null,
       "note": ""
     },
@@ -250,7 +250,7 @@
       "url": "https://www.therundown.ai/feed",
       "fetched": 50,
       "kept": 8,
-      "new": 2,
+      "new": 0,
       "error": null,
       "note": ""
     },
@@ -261,8 +261,8 @@
       "type": "rss",
       "url": "https://tldr.tech/api/rss/ai",
       "fetched": 20,
-      "kept": 5,
-      "new": 1,
+      "kept": 4,
+      "new": 0,
       "error": null,
       "note": ""
     },
@@ -273,8 +273,8 @@
       "type": "rss",
       "url": "https://igamingbusiness.com/feed/",
       "fetched": 100,
-      "kept": 2,
-      "new": 0,
+      "kept": 4,
+      "new": 2,
       "error": null,
       "note": ""
     },
@@ -298,7 +298,7 @@
       "url": "https://martech.org/feed/",
       "fetched": 10,
       "kept": 7,
-      "new": 1,
+      "new": 0,
       "error": null,
       "note": ""
     },
@@ -310,7 +310,7 @@
       "url": "https://sbcnews.co.uk/feed/",
       "fetched": 10,
       "kept": 2,
-      "new": 2,
+      "new": 0,
       "error": null,
       "note": ""
     }
@@ -319,13 +319,13 @@
     "sources": 26,
     "failed": 4,
     "empty": 2,
-    "fetched": 3354,
-    "kept": 346,
-    "new_items": 13,
-    "stories_total": 176,
-    "stories_confirmed": 62,
-    "stories_eligible": 20,
-    "raw_total": 293
+    "fetched": 3361,
+    "kept": 350,
+    "new_items": 15,
+    "stories_total": 185,
+    "stories_confirmed": 66,
+    "stories_eligible": 25,
+    "raw_total": 301
   },
   "stories": [
     {
@@ -469,6 +469,42 @@
       "has_t1": true,
       "status": "confirmed",
       "last_update": "2026-11-24T16:34:13.000Z",
+      "total": 3.9,
+      "rating": 5,
+      "title_ru": ""
+    },
+    {
+      "story_id": "ifood-scales-coding-agents-across",
+      "first_seen": "2026-11-25",
+      "title": "How iFood scales coding agents across 15,000 repositories",
+      "summary": "",
+      "so_what": "",
+      "tags": [
+        "agents",
+        "coding"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "7a6462e387eb",
+          "url": "https://openai.com/business/customer-stories/ifood",
+          "title": "How iFood scales coding agents across 15,000 repositories",
+          "source": "OpenAI News",
+          "tier": "T1",
+          "domain": "openai.com",
+          "published_at": "2026-11-24T00:00:00.000Z",
+          "summary": "",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "openai.com"
+      ],
+      "has_t1": true,
+      "status": "confirmed",
+      "last_update": "2026-11-24T00:00:00.000Z",
       "total": 3.9,
       "rating": 5,
       "title_ru": ""
@@ -720,6 +756,150 @@
       "has_t1": true,
       "status": "confirmed",
       "last_update": "2026-11-24T16:00:00.000Z",
+      "total": 3.5,
+      "rating": 5,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
+      "story_id": "gpt-6-models-demonstrate-intrinsic-protein-design",
+      "first_seen": "2026-11-25",
+      "title": "GPT-6 models demonstrate intrinsic protein-design capabilities",
+      "summary": "GPT-6 models design protein structures and sequences using reasoning and code. Lab tests found evidence of binding across five targets.",
+      "so_what": "",
+      "tags": [
+        "openai",
+        "coding"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "3c6728c1bfd1",
+          "url": "https://openai.com/index/gpt-6-models-demonstrate-intrinsic-protein-design-capabilities",
+          "title": "GPT-6 models demonstrate intrinsic protein-design capabilities",
+          "source": "OpenAI News",
+          "tier": "T1",
+          "domain": "openai.com",
+          "published_at": "2026-11-24T13:00:00.000Z",
+          "summary": "GPT-6 models design protein structures and sequences using reasoning and code. Lab tests found evidence of binding across five targets.",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "openai.com"
+      ],
+      "has_t1": true,
+      "status": "confirmed",
+      "last_update": "2026-11-24T13:00:00.000Z",
+      "total": 3.5,
+      "rating": 5,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
+      "story_id": "searching-distant-planets-astra",
+      "first_seen": "2026-11-25",
+      "title": "Searching for distant planets with Astra",
+      "summary": "See how two amateur astronomers used Codex and Astra to find potential exoplanets in public data from NASA’s Kepler and TESS space telescopes.",
+      "so_what": "",
+      "tags": [
+        "openai"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "f3aa9260f109",
+          "url": "https://openai.com/index/searching-for-distant-planets-with-astra",
+          "title": "Searching for distant planets with Astra",
+          "source": "OpenAI News",
+          "tier": "T1",
+          "domain": "openai.com",
+          "published_at": "2026-11-24T11:00:00.000Z",
+          "summary": "See how two amateur astronomers used Codex and Astra to find potential exoplanets in public data from NASA’s Kepler and TESS space telescopes.",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "openai.com"
+      ],
+      "has_t1": true,
+      "status": "confirmed",
+      "last_update": "2026-11-24T11:00:00.000Z",
+      "total": 3.5,
+      "rating": 5,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
+      "story_id": "intentful-uses-dots-make-time",
+      "first_seen": "2026-11-25",
+      "title": "How Intentful uses dots to make more time for growth",
+      "summary": "Marina Petrova’s dot Aria helps research websites and build proposals, while proactively flagging messages and resolving issues.",
+      "so_what": "",
+      "tags": [],
+      "kind": "research",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "ec442b764e04",
+          "url": "https://openai.com/business/customer-stories/intentful-dots",
+          "title": "How Intentful uses dots to make more time for growth",
+          "source": "OpenAI News",
+          "tier": "T1",
+          "domain": "openai.com",
+          "published_at": "2026-11-24T00:00:00.000Z",
+          "summary": "Marina Petrova’s dot Aria helps research websites and build proposals, while proactively flagging messages and resolving issues.",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "openai.com"
+      ],
+      "has_t1": true,
+      "status": "confirmed",
+      "last_update": "2026-11-24T00:00:00.000Z",
+      "total": 3.5,
+      "rating": 5,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
+      "story_id": "clay-helps-sales-teams-win",
+      "first_seen": "2026-11-25",
+      "title": "Clay helps sales teams win with Codex and ChatGPT",
+      "summary": "ChatGPT and Codex integrations help Clay’s users research deals and turn data into go-to-market plays, with GPT-6 models handling the reasoning.",
+      "so_what": "",
+      "tags": [
+        "openai",
+        "marketing"
+      ],
+      "kind": "research",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "99b93f3e1098",
+          "url": "https://openai.com/business/customer-stories/clay-plugins-openai",
+          "title": "Clay helps sales teams win with Codex and ChatGPT",
+          "source": "OpenAI News",
+          "tier": "T1",
+          "domain": "openai.com",
+          "published_at": "2026-11-24T00:00:00.000Z",
+          "summary": "ChatGPT and Codex integrations help Clay’s users research deals and turn data into go-to-market plays, with GPT-6 models handling the reasoning.",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "openai.com"
+      ],
+      "has_t1": true,
+      "status": "confirmed",
+      "last_update": "2026-11-24T00:00:00.000Z",
       "total": 3.5,
       "rating": 5,
       "title_ru": "",
@@ -2275,55 +2455,6 @@
       "rating": 4
     },
     {
-      "story_id": "designing-for-agents-resend-talk",
-      "first_seen": "2026-11-16",
-      "items": [
-        {
-          "id": "2ec4f6ad3a8d",
-          "url": "https://latent.space/p/resend/",
-          "title": "Designing for Agents — Zeno Rocha, Resend",
-          "source": "Latent Space",
-          "tier": "T2",
-          "domain": "latent.space",
-          "published_at": "2026-11-10T20:05:17.000Z",
-          "summary": "Where does answer engine optimization (AEO) end and agent experience begin? Inside Resend, from the docs that help Claude Code pick an email API to the tools it uses to send.",
-          "title_ru": "Проектирование для агентов — Зено Роша, Resend"
-        }
-      ],
-      "title": "Resend talk explores 'designing for agents' and answer engine optimization",
-      "summary": "A conference talk by Resend's Zeno Rocha examined where answer engine optimization (AEO) ends and 'agent experience' design begins, including how Resend's docs help Claude Code choose its email API.",
-      "tags": [
-        "aeo",
-        "agents",
-        "marketing",
-        "developer-experience"
-      ],
-      "entities": [
-        "Resend",
-        "Claude Code"
-      ],
-      "kind": "opinion",
-      "rumor": false,
-      "scores": {
-        "significance": 3,
-        "novelty": 3,
-        "practicality": 4,
-        "relevance": 5
-      },
-      "so_what": "Directly actionable for marketers: optimizing docs and content so AI agents, not just search engines, choose your product is a new SEO-adjacent discipline to start on now.",
-      "domains": [
-        "latent.space"
-      ],
-      "has_t1": false,
-      "status": "unconfirmed",
-      "total": 3.55,
-      "last_update": "2026-11-10T20:05:17.000Z",
-      "title_ru": "В докладе Resend обсуждаются «проектирование для агентов» и оптимизация системы ответов.",
-      "summary_ru": "В докладе Зено Роча из Resend на конференции было рассмотрено, где заканчивается оптимизация системы ответов (AEO) и начинается проектирование «опыта агента», в том числе то, как документация Resend помогает Claude Code выбрать API электронной почты.",
-      "so_what_ru": "Прямая выгода для маркетологов: оптимизация документов и контента, чтобы агенты ИИ, а не только поисковые системы, выбирали ваш продукт, — это новая дисциплина, связанная с SEO, которую стоит начать прямо сейчас.",
-      "rating": 4
-    },
-    {
       "story_id": "adaptive-memory-management-researchers-ucla",
       "first_seen": "2026-11-23",
       "title": "Adaptive Memory Management: Researchers at UCLA, Washington, and Northwestern release MEMCON for agents",
@@ -3490,55 +3621,6 @@
       "rating": 3
     },
     {
-      "story_id": "google-gemini-intelligence-devices",
-      "first_seen": "2026-11-16",
-      "items": [
-        {
-          "id": "b73105fe4ec5",
-          "url": "https://blog.google/products-and-platforms/platforms/android/gemini-intelligence-november-features-devices/",
-          "title": "Gemini Intelligence: New features, on more devices",
-          "source": "Google AI blog",
-          "tier": "T1",
-          "domain": "blog.google",
-          "published_at": "2026-11-10T19:00:00.000Z",
-          "summary": "Gemini Intelligence is rolling out to more devices. See how expanded capabilities across these devices help you do more.",
-          "title_ru": "Gemini Intelligence: новые функции на большем количестве устройств"
-        }
-      ],
-      "title": "Gemini Intelligence expands to more devices with new features",
-      "summary": "Google is rolling out 'Gemini Intelligence' with new features to a wider range of devices.",
-      "tags": [
-        "gemini",
-        "google",
-        "mobile",
-        "assistant"
-      ],
-      "entities": [
-        "Google",
-        "Gemini Intelligence"
-      ],
-      "kind": "launch",
-      "rumor": false,
-      "scores": {
-        "significance": 2,
-        "novelty": 2,
-        "practicality": 2,
-        "relevance": 2
-      },
-      "so_what": "Wider Gemini assistant distribution expands the surfaces where AI-driven discovery and recommendations can touch your customers.",
-      "domains": [
-        "blog.google"
-      ],
-      "has_t1": true,
-      "status": "confirmed",
-      "total": 2,
-      "last_update": "2026-11-10T19:00:00.000Z",
-      "title_ru": "Gemini Intelligence распространяется на большее количество устройств с новыми функциями",
-      "summary_ru": "Google внедряет Gemini Intelligence с новыми функциями для более широкого круга устройств.",
-      "so_what_ru": "Более широкое распространение помощников Gemini расширяет области, где открытия и рекомендации на основе искусственного интеллекта могут коснуться ваших клиентов.",
-      "rating": 3
-    },
-    {
       "story_id": "need-know-chatgpt-ads-google",
       "first_seen": "2026-11-24",
       "title": "What you need to know about ChatGPT ads vs. Google Ads",
@@ -3609,6 +3691,78 @@
       "has_t1": false,
       "status": "unconfirmed",
       "last_update": "2026-11-24T12:43:35.000Z",
+      "total": 3.2,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
+      "story_id": "illegal-online-gambling-generated-billion",
+      "first_seen": "2026-11-25",
+      "title": "Illegal online gambling generated €91.6 billion in Europe last year, report says",
+      "summary": "ECA Chairman Erwin Van Lambaart urged governments to target the financial networks supporting unlicensed operators, arguing payment restrictions could break their business models.",
+      "so_what": "",
+      "tags": [
+        "igaming"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "a50243de4d2e",
+          "url": "https://igamingbusiness.com/offshore-gaming/illegal-online-gambling-europe-report",
+          "title": "Illegal online gambling generated €91.6 billion in Europe last year, report says",
+          "source": "iGaming Business",
+          "tier": "T4",
+          "domain": "igamingbusiness.com",
+          "published_at": "2026-11-24T11:03:26.000Z",
+          "summary": "ECA Chairman Erwin Van Lambaart urged governments to target the financial networks supporting unlicensed operators, arguing payment restrictions could break their business models.",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "igamingbusiness.com"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-24T11:03:26.000Z",
+      "total": 3.2,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
+      "story_id": "rio-janeiro-lottery-loterj-sues",
+      "first_seen": "2026-11-25",
+      "title": "The Rio de Janeiro Lottery, Loterj, sues RioPag over debts to licensed betting companies",
+      "summary": "A dispute involving BRL9.3 million has prompted Loterj to seek legal action against its payment processor, RioPag.",
+      "so_what": "",
+      "tags": [
+        "igaming"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "2ace7afa5df7",
+          "url": "https://igamingbusiness.com/legal-compliance/loterj-sues-riopag-unpaid-debts-licensed-betting-companies-brazil",
+          "title": "The Rio de Janeiro Lottery, Loterj, sues RioPag over debts to licensed betting companies",
+          "source": "iGaming Business",
+          "tier": "T4",
+          "domain": "igamingbusiness.com",
+          "published_at": "2026-11-24T10:58:59.000Z",
+          "summary": "A dispute involving BRL9.3 million has prompted Loterj to seek legal action against its payment processor, RioPag.",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "igamingbusiness.com"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-24T10:58:59.000Z",
       "total": 3.2,
       "rating": 3,
       "title_ru": "",
@@ -3831,6 +3985,42 @@
       "summary_ru": "Bloomreach приобрела AthenaHQ с целью напрямую связать диалоговые исследования ИИ с доходами клиентов и обеспечить измерение рентабельности инвестиций в поиск с использованием ИИ.",
       "so_what_ru": "Сигнализирует о том, что поставщики маркетинговых технологий объединяются вокруг измерения доходов с помощью ИИ-поиска — разрыв, который многие команды маркетинговых операций также пытаются закрыть.",
       "rating": 3
+    },
+    {
+      "story_id": "ainews-gemini-neon-marks-gdm",
+      "first_seen": "2026-11-25",
+      "title": "[AINews] Gemini 4 Neon marks GDM's full return as a Frontier Lab",
+      "summary": "November 24, 2026 — Neon beats Astra and Fable on LiveBench and cuts Theo’s TS Rust benchmark runtime by 48.6%.",
+      "so_what": "",
+      "tags": [
+        "google"
+      ],
+      "kind": "tool",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "190619a69a1b",
+          "url": "https://latent.space/p/ainews-gemini-4-neon-marks-gdm-s-full-return-as-a-frontier-lab",
+          "title": "[AINews] Gemini 4 Neon marks GDM's full return as a Frontier Lab",
+          "source": "Latent Space",
+          "tier": "T2",
+          "domain": "latent.space",
+          "published_at": "2026-11-25T04:29:07.000Z",
+          "summary": "November 24, 2026 — Neon beats Astra and Fable on LiveBench and cuts Theo’s TS Rust benchmark runtime by 48.6%.",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "latent.space"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-25T04:29:07.000Z",
+      "total": 3.1,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
     },
     {
       "story_id": "ainews-jensen-back-openai-shows",
@@ -4111,6 +4301,78 @@
       "title_ru": ""
     },
     {
+      "story_id": "anthropic-staff-openly-talk-taking",
+      "first_seen": "2026-11-25",
+      "title": "Anthropic Staff Openly Talk About ‘Taking Over the World’, Claims Max Tegmark",
+      "summary": "HN: 205 points, 109 comments. https://news.ycombinator.com/item?id=50631210",
+      "so_what": "",
+      "tags": [
+        "anthropic"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "002bc4ff2409",
+          "url": "https://novaramedia.com/2026/11/24/anthropic-staff-openly-talk-about-taking-over-the-world-claims-top-mit-physicist",
+          "title": "Anthropic Staff Openly Talk About ‘Taking Over the World’, Claims Max Tegmark",
+          "source": "Hacker News",
+          "tier": "T3",
+          "domain": "novaramedia.com",
+          "published_at": "2026-11-24T17:10:45Z",
+          "summary": "HN: 205 points, 109 comments. https://news.ycombinator.com/item?id=50631210",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "novaramedia.com"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-24T17:10:45Z",
+      "total": 3.05,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
+      "story_id": "ask-anthropic-accusing-company-distilling",
+      "first_seen": "2026-11-25",
+      "title": "Ask HN: Anthropic is accusing my company of distilling. How can I prove I'm not?",
+      "summary": "HN: 237 points, 177 comments. https://news.ycombinator.com/item?id=50630809",
+      "so_what": "",
+      "tags": [
+        "anthropic"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "bbef1e94d167",
+          "url": "https://news.ycombinator.com/item?id=50630809",
+          "title": "Ask HN: Anthropic is accusing my company of distilling. How can I prove I'm not?",
+          "source": "Hacker News",
+          "tier": "T3",
+          "domain": "ycombinator.com",
+          "published_at": "2026-11-24T16:45:44Z",
+          "summary": "HN: 237 points, 177 comments. https://news.ycombinator.com/item?id=50630809",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "ycombinator.com"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-24T16:45:44Z",
+      "total": 3.05,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
       "story_id": "tidal-bans-ai-generated-music",
       "first_seen": "2026-11-24",
       "title": "Tidal bans AI-generated music",
@@ -4139,6 +4401,42 @@
       "has_t1": false,
       "status": "unconfirmed",
       "last_update": "2026-11-24T16:12:38Z",
+      "total": 3.05,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
+      "story_id": "training-engine-local-model-idle",
+      "first_seen": "2026-11-25",
+      "title": "A training engine for your local model, using your idle compute",
+      "summary": "HN: 205 points, 64 comments. https://news.ycombinator.com/item?id=50629231",
+      "so_what": "",
+      "tags": [
+        "open-weights"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "197dc8b3ac4d",
+          "url": "https://github.com/sous-labs/songe",
+          "title": "A training engine for your local model, using your idle compute",
+          "source": "Hacker News",
+          "tier": "T3",
+          "domain": "github.com",
+          "published_at": "2026-11-24T15:03:40Z",
+          "summary": "HN: 205 points, 64 comments. https://news.ycombinator.com/item?id=50629231",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "github.com"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-24T15:03:40Z",
       "total": 3.05,
       "rating": 3,
       "title_ru": "",
@@ -4451,55 +4749,6 @@
       "rating": 3
     },
     {
-      "story_id": "openai-codex-new-features-aie-summit",
-      "first_seen": "2026-11-16",
-      "items": [
-        {
-          "id": "d46e4b8dae91",
-          "url": "https://latent.space/p/codex-work/",
-          "title": "AI Engineer Code Summit: OpenAI on New Ways of Working With Codex",
-          "source": "Latent Space",
-          "tier": "T2",
-          "domain": "latent.space",
-          "published_at": "2026-11-11T04:49:48.000Z",
-          "summary": "On the first day of AIE Code Summit, OpenAI showed how developers can steer Codex by voice, hand off work to the cloud, and make use of dots.",
-          "title_ru": "Саммит AI Engineer Code: OpenAI о новых способах работы с Кодексом"
-        }
-      ],
-      "title": "OpenAI shows new Codex workflows at AI Engineer Code Summit",
-      "summary": "OpenAI demonstrated new ways to work with Codex at the AI Engineer Code Summit, including steering by voice, handing work off to the cloud, and a feature referred to as 'dots.'",
-      "tags": [
-        "openai",
-        "codex",
-        "coding",
-        "agents"
-      ],
-      "entities": [
-        "OpenAI",
-        "Codex"
-      ],
-      "kind": "tool",
-      "rumor": false,
-      "scores": {
-        "significance": 3,
-        "novelty": 3,
-        "practicality": 3,
-        "relevance": 3
-      },
-      "so_what": "Voice steering and cloud handoff for coding agents could streamline how you delegate automation-building tasks to Codex or Claude Code.",
-      "domains": [
-        "latent.space"
-      ],
-      "has_t1": false,
-      "status": "unconfirmed",
-      "total": 3,
-      "last_update": "2026-11-11T04:49:48.000Z",
-      "title_ru": "OpenAI демонстрирует новые рабочие процессы Кодекса на саммите AI Engineer Code Summit",
-      "summary_ru": "OpenAI продемонстрировала новые способы работы с Кодексом на саммите AI Engineer Code Summit, включая голосовое управление, передачу работы в облако и функцию, называемую «точками».",
-      "so_what_ru": "Голосовое управление и облачная передача для агентов кодирования могут упростить процесс делегирования задач по автоматизации в Codex или Claude Code.",
-      "rating": 3
-    },
-    {
       "story_id": "openai-gpt6-cyber-linux-patching",
       "first_seen": "2026-11-16",
       "items": [
@@ -4548,6 +4797,40 @@
       "rating": 3
     },
     {
+      "story_id": "pengpt-generative-transformer-handwriting-sketches",
+      "first_seen": "2026-11-25",
+      "title": "PenGPT: A Generative Transformer for Handwriting and Sketches",
+      "summary": "HN: 137 points, 23 comments. https://news.ycombinator.com/item?id=50637056",
+      "so_what": "",
+      "tags": [],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "a58808d0bc10",
+          "url": "https://greydanus.github.io/2026/11/12/pengpt",
+          "title": "PenGPT: A Generative Transformer for Handwriting and Sketches",
+          "source": "Hacker News",
+          "tier": "T3",
+          "domain": "github.io",
+          "published_at": "2026-11-25T00:54:49Z",
+          "summary": "HN: 137 points, 23 comments. https://news.ycombinator.com/item?id=50637056",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "github.io"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-25T00:54:49Z",
+      "total": 2.85,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
       "story_id": "anthropic-breaks-below-ipo-price",
       "first_seen": "2026-11-24",
       "title": "Anthropic Breaks Below $83 IPO Price in Premarket Trading",
@@ -4578,6 +4861,40 @@
       "has_t1": false,
       "status": "unconfirmed",
       "last_update": "2026-11-24T13:23:47Z",
+      "total": 2.85,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
+      "story_id": "declare-language",
+      "first_seen": "2026-11-25",
+      "title": "Declare is a UI language for you and your AI",
+      "summary": "HN: 110 points, 92 comments. https://news.ycombinator.com/item?id=50622854",
+      "so_what": "",
+      "tags": [],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "1951d3d0aee3",
+          "url": "https://davidtemkin.github.io/declarelang",
+          "title": "Declare is a UI language for you and your AI",
+          "source": "Hacker News",
+          "tier": "T3",
+          "domain": "github.io",
+          "published_at": "2026-11-24T02:36:56Z",
+          "summary": "HN: 110 points, 92 comments. https://news.ycombinator.com/item?id=50622854",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "github.io"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-24T02:36:56Z",
       "total": 2.85,
       "rating": 3,
       "title_ru": "",
@@ -6907,54 +7224,6 @@
       "rating": 2
     },
     {
-      "story_id": "naiveai-2100-tps-launch",
-      "first_seen": "2026-11-16",
-      "items": [
-        {
-          "id": "3e1919c777ea",
-          "url": "https://latent.space/p/naiveai/",
-          "title": "NaiveAI Promises 2,100 Tokens per Second. How Well Does It Code?",
-          "source": "Latent Space",
-          "tier": "T2",
-          "domain": "latent.space",
-          "published_at": "2026-11-10T18:56:32.000Z",
-          "summary": "NaiveAI could potentially top Artificial Analysis’s speed rankings. Our hands-on test suggests its coding quality holds up against DeepSeek.",
-          "title_ru": "NaiveAI обещает 2100 токенов в секунду. Насколько хорошо он кодирует?"
-        }
-      ],
-      "title": "NaiveAI claims 2,100 tokens/sec inference speed; coding quality tested",
-      "summary": "A new inference service, NaiveAI, claims speeds of 2,100 tokens per second that could top speed rankings; hands-on testing suggests its coding quality holds up against DeepSeek.",
-      "tags": [
-        "inference-speed",
-        "launch",
-        "coding"
-      ],
-      "entities": [
-        "NaiveAI",
-        "DeepSeek"
-      ],
-      "kind": "launch",
-      "rumor": false,
-      "scores": {
-        "significance": 2,
-        "novelty": 3,
-        "practicality": 2,
-        "relevance": 2
-      },
-      "so_what": "Faster inference at comparable coding quality could cut latency and cost for high-volume automation workflows if the claims hold up.",
-      "domains": [
-        "latent.space"
-      ],
-      "has_t1": false,
-      "status": "unconfirmed",
-      "total": 2.25,
-      "last_update": "2026-11-10T18:56:32.000Z",
-      "title_ru": "NaiveAI заявляет о скорости вывода 2100 токенов в секунду; качество кодирования проверено",
-      "summary_ru": "Новый сервис вывода NaiveAI заявляет о скорости 2100 токенов в секунду, что может превзойти рейтинг скорости; Практическое тестирование показывает, что качество его кодирования не уступает DeepSeek.",
-      "so_what_ru": "Более быстрый вывод при сопоставимом качестве кодирования может сократить задержки и затраты на крупномасштабные рабочие процессы автоматизации, если претензии подтвердятся.",
-      "rating": 2
-    },
-    {
       "story_id": "openai-disbands-robotics-team",
       "first_seen": "2026-11-16",
       "items": [
@@ -8373,6 +8642,84 @@
   ],
   "raw_items": [
     {
+      "id": "190619a69a1b",
+      "source_id": "latent-space",
+      "source_name": "Latent Space",
+      "tier": "T2",
+      "signal_only": false,
+      "title": "[AINews] Gemini 4 Neon marks GDM's full return as a Frontier Lab",
+      "url": "https://latent.space/p/ainews-gemini-4-neon-marks-gdm-s-full-return-as-a-frontier-lab",
+      "domain": "latent.space",
+      "published_at": "2026-11-25T04:29:07.000Z",
+      "collected_on": "2026-11-25",
+      "summary": "November 24, 2026 — Neon beats Astra and Fable on LiveBench and cuts Theo’s TS Rust benchmark runtime by 48.6%."
+    },
+    {
+      "id": "a58808d0bc10",
+      "source_id": "hn",
+      "source_name": "Hacker News",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "PenGPT: A Generative Transformer for Handwriting and Sketches",
+      "url": "https://greydanus.github.io/2026/11/12/pengpt",
+      "domain": "github.io",
+      "published_at": "2026-11-25T00:54:49Z",
+      "collected_on": "2026-11-25",
+      "summary": "HN: 137 points, 23 comments. https://news.ycombinator.com/item?id=50637056"
+    },
+    {
+      "id": "2ae8e8089de9",
+      "source_id": "anthropic-sdk",
+      "source_name": "anthropic-sdk-python releases",
+      "tier": "T1",
+      "signal_only": true,
+      "title": "v2.14.0",
+      "url": "https://github.com/anthropics/anthropic-sdk-python/releases/tag/v2.14.0",
+      "domain": "github.com",
+      "published_at": "2026-11-24T21:00:57.000Z",
+      "collected_on": "2026-11-25",
+      "summary": "Features api: add Google-managed data controls for Google Cloud projects api: add Google-managed data controls for user profiles api: add support for compliance review cases, notices, and items Bug Fixes client: honor proxy and trust_env when proxy variables are set DefaultHttpxClient and DefaultAsyncHttpxClient read HTTP_PROXY , HTTPS_PROXY , ALL_PROXY and NO_PROXY even when the caller passed proxy= or trust_env=False , and the variables won. Now proxy= is used for every request and the variables are not read, and trust_env=False ignores them, as in plain httpx2 . What you may notice: with pr"
+    },
+    {
+      "id": "7152c5628597",
+      "source_id": "openai-sdk",
+      "source_name": "openai-python releases",
+      "tier": "T1",
+      "signal_only": true,
+      "title": "v3.59.0",
+      "url": "https://github.com/openai/openai-python/releases/tag/v3.59.0",
+      "domain": "github.com",
+      "published_at": "2026-11-24T19:18:59.000Z",
+      "collected_on": "2026-11-25",
+      "summary": "3.59.0 (2026-11-24) Features api: add healthcare model IDs for Responses ( #4327 ) ( 804a9af ) Bug Fixes check the agent upload directory after path resolution ( #4323 ) ( bc02da4 ) redact credential headers on API error requests ( #4316 ) ( 9d7f58e ) reject empty webhook signing keys ( #4321 ) ( dd69803 ) reject non-finite numbers in agent tool arguments ( #4326 ) ( abbd379 ) use bearer authentication for beta Realtime sessions ( #4317 ) ( 7596fb8 ) Documentation explain how to skip duplicate webhook events ( #4325 ) ( 6805f05 )"
+    },
+    {
+      "id": "002bc4ff2409",
+      "source_id": "hn",
+      "source_name": "Hacker News",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "Anthropic Staff Openly Talk About ‘Taking Over the World’, Claims Max Tegmark",
+      "url": "https://novaramedia.com/2026/11/24/anthropic-staff-openly-talk-about-taking-over-the-world-claims-top-mit-physicist",
+      "domain": "novaramedia.com",
+      "published_at": "2026-11-24T17:10:45Z",
+      "collected_on": "2026-11-25",
+      "summary": "HN: 205 points, 109 comments. https://news.ycombinator.com/item?id=50631210"
+    },
+    {
+      "id": "bbef1e94d167",
+      "source_id": "hn",
+      "source_name": "Hacker News",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "Ask HN: Anthropic is accusing my company of distilling. How can I prove I'm not?",
+      "url": "https://news.ycombinator.com/item?id=50630809",
+      "domain": "ycombinator.com",
+      "published_at": "2026-11-24T16:45:44Z",
+      "collected_on": "2026-11-25",
+      "summary": "HN: 237 points, 177 comments. https://news.ycombinator.com/item?id=50630809"
+    },
+    {
       "id": "16565a3f5dc0",
       "source_id": "huggingface",
       "source_name": "Hugging Face blog",
@@ -8410,6 +8757,19 @@
       "published_at": "2026-11-24T16:00:00.000Z",
       "collected_on": "2026-11-24",
       "summary": "Google Gemini partners with Golden State to power fan experiences and business operations for the Warriors, Valkyries, and Chase Center. See the news."
+    },
+    {
+      "id": "197dc8b3ac4d",
+      "source_id": "hn",
+      "source_name": "Hacker News",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "A training engine for your local model, using your idle compute",
+      "url": "https://github.com/sous-labs/songe",
+      "domain": "github.com",
+      "published_at": "2026-11-24T15:03:40Z",
+      "collected_on": "2026-11-25",
+      "summary": "HN: 205 points, 64 comments. https://news.ycombinator.com/item?id=50629231"
     },
     {
       "id": "204a3b5c5043",
@@ -8464,6 +8824,19 @@
       "summary": "HN: 141 points, 230 comments. https://news.ycombinator.com/item?id=50627836"
     },
     {
+      "id": "3c6728c1bfd1",
+      "source_id": "openai",
+      "source_name": "OpenAI News",
+      "tier": "T1",
+      "signal_only": false,
+      "title": "GPT-6 models demonstrate intrinsic protein-design capabilities",
+      "url": "https://openai.com/index/gpt-6-models-demonstrate-intrinsic-protein-design-capabilities",
+      "domain": "openai.com",
+      "published_at": "2026-11-24T13:00:00.000Z",
+      "collected_on": "2026-11-25",
+      "summary": "GPT-6 models design protein structures and sequences using reasoning and code. Lab tests found evidence of binding across five targets."
+    },
+    {
       "id": "fe78ed7d6b80",
       "source_id": "sbc",
       "source_name": "SBC News",
@@ -8490,6 +8863,32 @@
       "summary": "HN: 645 points, 265 comments. https://news.ycombinator.com/item?id=50627340"
     },
     {
+      "id": "a50243de4d2e",
+      "source_id": "igb",
+      "source_name": "iGaming Business",
+      "tier": "T4",
+      "signal_only": false,
+      "title": "Illegal online gambling generated €91.6 billion in Europe last year, report says",
+      "url": "https://igamingbusiness.com/offshore-gaming/illegal-online-gambling-europe-report",
+      "domain": "igamingbusiness.com",
+      "published_at": "2026-11-24T11:03:26.000Z",
+      "collected_on": "2026-11-25",
+      "summary": "ECA Chairman Erwin Van Lambaart urged governments to target the financial networks supporting unlicensed operators, arguing payment restrictions could break their business models."
+    },
+    {
+      "id": "f3aa9260f109",
+      "source_id": "openai",
+      "source_name": "OpenAI News",
+      "tier": "T1",
+      "signal_only": false,
+      "title": "Searching for distant planets with Astra",
+      "url": "https://openai.com/index/searching-for-distant-planets-with-astra",
+      "domain": "openai.com",
+      "published_at": "2026-11-24T11:00:00.000Z",
+      "collected_on": "2026-11-25",
+      "summary": "See how two amateur astronomers used Codex and Astra to find potential exoplanets in public data from NASA’s Kepler and TESS space telescopes."
+    },
+    {
       "id": "f5a512a135d8",
       "source_id": "rundown",
       "source_name": "The Rundown AI",
@@ -8501,6 +8900,19 @@
       "published_at": "2026-11-24T11:00:00.000Z",
       "collected_on": "2026-11-24",
       "summary": "PLUS: Go beyond the browser with the Claude desktop app"
+    },
+    {
+      "id": "2ace7afa5df7",
+      "source_id": "igb",
+      "source_name": "iGaming Business",
+      "tier": "T4",
+      "signal_only": false,
+      "title": "The Rio de Janeiro Lottery, Loterj, sues RioPag over debts to licensed betting companies",
+      "url": "https://igamingbusiness.com/legal-compliance/loterj-sues-riopag-unpaid-debts-licensed-betting-companies-brazil",
+      "domain": "igamingbusiness.com",
+      "published_at": "2026-11-24T10:58:59.000Z",
+      "collected_on": "2026-11-25",
+      "summary": "A dispute involving BRL9.3 million has prompted Loterj to seek legal action against its payment processor, RioPag."
     },
     {
       "id": "9f259edda91e",
@@ -8527,6 +8939,58 @@
       "published_at": "2026-11-24T04:14:16.000Z",
       "collected_on": "2026-11-24",
       "summary": "November 23, 2026 — Nvidia reinstates its founder, and OpenAI publishes its internal loss curve and proposes a shared training limit."
+    },
+    {
+      "id": "1951d3d0aee3",
+      "source_id": "hn",
+      "source_name": "Hacker News",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "Declare is a UI language for you and your AI",
+      "url": "https://davidtemkin.github.io/declarelang",
+      "domain": "github.io",
+      "published_at": "2026-11-24T02:36:56Z",
+      "collected_on": "2026-11-25",
+      "summary": "HN: 110 points, 92 comments. https://news.ycombinator.com/item?id=50622854"
+    },
+    {
+      "id": "ec442b764e04",
+      "source_id": "openai",
+      "source_name": "OpenAI News",
+      "tier": "T1",
+      "signal_only": false,
+      "title": "How Intentful uses dots to make more time for growth",
+      "url": "https://openai.com/business/customer-stories/intentful-dots",
+      "domain": "openai.com",
+      "published_at": "2026-11-24T00:00:00.000Z",
+      "collected_on": "2026-11-25",
+      "summary": "Marina Petrova’s dot Aria helps research websites and build proposals, while proactively flagging messages and resolving issues."
+    },
+    {
+      "id": "7a6462e387eb",
+      "source_id": "openai",
+      "source_name": "OpenAI News",
+      "tier": "T1",
+      "signal_only": false,
+      "title": "How iFood scales coding agents across 15,000 repositories",
+      "url": "https://openai.com/business/customer-stories/ifood",
+      "domain": "openai.com",
+      "published_at": "2026-11-24T00:00:00.000Z",
+      "collected_on": "2026-11-25",
+      "summary": ""
+    },
+    {
+      "id": "99b93f3e1098",
+      "source_id": "openai",
+      "source_name": "OpenAI News",
+      "tier": "T1",
+      "signal_only": false,
+      "title": "Clay helps sales teams win with Codex and ChatGPT",
+      "url": "https://openai.com/business/customer-stories/clay-plugins-openai",
+      "domain": "openai.com",
+      "published_at": "2026-11-24T00:00:00.000Z",
+      "collected_on": "2026-11-25",
+      "summary": "ChatGPT and Codex integrations help Clay’s users research deals and turn data into go-to-market plays, with GPT-6 models handling the reasoning."
     },
     {
       "id": "2116b3b26534",
@@ -12722,118 +13186,6 @@
       "summary": "",
       "collected_at": "2026-11-16T13:33:48.263Z",
       "title_ru": "BotPsy: персональный помощник на устройстве с агентной языковой моделью с субмиллиардом параметров"
-    },
-    {
-      "id": "d46e4b8dae91",
-      "url": "https://latent.space/p/codex-work/",
-      "canonical_url": "https://latent.space/p/codex-work",
-      "title": "AI Engineer Code Summit: OpenAI on New Ways of Working With Codex",
-      "source": "latent-space",
-      "source_name": "Latent Space",
-      "tier": "T2",
-      "signal_only": false,
-      "domain": "latent.space",
-      "published_at": "2026-11-11T04:49:48.000Z",
-      "date_from": "source",
-      "summary": "On the first day of AIE Code Summit, OpenAI showed how developers can steer Codex by voice, hand off work to the cloud, and make use of dots.",
-      "collected_at": "2026-11-16T13:33:49.138Z",
-      "title_ru": "Саммит AI Engineer Code: OpenAI о новых способах работы с Кодексом"
-    },
-    {
-      "id": "8c999d6885d2",
-      "url": "https://openai.com/index/jiostar-vijay-seshadri",
-      "canonical_url": "https://openai.com/index/jiostar-vijay-seshadri",
-      "title": "JioStar’s chief architect on AI discovery at 500M-user scale",
-      "source": "openai",
-      "source_name": "OpenAI News",
-      "tier": "T1",
-      "signal_only": false,
-      "domain": "openai.com",
-      "published_at": "2026-11-11T00:00:00.000Z",
-      "date_from": "source",
-      "summary": "JioStar’s Vijay Seshadri explains AI discovery at 500M-user scale. Read his lessons on evals, guardrails, and taking AI into production.",
-      "collected_at": "2026-11-16T13:33:48.078Z",
-      "title_ru": "Главный архитектор JioStar по открытию искусственного интеллекта в масштабе 500 миллионов пользователей"
-    },
-    {
-      "id": "d2296a64c0dc",
-      "url": "https://huggingface.co/blog/token-pooling",
-      "canonical_url": "https://huggingface.co/blog/token-pooling",
-      "title": "Token Pooling-Aware Training for Multi-Vector Embedding Models",
-      "source": "huggingface",
-      "source_name": "Hugging Face blog",
-      "tier": "T1",
-      "signal_only": false,
-      "domain": "huggingface.co",
-      "published_at": "2026-11-11T00:00:00.000Z",
-      "date_from": "source",
-      "summary": "",
-      "collected_at": "2026-11-16T13:33:48.264Z",
-      "title_ru": "Обучение с учетом пула токенов для моделей многовекторного внедрения"
-    },
-    {
-      "id": "517097296b9a",
-      "url": "https://tldr.tech/ai/2026-11-11",
-      "canonical_url": "https://tldr.tech/ai/2026-11-11",
-      "title": "Gemini 4 Carbon ⚡, Claude Sheets 📊, Antigravity Swarm 🤖",
-      "source": "tldr-ai",
-      "source_name": "TLDR AI",
-      "tier": "T3",
-      "signal_only": false,
-      "domain": "tldr.tech",
-      "published_at": "2026-11-11T00:00:00.000Z",
-      "date_from": "source",
-      "summary": "",
-      "collected_at": "2026-11-16T13:33:48.270Z",
-      "title_ru": "Gemini 4 Carbon ⚡, Клод Шитс 📊, Антигравитационный рой 🤖"
-    },
-    {
-      "id": "2ec4f6ad3a8d",
-      "url": "https://latent.space/p/resend/",
-      "canonical_url": "https://latent.space/p/resend",
-      "title": "Designing for Agents — Zeno Rocha, Resend",
-      "source": "latent-space",
-      "source_name": "Latent Space",
-      "tier": "T2",
-      "signal_only": false,
-      "domain": "latent.space",
-      "published_at": "2026-11-10T20:05:17.000Z",
-      "date_from": "source",
-      "summary": "Where does answer engine optimization (AEO) end and agent experience begin? Inside Resend, from the docs that help Claude Code pick an email API to the tools it uses to send.",
-      "collected_at": "2026-11-16T13:33:49.138Z",
-      "title_ru": "Проектирование для агентов — Зено Роша, Resend"
-    },
-    {
-      "id": "b73105fe4ec5",
-      "url": "https://blog.google/products-and-platforms/platforms/android/gemini-intelligence-november-features-devices/",
-      "canonical_url": "https://blog.google/products-and-platforms/platforms/android/gemini-intelligence-november-features-devices",
-      "title": "Gemini Intelligence: New features, on more devices",
-      "source": "google-ai",
-      "source_name": "Google AI blog",
-      "tier": "T1",
-      "signal_only": false,
-      "domain": "blog.google",
-      "published_at": "2026-11-10T19:00:00.000Z",
-      "date_from": "source",
-      "summary": "Gemini Intelligence is rolling out to more devices. See how expanded capabilities across these devices help you do more.",
-      "collected_at": "2026-11-16T13:33:48.484Z",
-      "title_ru": "Gemini Intelligence: новые функции на большем количестве устройств"
-    },
-    {
-      "id": "3e1919c777ea",
-      "url": "https://latent.space/p/naiveai/",
-      "canonical_url": "https://latent.space/p/naiveai",
-      "title": "NaiveAI Promises 2,100 Tokens per Second. How Well Does It Code?",
-      "source": "latent-space",
-      "source_name": "Latent Space",
-      "tier": "T2",
-      "signal_only": false,
-      "domain": "latent.space",
-      "published_at": "2026-11-10T18:56:32.000Z",
-      "date_from": "source",
-      "summary": "NaiveAI could potentially top Artificial Analysis’s speed rankings. Our hands-on test suggests its coding quality holds up against DeepSeek.",
-      "collected_at": "2026-11-16T13:33:49.138Z",
-      "title_ru": "NaiveAI обещает 2100 токенов в секунду. Насколько хорошо он кодирует?"
     }
   ],
   "issues": [
