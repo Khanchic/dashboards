@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-25T17:19:15.203Z",
-  "last_collect_date": "2026-11-25",
+  "generated_at": "2026-11-26T04:11:18.341Z",
+  "last_collect_date": "2026-11-26",
   "sources_report": [
     {
       "id": "anthropic",
@@ -45,8 +45,8 @@
       "type": "rss",
       "url": "https://deepmind.google/blog/rss.xml",
       "fetched": 100,
-      "kept": 4,
-      "new": 1,
+      "kept": 2,
+      "new": 0,
       "error": null,
       "note": ""
     },
@@ -93,8 +93,8 @@
       "type": "rss",
       "url": "https://huggingface.co/blog/feed.xml",
       "fetched": 917,
-      "kept": 9,
-      "new": 2,
+      "kept": 7,
+      "new": 1,
       "error": null,
       "note": ""
     },
@@ -128,10 +128,10 @@
       "tier": "T1",
       "type": "changelog",
       "url": "https://docs.mistral.ai/resources/changelogs",
-      "fetched": 0,
-      "kept": 0,
+      "fetched": 124,
+      "kept": 124,
       "new": 0,
-      "error": "HTTP 404",
+      "error": null,
       "note": ""
     },
     {
@@ -141,7 +141,7 @@
       "type": "rss",
       "url": "https://openai.com/news/rss.xml",
       "fetched": 1430,
-      "kept": 17,
+      "kept": 13,
       "new": 0,
       "error": null,
       "note": ""
@@ -201,8 +201,8 @@
       "type": "rss",
       "url": "https://www.latent.space/feed",
       "fetched": 20,
-      "kept": 7,
-      "new": 0,
+      "kept": 10,
+      "new": 3,
       "error": null,
       "note": ""
     },
@@ -237,8 +237,8 @@
       "type": "hn",
       "url": "https://hn.algolia.com/api/v1/search_by_date",
       "fetched": 200,
-      "kept": 30,
-      "new": 3,
+      "kept": 31,
+      "new": 6,
       "error": null,
       "note": ""
     },
@@ -250,7 +250,7 @@
       "url": "https://www.therundown.ai/feed",
       "fetched": 50,
       "kept": 9,
-      "new": 2,
+      "new": 0,
       "error": null,
       "note": ""
     },
@@ -261,8 +261,8 @@
       "type": "rss",
       "url": "https://tldr.tech/api/rss/ai",
       "fetched": 20,
-      "kept": 5,
-      "new": 1,
+      "kept": 4,
+      "new": 0,
       "error": null,
       "note": ""
     },
@@ -286,7 +286,7 @@
       "url": "https://www.marketingaiinstitute.com/blog/rss.xml",
       "fetched": 10,
       "kept": 4,
-      "new": 2,
+      "new": 0,
       "error": null,
       "note": ""
     },
@@ -298,7 +298,7 @@
       "url": "https://martech.org/feed/",
       "fetched": 10,
       "kept": 8,
-      "new": 3,
+      "new": 0,
       "error": null,
       "note": ""
     },
@@ -310,22 +310,22 @@
       "url": "https://sbcnews.co.uk/feed/",
       "fetched": 10,
       "kept": 1,
-      "new": 1,
+      "new": 0,
       "error": null,
       "note": ""
     }
   ],
   "totals": {
     "sources": 26,
-    "failed": 4,
+    "failed": 3,
     "empty": 2,
-    "fetched": 3362,
-    "kept": 340,
-    "new_items": 15,
-    "stories_total": 194,
+    "fetched": 3486,
+    "kept": 459,
+    "new_items": 10,
+    "stories_total": 202,
     "stories_confirmed": 67,
-    "stories_eligible": 27,
-    "raw_total": 305
+    "stories_eligible": 28,
+    "raw_total": 306
   },
   "stories": [
     {
@@ -376,6 +376,41 @@
       "summary_ru": "Кошелек ChatGPT позволяет агентам ChatGPT Work, Codex и dots совершать покупки с одобрения пользователя, используя существующие средства защиты карт.",
       "so_what_ru": "Агентская проверка теперь является настоящим продуктом OpenAI, который актуален, если вашим ботам необходимо совершать транзакции (расходы на рекламу, платежи поставщикам, подписки на инструменты) от вашего имени.",
       "rating": 5
+    },
+    {
+      "story_id": "scientists-draw-line-agents",
+      "first_seen": "2026-11-26",
+      "title": "Where scientists draw the line on AI agents",
+      "summary": "",
+      "so_what": "",
+      "tags": [
+        "agents"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "37b5c9ba9326",
+          "url": "https://huggingface.co/blog/allenai/where-scientists-draw-the-line-on-ai-agents",
+          "title": "Where scientists draw the line on AI agents",
+          "source": "Hugging Face blog",
+          "tier": "T1",
+          "domain": "huggingface.co",
+          "published_at": "2026-11-25T18:52:55.000Z",
+          "summary": "",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "huggingface.co"
+      ],
+      "has_t1": true,
+      "status": "confirmed",
+      "last_update": "2026-11-25T18:52:55.000Z",
+      "total": 3.9,
+      "rating": 5,
+      "title_ru": ""
     },
     {
       "story_id": "indic-voice-agent-cuga",
@@ -2748,6 +2783,42 @@
       "rating": 4
     },
     {
+      "story_id": "launch-versine-f26-mcp-send",
+      "first_seen": "2026-11-26",
+      "title": "Launch HN: Versine (YC F26) – MCP to send and receive money",
+      "summary": "HN: 104 points, 103 comments. https://news.ycombinator.com/item?id=50634426",
+      "so_what": "",
+      "tags": [
+        "agents"
+      ],
+      "kind": "launch",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "6014a04f08fa",
+          "url": "https://news.ycombinator.com/item?id=50634426",
+          "title": "Launch HN: Versine (YC F26) – MCP to send and receive money",
+          "source": "Hacker News",
+          "tier": "T3",
+          "domain": "ycombinator.com",
+          "published_at": "2026-11-24T20:44:15Z",
+          "summary": "HN: 104 points, 103 comments. https://news.ycombinator.com/item?id=50634426",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "ycombinator.com"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-24T20:44:15Z",
+      "total": 3.25,
+      "rating": 4,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
       "story_id": "dario-hyping-dangers-oss-models",
       "first_seen": "2026-11-24",
       "title": "\"Dario is hyping the dangers so OSS models are illegal and he stays in control\"",
@@ -3361,66 +3432,6 @@
       "title_ru": "OpenAI начинает встроенные сторонние оценки безопасности с Apollo, METR, Transluce, Goodfire",
       "summary_ru": "OpenAI начала свой первый этап встроенных оценок, привлекая Apollo Research, METR, Transluce и Goodfire для независимой оценки согласованности моделей, мер безопасности и мониторинга.",
       "so_what_ru": "Сигналы о развитии практики независимой оценки в области передовой безопасности ИИ; фоновый контекст, не имеющий прямого действия.",
-      "rating": 3
-    },
-    {
-      "story_id": "alphagenome-2-launch",
-      "first_seen": "2026-11-16",
-      "items": [
-        {
-          "id": "e879c6fc35d4",
-          "url": "https://deepmind.google/blog/alphagenome-2-deciphering-how-cells-read-dna-to-better-understand-disease/",
-          "title": "AlphaGenome 2: Deciphering how cells read DNA to better understand disease",
-          "source": "Google DeepMind",
-          "tier": "T1",
-          "domain": "deepmind.google",
-          "published_at": "2026-11-11T15:00:15.000Z",
-          "summary": "Predicting how DNA sequences and their variations impact specific human cell types and disease.",
-          "title_ru": "AlphaGenome 2: расшифровка того, как клетки считывают ДНК, чтобы лучше понять болезнь"
-        },
-        {
-          "id": "7b7d1f77c266",
-          "url": "https://tldr.tech/ai/2026-11-12",
-          "title": "Grok Bot 1.0 🤖, AlphaGenome 2 🧬, Gemini Decisions 🧠",
-          "source": "TLDR AI",
-          "tier": "T3",
-          "domain": "tldr.tech",
-          "published_at": "2026-11-12T00:00:00.000Z",
-          "summary": "",
-          "title_ru": "Grok Bot 1.0 🤖, AlphaGenome 2 🧬, Gemini Decisions 🧠"
-        }
-      ],
-      "title": "Google DeepMind releases AlphaGenome 2 for DNA variant prediction",
-      "summary": "AlphaGenome 2 predicts how DNA sequences and variants affect specific human cell types and disease, per Google DeepMind.",
-      "tags": [
-        "biotech",
-        "research",
-        "deepmind"
-      ],
-      "entities": [
-        "Google DeepMind",
-        "AlphaGenome 2"
-      ],
-      "kind": "research",
-      "rumor": false,
-      "scores": {
-        "significance": 3,
-        "novelty": 3,
-        "practicality": 1,
-        "relevance": 1
-      },
-      "so_what": "No direct application to marketing or iGaming automation work.",
-      "domains": [
-        "deepmind.google",
-        "tldr.tech"
-      ],
-      "has_t1": true,
-      "status": "confirmed",
-      "total": 2.2,
-      "last_update": "2026-11-12T00:00:00.000Z",
-      "title_ru": "Google DeepMind выпускает AlphaGenome 2 для прогнозирования вариантов ДНК",
-      "summary_ru": "По данным Google DeepMind, AlphaGenome 2 предсказывает, как последовательности и варианты ДНК влияют на конкретные типы клеток человека и заболевания.",
-      "so_what_ru": "Никакого прямого применения в маркетинге или автоматизации iGaming.",
       "rating": 3
     },
     {
@@ -4198,6 +4209,77 @@
       "rating": 3
     },
     {
+      "story_id": "revolution-renaissance-thariq-shihipar-openai",
+      "first_seen": "2026-11-26",
+      "title": "The Revolution vs The Renaissance — Thariq Shihipar, OpenAI",
+      "summary": "AI can make software cheap enough to produce by the thousand and still give you more time to make one thing feel right. At AI Engineer CODE, Thariq Shihipar shows how those two futures can coexist. In his fighting game, he edits the size of a rock in t...",
+      "so_what": "",
+      "tags": [
+        "openai",
+        "coding"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "c7e5de5fee49",
+          "url": "https://latent.space/p/the_revolution_vs_the_renaissance_thariq_shihipar_openai",
+          "title": "The Revolution vs The Renaissance — Thariq Shihipar, OpenAI",
+          "source": "Latent Space",
+          "tier": "T2",
+          "domain": "latent.space",
+          "published_at": "2026-11-25T22:28:01.000Z",
+          "summary": "AI can make software cheap enough to produce by the thousand and still give you more time to make one thing feel right. At AI Engineer CODE, Thariq Shihipar shows how those two futures can coexist. In his fighting game, he edits the size of a rock in t...",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "latent.space"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-25T22:28:01.000Z",
+      "total": 3.1,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
+      "story_id": "ainews-math-proofs-landing-faster",
+      "first_seen": "2026-11-26",
+      "title": "[AINews] Math Proofs Are Landing Faster Than We Can Read Them",
+      "summary": "November 25, 2026 — From Erdős problems to new bounds for matrix multiplication and Fourier transforms.",
+      "so_what": "",
+      "tags": [],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "c7c801f91e25",
+          "url": "https://latent.space/p/ainews-math-proofs-are-landing-faster-than-we-can-read-them",
+          "title": "[AINews] Math Proofs Are Landing Faster Than We Can Read Them",
+          "source": "Latent Space",
+          "tier": "T2",
+          "domain": "latent.space",
+          "published_at": "2026-11-25T22:23:41.000Z",
+          "summary": "November 25, 2026 — From Erdős problems to new bounds for matrix multiplication and Fourier transforms.",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "latent.space"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-25T22:23:41.000Z",
+      "total": 3.1,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
       "story_id": "ainews-gemini-neon-marks-gdm",
       "first_seen": "2026-11-25",
       "title": "[AINews] Gemini 4 Neon marks GDM's full return as a Frontier Lab",
@@ -4512,6 +4594,110 @@
       "title_ru": ""
     },
     {
+      "story_id": "linear-says-issue-tracking-dead",
+      "first_seen": "2026-11-26",
+      "title": "Why Linear says Issue Tracking is Dead — Cristina Cordova, COO",
+      "summary": "Linear was founded to build a better issue tracker. Seven years and $134 million in funding later, its CEO Karri Saarinen published a post titled \"Issue tracking is dead.\" ( https://linear.app/next ) In this episode, we chat with Cristina Cordova ( htt...",
+      "so_what": "",
+      "tags": [],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "9926f8a4697f",
+          "url": "https://latent.space/p/why_linear_says_issue_tracking_is_dead_cristina_cordova_coo",
+          "title": "Why Linear says Issue Tracking is Dead — Cristina Cordova, COO",
+          "source": "Latent Space",
+          "tier": "T2",
+          "domain": "latent.space",
+          "published_at": "2026-11-19T23:38:57.000Z",
+          "summary": "Linear was founded to build a better issue tracker. Seven years and $134 million in funding later, its CEO Karri Saarinen published a post titled \"Issue tracking is dead.\" ( https://linear.app/next ) In this episode, we chat with Cristina Cordova ( htt...",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "latent.space"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-19T23:38:57.000Z",
+      "total": 3.1,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
+      "story_id": "much-shorter-version-grh-lean",
+      "first_seen": "2026-11-26",
+      "title": "Much shorter version of GRH Lean verification from Anthropic",
+      "summary": "HN: 334 points, 166 comments. https://news.ycombinator.com/item?id=50648050",
+      "so_what": "",
+      "tags": [
+        "anthropic"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "f63f4cad1468",
+          "url": "https://github.com/lsernau/grh-lean",
+          "title": "Much shorter version of GRH Lean verification from Anthropic",
+          "source": "Hacker News",
+          "tier": "T3",
+          "domain": "github.com",
+          "published_at": "2026-11-25T21:48:10Z",
+          "summary": "HN: 334 points, 166 comments. https://news.ycombinator.com/item?id=50648050",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "github.com"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-25T21:48:10Z",
+      "total": 3.05,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
+      "story_id": "york-times-warns-photographers-update",
+      "first_seen": "2026-11-26",
+      "title": "The New York Times warns photographers not to update Photoshop over AI features",
+      "summary": "HN: 258 points, 206 comments. https://news.ycombinator.com/item?id=50647673",
+      "so_what": "",
+      "tags": [],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "19f2f984a80d",
+          "url": "https://theverge.com/ai-artificial-intelligence/1041227/the-new-york-times-warns-photographers-not-to-update-photoshop-over-ai-features",
+          "title": "The New York Times warns photographers not to update Photoshop over AI features",
+          "source": "Hacker News",
+          "tier": "T3",
+          "domain": "theverge.com",
+          "published_at": "2026-11-25T21:18:02Z",
+          "summary": "HN: 258 points, 206 comments. https://news.ycombinator.com/item?id=50647673",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "theverge.com"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-25T21:18:02Z",
+      "total": 3.05,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
       "story_id": "gemini-refused-give-lyrics-twinkle",
       "first_seen": "2026-11-25",
       "title": "Gemini refused to give me the lyrics to Twinkle Twinkle Little Star",
@@ -4760,6 +4946,40 @@
       "summary_ru": ""
     },
     {
+      "story_id": "porting-rockbox-undocumented-aliexpress-yp3",
+      "first_seen": "2026-11-26",
+      "title": "Porting Rockbox to an undocumented $9 AliExpress 'YP3' MP3 player with LLMs",
+      "summary": "HN: 238 points, 95 comments. https://news.ycombinator.com/item?id=50624446",
+      "so_what": "",
+      "tags": [],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "8ee50572f79b",
+          "url": "https://jayd.ml/2026/11/14/rockbox-on-yp3.html",
+          "title": "Porting Rockbox to an undocumented $9 AliExpress 'YP3' MP3 player with LLMs",
+          "source": "Hacker News",
+          "tier": "T3",
+          "domain": "jayd.ml",
+          "published_at": "2026-11-24T06:22:36Z",
+          "summary": "HN: 238 points, 95 comments. https://news.ycombinator.com/item?id=50624446",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "jayd.ml"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-24T06:22:36Z",
+      "total": 3.05,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
       "story_id": "beginner-guide-local-inkling-qwen",
       "first_seen": "2026-11-23",
       "title": "A Beginner's Guide to Local AI with Inkling, Qwen, and Unsloth",
@@ -4790,6 +5010,43 @@
       "has_t1": false,
       "status": "unconfirmed",
       "last_update": "2026-11-22T21:01:16Z",
+      "total": 3.05,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
+      "story_id": "gpt-6-astra-first-model-beat",
+      "first_seen": "2026-11-26",
+      "title": "GPT-6.2 Astra is the first model to beat Googlers' code golf records",
+      "summary": "HN: 286 points, 81 comments. https://news.ycombinator.com/item?id=50601280",
+      "so_what": "",
+      "tags": [
+        "openai",
+        "coding"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "c0f9b5be5e22",
+          "url": "https://bjin.github.io/go-codegolf-benchmark",
+          "title": "GPT-6.2 Astra is the first model to beat Googlers' code golf records",
+          "source": "Hacker News",
+          "tier": "T3",
+          "domain": "github.io",
+          "published_at": "2026-11-22T16:44:48Z",
+          "summary": "HN: 286 points, 81 comments. https://news.ycombinator.com/item?id=50601280",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "github.io"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-22T16:44:48Z",
       "total": 3.05,
       "rating": 3,
       "title_ru": "",
@@ -5112,6 +5369,40 @@
       "summary_ru": "GPT-6 Cyber ​​от OpenAI с настроенной безопасностью обнаружил, использовал и исправил почти 950 серьезных уязвимостей ядра Linux за один запуск по цене примерно 1280 долларов США за исправление корневого уровня.",
       "so_what_ru": "Конкретные данные об агентном ИИ, выполняющем крупномасштабную техническую работу автономно и дешево, полезный контекст при определении того, что агенты могут реально автоматизировать, помимо задач по содержанию.",
       "rating": 3
+    },
+    {
+      "story_id": "top-open-problems-mathematics-ranked",
+      "first_seen": "2026-11-26",
+      "title": "Top open problems in mathematics ranked by LLM-assessed importance",
+      "summary": "HN: 103 points, 52 comments. https://news.ycombinator.com/item?id=50637871",
+      "so_what": "",
+      "tags": [],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "dc30af1becdb",
+          "url": "https://proofatlas.ai/open-problems",
+          "title": "Top open problems in mathematics ranked by LLM-assessed importance",
+          "source": "Hacker News",
+          "tier": "T3",
+          "domain": "proofatlas.ai",
+          "published_at": "2026-11-25T03:01:36Z",
+          "summary": "HN: 103 points, 52 comments. https://news.ycombinator.com/item?id=50637871",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "proofatlas.ai"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-25T03:01:36Z",
+      "total": 2.85,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
     },
     {
       "story_id": "pengpt-generative-transformer-handwriting-sketches",
@@ -5718,54 +6009,6 @@
       "title_ru": "OpenWorker Agent Harness SDK с открытым исходным кодом позволяет разработчикам создавать пакеты агентов с помощью одной подсказки.",
       "summary_ru": "В учебном пособии показано, как создать собственный комплект агентов для любого LLM с помощью OpenWorker Agent Harness SDK с открытым исходным кодом.",
       "so_what_ru": "Быстрый и простой способ создания прототипа пользовательского агента, полезный, если вы расширяете свою собственную автоматизацию на основе кода Claude за пределы существующих SDK.",
-      "rating": 3
-    },
-    {
-      "story_id": "united-airlines-bans-ai-agents",
-      "first_seen": "2026-11-16",
-      "items": [
-        {
-          "id": "53bc56e14c08",
-          "url": "https://www.cbsnews.com/news/united-airlines-bans-ai-agents-booking-flights/",
-          "title": "United Airlines bans AI agents from booking flights on behalf of travelers",
-          "source": "Hacker News",
-          "tier": "T3",
-          "domain": "cbsnews.com",
-          "published_at": "2026-11-11T21:24:35Z",
-          "summary": "HN: 681 points, 709 comments. https://news.ycombinator.com/item?id=50458900",
-          "title_ru": "United Airlines запрещает агентам искусственного интеллекта бронировать авиабилеты от имени путешественников"
-        }
-      ],
-      "title": "United Airlines bans AI agents from booking flights on travelers' behalf",
-      "summary": "United Airlines announced a ban on AI agents booking flights on behalf of travelers, sparking widespread discussion.",
-      "tags": [
-        "agents",
-        "policy",
-        "travel",
-        "commerce"
-      ],
-      "entities": [
-        "United Airlines"
-      ],
-      "kind": "policy",
-      "rumor": false,
-      "scores": {
-        "significance": 3,
-        "novelty": 3,
-        "practicality": 2,
-        "relevance": 3
-      },
-      "so_what": "A major consumer brand pushing back on agentic commerce is a signal to watch if you're building agents that transact or book on behalf of customers.",
-      "domains": [
-        "cbsnews.com"
-      ],
-      "has_t1": false,
-      "status": "unconfirmed",
-      "total": 2.75,
-      "last_update": "2026-11-11T21:24:35Z",
-      "title_ru": "",
-      "summary_ru": "United Airlines объявила о запрете агентам искусственного интеллекта бронировать рейсы от имени путешественников, что вызвало широкую дискуссию.",
-      "so_what_ru": "Крупный потребительский бренд, отказывающийся от агентской коммерции, является сигналом к ​​тому, чтобы следить за тем, создаете ли вы агентов, которые совершают транзакции или бронируют услуги от имени клиентов.",
       "rating": 3
     },
     {
@@ -8875,6 +9118,71 @@
   ],
   "raw_items": [
     {
+      "id": "c7e5de5fee49",
+      "source_id": "latent-space",
+      "source_name": "Latent Space",
+      "tier": "T2",
+      "signal_only": false,
+      "title": "The Revolution vs The Renaissance — Thariq Shihipar, OpenAI",
+      "url": "https://latent.space/p/the_revolution_vs_the_renaissance_thariq_shihipar_openai",
+      "domain": "latent.space",
+      "published_at": "2026-11-25T22:28:01.000Z",
+      "collected_on": "2026-11-26",
+      "summary": "AI can make software cheap enough to produce by the thousand and still give you more time to make one thing feel right. At AI Engineer CODE, Thariq Shihipar shows how those two futures can coexist. In his fighting game, he edits the size of a rock in t..."
+    },
+    {
+      "id": "c7c801f91e25",
+      "source_id": "latent-space",
+      "source_name": "Latent Space",
+      "tier": "T2",
+      "signal_only": false,
+      "title": "[AINews] Math Proofs Are Landing Faster Than We Can Read Them",
+      "url": "https://latent.space/p/ainews-math-proofs-are-landing-faster-than-we-can-read-them",
+      "domain": "latent.space",
+      "published_at": "2026-11-25T22:23:41.000Z",
+      "collected_on": "2026-11-26",
+      "summary": "November 25, 2026 — From Erdős problems to new bounds for matrix multiplication and Fourier transforms."
+    },
+    {
+      "id": "f63f4cad1468",
+      "source_id": "hn",
+      "source_name": "Hacker News",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "Much shorter version of GRH Lean verification from Anthropic",
+      "url": "https://github.com/lsernau/grh-lean",
+      "domain": "github.com",
+      "published_at": "2026-11-25T21:48:10Z",
+      "collected_on": "2026-11-26",
+      "summary": "HN: 334 points, 166 comments. https://news.ycombinator.com/item?id=50648050"
+    },
+    {
+      "id": "19f2f984a80d",
+      "source_id": "hn",
+      "source_name": "Hacker News",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "The New York Times warns photographers not to update Photoshop over AI features",
+      "url": "https://theverge.com/ai-artificial-intelligence/1041227/the-new-york-times-warns-photographers-not-to-update-photoshop-over-ai-features",
+      "domain": "theverge.com",
+      "published_at": "2026-11-25T21:18:02Z",
+      "collected_on": "2026-11-26",
+      "summary": "HN: 258 points, 206 comments. https://news.ycombinator.com/item?id=50647673"
+    },
+    {
+      "id": "37b5c9ba9326",
+      "source_id": "huggingface",
+      "source_name": "Hugging Face blog",
+      "tier": "T1",
+      "signal_only": false,
+      "title": "Where scientists draw the line on AI agents",
+      "url": "https://huggingface.co/blog/allenai/where-scientists-draw-the-line-on-ai-agents",
+      "domain": "huggingface.co",
+      "published_at": "2026-11-25T18:52:55.000Z",
+      "collected_on": "2026-11-26",
+      "summary": ""
+    },
+    {
       "id": "7e520ccc6caa",
       "source_id": "maii",
       "source_name": "Marketing AI Institute",
@@ -9018,6 +9326,19 @@
       "summary": "HN: 201 points, 79 comments. https://news.ycombinator.com/item?id=50638220"
     },
     {
+      "id": "dc30af1becdb",
+      "source_id": "hn",
+      "source_name": "Hacker News",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "Top open problems in mathematics ranked by LLM-assessed importance",
+      "url": "https://proofatlas.ai/open-problems",
+      "domain": "proofatlas.ai",
+      "published_at": "2026-11-25T03:01:36Z",
+      "collected_on": "2026-11-26",
+      "summary": "HN: 103 points, 52 comments. https://news.ycombinator.com/item?id=50637871"
+    },
+    {
       "id": "c89d4bfb36a9",
       "source_id": "hn",
       "source_name": "Hacker News",
@@ -9081,6 +9402,19 @@
       "published_at": "2026-11-24T21:00:57.000Z",
       "collected_on": "2026-11-25",
       "summary": "Features api: add Google-managed data controls for Google Cloud projects api: add Google-managed data controls for user profiles api: add support for compliance review cases, notices, and items Bug Fixes client: honor proxy and trust_env when proxy variables are set DefaultHttpxClient and DefaultAsyncHttpxClient read HTTP_PROXY , HTTPS_PROXY , ALL_PROXY and NO_PROXY even when the caller passed proxy= or trust_env=False , and the variables won. Now proxy= is used for every request and the variables are not read, and trust_env=False ignores them, as in plain httpx2 . What you may notice: with pr"
+    },
+    {
+      "id": "6014a04f08fa",
+      "source_id": "hn",
+      "source_name": "Hacker News",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "Launch HN: Versine (YC F26) – MCP to send and receive money",
+      "url": "https://news.ycombinator.com/item?id=50634426",
+      "domain": "ycombinator.com",
+      "published_at": "2026-11-24T20:44:15Z",
+      "collected_on": "2026-11-26",
+      "summary": "HN: 104 points, 103 comments. https://news.ycombinator.com/item?id=50634426"
     },
     {
       "id": "7152c5628597",
@@ -9354,6 +9688,19 @@
       "published_at": "2026-11-24T09:00:00.000Z",
       "collected_on": "2026-11-24",
       "summary": "Solas Compliance has unveiled a new brand identity and product suite as the AI-powered marketing compliance platform seeks to reduce the time and costs associated with approving marketing campaigns. The rebrand is accompanied by four short films showcasing the capabilities of Solas Spark, Solas Core and Solas Radar, which address compliance throughout the marketing lifecycle, […]"
+    },
+    {
+      "id": "8ee50572f79b",
+      "source_id": "hn",
+      "source_name": "Hacker News",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "Porting Rockbox to an undocumented $9 AliExpress 'YP3' MP3 player with LLMs",
+      "url": "https://jayd.ml/2026/11/14/rockbox-on-yp3.html",
+      "domain": "jayd.ml",
+      "published_at": "2026-11-24T06:22:36Z",
+      "collected_on": "2026-11-26",
+      "summary": "HN: 238 points, 95 comments. https://news.ycombinator.com/item?id=50624446"
     },
     {
       "id": "a43a2373bab7",
@@ -9731,6 +10078,19 @@
       "published_at": "2026-11-22T21:01:16Z",
       "collected_on": "2026-11-23",
       "summary": "HN: 271 points, 119 comments. https://news.ycombinator.com/item?id=50603845"
+    },
+    {
+      "id": "c0f9b5be5e22",
+      "source_id": "hn",
+      "source_name": "Hacker News",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "GPT-6.2 Astra is the first model to beat Googlers' code golf records",
+      "url": "https://bjin.github.io/go-codegolf-benchmark",
+      "domain": "github.io",
+      "published_at": "2026-11-22T16:44:48Z",
+      "collected_on": "2026-11-26",
+      "summary": "HN: 286 points, 81 comments. https://news.ycombinator.com/item?id=50601280"
     },
     {
       "id": "3c4f4993adca",
@@ -10250,6 +10610,19 @@
       "summary": ">50% of tickets written by agents, the AI budgets behind $100M-in-months ARR, and selling without SDRs or FDEs",
       "collected_at": "2026-11-20T10:30:17.741Z",
       "title_ru": "Масштабирование GTM Linear до годовой доходности в 100 миллионов долларов — Кристина Кордова, главный операционный директор"
+    },
+    {
+      "id": "9926f8a4697f",
+      "source_id": "latent-space",
+      "source_name": "Latent Space",
+      "tier": "T2",
+      "signal_only": false,
+      "title": "Why Linear says Issue Tracking is Dead — Cristina Cordova, COO",
+      "url": "https://latent.space/p/why_linear_says_issue_tracking_is_dead_cristina_cordova_coo",
+      "domain": "latent.space",
+      "published_at": "2026-11-19T23:38:57.000Z",
+      "collected_on": "2026-11-26",
+      "summary": "Linear was founded to build a better issue tracker. Seven years and $134 million in funding later, its CEO Karri Saarinen published a post titled \"Issue tracking is dead.\" ( https://linear.app/next ) In this episode, we chat with Cristina Cordova ( htt..."
     },
     {
       "id": "ed33061e28b0",
@@ -13294,150 +13667,6 @@
       "summary": "At AI Engineer Code Summit, lead Jev creator Diogo Almeida called on developers to automate everything. Also, Glean and others showed how they’re using Jev.",
       "collected_at": "2026-11-16T13:33:49.138Z",
       "title_ru": "Революция Jev: что инженеры уже создают с помощью моделей System One"
-    },
-    {
-      "id": "b06379671ede",
-      "url": "https://openai.com/index/children-first-declaration",
-      "canonical_url": "https://openai.com/index/children-first-declaration",
-      "title": "Supporting research on AI and children’s safety",
-      "source": "openai",
-      "source_name": "OpenAI News",
-      "tier": "T1",
-      "signal_only": false,
-      "domain": "openai.com",
-      "published_at": "2026-11-12T00:00:00.000Z",
-      "date_from": "source",
-      "summary": "OpenAI commits $2 million to research on AI and children’s safety. The work supports shared tools to measure risks and opportunities for young people.",
-      "collected_at": "2026-11-16T13:33:48.078Z",
-      "title_ru": "Поддержка исследований в области искусственного интеллекта и безопасности детей"
-    },
-    {
-      "id": "f28f90d2895a",
-      "url": "https://openai.com/index/gilbert-tobin-sam-nickless",
-      "canonical_url": "https://openai.com/index/gilbert-tobin-sam-nickless",
-      "title": "Gilbert + Tobin rethinks the business of law with AI",
-      "source": "openai",
-      "source_name": "OpenAI News",
-      "tier": "T1",
-      "signal_only": false,
-      "domain": "openai.com",
-      "published_at": "2026-11-12T00:00:00.000Z",
-      "date_from": "source",
-      "summary": "A conversation with Sam Nickless, Partner and Chief Executive Officer at Gilbert + Tobin.",
-      "collected_at": "2026-11-16T13:33:48.078Z",
-      "title_ru": "Гилберт + Тобин переосмысливают юридический бизнес с помощью ИИ"
-    },
-    {
-      "id": "56dac742ff29",
-      "url": "https://huggingface.co/blog/3d-lora-finetuning",
-      "canonical_url": "https://huggingface.co/blog/3d-lora-finetuning",
-      "title": "The Definitive Fine-Tuning Guide for 3D Generation Models",
-      "source": "huggingface",
-      "source_name": "Hugging Face blog",
-      "tier": "T1",
-      "signal_only": false,
-      "domain": "huggingface.co",
-      "published_at": "2026-11-12T00:00:00.000Z",
-      "date_from": "source",
-      "summary": "",
-      "collected_at": "2026-11-16T13:33:48.263Z",
-      "title_ru": "Полное руководство по точной настройке 3D-моделей"
-    },
-    {
-      "id": "7b7d1f77c266",
-      "url": "https://tldr.tech/ai/2026-11-12",
-      "canonical_url": "https://tldr.tech/ai/2026-11-12",
-      "title": "Grok Bot 1.0 🤖, AlphaGenome 2 🧬, Gemini Decisions 🧠",
-      "source": "tldr-ai",
-      "source_name": "TLDR AI",
-      "tier": "T3",
-      "signal_only": false,
-      "domain": "tldr.tech",
-      "published_at": "2026-11-12T00:00:00.000Z",
-      "date_from": "source",
-      "summary": "",
-      "collected_at": "2026-11-16T13:33:48.270Z",
-      "title_ru": "Grok Bot 1.0 🤖, AlphaGenome 2 🧬, Gemini Decisions 🧠"
-    },
-    {
-      "id": "0bae9cbcf12f",
-      "url": "https://charonhub.deeplearning.ai/anthropic-releases-new-top-models/",
-      "canonical_url": "https://charonhub.deeplearning.ai/anthropic-releases-new-top-models",
-      "title": "Anthropic releases new top models: Meta’s Muse Ember rivals leading fast models",
-      "source": "the-batch",
-      "source_name": "The Batch",
-      "tier": "T2",
-      "signal_only": false,
-      "domain": "deeplearning.ai",
-      "published_at": "2026-11-11T21:29:00.000Z",
-      "date_from": "source",
-      "summary": "AlphaProof Code verifies Signal’s cryptography algorithm. Alibaba’s Co-Design Bench measures fully correct commits. Google’s most powerful model now available for developers. Anthropic ports Claude from Nvidia to AMD processors in three days.",
-      "collected_at": "2026-11-16T13:33:49.152Z",
-      "title_ru": "Anthropic выпускает новые топ-модели: Muse Ember от Meta конкурирует с ведущими быстрыми моделями"
-    },
-    {
-      "id": "53bc56e14c08",
-      "url": "https://www.cbsnews.com/news/united-airlines-bans-ai-agents-booking-flights/",
-      "canonical_url": "https://cbsnews.com/news/united-airlines-bans-ai-agents-booking-flights",
-      "title": "United Airlines bans AI agents from booking flights on behalf of travelers",
-      "source": "hn",
-      "source_name": "Hacker News",
-      "tier": "T3",
-      "signal_only": false,
-      "domain": "cbsnews.com",
-      "published_at": "2026-11-11T21:24:35Z",
-      "date_from": "source",
-      "summary": "HN: 681 points, 709 comments. https://news.ycombinator.com/item?id=50458900",
-      "collected_at": "2026-11-16T13:33:48.729Z",
-      "title_ru": "United Airlines запрещает агентам искусственного интеллекта бронировать авиабилеты от имени путешественников"
-    },
-    {
-      "id": "4443c3f3c02e",
-      "url": "https://lpeproject.org/blog/your-retirement-savings-are-fueling-the-ai-bubble/",
-      "canonical_url": "https://lpeproject.org/blog/your-retirement-savings-are-fueling-the-ai-bubble",
-      "title": "Retirement Savings Are Fueling the AI Bubble",
-      "source": "hn",
-      "source_name": "Hacker News",
-      "tier": "T3",
-      "signal_only": false,
-      "domain": "lpeproject.org",
-      "published_at": "2026-11-11T19:06:43Z",
-      "date_from": "source",
-      "summary": "HN: 165 points, 198 comments. https://news.ycombinator.com/item?id=50457164",
-      "collected_at": "2026-11-16T13:33:48.729Z",
-      "title_ru": "Пенсионные накопления раздувают пузырь искусственного интеллекта"
-    },
-    {
-      "id": "8c9052413e13",
-      "url": "https://www.allthingsdistributed.com/2026/11/aws-emulator-and-the-engineers-job-when-agents-write-the-code.html",
-      "canonical_url": "https://allthingsdistributed.com/2026/11/aws-emulator-and-the-engineers-job-when-agents-write-the-code.html",
-      "title": "AWS Emulator and the engineer's job when agents write the code",
-      "source": "hn",
-      "source_name": "Hacker News",
-      "tier": "T3",
-      "signal_only": false,
-      "domain": "allthingsdistributed.com",
-      "published_at": "2026-11-11T18:28:31Z",
-      "date_from": "source",
-      "summary": "HN: 111 points, 2 comments. https://news.ycombinator.com/item?id=50456740",
-      "collected_at": "2026-11-16T13:33:48.729Z",
-      "title_ru": "Эмулятор AWS и работа инженера, когда агенты пишут код"
-    },
-    {
-      "id": "cce714811b51",
-      "url": "https://blog.google/innovation-and-ai/technology/developers-tools/gemini-decisions-api/",
-      "canonical_url": "https://blog.google/innovation-and-ai/technology/developers-tools/gemini-decisions-api",
-      "title": "Gemini Decisions API: Fast, calibrated multimodal decisions",
-      "source": "google-ai",
-      "source_name": "Google AI blog",
-      "tier": "T1",
-      "signal_only": false,
-      "domain": "blog.google",
-      "published_at": "2026-11-11T18:00:00.000Z",
-      "date_from": "source",
-      "summary": "Meet the Gemini Decisions API, powered by our state-of-the-art model Gemini Decision for fast, calibrated multimodal decisions.",
-      "collected_at": "2026-11-16T13:33:48.484Z",
-      "title_ru": "Gemini Decisions API: быстрые, калиброванные мультимодальные решения"
     }
   ],
   "issues": [
