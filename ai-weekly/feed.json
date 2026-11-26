@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-26T04:11:18.341Z",
+  "generated_at": "2026-11-26T16:59:13.622Z",
   "last_collect_date": "2026-11-26",
   "sources_report": [
     {
@@ -92,9 +92,9 @@
       "tier": "T1",
       "type": "rss",
       "url": "https://huggingface.co/blog/feed.xml",
-      "fetched": 917,
-      "kept": 7,
-      "new": 1,
+      "fetched": 918,
+      "kept": 9,
+      "new": 3,
       "error": null,
       "note": ""
     },
@@ -141,7 +141,7 @@
       "type": "rss",
       "url": "https://openai.com/news/rss.xml",
       "fetched": 1430,
-      "kept": 13,
+      "kept": 12,
       "new": 0,
       "error": null,
       "note": ""
@@ -165,8 +165,8 @@
       "type": "rss",
       "url": "https://github.com/openai/openai-python/releases.atom",
       "fetched": 10,
-      "kept": 4,
-      "new": 0,
+      "kept": 5,
+      "new": 1,
       "error": null,
       "note": ""
     },
@@ -201,8 +201,8 @@
       "type": "rss",
       "url": "https://www.latent.space/feed",
       "fetched": 20,
-      "kept": 10,
-      "new": 3,
+      "kept": 9,
+      "new": 0,
       "error": null,
       "note": ""
     },
@@ -225,7 +225,7 @@
       "type": "rss",
       "url": "https://www.bensbites.com/feed",
       "fetched": 20,
-      "kept": 2,
+      "kept": 1,
       "new": 0,
       "error": null,
       "note": ""
@@ -237,8 +237,8 @@
       "type": "hn",
       "url": "https://hn.algolia.com/api/v1/search_by_date",
       "fetched": 200,
-      "kept": 31,
-      "new": 6,
+      "kept": 32,
+      "new": 2,
       "error": null,
       "note": ""
     },
@@ -249,8 +249,8 @@
       "type": "rss",
       "url": "https://www.therundown.ai/feed",
       "fetched": 50,
-      "kept": 9,
-      "new": 0,
+      "kept": 8,
+      "new": 1,
       "error": null,
       "note": ""
     },
@@ -261,8 +261,8 @@
       "type": "rss",
       "url": "https://tldr.tech/api/rss/ai",
       "fetched": 20,
-      "kept": 4,
-      "new": 0,
+      "kept": 5,
+      "new": 1,
       "error": null,
       "note": ""
     },
@@ -273,7 +273,7 @@
       "type": "rss",
       "url": "https://igamingbusiness.com/feed/",
       "fetched": 100,
-      "kept": 4,
+      "kept": 3,
       "new": 0,
       "error": null,
       "note": ""
@@ -285,7 +285,7 @@
       "type": "rss",
       "url": "https://www.marketingaiinstitute.com/blog/rss.xml",
       "fetched": 10,
-      "kept": 4,
+      "kept": 3,
       "new": 0,
       "error": null,
       "note": ""
@@ -309,7 +309,7 @@
       "type": "rss",
       "url": "https://sbcnews.co.uk/feed/",
       "fetched": 10,
-      "kept": 1,
+      "kept": 0,
       "new": 0,
       "error": null,
       "note": ""
@@ -319,13 +319,13 @@
     "sources": 26,
     "failed": 3,
     "empty": 2,
-    "fetched": 3486,
-    "kept": 459,
-    "new_items": 10,
-    "stories_total": 202,
-    "stories_confirmed": 67,
-    "stories_eligible": 28,
-    "raw_total": 306
+    "fetched": 3487,
+    "kept": 457,
+    "new_items": 8,
+    "stories_total": 206,
+    "stories_confirmed": 69,
+    "stories_eligible": 31,
+    "raw_total": 302
   },
   "stories": [
     {
@@ -376,6 +376,41 @@
       "summary_ru": "Кошелек ChatGPT позволяет агентам ChatGPT Work, Codex и dots совершать покупки с одобрения пользователя, используя существующие средства защиты карт.",
       "so_what_ru": "Агентская проверка теперь является настоящим продуктом OpenAI, который актуален, если вашим ботам необходимо совершать транзакции (расходы на рекламу, платежи поставщикам, подписки на инструменты) от вашего имени.",
       "rating": 5
+    },
+    {
+      "story_id": "swarms-flocks-gangs-build-train",
+      "first_seen": "2026-11-26",
+      "title": "Swarms, Flocks, Gangs: How to build, train, and evaluate multi-agent systems",
+      "summary": "",
+      "so_what": "",
+      "tags": [
+        "agents"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "c01600d41603",
+          "url": "https://huggingface.co/blog/training-swarms",
+          "title": "Swarms, Flocks, Gangs: How to build, train, and evaluate multi-agent systems",
+          "source": "Hugging Face blog",
+          "tier": "T1",
+          "domain": "huggingface.co",
+          "published_at": "2026-11-26T00:00:00.000Z",
+          "summary": "",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "huggingface.co"
+      ],
+      "has_t1": true,
+      "status": "confirmed",
+      "last_update": "2026-11-26T00:00:00.000Z",
+      "total": 3.9,
+      "rating": 5,
+      "title_ru": ""
     },
     {
       "story_id": "scientists-draw-line-agents",
@@ -733,6 +768,75 @@
       "summary_ru": "OpenAI представила плагин продаж, а также более 30 новых и расширенных партнерских плагинов в ChatGPT для исследования потенциальных клиентов, подготовки презентаций, обновления CRM и продвижения сделок.",
       "so_what_ru": "Непосредственное использование для CRM/удержания и рабочих процессов, связанных с продажами, которыми управляют команды маркетинга и эксплуатации продуктов.",
       "rating": 5
+    },
+    {
+      "story_id": "introducing-llama-cpp-benchmark-dashboard",
+      "first_seen": "2026-11-26",
+      "title": "Introducing the llama.cpp benchmark dashboard for AMD Ryzen and Radeon",
+      "summary": "",
+      "so_what": "",
+      "tags": [
+        "meta",
+        "open-weights"
+      ],
+      "kind": "tool",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "02a088434703",
+          "url": "https://huggingface.co/blog/ggml-org/llamacpp-amd-bench",
+          "title": "Introducing the llama.cpp benchmark dashboard for AMD Ryzen and Radeon",
+          "source": "Hugging Face blog",
+          "tier": "T1",
+          "domain": "huggingface.co",
+          "published_at": "2026-11-26T11:37:17.000Z",
+          "summary": "",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "huggingface.co"
+      ],
+      "has_t1": true,
+      "status": "confirmed",
+      "last_update": "2026-11-26T11:37:17.000Z",
+      "total": 3.5,
+      "rating": 5,
+      "title_ru": ""
+    },
+    {
+      "story_id": "building-nemotron-parse-open-data",
+      "first_seen": "2026-11-26",
+      "title": "Building on Nemotron 3.5 Parse: Open Data, Fine-Tuning, and Faster Inference",
+      "summary": "",
+      "so_what": "",
+      "tags": [],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "d3aa48daa62d",
+          "url": "https://huggingface.co/blog/nvidia/building-on-nemotron-35-parse-open-data-fine-tunin",
+          "title": "Building on Nemotron 3.5 Parse: Open Data, Fine-Tuning, and Faster Inference",
+          "source": "Hugging Face blog",
+          "tier": "T1",
+          "domain": "huggingface.co",
+          "published_at": "2026-11-26T05:05:36.000Z",
+          "summary": "",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "huggingface.co"
+      ],
+      "has_t1": true,
+      "status": "confirmed",
+      "last_update": "2026-11-26T05:05:36.000Z",
+      "total": 3.5,
+      "rating": 5,
+      "title_ru": ""
     },
     {
       "story_id": "hill-climbing-inkling-mini-inference-one",
@@ -1680,68 +1784,6 @@
       "title_ru": "Google делает Tasks in Gemini бесплатным в шести странах благодаря более глубокой интеграции с Workspace",
       "summary_ru": "Google объявил, что Tasks in Gemini теперь бесплатен в шести странах, с новыми функциями в США и более глубокой интеграцией с Google Workspace для выполнения задач от имени пользователя.",
       "so_what_ru": "Бесплатная агентская функция задач внутри Workspace, которую стоит протестировать для автоматизации производительности операций.",
-      "rating": 5
-    },
-    {
-      "story_id": "google-gemini-decisions-api",
-      "first_seen": "2026-11-16",
-      "items": [
-        {
-          "id": "cce714811b51",
-          "url": "https://blog.google/innovation-and-ai/technology/developers-tools/gemini-decisions-api/",
-          "title": "Gemini Decisions API: Fast, calibrated multimodal decisions",
-          "source": "Google AI blog",
-          "tier": "T1",
-          "domain": "blog.google",
-          "published_at": "2026-11-11T18:00:00.000Z",
-          "summary": "Meet the Gemini Decisions API, powered by our state-of-the-art model Gemini Decision for fast, calibrated multimodal decisions.",
-          "title_ru": "Gemini Decisions API: быстрые, калиброванные мультимодальные решения"
-        },
-        {
-          "id": "e10b6b9196df",
-          "url": "https://latent.space/p/ainews-d-day-decision-models-day/",
-          "title": "[AINews] D-Day (Decision Models Day)",
-          "source": "Latent Space",
-          "tier": "T2",
-          "domain": "latent.space",
-          "published_at": "2026-11-12T05:26:54.000Z",
-          "summary": "November 11, 2026 — Google enters the decision model market. At AI Engineer, Cloudflare showed which parts of a build failure a classifier could handle. TypeSafe AI showed off their production customers.",
-          "title_ru": ""
-        }
-      ],
-      "title": "Google launches Gemini Decisions API for calibrated multimodal decisions",
-      "summary": "Google introduced the Gemini Decisions API, powered by the Gemini Decision model, for fast, calibrated multimodal decision-making, marking Google's entry into the 'decision model' market highlighted at AI Engineer's Decision Models Day.",
-      "tags": [
-        "google",
-        "gemini",
-        "decision-models",
-        "agents",
-        "api"
-      ],
-      "entities": [
-        "Google",
-        "Gemini Decision"
-      ],
-      "kind": "launch",
-      "rumor": false,
-      "scores": {
-        "significance": 3,
-        "novelty": 4,
-        "practicality": 3,
-        "relevance": 3
-      },
-      "so_what": "A dedicated decision API could replace ad-hoc rules or classifiers in automation flows, e.g. flagging promo abuse or approving bonus payouts, with a single calibrated model call.",
-      "domains": [
-        "blog.google",
-        "latent.space"
-      ],
-      "has_t1": true,
-      "status": "confirmed",
-      "total": 3.25,
-      "last_update": "2026-11-12T05:26:54.000Z",
-      "title_ru": "",
-      "summary_ru": "Компания Google представила API Gemini Decisions API, основанный на модели Gemini Decision, для быстрого и калиброванного мультимодального принятия решений, ознаменовав выход Google на рынок «моделей принятия решений», о котором говорилось на Дне моделей решений AI Engineer.",
-      "so_what_ru": "Специальный API принятия решений может заменить специальные правила или классификаторы в процессах автоматизации, например выявление злоупотреблений в рамках промо-акций или утверждение бонусных выплат с помощью одного калиброванного модельного звонка.",
       "rating": 5
     },
     {
@@ -2783,6 +2825,42 @@
       "rating": 4
     },
     {
+      "story_id": "openai-cuts-gpt-6-usage-astra",
+      "first_seen": "2026-11-26",
+      "title": "OpenAI cuts GPT-6.2 usage: Astra hits limits 40% faster, Sol 25% faster",
+      "summary": "HN: 423 points, 233 comments. https://news.ycombinator.com/item?id=50651117",
+      "so_what": "",
+      "tags": [
+        "openai"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "244a3e8cb4f1",
+          "url": "https://twitter.com/thsottiaux/status/2125784147889393806",
+          "title": "OpenAI cuts GPT-6.2 usage: Astra hits limits 40% faster, Sol 25% faster",
+          "source": "Hacker News",
+          "tier": "T3",
+          "domain": "twitter.com",
+          "published_at": "2026-11-26T03:36:58Z",
+          "summary": "HN: 423 points, 233 comments. https://news.ycombinator.com/item?id=50651117",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "twitter.com"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-26T03:36:58Z",
+      "total": 3.25,
+      "rating": 4,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
       "story_id": "launch-versine-f26-mcp-send",
       "first_seen": "2026-11-26",
       "title": "Launch HN: Versine (YC F26) – MCP to send and receive money",
@@ -2847,6 +2925,43 @@
       "has_t1": false,
       "status": "unconfirmed",
       "last_update": "2026-11-23T17:07:26Z",
+      "total": 3.25,
+      "rating": 4,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
+      "story_id": "show-agent-skill-optimizes-code",
+      "first_seen": "2026-11-26",
+      "title": "Show HN: An agent skill that optimizes code with falsifiable hypotheses",
+      "summary": "HN: 124 points, 11 comments. https://news.ycombinator.com/item?id=50611593",
+      "so_what": "",
+      "tags": [
+        "agents",
+        "coding"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "17cce5727050",
+          "url": "https://chszlab.github.io/AgenticAlgorithmEngineering",
+          "title": "Show HN: An agent skill that optimizes code with falsifiable hypotheses",
+          "source": "Hacker News",
+          "tier": "T3",
+          "domain": "github.io",
+          "published_at": "2026-11-23T14:02:15Z",
+          "summary": "HN: 124 points, 11 comments. https://news.ycombinator.com/item?id=50611593",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "github.io"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-23T14:02:15Z",
       "total": 3.25,
       "rating": 4,
       "title_ru": "",
@@ -6012,6 +6127,77 @@
       "rating": 3
     },
     {
+      "story_id": "cheat-sheet-thanksgiving-dinner",
+      "first_seen": "2026-11-26",
+      "title": "Your AI cheat sheet for Thanksgiving dinner",
+      "summary": "PLUS: Use Gemini Tasks to hunt for Black Friday prices",
+      "so_what": "",
+      "tags": [
+        "google"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "a2092f6a4fbd",
+          "url": "https://therundown.ai/articles/your-ai-cheat-sheet-for-thanksgiving-dinner",
+          "title": "Your AI cheat sheet for Thanksgiving dinner",
+          "source": "The Rundown AI",
+          "tier": "T3",
+          "domain": "therundown.ai",
+          "published_at": "2026-11-26T11:00:00.000Z",
+          "summary": "PLUS: Use Gemini Tasks to hunt for Black Friday prices",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "therundown.ai"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-26T11:00:00.000Z",
+      "total": 2.7,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
+      "story_id": "opus-testing-openai-private-inference",
+      "first_seen": "2026-11-26",
+      "title": "Opus 5.6 testing 🤖, OpenAI private Inference 🔒, Jev is probably Qwen 📝",
+      "summary": "",
+      "so_what": "",
+      "tags": [
+        "openai"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "042b5f16218f",
+          "url": "https://tldr.tech/ai/2026-11-26",
+          "title": "Opus 5.6 testing 🤖, OpenAI private Inference 🔒, Jev is probably Qwen 📝",
+          "source": "TLDR AI",
+          "tier": "T3",
+          "domain": "tldr.tech",
+          "published_at": "2026-11-26T00:00:00.000Z",
+          "summary": "",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "tldr.tech"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-26T00:00:00.000Z",
+      "total": 2.7,
+      "rating": 3,
+      "title_ru": ""
+    },
+    {
       "story_id": "three-xai-founders-want-predict",
       "first_seen": "2026-11-25",
       "title": "Three xAI founders want AI to predict the future",
@@ -7557,55 +7743,6 @@
       "rating": 2
     },
     {
-      "story_id": "claude-code-jeep-ecu-reverse-engineering",
-      "first_seen": "2026-11-16",
-      "items": [
-        {
-          "id": "bfe9406dcdbd",
-          "url": "https://www.youtube.com/watch?v=WPj3aQ-xxpI",
-          "title": "Claude Code and Codex reverse engineered my 1994 Jeep's ECU over a $3 Arduino [video]",
-          "source": "Hacker News",
-          "tier": "T3",
-          "domain": "youtube.com",
-          "published_at": "2026-11-12T05:29:24Z",
-          "summary": "HN: 430 points, 215 comments. https://news.ycombinator.com/item?id=50463399",
-          "title_ru": "Claude Code и Codex провели реверс-инжиниринг ЭБУ моего Jeep 1994 года с использованием Arduino за 3 доллара [видео]"
-        }
-      ],
-      "title": "Developer uses Claude Code and Codex to reverse-engineer a 1994 Jeep ECU",
-      "summary": "A widely discussed project used Claude Code and Codex together with a $3 Arduino to reverse-engineer the engine control unit of a 1994 Jeep.",
-      "tags": [
-        "claude-code",
-        "automation",
-        "hardware-hacking",
-        "coding"
-      ],
-      "entities": [
-        "Claude Code",
-        "Codex"
-      ],
-      "kind": "industry",
-      "rumor": false,
-      "scores": {
-        "significance": 2,
-        "novelty": 3,
-        "practicality": 2,
-        "relevance": 3
-      },
-      "so_what": "A concrete reminder of how far agentic coding tools can be pushed on unconventional, hands-on tasks, worth stretching your own Claude Code use cases.",
-      "domains": [
-        "youtube.com"
-      ],
-      "has_t1": false,
-      "status": "unconfirmed",
-      "total": 2.4,
-      "last_update": "2026-11-12T05:29:24Z",
-      "title_ru": "Разработчик использует Claude Code и Codex для обратного проектирования блока управления двигателем Jeep 1994 года.",
-      "summary_ru": "Широко обсуждаемый проект использовал Claude Code и Codex вместе с Arduino за 3 доллара для реверс-инжиниринга блока управления двигателем Jeep 1994 года.",
-      "so_what_ru": "Конкретное напоминание о том, насколько далеко можно использовать инструменты агентного кодирования для решения нетрадиционных практических задач, и стоит расширить свои собственные варианты использования Claude Code.",
-      "rating": 2
-    },
-    {
       "story_id": "perplexity-1b-revenue-run-rate",
       "first_seen": "2026-11-17",
       "items": [
@@ -8965,65 +9102,6 @@
       "rating": 1
     },
     {
-      "story_id": "amazon-home-robotics-push",
-      "first_seen": "2026-11-16",
-      "items": [
-        {
-          "id": "ab2fd43d0e42",
-          "url": "https://www.therundown.ai/articles/amazon-turns-ring-cameras-into-robots",
-          "title": "Amazon turns Ring cameras into robots",
-          "source": "The Rundown AI",
-          "tier": "T3",
-          "domain": "therundown.ai",
-          "published_at": "2026-11-12T15:30:00.000Z",
-          "summary": "PLUS: SoftBank backs $8.5B German humanoid",
-          "title_ru": "Amazon превращает камеры Ring в роботов"
-        },
-        {
-          "id": "3fe924a17fbf",
-          "url": "https://www.therundown.ai/articles/amazon-builds-its-home-robot-team",
-          "title": "Amazon builds its home robot team",
-          "source": "The Rundown AI",
-          "tier": "T3",
-          "domain": "therundown.ai",
-          "published_at": "2026-11-09T15:30:00.000Z",
-          "summary": "PLUS: Zipline nearly triples its valuation",
-          "title_ru": "Amazon создает команду домашних роботов"
-        }
-      ],
-      "title": "Amazon pushes into home robotics, turning Ring cameras into robots",
-      "summary": "Amazon is reportedly turning Ring cameras into robots and has been building out a dedicated home robot team.",
-      "tags": [
-        "robotics",
-        "amazon",
-        "consumer-tech"
-      ],
-      "entities": [
-        "Amazon",
-        "Ring"
-      ],
-      "kind": "business",
-      "rumor": false,
-      "scores": {
-        "significance": 2,
-        "novelty": 2,
-        "practicality": 1,
-        "relevance": 1
-      },
-      "so_what": "Outside the marketing/iGaming automation scope; mainly a consumer-hardware trend to note.",
-      "domains": [
-        "therundown.ai"
-      ],
-      "has_t1": false,
-      "status": "unconfirmed",
-      "total": 1.6,
-      "last_update": "2026-11-12T15:30:00.000Z",
-      "title_ru": "Amazon продвигается в сфере домашней робототехники, превращая камеры Ring в роботов",
-      "summary_ru": "Сообщается, что Amazon превращает камеры Ring в роботов и создает специальную команду домашних роботов.",
-      "so_what_ru": "За пределами автоматизации маркетинга/iGaming; в основном следует отметить тенденцию в области потребительского оборудования.",
-      "rating": 1
-    },
-    {
       "story_id": "martech-ai-business-knowledge",
       "first_seen": "2026-11-19",
       "items": [
@@ -9117,6 +9195,97 @@
     }
   ],
   "raw_items": [
+    {
+      "id": "02a088434703",
+      "source_id": "huggingface",
+      "source_name": "Hugging Face blog",
+      "tier": "T1",
+      "signal_only": false,
+      "title": "Introducing the llama.cpp benchmark dashboard for AMD Ryzen and Radeon",
+      "url": "https://huggingface.co/blog/ggml-org/llamacpp-amd-bench",
+      "domain": "huggingface.co",
+      "published_at": "2026-11-26T11:37:17.000Z",
+      "collected_on": "2026-11-26",
+      "summary": ""
+    },
+    {
+      "id": "a2092f6a4fbd",
+      "source_id": "rundown",
+      "source_name": "The Rundown AI",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "Your AI cheat sheet for Thanksgiving dinner",
+      "url": "https://therundown.ai/articles/your-ai-cheat-sheet-for-thanksgiving-dinner",
+      "domain": "therundown.ai",
+      "published_at": "2026-11-26T11:00:00.000Z",
+      "collected_on": "2026-11-26",
+      "summary": "PLUS: Use Gemini Tasks to hunt for Black Friday prices"
+    },
+    {
+      "id": "ee86e4f0d7da",
+      "source_id": "openai-sdk",
+      "source_name": "openai-python releases",
+      "tier": "T1",
+      "signal_only": true,
+      "title": "v3.60.0",
+      "url": "https://github.com/openai/openai-python/releases/tag/v3.60.0",
+      "domain": "github.com",
+      "published_at": "2026-11-26T07:09:55.000Z",
+      "collected_on": "2026-11-26",
+      "summary": "3.60.0 (2026-11-26) Features api: add spend alerts and response compaction fields ( #4335 ) ( 4713afd ) api: support updating session vaults ( #4334 ) ( c386f19 ) Chores api: clarify message retries and Batch endpoints ( #4333 ) ( b5b55ab ) api: clarify Realtime audio noise reduction ( #4331 ) ( 6626656 ) api: correct metadata documentation ( #4328 ) ( aff223d ) api: document inline skill upload limits ( #4300 ) ( 621fd09 )"
+    },
+    {
+      "id": "d3aa48daa62d",
+      "source_id": "huggingface",
+      "source_name": "Hugging Face blog",
+      "tier": "T1",
+      "signal_only": false,
+      "title": "Building on Nemotron 3.5 Parse: Open Data, Fine-Tuning, and Faster Inference",
+      "url": "https://huggingface.co/blog/nvidia/building-on-nemotron-35-parse-open-data-fine-tunin",
+      "domain": "huggingface.co",
+      "published_at": "2026-11-26T05:05:36.000Z",
+      "collected_on": "2026-11-26",
+      "summary": ""
+    },
+    {
+      "id": "244a3e8cb4f1",
+      "source_id": "hn",
+      "source_name": "Hacker News",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "OpenAI cuts GPT-6.2 usage: Astra hits limits 40% faster, Sol 25% faster",
+      "url": "https://twitter.com/thsottiaux/status/2125784147889393806",
+      "domain": "twitter.com",
+      "published_at": "2026-11-26T03:36:58Z",
+      "collected_on": "2026-11-26",
+      "summary": "HN: 423 points, 233 comments. https://news.ycombinator.com/item?id=50651117"
+    },
+    {
+      "id": "c01600d41603",
+      "source_id": "huggingface",
+      "source_name": "Hugging Face blog",
+      "tier": "T1",
+      "signal_only": false,
+      "title": "Swarms, Flocks, Gangs: How to build, train, and evaluate multi-agent systems",
+      "url": "https://huggingface.co/blog/training-swarms",
+      "domain": "huggingface.co",
+      "published_at": "2026-11-26T00:00:00.000Z",
+      "collected_on": "2026-11-26",
+      "summary": ""
+    },
+    {
+      "id": "042b5f16218f",
+      "source_id": "tldr-ai",
+      "source_name": "TLDR AI",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "Opus 5.6 testing 🤖, OpenAI private Inference 🔒, Jev is probably Qwen 📝",
+      "url": "https://tldr.tech/ai/2026-11-26",
+      "domain": "tldr.tech",
+      "published_at": "2026-11-26T00:00:00.000Z",
+      "collected_on": "2026-11-26",
+      "summary": ""
+    },
     {
       "id": "c7e5de5fee49",
       "source_id": "latent-space",
@@ -9922,6 +10091,19 @@
       "published_at": "2026-11-23T14:11:17.000Z",
       "collected_on": "2026-11-23",
       "summary": "Could the scientific method be emergent?"
+    },
+    {
+      "id": "17cce5727050",
+      "source_id": "hn",
+      "source_name": "Hacker News",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "Show HN: An agent skill that optimizes code with falsifiable hypotheses",
+      "url": "https://chszlab.github.io/AgenticAlgorithmEngineering",
+      "domain": "github.io",
+      "published_at": "2026-11-23T14:02:15Z",
+      "collected_on": "2026-11-26",
+      "summary": "HN: 124 points, 11 comments. https://news.ycombinator.com/item?id=50611593"
     },
     {
       "id": "d22274b536c2",
@@ -13475,198 +13657,6 @@
       "summary": "We are bringing Gemini 4 Hydrogen to Google Search globally to provide you with more helpful, visual, and intuitive responses.",
       "collected_at": "2026-11-16T13:33:48.484Z",
       "title_ru": "Поиск Google получил серьезное обновление с Gemini 4 Hydrogen"
-    },
-    {
-      "id": "ab2fd43d0e42",
-      "url": "https://www.therundown.ai/articles/amazon-turns-ring-cameras-into-robots",
-      "canonical_url": "https://therundown.ai/articles/amazon-turns-ring-cameras-into-robots",
-      "title": "Amazon turns Ring cameras into robots",
-      "source": "rundown",
-      "source_name": "The Rundown AI",
-      "tier": "T3",
-      "signal_only": false,
-      "domain": "therundown.ai",
-      "published_at": "2026-11-12T15:30:00.000Z",
-      "date_from": "source",
-      "summary": "PLUS: SoftBank backs $8.5B German humanoid",
-      "collected_at": "2026-11-16T13:33:48.195Z",
-      "title_ru": "Amazon превращает камеры Ring в роботов"
-    },
-    {
-      "id": "0667a519c650",
-      "url": "https://github.com/hyperionaidev/smolmaxxing/",
-      "canonical_url": "https://github.com/hyperionaidev/smolmaxxing",
-      "title": "I'm making LLMs work on small and old devices",
-      "source": "hn",
-      "source_name": "Hacker News",
-      "tier": "T3",
-      "signal_only": false,
-      "domain": "github.com",
-      "published_at": "2026-11-12T15:23:10Z",
-      "date_from": "source",
-      "summary": "HN: 481 points, 181 comments. https://news.ycombinator.com/item?id=50468888",
-      "collected_at": "2026-11-16T13:33:48.729Z",
-      "title_ru": "Я заставляю LLM работать на маленьких и старых устройствах."
-    },
-    {
-      "id": "79884049a925",
-      "url": "https://martech.org/marketing-automation-is-dead-long-live-marketing-automation/",
-      "canonical_url": "https://martech.org/marketing-automation-is-dead-long-live-marketing-automation",
-      "title": "Marketing automation is dead. Long live marketing automation!",
-      "source": "martech",
-      "source_name": "MarTech",
-      "tier": "T4",
-      "signal_only": false,
-      "domain": "martech.org",
-      "published_at": "2026-11-12T15:06:05.000Z",
-      "date_from": "source",
-      "summary": "Algorithm updates and endless manual workflows are draining. The November MarTech Conference discussed how AI transforms marketing automation into your strongest partner. The post Marketing automation is dead. Long live marketing automation! appeared first on MarTech .",
-      "collected_at": "2026-11-16T13:33:48.099Z",
-      "title_ru": "Автоматизация маркетинга мертва. Да здравствует автоматизация маркетинга!"
-    },
-    {
-      "id": "9feb4ac43aa6",
-      "url": "https://libreagi.com/",
-      "canonical_url": "https://libreagi.com",
-      "title": "Libreagi – Save OSS Models",
-      "source": "hn",
-      "source_name": "Hacker News",
-      "tier": "T3",
-      "signal_only": false,
-      "domain": "libreagi.com",
-      "published_at": "2026-11-12T14:11:58Z",
-      "date_from": "source",
-      "summary": "HN: 156 points, 31 comments. https://news.ycombinator.com/item?id=50467439",
-      "collected_at": "2026-11-16T13:33:48.729Z",
-      "title_ru": "Libreagi – сохранение моделей OSS"
-    },
-    {
-      "id": "6acc9950244c",
-      "url": "https://www.bensbites.com/p/to-the-man-with-ai-everything-looks",
-      "canonical_url": "https://bensbites.com/p/to-the-man-with-ai-everything-looks",
-      "title": "To the man with AI, everything looks like a task",
-      "source": "bensbites",
-      "source_name": "Ben's Bites",
-      "tier": "T3",
-      "signal_only": false,
-      "domain": "bensbites.com",
-      "published_at": "2026-11-12T14:03:11.000Z",
-      "date_from": "source",
-      "summary": "Real* quote from Charlie Munger - lightly modernised :)",
-      "collected_at": "2026-11-16T13:33:48.139Z",
-      "title_ru": "Для человека с ИИ все выглядит как задача"
-    },
-    {
-      "id": "90d79223706e",
-      "url": "https://openai.com/business/customer-stories/gondola",
-      "canonical_url": "https://openai.com/business/customer-stories/gondola",
-      "title": "Gondola doubles revenue as its team builds more with Codex",
-      "source": "openai",
-      "source_name": "OpenAI News",
-      "tier": "T1",
-      "signal_only": false,
-      "domain": "openai.com",
-      "published_at": "2026-11-12T12:00:00.000Z",
-      "date_from": "source",
-      "summary": "Gondola helps creatives get credit and get hired, with Codex raising its lead engineer’s output by 50% and ChatGPT simplifying daily work.",
-      "collected_at": "2026-11-16T13:33:48.078Z",
-      "title_ru": "Компания Gondola удваивает доход, поскольку ее команда строит больше с помощью Кодекса"
-    },
-    {
-      "id": "f101ffad2bb3",
-      "url": "https://ipo.anthropic.com/us/",
-      "canonical_url": "https://ipo.anthropic.com/us",
-      "title": "Anthropic IPO",
-      "source": "hn",
-      "source_name": "Hacker News",
-      "tier": "T3",
-      "signal_only": false,
-      "domain": "anthropic.com",
-      "published_at": "2026-11-12T11:46:41Z",
-      "date_from": "source",
-      "summary": "HN: 1004 points, 919 comments. https://news.ycombinator.com/item?id=50465829",
-      "collected_at": "2026-11-16T13:33:48.729Z",
-      "title_ru": "Антропное IPO"
-    },
-    {
-      "id": "7c720dc4f387",
-      "url": "https://www.therundown.ai/articles/ai-s-biggest-ceo-may-be-on-his-way-out",
-      "canonical_url": "https://therundown.ai/articles/ai-s-biggest-ceo-may-be-on-his-way-out",
-      "title": "AI’s biggest CEO may be on his way out",
-      "source": "rundown",
-      "source_name": "The Rundown AI",
-      "tier": "T3",
-      "signal_only": false,
-      "domain": "therundown.ai",
-      "published_at": "2026-11-12T10:00:00.000Z",
-      "date_from": "source",
-      "summary": "PLUS: How to claim and set up your business on ChatGPT",
-      "collected_at": "2026-11-16T13:33:48.195Z",
-      "title_ru": "Крупнейший генеральный директор AI может уйти в отставку"
-    },
-    {
-      "id": "0990939c7d6e",
-      "url": "https://openai.com/business/customer-stories/holidays-extras-codex",
-      "canonical_url": "https://openai.com/business/customer-stories/holidays-extras-codex",
-      "title": "Holiday Extras is rethinking what it can build with Codex",
-      "source": "openai",
-      "source_name": "OpenAI News",
-      "tier": "T1",
-      "signal_only": false,
-      "domain": "openai.com",
-      "published_at": "2026-11-12T09:30:00.000Z",
-      "date_from": "source",
-      "summary": "With Codex, Holiday Extras is turning customer expertise into better apps, higher booking conversion and new possibilities for growth.",
-      "collected_at": "2026-11-16T13:33:48.078Z",
-      "title_ru": "Holiday Extras переосмысливает то, что можно построить с помощью Кодекса"
-    },
-    {
-      "id": "bfe9406dcdbd",
-      "url": "https://www.youtube.com/watch?v=WPj3aQ-xxpI",
-      "canonical_url": "https://youtube.com/watch?v=WPj3aQ-xxpI",
-      "title": "Claude Code and Codex reverse engineered my 1994 Jeep's ECU over a $3 Arduino [video]",
-      "source": "hn",
-      "source_name": "Hacker News",
-      "tier": "T3",
-      "signal_only": false,
-      "domain": "youtube.com",
-      "published_at": "2026-11-12T05:29:24Z",
-      "date_from": "source",
-      "summary": "HN: 430 points, 215 comments. https://news.ycombinator.com/item?id=50463399",
-      "collected_at": "2026-11-16T13:33:48.729Z",
-      "title_ru": "Claude Code и Codex провели реверс-инжиниринг ЭБУ моего Jeep 1994 года с использованием Arduino за 3 доллара [видео]"
-    },
-    {
-      "id": "e10b6b9196df",
-      "url": "https://latent.space/p/ainews-d-day-decision-models-day/",
-      "canonical_url": "https://latent.space/p/ainews-d-day-decision-models-day",
-      "title": "[AINews] D-Day (Decision Models Day)",
-      "source": "latent-space",
-      "source_name": "Latent Space",
-      "tier": "T2",
-      "signal_only": false,
-      "domain": "latent.space",
-      "published_at": "2026-11-12T05:26:54.000Z",
-      "date_from": "source",
-      "summary": "November 11, 2026 — Google enters the decision model market. At AI Engineer, Cloudflare showed which parts of a build failure a classifier could handle. TypeSafe AI showed off their production customers.",
-      "collected_at": "2026-11-16T13:33:49.138Z",
-      "title_ru": "[ANews] D-Day (День моделей принятия решений)"
-    },
-    {
-      "id": "adb66fa1efb1",
-      "url": "https://latent.space/p/jev-revolution/",
-      "canonical_url": "https://latent.space/p/jev-revolution",
-      "title": "The Jev Revolution: What Engineers Are Already Building with System One Models",
-      "source": "latent-space",
-      "source_name": "Latent Space",
-      "tier": "T2",
-      "signal_only": false,
-      "domain": "latent.space",
-      "published_at": "2026-11-12T05:08:20.000Z",
-      "date_from": "source",
-      "summary": "At AI Engineer Code Summit, lead Jev creator Diogo Almeida called on developers to automate everything. Also, Glean and others showed how they’re using Jev.",
-      "collected_at": "2026-11-16T13:33:49.138Z",
-      "title_ru": "Революция Jev: что инженеры уже создают с помощью моделей System One"
     }
   ],
   "issues": [
