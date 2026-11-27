@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-26T16:59:13.622Z",
-  "last_collect_date": "2026-11-26",
+  "generated_at": "2026-11-27T04:18:23.711Z",
+  "last_collect_date": "2026-11-27",
   "sources_report": [
     {
       "id": "anthropic",
@@ -33,7 +33,7 @@
       "type": "rss",
       "url": "https://github.com/anthropics/anthropic-sdk-python/releases.atom",
       "fetched": 10,
-      "kept": 4,
+      "kept": 3,
       "new": 0,
       "error": null,
       "note": ""
@@ -69,7 +69,7 @@
       "type": "rss",
       "url": "https://blog.google/technology/ai/rss/",
       "fetched": 20,
-      "kept": 4,
+      "kept": 2,
       "new": 0,
       "error": null,
       "note": ""
@@ -93,8 +93,8 @@
       "type": "rss",
       "url": "https://huggingface.co/blog/feed.xml",
       "fetched": 918,
-      "kept": 9,
-      "new": 3,
+      "kept": 7,
+      "new": 0,
       "error": null,
       "note": ""
     },
@@ -141,7 +141,7 @@
       "type": "rss",
       "url": "https://openai.com/news/rss.xml",
       "fetched": 1430,
-      "kept": 12,
+      "kept": 10,
       "new": 0,
       "error": null,
       "note": ""
@@ -165,8 +165,8 @@
       "type": "rss",
       "url": "https://github.com/openai/openai-python/releases.atom",
       "fetched": 10,
-      "kept": 5,
-      "new": 1,
+      "kept": 3,
+      "new": 0,
       "error": null,
       "note": ""
     },
@@ -201,8 +201,8 @@
       "type": "rss",
       "url": "https://www.latent.space/feed",
       "fetched": 20,
-      "kept": 9,
-      "new": 0,
+      "kept": 8,
+      "new": 1,
       "error": null,
       "note": ""
     },
@@ -237,8 +237,8 @@
       "type": "hn",
       "url": "https://hn.algolia.com/api/v1/search_by_date",
       "fetched": 200,
-      "kept": 32,
-      "new": 2,
+      "kept": 36,
+      "new": 5,
       "error": null,
       "note": ""
     },
@@ -250,7 +250,7 @@
       "url": "https://www.therundown.ai/feed",
       "fetched": 50,
       "kept": 8,
-      "new": 1,
+      "new": 0,
       "error": null,
       "note": ""
     },
@@ -261,8 +261,8 @@
       "type": "rss",
       "url": "https://tldr.tech/api/rss/ai",
       "fetched": 20,
-      "kept": 5,
-      "new": 1,
+      "kept": 4,
+      "new": 0,
       "error": null,
       "note": ""
     },
@@ -320,12 +320,12 @@
     "failed": 3,
     "empty": 2,
     "fetched": 3487,
-    "kept": 457,
-    "new_items": 8,
-    "stories_total": 206,
-    "stories_confirmed": 69,
+    "kept": 450,
+    "new_items": 6,
+    "stories_total": 205,
+    "stories_confirmed": 67,
     "stories_eligible": 31,
-    "raw_total": 302
+    "raw_total": 292
   },
   "stories": [
     {
@@ -1643,102 +1643,6 @@
       "rating": 5
     },
     {
-      "story_id": "gemini-4-hydrogen-launch",
-      "first_seen": "2026-11-16",
-      "items": [
-        {
-          "id": "a8d5fa7d24b3",
-          "url": "https://deepmind.google/blog/introducing-gemini-4-hydrogen/",
-          "title": "Introducing Gemini 4 Hydrogen",
-          "source": "Google DeepMind",
-          "tier": "T1",
-          "domain": "deepmind.google",
-          "published_at": "2026-11-12T18:00:50.000Z",
-          "summary": "",
-          "title_ru": "Представляем Gemini 4 Hydrogen"
-        },
-        {
-          "id": "a49fd02deff5",
-          "url": "https://tldr.tech/ai/2026-11-13",
-          "title": "Gemini 4 Hydrogen 🚀, self-hosted Claude agents 🔒, Replit agent commerce 🛒",
-          "source": "TLDR AI",
-          "tier": "T3",
-          "domain": "tldr.tech",
-          "published_at": "2026-11-13T00:00:00.000Z",
-          "summary": "",
-          "title_ru": ""
-        },
-        {
-          "id": "ad614f81e42f",
-          "url": "https://blog.google/products-and-platforms/products/search/gemini-4-hydrogen-search-upgrade/",
-          "title": "Google Search gets a major upgrade with Gemini 4 Hydrogen",
-          "source": "Google AI blog",
-          "tier": "T1",
-          "domain": "blog.google",
-          "published_at": "2026-11-12T18:00:00.000Z",
-          "summary": "We are bringing Gemini 4 Hydrogen to Google Search globally to provide you with more helpful, visual, and intuitive responses.",
-          "title_ru": "Поиск Google получил серьезное обновление с Gemini 4 Hydrogen"
-        },
-        {
-          "id": "d40fca9fd5e1",
-          "url": "https://antigravity.google/blog/gemini-4-hydrogen-in-google-antigravity/",
-          "title": "Gemini 4 Hydrogen and Orchestrator",
-          "source": "Hacker News",
-          "tier": "T3",
-          "domain": "antigravity.google",
-          "published_at": "2026-11-12T18:52:01Z",
-          "summary": "HN: 506 points, 165 comments. https://news.ycombinator.com/item?id=50472260",
-          "title_ru": "Gemini 4 Водород и Оркестратор"
-        },
-        {
-          "id": "8fdb0296ea11",
-          "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-hydrogen/",
-          "title": "Gemini 4 Hydrogen",
-          "source": "Hacker News",
-          "tier": "T3",
-          "domain": "blog.google",
-          "published_at": "2026-11-12T18:01:48Z",
-          "summary": "HN: 572 points, 353 comments. https://news.ycombinator.com/item?id=50471431",
-          "title_ru": "Близнецы 4 Водород"
-        }
-      ],
-      "title": "Gemini 4 Hydrogen rolls out to Google Search globally with new Orchestrator capability",
-      "summary": "Google is bringing Gemini 4 Hydrogen to Google Search worldwide for more visual, intuitive answers, with discussion also highlighting an accompanying 'Orchestrator' feature.",
-      "tags": [
-        "google",
-        "gemini",
-        "search",
-        "orchestrator"
-      ],
-      "entities": [
-        "Google",
-        "Gemini 4 Hydrogen"
-      ],
-      "kind": "launch",
-      "rumor": false,
-      "scores": {
-        "significance": 4,
-        "novelty": 3,
-        "practicality": 3,
-        "relevance": 3
-      },
-      "so_what": "Global rollout into Search means AI-generated visual answers will increasingly mediate how customers discover your brand or promos, worth auditing your presence in AI-driven results.",
-      "domains": [
-        "deepmind.google",
-        "tldr.tech",
-        "blog.google",
-        "antigravity.google"
-      ],
-      "has_t1": true,
-      "status": "confirmed",
-      "total": 3.35,
-      "last_update": "2026-11-13T00:00:00.000Z",
-      "title_ru": "Gemini 4 Hydrogen выходит в поиск Google по всему миру с новыми возможностями Orchestrator",
-      "summary_ru": "Google добавляет Gemini 4 Hydrogen в поиск Google по всему миру, чтобы получить более наглядные и интуитивно понятные ответы, при этом в обсуждении также подчеркивается сопутствующая функция «Оркестратор».",
-      "so_what_ru": "Глобальное внедрение в поиск означает, что визуальные ответы, генерируемые ИИ, будут все чаще влиять на то, как клиенты находят ваш бренд или рекламные акции, поэтому стоит проверить свое присутствие в результатах, основанных на ИИ.",
-      "rating": 5
-    },
-    {
       "story_id": "google-gemini-tasks-free-expansion",
       "first_seen": "2026-11-19",
       "items": [
@@ -2575,6 +2479,42 @@
       "rating": 4
     },
     {
+      "story_id": "clay-builds-gtm-agents-jeff",
+      "first_seen": "2026-11-27",
+      "title": "How Clay Builds GTM Agents — Jeff Barg, Head of AI",
+      "summary": "How $1,500 could qualify every company in the world, why customers hate the model selector, and how Clay is building go-to-market infrastructure for every agent",
+      "so_what": "",
+      "tags": [
+        "agents"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "00bb51c293be",
+          "url": "https://latent.space/p/how-clay-builds-gtm-agents-jeff-barg-head-of-ai",
+          "title": "How Clay Builds GTM Agents — Jeff Barg, Head of AI",
+          "source": "Latent Space",
+          "tier": "T2",
+          "domain": "latent.space",
+          "published_at": "2026-11-26T23:02:48.000Z",
+          "summary": "How $1,500 could qualify every company in the world, why customers hate the model selector, and how Clay is building go-to-market infrastructure for every agent",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "latent.space"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-26T23:02:48.000Z",
+      "total": 3.5,
+      "rating": 4,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
       "story_id": "adaptive-memory-management-researchers-ucla",
       "first_seen": "2026-11-23",
       "title": "Adaptive Memory Management: Researchers at UCLA, Washington, and Northwestern release MEMCON for agents",
@@ -2608,6 +2548,43 @@
       "status": "unconfirmed",
       "last_update": "2026-11-20T16:15:00.000Z",
       "total": 3.5,
+      "rating": 4,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
+      "story_id": "google-make-agents-use-mcp",
+      "first_seen": "2026-11-27",
+      "title": "Google Will Make AI Agents Use Its MCP Servers. The Gmail One Can't Send Email",
+      "summary": "HN: 280 points, 235 comments. https://news.ycombinator.com/item?id=50653477",
+      "so_what": "",
+      "tags": [
+        "google",
+        "agents"
+      ],
+      "kind": "tool",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "6f6a6b07f17a",
+          "url": "https://techstackups.com/articles/google-workspace-ai-agents-mcp",
+          "title": "Google Will Make AI Agents Use Its MCP Servers. The Gmail One Can't Send Email",
+          "source": "Hacker News",
+          "tier": "T3",
+          "domain": "techstackups.com",
+          "published_at": "2026-11-26T09:44:23Z",
+          "summary": "HN: 280 points, 235 comments. https://news.ycombinator.com/item?id=50653477",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "techstackups.com"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-26T09:44:23Z",
+      "total": 3.45,
       "rating": 4,
       "title_ru": "",
       "summary_ru": ""
@@ -2823,6 +2800,40 @@
       "summary_ru": "MarTech утверждает, что, когда агенты ИИ оценивают поставщиков B2B, ясная информация о продукте и достоверные доказательства, а не только конкурентные характеристики, определяют, будет ли рассматриваться поставщик.",
       "so_what_ru": "Тактическое руководство по структурированию контента продукта, чтобы агенты искусственного интеллекта и системы ответов появлялись на свет и рекомендовали ваш бренд.",
       "rating": 4
+    },
+    {
+      "story_id": "made-self-hosting-fun-again",
+      "first_seen": "2026-11-27",
+      "title": "AI made self-hosting fun again",
+      "summary": "HN: 422 points, 227 comments. https://news.ycombinator.com/item?id=50660180",
+      "so_what": "",
+      "tags": [],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "19dd4641586d",
+          "url": "https://janlukas.blog/posts/ai-self-hosting",
+          "title": "AI made self-hosting fun again",
+          "source": "Hacker News",
+          "tier": "T3",
+          "domain": "janlukas.blog",
+          "published_at": "2026-11-26T21:47:45Z",
+          "summary": "HN: 422 points, 227 comments. https://news.ycombinator.com/item?id=50660180",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "janlukas.blog"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-26T21:47:45Z",
+      "total": 3.25,
+      "rating": 4,
+      "title_ru": "",
+      "summary_ru": ""
     },
     {
       "story_id": "openai-cuts-gpt-6-usage-astra",
@@ -3145,55 +3156,6 @@
       "rating": 4,
       "title_ru": "",
       "summary_ru": ""
-    },
-    {
-      "story_id": "brave-search-x402-payments",
-      "first_seen": "2026-11-16",
-      "items": [
-        {
-          "id": "b3c84623c44d",
-          "url": "https://brave.com/blog/search-api-agentic-payments/",
-          "title": "Brave Search API now accepts agentic payments via the x402 protocol",
-          "source": "Hacker News",
-          "tier": "T3",
-          "domain": "brave.com",
-          "published_at": "2026-11-13T03:08:08Z",
-          "summary": "HN: 262 points, 151 comments. https://news.ycombinator.com/item?id=50477649",
-          "title_ru": ""
-        }
-      ],
-      "title": "Brave Search API adds agentic payments via the x402 protocol",
-      "summary": "Brave Search API now accepts agentic payments through the x402 protocol, letting AI agents pay for search access programmatically.",
-      "tags": [
-        "agents",
-        "payments",
-        "search-api",
-        "x402"
-      ],
-      "entities": [
-        "Brave",
-        "x402"
-      ],
-      "kind": "launch",
-      "rumor": false,
-      "scores": {
-        "significance": 3,
-        "novelty": 4,
-        "practicality": 3,
-        "relevance": 3
-      },
-      "so_what": "A working example of agent-to-service micropayments, relevant if you're building autonomous agents that need to pay for data or APIs on their own.",
-      "domains": [
-        "brave.com"
-      ],
-      "has_t1": false,
-      "status": "unconfirmed",
-      "total": 3.25,
-      "last_update": "2026-11-13T03:08:08Z",
-      "title_ru": "Brave Search API добавляет агентские платежи по протоколу x402",
-      "summary_ru": "API Brave Search теперь принимает агентские платежи через протокол x402, позволяя агентам ИИ программно платить за доступ к поиску.",
-      "so_what_ru": "Рабочий пример микроплатежей между агентами и службами, который подойдет, если вы создаете автономных агентов, которым необходимо самостоятельно платить за данные или API.",
-      "rating": 4
     },
     {
       "story_id": "openai-healthcare-computer-use-agents",
@@ -3643,54 +3605,6 @@
       "title_ru": "Hugging Face выполняет вывод модели MoE со 180B параметрами в 32 ГБ ОЗУ.",
       "summary_ru": "Hugging Face детально раздвигает границы умозаключений, проводимых экспертами, запуская модель со 180B параметрами в 32 ГБ оперативной памяти с помощью Transformers.",
       "so_what_ru": "Снижает аппаратную планку для локального запуска больших открытых моделей, что в основном актуально для разработчиков, ориентированных на инфраструктуру.",
-      "rating": 3
-    },
-    {
-      "story_id": "llmon-markup-language-release",
-      "first_seen": "2026-11-16",
-      "items": [
-        {
-          "id": "a88bddb17214",
-          "url": "https://huggingface.co/blog/ibm-granite/llmon-an-llm-native-markup-language-now-in-granite",
-          "title": "LLMON: An LLM-Native Markup Language, now in Granite 4.1 3B and 8B",
-          "source": "Hugging Face blog",
-          "tier": "T1",
-          "domain": "huggingface.co",
-          "published_at": "2026-11-12T19:07:35.000Z",
-          "summary": "",
-          "title_ru": "LLMON: собственный язык разметки LLM, теперь в Granite 4.1 3B и 8B"
-        }
-      ],
-      "title": "LLMON, an LLM-native markup language, ships in IBM Granite 4.1",
-      "summary": "Hugging Face detailed LLMON, a new LLM-native markup language, now available in Granite 4.1 3B and 8B models.",
-      "tags": [
-        "tooling",
-        "open-weights"
-      ],
-      "entities": [
-        "Hugging Face",
-        "LLMON",
-        "IBM Granite 4.1"
-      ],
-      "kind": "tool",
-      "rumor": false,
-      "scores": {
-        "significance": 2,
-        "novelty": 3,
-        "practicality": 2,
-        "relevance": 1
-      },
-      "so_what": "A niche tooling release for structuring LLM output; worth a glance if you build prompt/parsing pipelines.",
-      "domains": [
-        "huggingface.co"
-      ],
-      "has_t1": true,
-      "status": "confirmed",
-      "total": 2.1,
-      "last_update": "2026-11-12T19:07:35.000Z",
-      "title_ru": "LLMON, собственный язык разметки LLM, входит в состав IBM Granite 4.1.",
-      "summary_ru": "В Hugging Face подробно описан LLMON, новый собственный язык разметки LLM, который теперь доступен в моделях Granite 4.1 3B и 8B.",
-      "so_what_ru": "Нишевый выпуск инструментов для структурирования результатов LLM; стоит взглянуть, если вы строите конвейеры подсказок/анализа.",
       "rating": 3
     },
     {
@@ -4738,6 +4652,113 @@
       "status": "unconfirmed",
       "last_update": "2026-11-19T23:38:57.000Z",
       "total": 3.1,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
+      "story_id": "tracking-diseases-cured",
+      "first_seen": "2026-11-27",
+      "title": "Tracking Diseases Cured by AI",
+      "summary": "HN: 306 points, 183 comments. https://news.ycombinator.com/item?id=50657307",
+      "so_what": "",
+      "tags": [],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "c83866a1dbc9",
+          "url": "https://diseasescuredbyai.com",
+          "title": "Tracking Diseases Cured by AI",
+          "source": "Hacker News",
+          "tier": "T3",
+          "domain": "diseasescuredbyai.com",
+          "published_at": "2026-11-26T17:16:41Z",
+          "summary": "HN: 306 points, 183 comments. https://news.ycombinator.com/item?id=50657307",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "diseasescuredbyai.com"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-26T17:16:41Z",
+      "total": 3.05,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
+      "story_id": "amd-specific-fork-llama-cpp",
+      "first_seen": "2026-11-27",
+      "title": "AMD-specific fork of llama.cpp",
+      "summary": "HN: 307 points, 74 comments. https://news.ycombinator.com/item?id=50657265",
+      "so_what": "",
+      "tags": [
+        "meta",
+        "open-weights"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "1d45997e4997",
+          "url": "https://devnull.land/amd-specific-llama-cpp",
+          "title": "AMD-specific fork of llama.cpp",
+          "source": "Hacker News",
+          "tier": "T3",
+          "domain": "devnull.land",
+          "published_at": "2026-11-26T17:11:29Z",
+          "summary": "HN: 307 points, 74 comments. https://news.ycombinator.com/item?id=50657265",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "devnull.land"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-26T17:11:29Z",
+      "total": 3.05,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
+      "story_id": "openai-may-cost-control-mode",
+      "first_seen": "2026-11-27",
+      "title": "OpenAI may be in cost control mode",
+      "summary": "HN: 304 points, 311 comments. https://news.ycombinator.com/item?id=50652527",
+      "so_what": "",
+      "tags": [
+        "openai"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "82a13b62ffcb",
+          "url": "https://micjm.com/blog/openai-is-in-cost-control-mode",
+          "title": "OpenAI may be in cost control mode",
+          "source": "Hacker News",
+          "tier": "T3",
+          "domain": "micjm.com",
+          "published_at": "2026-11-26T07:33:12Z",
+          "summary": "HN: 304 points, 311 comments. https://news.ycombinator.com/item?id=50652527",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "micjm.com"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-26T07:33:12Z",
+      "total": 3.05,
       "rating": 3,
       "title_ru": "",
       "summary_ru": ""
@@ -6682,53 +6703,6 @@
       "rating": 3
     },
     {
-      "story_id": "edge0-145b-launch",
-      "first_seen": "2026-11-16",
-      "items": [
-        {
-          "id": "f980cc1f1e21",
-          "url": "https://edge0.ai/blog/introducing-edge0-145b-frontier-ai-capabilities-on-your-own-computer",
-          "title": "Edge0-145B: Frontier AI Capabilities on Your Own Computer",
-          "source": "Hacker News",
-          "tier": "T3",
-          "domain": "edge0.ai",
-          "published_at": "2026-11-12T23:06:17Z",
-          "summary": "HN: 357 points, 105 comments. https://news.ycombinator.com/item?id=50475713",
-          "title_ru": "Edge0-145B: передовые возможности искусственного интеллекта на вашем компьютере"
-        }
-      ],
-      "title": "Edge0-145B released, claiming frontier AI capability on personal computers",
-      "summary": "A new open model, Edge0-145B, was released claiming frontier-level AI capability runnable on a personal computer.",
-      "tags": [
-        "open-weights",
-        "local-ai",
-        "launch"
-      ],
-      "entities": [
-        "Edge0-145B"
-      ],
-      "kind": "launch",
-      "rumor": false,
-      "scores": {
-        "significance": 3,
-        "novelty": 4,
-        "practicality": 2,
-        "relevance": 1
-      },
-      "so_what": "Local frontier-capable models lower the bar for running AI without cloud API costs, worth testing for offline or private automation.",
-      "domains": [
-        "edge0.ai"
-      ],
-      "has_t1": false,
-      "status": "unconfirmed",
-      "total": 2.7,
-      "last_update": "2026-11-12T23:06:17Z",
-      "title_ru": "Выпущен Edge0-145B, заявляющий о передовых возможностях искусственного интеллекта на персональных компьютерах",
-      "summary_ru": "Была выпущена новая открытая модель Edge0-145B, в которой утверждалось, что возможности искусственного интеллекта передового уровня могут быть запущены на персональном компьютере.",
-      "so_what_ru": "Модели с локальными возможностями снижают планку для запуска ИИ без затрат на облачные API, и их стоит протестировать для автономной или частной автоматизации.",
-      "rating": 3
-    },
-    {
       "story_id": "ai-killing-all-about-berlin-blog",
       "first_seen": "2026-11-19",
       "items": [
@@ -6834,53 +6808,6 @@
       "title_ru": "Claude.ai, Claude Code и Platform.claude.com столкнулись с повышенным уровнем ошибок из-за сбоя",
       "summary_ru": "В Anthropic произошел сбой с повышенным уровнем ошибок на сайтах claude.ai, Claude Code и Platform.claude.com, что вызвало бурное обсуждение среди пользователей.",
       "so_what_ru": "Если ваша автоматизация зависит от Claude Code или Claude API, встройте обработку повторных попыток/резервных попыток, эта неделя стала напоминанием о том, что она может выйти из строя.",
-      "rating": 3
-    },
-    {
-      "story_id": "agentrun-self-improving-agents",
-      "first_seen": "2026-11-16",
-      "items": [
-        {
-          "id": "ca1478ab4f6d",
-          "url": "https://github.com/Parcha-ai/agentrun/blob/main/README.md",
-          "title": "Show HN: AgentRun – open-source, Self-improving Managed Agents",
-          "source": "Hacker News",
-          "tier": "T3",
-          "domain": "github.com",
-          "published_at": "2026-11-12T18:15:48Z",
-          "summary": "HN: 138 points, 40 comments. https://news.ycombinator.com/item?id=50471650",
-          "title_ru": "Show HN: AgentRun — самоулучшающиеся управляемые агенты с открытым исходным кодом"
-        }
-      ],
-      "title": "Open-source AgentRun ships self-improving managed agents",
-      "summary": "A Show HN post introduced AgentRun, an open-source framework described as self-improving managed agents.",
-      "tags": [
-        "agents",
-        "open-source",
-        "automation"
-      ],
-      "entities": [
-        "AgentRun"
-      ],
-      "kind": "tool",
-      "rumor": false,
-      "scores": {
-        "significance": 2,
-        "novelty": 3,
-        "practicality": 3,
-        "relevance": 3
-      },
-      "so_what": "Another open-source option to evaluate if you're building or improving your own agent stack for marketing or ops automation.",
-      "domains": [
-        "github.com"
-      ],
-      "has_t1": false,
-      "status": "unconfirmed",
-      "total": 2.65,
-      "last_update": "2026-11-12T18:15:48Z",
-      "title_ru": "AgentRun с открытым исходным кодом поставляет самоусовершенствующиеся управляемые агенты",
-      "summary_ru": "В сообщении Show HN была представлена ​​AgentRun, платформа с открытым исходным кодом, описываемая как самоусовершенствующиеся управляемые агенты.",
-      "so_what_ru": "Еще один вариант с открытым исходным кодом, позволяющий оценить, создаете ли вы или улучшаете свой собственный стек агентов для автоматизации маркетинга или операций.",
       "rating": 3
     },
     {
@@ -7979,54 +7906,6 @@
       "rating": 2
     },
     {
-      "story_id": "chinese-models-export-controlled-gpu-fingerprint",
-      "first_seen": "2026-11-16",
-      "items": [
-        {
-          "id": "d096a8a420fb",
-          "url": "https://unemploymentlabs.com/checkpoint-forensics",
-          "title": "Chinese frontier AI models carry the fingerprint of export-controlled GPUs",
-          "source": "Hacker News",
-          "tier": "T3",
-          "domain": "unemploymentlabs.com",
-          "published_at": "2026-11-12T21:56:11Z",
-          "summary": "HN: 446 points, 192 comments. https://news.ycombinator.com/item?id=50474883",
-          "title_ru": "Китайские передовые модели искусственного интеллекта несут отпечаток графических процессоров, находящихся под экспортным контролем."
-        }
-      ],
-      "title": "Chinese frontier AI models show fingerprint of export-controlled GPUs",
-      "summary": "Analysis finds that Chinese frontier AI models carry technical fingerprints linking them to GPUs subject to US export controls.",
-      "tags": [
-        "china",
-        "gpus",
-        "export-controls",
-        "research"
-      ],
-      "entities": [
-        "China"
-      ],
-      "kind": "research",
-      "rumor": false,
-      "scores": {
-        "significance": 3,
-        "novelty": 3,
-        "practicality": 1,
-        "relevance": 1
-      },
-      "so_what": "Underlines that chip export policy continues to shape the global AI landscape, which can affect hardware pricing and availability over time.",
-      "domains": [
-        "unemploymentlabs.com"
-      ],
-      "has_t1": false,
-      "status": "unconfirmed",
-      "total": 2.2,
-      "last_update": "2026-11-12T21:56:11Z",
-      "title_ru": "Китайские передовые модели искусственного интеллекта демонстрируют отпечатки графических процессоров, находящихся под экспортным контролем",
-      "summary_ru": "Анализ показывает, что китайские передовые модели искусственного интеллекта имеют технические характеристики, связывающие их с графическими процессорами, подпадающими под экспортный контроль США.",
-      "so_what_ru": "Подчеркивает, что политика экспорта чипов продолжает формировать глобальный ландшафт искусственного интеллекта, что со временем может повлиять на цены и доступность оборудования.",
-      "rating": 2
-    },
-    {
       "story_id": "huggingface-daisyrose-27b",
       "first_seen": "2026-11-19",
       "items": [
@@ -8957,54 +8836,6 @@
       "rating": 1
     },
     {
-      "story_id": "artcraft-rebuild-everything",
-      "first_seen": "2026-11-16",
-      "items": [
-        {
-          "id": "0f77776f7c50",
-          "url": "https://latent.space/p/artcraft/",
-          "title": "AI Ambition: ArtCraft Cloned Photoshop and Now Wants to \"Rebuild Everything\"",
-          "source": "Latent Space",
-          "tier": "T2",
-          "domain": "latent.space",
-          "published_at": "2026-11-13T04:17:25.000Z",
-          "summary": "ArtCraft used AI to rewrite Photoshop as open source software. For CEO Brandon Thomas, the vision is even bigger: to take back the internet!",
-          "title_ru": "AI Ambition: ArtCraft клонировал Photoshop и теперь хочет «все перестроить»"
-        }
-      ],
-      "title": "ArtCraft, which cloned Photoshop with AI, aims to 'rebuild everything'",
-      "summary": "ArtCraft, which used AI to recreate Photoshop as open-source software, says CEO Brandon Thomas wants to extend the approach to rebuild much more of the internet.",
-      "tags": [
-        "open-source",
-        "creative-tools",
-        "startup"
-      ],
-      "entities": [
-        "ArtCraft",
-        "Brandon Thomas"
-      ],
-      "kind": "business",
-      "rumor": false,
-      "scores": {
-        "significance": 2,
-        "novelty": 3,
-        "practicality": 1,
-        "relevance": 1
-      },
-      "so_what": "Signals that AI-driven re-creation of established software categories is becoming a viable startup strategy, worth watching for creative-tooling alternatives.",
-      "domains": [
-        "latent.space"
-      ],
-      "has_t1": false,
-      "status": "unconfirmed",
-      "total": 1.85,
-      "last_update": "2026-11-13T04:17:25.000Z",
-      "title_ru": "ArtCraft, клонировавший Photoshop с помощью ИИ, стремится «перестроить все заново»",
-      "summary_ru": "ArtCraft, которая использовала искусственный интеллект для воссоздания Photoshop как программного обеспечения с открытым исходным кодом, говорит, что генеральный директор Брэндон Томас хочет расширить этот подход и восстановить гораздо большую часть Интернета.",
-      "so_what_ru": "Сигналы о том, что воссоздание устоявшихся категорий программного обеспечения с помощью ИИ становится жизнеспособной стратегией стартапа, заслуживающей внимания в поисках альтернатив творческих инструментов.",
-      "rating": 1
-    },
-    {
       "story_id": "baidu-xiaomi-ai-hype-warning",
       "first_seen": "2026-11-19",
       "items": [
@@ -9196,6 +9027,58 @@
   ],
   "raw_items": [
     {
+      "id": "00bb51c293be",
+      "source_id": "latent-space",
+      "source_name": "Latent Space",
+      "tier": "T2",
+      "signal_only": false,
+      "title": "How Clay Builds GTM Agents — Jeff Barg, Head of AI",
+      "url": "https://latent.space/p/how-clay-builds-gtm-agents-jeff-barg-head-of-ai",
+      "domain": "latent.space",
+      "published_at": "2026-11-26T23:02:48.000Z",
+      "collected_on": "2026-11-27",
+      "summary": "How $1,500 could qualify every company in the world, why customers hate the model selector, and how Clay is building go-to-market infrastructure for every agent"
+    },
+    {
+      "id": "19dd4641586d",
+      "source_id": "hn",
+      "source_name": "Hacker News",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "AI made self-hosting fun again",
+      "url": "https://janlukas.blog/posts/ai-self-hosting",
+      "domain": "janlukas.blog",
+      "published_at": "2026-11-26T21:47:45Z",
+      "collected_on": "2026-11-27",
+      "summary": "HN: 422 points, 227 comments. https://news.ycombinator.com/item?id=50660180"
+    },
+    {
+      "id": "c83866a1dbc9",
+      "source_id": "hn",
+      "source_name": "Hacker News",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "Tracking Diseases Cured by AI",
+      "url": "https://diseasescuredbyai.com",
+      "domain": "diseasescuredbyai.com",
+      "published_at": "2026-11-26T17:16:41Z",
+      "collected_on": "2026-11-27",
+      "summary": "HN: 306 points, 183 comments. https://news.ycombinator.com/item?id=50657307"
+    },
+    {
+      "id": "1d45997e4997",
+      "source_id": "hn",
+      "source_name": "Hacker News",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "AMD-specific fork of llama.cpp",
+      "url": "https://devnull.land/amd-specific-llama-cpp",
+      "domain": "devnull.land",
+      "published_at": "2026-11-26T17:11:29Z",
+      "collected_on": "2026-11-27",
+      "summary": "HN: 307 points, 74 comments. https://news.ycombinator.com/item?id=50657265"
+    },
+    {
       "id": "02a088434703",
       "source_id": "huggingface",
       "source_name": "Hugging Face blog",
@@ -9220,6 +9103,32 @@
       "published_at": "2026-11-26T11:00:00.000Z",
       "collected_on": "2026-11-26",
       "summary": "PLUS: Use Gemini Tasks to hunt for Black Friday prices"
+    },
+    {
+      "id": "6f6a6b07f17a",
+      "source_id": "hn",
+      "source_name": "Hacker News",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "Google Will Make AI Agents Use Its MCP Servers. The Gmail One Can't Send Email",
+      "url": "https://techstackups.com/articles/google-workspace-ai-agents-mcp",
+      "domain": "techstackups.com",
+      "published_at": "2026-11-26T09:44:23Z",
+      "collected_on": "2026-11-27",
+      "summary": "HN: 280 points, 235 comments. https://news.ycombinator.com/item?id=50653477"
+    },
+    {
+      "id": "82a13b62ffcb",
+      "source_id": "hn",
+      "source_name": "Hacker News",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "OpenAI may be in cost control mode",
+      "url": "https://micjm.com/blog/openai-is-in-cost-control-mode",
+      "domain": "micjm.com",
+      "published_at": "2026-11-26T07:33:12Z",
+      "collected_on": "2026-11-27",
+      "summary": "HN: 304 points, 311 comments. https://news.ycombinator.com/item?id=50652527"
     },
     {
       "id": "ee86e4f0d7da",
@@ -13401,262 +13310,6 @@
       "summary": "Shield uses OpenAI to help IT technicians hand off work in legacy portals. Its Forge agents navigate systems so technicians can focus on issues needing their judgment.",
       "collected_at": "2026-11-16T13:33:48.078Z",
       "title_ru": "Shield помогает техническим специалистам передать устаревшую работу с порталом с помощью OpenAI"
-    },
-    {
-      "id": "0f77776f7c50",
-      "url": "https://latent.space/p/artcraft/",
-      "canonical_url": "https://latent.space/p/artcraft",
-      "title": "AI Ambition: ArtCraft Cloned Photoshop and Now Wants to \"Rebuild Everything\"",
-      "source": "latent-space",
-      "source_name": "Latent Space",
-      "tier": "T2",
-      "signal_only": false,
-      "domain": "latent.space",
-      "published_at": "2026-11-13T04:17:25.000Z",
-      "date_from": "source",
-      "summary": "ArtCraft used AI to rewrite Photoshop as open source software. For CEO Brandon Thomas, the vision is even bigger: to take back the internet!",
-      "collected_at": "2026-11-16T13:33:49.138Z",
-      "title_ru": "AI Ambition: ArtCraft клонировал Photoshop и теперь хочет «все перестроить»"
-    },
-    {
-      "id": "b3c84623c44d",
-      "url": "https://brave.com/blog/search-api-agentic-payments/",
-      "canonical_url": "https://brave.com/blog/search-api-agentic-payments",
-      "title": "Brave Search API now accepts agentic payments via the x402 protocol",
-      "source": "hn",
-      "source_name": "Hacker News",
-      "tier": "T3",
-      "signal_only": false,
-      "domain": "brave.com",
-      "published_at": "2026-11-13T03:08:08Z",
-      "date_from": "source",
-      "summary": "HN: 262 points, 151 comments. https://news.ycombinator.com/item?id=50477649",
-      "collected_at": "2026-11-16T13:33:48.728Z",
-      "title_ru": "Brave Search API теперь принимает агентские платежи по протоколу x402"
-    },
-    {
-      "id": "a49fd02deff5",
-      "url": "https://tldr.tech/ai/2026-11-13",
-      "canonical_url": "https://tldr.tech/ai/2026-11-13",
-      "title": "Gemini 4 Hydrogen 🚀, self-hosted Claude agents 🔒, Replit agent commerce 🛒",
-      "source": "tldr-ai",
-      "source_name": "TLDR AI",
-      "tier": "T3",
-      "signal_only": false,
-      "domain": "tldr.tech",
-      "published_at": "2026-11-13T00:00:00.000Z",
-      "date_from": "source",
-      "summary": "",
-      "collected_at": "2026-11-16T13:33:48.270Z",
-      "title_ru": "Gemini 4 Hydrogen 🚀, самостоятельные агенты Клода 🔒, коммерция агентов Replit 🛒"
-    },
-    {
-      "id": "26a6fb343a8e",
-      "url": "https://www.economist.com/leaders/2026/11/12/why-you-should-expect-an-ai-crash",
-      "canonical_url": "https://economist.com/leaders/2026/11/12/why-you-should-expect-an-ai-crash",
-      "title": "Why You Should Expect an AI Crash",
-      "source": "hn",
-      "source_name": "Hacker News",
-      "tier": "T3",
-      "signal_only": false,
-      "domain": "economist.com",
-      "published_at": "2026-11-12T23:08:31Z",
-      "date_from": "source",
-      "summary": "HN: 103 points, 84 comments. https://news.ycombinator.com/item?id=50475735",
-      "collected_at": "2026-11-16T13:33:48.728Z",
-      "title_ru": "Почему следует ожидать краха ИИ"
-    },
-    {
-      "id": "f980cc1f1e21",
-      "url": "https://edge0.ai/blog/introducing-edge0-145b-frontier-ai-capabilities-on-your-own-computer",
-      "canonical_url": "https://edge0.ai/blog/introducing-edge0-145b-frontier-ai-capabilities-on-your-own-computer",
-      "title": "Edge0-145B: Frontier AI Capabilities on Your Own Computer",
-      "source": "hn",
-      "source_name": "Hacker News",
-      "tier": "T3",
-      "signal_only": false,
-      "domain": "edge0.ai",
-      "published_at": "2026-11-12T23:06:17Z",
-      "date_from": "source",
-      "summary": "HN: 357 points, 105 comments. https://news.ycombinator.com/item?id=50475713",
-      "collected_at": "2026-11-16T13:33:48.728Z",
-      "title_ru": "Edge0-145B: передовые возможности искусственного интеллекта на вашем компьютере"
-    },
-    {
-      "id": "d096a8a420fb",
-      "url": "https://unemploymentlabs.com/checkpoint-forensics",
-      "canonical_url": "https://unemploymentlabs.com/checkpoint-forensics",
-      "title": "Chinese frontier AI models carry the fingerprint of export-controlled GPUs",
-      "source": "hn",
-      "source_name": "Hacker News",
-      "tier": "T3",
-      "signal_only": false,
-      "domain": "unemploymentlabs.com",
-      "published_at": "2026-11-12T21:56:11Z",
-      "date_from": "source",
-      "summary": "HN: 446 points, 192 comments. https://news.ycombinator.com/item?id=50474883",
-      "collected_at": "2026-11-16T13:33:48.729Z",
-      "title_ru": "Китайские передовые модели искусственного интеллекта несут отпечаток графических процессоров, находящихся под экспортным контролем."
-    },
-    {
-      "id": "1dba3a3e5ab0",
-      "url": "https://developer.apple.com/foundation-models-framework/",
-      "canonical_url": "https://developer.apple.com/foundation-models-framework",
-      "title": "Foundation Models framework",
-      "source": "hn",
-      "source_name": "Hacker News",
-      "tier": "T3",
-      "signal_only": false,
-      "domain": "apple.com",
-      "published_at": "2026-11-12T21:13:26Z",
-      "date_from": "source",
-      "summary": "HN: 269 points, 36 comments. https://news.ycombinator.com/item?id=50474361",
-      "collected_at": "2026-11-16T13:33:48.729Z",
-      "title_ru": "Структура фундаментальных моделей"
-    },
-    {
-      "id": "10ab37804642",
-      "url": "https://synthanatomy.com/2026/11/ai-is-turning-apples-app-review-process-into-a-nightmare-for-developers.html",
-      "canonical_url": "https://synthanatomy.com/2026/11/ai-is-turning-apples-app-review-process-into-a-nightmare-for-developers.html",
-      "title": "AI is turning Apple's app review process into a nightmare for synth developers",
-      "source": "hn",
-      "source_name": "Hacker News",
-      "tier": "T3",
-      "signal_only": false,
-      "domain": "synthanatomy.com",
-      "published_at": "2026-11-12T21:09:49Z",
-      "date_from": "source",
-      "summary": "HN: 199 points, 234 comments. https://news.ycombinator.com/item?id=50474311",
-      "collected_at": "2026-11-16T13:33:48.729Z",
-      "title_ru": "ИИ превращает процесс проверки приложений Apple в кошмар для разработчиков синтезаторов"
-    },
-    {
-      "id": "5b0f73df89a6",
-      "url": "https://openai.com/business/customer-stories/amplitude",
-      "canonical_url": "https://openai.com/business/customer-stories/amplitude",
-      "title": "How Amplitude ships product improvements in 1–2 days with OpenAI",
-      "source": "openai",
-      "source_name": "OpenAI News",
-      "tier": "T1",
-      "signal_only": false,
-      "domain": "openai.com",
-      "published_at": "2026-11-12T20:00:00.000Z",
-      "date_from": "source",
-      "summary": "Built primarily on OpenAI models, Amplitude’s proactive product agent, Wave, identifies what to build, helps teams ship changes with coding agents, and measures the impact.",
-      "collected_at": "2026-11-16T13:33:48.078Z",
-      "title_ru": "Как Amplitude внедряет улучшения продукта за 1–2 дня с помощью OpenAI"
-    },
-    {
-      "id": "c251454bcd6d",
-      "url": "https://github.com/openai/openai-python/releases/tag/v3.50.0",
-      "canonical_url": "https://github.com/openai/openai-python/releases/tag/v3.50.0",
-      "title": "v3.50.0",
-      "source": "openai-sdk",
-      "source_name": "openai-python releases",
-      "tier": "T1",
-      "signal_only": true,
-      "domain": "github.com",
-      "published_at": "2026-11-12T19:26:07.000Z",
-      "date_from": "source",
-      "summary": "3.50.0 (2026-11-12) Features api: expose reasoning input transformations on responses ( #4268 ) ( 734f75b ) Chores deps: bump astral-sh/setup-uv from 10.3.0 to 10.3.3 ( #4261 ) ( 0ebd006 ) Documentation simplify review handoff instructions ( #4266 ) ( 141a89a )",
-      "collected_at": "2026-11-16T13:33:48.680Z",
-      "title_ru": "v3.50.0"
-    },
-    {
-      "id": "a88bddb17214",
-      "url": "https://huggingface.co/blog/ibm-granite/llmon-an-llm-native-markup-language-now-in-granite",
-      "canonical_url": "https://huggingface.co/blog/ibm-granite/llmon-an-llm-native-markup-language-now-in-granite",
-      "title": "LLMON: An LLM-Native Markup Language, now in Granite 4.1 3B and 8B",
-      "source": "huggingface",
-      "source_name": "Hugging Face blog",
-      "tier": "T1",
-      "signal_only": false,
-      "domain": "huggingface.co",
-      "published_at": "2026-11-12T19:07:35.000Z",
-      "date_from": "source",
-      "summary": "",
-      "collected_at": "2026-11-16T13:33:48.263Z",
-      "title_ru": "LLMON: собственный язык разметки LLM, теперь в Granite 4.1 3B и 8B"
-    },
-    {
-      "id": "d40fca9fd5e1",
-      "url": "https://antigravity.google/blog/gemini-4-hydrogen-in-google-antigravity/",
-      "canonical_url": "https://antigravity.google/blog/gemini-4-hydrogen-in-google-antigravity",
-      "title": "Gemini 4 Hydrogen and Orchestrator",
-      "source": "hn",
-      "source_name": "Hacker News",
-      "tier": "T3",
-      "signal_only": false,
-      "domain": "antigravity.google",
-      "published_at": "2026-11-12T18:52:01Z",
-      "date_from": "source",
-      "summary": "HN: 506 points, 165 comments. https://news.ycombinator.com/item?id=50472260",
-      "collected_at": "2026-11-16T13:33:48.729Z",
-      "title_ru": "Gemini 4 Водород и Оркестратор"
-    },
-    {
-      "id": "ca1478ab4f6d",
-      "url": "https://github.com/Parcha-ai/agentrun/blob/main/README.md",
-      "canonical_url": "https://github.com/Parcha-ai/agentrun/blob/main/README.md",
-      "title": "Show HN: AgentRun – open-source, Self-improving Managed Agents",
-      "source": "hn",
-      "source_name": "Hacker News",
-      "tier": "T3",
-      "signal_only": false,
-      "domain": "github.com",
-      "published_at": "2026-11-12T18:15:48Z",
-      "date_from": "source",
-      "summary": "HN: 138 points, 40 comments. https://news.ycombinator.com/item?id=50471650",
-      "collected_at": "2026-11-16T13:33:48.729Z",
-      "title_ru": "Show HN: AgentRun — самоулучшающиеся управляемые агенты с открытым исходным кодом"
-    },
-    {
-      "id": "8fdb0296ea11",
-      "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-hydrogen/",
-      "canonical_url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-hydrogen",
-      "title": "Gemini 4 Hydrogen",
-      "source": "hn",
-      "source_name": "Hacker News",
-      "tier": "T3",
-      "signal_only": false,
-      "domain": "blog.google",
-      "published_at": "2026-11-12T18:01:48Z",
-      "date_from": "source",
-      "summary": "HN: 572 points, 353 comments. https://news.ycombinator.com/item?id=50471431",
-      "collected_at": "2026-11-16T13:33:48.729Z",
-      "title_ru": "Близнецы 4 Водород"
-    },
-    {
-      "id": "a8d5fa7d24b3",
-      "url": "https://deepmind.google/blog/introducing-gemini-4-hydrogen/",
-      "canonical_url": "https://deepmind.google/blog/introducing-gemini-4-hydrogen",
-      "title": "Introducing Gemini 4 Hydrogen",
-      "source": "deepmind",
-      "source_name": "Google DeepMind",
-      "tier": "T1",
-      "signal_only": false,
-      "domain": "deepmind.google",
-      "published_at": "2026-11-12T18:00:50.000Z",
-      "date_from": "source",
-      "summary": "",
-      "collected_at": "2026-11-16T13:33:47.990Z",
-      "title_ru": "Представляем Gemini 4 Hydrogen"
-    },
-    {
-      "id": "ad614f81e42f",
-      "url": "https://blog.google/products-and-platforms/products/search/gemini-4-hydrogen-search-upgrade/",
-      "canonical_url": "https://blog.google/products-and-platforms/products/search/gemini-4-hydrogen-search-upgrade",
-      "title": "Google Search gets a major upgrade with Gemini 4 Hydrogen",
-      "source": "google-ai",
-      "source_name": "Google AI blog",
-      "tier": "T1",
-      "signal_only": false,
-      "domain": "blog.google",
-      "published_at": "2026-11-12T18:00:00.000Z",
-      "date_from": "source",
-      "summary": "We are bringing Gemini 4 Hydrogen to Google Search globally to provide you with more helpful, visual, and intuitive responses.",
-      "collected_at": "2026-11-16T13:33:48.484Z",
-      "title_ru": "Поиск Google получил серьезное обновление с Gemini 4 Hydrogen"
     }
   ],
   "issues": [
