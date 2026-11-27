@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-27T04:18:23.711Z",
+  "generated_at": "2026-11-27T16:44:39.907Z",
   "last_collect_date": "2026-11-27",
   "sources_report": [
     {
@@ -9,7 +9,7 @@
       "type": "html",
       "url": "https://www.anthropic.com/news",
       "fetched": 20,
-      "kept": 1,
+      "kept": 0,
       "new": 0,
       "error": null,
       "note": ""
@@ -21,7 +21,7 @@
       "type": "changelog",
       "url": "https://docs.anthropic.com/en/release-notes/overview",
       "fetched": 178,
-      "kept": 9,
+      "kept": 8,
       "new": 0,
       "error": null,
       "note": ""
@@ -33,7 +33,7 @@
       "type": "rss",
       "url": "https://github.com/anthropics/anthropic-sdk-python/releases.atom",
       "fetched": 10,
-      "kept": 3,
+      "kept": 2,
       "new": 0,
       "error": null,
       "note": ""
@@ -92,9 +92,9 @@
       "tier": "T1",
       "type": "rss",
       "url": "https://huggingface.co/blog/feed.xml",
-      "fetched": 918,
-      "kept": 7,
-      "new": 0,
+      "fetched": 919,
+      "kept": 8,
+      "new": 1,
       "error": null,
       "note": ""
     },
@@ -141,7 +141,7 @@
       "type": "rss",
       "url": "https://openai.com/news/rss.xml",
       "fetched": 1430,
-      "kept": 10,
+      "kept": 9,
       "new": 0,
       "error": null,
       "note": ""
@@ -201,8 +201,8 @@
       "type": "rss",
       "url": "https://www.latent.space/feed",
       "fetched": 20,
-      "kept": 8,
-      "new": 1,
+      "kept": 7,
+      "new": 0,
       "error": null,
       "note": ""
     },
@@ -238,7 +238,7 @@
       "url": "https://hn.algolia.com/api/v1/search_by_date",
       "fetched": 200,
       "kept": 36,
-      "new": 5,
+      "new": 4,
       "error": null,
       "note": ""
     },
@@ -250,7 +250,7 @@
       "url": "https://www.therundown.ai/feed",
       "fetched": 50,
       "kept": 8,
-      "new": 0,
+      "new": 2,
       "error": null,
       "note": ""
     },
@@ -261,8 +261,8 @@
       "type": "rss",
       "url": "https://tldr.tech/api/rss/ai",
       "fetched": 20,
-      "kept": 4,
-      "new": 0,
+      "kept": 5,
+      "new": 1,
       "error": null,
       "note": ""
     },
@@ -319,64 +319,15 @@
     "sources": 26,
     "failed": 3,
     "empty": 2,
-    "fetched": 3487,
-    "kept": 450,
-    "new_items": 6,
-    "stories_total": 205,
+    "fetched": 3488,
+    "kept": 447,
+    "new_items": 8,
+    "stories_total": 203,
     "stories_confirmed": 67,
     "stories_eligible": 31,
-    "raw_total": 292
+    "raw_total": 280
   },
   "stories": [
-    {
-      "story_id": "openai-chatgpt-wallet",
-      "first_seen": "2026-11-16",
-      "items": [
-        {
-          "id": "5bf4951adbe9",
-          "url": "https://openai.com/index/introducing-chatgpt-wallet",
-          "title": "Introducing ChatGPT Wallet",
-          "source": "OpenAI News",
-          "tier": "T1",
-          "domain": "openai.com",
-          "published_at": "2026-11-13T15:00:00.000Z",
-          "summary": "Introducing ChatGPT Wallet, a secure way for agents in ChatGPT Work, Codex, and dots to complete purchases with user approval and existing card protections.",
-          "title_ru": "Представляем кошелек ChatGPT"
-        }
-      ],
-      "title": "OpenAI launches ChatGPT Wallet for agent-driven purchases",
-      "summary": "ChatGPT Wallet lets agents in ChatGPT Work, Codex, and dots complete purchases with user approval, using existing card protections.",
-      "tags": [
-        "agents",
-        "commerce",
-        "automation"
-      ],
-      "entities": [
-        "OpenAI",
-        "ChatGPT Wallet",
-        "Codex"
-      ],
-      "kind": "launch",
-      "rumor": false,
-      "scores": {
-        "significance": 4,
-        "novelty": 4,
-        "practicality": 4,
-        "relevance": 4
-      },
-      "so_what": "Agentic checkout is now a real OpenAI product — relevant if your bots need to transact (ad spend, vendor payments, tool subscriptions) on your behalf.",
-      "domains": [
-        "openai.com"
-      ],
-      "has_t1": true,
-      "status": "confirmed",
-      "total": 4,
-      "last_update": "2026-11-13T15:00:00.000Z",
-      "title_ru": "OpenAI запускает кошелек ChatGPT для покупок через агентов",
-      "summary_ru": "Кошелек ChatGPT позволяет агентам ChatGPT Work, Codex и dots совершать покупки с одобрения пользователя, используя существующие средства защиты карт.",
-      "so_what_ru": "Агентская проверка теперь является настоящим продуктом OpenAI, который актуален, если вашим ботам необходимо совершать транзакции (расходы на рекламу, платежи поставщикам, подписки на инструменты) от вашего имени.",
-      "rating": 5
-    },
     {
       "story_id": "swarms-flocks-gangs-build-train",
       "first_seen": "2026-11-26",
@@ -768,6 +719,39 @@
       "summary_ru": "OpenAI представила плагин продаж, а также более 30 новых и расширенных партнерских плагинов в ChatGPT для исследования потенциальных клиентов, подготовки презентаций, обновления CRM и продвижения сделок.",
       "so_what_ru": "Непосредственное использование для CRM/удержания и рабочих процессов, связанных с продажами, которыми управляют команды маркетинга и эксплуатации продуктов.",
       "rating": 5
+    },
+    {
+      "story_id": "taking-trainium3-track-generating-videos",
+      "first_seen": "2026-11-27",
+      "title": "Taking Trainium3 to the Track: Generating Videos with LTX-2.5",
+      "summary": "",
+      "so_what": "",
+      "tags": [],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "2d7f8b4f8454",
+          "url": "https://huggingface.co/blog/video-trainium3",
+          "title": "Taking Trainium3 to the Track: Generating Videos with LTX-2.5",
+          "source": "Hugging Face blog",
+          "tier": "T1",
+          "domain": "huggingface.co",
+          "published_at": "2026-11-27T00:00:00.000Z",
+          "summary": "",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "huggingface.co"
+      ],
+      "has_t1": true,
+      "status": "confirmed",
+      "last_update": "2026-11-27T00:00:00.000Z",
+      "total": 3.5,
+      "rating": 5,
+      "title_ru": ""
     },
     {
       "story_id": "introducing-llama-cpp-benchmark-dashboard",
@@ -1801,53 +1785,6 @@
       "rating": 4
     },
     {
-      "story_id": "llamacpp-v1-release",
-      "first_seen": "2026-11-16",
-      "items": [
-        {
-          "id": "40e78db6601d",
-          "url": "https://huggingface.co/blog/ggml-org/llama-cpp-v1",
-          "title": "llama.cpp v1.0.0 : A stronger foundation for the local AI ecosystem",
-          "source": "Hugging Face blog",
-          "tier": "T1",
-          "domain": "huggingface.co",
-          "published_at": "2026-11-13T14:05:22.000Z",
-          "summary": "",
-          "title_ru": "llama.cpp v1.0.0: более прочная основа для местной экосистемы искусственного интеллекта."
-        }
-      ],
-      "title": "llama.cpp reaches v1.0.0",
-      "summary": "The llama.cpp project released v1.0.0, described as a stronger foundation for the local/open-source AI ecosystem.",
-      "tags": [
-        "open-weights",
-        "local-ai",
-        "open-source"
-      ],
-      "entities": [
-        "llama.cpp"
-      ],
-      "kind": "launch",
-      "rumor": false,
-      "scores": {
-        "significance": 3,
-        "novelty": 3,
-        "practicality": 3,
-        "relevance": 2
-      },
-      "so_what": "If you run local models for automation or privacy reasons, this stability milestone is worth a look.",
-      "domains": [
-        "huggingface.co"
-      ],
-      "has_t1": true,
-      "status": "confirmed",
-      "total": 2.85,
-      "last_update": "2026-11-13T14:05:22.000Z",
-      "title_ru": "",
-      "summary_ru": "Проект llama.cpp выпустил версию 1.0.0, которую описывают как более прочную основу для локальной экосистемы искусственного интеллекта с открытым исходным кодом.",
-      "so_what_ru": "Если вы используете локальные модели по соображениям автоматизации или конфиденциальности, стоит обратить внимание на этот этап стабильности.",
-      "rating": 4
-    },
-    {
       "story_id": "openai-revolut-case-study",
       "first_seen": "2026-11-17",
       "items": [
@@ -1965,6 +1902,90 @@
       "title_ru": "Anthropic оценила IPO в $83 за акцию",
       "summary_ru": "Anthropic оценила свое первичное публичное размещение в $83 за акцию после роуд-шоу, которое привлекло большое внимание.",
       "so_what_ru": "Конкретная ценовая веха в IPO Anthropic, полезная информация для отслеживания инвестиционной ситуации в области искусственного интеллекта.",
+      "rating": 4
+    },
+    {
+      "story_id": "anthropic-service-outage-nov2026",
+      "first_seen": "2026-11-16",
+      "items": [
+        {
+          "id": "22bcd83804c6",
+          "url": "https://status.claude.com/history",
+          "title": "Claude Is Down",
+          "source": "Hacker News",
+          "tier": "T3",
+          "domain": "claude.com",
+          "published_at": "2026-11-13T10:20:09Z",
+          "summary": "HN: 200 points, 179 comments. https://news.ycombinator.com/item?id=50481220",
+          "title_ru": "Клод упал"
+        },
+        {
+          "id": "44da454e7900",
+          "url": "https://status.claude.com/incidents/nn11wk485zfn",
+          "title": "Elevated errors on claude.ai, Claude Code, and platform.claude.com",
+          "source": "Hacker News",
+          "tier": "T3",
+          "domain": "claude.com",
+          "published_at": "2026-11-13T10:18:13Z",
+          "summary": "HN: 493 points, 392 comments. https://news.ycombinator.com/item?id=50481187",
+          "title_ru": "Повышенные ошибки на сайтах claude.ai, Claude Code и Platform.claude.com."
+        },
+        {
+          "id": "138e1e18872d",
+          "url": "https://twitter.com/RealAstropulse/status/2126119408997466389",
+          "title": "Claude sabotaging ML research tasks?",
+          "source": "Hacker News",
+          "tier": "T3",
+          "domain": "twitter.com",
+          "published_at": "2026-11-27T08:28:08Z",
+          "summary": "HN: 237 points, 133 comments. https://news.ycombinator.com/item?id=50664325",
+          "title_ru": ""
+        },
+        {
+          "id": "0256b11e8366",
+          "url": "https://herecomesthemoon.net/2026/11/whats-claudes-fursona",
+          "title": "\"What's Claude's Fursona?\" and Other Questions",
+          "source": "Hacker News",
+          "tier": "T3",
+          "domain": "herecomesthemoon.net",
+          "published_at": "2026-11-27T04:56:18Z",
+          "summary": "HN: 104 points, 81 comments. https://news.ycombinator.com/item?id=50662933",
+          "title_ru": ""
+        }
+      ],
+      "title": "Claude.ai, Claude Code, and platform.claude.com hit elevated errors in outage",
+      "summary": "Anthropic experienced an outage with elevated errors across claude.ai, Claude Code, and platform.claude.com, drawing heavy user discussion.",
+      "tags": [
+        "anthropic",
+        "claude-code",
+        "outage",
+        "reliability"
+      ],
+      "entities": [
+        "Anthropic",
+        "Claude Code"
+      ],
+      "kind": "industry",
+      "rumor": false,
+      "scores": {
+        "significance": 3,
+        "novelty": 1,
+        "practicality": 3,
+        "relevance": 4
+      },
+      "so_what": "If your automation depends on Claude Code or the Claude API, build in retry/fallback handling, this week was a reminder it can go down.",
+      "domains": [
+        "claude.com",
+        "twitter.com",
+        "herecomesthemoon.net"
+      ],
+      "has_t1": false,
+      "status": "confirmed",
+      "total": 2.65,
+      "last_update": "2026-11-27T08:28:08Z",
+      "title_ru": "Claude.ai, Claude Code и Platform.claude.com столкнулись с повышенным уровнем ошибок из-за сбоя",
+      "summary_ru": "В Anthropic произошел сбой с повышенным уровнем ошибок на сайтах claude.ai, Claude Code и Platform.claude.com, что вызвало бурное обсуждение среди пользователей.",
+      "so_what_ru": "Если ваша автоматизация зависит от Claude Code или Claude API, встройте обработку повторных попыток/резервных попыток, эта неделя стала напоминанием о том, что она может выйти из строя.",
       "rating": 4
     },
     {
@@ -2590,52 +2611,6 @@
       "summary_ru": ""
     },
     {
-      "story_id": "agentic-document-retrieval-vs-rag",
-      "first_seen": "2026-11-16",
-      "items": [
-        {
-          "id": "946ec316e0ee",
-          "url": "https://charonhub.deeplearning.ai/retrieval-for-rag-resistant-docs/",
-          "title": "Retrieval for RAG-Resistant Docs: An agent that searches, outlines, and reads entire documents outperforms chunk-and-embed retrieval",
-          "source": "The Batch",
-          "tier": "T2",
-          "domain": "deeplearning.ai",
-          "published_at": "2026-11-13T16:15:00.000Z",
-          "summary": "Retrieving documents chunk by chunk works well with many types of text, but it can fail with documents in which the meaning of a given span — say, numbers in a table — depends on particulars found elsewhere on the page — say, the label of their units.",
-          "title_ru": "Извлечение документов, устойчивых к RAG: агент, который ищет, структурирует и читает целые документы, превосходит поиск по частям и встраиванию."
-        }
-      ],
-      "title": "Agent-based document retrieval outperforms chunk-and-embed RAG on complex docs",
-      "summary": "A retrieval approach where an agent searches, outlines, and reads entire documents beats standard chunk-and-embed RAG, especially when meaning depends on context elsewhere on the page (e.g. table units).",
-      "tags": [
-        "rag",
-        "retrieval",
-        "agents",
-        "research"
-      ],
-      "entities": [],
-      "kind": "research",
-      "rumor": false,
-      "scores": {
-        "significance": 3,
-        "novelty": 3,
-        "practicality": 4,
-        "relevance": 4
-      },
-      "so_what": "If you're building document-reading agents for reporting or CRM data, whole-document agentic retrieval may beat naive chunking on tables and structured docs.",
-      "domains": [
-        "deeplearning.ai"
-      ],
-      "has_t1": false,
-      "status": "unconfirmed",
-      "total": 3.4,
-      "last_update": "2026-11-13T16:15:00.000Z",
-      "title_ru": "Поиск документов с помощью агента превосходит RAG по частям и встраиванию в сложных документах",
-      "summary_ru": "Подход к поиску, при котором агент ищет, структурирует и читает целые документы, превосходит стандартный RAG с фрагментированием и встраиванием, особенно когда значение зависит от контекста в другом месте страницы (например, единиц таблицы).",
-      "so_what_ru": "Если вы создаете агенты чтения документов для отчетов или данных CRM, агентный поиск всего документа может заменить наивное разбиение на фрагменты таблиц и структурированных документов.",
-      "rating": 4
-    },
-    {
       "story_id": "nvidia-jensen-huang-situation",
       "first_seen": "2026-11-16",
       "items": [
@@ -2800,6 +2775,40 @@
       "summary_ru": "MarTech утверждает, что, когда агенты ИИ оценивают поставщиков B2B, ясная информация о продукте и достоверные доказательства, а не только конкурентные характеристики, определяют, будет ли рассматриваться поставщик.",
       "so_what_ru": "Тактическое руководство по структурированию контента продукта, чтобы агенты искусственного интеллекта и системы ответов появлялись на свет и рекомендовали ваш бренд.",
       "rating": 4
+    },
+    {
+      "story_id": "group-chat-talks-behind-back",
+      "first_seen": "2026-11-27",
+      "title": "The group chat where your AI talks behind your back",
+      "summary": "HN: 536 points, 236 comments. https://news.ycombinator.com/item?id=50663595",
+      "so_what": "",
+      "tags": [],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "74835a583675",
+          "url": "https://construct22.com",
+          "title": "The group chat where your AI talks behind your back",
+          "source": "Hacker News",
+          "tier": "T3",
+          "domain": "construct22.com",
+          "published_at": "2026-11-27T06:44:34Z",
+          "summary": "HN: 536 points, 236 comments. https://news.ycombinator.com/item?id=50663595",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "construct22.com"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-27T06:44:34Z",
+      "total": 3.25,
+      "rating": 4,
+      "title_ru": "",
+      "summary_ru": ""
     },
     {
       "story_id": "made-self-hosting-fun-again",
@@ -4238,6 +4247,42 @@
       "rating": 3
     },
     {
+      "story_id": "takes-swing-physics-biggest-puzzle",
+      "first_seen": "2026-11-27",
+      "title": "AI takes a swing at physics' biggest puzzle",
+      "summary": "PLUS: Give jobs to Nod, the personal agent from n8n",
+      "so_what": "",
+      "tags": [
+        "agents"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "f536e5d7151b",
+          "url": "https://therundown.ai/articles/ai-takes-a-swing-at-physics-biggest-puzzle",
+          "title": "AI takes a swing at physics' biggest puzzle",
+          "source": "The Rundown AI",
+          "tier": "T3",
+          "domain": "therundown.ai",
+          "published_at": "2026-11-27T11:00:00.000Z",
+          "summary": "PLUS: Give jobs to Nod, the personal agent from n8n",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "therundown.ai"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-27T11:00:00.000Z",
+      "total": 3.1,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
       "story_id": "revolution-renaissance-thariq-shihipar-openai",
       "first_seen": "2026-11-26",
       "title": "The Revolution vs The Renaissance — Thariq Shihipar, OpenAI",
@@ -5459,52 +5504,38 @@
       "rating": 3
     },
     {
-      "story_id": "openai-gpt6-cyber-linux-patching",
-      "first_seen": "2026-11-16",
+      "story_id": "introduction-uncertainty-machine-learning",
+      "first_seen": "2026-11-27",
+      "title": "An introduction to uncertainty in machine learning",
+      "summary": "HN: 123 points, 11 comments. https://news.ycombinator.com/item?id=50658498",
+      "so_what": "",
+      "tags": [],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
       "items": [
         {
-          "id": "936d23ad323d",
-          "url": "https://charonhub.deeplearning.ai/gpt-6-cyber-patches-more-security-flaws-for-less-cost/",
-          "title": "GPT-6 Cyber Patches More Security Flaws for Less Cost: OpenAI’s security-tuned version of GPT-6 Astra closed root-level Linux holes for $1,280 each",
-          "source": "The Batch",
-          "tier": "T2",
-          "domain": "deeplearning.ai",
-          "published_at": "2026-11-13T16:00:00.000Z",
-          "summary": "OpenAI built a cybersecurity model that discovered, exploited, and patched nearly 950 severe vulnerabilities in the Linux kernel in a single run.",
-          "title_ru": "Кибер-патчи GPT-6 устраняют больше недостатков безопасности за меньшие затраты: версия GPT-6 Astra с настроенной безопасностью OpenAI закрывает дыры в Linux корневого уровня по цене 1280 долларов за штуку"
+          "id": "82bab66344c7",
+          "url": "https://chrhenning.com/blog/2026/introduction-to-uncertainty",
+          "title": "An introduction to uncertainty in machine learning",
+          "source": "Hacker News",
+          "tier": "T3",
+          "domain": "chrhenning.com",
+          "published_at": "2026-11-26T19:04:50Z",
+          "summary": "HN: 123 points, 11 comments. https://news.ycombinator.com/item?id=50658498",
+          "title_ru": ""
         }
       ],
-      "title": "OpenAI's GPT-6 Cyber patches Linux kernel security flaws for about $1,280 each",
-      "summary": "OpenAI's security-tuned GPT-6 Cyber discovered, exploited, and patched nearly 950 severe Linux kernel vulnerabilities in a single run at roughly $1,280 per root-level fix.",
-      "tags": [
-        "security",
-        "agents",
-        "openai"
-      ],
-      "entities": [
-        "OpenAI",
-        "GPT-6 Cyber"
-      ],
-      "kind": "research",
-      "rumor": false,
-      "scores": {
-        "significance": 4,
-        "novelty": 3,
-        "practicality": 2,
-        "relevance": 2
-      },
-      "so_what": "A concrete data point on agentic AI doing large-scale technical work autonomously and cheaply, useful context when scoping what agents can realistically automate beyond content tasks.",
       "domains": [
-        "deeplearning.ai"
+        "chrhenning.com"
       ],
       "has_t1": false,
       "status": "unconfirmed",
-      "total": 2.95,
-      "last_update": "2026-11-13T16:00:00.000Z",
-      "title_ru": "GPT-6 Cyber ​​от OpenAI исправляет недостатки безопасности ядра Linux примерно за 1280 долларов за штуку",
-      "summary_ru": "GPT-6 Cyber ​​от OpenAI с настроенной безопасностью обнаружил, использовал и исправил почти 950 серьезных уязвимостей ядра Linux за один запуск по цене примерно 1280 долларов США за исправление корневого уровня.",
-      "so_what_ru": "Конкретные данные об агентном ИИ, выполняющем крупномасштабную техническую работу автономно и дешево, полезный контекст при определении того, что агенты могут реально автоматизировать, помимо задач по содержанию.",
-      "rating": 3
+      "last_update": "2026-11-26T19:04:50Z",
+      "total": 2.85,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
     },
     {
       "story_id": "top-open-problems-mathematics-ranked",
@@ -5957,54 +5988,6 @@
       "summary_ru": ""
     },
     {
-      "story_id": "llm-weight-editing-finetune",
-      "first_seen": "2026-11-16",
-      "items": [
-        {
-          "id": "328c312c76b6",
-          "url": "https://charonhub.deeplearning.ai/llms-can-fine-tune-neural-networks/",
-          "title": "LLMs Can Fine-Tune Neural Networks: Researchers used GPT-6 Astra to improve a small model’s performance by editing its weights",
-          "source": "The Batch",
-          "tier": "T2",
-          "domain": "deeplearning.ai",
-          "published_at": "2026-11-13T16:05:00.000Z",
-          "summary": "Research suggests that you can improve a neural network’s weights simply by prompting an LLM — for networks of less than 1 billion parameters, at least.",
-          "title_ru": "LLM могут точно настроить нейронные сети: исследователи использовали GPT-6 Astra, чтобы улучшить производительность небольшой модели путем редактирования ее весов."
-        }
-      ],
-      "title": "Researchers use GPT-6 Astra to improve a small model by directly editing its weights",
-      "summary": "A study found prompting GPT-6 Astra to edit a smaller neural network's weights improved its performance, for models under 1 billion parameters.",
-      "tags": [
-        "research",
-        "fine-tuning",
-        "llm"
-      ],
-      "entities": [
-        "OpenAI",
-        "GPT-6 Astra"
-      ],
-      "kind": "research",
-      "rumor": false,
-      "scores": {
-        "significance": 3,
-        "novelty": 4,
-        "practicality": 2,
-        "relevance": 2
-      },
-      "so_what": "Not directly actionable today, but signals a future where LLMs tune smaller automation models without a traditional training pipeline.",
-      "domains": [
-        "deeplearning.ai"
-      ],
-      "has_t1": false,
-      "status": "unconfirmed",
-      "total": 2.85,
-      "last_update": "2026-11-13T16:05:00.000Z",
-      "title_ru": "Исследователи используют GPT-6 Astra, чтобы улучшить небольшую модель, напрямую редактируя ее вес.",
-      "summary_ru": "Исследование показало, что предложение GPT-6 Astra редактировать веса нейронной сети меньшего размера улучшило ее производительность для моделей с числом параметров менее 1 миллиарда.",
-      "so_what_ru": "Сегодня это не применимо напрямую, но сигнализирует о будущем, в котором LLM будут настраивать более мелкие модели автоматизации без традиционного процесса обучения.",
-      "rating": 3
-    },
-    {
       "story_id": "mai-five-sins-marketing-agent",
       "first_seen": "2026-11-19",
       "items": [
@@ -6100,52 +6083,73 @@
       "rating": 3
     },
     {
-      "story_id": "openworker-agent-harness-sdk",
-      "first_seen": "2026-11-16",
+      "story_id": "openai-cost-controls-measuring-rsi",
+      "first_seen": "2026-11-27",
+      "title": "OpenAI cost controls 💰, measuring RSI 📈, looped transformers ➰",
+      "summary": "",
+      "so_what": "",
+      "tags": [
+        "openai"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
       "items": [
         {
-          "id": "911cb7d805d9",
-          "url": "https://charonhub.deeplearning.ai/how-to-build-an-agent-harness-in-one-prompt/",
-          "title": "How to Build an Agent Harness in One Prompt: Build agent harnesses for any LLM using the open source OpenWorker Agent Harness SDK",
-          "source": "The Batch",
-          "tier": "T2",
-          "domain": "deeplearning.ai",
-          "published_at": "2026-11-13T15:30:00.000Z",
-          "summary": "Building an agent harness has been a rapidly growing method to build an AI agent.",
-          "title_ru": "Как создать жгут агента за одну подсказку: Создайте жгуты агента для любого LLM с помощью OpenWorker Agent Harness SDK с открытым исходным кодом."
+          "id": "dda121ef52bc",
+          "url": "https://tldr.tech/ai/2026-11-27",
+          "title": "OpenAI cost controls 💰, measuring RSI 📈, looped transformers ➰",
+          "source": "TLDR AI",
+          "tier": "T3",
+          "domain": "tldr.tech",
+          "published_at": "2026-11-27T00:00:00.000Z",
+          "summary": "",
+          "title_ru": ""
         }
       ],
-      "title": "Open-source OpenWorker Agent Harness SDK lets developers build agent harnesses from a single prompt",
-      "summary": "A tutorial shows how to build a custom agent harness for any LLM using the open source OpenWorker Agent Harness SDK.",
-      "tags": [
-        "agents",
-        "tooling",
-        "open-source",
-        "automation"
-      ],
-      "entities": [
-        "OpenWorker Agent Harness SDK"
-      ],
-      "kind": "tool",
-      "rumor": false,
-      "scores": {
-        "significance": 2,
-        "novelty": 2,
-        "practicality": 4,
-        "relevance": 4
-      },
-      "so_what": "A quick, low-effort path to prototype a custom agent harness, useful if you're extending your own Claude Code-based automation beyond existing SDKs.",
       "domains": [
-        "deeplearning.ai"
+        "tldr.tech"
       ],
       "has_t1": false,
       "status": "unconfirmed",
-      "total": 2.8,
-      "last_update": "2026-11-13T15:30:00.000Z",
-      "title_ru": "OpenWorker Agent Harness SDK с открытым исходным кодом позволяет разработчикам создавать пакеты агентов с помощью одной подсказки.",
-      "summary_ru": "В учебном пособии показано, как создать собственный комплект агентов для любого LLM с помощью OpenWorker Agent Harness SDK с открытым исходным кодом.",
-      "so_what_ru": "Быстрый и простой способ создания прототипа пользовательского агента, полезный, если вы расширяете свою собственную автоматизацию на основе кода Claude за пределы существующих SDK.",
-      "rating": 3
+      "last_update": "2026-11-27T00:00:00.000Z",
+      "total": 2.7,
+      "rating": 3,
+      "title_ru": ""
+    },
+    {
+      "story_id": "future-housekeeper-might-xpeng",
+      "first_seen": "2026-11-27",
+      "title": "Your future housekeeper might be an XPeng",
+      "summary": "PLUS: Amazon drone crashes trigger FAA scrutiny",
+      "so_what": "",
+      "tags": [],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "a537055a732a",
+          "url": "https://therundown.ai/articles/your-future-housekeeper-might-be-an-xpeng",
+          "title": "Your future housekeeper might be an XPeng",
+          "source": "The Rundown AI",
+          "tier": "T3",
+          "domain": "therundown.ai",
+          "published_at": "2026-11-26T15:30:00.000Z",
+          "summary": "PLUS: Amazon drone crashes trigger FAA scrutiny",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "therundown.ai"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-26T15:30:00.000Z",
+      "total": 2.7,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
     },
     {
       "story_id": "cheat-sheet-thanksgiving-dinner",
@@ -6748,66 +6752,6 @@
       "title_ru": "Независимый блог All About Berlin утверждает, что ИИ разрушает его бизнес",
       "summary_ru": "В широко обсуждаемом сообщении Hacker News описывается, как ответы и контент, генерируемые искусственным интеллектом, сокращают трафик и доходы независимого блога All About Berlin.",
       "so_what_ru": "Конкретный случай, когда ИИ-поиск сжимает контент-ориентированный трафик, что имеет непосредственное отношение к любому, кто полагается на органический контент/SEO для роста.",
-      "rating": 3
-    },
-    {
-      "story_id": "anthropic-service-outage-nov2026",
-      "first_seen": "2026-11-16",
-      "items": [
-        {
-          "id": "22bcd83804c6",
-          "url": "https://status.claude.com/history",
-          "title": "Claude Is Down",
-          "source": "Hacker News",
-          "tier": "T3",
-          "domain": "claude.com",
-          "published_at": "2026-11-13T10:20:09Z",
-          "summary": "HN: 200 points, 179 comments. https://news.ycombinator.com/item?id=50481220",
-          "title_ru": "Клод упал"
-        },
-        {
-          "id": "44da454e7900",
-          "url": "https://status.claude.com/incidents/nn11wk485zfn",
-          "title": "Elevated errors on claude.ai, Claude Code, and platform.claude.com",
-          "source": "Hacker News",
-          "tier": "T3",
-          "domain": "claude.com",
-          "published_at": "2026-11-13T10:18:13Z",
-          "summary": "HN: 493 points, 392 comments. https://news.ycombinator.com/item?id=50481187",
-          "title_ru": "Повышенные ошибки на сайтах claude.ai, Claude Code и Platform.claude.com."
-        }
-      ],
-      "title": "Claude.ai, Claude Code, and platform.claude.com hit elevated errors in outage",
-      "summary": "Anthropic experienced an outage with elevated errors across claude.ai, Claude Code, and platform.claude.com, drawing heavy user discussion.",
-      "tags": [
-        "anthropic",
-        "claude-code",
-        "outage",
-        "reliability"
-      ],
-      "entities": [
-        "Anthropic",
-        "Claude Code"
-      ],
-      "kind": "industry",
-      "rumor": false,
-      "scores": {
-        "significance": 3,
-        "novelty": 1,
-        "practicality": 3,
-        "relevance": 4
-      },
-      "so_what": "If your automation depends on Claude Code or the Claude API, build in retry/fallback handling, this week was a reminder it can go down.",
-      "domains": [
-        "claude.com"
-      ],
-      "has_t1": false,
-      "status": "unconfirmed",
-      "total": 2.65,
-      "last_update": "2026-11-13T10:20:09Z",
-      "title_ru": "Claude.ai, Claude Code и Platform.claude.com столкнулись с повышенным уровнем ошибок из-за сбоя",
-      "summary_ru": "В Anthropic произошел сбой с повышенным уровнем ошибок на сайтах claude.ai, Claude Code и Platform.claude.com, что вызвало бурное обсуждение среди пользователей.",
-      "so_what_ru": "Если ваша автоматизация зависит от Claude Code или Claude API, встройте обработку повторных попыток/резервных попыток, эта неделя стала напоминанием о том, что она может выйти из строя.",
       "rating": 3
     },
     {
@@ -7619,54 +7563,6 @@
       "title_ru": "",
       "summary_ru": "Кевин Ли из Optimizely утверждает через MarTech, что «кодирование вибрации» не может сохранить голос бренда, и обрисовывает, что покупатели должны требовать от агентской CMS.",
       "so_what_ru": "Полезный контрольный список, если вы оцениваете или создаете инструменты управления контентом, управляемые агентами, которые должны оставаться фирменными.",
-      "rating": 2
-    },
-    {
-      "story_id": "martech-agents-measurement-gap",
-      "first_seen": "2026-11-16",
-      "items": [
-        {
-          "id": "d3abdccc819b",
-          "url": "https://martech.org/marketers-deploying-ai-agents-faster-than-they-can-measure-them/",
-          "title": "Marketers deploying AI agents faster than they can measure them",
-          "source": "MarTech",
-          "tier": "T4",
-          "domain": "martech.org",
-          "published_at": "2026-11-13T13:34:00.000Z",
-          "summary": "AI agents are spreading quickly, but most marketers still can’t connect those conversations to campaigns, conversions, and revenue. The post Marketers deploying AI agents faster than they can measure them appeared first on MarTech .",
-          "title_ru": "Маркетологи внедряют агенты искусственного интеллекта быстрее, чем они могут их измерить"
-        }
-      ],
-      "title": "Survey: marketers deploying AI agents faster than they can measure them",
-      "summary": "MarTech reports marketers are adopting AI agents quickly but most still can't connect agent conversations to campaigns, conversions, and revenue.",
-      "tags": [
-        "marketing",
-        "agents",
-        "measurement",
-        "analytics"
-      ],
-      "entities": [
-        "MarTech"
-      ],
-      "kind": "industry",
-      "rumor": false,
-      "scores": {
-        "significance": 2,
-        "novelty": 2,
-        "practicality": 3,
-        "relevance": 4
-      },
-      "so_what": "Build attribution/measurement into any agent deployment before scaling it, not after.",
-      "domains": [
-        "martech.org"
-      ],
-      "has_t1": false,
-      "status": "unconfirmed",
-      "total": 2.55,
-      "last_update": "2026-11-13T13:34:00.000Z",
-      "title_ru": "Опрос: маркетологи внедряют агенты искусственного интеллекта быстрее, чем успевают их измерить",
-      "summary_ru": "MarTech сообщает, что маркетологи быстро внедряют ИИ-агентов, но большинство из них до сих пор не могут связать разговоры с агентами с кампаниями, конверсиями и доходами.",
-      "so_what_ru": "Встраивайте атрибуцию/измерение в любое развертывание агента до его масштабирования, а не после.",
       "rating": 2
     },
     {
@@ -8788,54 +8684,6 @@
       "rating": 1
     },
     {
-      "story_id": "google-search-ai-free-schools-cutoff",
-      "first_seen": "2026-11-16",
-      "items": [
-        {
-          "id": "5f1afeeb96c0",
-          "url": "https://text.npr.org/nx-s1-6029408",
-          "title": "Why is Google cutting off Search from AI-free schools? Here are some theories",
-          "source": "Hacker News",
-          "tier": "T3",
-          "domain": "npr.org",
-          "published_at": "2026-11-13T15:29:10Z",
-          "summary": "HN: 196 points, 196 comments. https://news.ycombinator.com/item?id=50484960",
-          "title_ru": "Почему Google отсекает поиск от школ без искусственного интеллекта? Вот несколько теорий"
-        }
-      ],
-      "title": "Google reportedly cutting off Search access for schools without AI adoption",
-      "summary": "A discussion piece reports Google is cutting off Search access from schools that have not adopted AI, with commentators offering competing theories for why.",
-      "tags": [
-        "google",
-        "search",
-        "policy",
-        "education"
-      ],
-      "entities": [
-        "Google"
-      ],
-      "kind": "policy",
-      "rumor": true,
-      "scores": {
-        "significance": 2,
-        "novelty": 3,
-        "practicality": 1,
-        "relevance": 1
-      },
-      "so_what": "An early example of platform access being tied to AI adoption, a dynamic that could eventually extend beyond schools into business tooling.",
-      "domains": [
-        "npr.org"
-      ],
-      "has_t1": false,
-      "status": "rumor",
-      "total": 1.85,
-      "last_update": "2026-11-13T15:29:10Z",
-      "title_ru": "Сообщается, что Google прекращает доступ к поиску для школ без внедрения ИИ",
-      "summary_ru": "В дискуссионной статье сообщается, что Google отрезает доступ к поиску школам, которые не внедрили ИИ, а комментаторы предлагают конкурирующие теории, объясняющие, почему.",
-      "so_what_ru": "Ранний пример того, как доступ к платформе связан с внедрением ИИ, и эта динамика может в конечном итоге выйти за рамки школ и стать инструментами для бизнеса.",
-      "rating": 1
-    },
-    {
       "story_id": "baidu-xiaomi-ai-hype-warning",
       "first_seen": "2026-11-19",
       "items": [
@@ -9027,6 +8875,84 @@
   ],
   "raw_items": [
     {
+      "id": "f536e5d7151b",
+      "source_id": "rundown",
+      "source_name": "The Rundown AI",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "AI takes a swing at physics' biggest puzzle",
+      "url": "https://therundown.ai/articles/ai-takes-a-swing-at-physics-biggest-puzzle",
+      "domain": "therundown.ai",
+      "published_at": "2026-11-27T11:00:00.000Z",
+      "collected_on": "2026-11-27",
+      "summary": "PLUS: Give jobs to Nod, the personal agent from n8n"
+    },
+    {
+      "id": "138e1e18872d",
+      "source_id": "hn",
+      "source_name": "Hacker News",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "Claude sabotaging ML research tasks?",
+      "url": "https://twitter.com/RealAstropulse/status/2126119408997466389",
+      "domain": "twitter.com",
+      "published_at": "2026-11-27T08:28:08Z",
+      "collected_on": "2026-11-27",
+      "summary": "HN: 237 points, 133 comments. https://news.ycombinator.com/item?id=50664325"
+    },
+    {
+      "id": "74835a583675",
+      "source_id": "hn",
+      "source_name": "Hacker News",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "The group chat where your AI talks behind your back",
+      "url": "https://construct22.com",
+      "domain": "construct22.com",
+      "published_at": "2026-11-27T06:44:34Z",
+      "collected_on": "2026-11-27",
+      "summary": "HN: 536 points, 236 comments. https://news.ycombinator.com/item?id=50663595"
+    },
+    {
+      "id": "0256b11e8366",
+      "source_id": "hn",
+      "source_name": "Hacker News",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "\"What's Claude's Fursona?\" and Other Questions",
+      "url": "https://herecomesthemoon.net/2026/11/whats-claudes-fursona",
+      "domain": "herecomesthemoon.net",
+      "published_at": "2026-11-27T04:56:18Z",
+      "collected_on": "2026-11-27",
+      "summary": "HN: 104 points, 81 comments. https://news.ycombinator.com/item?id=50662933"
+    },
+    {
+      "id": "2d7f8b4f8454",
+      "source_id": "huggingface",
+      "source_name": "Hugging Face blog",
+      "tier": "T1",
+      "signal_only": false,
+      "title": "Taking Trainium3 to the Track: Generating Videos with LTX-2.5",
+      "url": "https://huggingface.co/blog/video-trainium3",
+      "domain": "huggingface.co",
+      "published_at": "2026-11-27T00:00:00.000Z",
+      "collected_on": "2026-11-27",
+      "summary": ""
+    },
+    {
+      "id": "dda121ef52bc",
+      "source_id": "tldr-ai",
+      "source_name": "TLDR AI",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "OpenAI cost controls 💰, measuring RSI 📈, looped transformers ➰",
+      "url": "https://tldr.tech/ai/2026-11-27",
+      "domain": "tldr.tech",
+      "published_at": "2026-11-27T00:00:00.000Z",
+      "collected_on": "2026-11-27",
+      "summary": ""
+    },
+    {
       "id": "00bb51c293be",
       "source_id": "latent-space",
       "source_name": "Latent Space",
@@ -9053,6 +8979,19 @@
       "summary": "HN: 422 points, 227 comments. https://news.ycombinator.com/item?id=50660180"
     },
     {
+      "id": "82bab66344c7",
+      "source_id": "hn",
+      "source_name": "Hacker News",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "An introduction to uncertainty in machine learning",
+      "url": "https://chrhenning.com/blog/2026/introduction-to-uncertainty",
+      "domain": "chrhenning.com",
+      "published_at": "2026-11-26T19:04:50Z",
+      "collected_on": "2026-11-27",
+      "summary": "HN: 123 points, 11 comments. https://news.ycombinator.com/item?id=50658498"
+    },
+    {
       "id": "c83866a1dbc9",
       "source_id": "hn",
       "source_name": "Hacker News",
@@ -9077,6 +9016,19 @@
       "published_at": "2026-11-26T17:11:29Z",
       "collected_on": "2026-11-27",
       "summary": "HN: 307 points, 74 comments. https://news.ycombinator.com/item?id=50657265"
+    },
+    {
+      "id": "a537055a732a",
+      "source_id": "rundown",
+      "source_name": "The Rundown AI",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "Your future housekeeper might be an XPeng",
+      "url": "https://therundown.ai/articles/your-future-housekeeper-might-be-an-xpeng",
+      "domain": "therundown.ai",
+      "published_at": "2026-11-26T15:30:00.000Z",
+      "collected_on": "2026-11-27",
+      "summary": "PLUS: Amazon drone crashes trigger FAA scrutiny"
     },
     {
       "id": "02a088434703",
@@ -12990,326 +12942,6 @@
       "summary": "",
       "collected_at": "2026-11-16T13:33:48.263Z",
       "title_ru": "XYBench: помощь в решении проблемы, стоящей за вопросом"
-    },
-    {
-      "id": "946ec316e0ee",
-      "url": "https://charonhub.deeplearning.ai/retrieval-for-rag-resistant-docs/",
-      "canonical_url": "https://charonhub.deeplearning.ai/retrieval-for-rag-resistant-docs",
-      "title": "Retrieval for RAG-Resistant Docs: An agent that searches, outlines, and reads entire documents outperforms chunk-and-embed retrieval",
-      "source": "the-batch",
-      "source_name": "The Batch",
-      "tier": "T2",
-      "signal_only": false,
-      "domain": "deeplearning.ai",
-      "published_at": "2026-11-13T16:15:00.000Z",
-      "date_from": "source",
-      "summary": "Retrieving documents chunk by chunk works well with many types of text, but it can fail with documents in which the meaning of a given span — say, numbers in a table — depends on particulars found elsewhere on the page — say, the label of their units.",
-      "collected_at": "2026-11-16T13:33:49.152Z",
-      "title_ru": "Извлечение документов, устойчивых к RAG: агент, который ищет, структурирует и читает целые документы, превосходит поиск по частям и встраиванию."
-    },
-    {
-      "id": "710233c36e44",
-      "url": "https://charonhub.deeplearning.ai/search-engine-wars-ai-edition/",
-      "canonical_url": "https://charonhub.deeplearning.ai/search-engine-wars-ai-edition",
-      "title": "Search Engine Wars, AI Edition: Google makes less money on LLM-powered search even as OpenAI works to attract its users",
-      "source": "the-batch",
-      "source_name": "The Batch",
-      "tier": "T2",
-      "signal_only": false,
-      "domain": "deeplearning.ai",
-      "published_at": "2026-11-13T16:10:00.000Z",
-      "date_from": "source",
-      "summary": "Google is turning its search engine into a chatbot, and OpenAI is turning its chatbot into a search engine.",
-      "collected_at": "2026-11-16T13:33:49.152Z",
-      "title_ru": "Search Engine Wars, AI Edition: Google зарабатывает меньше денег на поиске на основе LLM, хотя OpenAI работает над привлечением своих пользователей"
-    },
-    {
-      "id": "328c312c76b6",
-      "url": "https://charonhub.deeplearning.ai/llms-can-fine-tune-neural-networks/",
-      "canonical_url": "https://charonhub.deeplearning.ai/llms-can-fine-tune-neural-networks",
-      "title": "LLMs Can Fine-Tune Neural Networks: Researchers used GPT-6 Astra to improve a small model’s performance by editing its weights",
-      "source": "the-batch",
-      "source_name": "The Batch",
-      "tier": "T2",
-      "signal_only": false,
-      "domain": "deeplearning.ai",
-      "published_at": "2026-11-13T16:05:00.000Z",
-      "date_from": "source",
-      "summary": "Research suggests that you can improve a neural network’s weights simply by prompting an LLM — for networks of less than 1 billion parameters, at least.",
-      "collected_at": "2026-11-16T13:33:49.152Z",
-      "title_ru": "LLM могут точно настроить нейронные сети: исследователи использовали GPT-6 Astra, чтобы улучшить производительность небольшой модели путем редактирования ее весов."
-    },
-    {
-      "id": "936d23ad323d",
-      "url": "https://charonhub.deeplearning.ai/gpt-6-cyber-patches-more-security-flaws-for-less-cost/",
-      "canonical_url": "https://charonhub.deeplearning.ai/gpt-6-cyber-patches-more-security-flaws-for-less-cost",
-      "title": "GPT-6 Cyber Patches More Security Flaws for Less Cost: OpenAI’s security-tuned version of GPT-6 Astra closed root-level Linux holes for $1,280 each",
-      "source": "the-batch",
-      "source_name": "The Batch",
-      "tier": "T2",
-      "signal_only": false,
-      "domain": "deeplearning.ai",
-      "published_at": "2026-11-13T16:00:00.000Z",
-      "date_from": "source",
-      "summary": "OpenAI built a cybersecurity model that discovered, exploited, and patched nearly 950 severe vulnerabilities in the Linux kernel in a single run.",
-      "collected_at": "2026-11-16T13:33:49.152Z",
-      "title_ru": "Кибер-патчи GPT-6 устраняют больше недостатков безопасности за меньшие затраты: версия GPT-6 Astra с настроенной безопасностью OpenAI закрывает дыры в Linux корневого уровня по цене 1280 долларов за штуку"
-    },
-    {
-      "id": "02de209a06bb",
-      "url": "https://www.therundown.ai/articles/microsoft-s-outlook-outage-hits-day-two",
-      "canonical_url": "https://therundown.ai/articles/microsoft-s-outlook-outage-hits-day-two",
-      "title": "Microsoft’s Outlook outage hits day two",
-      "source": "rundown",
-      "source_name": "The Rundown AI",
-      "tier": "T3",
-      "signal_only": false,
-      "domain": "therundown.ai",
-      "published_at": "2026-11-13T15:30:13.000Z",
-      "date_from": "source",
-      "summary": "PLUS: Jensen Huang's fortune drops by $10B",
-      "collected_at": "2026-11-16T13:33:48.195Z",
-      "title_ru": "Сбой в Microsoft Outlook произошел второй день"
-    },
-    {
-      "id": "911cb7d805d9",
-      "url": "https://charonhub.deeplearning.ai/how-to-build-an-agent-harness-in-one-prompt/",
-      "canonical_url": "https://charonhub.deeplearning.ai/how-to-build-an-agent-harness-in-one-prompt",
-      "title": "How to Build an Agent Harness in One Prompt: Build agent harnesses for any LLM using the open source OpenWorker Agent Harness SDK",
-      "source": "the-batch",
-      "source_name": "The Batch",
-      "tier": "T2",
-      "signal_only": false,
-      "domain": "deeplearning.ai",
-      "published_at": "2026-11-13T15:30:00.000Z",
-      "date_from": "source",
-      "summary": "Building an agent harness has been a rapidly growing method to build an AI agent.",
-      "collected_at": "2026-11-16T13:33:49.152Z",
-      "title_ru": "Как создать жгут агента за одну подсказку: Создайте жгуты агента для любого LLM с помощью OpenWorker Agent Harness SDK с открытым исходным кодом."
-    },
-    {
-      "id": "5f1afeeb96c0",
-      "url": "https://text.npr.org/nx-s1-6029408",
-      "canonical_url": "https://text.npr.org/nx-s1-6029408",
-      "title": "Why is Google cutting off Search from AI-free schools? Here are some theories",
-      "source": "hn",
-      "source_name": "Hacker News",
-      "tier": "T3",
-      "signal_only": false,
-      "domain": "npr.org",
-      "published_at": "2026-11-13T15:29:10Z",
-      "date_from": "source",
-      "summary": "HN: 196 points, 196 comments. https://news.ycombinator.com/item?id=50484960",
-      "collected_at": "2026-11-16T13:33:48.728Z",
-      "title_ru": "Почему Google отсекает поиск от школ без искусственного интеллекта? Вот несколько теорий"
-    },
-    {
-      "id": "0b67abad1121",
-      "url": "https://www.youtube.com/watch?v=IRK8h67ol7Q",
-      "canonical_url": "https://youtube.com/watch?v=IRK8h67ol7Q",
-      "title": "Jonathan Blow – If AI solved coding, why is my software still the same? [video]",
-      "source": "hn",
-      "source_name": "Hacker News",
-      "tier": "T3",
-      "signal_only": false,
-      "domain": "youtube.com",
-      "published_at": "2026-11-13T15:08:44Z",
-      "date_from": "source",
-      "summary": "HN: 487 points, 728 comments. https://news.ycombinator.com/item?id=50484658",
-      "collected_at": "2026-11-16T13:33:48.728Z",
-      "title_ru": "Джонатан Блоу: Если ИИ решил проблему кодирования, почему мое программное обеспечение осталось прежним? [видео]"
-    },
-    {
-      "id": "5bf4951adbe9",
-      "url": "https://openai.com/index/introducing-chatgpt-wallet",
-      "canonical_url": "https://openai.com/index/introducing-chatgpt-wallet",
-      "title": "Introducing ChatGPT Wallet",
-      "source": "openai",
-      "source_name": "OpenAI News",
-      "tier": "T1",
-      "signal_only": false,
-      "domain": "openai.com",
-      "published_at": "2026-11-13T15:00:00.000Z",
-      "date_from": "source",
-      "summary": "Introducing ChatGPT Wallet, a secure way for agents in ChatGPT Work, Codex, and dots to complete purchases with user approval and existing card protections.",
-      "collected_at": "2026-11-16T13:33:48.078Z",
-      "title_ru": "Представляем кошелек ChatGPT"
-    },
-    {
-      "id": "666569f44ef8",
-      "url": "https://charonhub.deeplearning.ai/issue-379/",
-      "canonical_url": "https://charonhub.deeplearning.ai/issue-379",
-      "title": "GPT-6 Cyber Versus Linux, The Problem With LLM-Powered Search, LLMs Edit Model Weights, Agentic Doc Retrieval",
-      "source": "the-batch",
-      "source_name": "The Batch",
-      "tier": "T2",
-      "signal_only": false,
-      "domain": "deeplearning.ai",
-      "published_at": "2026-11-13T15:00:00.000Z",
-      "date_from": "source",
-      "summary": "The Batch News & Insights: Building an agent harness has been a rapidly growing method to build an AI agent.",
-      "collected_at": "2026-11-16T13:33:49.152Z",
-      "title_ru": "GPT-6 Cyber ​​против Linux, Проблема с поиском на основе LLM, LLM редактируют веса моделей, Агентический поиск документов"
-    },
-    {
-      "id": "84c3538116c7",
-      "url": "https://martech.org/meet-your-new-teammate-building-marketing-workflows-around-ai-agents/",
-      "canonical_url": "https://martech.org/meet-your-new-teammate-building-marketing-workflows-around-ai-agents",
-      "title": "Meet your new teammate: Building marketing workflows around AI agents",
-      "source": "martech",
-      "source_name": "MarTech",
-      "tier": "T4",
-      "signal_only": false,
-      "domain": "martech.org",
-      "published_at": "2026-11-13T14:24:28.000Z",
-      "date_from": "source",
-      "summary": "AI agents are changing how marketing works. At the November MarTech Conference, we discussed how to build workflows that combine AI efficiency with human judgment, quality control, and governance. The post Meet your new teammate: Building marketing workflows around AI agents appeared first on MarTech .",
-      "collected_at": "2026-11-16T13:33:48.099Z",
-      "title_ru": "Познакомьтесь с новым товарищем по команде: построение маркетинговых рабочих процессов с использованием ИИ-агентов"
-    },
-    {
-      "id": "40e78db6601d",
-      "url": "https://huggingface.co/blog/ggml-org/llama-cpp-v1",
-      "canonical_url": "https://huggingface.co/blog/ggml-org/llama-cpp-v1",
-      "title": "llama.cpp v1.0.0 : A stronger foundation for the local AI ecosystem",
-      "source": "huggingface",
-      "source_name": "Hugging Face blog",
-      "tier": "T1",
-      "signal_only": false,
-      "domain": "huggingface.co",
-      "published_at": "2026-11-13T14:05:22.000Z",
-      "date_from": "source",
-      "summary": "",
-      "collected_at": "2026-11-16T13:33:48.263Z",
-      "title_ru": "llama.cpp v1.0.0: более прочная основа для местной экосистемы искусственного интеллекта."
-    },
-    {
-      "id": "d3abdccc819b",
-      "url": "https://martech.org/marketers-deploying-ai-agents-faster-than-they-can-measure-them/",
-      "canonical_url": "https://martech.org/marketers-deploying-ai-agents-faster-than-they-can-measure-them",
-      "title": "Marketers deploying AI agents faster than they can measure them",
-      "source": "martech",
-      "source_name": "MarTech",
-      "tier": "T4",
-      "signal_only": false,
-      "domain": "martech.org",
-      "published_at": "2026-11-13T13:34:00.000Z",
-      "date_from": "source",
-      "summary": "AI agents are spreading quickly, but most marketers still can’t connect those conversations to campaigns, conversions, and revenue. The post Marketers deploying AI agents faster than they can measure them appeared first on MarTech .",
-      "collected_at": "2026-11-16T13:33:48.099Z",
-      "title_ru": "Маркетологи внедряют агенты искусственного интеллекта быстрее, чем они могут их измерить"
-    },
-    {
-      "id": "2f44ca0e016f",
-      "url": "https://www.theatlantic.com/books/2026/11/ai-literary-scams-amazon/689391/",
-      "canonical_url": "https://theatlantic.com/books/2026/11/ai-literary-scams-amazon/689391",
-      "title": "AI is destroying the trust between writers and readers",
-      "source": "hn",
-      "source_name": "Hacker News",
-      "tier": "T3",
-      "signal_only": false,
-      "domain": "theatlantic.com",
-      "published_at": "2026-11-13T11:13:46Z",
-      "date_from": "source",
-      "summary": "HN: 371 points, 236 comments. https://news.ycombinator.com/item?id=50481870",
-      "collected_at": "2026-11-16T13:33:48.728Z",
-      "title_ru": "ИИ разрушает доверие между писателями и читателями"
-    },
-    {
-      "id": "9d98dbbdb991",
-      "url": "https://operator0x.com/field-notes/qwen-conversation-state-space/",
-      "canonical_url": "https://operator0x.com/field-notes/qwen-conversation-state-space",
-      "title": "What thousands of conversations look like inside a language model",
-      "source": "hn",
-      "source_name": "Hacker News",
-      "tier": "T3",
-      "signal_only": false,
-      "domain": "operator0x.com",
-      "published_at": "2026-11-13T10:26:01Z",
-      "date_from": "source",
-      "summary": "HN: 124 points, 29 comments. https://news.ycombinator.com/item?id=50481321",
-      "collected_at": "2026-11-16T13:33:48.728Z",
-      "title_ru": "Как выглядят тысячи разговоров внутри языковой модели"
-    },
-    {
-      "id": "22bcd83804c6",
-      "url": "https://status.claude.com/history",
-      "canonical_url": "https://status.claude.com/history",
-      "title": "Claude Is Down",
-      "source": "hn",
-      "source_name": "Hacker News",
-      "tier": "T3",
-      "signal_only": false,
-      "domain": "claude.com",
-      "published_at": "2026-11-13T10:20:09Z",
-      "date_from": "source",
-      "summary": "HN: 200 points, 179 comments. https://news.ycombinator.com/item?id=50481220",
-      "collected_at": "2026-11-16T13:33:48.728Z",
-      "title_ru": "Клод упал"
-    },
-    {
-      "id": "44da454e7900",
-      "url": "https://status.claude.com/incidents/nn11wk485zfn",
-      "canonical_url": "https://status.claude.com/incidents/nn11wk485zfn",
-      "title": "Elevated errors on claude.ai, Claude Code, and platform.claude.com",
-      "source": "hn",
-      "source_name": "Hacker News",
-      "tier": "T3",
-      "signal_only": false,
-      "domain": "claude.com",
-      "published_at": "2026-11-13T10:18:13Z",
-      "date_from": "source",
-      "summary": "HN: 493 points, 392 comments. https://news.ycombinator.com/item?id=50481187",
-      "collected_at": "2026-11-16T13:33:48.728Z",
-      "title_ru": "Повышенные ошибки на сайтах claude.ai, Claude Code и Platform.claude.com."
-    },
-    {
-      "id": "91d6ac0b6d69",
-      "url": "https://www.therundown.ai/articles/nvidia-enters-life-without-jensen-huang",
-      "canonical_url": "https://therundown.ai/articles/nvidia-enters-life-without-jensen-huang",
-      "title": "Nvidia enters life without Jensen Huang",
-      "source": "rundown",
-      "source_name": "The Rundown AI",
-      "tier": "T3",
-      "signal_only": false,
-      "domain": "therundown.ai",
-      "published_at": "2026-11-13T10:00:00.000Z",
-      "date_from": "source",
-      "summary": "PLUS: Build a shared tracker in Claude Sheets",
-      "collected_at": "2026-11-16T13:33:48.195Z",
-      "title_ru": "Nvidia входит в жизнь без Дженсена Хуанга"
-    },
-    {
-      "id": "12f357dd3921",
-      "url": "https://latent.space/p/ainews-jensen-huang-resigns-after-33-years-leading-nvidia/",
-      "canonical_url": "https://latent.space/p/ainews-jensen-huang-resigns-after-33-years-leading-nvidia",
-      "title": "[AINews] Jensen Huang resigns after 33 years leading NVIDIA",
-      "source": "latent-space",
-      "source_name": "Latent Space",
-      "tier": "T2",
-      "signal_only": false,
-      "domain": "latent.space",
-      "published_at": "2026-11-13T09:04:13.000Z",
-      "date_from": "source",
-      "summary": "November 12, 2026 — Colette Kress takes over as interim CEO. What happens to open source/American AI leadership?",
-      "collected_at": "2026-11-16T13:33:49.138Z",
-      "title_ru": "[ANews] Дженсен Хуанг уходит в отставку после 33 лет руководства NVIDIA"
-    },
-    {
-      "id": "d1318183fe17",
-      "url": "https://openai.com/business/customer-stories/shield",
-      "canonical_url": "https://openai.com/business/customer-stories/shield",
-      "title": "Shield helps technicians hand off legacy portal work with OpenAI",
-      "source": "openai",
-      "source_name": "OpenAI News",
-      "tier": "T1",
-      "signal_only": false,
-      "domain": "openai.com",
-      "published_at": "2026-11-13T08:00:00.000Z",
-      "date_from": "source",
-      "summary": "Shield uses OpenAI to help IT technicians hand off work in legacy portals. Its Forge agents navigate systems so technicians can focus on issues needing their judgment.",
-      "collected_at": "2026-11-16T13:33:48.078Z",
-      "title_ru": "Shield помогает техническим специалистам передать устаревшую работу с порталом с помощью OpenAI"
     }
   ],
   "issues": [
