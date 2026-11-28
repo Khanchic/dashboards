@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-27T16:44:39.907Z",
-  "last_collect_date": "2026-11-27",
+  "generated_at": "2026-11-28T03:56:54.339Z",
+  "last_collect_date": "2026-11-28",
   "sources_report": [
     {
       "id": "anthropic",
@@ -94,7 +94,7 @@
       "url": "https://huggingface.co/blog/feed.xml",
       "fetched": 919,
       "kept": 8,
-      "new": 1,
+      "new": 0,
       "error": null,
       "note": ""
     },
@@ -201,8 +201,8 @@
       "type": "rss",
       "url": "https://www.latent.space/feed",
       "fetched": 20,
-      "kept": 7,
-      "new": 0,
+      "kept": 8,
+      "new": 2,
       "error": null,
       "note": ""
     },
@@ -237,8 +237,8 @@
       "type": "hn",
       "url": "https://hn.algolia.com/api/v1/search_by_date",
       "fetched": 200,
-      "kept": 36,
-      "new": 4,
+      "kept": 40,
+      "new": 6,
       "error": null,
       "note": ""
     },
@@ -250,7 +250,7 @@
       "url": "https://www.therundown.ai/feed",
       "fetched": 50,
       "kept": 8,
-      "new": 2,
+      "new": 0,
       "error": null,
       "note": ""
     },
@@ -262,7 +262,7 @@
       "url": "https://tldr.tech/api/rss/ai",
       "fetched": 20,
       "kept": 5,
-      "new": 1,
+      "new": 0,
       "error": null,
       "note": ""
     },
@@ -273,8 +273,8 @@
       "type": "rss",
       "url": "https://igamingbusiness.com/feed/",
       "fetched": 100,
-      "kept": 3,
-      "new": 0,
+      "kept": 5,
+      "new": 2,
       "error": null,
       "note": ""
     },
@@ -320,10 +320,10 @@
     "failed": 3,
     "empty": 2,
     "fetched": 3488,
-    "kept": 447,
-    "new_items": 8,
-    "stories_total": 203,
-    "stories_confirmed": 67,
+    "kept": 454,
+    "new_items": 10,
+    "stories_total": 208,
+    "stories_confirmed": 66,
     "stories_eligible": 31,
     "raw_total": 280
   },
@@ -2221,6 +2221,79 @@
       "summary_ru": ""
     },
     {
+      "story_id": "igaming-operators-move-pilot-practice",
+      "first_seen": "2026-11-28",
+      "title": "How iGaming operators can move AI from pilot to practice",
+      "summary": "Software Mind’s Mouhcine Jalili explains how iGaming enterprises can adapt reusable AI frameworks to their own systems and why operators are appointing leaders to coordinate AI projects across the business.",
+      "so_what": "",
+      "tags": [
+        "igaming"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "608a90714581",
+          "url": "https://igamingbusiness.com/tech-innovation/pilot-to-practice",
+          "title": "How iGaming operators can move AI from pilot to practice",
+          "source": "iGaming Business",
+          "tier": "T4",
+          "domain": "igamingbusiness.com",
+          "published_at": "2026-11-27T12:46:01.000Z",
+          "summary": "Software Mind’s Mouhcine Jalili explains how iGaming enterprises can adapt reusable AI frameworks to their own systems and why operators are appointing leaders to coordinate AI projects across the business.",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "igamingbusiness.com"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-27T12:46:01.000Z",
+      "total": 3.6,
+      "rating": 4,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
+      "story_id": "rewriting-igaming-becoming-part-job",
+      "first_seen": "2026-11-28",
+      "title": "How AI is rewriting iGaming: “It is becoming part of the job description”",
+      "summary": "Across the iGaming industry, AI is writing code, creating campaigns and communicating with customers. As job roles are being rewritten overnight, what does the transformation mean for the future workforce – and what skills do they need to survive?",
+      "so_what": "",
+      "tags": [
+        "igaming",
+        "coding"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "2351d632871d",
+          "url": "https://igamingbusiness.com/tech-innovation/how-ai-is-rewriting-igaming-it-is-becoming-part-of-the-job-description",
+          "title": "How AI is rewriting iGaming: “It is becoming part of the job description”",
+          "source": "iGaming Business",
+          "tier": "T4",
+          "domain": "igamingbusiness.com",
+          "published_at": "2026-11-27T11:35:49.000Z",
+          "summary": "Across the iGaming industry, AI is writing code, creating campaigns and communicating with customers. As job roles are being rewritten overnight, what does the transformation mean for the future workforce – and what skills do they need to survive?",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "igamingbusiness.com"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-27T11:35:49.000Z",
+      "total": 3.6,
+      "rating": 4,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
       "story_id": "solas-compliance-unveils-rebrand-tackle",
       "first_seen": "2026-11-24",
       "title": "Solas Compliance unveils rebrand to tackle marketing compliance friction",
@@ -2775,6 +2848,40 @@
       "summary_ru": "MarTech утверждает, что, когда агенты ИИ оценивают поставщиков B2B, ясная информация о продукте и достоверные доказательства, а не только конкурентные характеристики, определяют, будет ли рассматриваться поставщик.",
       "so_what_ru": "Тактическое руководство по структурированию контента продукта, чтобы агенты искусственного интеллекта и системы ответов появлялись на свет и рекомендовали ваш бренд.",
       "rating": 4
+    },
+    {
+      "story_id": "michael-nielsen-took-down-his",
+      "first_seen": "2026-11-28",
+      "title": "Michael Nielsen took down his book on neural nets",
+      "summary": "HN: 431 points, 269 comments. https://news.ycombinator.com/item?id=50670757",
+      "so_what": "",
+      "tags": [],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "141216104711",
+          "url": "https://neuralnetworksanddeeplearning.com",
+          "title": "Michael Nielsen took down his book on neural nets",
+          "source": "Hacker News",
+          "tier": "T3",
+          "domain": "neuralnetworksanddeeplearning.com",
+          "published_at": "2026-11-27T19:31:01Z",
+          "summary": "HN: 431 points, 269 comments. https://news.ycombinator.com/item?id=50670757",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "neuralnetworksanddeeplearning.com"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-27T19:31:01Z",
+      "total": 3.25,
+      "rating": 4,
+      "title_ru": "",
+      "summary_ru": ""
     },
     {
       "story_id": "group-chat-talks-behind-back",
@@ -4247,6 +4354,53 @@
       "rating": 3
     },
     {
+      "story_id": "ainews-inside-exploding-coding-data",
+      "first_seen": "2026-11-28",
+      "title": "[AINews] Inside the exploding Coding Data Market",
+      "summary": "November 27, 2026 — How frontier labs buy training data.",
+      "so_what": "",
+      "tags": [
+        "coding"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "8850a83cf6f1",
+          "url": "https://latent.space/p/ainews-inside-the-exploding-coding-data-market",
+          "title": "[AINews] Inside the exploding Coding Data Market",
+          "source": "Latent Space",
+          "tier": "T2",
+          "domain": "latent.space",
+          "published_at": "2026-11-28T03:45:59.000Z",
+          "summary": "November 27, 2026 — How frontier labs buy training data.",
+          "title_ru": ""
+        },
+        {
+          "id": "42f8ff418476",
+          "url": "https://latent.space/p/inside_the_ai_training_data_market_gabe_greenberg_g2i",
+          "title": "Inside the AI Training Data Market — Gabe Greenberg, G2i",
+          "source": "Latent Space",
+          "tier": "T2",
+          "domain": "latent.space",
+          "published_at": "2026-11-27T22:19:18.000Z",
+          "summary": "A frontier lab can pay more for training data it gets to keep exclusive, or take a discount on data another lab can buy too. At AI Engineer CODE, G2i founder Gabe Greenberg tells swyx how labs make that decision, how small pilot orders turn into bigger...",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "latent.space"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-28T03:45:59.000Z",
+      "total": 3.1,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
       "story_id": "takes-swing-physics-biggest-puzzle",
       "first_seen": "2026-11-27",
       "title": "AI takes a swing at physics' biggest puzzle",
@@ -4697,6 +4851,40 @@
       "status": "unconfirmed",
       "last_update": "2026-11-19T23:38:57.000Z",
       "total": 3.1,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
+      "story_id": "scared",
+      "first_seen": "2026-11-28",
+      "title": "I'm Scared of AI",
+      "summary": "HN: 206 points, 244 comments. https://news.ycombinator.com/item?id=50669561",
+      "so_what": "",
+      "tags": [],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "f21d90605390",
+          "url": "https://thesoapbox.email/archive/3",
+          "title": "I'm Scared of AI",
+          "source": "Hacker News",
+          "tier": "T3",
+          "domain": "thesoapbox.email",
+          "published_at": "2026-11-27T17:45:31Z",
+          "summary": "HN: 206 points, 244 comments. https://news.ycombinator.com/item?id=50669561",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "thesoapbox.email"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-27T17:45:31Z",
+      "total": 3.05,
       "rating": 3,
       "title_ru": "",
       "summary_ru": ""
@@ -5504,6 +5692,110 @@
       "rating": 3
     },
     {
+      "story_id": "google-deepcrossattention-achieves-comparable-model",
+      "first_seen": "2026-11-28",
+      "title": "Google's DeepCrossAttention achieves comparable model quality up to 3x faster",
+      "summary": "HN: 192 points, 64 comments. https://news.ycombinator.com/item?id=50672565",
+      "so_what": "",
+      "tags": [
+        "google"
+      ],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "77ab3d65a278",
+          "url": "https://research.google/blog/supercharging-transformer-residual-connections",
+          "title": "Google's DeepCrossAttention achieves comparable model quality up to 3x faster",
+          "source": "Hacker News",
+          "tier": "T3",
+          "domain": "research.google",
+          "published_at": "2026-11-27T23:06:29Z",
+          "summary": "HN: 192 points, 64 comments. https://news.ycombinator.com/item?id=50672565",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "research.google"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-27T23:06:29Z",
+      "total": 2.85,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
+      "story_id": "gpt-astra-solves-historical-mystery",
+      "first_seen": "2026-11-28",
+      "title": "GPT 6.2 Astra solves a historical mystery",
+      "summary": "HN: 166 points, 1 comments. https://news.ycombinator.com/item?id=50667744",
+      "so_what": "",
+      "tags": [],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "01cdd83d3c55",
+          "url": "https://generativehistory.substack.com/p/gpt-62-astra-solves-a-historical",
+          "title": "GPT 6.2 Astra solves a historical mystery",
+          "source": "Hacker News",
+          "tier": "T3",
+          "domain": "substack.com",
+          "published_at": "2026-11-27T15:03:17Z",
+          "summary": "HN: 166 points, 1 comments. https://news.ycombinator.com/item?id=50667744",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "substack.com"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-27T15:03:17Z",
+      "total": 2.85,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
+      "story_id": "brink-making-online-security-useless",
+      "first_seen": "2026-11-28",
+      "title": "AI on brink of making online security useless, mathematicians fear",
+      "summary": "HN: 118 points, 153 comments. https://news.ycombinator.com/item?id=50665488",
+      "so_what": "",
+      "tags": [],
+      "kind": "business",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "55060e027bba",
+          "url": "https://thetimes.com/uk/technology-uk/article/ai-making-online-security-useless-smr73d3n8",
+          "title": "AI on brink of making online security useless, mathematicians fear",
+          "source": "Hacker News",
+          "tier": "T3",
+          "domain": "thetimes.com",
+          "published_at": "2026-11-27T11:09:04Z",
+          "summary": "HN: 118 points, 153 comments. https://news.ycombinator.com/item?id=50665488",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "thetimes.com"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-27T11:09:04Z",
+      "total": 2.85,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
       "story_id": "introduction-uncertainty-machine-learning",
       "first_seen": "2026-11-27",
       "title": "An introduction to uncertainty in machine learning",
@@ -5532,6 +5824,42 @@
       "has_t1": false,
       "status": "unconfirmed",
       "last_update": "2026-11-26T19:04:50Z",
+      "total": 2.85,
+      "rating": 3,
+      "title_ru": "",
+      "summary_ru": ""
+    },
+    {
+      "story_id": "claude-tries-sabotage-research-work",
+      "first_seen": "2026-11-28",
+      "title": "Claude tries to sabotage research work at every stage",
+      "summary": "HN: 110 points, 20 comments. https://news.ycombinator.com/item?id=50651552",
+      "so_what": "",
+      "tags": [
+        "anthropic"
+      ],
+      "kind": "research",
+      "rumor": false,
+      "auto_clustered": true,
+      "items": [
+        {
+          "id": "85176c594a4a",
+          "url": "https://twitter.com/skirano/status/2125371115979641188",
+          "title": "Claude tries to sabotage research work at every stage",
+          "source": "Hacker News",
+          "tier": "T3",
+          "domain": "twitter.com",
+          "published_at": "2026-11-26T04:49:21Z",
+          "summary": "HN: 110 points, 20 comments. https://news.ycombinator.com/item?id=50651552",
+          "title_ru": ""
+        }
+      ],
+      "domains": [
+        "twitter.com"
+      ],
+      "has_t1": false,
+      "status": "unconfirmed",
+      "last_update": "2026-11-26T04:49:21Z",
       "total": 2.85,
       "rating": 3,
       "title_ru": "",
@@ -7754,54 +8082,6 @@
       "rating": 2
     },
     {
-      "story_id": "openai-disbands-robotics-team",
-      "first_seen": "2026-11-16",
-      "items": [
-        {
-          "id": "4a36f6adfa9f",
-          "url": "https://fortune.com/2026/11/13/openai-disbands-robotics-team-as-its-general-models-start-running-robots/",
-          "title": "OpenAI disbands its robotics team as its general models start running robots",
-          "source": "Hacker News",
-          "tier": "T3",
-          "domain": "fortune.com",
-          "published_at": "2026-11-13T17:55:23Z",
-          "summary": "HN: 179 points, 73 comments. https://news.ycombinator.com/item?id=50487184",
-          "title_ru": "OpenAI распускает свою команду по робототехнике, поскольку ее основные модели начинают использовать роботов"
-        }
-      ],
-      "title": "OpenAI disbands its robotics team as general models start running robots",
-      "summary": "OpenAI reportedly disbanded its dedicated robotics team as its general-purpose models increasingly take over robot-control tasks.",
-      "tags": [
-        "openai",
-        "robotics",
-        "business",
-        "foundation-models"
-      ],
-      "entities": [
-        "OpenAI"
-      ],
-      "kind": "business",
-      "rumor": false,
-      "scores": {
-        "significance": 3,
-        "novelty": 3,
-        "practicality": 1,
-        "relevance": 1
-      },
-      "so_what": "Signals OpenAI is betting general models generalize beyond text/code into physical control, worth noting as a direction for 'one model, many domains' strategies.",
-      "domains": [
-        "fortune.com"
-      ],
-      "has_t1": false,
-      "status": "unconfirmed",
-      "total": 2.2,
-      "last_update": "2026-11-13T17:55:23Z",
-      "title_ru": "OpenAI распускает свою команду по робототехнике, поскольку обычные модели начинают использовать роботов",
-      "summary_ru": "Сообщается, что OpenAI распустила свою специализированную команду по робототехнике, поскольку ее модели общего назначения все чаще берут на себя задачи управления роботами.",
-      "so_what_ru": "Сигналы OpenAI делает ставку на то, что общие модели обобщают не только текст/код, но и физический контроль, что стоит отметить как направление стратегии «одна модель, множество областей».",
-      "rating": 2
-    },
-    {
       "story_id": "huggingface-daisyrose-27b",
       "first_seen": "2026-11-19",
       "items": [
@@ -7943,54 +8223,6 @@
       "title_ru": "Руководитель стратегии OpenAI публикует эссе о росте возможностей ИИ и институциональном контроле",
       "summary_ru": "Глава отдела стратегического будущего OpenAI Дин Болл опубликовал эссе, в котором изучает, как более способный ИИ может изменить общество и как люди могут сохранить контроль над своими институтами.",
       "so_what_ru": "Макро-аналитическая статья, не имеющая прямого действия для практиков маркетинга и эксплуатации в этом месяце.",
-      "rating": 1
-    },
-    {
-      "story_id": "huggingface-xybench-benchmark",
-      "first_seen": "2026-11-16",
-      "items": [
-        {
-          "id": "8400bdfe1e2a",
-          "url": "https://huggingface.co/blog/allenai/xybench",
-          "title": "XYBench: Helping with the problem behind the question",
-          "source": "Hugging Face blog",
-          "tier": "T1",
-          "domain": "huggingface.co",
-          "published_at": "2026-11-13T17:02:35.000Z",
-          "summary": "",
-          "title_ru": "XYBench: помощь в решении проблемы, стоящей за вопросом"
-        }
-      ],
-      "title": "Hugging Face introduces XYBench benchmark",
-      "summary": "Hugging Face published XYBench, described as helping with 'the problem behind the question.'",
-      "tags": [
-        "benchmark",
-        "evaluation",
-        "open-source"
-      ],
-      "entities": [
-        "Hugging Face",
-        "XYBench"
-      ],
-      "kind": "research",
-      "rumor": false,
-      "scores": {
-        "significance": 2,
-        "novelty": 2,
-        "practicality": 1,
-        "relevance": 1
-      },
-      "so_what": "A new eval benchmark for model builders; limited direct use for marketing/ops work.",
-      "domains": [
-        "huggingface.co"
-      ],
-      "has_t1": true,
-      "status": "confirmed",
-      "total": 1.6,
-      "last_update": "2026-11-13T17:02:35.000Z",
-      "title_ru": "Hugging Face представляет тест XYBench",
-      "summary_ru": "Компания Hugging Face опубликовала XYBench, который, по описанию, помогает решить «проблему, лежащую в основе вопроса».",
-      "so_what_ru": "Новый оценочный тест для разработчиков моделей; ограниченное прямое использование для маркетинговой/операционной работы.",
       "rating": 1
     },
     {
@@ -8205,101 +8437,6 @@
       "title_ru": "Сообщается, что Windows 11 собирает данные о том, какие агенты кодирования и инструменты разработки запускают пользователи.",
       "summary_ru": "Широко обсуждаемая публикация Hacker News (671 балл, 530 комментариев) сообщает, что Windows 11 собирает телеметрию, на которой пользователи установили агенты кодирования и инструменты разработчика.",
       "so_what_ru": "Если это правда, это влияет на ожидания конфиденциальности для всех, кто использует Claude Code или аналогичные агенты на компьютерах Windows для работы с клиентами.",
-      "rating": 1
-    },
-    {
-      "story_id": "nvidia-gpu-scarcity-allegation",
-      "first_seen": "2026-11-16",
-      "items": [
-        {
-          "id": "b26717d449a4",
-          "url": "https://www.techpowerup.com/354814/nvidia-allegedly-engineered-scarcity-by-funding-ai-startups-to-buy-its-gpus",
-          "title": "Nvidia allegedly engineered scarcity by funding AI startups to buy its GPUs",
-          "source": "Hacker News",
-          "tier": "T3",
-          "domain": "techpowerup.com",
-          "published_at": "2026-11-14T02:52:59Z",
-          "summary": "HN: 1104 points, 651 comments. https://news.ycombinator.com/item?id=50493251",
-          "title_ru": "Nvidia якобы спровоцировала дефицит, финансируя стартапы в области искусственного интеллекта для покупки ее графических процессоров."
-        }
-      ],
-      "title": "Report alleges Nvidia funded AI startups to manufacture GPU scarcity",
-      "summary": "A widely discussed report claims Nvidia allegedly engineered GPU scarcity by funding AI startups so they would in turn buy its chips.",
-      "tags": [
-        "nvidia",
-        "gpus",
-        "hardware",
-        "allegation"
-      ],
-      "entities": [
-        "Nvidia"
-      ],
-      "kind": "business",
-      "rumor": true,
-      "scores": {
-        "significance": 3,
-        "novelty": 3,
-        "practicality": 1,
-        "relevance": 1
-      },
-      "so_what": "If accurate, this could affect GPU pricing and availability, which indirectly shapes the cost of AI tools and inference you rely on.",
-      "domains": [
-        "techpowerup.com"
-      ],
-      "has_t1": false,
-      "status": "rumor",
-      "total": 2.2,
-      "last_update": "2026-11-14T02:52:59Z",
-      "title_ru": "В отчете утверждается, что Nvidia финансировала стартапы в области искусственного интеллекта, чтобы восполнить дефицит графических процессоров.",
-      "summary_ru": "В широко обсуждаемом отчете утверждается, что Nvidia якобы спровоцировала дефицит графических процессоров, финансируя стартапы в области искусственного интеллекта, чтобы они, в свою очередь, покупали ее чипы.",
-      "so_what_ru": "Если это правда, это может повлиять на цены и доступность графических процессоров, что косвенно влияет на стоимость инструментов искусственного интеллекта и выводов, на которые вы полагаетесь.",
-      "rating": 1
-    },
-    {
-      "story_id": "ai-unlocks-godel-notebooks",
-      "first_seen": "2026-11-16",
-      "items": [
-        {
-          "id": "a1e895b935bb",
-          "url": "https://www.theguardian.com/science/2026/nov/13/kurt-godel-notebooks-ai-helps-unlock-hidden-discoveries-man-who-transformed-maths",
-          "title": "AI unlocks Gödel's notebooks, said to contain hundreds of proved theorems",
-          "source": "Hacker News",
-          "tier": "T3",
-          "domain": "theguardian.com",
-          "published_at": "2026-11-13T17:30:10Z",
-          "summary": "HN: 441 points, 111 comments. https://news.ycombinator.com/item?id=50486748",
-          "title_ru": "ИИ открывает блокноты Гёделя, в которых, как говорят, содержатся сотни доказанных теорем"
-        }
-      ],
-      "title": "AI used to decipher Kurt Gödel's notebooks, reportedly revealing proved theorems",
-      "summary": "Researchers reportedly used AI to unlock Kurt Gödel's notebooks, said to contain hundreds of previously unknown proved theorems.",
-      "tags": [
-        "research",
-        "mathematics",
-        "history"
-      ],
-      "entities": [
-        "Kurt Gödel"
-      ],
-      "kind": "research",
-      "rumor": true,
-      "scores": {
-        "significance": 2,
-        "novelty": 4,
-        "practicality": 1,
-        "relevance": 1
-      },
-      "so_what": "No direct marketing application, but a vivid example of AI extracting value from unstructured historical archives.",
-      "domains": [
-        "theguardian.com"
-      ],
-      "has_t1": false,
-      "status": "rumor",
-      "total": 2.1,
-      "last_update": "2026-11-13T17:30:10Z",
-      "title_ru": "",
-      "summary_ru": "Сообщается, что исследователи использовали ИИ, чтобы разблокировать записные книжки Курта Гёделя, которые, как утверждается, содержат сотни ранее неизвестных доказанных теорем.",
-      "so_what_ru": "Никакого прямого маркетингового применения, но яркий пример того, как ИИ извлекает пользу из неструктурированных исторических архивов.",
       "rating": 1
     },
     {
@@ -8875,6 +9012,123 @@
   ],
   "raw_items": [
     {
+      "id": "8850a83cf6f1",
+      "source_id": "latent-space",
+      "source_name": "Latent Space",
+      "tier": "T2",
+      "signal_only": false,
+      "title": "[AINews] Inside the exploding Coding Data Market",
+      "url": "https://latent.space/p/ainews-inside-the-exploding-coding-data-market",
+      "domain": "latent.space",
+      "published_at": "2026-11-28T03:45:59.000Z",
+      "collected_on": "2026-11-28",
+      "summary": "November 27, 2026 — How frontier labs buy training data."
+    },
+    {
+      "id": "77ab3d65a278",
+      "source_id": "hn",
+      "source_name": "Hacker News",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "Google's DeepCrossAttention achieves comparable model quality up to 3x faster",
+      "url": "https://research.google/blog/supercharging-transformer-residual-connections",
+      "domain": "research.google",
+      "published_at": "2026-11-27T23:06:29Z",
+      "collected_on": "2026-11-28",
+      "summary": "HN: 192 points, 64 comments. https://news.ycombinator.com/item?id=50672565"
+    },
+    {
+      "id": "42f8ff418476",
+      "source_id": "latent-space",
+      "source_name": "Latent Space",
+      "tier": "T2",
+      "signal_only": false,
+      "title": "Inside the AI Training Data Market — Gabe Greenberg, G2i",
+      "url": "https://latent.space/p/inside_the_ai_training_data_market_gabe_greenberg_g2i",
+      "domain": "latent.space",
+      "published_at": "2026-11-27T22:19:18.000Z",
+      "collected_on": "2026-11-28",
+      "summary": "A frontier lab can pay more for training data it gets to keep exclusive, or take a discount on data another lab can buy too. At AI Engineer CODE, G2i founder Gabe Greenberg tells swyx how labs make that decision, how small pilot orders turn into bigger..."
+    },
+    {
+      "id": "141216104711",
+      "source_id": "hn",
+      "source_name": "Hacker News",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "Michael Nielsen took down his book on neural nets",
+      "url": "https://neuralnetworksanddeeplearning.com",
+      "domain": "neuralnetworksanddeeplearning.com",
+      "published_at": "2026-11-27T19:31:01Z",
+      "collected_on": "2026-11-28",
+      "summary": "HN: 431 points, 269 comments. https://news.ycombinator.com/item?id=50670757"
+    },
+    {
+      "id": "f21d90605390",
+      "source_id": "hn",
+      "source_name": "Hacker News",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "I'm Scared of AI",
+      "url": "https://thesoapbox.email/archive/3",
+      "domain": "thesoapbox.email",
+      "published_at": "2026-11-27T17:45:31Z",
+      "collected_on": "2026-11-28",
+      "summary": "HN: 206 points, 244 comments. https://news.ycombinator.com/item?id=50669561"
+    },
+    {
+      "id": "01cdd83d3c55",
+      "source_id": "hn",
+      "source_name": "Hacker News",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "GPT 6.2 Astra solves a historical mystery",
+      "url": "https://generativehistory.substack.com/p/gpt-62-astra-solves-a-historical",
+      "domain": "substack.com",
+      "published_at": "2026-11-27T15:03:17Z",
+      "collected_on": "2026-11-28",
+      "summary": "HN: 166 points, 1 comments. https://news.ycombinator.com/item?id=50667744"
+    },
+    {
+      "id": "608a90714581",
+      "source_id": "igb",
+      "source_name": "iGaming Business",
+      "tier": "T4",
+      "signal_only": false,
+      "title": "How iGaming operators can move AI from pilot to practice",
+      "url": "https://igamingbusiness.com/tech-innovation/pilot-to-practice",
+      "domain": "igamingbusiness.com",
+      "published_at": "2026-11-27T12:46:01.000Z",
+      "collected_on": "2026-11-28",
+      "summary": "Software Mind’s Mouhcine Jalili explains how iGaming enterprises can adapt reusable AI frameworks to their own systems and why operators are appointing leaders to coordinate AI projects across the business."
+    },
+    {
+      "id": "2351d632871d",
+      "source_id": "igb",
+      "source_name": "iGaming Business",
+      "tier": "T4",
+      "signal_only": false,
+      "title": "How AI is rewriting iGaming: “It is becoming part of the job description”",
+      "url": "https://igamingbusiness.com/tech-innovation/how-ai-is-rewriting-igaming-it-is-becoming-part-of-the-job-description",
+      "domain": "igamingbusiness.com",
+      "published_at": "2026-11-27T11:35:49.000Z",
+      "collected_on": "2026-11-28",
+      "summary": "Across the iGaming industry, AI is writing code, creating campaigns and communicating with customers. As job roles are being rewritten overnight, what does the transformation mean for the future workforce – and what skills do they need to survive?"
+    },
+    {
+      "id": "55060e027bba",
+      "source_id": "hn",
+      "source_name": "Hacker News",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "AI on brink of making online security useless, mathematicians fear",
+      "url": "https://thetimes.com/uk/technology-uk/article/ai-making-online-security-useless-smr73d3n8",
+      "domain": "thetimes.com",
+      "published_at": "2026-11-27T11:09:04Z",
+      "collected_on": "2026-11-28",
+      "summary": "HN: 118 points, 153 comments. https://news.ycombinator.com/item?id=50665488"
+    },
+    {
       "id": "f536e5d7151b",
       "source_id": "rundown",
       "source_name": "The Rundown AI",
@@ -9107,6 +9361,19 @@
       "published_at": "2026-11-26T05:05:36.000Z",
       "collected_on": "2026-11-26",
       "summary": ""
+    },
+    {
+      "id": "85176c594a4a",
+      "source_id": "hn",
+      "source_name": "Hacker News",
+      "tier": "T3",
+      "signal_only": false,
+      "title": "Claude tries to sabotage research work at every stage",
+      "url": "https://twitter.com/skirano/status/2125371115979641188",
+      "domain": "twitter.com",
+      "published_at": "2026-11-26T04:49:21Z",
+      "collected_on": "2026-11-28",
+      "summary": "HN: 110 points, 20 comments. https://news.ycombinator.com/item?id=50651552"
     },
     {
       "id": "244a3e8cb4f1",
@@ -12782,166 +13049,6 @@
       "summary": "November 13, 2026 — AIE speakers unite to lay out how to fight slop.",
       "collected_at": "2026-11-16T13:33:49.138Z",
       "title_ru": "[ANews] Манифест «Нет отбросам искусственного интеллекта»"
-    },
-    {
-      "id": "b26717d449a4",
-      "url": "https://www.techpowerup.com/354814/nvidia-allegedly-engineered-scarcity-by-funding-ai-startups-to-buy-its-gpus",
-      "canonical_url": "https://techpowerup.com/354814/nvidia-allegedly-engineered-scarcity-by-funding-ai-startups-to-buy-its-gpus",
-      "title": "Nvidia allegedly engineered scarcity by funding AI startups to buy its GPUs",
-      "source": "hn",
-      "source_name": "Hacker News",
-      "tier": "T3",
-      "signal_only": false,
-      "domain": "techpowerup.com",
-      "published_at": "2026-11-14T02:52:59Z",
-      "date_from": "source",
-      "summary": "HN: 1104 points, 651 comments. https://news.ycombinator.com/item?id=50493251",
-      "collected_at": "2026-11-16T13:33:48.728Z",
-      "title_ru": "Nvidia якобы спровоцировала дефицит, финансируя стартапы в области искусственного интеллекта для покупки ее графических процессоров."
-    },
-    {
-      "id": "21ab7432dba4",
-      "url": "https://claude.com/resources/articles/claude-meetings",
-      "canonical_url": "https://claude.com/resources/articles/claude-meetings",
-      "title": "Claude Meetings",
-      "source": "hn",
-      "source_name": "Hacker News",
-      "tier": "T3",
-      "signal_only": false,
-      "domain": "claude.com",
-      "published_at": "2026-11-13T22:39:15Z",
-      "date_from": "source",
-      "summary": "HN: 113 points, 88 comments. https://news.ycombinator.com/item?id=50491097",
-      "collected_at": "2026-11-16T13:33:48.728Z",
-      "title_ru": "Клод Встречи"
-    },
-    {
-      "id": "056d7af3ad79",
-      "url": "https://igamingbusiness.com/sports-betting/clase-trial-betting-backstreet-boys/",
-      "canonical_url": "https://igamingbusiness.com/sports-betting/clase-trial-betting-backstreet-boys",
-      "title": "Clase trial: Co-conspirators dance to Backstreet Boys, then bet on alleged rigged pitches",
-      "source": "igb",
-      "source_name": "iGaming Business",
-      "tier": "T4",
-      "signal_only": false,
-      "domain": "igamingbusiness.com",
-      "published_at": "2026-11-13T21:53:51.000Z",
-      "date_from": "source",
-      "summary": "In testimony this week, an FBI special agent described evidence of interactions between the MLB All-Star and co-conspirators in the rigged pitching trial.",
-      "collected_at": "2026-11-16T13:33:48.361Z",
-      "title_ru": "Судебный процесс: сообщники танцуют под Backstreet Boys, а затем делают ставку на якобы сфальсифицированные поля"
-    },
-    {
-      "id": "67f7225a3ce5",
-      "url": "https://github.com/openai/openai-python/releases/tag/v3.51.0",
-      "canonical_url": "https://github.com/openai/openai-python/releases/tag/v3.51.0",
-      "title": "v3.51.0",
-      "source": "openai-sdk",
-      "source_name": "openai-python releases",
-      "tier": "T1",
-      "signal_only": true,
-      "domain": "github.com",
-      "published_at": "2026-11-13T21:12:49.000Z",
-      "date_from": "source",
-      "summary": "3.51.0 (2026-11-12) Features api: expand agent, image, Live, and external key support ( #4269 ) ( 59738a2 )",
-      "collected_at": "2026-11-16T13:33:48.680Z",
-      "title_ru": "v3.51.0"
-    },
-    {
-      "id": "cf03ad891612",
-      "url": "https://www.slopmanifesto.com/",
-      "canonical_url": "https://slopmanifesto.com",
-      "title": "No AI Slop: A Manifesto",
-      "source": "hn",
-      "source_name": "Hacker News",
-      "tier": "T3",
-      "signal_only": false,
-      "domain": "slopmanifesto.com",
-      "published_at": "2026-11-13T19:51:56Z",
-      "date_from": "source",
-      "summary": "HN: 226 points, 133 comments. https://news.ycombinator.com/item?id=50488769",
-      "collected_at": "2026-11-16T13:33:48.728Z",
-      "title_ru": "Никаких помоев в области искусственного интеллекта: манифест"
-    },
-    {
-      "id": "2427bacb74a9",
-      "url": "https://huggingface.co/blog/nvidia/simready-assets-robot-pick-and-place",
-      "canonical_url": "https://huggingface.co/blog/nvidia/simready-assets-robot-pick-and-place",
-      "title": "Build a Robot Pick-and-Place Simulation with SimReady Assets",
-      "source": "huggingface",
-      "source_name": "Hugging Face blog",
-      "tier": "T1",
-      "signal_only": false,
-      "domain": "huggingface.co",
-      "published_at": "2026-11-13T18:00:39.000Z",
-      "date_from": "source",
-      "summary": "",
-      "collected_at": "2026-11-16T13:33:48.263Z",
-      "title_ru": "Создайте симуляцию захвата и размещения робота с помощью SimReady Assets"
-    },
-    {
-      "id": "ea0776201252",
-      "url": "https://haddyalchaer.com/jepa",
-      "canonical_url": "https://haddyalchaer.com/jepa",
-      "title": "After 600 experiments, here's what I discovered about JEPA world models",
-      "source": "hn",
-      "source_name": "Hacker News",
-      "tier": "T3",
-      "signal_only": false,
-      "domain": "haddyalchaer.com",
-      "published_at": "2026-11-13T17:55:28Z",
-      "date_from": "source",
-      "summary": "HN: 295 points, 49 comments. https://news.ycombinator.com/item?id=50487185",
-      "collected_at": "2026-11-16T13:33:48.728Z",
-      "title_ru": "Вот что я узнал о моделях мира JEPA после 600 экспериментов"
-    },
-    {
-      "id": "4a36f6adfa9f",
-      "url": "https://fortune.com/2026/11/13/openai-disbands-robotics-team-as-its-general-models-start-running-robots/",
-      "canonical_url": "https://fortune.com/2026/11/13/openai-disbands-robotics-team-as-its-general-models-start-running-robots",
-      "title": "OpenAI disbands its robotics team as its general models start running robots",
-      "source": "hn",
-      "source_name": "Hacker News",
-      "tier": "T3",
-      "signal_only": false,
-      "domain": "fortune.com",
-      "published_at": "2026-11-13T17:55:23Z",
-      "date_from": "source",
-      "summary": "HN: 179 points, 73 comments. https://news.ycombinator.com/item?id=50487184",
-      "collected_at": "2026-11-16T13:33:48.728Z",
-      "title_ru": "OpenAI распускает свою команду по робототехнике, поскольку ее основные модели начинают использовать роботов"
-    },
-    {
-      "id": "a1e895b935bb",
-      "url": "https://www.theguardian.com/science/2026/nov/13/kurt-godel-notebooks-ai-helps-unlock-hidden-discoveries-man-who-transformed-maths",
-      "canonical_url": "https://theguardian.com/science/2026/nov/13/kurt-godel-notebooks-ai-helps-unlock-hidden-discoveries-man-who-transformed-maths",
-      "title": "AI unlocks Gödel's notebooks, said to contain hundreds of proved theorems",
-      "source": "hn",
-      "source_name": "Hacker News",
-      "tier": "T3",
-      "signal_only": false,
-      "domain": "theguardian.com",
-      "published_at": "2026-11-13T17:30:10Z",
-      "date_from": "source",
-      "summary": "HN: 441 points, 111 comments. https://news.ycombinator.com/item?id=50486748",
-      "collected_at": "2026-11-16T13:33:48.728Z",
-      "title_ru": "ИИ открывает блокноты Гёделя, в которых, как говорят, содержатся сотни доказанных теорем"
-    },
-    {
-      "id": "8400bdfe1e2a",
-      "url": "https://huggingface.co/blog/allenai/xybench",
-      "canonical_url": "https://huggingface.co/blog/allenai/xybench",
-      "title": "XYBench: Helping with the problem behind the question",
-      "source": "huggingface",
-      "source_name": "Hugging Face blog",
-      "tier": "T1",
-      "signal_only": false,
-      "domain": "huggingface.co",
-      "published_at": "2026-11-13T17:02:35.000Z",
-      "date_from": "source",
-      "summary": "",
-      "collected_at": "2026-11-16T13:33:48.263Z",
-      "title_ru": "XYBench: помощь в решении проблемы, стоящей за вопросом"
     }
   ],
   "issues": [
